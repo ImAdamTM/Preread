@@ -90,40 +90,6 @@ private let testArticleURL = "https://www.theverge.com/2024/1/9/24030520/apple-v
 @Suite("PageCacheService")
 struct PageCacheServiceTests {
 
-    // MARK: - textOnly
-
-    @Test("textOnly: index.html exists, no img tags, no asset files, fetchStatus cached, cacheLevelUsed textOnly")
-    func textOnlyCaching() async throws {
-        let source = try makeSource()
-        let article = try makeArticle(sourceID: source.id, url: testArticleURL)
-        defer { cleanUp(articleID: article.id) }
-
-        try await PageCacheService.shared.cacheArticle(article, cacheLevel: .textOnly)
-
-        let dir = articleDir(for: article.id)
-        let indexPath = dir.appendingPathComponent("index.html")
-        let assetsPath = dir.appendingPathComponent("assets")
-
-        // index.html must exist
-        #expect(FileManager.default.fileExists(atPath: indexPath.path))
-
-        // No <img> tags in the saved HTML
-        let html = try String(contentsOf: indexPath, encoding: .utf8)
-        #expect(!html.contains("<img"))
-
-        // No files in assets/
-        let assetFiles = (try? FileManager.default.contentsOfDirectory(atPath: assetsPath.path)) ?? []
-        #expect(assetFiles.isEmpty)
-
-        // Article status
-        let updated = try reloadArticle(article.id)
-        #expect(updated?.fetchStatus == .cached)
-
-        // CachedPage level
-        let page = try reloadCachedPage(articleID: article.id)
-        #expect(page?.cacheLevelUsed == .textOnly)
-    }
-
     // MARK: - standard
 
     @Test("standard: index.html exists, assets has images, img srcs rewritten, no CSS in assets")
@@ -256,7 +222,7 @@ struct PageCacheServiceTests {
         let article = try makeArticle(sourceID: source.id, url: testArticleURL)
         defer { cleanUp(articleID: article.id) }
 
-        try await PageCacheService.shared.cacheArticle(article, cacheLevel: .textOnly)
+        try await PageCacheService.shared.cacheArticle(article, cacheLevel: .standard)
 
         // Verify it's cached
         var updated = try reloadArticle(article.id)
@@ -273,7 +239,7 @@ struct PageCacheServiceTests {
 
         // Re-fetch — should NOT overwrite .cached to .failed
         let modifiedArticle = try reloadArticle(article.id)!
-        try await PageCacheService.shared.cacheArticle(modifiedArticle, cacheLevel: .textOnly)
+        try await PageCacheService.shared.cacheArticle(modifiedArticle, cacheLevel: .standard)
 
         updated = try reloadArticle(article.id)
         #expect(updated?.fetchStatus == .cached,
@@ -289,7 +255,7 @@ struct PageCacheServiceTests {
         defer { cleanUp(articleID: article.id) }
 
         // First cache
-        try await PageCacheService.shared.cacheArticle(article, cacheLevel: .textOnly)
+        try await PageCacheService.shared.cacheArticle(article, cacheLevel: .standard)
 
         let cached = try reloadArticle(article.id)
         #expect(cached?.fetchStatus == .cached)
@@ -303,7 +269,7 @@ struct PageCacheServiceTests {
             try await Task.sleep(for: .seconds(1))
 
             // Re-fetch — if server supports conditional requests, should get 304
-            try await PageCacheService.shared.cacheArticle(cached!, cacheLevel: .textOnly)
+            try await PageCacheService.shared.cacheArticle(cached!, cacheLevel: .standard)
 
             let refetched = try reloadArticle(article.id)
             #expect(refetched?.fetchStatus == .cached)

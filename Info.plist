@@ -7,6 +7,11 @@
 		<string>com.preread.refresh</string>
 		<string>com.preread.process</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>processing</string>
+	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

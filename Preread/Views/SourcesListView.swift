@@ -12,6 +12,8 @@ struct SourcesListView: View {
     @State private var isSpinning = false
     @State private var highlightedSourceID: UUID?
     @State private var navigationPath = NavigationPath()
+    @State private var renamingSource: Source?
+    @State private var renameText = ""
 
     var body: some View {
         NavigationStack(path: $navigationPath) {
@@ -74,6 +76,19 @@ struct SourcesListView: View {
                     }
                 }
             }
+            .alert("Edit name", isPresented: Binding(
+                get: { renamingSource != nil },
+                set: { if !$0 { renamingSource = nil } }
+            )) {
+                TextField("Source name", text: $renameText)
+                Button("Save") {
+                    guard let source = renamingSource,
+                          !renameText.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+                    Task { await renameSource(source, to: renameText.trimmingCharacters(in: .whitespaces)) }
+                    renamingSource = nil
+                }
+                Button("Cancel", role: .cancel) { renamingSource = nil }
+            }
             .navigationDestination(for: UUID.self) { sourceID in
                 if let source = sources.first(where: { $0.id == sourceID }) {
                     ArticleListView(source: source)
@@ -125,6 +140,10 @@ struct SourcesListView: View {
                                 await loadSources()
                             }
                         },
+                        onEditName: {
+                            renameText = source.title
+                            renamingSource = source
+                        },
                         onRemove: {
                             Task { await removeSource(source) }
                         }
@@ -144,6 +163,7 @@ struct SourcesListView: View {
                             refreshState: .idle,
                             onTap: {},
                             onRefresh: {},
+                            onEditName: {},
                             onRemove: {}
                         )
                         .scaleEffect(Theme.reduceMotion ? 1.0 : 1.04)
@@ -283,6 +303,21 @@ struct SourcesListView: View {
             }
         } catch {
             toastManager.show("Couldn't remove source", type: .error)
+        }
+    }
+
+    // MARK: - Rename source
+
+    private func renameSource(_ source: Source, to newName: String) async {
+        var updated = source
+        updated.title = newName
+        do {
+            try await DatabaseManager.shared.dbPool.write { db in
+                try updated.update(db)
+            }
+            await loadSources()
+        } catch {
+            toastManager.show("Couldn't rename source", type: .error)
         }
     }
 
