@@ -55,8 +55,18 @@ struct ArticleRowView: View {
 
                 Spacer(minLength: 4)
 
-                // Cache status dot
-                cacheDot
+                // Cache status + timestamp
+                VStack(alignment: .trailing, spacing: 2) {
+                    cacheStatusIcon
+                        .frame(width: 20, height: 20)
+                        .accessibilityLabel(cacheStatusAccessibilityLabel)
+
+                    if let cachedAt = article.cachedAt {
+                        Text(RelativeTimeFormatter.string(from: cachedAt))
+                            .font(Theme.scaledFont(size: 10, relativeTo: .caption2))
+                            .foregroundColor(Theme.textSecondary)
+                    }
+                }
             }
             .padding(.horizontal, 16)
             .padding(.vertical, hasThumbnail ? 12 : 8)
@@ -211,37 +221,61 @@ struct ArticleRowView: View {
             .frame(width: 56, height: 56)
     }
 
-    // MARK: - Cache dot
+    // MARK: - Cache status icon
 
-    private var cacheDot: some View {
-        Circle()
-            .fill(cacheDotColor)
-            .frame(width: 10, height: 10)
-            .accessibilityLabel(cacheDotAccessibilityLabel)
+    @ViewBuilder
+    private var cacheStatusIcon: some View {
+        switch article.fetchStatus {
+        case .cached:
+            Image(systemName: "checkmark")
+                .font(.system(size: 17, weight: .medium))
+                .foregroundColor(Theme.textSecondary)
+        case .partial:
+            Image(systemName: "arrow.triangle.2.circlepath")
+                .font(.system(size: 17, weight: .medium))
+                .foregroundColor(Theme.textSecondary)
+        case .fetching:
+            fetchingSpinner
+        case .pending:
+            Image(systemName: "arrow.triangle.2.circlepath")
+                .font(.system(size: 17, weight: .medium))
+                .foregroundColor(Theme.textSecondary.opacity(0.4))
+        case .failed:
+            Image(systemName: "exclamationmark.triangle")
+                .font(.system(size: 17))
+                .foregroundColor(Theme.danger)
+        }
     }
 
-    private var cacheDotAccessibilityLabel: String {
+    private var fetchingSpinner: some View {
+        TimelineView(.animation(minimumInterval: 1.0 / 60.0)) { context in
+            let angle = context.date.timeIntervalSinceReferenceDate.remainder(dividingBy: 1.2) / 1.2 * 360
+            ZStack {
+                Circle()
+                    .stroke(Theme.borderProminent, lineWidth: 1.5)
+
+                Circle()
+                    .trim(from: 0, to: 0.3)
+                    .stroke(
+                        AngularGradient(
+                            colors: [Theme.teal, Theme.accent],
+                            center: .center
+                        ),
+                        style: StrokeStyle(lineWidth: 1.5, lineCap: .round)
+                    )
+                    .rotationEffect(.degrees(angle))
+            }
+            .frame(width: 16, height: 16)
+        }
+    }
+
+    private var cacheStatusAccessibilityLabel: String {
         switch article.fetchStatus {
         case .cached: return "Saved"
         case .partial: return "Partially saved"
         case .fetching: return "Saving"
         case .pending: return "Not saved"
         case .failed: return "Save failed"
-        }
-    }
-
-    private var cacheDotColor: Color {
-        switch article.fetchStatus {
-        case .cached:
-            return Theme.success
-        case .partial:
-            return Theme.warning
-        case .fetching:
-            return Theme.teal
-        case .pending:
-            return Theme.textSecondary
-        case .failed:
-            return Theme.danger
         }
     }
 
@@ -255,7 +289,7 @@ struct ArticleRowView: View {
         }
 
         parts.append(article.isRead ? "Read" : "Unread")
-        parts.append(cacheDotAccessibilityLabel)
+        parts.append(cacheStatusAccessibilityLabel)
 
         return parts.joined(separator: ", ")
     }

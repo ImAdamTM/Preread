@@ -1,6 +1,5 @@
 import SwiftUI
 import GRDB
-import Network
 
 struct ArticleListView: View {
     let source: Source
@@ -16,7 +15,6 @@ struct ArticleListView: View {
     @State private var showFailedSheet = false
     @State private var isLoadingMore = false
     @State private var feedExhausted = false
-    @State private var cacheRingRotation: Double = 0
     @State private var selectedArticle: Article?
     @State private var showSourceSettings = false
     @State private var currentCacheLevel: CacheLevel = .standard
@@ -75,7 +73,13 @@ struct ArticleListView: View {
                             .font(.system(size: 15))
                             .foregroundColor(Theme.textSecondary)
                     }
-                    navCacheRing
+
+                    Button {
+                        Task { await FetchCoordinator.shared.refreshSingleSource(source) }
+                    } label: {
+                        navRefreshButton
+                    }
+                    .disabled(coordinator.sourceStatuses[source.id] == .refreshing)
                 }
             }
         }
@@ -99,6 +103,15 @@ struct ArticleListView: View {
         .onChange(of: coordinator.sourceStatuses[source.id]) { _, newState in
             if newState == .completed || newState == .idle {
                 Task { await loadArticles() }
+            } else if newState == .refreshing {
+                // Poll for article status changes while refreshing
+                Task {
+                    while coordinator.sourceStatuses[source.id] == .refreshing {
+                        try? await Task.sleep(for: .seconds(1))
+                        guard coordinator.sourceStatuses[source.id] == .refreshing else { break }
+                        await loadArticles()
+                    }
+                }
             }
         }
         .sheet(isPresented: $showFailedSheet) {
@@ -197,35 +210,43 @@ struct ArticleListView: View {
         .animation(.easeInOut(duration: 0.2), value: filter)
     }
 
-    // MARK: - Nav cache ring
+    // MARK: - Nav refresh button
 
-    private var navCacheRing: some View {
+    private var navRefreshButton: some View {
         let isRefreshing = coordinator.sourceStatuses[source.id] == .refreshing
         return ZStack {
-            Circle()
-                .stroke(Theme.borderProminent, lineWidth: 2)
-                .frame(width: 20, height: 20)
+            // Refresh icon — visible when idle
+            Image(systemName: "arrow.clockwise")
+                .font(.system(size: 15, weight: .medium))
+                .foregroundColor(Theme.textSecondary)
+                .opacity(isRefreshing ? 0 : 1)
+                .scaleEffect(isRefreshing ? 0.5 : 1)
 
-            if isRefreshing {
-                Circle()
-                    .trim(from: 0, to: 0.3)
-                    .stroke(
-                        AngularGradient(
-                            colors: [Theme.teal, Theme.accent],
-                            center: .center
-                        ),
-                        style: StrokeStyle(lineWidth: 2, lineCap: .round)
-                    )
-                    .frame(width: 20, height: 20)
-                    .rotationEffect(.degrees(cacheRingRotation))
-                    .onAppear {
-                        cacheRingRotation = 0
-                        withAnimation(.linear(duration: 1.2).repeatForever(autoreverses: false)) {
-                            cacheRingRotation = 360
-                        }
-                    }
+            // Spinning ring — visible when refreshing
+            TimelineView(.animation(minimumInterval: 1.0 / 60.0, paused: !isRefreshing)) { context in
+                let angle = context.date.timeIntervalSinceReferenceDate.remainder(dividingBy: 1.2) / 1.2 * 360
+                ZStack {
+                    Circle()
+                        .stroke(Theme.borderProminent, lineWidth: 2)
+                        .frame(width: 20, height: 20)
+
+                    Circle()
+                        .trim(from: 0, to: 0.3)
+                        .stroke(
+                            AngularGradient(
+                                colors: [Theme.teal, Theme.accent],
+                                center: .center
+                            ),
+                            style: StrokeStyle(lineWidth: 2, lineCap: .round)
+                        )
+                        .frame(width: 20, height: 20)
+                        .rotationEffect(.degrees(angle))
+                }
             }
+            .opacity(isRefreshing ? 1 : 0)
+            .scaleEffect(isRefreshing ? 1 : 0.5)
         }
+        .animation(.easeInOut(duration: 0.25), value: isRefreshing)
     }
 
     // MARK: - Source favicon
@@ -376,24 +397,25 @@ struct ArticleListView: View {
         switch article.fetchStatus {
         case .cached, .partial:
             selectedArticle = article
+        case .pending:
+            Task { await fetchArticleInline(article) }
+        case .fetching:
+            // Already syncing — do nothing
+            break
         case .failed:
             failedArticle = article
             showFailedSheet = true
-        default:
-            // Check connectivity for uncached articles
-            let monitor = NWPathMonitor()
-            let queue = DispatchQueue(label: "connectivity")
-            monitor.start(queue: queue)
-            let path = monitor.currentPath
-            monitor.cancel()
-
-            if path.status != .satisfied {
-                ToastManager.shared.show("You're offline. This article hasn't been saved yet.", type: .error)
-            } else {
-                // Could trigger fetch, for now show toast
-                ToastManager.shared.show("This article is still being saved...", type: .info)
-            }
         }
+    }
+
+    private func fetchArticleInline(_ article: Article) async {
+        guard let index = articles.firstIndex(where: { $0.id == article.id }) else { return }
+        withAnimation(.easeInOut(duration: 0.2)) {
+            articles[index].fetchStatus = .fetching
+        }
+        let cacheLevel = source.effectiveCacheLevel
+        try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+        await loadArticles()
     }
 
     private func toggleRead(_ article: Article) async {
@@ -423,8 +445,13 @@ struct ArticleListView: View {
     }
 
     private func refetchArticle(_ article: Article) async {
+        if let index = articles.firstIndex(where: { $0.id == article.id }) {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                articles[index].fetchStatus = .fetching
+            }
+        }
         let cacheLevel = source.effectiveCacheLevel
-        try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+        try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel, forceReprocess: true)
         await loadArticles()
     }
 

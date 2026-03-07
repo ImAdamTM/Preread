@@ -64,7 +64,14 @@ actor PageCacheService {
 
     // MARK: - Public API
 
-    func cacheArticle(_ article: Article, cacheLevel: CacheLevel) async throws {
+    /// Caches an article's page content.
+    /// - Parameters:
+    ///   - article: The article to cache.
+    ///   - cacheLevel: How much content to cache (.textOnly, .standard, .full).
+    ///   - forceReprocess: When true, skips conditional headers (ETag/If-Modified-Since)
+    ///     so the server always returns fresh content. Use this when reprocessing logic
+    ///     has changed and you need to regenerate the cached HTML from scratch.
+    func cacheArticle(_ article: Article, cacheLevel: CacheLevel, forceReprocess: Bool = false) async throws {
         var article = article
         let wasPreviouslyCached = article.fetchStatus == .cached
 
@@ -73,7 +80,7 @@ actor PageCacheService {
         try updateArticle(&article)
 
         do {
-            try await performCacheArticle(&article, cacheLevel: cacheLevel, wasPreviouslyCached: wasPreviouslyCached)
+            try await performCacheArticle(&article, cacheLevel: cacheLevel, wasPreviouslyCached: wasPreviouslyCached, forceReprocess: forceReprocess)
         } catch {
             // Ensure we never leave an article stuck at .fetching
             if article.fetchStatus == .fetching {
@@ -83,7 +90,7 @@ actor PageCacheService {
         }
     }
 
-    private func performCacheArticle(_ article: inout Article, cacheLevel: CacheLevel, wasPreviouslyCached: Bool) async throws {
+    private func performCacheArticle(_ article: inout Article, cacheLevel: CacheLevel, wasPreviouslyCached: Bool, forceReprocess: Bool = false) async throws {
         // Build conditional request
         guard let pageURL = URL(string: article.articleURL) else {
             if !wasPreviouslyCached {
@@ -95,11 +102,14 @@ actor PageCacheService {
 
         var request = URLRequest(url: pageURL)
         request.assumesHTTP3Capable = false
-        if let etag = article.etag {
-            request.addValue(etag, forHTTPHeaderField: "If-None-Match")
-        }
-        if let lastModified = article.lastModified {
-            request.addValue(lastModified, forHTTPHeaderField: "If-Modified-Since")
+        // Skip conditional headers when force-reprocessing so we always get fresh content
+        if !forceReprocess {
+            if let etag = article.etag {
+                request.addValue(etag, forHTTPHeaderField: "If-None-Match")
+            }
+            if let lastModified = article.lastModified {
+                request.addValue(lastModified, forHTTPHeaderField: "If-Modified-Since")
+            }
         }
 
         let data: Data
@@ -269,13 +279,33 @@ actor PageCacheService {
             // STANDARD: Extract article content with Readability,
             // then template into reader_template.html
 
-            // Strip scripts and noise before Readability so it sees cleaner HTML
-            // and can better identify the main article content
+            // Clean HTML before feeding to Readability
             let preDoc = try SwiftSoup.parse(html, pageURL.absoluteString)
             try preDoc.select("script").remove()
             try preDoc.select("noscript").remove()
             try preDoc.select("style").remove()
             try preDoc.select("meta[http-equiv=Content-Security-Policy]").remove()
+
+            // Remove placeholder images that JS-heavy sites (e.g. BBC) render
+            // alongside real images. These have a no-JS fallback class and point
+            // to a generic grey placeholder, cluttering the extracted content.
+            try preDoc.select("img.hide-when-no-script").remove()
+            try preDoc.select("img[src*=placeholder]").remove()
+
+            // Unwrap <figure> elements so their children (img, figcaption, etc.)
+            // become direct content nodes. Readability's cleanConditionally phase
+            // removes figures with low text density, which drops legitimate images.
+            try preDoc.select("figure").unwrap()
+
+            // Flatten single-child wrapper <div>s so Readability can find the full article.
+            // Many sites (e.g. ArsTechnica) wrap article paragraphs in deeply nested grid
+            // layout containers. Readability scores nodes bottom-up and picks the highest-
+            // scoring container, but deep nesting dilutes ancestor scores, causing it to
+            // grab one fragment instead of the full article. Unwrapping pure structural
+            // wrappers (divs with exactly one element child and no direct text) collapses
+            // the nesting so content nodes share a closer common ancestor.
+            flattenSingleChildDivs(in: preDoc)
+
             let cleanedHTML = try preDoc.html()
 
             let readability = Readability(html: cleanedHTML, url: pageURL)
@@ -663,7 +693,10 @@ actor PageCacheService {
             if src == original {
                 try img.attr("src", replacement)
                 // Remove srcset/sizes so the browser uses our local src
+                // Remove both cases: React SSR emits camelCase "srcSet" which
+                // SwiftSoup treats as a separate attribute from lowercase "srcset"
                 try img.removeAttr("srcset")
+                try img.removeAttr("srcSet")
                 try img.removeAttr("sizes")
                 try img.removeAttr("loading")
                 try img.removeAttr("decoding")
@@ -677,6 +710,7 @@ actor PageCacheService {
                     try img.attr("src", replacement)
                     try img.removeAttr("data-src")
                     try img.removeAttr("srcset")
+                    try img.removeAttr("srcSet")
                     try img.removeAttr("sizes")
                     try img.removeAttr("loading")
                     try img.removeAttr("decoding")
@@ -686,6 +720,7 @@ actor PageCacheService {
             // Check srcset on img
             if try rewriteSrcsetIfMatching(element: img, original: original, originalURL: originalURL, replacement: replacement) {
                 try img.removeAttr("srcset")
+                try img.removeAttr("srcSet")
                 try img.removeAttr("sizes")
                 try img.removeAttr("loading")
                 try img.removeAttr("decoding")
@@ -756,6 +791,58 @@ actor PageCacheService {
             }
         }
         return false
+    }
+
+    // MARK: - DOM flattening
+
+    /// Unwraps `<div>` elements that serve purely as layout wrappers — those with exactly
+    /// one element child and no meaningful direct text. Runs multiple passes until no more
+    /// wrappers can be collapsed. This is critical for Readability to work correctly on
+    /// sites that nest article content inside deep grid/flex layout structures.
+    private func flattenSingleChildDivs(in doc: Document) {
+        let preservedAncestors: Set<String> = ["header", "footer"]
+        for _ in 0..<6 {
+            guard let allDivs = try? doc.select("div") else { break }
+            var changed = false
+            // Process in reverse (bottom-up) so inner wrappers are handled first
+            for div in allDivs.reversed() {
+                guard div.parent() != nil else { continue }
+                // Don't unwrap divs inside <header> or <footer>
+                var ancestor = div.parent()
+                var insidePreserved = false
+                while let a = ancestor {
+                    if preservedAncestors.contains(a.tagName()) {
+                        insidePreserved = true
+                        break
+                    }
+                    ancestor = a.parent()
+                }
+                guard !insidePreserved else { continue }
+                // Count element children — only unwrap if there's exactly one child element
+                let elementChildren = div.children().array()
+                guard elementChildren.count == 1 else { continue }
+                // Only unwrap if the single child is also a <div>
+                guard elementChildren[0].tagName() == "div" else { continue }
+                // Skip if the div has meaningful direct text
+                var hasDirectText = false
+                for node in div.getChildNodes() {
+                    if let textNode = node as? TextNode,
+                       !textNode.getWholeText().trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        hasDirectText = true
+                        break
+                    }
+                }
+                guard !hasDirectText else { continue }
+                // Unwrap: replace this div with its children
+                do {
+                    try div.unwrap()
+                    changed = true
+                } catch {
+                    continue
+                }
+            }
+            if !changed { break }
+        }
     }
 
     // MARK: - Helpers

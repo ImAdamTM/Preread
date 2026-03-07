@@ -196,39 +196,43 @@ struct SourceCardView: View {
             .clipShape(Capsule())
     }
 
-    // MARK: - Cache ring
+    // MARK: - Cache ring / refresh icon
 
     private var cacheRing: some View {
-        let isAnimating = refreshState == .refreshing
+        let isRefreshing = refreshState == .refreshing
         return ZStack {
-            Circle()
-                .stroke(Theme.borderProminent, lineWidth: 2.5)
-                .frame(width: 28, height: 28)
+            // Refresh icon — visible when idle
+            Image(systemName: "arrow.clockwise")
+                .font(.system(size: 15, weight: .medium))
+                .foregroundColor(Theme.textSecondary)
+                .opacity(isRefreshing ? 0 : 1)
+                .scaleEffect(isRefreshing ? 0.5 : 1)
 
-            if isAnimating {
-                Circle()
-                    .trim(from: 0, to: 0.3)
-                    .stroke(
-                        AngularGradient(
-                            colors: [Theme.teal, Theme.accent],
-                            center: .center
-                        ),
-                        style: StrokeStyle(lineWidth: 2.5, lineCap: .round)
-                    )
-                    .frame(width: 28, height: 28)
-                    .rotationEffect(.degrees(cacheRingRotation))
-                    .onAppear { startCacheRingAnimation() }
+            // Spinning ring — visible when refreshing
+            TimelineView(.animation(minimumInterval: 1.0 / 60.0, paused: !isRefreshing)) { context in
+                let angle = context.date.timeIntervalSinceReferenceDate.remainder(dividingBy: 1.2) / 1.2 * 360
+                ZStack {
+                    Circle()
+                        .stroke(Theme.borderProminent, lineWidth: 2.5)
+                        .frame(width: 28, height: 28)
+
+                    Circle()
+                        .trim(from: 0, to: 0.3)
+                        .stroke(
+                            AngularGradient(
+                                colors: [Theme.teal, Theme.accent],
+                                center: .center
+                            ),
+                            style: StrokeStyle(lineWidth: 2.5, lineCap: .round)
+                        )
+                        .frame(width: 28, height: 28)
+                        .rotationEffect(.degrees(angle))
+                }
             }
+            .opacity(isRefreshing ? 1 : 0)
+            .scaleEffect(isRefreshing ? 1 : 0.5)
         }
-    }
-
-    @State private var cacheRingRotation: Double = 0
-
-    private func startCacheRingAnimation() {
-        cacheRingRotation = 0
-        withAnimation(.linear(duration: 1.2).repeatForever(autoreverses: false)) {
-            cacheRingRotation = 360
-        }
+        .animation(.easeInOut(duration: 0.25), value: isRefreshing)
     }
 
     // MARK: - Shortcuts

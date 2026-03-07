@@ -20,6 +20,7 @@ struct ReaderView: View {
     @State private var showTextSize = false
     @State private var showFontPicker = false
     @State private var cachedPage: CachedPage?
+    @State private var isLoadingCachedPage = true
     @State private var retryDarkMode = false
 
     private var useDarkAppearance: Bool {
@@ -30,10 +31,11 @@ struct ReaderView: View {
         ZStack {
             Theme.background.ignoresSafeArea()
 
-            if let cachedPage, FileManager.default.fileExists(atPath: cachedPage.htmlPath) {
+            if isLoadingCachedPage {
+                // Brief loading while DB lookup completes
+                EmptyView()
+            } else if let cachedPage, FileManager.default.fileExists(atPath: cachedPage.htmlPath) {
                 readerContent(cachedPage: cachedPage)
-            } else {
-                offlineState
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -41,6 +43,7 @@ struct ReaderView: View {
         .statusBarHidden(true)
         .task {
             await loadCachedPage()
+            isLoadingCachedPage = false
             await markAsRead()
         }
         .confirmationDialog(
@@ -211,50 +214,6 @@ struct ReaderView: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 10)
         .background(Theme.background)
-    }
-
-    // MARK: - Offline state
-
-    private var offlineState: some View {
-        VStack(spacing: 0) {
-            // Back button at top
-            HStack {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(Theme.textPrimary)
-                        .frame(width: 36, height: 36)
-                        .background(Theme.surfaceRaised)
-                        .clipShape(Circle())
-                }
-                Spacer()
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
-
-            Spacer()
-
-            VStack(spacing: 16) {
-                Image(systemName: "icloud.slash")
-                    .font(.system(size: 60, weight: .light))
-                    .foregroundColor(Theme.textSecondary)
-
-                Text("This article hasn't been saved yet.")
-                    .font(Theme.scaledFont(size: 17, weight: .semibold))
-                    .foregroundColor(Theme.textPrimary)
-                    .multilineTextAlignment(.center)
-
-                Text("Connect to the internet and pull to refresh.")
-                    .font(Theme.scaledFont(size: 14, relativeTo: .subheadline))
-                    .foregroundColor(Theme.textSecondary)
-                    .multilineTextAlignment(.center)
-            }
-            .padding(.horizontal, 32)
-
-            Spacer()
-        }
     }
 
     // MARK: - Data

@@ -9,7 +9,6 @@ struct SourcesListView: View {
     @State private var sources: [Source] = []
     @State private var articleCounts: [UUID: Int] = [:]
     @State private var showAddSource = false
-    @State private var isSpinning = false
     @State private var highlightedSourceID: UUID?
     @State private var navigationPath = NavigationPath()
     @State private var renamingSource: Source?
@@ -41,6 +40,13 @@ struct SourcesListView: View {
                                 .font(.system(size: 17, weight: .semibold))
                                 .foregroundColor(Theme.textPrimary)
                         }
+
+                        Button {
+                            Task { await coordinator.refreshAllSources() }
+                        } label: {
+                            navRefreshButton
+                        }
+                        .disabled(coordinator.isFetching)
 
                         NavigationLink {
                             SettingsView()
@@ -226,29 +232,49 @@ struct SourcesListView: View {
         }
     }
 
+    // MARK: - Nav refresh button
+
+    private var navRefreshButton: some View {
+        let isRefreshing = coordinator.isFetching
+        return ZStack {
+            Image(systemName: "arrow.clockwise")
+                .font(.system(size: 15, weight: .medium))
+                .foregroundColor(Theme.textPrimary)
+                .opacity(isRefreshing ? 0 : 1)
+                .scaleEffect(isRefreshing ? 0.5 : 1)
+
+            TimelineView(.animation(minimumInterval: 1.0 / 60.0, paused: !isRefreshing)) { context in
+                let angle = context.date.timeIntervalSinceReferenceDate.remainder(dividingBy: 1.2) / 1.2 * 360
+                ZStack {
+                    Circle()
+                        .stroke(Theme.borderProminent, lineWidth: 2)
+                        .frame(width: 20, height: 20)
+
+                    Circle()
+                        .trim(from: 0, to: 0.3)
+                        .stroke(
+                            AngularGradient(
+                                colors: [Theme.teal, Theme.accent],
+                                center: .center
+                            ),
+                            style: StrokeStyle(lineWidth: 2, lineCap: .round)
+                        )
+                        .frame(width: 20, height: 20)
+                        .rotationEffect(.degrees(angle))
+                }
+            }
+            .opacity(isRefreshing ? 1 : 0)
+            .scaleEffect(isRefreshing ? 1 : 0.5)
+        }
+        .animation(.easeInOut(duration: 0.25), value: isRefreshing)
+    }
+
     // MARK: - Logomark
 
     private var logomark: some View {
         Image(systemName: "square.stack.3d.down.right.fill")
             .font(.system(size: 20))
             .foregroundStyle(Theme.accentGradient)
-            .rotationEffect(.degrees(isSpinning && !Theme.reduceMotion ? 360 : 0))
-            .animation(
-                coordinator.isFetching && !Theme.reduceMotion
-                    ? .linear(duration: 1.2).repeatForever(autoreverses: false)
-                    : .default,
-                value: isSpinning
-            )
-            .onChange(of: coordinator.isFetching) { _, fetching in
-                if fetching {
-                    isSpinning = true
-                } else {
-                    // Let it finish its current rotation
-                    withAnimation(.easeOut(duration: 0.3)) {
-                        isSpinning = false
-                    }
-                }
-            }
     }
 
     // MARK: - Data loading
