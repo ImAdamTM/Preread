@@ -100,6 +100,32 @@ final class FetchCoordinator: ObservableObject {
         }
     }
 
+    // MARK: - Refresh stale .automatic sources (called at app launch)
+
+    /// Refreshes .automatic sources that haven't been checked recently.
+    /// Uses a 1-hour staleness threshold — if background tasks ran on time,
+    /// this is a no-op. Acts as a safety net when background execution is delayed.
+    func refreshStaleAutoSources() async {
+        let staleThreshold: TimeInterval = 60 * 60 // 1 hour
+        do {
+            let staleSources = try await DatabaseManager.shared.dbPool.read { db in
+                try Source
+                    .filter(Column("fetchFrequency") == FetchFrequency.automatic.rawValue)
+                    .fetchAll(db)
+            }.filter { source in
+                guard let lastFetched = source.lastFetchedAt else { return true }
+                return Date().timeIntervalSince(lastFetched) > staleThreshold
+            }
+            for source in staleSources {
+                sourceStatuses[source.id] = .refreshing
+                await performRefresh(source)
+                sourceStatuses[source.id] = .completed
+            }
+        } catch {
+            // Non-critical
+        }
+    }
+
     // MARK: - Refresh single source (user-initiated, no guard)
 
     /// Refreshes a single source. Always runs even if a bulk refresh is in progress.

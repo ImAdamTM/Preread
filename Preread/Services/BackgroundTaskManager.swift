@@ -44,7 +44,7 @@ enum BackgroundTaskManager {
         let request = BGProcessingTaskRequest(identifier: processingTaskID)
         request.earliestBeginDate = Date(timeIntervalSinceNow: 60 * 60) // 1 hour
         request.requiresNetworkConnectivity = true
-        request.requiresExternalPower = true
+        request.requiresExternalPower = false
         do {
             try BGTaskScheduler.shared.submit(request)
         } catch {
@@ -72,16 +72,18 @@ enum BackgroundTaskManager {
         }
     }
 
-    /// Parses all source feeds and inserts new articles as .pending. No asset caching.
+    /// Parses all source feeds, inserts new articles as .pending, then caches
+    /// a few articles opportunistically if time remains within the ~30s budget.
     private static func refreshFeeds() async {
         do {
             let sources = try await DatabaseManager.shared.dbPool.read { db in
                 try Source
-                    .filter(Column("fetchFrequency") != FetchFrequency.manual.rawValue)
+                    .filter(Column("fetchFrequency") == FetchFrequency.automatic.rawValue)
                     .fetchAll(db)
             }
 
             for var source in sources {
+                guard !Task.isCancelled else { return }
                 guard let feedURL = URL(string: source.feedURL) else { continue }
 
                 do {
@@ -129,6 +131,23 @@ enum BackgroundTaskManager {
                         try source.update(db)
                     }
                 }
+            }
+
+            // Opportunistically cache a few pending articles with remaining time
+            guard !Task.isCancelled else { return }
+            let pending = try await DatabaseManager.shared.dbPool.read { db in
+                try Article
+                    .filter(Column("fetchStatus") == ArticleFetchStatus.pending.rawValue)
+                    .limit(5)
+                    .fetchAll(db)
+            }
+            for article in pending {
+                guard !Task.isCancelled else { return }
+                let source = try await DatabaseManager.shared.dbPool.read { db in
+                    try Source.fetchOne(db, key: article.sourceID)
+                }
+                let cacheLevel = source?.effectiveCacheLevel ?? .standard
+                try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
             }
         } catch {
             print("[BackgroundTaskManager] Refresh feeds error: \(error)")

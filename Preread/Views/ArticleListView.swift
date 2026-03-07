@@ -20,6 +20,8 @@ struct ArticleListView: View {
     @State private var selectedArticle: Article?
     @State private var showSourceSettings = false
     @State private var currentCacheLevel: CacheLevel = .standard
+    @State private var currentFetchFrequency: FetchFrequency = .automatic
+    @State private var currentSourceName: String = ""
     @State private var hasInitializedSettings = false
 
     private let articleLimit = 50
@@ -80,6 +82,8 @@ struct ArticleListView: View {
         .task {
             if !hasInitializedSettings {
                 currentCacheLevel = source.cacheLevel ?? .standard
+                currentFetchFrequency = source.fetchFrequency
+                currentSourceName = source.title
                 hasInitializedSettings = true
             }
             await loadArticles()
@@ -448,6 +452,45 @@ struct ArticleListView: View {
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 24) {
+                        // Source name
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("NAME")
+                                .font(Theme.scaledFont(size: 12, weight: .semibold, relativeTo: .caption))
+                                .foregroundColor(Theme.textSecondary)
+
+                            TextField("Source name", text: $currentSourceName)
+                                .font(Theme.scaledFont(size: 15, relativeTo: .body))
+                                .foregroundColor(Theme.textPrimary)
+                                .padding(12)
+                                .background(Theme.surfaceRaised)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Theme.border, lineWidth: 1)
+                                )
+                                .onSubmit {
+                                    let trimmed = currentSourceName.trimmingCharacters(in: .whitespaces)
+                                    if !trimmed.isEmpty {
+                                        Task { await updateSourceName(trimmed) }
+                                    } else {
+                                        currentSourceName = source.title
+                                    }
+                                }
+                        }
+
+                        // Check for new articles
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("CHECK FOR NEW ARTICLES")
+                                .font(Theme.scaledFont(size: 12, weight: .semibold, relativeTo: .caption))
+                                .foregroundColor(Theme.textSecondary)
+
+                            HStack(spacing: 8) {
+                                frequencyOption(.automatic, title: "Auto", subtitle: "Periodically")
+                                frequencyOption(.onOpen, title: "On open", subtitle: "When you launch")
+                                frequencyOption(.manual, title: "Manual", subtitle: "Only when asked")
+                            }
+                        }
+
                         // Save quality
                         VStack(alignment: .leading, spacing: 10) {
                             Text("SAVE QUALITY")
@@ -478,10 +521,53 @@ struct ArticleListView: View {
                 }
             }
         }
-        .presentationDetents([.fraction(0.35)])
+        .presentationDetents([.fraction(0.6)])
         .presentationDragIndicator(.visible)
         .onChange(of: currentCacheLevel) { _, newLevel in
             Task { await updateSourceCacheLevel(newLevel) }
+        }
+        .onChange(of: currentFetchFrequency) { _, newFrequency in
+            Task { await updateSourceFetchFrequency(newFrequency) }
+        }
+    }
+
+    private func frequencyOption(_ frequency: FetchFrequency, title: String, subtitle: String) -> some View {
+        let isSelected = currentFetchFrequency == frequency
+        return Button {
+            currentFetchFrequency = frequency
+        } label: {
+            VStack(spacing: 4) {
+                Text(title)
+                    .font(Theme.scaledFont(size: 14, weight: .semibold, relativeTo: .subheadline))
+                    .foregroundColor(isSelected ? .white : Theme.textPrimary)
+                Text(subtitle)
+                    .font(Theme.scaledFont(size: 11, relativeTo: .caption))
+                    .foregroundColor(isSelected ? .white.opacity(0.7) : Theme.textSecondary)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 12)
+            .background(isSelected ? AnyShapeStyle(Theme.accentGradient) : AnyShapeStyle(Theme.surfaceRaised))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(isSelected ? Color.clear : Theme.border, lineWidth: 1)
+            )
+        }
+    }
+
+    private func updateSourceName(_ name: String) async {
+        var updated = source
+        updated.title = name
+        try? await DatabaseManager.shared.dbPool.write { db in
+            try updated.update(db)
+        }
+    }
+
+    private func updateSourceFetchFrequency(_ frequency: FetchFrequency) async {
+        var updated = source
+        updated.fetchFrequency = frequency
+        try? await DatabaseManager.shared.dbPool.write { db in
+            try updated.update(db)
         }
     }
 

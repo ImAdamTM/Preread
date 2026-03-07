@@ -7,6 +7,7 @@ struct SourceCardView: View {
     let refreshState: SourceRefreshState
     let onTap: () -> Void
     let onRefresh: () -> Void
+    let onEditName: () -> Void
     let onRemove: () -> Void
 
     @State private var isPressed = false
@@ -64,15 +65,15 @@ struct SourceCardView: View {
             }
 
             Button {
-                // Edit name — placeholder for future implementation
+                onEditName()
             } label: {
                 Label("Edit name", systemImage: "pencil")
             }
 
             Button {
-                // Home Screen — placeholder for future implementation
+                addToShortcuts()
             } label: {
-                Label("Home Screen", systemImage: "plus.square.on.square")
+                Label("Add to Shortcuts", systemImage: "square.on.square")
             }
 
             Divider()
@@ -227,6 +228,14 @@ struct SourceCardView: View {
         cacheRingRotation = 0
         withAnimation(.linear(duration: 1.2).repeatForever(autoreverses: false)) {
             cacheRingRotation = 360
+        }
+    }
+
+    // MARK: - Shortcuts
+
+    private func addToShortcuts() {
+        if let url = URL(string: "shortcuts://") {
+            UIApplication.shared.open(url)
         }
     }
 

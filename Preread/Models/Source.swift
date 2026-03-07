@@ -4,7 +4,6 @@ import GRDB
 // MARK: - Supporting enums
 
 enum CacheLevel: String, Codable, CaseIterable, DatabaseValueConvertible {
-    case textOnly
     case standard
     case full
 }

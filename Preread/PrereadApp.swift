@@ -55,6 +55,10 @@ struct PrereadApp: App {
 
         // Trigger .onOpen refreshes for sources configured as such
         await triggerOnOpenRefreshes()
+
+        // Refresh .automatic sources if they've gone stale (safety net for
+        // missed background tasks — no-op if background ran recently)
+        await FetchCoordinator.shared.refreshStaleAutoSources()
     }
 
     /// Refreshes sources whose fetchFrequency is .onOpen.
