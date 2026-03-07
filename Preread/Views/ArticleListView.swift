@@ -9,7 +9,6 @@ struct ArticleListView: View {
     @EnvironmentObject private var deepLinkRouter: DeepLinkRouter
 
     @State private var articles: [Article] = []
-    @State private var filter: ArticleFilter = .all
     @State private var isLoading = true
     @State private var failedArticle: Article?
     @State private var showFailedSheet = false
@@ -21,38 +20,24 @@ struct ArticleListView: View {
     @State private var currentFetchFrequency: FetchFrequency = .automatic
     @State private var currentSourceName: String = ""
     @State private var hasInitializedSettings = false
+    @State private var heroTitleMinY: CGFloat = 200
 
     private let articleLimit = 50
 
-    private enum ArticleFilter: String, CaseIterable {
-        case all = "All"
-        case saved = "Saved"
-        case unread = "Unread"
-    }
+
 
     var body: some View {
-        ZStack {
+        ZStack(alignment: .top) {
             Theme.background.ignoresSafeArea()
 
             if isLoading {
                 skeletonRows
             } else {
-                VStack(spacing: 0) {
-                    filterBar
-                        .padding(.bottom, 4)
-
-                    TabView(selection: $filter) {
-                        tabContent(for: .all)
-                            .tag(ArticleFilter.all)
-                        tabContent(for: .saved)
-                            .tag(ArticleFilter.saved)
-                        tabContent(for: .unread)
-                            .tag(ArticleFilter.unread)
-                    }
-                    .tabViewStyle(.page(indexDisplayMode: .never))
-                }
+                articleList
             }
+
         }
+        .toolbarBackground(navBarBackgroundOpacity > 0.5 ? .visible : .hidden, for: .navigationBar)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -63,24 +48,7 @@ struct ArticleListView: View {
                         .foregroundColor(Theme.textPrimary)
                         .lineLimit(1)
                 }
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                HStack(spacing: 14) {
-                    Button {
-                        showSourceSettings = true
-                    } label: {
-                        Image(systemName: "slider.horizontal.3")
-                            .font(.system(size: 15))
-                            .foregroundColor(Theme.textSecondary)
-                    }
-
-                    Button {
-                        Task { await FetchCoordinator.shared.refreshSingleSource(source) }
-                    } label: {
-                        navRefreshButton
-                    }
-                    .disabled(coordinator.sourceStatuses[source.id] == .refreshing)
-                }
+                .opacity(navBarTitleOpacity)
             }
         }
         .task {
@@ -135,118 +103,74 @@ struct ArticleListView: View {
         }
     }
 
-    // MARK: - Filtered articles
+    // MARK: - Article list
 
-    private func articlesForFilter(_ tab: ArticleFilter) -> [Article] {
-        switch tab {
-        case .all:
-            return articles
-        case .saved:
-            return articles.filter { $0.isSaved }
-        case .unread:
-            return articles.filter { !$0.isRead }
-        }
-    }
+    private var articleList: some View {
+        ScrollView {
+            LazyVStack(spacing: 0) {
+                // Hero section
+                heroRow
 
-    // MARK: - Tab content
-
-    @ViewBuilder
-    private func tabContent(for tab: ArticleFilter) -> some View {
-        let items = articlesForFilter(tab)
-        if items.isEmpty {
-            emptyState(for: tab)
-        } else {
-            List {
-                ForEach(items) { article in
-                    ArticleRowView(
-                        article: article,
-                        namespace: namespace,
-                        onTap: { handleTap(article) },
-                        onToggleRead: { Task { await toggleRead(article) } },
-                        onToggleSave: { Task { await toggleSave(article) } },
-                        onRefetch: { Task { await refetchArticle(article) } },
-                        onDelete: { Task { await deleteArticle(article) } }
-                    )
-                    .listRowInsets(EdgeInsets())
-                    .listRowBackground(Theme.background)
-                    .listRowSeparator(.hidden)
-                }
-
-                if tab == .all {
-                    loadMoreRow
-                        .listRowInsets(EdgeInsets())
-                        .listRowBackground(Theme.background)
-                        .listRowSeparator(.hidden)
-                }
-            }
-            .listStyle(.plain)
-            .scrollContentBackground(.hidden)
-        }
-    }
-
-    // MARK: - Filter bar
-
-    private var filterBar: some View {
-        HStack(spacing: 24) {
-            ForEach(ArticleFilter.allCases, id: \.self) { filterOption in
-                Button {
-                    filter = filterOption
-                } label: {
-                    VStack(spacing: 6) {
-                        Text(filterOption.rawValue)
-                            .font(Theme.scaledFont(size: 14, weight: .medium, relativeTo: .subheadline))
-                            .foregroundColor(filter == filterOption ? Theme.teal : Theme.textSecondary)
-
-                        Rectangle()
-                            .fill(filter == filterOption ? Theme.teal : Color.clear)
-                            .frame(height: 2)
-                    }
-                }
-            }
-
-            Spacer()
-        }
-        .padding(.horizontal, 16)
-        .animation(.easeInOut(duration: 0.2), value: filter)
-    }
-
-    // MARK: - Nav refresh button
-
-    private var navRefreshButton: some View {
-        let isRefreshing = coordinator.sourceStatuses[source.id] == .refreshing
-        return ZStack {
-            // Refresh icon — visible when idle
-            Image(systemName: "arrow.clockwise")
-                .font(.system(size: 15, weight: .medium))
-                .foregroundColor(Theme.textSecondary)
-                .opacity(isRefreshing ? 0 : 1)
-                .scaleEffect(isRefreshing ? 0.5 : 1)
-
-            // Spinning ring — visible when refreshing
-            TimelineView(.animation(minimumInterval: 1.0 / 60.0, paused: !isRefreshing)) { context in
-                let angle = context.date.timeIntervalSinceReferenceDate.remainder(dividingBy: 1.2) / 1.2 * 360
-                ZStack {
-                    Circle()
-                        .stroke(Theme.borderProminent, lineWidth: 2)
-                        .frame(width: 20, height: 20)
-
-                    Circle()
-                        .trim(from: 0, to: 0.3)
-                        .stroke(
-                            AngularGradient(
-                                colors: [Theme.teal, Theme.accent],
-                                center: .center
-                            ),
-                            style: StrokeStyle(lineWidth: 2, lineCap: .round)
+                if articles.isEmpty {
+                    emptyStateContent
+                } else {
+                    ForEach(articles) { article in
+                        ArticleRowView(
+                            article: article,
+                            namespace: namespace,
+                            onTap: { handleTap(article) },
+                            onToggleRead: { Task { await toggleRead(article) } },
+                            onToggleSave: { Task { await toggleSave(article) } },
+                            onRefetch: { Task { await refetchArticle(article) } },
+                            onDelete: { Task { await deleteArticle(article) } }
                         )
-                        .frame(width: 20, height: 20)
-                        .rotationEffect(.degrees(angle))
+                    }
+
+                    loadMoreRow
                 }
             }
-            .opacity(isRefreshing ? 1 : 0)
-            .scaleEffect(isRefreshing ? 1 : 0.5)
         }
-        .animation(.easeInOut(duration: 0.25), value: isRefreshing)
+        .scrollClipDisabled()
+        .ignoresSafeArea(.container, edges: .top)
+    }
+
+    // MARK: - Hero row
+
+    private var heroRow: some View {
+        SourceHeroView(
+            source: source,
+            isRefreshing: coordinator.sourceStatuses[source.id] == .refreshing,
+            onSettingsTapped: { showSourceSettings = true },
+            onRefreshTapped: {
+                Task { await FetchCoordinator.shared.refreshSingleSource(source) }
+            },
+            onTitlePositionChange: { heroTitleMinY = $0 }
+        )
+    }
+
+    // MARK: - Nav bar title opacity
+
+    private var navBarTitleOpacity: Double {
+        let startFade: CGFloat = 70
+        let fullyVisible: CGFloat = 9
+        if Theme.reduceMotion {
+            return heroTitleMinY < 40 ? 1 : 0
+        }
+        if heroTitleMinY > startFade { return 0 }
+        if heroTitleMinY < fullyVisible { return 1 }
+        return Double(1 - (heroTitleMinY - fullyVisible) / (startFade - fullyVisible))
+    }
+
+    /// Nav bar blur material starts slightly before the title reaches the bar
+    private var navBarBackgroundOpacity: Double {
+        let startFade: CGFloat = 80
+        let fullyOpaque: CGFloat = 9
+        if Theme.reduceMotion {
+            return heroTitleMinY < 50 ? 1 : 0
+        }
+        if heroTitleMinY > startFade { return 0 }
+        if heroTitleMinY < fullyOpaque { return 1 }
+        return Double(1 - (heroTitleMinY - fullyOpaque) / (startFade - fullyOpaque))
     }
 
     // MARK: - Source favicon
@@ -295,49 +219,24 @@ struct ArticleListView: View {
         .padding(.top, 80)
     }
 
-    // MARK: - Empty states
+    // MARK: - Empty state
 
-    @ViewBuilder
-    private func emptyState(for tab: ArticleFilter) -> some View {
+    private var emptyStateContent: some View {
         VStack(spacing: 16) {
-            Spacer()
-
-            switch tab {
-            case .all:
-                Image(systemName: "doc.text.magnifyingglass")
-                    .font(.system(size: 48, weight: .light))
-                    .foregroundColor(Theme.textSecondary)
-                Text("Nothing here yet...")
-                    .font(Theme.scaledFont(size: 17, weight: .semibold))
-                    .foregroundColor(Theme.textPrimary)
-                Text("Articles will appear once the source is refreshed.")
-                    .font(Theme.scaledFont(size: 14, relativeTo: .subheadline))
-                    .foregroundColor(Theme.textSecondary)
-                    .multilineTextAlignment(.center)
-
-            case .saved:
-                Image(systemName: "tray")
-                    .font(.system(size: 48, weight: .light))
-                    .foregroundColor(Theme.textSecondary)
-                Text("No saved articles yet...")
-                    .font(Theme.scaledFont(size: 17, weight: .semibold))
-                    .foregroundColor(Theme.textPrimary)
-                Text("Saved articles will show up here.")
-                    .font(Theme.scaledFont(size: 14, relativeTo: .subheadline))
-                    .foregroundColor(Theme.textSecondary)
-
-            case .unread:
-                Image(systemName: "checkmark.circle")
-                    .font(.system(size: 48, weight: .light))
-                    .foregroundStyle(Theme.accentGradient)
-                Text("You're all caught up.")
-                    .font(Theme.scaledFont(size: 17, weight: .semibold))
-                    .foregroundColor(Theme.textPrimary)
-            }
-
-            Spacer()
+            Image(systemName: "doc.text.magnifyingglass")
+                .font(.system(size: 48, weight: .light))
+                .foregroundColor(Theme.textSecondary)
+            Text("Nothing here yet...")
+                .font(Theme.scaledFont(size: 17, weight: .semibold))
+                .foregroundColor(Theme.textPrimary)
+            Text("Articles will appear once the source is refreshed.")
+                .font(Theme.scaledFont(size: 14, relativeTo: .subheadline))
+                .foregroundColor(Theme.textSecondary)
+                .multilineTextAlignment(.center)
         }
+        .frame(maxWidth: .infinity)
         .padding(.horizontal, 32)
+        .padding(.vertical, 60)
     }
 
     // MARK: - Load more row
@@ -348,15 +247,6 @@ struct ArticleListView: View {
             HStack {
                 Spacer()
                 Text("That's everything in the feed.")
-                    .font(Theme.scaledFont(size: 13, relativeTo: .footnote))
-                    .foregroundColor(Theme.textSecondary)
-                Spacer()
-            }
-            .padding(.vertical, 20)
-        } else if articles.count >= articleLimit {
-            HStack {
-                Spacer()
-                Text("Showing the latest \(articles.count). Change in Settings.")
                     .font(Theme.scaledFont(size: 13, relativeTo: .footnote))
                     .foregroundColor(Theme.textSecondary)
                 Spacer()
@@ -376,12 +266,9 @@ struct ArticleListView: View {
                                 .foregroundColor(Theme.textSecondary)
                         }
                     } else {
-                        Text("Load 20 more articles")
+                        Text("Load more articles")
                             .font(Theme.scaledFont(size: 14, weight: .medium, relativeTo: .subheadline))
                             .foregroundColor(Theme.accent)
-                        Text("Preread will fetch and save them in the background.")
-                            .font(Theme.scaledFont(size: 12, relativeTo: .caption))
-                            .foregroundColor(Theme.textSecondary)
                     }
                 }
                 .frame(maxWidth: .infinity)
@@ -627,7 +514,6 @@ struct ArticleListView: View {
         isLoadingMore = true
         defer { isLoadingMore = false }
 
-        // Re-fetch feed to get more articles
         do {
             guard let feedURL = URL(string: source.feedURL) else { return }
             let feed = try await FeedService.shared.parseFeed(
@@ -635,50 +521,28 @@ struct ArticleListView: View {
                 siteURL: source.siteURL.flatMap { URL(string: $0) }
             )
 
-            let newCount = try await DatabaseManager.shared.dbPool.write { db -> Int in
-                var inserted = 0
-                for item in feed.items {
-                    let exists = try Article
-                        .filter(Column("articleURL") == item.url.absoluteString)
-                        .fetchCount(db) > 0
-                    guard !exists else { continue }
+            // Insert up to 20 more articles that aren't already in the DB
+            let newArticles = try await FetchCoordinator.shared.insertNewArticles(
+                from: feed.items,
+                sourceID: source.id,
+                limit: 20
+            )
 
-                    let article = Article(
-                        id: UUID(),
-                        sourceID: source.id,
-                        title: item.title,
-                        articleURL: item.url.absoluteString,
-                        publishedAt: item.publishedAt,
-                        thumbnailURL: item.thumbnailURL?.absoluteString,
-                        cachedAt: nil,
-                        fetchStatus: .pending,
-                        isRead: false,
-                        isSaved: false,
-                        cacheSizeBytes: nil,
-                        lastHTTPStatus: nil,
-                        etag: nil,
-                        lastModified: nil
-                    )
-                    try article.save(db)
-                    inserted += 1
-                }
-                return inserted
-            }
-
-            if newCount == 0 {
+            if newArticles.isEmpty {
                 feedExhausted = true
             }
 
             await loadArticles()
 
-            // Cache new articles in background
-            let cacheLevel = source.effectiveCacheLevel
-            let pending = articles.filter { $0.fetchStatus == .pending }
-            Task {
-                for article in pending.prefix(20) {
-                    try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+            // Cache the newly inserted articles in background
+            if !newArticles.isEmpty {
+                let cacheLevel = source.effectiveCacheLevel
+                Task {
+                    for article in newArticles {
+                        try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+                    }
+                    await loadArticles()
                 }
-                await loadArticles()
             }
         } catch {
             ToastManager.shared.show("Couldn't load more articles", type: .error)

@@ -154,30 +154,17 @@ final class FetchCoordinator: ObservableObject {
 
             let feed = try await FeedService.shared.parseFeed(from: feedURL, siteURL: source.siteURL.flatMap { URL(string: $0) })
 
-            // Insert new articles (skip duplicates by articleURL)
-            let newArticles = try await insertNewArticles(from: feed.items, sourceID: source.id)
+            // Insert up to 20 new articles per refresh (skip duplicates by articleURL)
+            let newArticles = try await insertNewArticles(from: feed.items, sourceID: source.id, limit: 20)
 
-            // Fetch all pending/failed/fetching articles for this source
-            // (.fetching included to recover articles orphaned by a mid-cache kill)
-            let articlesToCachce = try await DatabaseManager.shared.dbPool.read { db in
-                try Article
-                    .filter(Column("sourceID") == source.id)
-                    .filter([
-                        ArticleFetchStatus.pending.rawValue,
-                        ArticleFetchStatus.failed.rawValue,
-                        ArticleFetchStatus.fetching.rawValue
-                    ].contains(Column("fetchStatus")))
-                    .fetchAll(db)
-            }
-
-            // Cache each article, persisting status after each (interruptible)
+            // Cache only the newly inserted articles
             let cacheLevel = source.effectiveCacheLevel
-            for (index, article) in articlesToCachce.enumerated() {
+            for (index, article) in newArticles.enumerated() {
                 try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
                 HapticManager.articleCached()
 
                 // Brief pause between articles to avoid rate-limiting from aggressive CDNs
-                if index < articlesToCachce.count - 1 {
+                if index < newArticles.count - 1 {
                     try? await Task.sleep(for: .milliseconds(200))
                 }
             }
@@ -199,17 +186,20 @@ final class FetchCoordinator: ObservableObject {
     // MARK: - Helpers
 
     /// Inserts new articles from feed items, skipping any whose URL already exists.
-    private func insertNewArticles(from items: [FeedItem], sourceID: UUID) async throws -> [Article] {
+    /// - Parameter limit: Maximum number of new articles to insert (0 = unlimited).
+    func insertNewArticles(from items: [FeedItem], sourceID: UUID, limit: Int = 0) async throws -> [Article] {
         try await DatabaseManager.shared.dbPool.write { db in
             var inserted: [Article] = []
             for item in items {
+                if limit > 0, inserted.count >= limit { break }
+
                 // Skip if articleURL already exists
                 let exists = try Article
                     .filter(Column("articleURL") == item.url.absoluteString)
                     .fetchCount(db) > 0
                 guard !exists else { continue }
 
-                var article = Article(
+                let article = Article(
                     id: UUID(),
                     sourceID: sourceID,
                     title: item.title,

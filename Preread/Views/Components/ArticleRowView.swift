@@ -11,6 +11,8 @@ struct ArticleRowView: View {
 
     @State private var appearTime = Date()
     @State private var unreadDotScale: CGFloat = 1.0
+    @State private var cachedThumbnailImage: UIImage?
+    @State private var thumbnailLoaded = false
 
     private var hasThumbnail: Bool {
         article.thumbnailURL != nil
@@ -171,48 +173,61 @@ struct ArticleRowView: View {
 
     // MARK: - Thumbnail
 
-    /// Checks for a locally cached thumbnail in the article's directory.
-    private var localThumbnailURL: URL? {
-        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        let articleDir = appSupport.appendingPathComponent("preread/articles/\(article.id.uuidString)", isDirectory: true)
-        let fm = FileManager.default
-        for ext in ["jpg", "jpeg", "png", "webp", "gif", "avif"] {
-            let path = articleDir.appendingPathComponent("thumbnail.\(ext)")
-            if fm.fileExists(atPath: path.path) {
-                return path
-            }
-        }
-        return nil
-    }
-
     private var thumbnailView: some View {
         Group {
-            if let localURL = localThumbnailURL,
-               let data = try? Data(contentsOf: localURL),
-               let uiImage = UIImage(data: data) {
+            if let uiImage = cachedThumbnailImage {
                 Image(uiImage: uiImage)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 56, height: 56)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
-            } else if let thumbURL = article.thumbnailURL, let url = URL(string: thumbURL) {
-                AsyncImage(url: url) { phase in
-                    switch phase {
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 56, height: 56)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                    default:
-                        gradientPlaceholder
+            } else if thumbnailLoaded {
+                // Local load finished with no result — fall back to remote
+                if let thumbURL = article.thumbnailURL, let url = URL(string: thumbURL) {
+                    AsyncImage(url: url) { phase in
+                        switch phase {
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 56, height: 56)
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                        default:
+                            gradientPlaceholder
+                        }
                     }
+                    .frame(width: 56, height: 56)
+                } else {
+                    gradientPlaceholder
                 }
-                .frame(width: 56, height: 56)
             } else {
+                // Placeholder while loading from disk
                 gradientPlaceholder
+                    .task {
+                        await loadLocalThumbnail()
+                    }
             }
         }
+    }
+
+    /// Loads the locally cached thumbnail off the main thread.
+    private func loadLocalThumbnail() async {
+        let articleID = article.id.uuidString
+        let image: UIImage? = await Task.detached(priority: .utility) {
+            let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+            let articleDir = appSupport.appendingPathComponent("preread/articles/\(articleID)", isDirectory: true)
+            for ext in ["jpg", "jpeg", "png", "webp", "gif", "avif"] {
+                let path = articleDir.appendingPathComponent("thumbnail.\(ext)")
+                if FileManager.default.fileExists(atPath: path.path),
+                   let data = try? Data(contentsOf: path),
+                   let img = UIImage(data: data) {
+                    return img
+                }
+            }
+            return nil
+        }.value
+        cachedThumbnailImage = image
+        thumbnailLoaded = true
     }
 
     private var gradientPlaceholder: some View {
