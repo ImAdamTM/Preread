@@ -1,4 +1,5 @@
 import SwiftUI
+import AppIntents
 import GRDB
 
 struct SettingsView: View {
@@ -310,14 +311,21 @@ struct SettingsView: View {
         .listRowBackground(Theme.card)
     }
 
-    // MARK: - Home Screen section
+    // MARK: - Shortcuts section
 
     private var homeScreenSection: some View {
         Section {
-            HomeScreenSection(sources: sources)
-                .settingsRow()
+            VStack(alignment: .leading, spacing: 8) {
+                ShortcutsLink()
+                    .shortcutsLinkStyle(.automaticOutline)
+
+                Text("Create shortcuts to open your sources directly. You can add them to your Home Screen from the Shortcuts app.")
+                    .font(Theme.scaledFont(size: 12, relativeTo: .caption))
+                    .foregroundColor(Theme.textSecondary)
+            }
+            .settingsRow()
         } header: {
-            sectionHeader("HOME SCREEN")
+            sectionHeader("SHORTCUTS")
         }
         .listRowBackground(Theme.card)
     }

@@ -21,6 +21,7 @@ struct ArticleListView: View {
     @State private var showSourceSettings = false
     @State private var currentCacheLevel: CacheLevel = .standard
     @State private var currentFetchFrequency: FetchFrequency = .automatic
+    @State private var currentSourceName: String = ""
     @State private var hasInitializedSettings = false
 
     private let articleLimit = 50
@@ -82,6 +83,7 @@ struct ArticleListView: View {
             if !hasInitializedSettings {
                 currentCacheLevel = source.cacheLevel ?? .standard
                 currentFetchFrequency = source.fetchFrequency
+                currentSourceName = source.title
                 hasInitializedSettings = true
             }
             await loadArticles()
@@ -450,6 +452,32 @@ struct ArticleListView: View {
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 24) {
+                        // Source name
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("NAME")
+                                .font(Theme.scaledFont(size: 12, weight: .semibold, relativeTo: .caption))
+                                .foregroundColor(Theme.textSecondary)
+
+                            TextField("Source name", text: $currentSourceName)
+                                .font(Theme.scaledFont(size: 15, relativeTo: .body))
+                                .foregroundColor(Theme.textPrimary)
+                                .padding(12)
+                                .background(Theme.surfaceRaised)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Theme.border, lineWidth: 1)
+                                )
+                                .onSubmit {
+                                    let trimmed = currentSourceName.trimmingCharacters(in: .whitespaces)
+                                    if !trimmed.isEmpty {
+                                        Task { await updateSourceName(trimmed) }
+                                    } else {
+                                        currentSourceName = source.title
+                                    }
+                                }
+                        }
+
                         // Check for new articles
                         VStack(alignment: .leading, spacing: 10) {
                             Text("CHECK FOR NEW ARTICLES")
@@ -493,7 +521,7 @@ struct ArticleListView: View {
                 }
             }
         }
-        .presentationDetents([.fraction(0.5)])
+        .presentationDetents([.fraction(0.6)])
         .presentationDragIndicator(.visible)
         .onChange(of: currentCacheLevel) { _, newLevel in
             Task { await updateSourceCacheLevel(newLevel) }
@@ -524,6 +552,14 @@ struct ArticleListView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(isSelected ? Color.clear : Theme.border, lineWidth: 1)
             )
+        }
+    }
+
+    private func updateSourceName(_ name: String) async {
+        var updated = source
+        updated.title = name
+        try? await DatabaseManager.shared.dbPool.write { db in
+            try updated.update(db)
         }
     }
 
