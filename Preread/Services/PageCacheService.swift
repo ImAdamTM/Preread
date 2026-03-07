@@ -268,7 +268,17 @@ actor PageCacheService {
         } else {
             // STANDARD: Extract article content with Readability,
             // then template into reader_template.html
-            let readability = Readability(html: html, url: pageURL)
+
+            // Strip scripts and noise before Readability so it sees cleaner HTML
+            // and can better identify the main article content
+            let preDoc = try SwiftSoup.parse(html, pageURL.absoluteString)
+            try preDoc.select("script").remove()
+            try preDoc.select("noscript").remove()
+            try preDoc.select("style").remove()
+            try preDoc.select("meta[http-equiv=Content-Security-Policy]").remove()
+            let cleanedHTML = try preDoc.html()
+
+            let readability = Readability(html: cleanedHTML, url: pageURL)
             let extracted = try readability.parse()
 
             let articleTitle = extracted?.title ?? ""
