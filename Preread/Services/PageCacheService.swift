@@ -291,6 +291,20 @@ actor PageCacheService {
             guard let contentBody = contentDoc.body() else {
                 throw NSError(domain: "PageCacheService", code: 1, userInfo: nil)
             }
+
+            // Remove any image in the content that matches the hero thumbnail
+            // to avoid a duplicate hero stacked on top of the same image
+            if let thumbStr = article.thumbnailURL {
+                let contentImages = try contentDoc.select("img")
+                for img in contentImages {
+                    let src = try img.attr("abs:src")
+                    let dataSrc = try img.attr("data-src")
+                    if src == thumbStr || dataSrc == thumbStr {
+                        try img.remove()
+                    }
+                }
+            }
+
             let imageURLs = try extractAssetURLs(from: contentDoc, baseURL: pageURL, cacheLevel: .standard)
 
             let downloadResults = await downloadAssets(
