@@ -4,13 +4,12 @@ struct CacheFidelitySlider: View {
     @Binding var selectedLevel: CacheLevel
 
     private let levels: [(level: CacheLevel, icon: String, label: String)] = [
-        (.textOnly, "doc.text", "Text"),
         (.standard, "doc.richtext", "Standard"),
         (.full, "doc.on.doc", "Full")
     ]
 
     private var selectedIndex: Int {
-        levels.firstIndex(where: { $0.level == selectedLevel }) ?? 1
+        levels.firstIndex(where: { $0.level == selectedLevel }) ?? 0
     }
 
     var body: some View {
@@ -89,8 +88,6 @@ struct CacheFidelitySlider: View {
 
     private var sublabel: String {
         switch selectedLevel {
-        case .textOnly:
-            return "Saves article text. Images not downloaded. Smallest footprint."
         case .standard:
             return "Saves text and all images. Recommended for most sources."
         case .full:

@@ -266,7 +266,7 @@ actor PageCacheService {
                 return false
             }
         } else {
-            // TEXT ONLY / STANDARD: Extract article content with Readability,
+            // STANDARD: Extract article content with Readability,
             // then template into reader_template.html
             let readability = Readability(html: html, url: pageURL)
             let extracted = try readability.parse()
@@ -286,72 +286,54 @@ actor PageCacheService {
                 }
             }
 
-            if cacheLevel == .standard {
-                // Parse the cleaned content to extract image URLs
-                let contentDoc = try SwiftSoup.parseBodyFragment(contentHTML, pageURL.absoluteString)
-                guard let contentBody = contentDoc.body() else {
-                    throw NSError(domain: "PageCacheService", code: 1, userInfo: nil)
-                }
-                let imageURLs = try extractAssetURLs(from: contentDoc, baseURL: pageURL, cacheLevel: .standard)
-
-                let downloadResults = await downloadAssets(
-                    urls: imageURLs,
-                    to: assetsDir,
-                    baseURL: pageURL
-                )
-
-                // Rewrite image URLs in the content to local paths
-                for result in downloadResults {
-                    switch result {
-                    case .success(let mapping):
-                        try rewriteURL(in: contentDoc, original: mapping.originalURL, replacement: "./assets/\(mapping.filename)")
-                    case .failure:
-                        anyFailed = true
-                    }
-                }
-
-                contentHTML = (try? contentBody.html()) ?? contentHTML
-
-                var allFilenames = downloadResults.compactMap { result -> String? in
-                    if case .success(let mapping) = result { return mapping.filename }
-                    return nil
-                }
-                if let heroFile = heroAssetFilename { allFilenames.append(heroFile) }
-                assetFilenames = allFilenames
-
-                let assetSize = downloadResults.reduce(0) { sum, result in
-                    if case .success(let mapping) = result { return sum + mapping.size }
-                    return sum
-                } + heroAssetSize
-                isTruncated = downloadResults.contains { result in
-                    if case .success(let mapping) = result { return mapping.wasTruncated }
-                    return false
-                }
-
-                // Build templated HTML and calculate total size
-                let templatedHTML = readerTemplate
-                    .replacingOccurrences(of: "{{HERO_IMAGE}}", with: heroImageHTML)
-                    .replacingOccurrences(of: "{{TITLE}}", with: escapeHTML(articleTitle))
-                    .replacingOccurrences(of: "{{BODY_HTML}}", with: contentHTML)
-                htmlData = Data(templatedHTML.utf8)
-                totalSize = htmlData.count + assetSize
-            } else {
-                // textOnly — no inline images, but still include hero if available
-                if let contentDoc = try? SwiftSoup.parseBodyFragment(contentHTML),
-                   let body = contentDoc.body() {
-                    try stripImages(from: contentDoc)
-                    contentHTML = (try? body.html()) ?? contentHTML
-                }
-
-                let templatedHTML = readerTemplate
-                    .replacingOccurrences(of: "{{HERO_IMAGE}}", with: heroImageHTML)
-                    .replacingOccurrences(of: "{{TITLE}}", with: escapeHTML(articleTitle))
-                    .replacingOccurrences(of: "{{BODY_HTML}}", with: contentHTML)
-                htmlData = Data(templatedHTML.utf8)
-                assetFilenames = heroAssetFilename.map { [$0] } ?? []
-                totalSize = htmlData.count + heroAssetSize
-                isTruncated = false
+            // Parse the cleaned content to extract image URLs
+            let contentDoc = try SwiftSoup.parseBodyFragment(contentHTML, pageURL.absoluteString)
+            guard let contentBody = contentDoc.body() else {
+                throw NSError(domain: "PageCacheService", code: 1, userInfo: nil)
             }
+            let imageURLs = try extractAssetURLs(from: contentDoc, baseURL: pageURL, cacheLevel: .standard)
+
+            let downloadResults = await downloadAssets(
+                urls: imageURLs,
+                to: assetsDir,
+                baseURL: pageURL
+            )
+
+            // Rewrite image URLs in the content to local paths
+            for result in downloadResults {
+                switch result {
+                case .success(let mapping):
+                    try rewriteURL(in: contentDoc, original: mapping.originalURL, replacement: "./assets/\(mapping.filename)")
+                case .failure:
+                    anyFailed = true
+                }
+            }
+
+            contentHTML = (try? contentBody.html()) ?? contentHTML
+
+            var allFilenames = downloadResults.compactMap { result -> String? in
+                if case .success(let mapping) = result { return mapping.filename }
+                return nil
+            }
+            if let heroFile = heroAssetFilename { allFilenames.append(heroFile) }
+            assetFilenames = allFilenames
+
+            let assetSize = downloadResults.reduce(0) { sum, result in
+                if case .success(let mapping) = result { return sum + mapping.size }
+                return sum
+            } + heroAssetSize
+            isTruncated = downloadResults.contains { result in
+                if case .success(let mapping) = result { return mapping.wasTruncated }
+                return false
+            }
+
+            // Build templated HTML and calculate total size
+            let templatedHTML = readerTemplate
+                .replacingOccurrences(of: "{{HERO_IMAGE}}", with: heroImageHTML)
+                .replacingOccurrences(of: "{{TITLE}}", with: escapeHTML(articleTitle))
+                .replacingOccurrences(of: "{{BODY_HTML}}", with: contentHTML)
+            htmlData = Data(templatedHTML.utf8)
+            totalSize = htmlData.count + assetSize
         }
 
         let indexPath = articleDir.appendingPathComponent("index.html")
@@ -404,10 +386,6 @@ actor PageCacheService {
         var urls: [URL] = []
 
         switch cacheLevel {
-        case .textOnly:
-            // No assets to download
-            return []
-
         case .standard:
             // Images from <img> tags
             let images = try doc.select("img")
@@ -514,13 +492,6 @@ actor PageCacheService {
         let urlPart = lastEntry.trimmingCharacters(in: .whitespaces).components(separatedBy: " ").first ?? ""
         guard !urlPart.isEmpty, !urlPart.hasPrefix("data:") else { return nil }
         return URL(string: urlPart, relativeTo: baseURL)?.absoluteURL
-    }
-
-    private func stripImages(from doc: Document) throws {
-        let images = try doc.select("img")
-        for img in images {
-            try img.remove()
-        }
     }
 
     // MARK: - Asset downloading
