@@ -98,10 +98,5 @@ final class DatabaseManager {
                 t.add(column: "darkHtmlPath", .text)
             }
         }
-
-        migrator.registerMigration("v5-remove-textOnly-cache-level") { db in
-            try db.execute(sql: "UPDATE source SET cacheLevel = 'standard' WHERE cacheLevel = 'textOnly'")
-            try db.execute(sql: "UPDATE cachedPage SET cacheLevelUsed = 'standard' WHERE cacheLevelUsed = 'textOnly'")
-        }
     }
 }
