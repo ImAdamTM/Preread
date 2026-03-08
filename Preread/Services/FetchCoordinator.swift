@@ -300,6 +300,7 @@ final class FetchCoordinator: ObservableObject {
     /// Shows the refresh spinner in the hero while working.
     func retryFailedArticles(for source: Source) async {
         let cacheLevel = source.effectiveCacheLevel
+        let retryLimit = cacheLevel == .full ? 10 : 20
         let articlesToRetry: [Article]
         do {
             articlesToRetry = try await DatabaseManager.shared.dbPool.read { db in
@@ -309,6 +310,7 @@ final class FetchCoordinator: ObservableObject {
                              ArticleFetchStatus.failed.rawValue]
                         .contains(Column("fetchStatus")))
                     .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
+                    .limit(retryLimit)
                     .fetchAll(db)
             }
         } catch {
