@@ -4,6 +4,7 @@ import GRDB
 struct SourceCardView: View {
     let source: Source
     let articleCount: Int
+    let unreadCount: Int
     let refreshState: SourceRefreshState
     let onTap: () -> Void
     let onRefresh: () -> Void
@@ -31,9 +32,9 @@ struct SourceCardView: View {
 
                 Spacer(minLength: 4)
 
-                // Right side: count pill + cache ring
+                // Right side: unread pill + cache ring
                 HStack(spacing: 8) {
-                    if articleCount > 0 {
+                    if unreadCount > 0 {
                         countPill
                     }
                     cacheRing
@@ -176,10 +177,10 @@ struct SourceCardView: View {
         }
     }
 
-    // MARK: - Count pill
+    // MARK: - Unread count pill
 
     private var countPill: some View {
-        Text("\(articleCount)")
+        Text("\(unreadCount)")
             .font(Theme.scaledFont(size: 11, weight: .semibold, relativeTo: .caption2))
             .foregroundColor(.white)
             .padding(.horizontal, 8)
@@ -241,6 +242,9 @@ struct SourceCardView: View {
         var parts: [String] = [source.title]
 
         parts.append("\(articleCount) article\(articleCount == 1 ? "" : "s")")
+        if unreadCount > 0 {
+            parts.append("\(unreadCount) unread")
+        }
 
         switch refreshState {
         case .refreshing: parts.append("Refreshing")

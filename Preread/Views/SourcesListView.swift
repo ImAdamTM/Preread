@@ -8,11 +8,13 @@ struct SourcesListView: View {
 
     @State private var sources: [Source] = []
     @State private var articleCounts: [UUID: Int] = [:]
+    @State private var unreadCounts: [UUID: Int] = [:]
     @State private var showAddSource = false
     @State private var highlightedSourceID: UUID?
     @State private var navigationPath = NavigationPath()
     @State private var renamingSource: Source?
     @State private var renameText = ""
+    @State private var countPollTask: Task<Void, Never>?
 
     var body: some View {
         NavigationStack(path: $navigationPath) {
@@ -61,6 +63,12 @@ struct SourcesListView: View {
             .task {
                 await loadSources()
             }
+            .onChange(of: navigationPath) { _, path in
+                // Refresh counts when navigating back (e.g. after reading articles)
+                if path.isEmpty {
+                    Task { await loadSources() }
+                }
+            }
             .refreshable {
                 HapticManager.pullToRefresh()
                 await coordinator.refreshAllSources()
@@ -73,8 +81,15 @@ struct SourcesListView: View {
                 }
             }
             .onChange(of: coordinator.sourceStatuses) { _, statuses in
-                // Reload when any individual source finishes (e.g. after adding a new feed)
+                let isAnyRefreshing = statuses.values.contains { $0 == .refreshing }
                 let hasCompleted = statuses.values.contains { $0 == .completed }
+
+                if isAnyRefreshing {
+                    startCountPolling()
+                } else {
+                    stopCountPolling()
+                }
+
                 if hasCompleted {
                     Task { await loadSources() }
                 }
@@ -143,6 +158,7 @@ struct SourcesListView: View {
                     SourceCardView(
                         source: source,
                         articleCount: articleCounts[source.id] ?? 0,
+                        unreadCount: unreadCounts[source.id] ?? 0,
                         refreshState: state,
                         onTap: {
                             navigationPath.append(source.id)
@@ -173,6 +189,7 @@ struct SourcesListView: View {
                         SourceCardView(
                             source: source,
                             articleCount: articleCounts[source.id] ?? 0,
+                            unreadCount: unreadCounts[source.id] ?? 0,
                             refreshState: .idle,
                             onTap: {},
                             onRefresh: {},
@@ -293,19 +310,70 @@ struct SourcesListView: View {
             }
             sources = loadedSources
 
-            // Load article counts
+            // Load article counts and unread counts
             var counts: [UUID: Int] = [:]
+            var unread: [UUID: Int] = [:]
             for source in loadedSources {
-                let count = try await DatabaseManager.shared.dbPool.read { db in
-                    try Article
+                let (total, unreadCount) = try await DatabaseManager.shared.dbPool.read { db in
+                    let total = try Article
                         .filter(Column("sourceID") == source.id)
                         .fetchCount(db)
+                    let unreadCount = try Article
+                        .filter(Column("sourceID") == source.id)
+                        .filter(Column("isRead") == false)
+                        .fetchCount(db)
+                    return (total, unreadCount)
                 }
-                counts[source.id] = count
+                counts[source.id] = total
+                unread[source.id] = unreadCount
             }
             articleCounts = counts
+            unreadCounts = unread
         } catch {
             // Silently fail — sources will remain as last loaded
+        }
+    }
+
+    // MARK: - Live count polling
+
+    private func startCountPolling() {
+        guard countPollTask == nil else { return }
+        countPollTask = Task {
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(2))
+                guard !Task.isCancelled else { break }
+                await refreshCounts()
+            }
+        }
+    }
+
+    private func stopCountPolling() {
+        countPollTask?.cancel()
+        countPollTask = nil
+    }
+
+    private func refreshCounts() async {
+        do {
+            var counts: [UUID: Int] = [:]
+            var unread: [UUID: Int] = [:]
+            for source in sources {
+                let (total, unreadCount) = try await DatabaseManager.shared.dbPool.read { db in
+                    let total = try Article
+                        .filter(Column("sourceID") == source.id)
+                        .fetchCount(db)
+                    let unreadCount = try Article
+                        .filter(Column("sourceID") == source.id)
+                        .filter(Column("isRead") == false)
+                        .fetchCount(db)
+                    return (total, unreadCount)
+                }
+                counts[source.id] = total
+                unread[source.id] = unreadCount
+            }
+            articleCounts = counts
+            unreadCounts = unread
+        } catch {
+            // Silently fail
         }
     }
 
@@ -333,6 +401,7 @@ struct SourcesListView: View {
             withAnimation(Theme.gentleAnimation()) {
                 sources.removeAll { $0.id == source.id }
                 articleCounts.removeValue(forKey: source.id)
+                unreadCounts.removeValue(forKey: source.id)
             }
         } catch {
             toastManager.show("Couldn't remove source", type: .error)
