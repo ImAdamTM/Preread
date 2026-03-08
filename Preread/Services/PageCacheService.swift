@@ -13,12 +13,14 @@ struct PipelineResult {
     let title: String
     let contentHTML: String
     let imageCount: Int
+    let heroImageURL: String?
 }
 
 /// Result of running the full-mode HTML cleaning pipeline. Used by unit tests
 /// to verify that interactive elements are stripped without breaking page layout.
 struct FullPipelineResult {
     let cleanedHTML: String
+    let heroImageURL: String?
 }
 
 actor PageCacheService {
@@ -164,16 +166,33 @@ actor PageCacheService {
         var contentHTML = extracted?.contentHTML ?? html
 
         // Hero image re-injection
+        // Also capture the first real image URL for thumbnail backfill.
+        var heroImageURL: String?
         if let heroImg = try? preDoc.select("img[src]").first(where: { img in
             guard let src = try? img.attr("src"), !src.isEmpty,
                   !src.hasPrefix("data:") else { return false }
             return true
         }) {
             let heroSrc = try? heroImg.attr("src")
-            if let heroSrc, !heroSrc.isEmpty, !contentHTML.contains(heroSrc) {
-                let heroTag = (try? heroImg.outerHtml()) ?? ""
-                if !heroTag.isEmpty {
-                    contentHTML = heroTag + contentHTML
+            if let heroSrc, !heroSrc.isEmpty {
+                heroImageURL = heroSrc
+                if !contentHTML.contains(heroSrc) {
+                    let heroTag = (try? heroImg.outerHtml()) ?? ""
+                    if !heroTag.isEmpty {
+                        contentHTML = heroTag + contentHTML
+                    }
+                }
+            }
+        }
+
+        // If no hero was found above, fall back to the first image in the
+        // extracted content itself.
+        if heroImageURL == nil {
+            let contentDoc2 = try SwiftSoup.parseBodyFragment(contentHTML, pageURL.absoluteString)
+            if let firstImg = try? contentDoc2.select("img[src]").first() {
+                let src = try? firstImg.attr("src")
+                if let src, !src.isEmpty, !src.hasPrefix("data:") {
+                    heroImageURL = src
                 }
             }
         }
@@ -199,7 +218,7 @@ actor PageCacheService {
         let imageCount = (try? contentDoc.select("img"))?.size() ?? 0
         contentHTML = (try? contentDoc.body()?.html()) ?? contentHTML
 
-        return PipelineResult(title: articleTitle, contentHTML: contentHTML, imageCount: imageCount)
+        return PipelineResult(title: articleTitle, contentHTML: contentHTML, imageCount: imageCount, heroImageURL: heroImageURL)
     }
 
     /// Runs the full-mode HTML cleaning pipeline: strips scripts, navigation,
@@ -240,8 +259,17 @@ actor PageCacheService {
         // space via CSS padding/margins. Multiple passes handle nested wrappers.
         try stripEmptyElements(in: doc)
 
+        // Capture the first real image for thumbnail backfill
+        var heroImageURL: String?
+        if let firstImg = try? doc.select("img[src]").first() {
+            let src = try? firstImg.attr("src")
+            if let src, !src.isEmpty, !src.hasPrefix("data:") {
+                heroImageURL = src
+            }
+        }
+
         let cleanedHTML = try doc.outerHtml()
-        return FullPipelineResult(cleanedHTML: cleanedHTML)
+        return FullPipelineResult(cleanedHTML: cleanedHTML, heroImageURL: heroImageURL)
     }
 
     // MARK: - Cache article
@@ -374,10 +402,12 @@ actor PageCacheService {
         let isTruncated: Bool
         var anyFailed = false
         var cssInlineReplacements: [String: String] = [:]
+        var pipelineHeroImageURL: String?
 
         if cacheLevel == .full {
             // FULL: Save the complete page with all assets
             let fullResult = try runFullPipeline(html: html, pageURL: pageURL)
+            pipelineHeroImageURL = fullResult.heroImageURL
             let doc = try SwiftSoup.parse(fullResult.cleanedHTML, pageURL.absoluteString)
 
             let assetURLs = try extractAssetURLs(from: doc, baseURL: pageURL, cacheLevel: cacheLevel)
@@ -459,6 +489,7 @@ actor PageCacheService {
             // then template into reader_template.html
 
             let pipelineResult = try runStandardPipeline(html: html, pageURL: pageURL)
+            pipelineHeroImageURL = pipelineResult.heroImageURL
             let articleTitle = pipelineResult.title
             var contentHTML = pipelineResult.contentHTML
 
@@ -509,6 +540,15 @@ actor PageCacheService {
                 .replacingOccurrences(of: "{{BODY_HTML}}", with: contentHTML)
             htmlData = Data(templatedHTML.utf8)
             totalSize = htmlData.count + assetSize
+        }
+
+        // Backfill thumbnail from hero image when the RSS feed didn't provide one
+        if article.thumbnailURL == nil,
+           let heroSrc = pipelineHeroImageURL,
+           let heroURL = URL(string: heroSrc, relativeTo: pageURL) {
+            let resolved = heroURL.absoluteString
+            article.thumbnailURL = resolved
+            await cacheThumbnail(url: heroURL, to: articleDir)
         }
 
         let indexPath = articleDir.appendingPathComponent("index.html")
