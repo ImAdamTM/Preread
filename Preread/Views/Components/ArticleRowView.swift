@@ -9,9 +9,7 @@ struct ArticleRowView: View {
     let onRefetch: () -> Void
     let onDelete: () -> Void
 
-    @Environment(\.colorScheme) private var colorScheme
     @State private var appearTime = Date()
-    @State private var unreadDotScale: CGFloat = 1.0
     @State private var cachedThumbnailImage: UIImage?
     @State private var thumbnailLoaded = false
 
@@ -21,7 +19,7 @@ struct ArticleRowView: View {
 
     var body: some View {
         Button(action: onTap) {
-            HStack(spacing: 12) {
+            HStack(spacing: 16) {
                 // New article left border
                 newArticleBorder
 
@@ -33,52 +31,55 @@ struct ArticleRowView: View {
                 // Content
                 VStack(alignment: .leading, spacing: 4) {
                     Text(article.title)
-                        .font(Theme.scaledFont(size: 16, weight: .medium))
-                        .foregroundColor(Theme.textPrimary)
+                        .font(Theme.scaledFont(size: 16, weight: article.isRead ? .medium : .semibold))
+                        .foregroundColor(article.isRead ? Theme.textSecondary : Theme.textPrimary)
                         .lineLimit(2)
                         .matchedGeometryEffect(id: article.id.uuidString + "-title", in: namespace)
 
-                    HStack(spacing: 6) {
-                        // Timestamp
+                    HStack(spacing: 0) {
                         if let published = article.publishedAt {
                             Text(RelativeTimeFormatter.string(from: published))
                                 .font(Theme.scaledFont(size: 13, relativeTo: .footnote))
                                 .foregroundColor(Theme.textSecondary)
                         }
 
-                        // Unread dot
-                        if !article.isRead {
-                            Circle()
-                                .fill(Theme.accent)
-                                .frame(width: 5, height: 5)
-                                .scaleEffect(unreadDotScale)
+                        if let status = statusLabel {
+                            if article.publishedAt != nil {
+                                Text(" · ")
+                                    .font(Theme.scaledFont(size: 13, relativeTo: .footnote))
+                                    .foregroundColor(Theme.textSecondary)
+                            }
+                            Text(status.text)
+                                .font(Theme.scaledFont(size: 13, weight: .medium, relativeTo: .footnote))
+                                .foregroundColor(status.color)
                         }
                     }
                 }
 
                 Spacer(minLength: 4)
 
-                // Cache status + timestamp
-                VStack(alignment: .trailing, spacing: 2) {
-                    cacheStatusIcon
-                        .frame(width: 20, height: 20)
-                        .accessibilityLabel(cacheStatusAccessibilityLabel)
-
-                    if let cachedAt = article.cachedAt {
-                        Text(RelativeTimeFormatter.string(from: cachedAt))
-                            .font(Theme.scaledFont(size: 10, relativeTo: .caption2))
-                            .foregroundColor(Theme.textSecondary)
+                // Right indicator: read/unread icon or fetching spinner
+                ZStack {
+                    Color.clear
+                    if article.fetchStatus == .fetching {
+                        fetchingSpinner
+                            .accessibilityLabel("Saving")
+                    } else {
+                        Circle()
+                            .fill(article.isRead ? Theme.textSecondary.opacity(0.2) : Theme.accent)
+                            .frame(width: 8, height: 8)
                     }
                 }
+                .frame(width: 24)
             }
             .contentShape(Rectangle())
             .padding(.horizontal, 14)
-            .padding(.vertical, hasThumbnail ? 12 : 10)
-            .frame(minHeight: hasThumbnail ? 80 : 64)
-            .background(
-                RoundedRectangle(cornerRadius: 14)
-                    .fill(colorScheme == .dark ? AnyShapeStyle(.ultraThinMaterial) : AnyShapeStyle(Color.white.opacity(0.6)))
-            )
+            .padding(.vertical, hasThumbnail ? 16 : 14)
+            .frame(minHeight: hasThumbnail ? 96 : 68)
+            .overlay(alignment: .bottom) {
+                Theme.borderProminent
+                    .frame(height: 0.5)
+            }
         }
         .buttonStyle(.plain)
         .accessibilityElement(children: .ignore)
@@ -111,18 +112,6 @@ struct ArticleRowView: View {
         }
         .swipeActions(edge: .leading, allowsFullSwipe: true) {
             Button {
-                if Theme.reduceMotion {
-                    unreadDotScale = article.isRead ? 1.0 : 0
-                } else {
-                    withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
-                        unreadDotScale = article.isRead ? 1.0 : 1.2
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                        withAnimation(.spring(response: 0.2, dampingFraction: 0.6)) {
-                            unreadDotScale = article.isRead ? 1.0 : 0
-                        }
-                    }
-                }
                 onToggleRead()
             } label: {
                 Label(
@@ -185,8 +174,8 @@ struct ArticleRowView: View {
                 Image(uiImage: uiImage)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 56, height: 56)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .frame(width: 64, height: 64)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
             } else if thumbnailLoaded {
                 // Local load finished with no result — fall back to remote
                 if let thumbURL = article.thumbnailURL, let url = URL(string: thumbURL) {
@@ -196,13 +185,13 @@ struct ArticleRowView: View {
                             image
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .frame(width: 56, height: 56)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                                .frame(width: 64, height: 64)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
                         default:
                             gradientPlaceholder
                         }
                     }
-                    .frame(width: 56, height: 56)
+                    .frame(width: 64, height: 64)
                 } else {
                     gradientPlaceholder
                 }
@@ -237,30 +226,23 @@ struct ArticleRowView: View {
     }
 
     private var gradientPlaceholder: some View {
-        RoundedRectangle(cornerRadius: 8)
+        RoundedRectangle(cornerRadius: 10)
             .fill(Theme.avatarGradient(for: article.title))
-            .frame(width: 56, height: 56)
+            .frame(width: 64, height: 64)
     }
 
-    // MARK: - Cache status icon
+    // MARK: - Status label
 
-    @ViewBuilder
-    private var cacheStatusIcon: some View {
+    private var statusLabel: (text: String, color: Color)? {
         switch article.fetchStatus {
         case .cached, .partial:
-            Image(systemName: "checkmark")
-                .font(.system(size: 17, weight: .medium))
-                .foregroundColor(Theme.textSecondary)
+            return ("Saved", Theme.textSecondary)
         case .fetching:
-            fetchingSpinner
+            return ("Saving", Theme.textSecondary)
         case .pending:
-            Image(systemName: "arrow.triangle.2.circlepath")
-                .font(.system(size: 17, weight: .medium))
-                .foregroundColor(Theme.textSecondary.opacity(0.4))
+            return ("Pending", Theme.warning)
         case .failed:
-            Image(systemName: "exclamationmark.triangle")
-                .font(.system(size: 17))
-                .foregroundColor(Theme.danger)
+            return ("Failed", Theme.danger)
         }
     }
 
@@ -286,15 +268,6 @@ struct ArticleRowView: View {
         }
     }
 
-    private var cacheStatusAccessibilityLabel: String {
-        switch article.fetchStatus {
-        case .cached, .partial: return "Saved"
-        case .fetching: return "Saving"
-        case .pending: return "Not saved"
-        case .failed: return "Save failed"
-        }
-    }
-
     // MARK: - Accessibility
 
     private var rowAccessibilityLabel: String {
@@ -305,7 +278,10 @@ struct ArticleRowView: View {
         }
 
         parts.append(article.isRead ? "Read" : "Unread")
-        parts.append(cacheStatusAccessibilityLabel)
+
+        if let status = statusLabel {
+            parts.append(status.text)
+        }
 
         return parts.joined(separator: ", ")
     }

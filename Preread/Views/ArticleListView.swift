@@ -131,7 +131,7 @@ struct ArticleListView: View {
 
     private var articleList: some View {
         ScrollView {
-            LazyVStack(spacing: 6) {
+            LazyVStack(spacing: 0) {
                 // Hero section
                 heroRow
 
@@ -310,6 +310,17 @@ struct ArticleListView: View {
 
     // MARK: - Actions
 
+    private func markAsReadLocally(_ article: Article) {
+        guard !article.isRead, let index = articles.firstIndex(where: { $0.id == article.id }) else { return }
+        articles[index].isRead = true
+        let updated = articles[index]
+        Task {
+            try? await DatabaseManager.shared.dbPool.write { db in
+                try updated.update(db)
+            }
+        }
+    }
+
     private func handleTap(_ article: Article) {
         switch article.fetchStatus {
         case .cached, .partial:
@@ -317,6 +328,7 @@ struct ArticleListView: View {
             Task {
                 let hasCachedContent = await checkCachedContentExists(for: article)
                 if hasCachedContent {
+                    markAsReadLocally(article)
                     selectedArticle = article
                 } else {
                     // Cached content is missing — re-fetch, then open on success
@@ -371,6 +383,7 @@ struct ArticleListView: View {
             if updated.fetchStatus == .failed {
                 failedArticle = updated
             } else if openOnSuccess, updated.fetchStatus == .cached || updated.fetchStatus == .partial {
+                markAsReadLocally(updated)
                 selectedArticle = updated
             }
         }
