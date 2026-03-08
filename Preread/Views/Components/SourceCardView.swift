@@ -13,6 +13,8 @@ struct SourceCardView: View {
 
     @State private var showUpdated = false
     @State private var showDeleteConfirmation = false
+    @State private var cachedFavicon: UIImage?
+    @State private var faviconLoaded = false
 
     var body: some View {
         Button(action: onTap) {
@@ -105,22 +107,44 @@ struct SourceCardView: View {
 
     @ViewBuilder
     private var faviconView: some View {
-        if let iconURL = source.iconURL, let url = URL(string: iconURL) {
-            AsyncImage(url: url) { phase in
-                switch phase {
-                case .success(let image):
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 40, height: 40)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                default:
-                    letterAvatar
+        if let favicon = cachedFavicon {
+            // Locally cached favicon
+            Image(uiImage: favicon)
+                .resizable()
+                .interpolation(.high)
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 40, height: 40)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+        } else if faviconLoaded {
+            // No local cache — try network
+            if let iconURL = source.iconURL, let url = URL(string: iconURL) {
+                AsyncImage(url: url) { phase in
+                    switch phase {
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 40, height: 40)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                    default:
+                        letterAvatar
+                    }
                 }
+                .frame(width: 40, height: 40)
+            } else {
+                letterAvatar
             }
-            .frame(width: 40, height: 40)
         } else {
+            // Loading from disk
             letterAvatar
+                .task {
+                    let sourceID = source.id
+                    let image = await Task.detached(priority: .utility) {
+                        await PageCacheService.shared.cachedFavicon(for: sourceID)
+                    }.value
+                    cachedFavicon = image
+                    faviconLoaded = true
+                }
         }
     }
 

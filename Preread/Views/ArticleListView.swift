@@ -22,6 +22,7 @@ struct ArticleListView: View {
     @State private var hasInitializedSettings = false
     @State private var heroTitleMinY: CGFloat = 200
     @AppStorage("appAppearance") private var appAppearance: String = "system"
+    @State private var navFaviconImage: UIImage?
 
     private let articleLimit = 50
 
@@ -225,22 +226,22 @@ struct ArticleListView: View {
 
     @ViewBuilder
     private var sourceFavicon: some View {
-        if let iconURL = source.iconURL, let url = URL(string: iconURL) {
-            AsyncImage(url: url) { phase in
-                switch phase {
-                case .success(let image):
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 24, height: 24)
-                        .clipShape(RoundedRectangle(cornerRadius: 5))
-                default:
-                    smallLetterAvatar
-                }
-            }
-            .frame(width: 24, height: 24)
+        if let favicon = navFaviconImage {
+            Image(uiImage: favicon)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 24, height: 24)
+                .clipShape(RoundedRectangle(cornerRadius: 5))
         } else {
             smallLetterAvatar
+                .task {
+                    let sourceID = source.id
+                    if let cached = await Task.detached(priority: .utility, operation: {
+                        await PageCacheService.shared.cachedFavicon(for: sourceID)
+                    }).value {
+                        navFaviconImage = cached
+                    }
+                }
         }
     }
 

@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import SwiftSoup
 import SwiftReadability
 import CryptoKit
@@ -1135,6 +1136,51 @@ actor PageCacheService {
             .appendingPathComponent(articleID.uuidString, isDirectory: true)
             .appendingPathComponent("index-dark.html")
         return FileManager.default.fileExists(atPath: path.path) ? path : nil
+    }
+
+    // MARK: - Favicon caching
+
+    private var sourcesBaseURL: URL {
+        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        return appSupport.appendingPathComponent("preread/sources", isDirectory: true)
+    }
+
+    /// Downloads and caches the favicon for a source to local storage.
+    func cacheFavicon(for sourceID: UUID, from iconURL: String) async {
+        guard let url = URL(string: iconURL) else { return }
+
+        do {
+            let (data, response) = try await session.data(from: url)
+            guard let httpResponse = response as? HTTPURLResponse,
+                  httpResponse.statusCode == 200,
+                  !data.isEmpty else { return }
+
+            let sourceDir = sourcesBaseURL.appendingPathComponent(sourceID.uuidString, isDirectory: true)
+            try FileManager.default.createDirectory(at: sourceDir, withIntermediateDirectories: true)
+
+            let faviconPath = sourceDir.appendingPathComponent("favicon.png")
+            try data.write(to: faviconPath)
+        } catch {
+            // Non-critical — favicon will fall back to gradient
+        }
+    }
+
+    /// Returns the locally cached favicon image for a source, if it exists.
+    func cachedFavicon(for sourceID: UUID) -> UIImage? {
+        let path = sourcesBaseURL
+            .appendingPathComponent(sourceID.uuidString, isDirectory: true)
+            .appendingPathComponent("favicon.png")
+        guard FileManager.default.fileExists(atPath: path.path),
+              let data = try? Data(contentsOf: path) else { return nil }
+        return UIImage(data: data)
+    }
+
+    /// Deletes all cached data for a source (favicon, etc).
+    func deleteSourceCache(_ sourceID: UUID) throws {
+        let sourceDir = sourcesBaseURL.appendingPathComponent(sourceID.uuidString, isDirectory: true)
+        if FileManager.default.fileExists(atPath: sourceDir.path) {
+            try FileManager.default.removeItem(at: sourceDir)
+        }
     }
 
     /// Escapes HTML special characters for safe insertion into HTML attributes/text.

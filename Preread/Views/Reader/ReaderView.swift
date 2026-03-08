@@ -21,6 +21,7 @@ struct ReaderView: View {
     @State private var cachedPage: CachedPage?
     @State private var isLoadingCachedPage = true
     @State private var isRetrying = false
+    @State private var navFaviconImage: UIImage?
 
     private var useDarkAppearance: Bool {
         colorScheme == .dark
@@ -213,12 +214,23 @@ struct ReaderView: View {
     // MARK: - Hero image URL
 
     private var heroImageURL: URL? {
-        if let thumbnailURL = article.thumbnailURL, let url = URL(string: thumbnailURL) {
-            return url
+        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+
+        // Try locally cached article thumbnail first
+        let articleDir = appSupport.appendingPathComponent("preread/articles/\(article.id.uuidString)", isDirectory: true)
+        for ext in ["jpg", "jpeg", "png", "webp", "gif", "avif"] {
+            let path = articleDir.appendingPathComponent("thumbnail.\(ext)")
+            if FileManager.default.fileExists(atPath: path.path) {
+                return path
+            }
         }
-        if let iconURL = source.iconURL, let url = URL(string: iconURL) {
-            return url
+
+        // Try locally cached source favicon
+        let faviconPath = appSupport.appendingPathComponent("preread/sources/\(source.id.uuidString)/favicon.png")
+        if FileManager.default.fileExists(atPath: faviconPath.path) {
+            return faviconPath
         }
+
         return nil
     }
 
@@ -226,22 +238,22 @@ struct ReaderView: View {
 
     @ViewBuilder
     private var readerSourceFavicon: some View {
-        if let iconURL = source.iconURL, let url = URL(string: iconURL) {
-            AsyncImage(url: url) { phase in
-                switch phase {
-                case .success(let image):
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 24, height: 24)
-                        .clipShape(RoundedRectangle(cornerRadius: 5))
-                default:
-                    readerSmallLetterAvatar
-                }
-            }
-            .frame(width: 24, height: 24)
+        if let favicon = navFaviconImage {
+            Image(uiImage: favicon)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 24, height: 24)
+                .clipShape(RoundedRectangle(cornerRadius: 5))
         } else {
             readerSmallLetterAvatar
+                .task {
+                    let sourceID = source.id
+                    if let cached = await Task.detached(priority: .utility, operation: {
+                        await PageCacheService.shared.cachedFavicon(for: sourceID)
+                    }).value {
+                        navFaviconImage = cached
+                    }
+                }
         }
     }
 

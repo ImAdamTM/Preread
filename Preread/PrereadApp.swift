@@ -53,6 +53,9 @@ struct PrereadApp: App {
             BackgroundTaskManager.scheduleProcessing()
         }
 
+        // Backfill cached favicons for any sources missing them
+        await backfillFavicons()
+
         // Trigger .onOpen refreshes for sources configured as such
         await triggerOnOpenRefreshes()
 
@@ -64,6 +67,26 @@ struct PrereadApp: App {
     /// Refreshes sources whose fetchFrequency is .onOpen.
     private func triggerOnOpenRefreshes() async {
         await FetchCoordinator.shared.refreshOnOpenSources()
+    }
+
+    // MARK: - Favicon backfill
+
+    /// Downloads and caches favicons for any sources that don't have one on disk yet.
+    private func backfillFavicons() async {
+        do {
+            let sources = try await DatabaseManager.shared.dbPool.read { db in
+                try Source.fetchAll(db)
+            }
+            for source in sources {
+                guard let iconURL = source.iconURL else { continue }
+                // Skip if already cached
+                let existing = await PageCacheService.shared.cachedFavicon(for: source.id)
+                guard existing == nil else { continue }
+                await PageCacheService.shared.cacheFavicon(for: source.id, from: iconURL)
+            }
+        } catch {
+            // Non-critical
+        }
     }
 
     // MARK: - Deep links

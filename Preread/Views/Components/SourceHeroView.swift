@@ -70,6 +70,15 @@ struct SourceHeroView: View {
             .allowsHitTesting(false)
         }
         .task(id: source.iconURL) {
+            // Try local cache first
+            let sourceID = source.id
+            if let cached = await Task.detached(priority: .utility, operation: {
+                await PageCacheService.shared.cachedFavicon(for: sourceID)
+            }).value {
+                iconImage = cached
+                return
+            }
+            // Fall back to network
             guard let iconURL = source.iconURL,
                   let url = URL(string: iconURL) else { return }
             do {

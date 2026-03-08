@@ -393,6 +393,9 @@ struct SourcesListView: View {
                 try? await PageCacheService.shared.deleteCachedArticle(article.id)
             }
 
+            // Delete cached source data (favicon, etc.)
+            try? await PageCacheService.shared.deleteSourceCache(source.id)
+
             // Delete source (cascades to articles + cachedPages)
             _ = try await DatabaseManager.shared.dbPool.write { db in
                 try Source.deleteOne(db, key: source.id)

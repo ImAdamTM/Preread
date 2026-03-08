@@ -603,6 +603,13 @@ struct AddSourceSheet: View {
                     try source.save(db)
                 }
 
+                // Cache the favicon locally for offline use
+                if let iconURL = iconURL {
+                    Task {
+                        await PageCacheService.shared.cacheFavicon(for: source.id, from: iconURL)
+                    }
+                }
+
                 onSourceAdded?(source.id)
                 dismiss()
 

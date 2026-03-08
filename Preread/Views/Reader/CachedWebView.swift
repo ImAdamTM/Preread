@@ -202,15 +202,24 @@ struct CachedWebView: UIViewRepresentable {
     }
 
     private func loadHeroImage(from url: URL, into backdropView: UIView) {
-        let task = URLSession.shared.dataTask(with: url) { data, _, _ in
-            guard let data, let image = UIImage(data: data) else { return }
-            DispatchQueue.main.async {
-                if let imageView = backdropView.viewWithTag(101) as? UIImageView {
-                    imageView.image = image
+        if url.isFileURL {
+            // Load from local cache
+            guard let data = try? Data(contentsOf: url),
+                  let image = UIImage(data: data) else { return }
+            if let imageView = backdropView.viewWithTag(101) as? UIImageView {
+                imageView.image = image
+            }
+        } else {
+            let task = URLSession.shared.dataTask(with: url) { data, _, _ in
+                guard let data, let image = UIImage(data: data) else { return }
+                DispatchQueue.main.async {
+                    if let imageView = backdropView.viewWithTag(101) as? UIImageView {
+                        imageView.image = image
+                    }
                 }
             }
+            task.resume()
         }
-        task.resume()
     }
 
     // MARK: - Coordinator

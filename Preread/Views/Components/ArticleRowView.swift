@@ -11,11 +11,8 @@ struct ArticleRowView: View {
 
     @State private var appearTime = Date()
     @State private var cachedThumbnailImage: UIImage?
+    @State private var isFaviconFallback = false
     @State private var thumbnailLoaded = false
-
-    private var hasThumbnail: Bool {
-        article.thumbnailURL != nil
-    }
 
     var body: some View {
         Button(action: onTap) {
@@ -23,10 +20,8 @@ struct ArticleRowView: View {
                 // New article left border
                 newArticleBorder
 
-                // Thumbnail or gradient placeholder
-                if hasThumbnail {
-                    thumbnailView
-                }
+                // Thumbnail or favicon fallback
+                thumbnailView
 
                 // Content
                 VStack(alignment: .leading, spacing: 4) {
@@ -74,8 +69,8 @@ struct ArticleRowView: View {
             }
             .contentShape(Rectangle())
             .padding(.horizontal, 14)
-            .padding(.vertical, hasThumbnail ? 16 : 14)
-            .frame(minHeight: hasThumbnail ? 96 : 68)
+            .padding(.vertical, 16)
+            .frame(minHeight: 96)
             .overlay(alignment: .bottom) {
                 Theme.borderProminent
                     .frame(height: 0.5)
@@ -115,6 +110,16 @@ struct ArticleRowView: View {
                 )
             }
             .tint(Theme.teal)
+        }
+        .onChange(of: article.fetchStatus) { _, newStatus in
+            if newStatus == .cached || newStatus == .partial {
+                // Re-check for a real thumbnail now that caching is done
+                if isFaviconFallback || cachedThumbnailImage == nil {
+                    Task {
+                        await loadLocalThumbnail()
+                    }
+                }
+            }
         }
         .contextMenu {
             Button {
@@ -165,7 +170,22 @@ struct ArticleRowView: View {
 
     private var thumbnailView: some View {
         Group {
-            if let uiImage = cachedThumbnailImage {
+            if let uiImage = cachedThumbnailImage, isFaviconFallback {
+                // Favicon: centered on material background
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color(.tertiarySystemFill))
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .interpolation(.high)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 28, height: 28)
+                        .clipShape(RoundedRectangle(cornerRadius: 5))
+                        .saturation(1)
+                        .opacity(0.7)
+                }
+                .frame(width: 64, height: 64)
+            } else if let uiImage = cachedThumbnailImage {
                 Image(uiImage: uiImage)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -201,22 +221,36 @@ struct ArticleRowView: View {
     }
 
     /// Loads the locally cached thumbnail off the main thread.
+    /// Falls back to the source's cached favicon if no article thumbnail exists.
     private func loadLocalThumbnail() async {
         let articleID = article.id.uuidString
-        let image: UIImage? = await Task.detached(priority: .utility) {
+        let sourceID = article.sourceID.uuidString
+        let result: (UIImage?, Bool) = await Task.detached(priority: .utility) {
             let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+
+            // Try article-specific thumbnail first
             let articleDir = appSupport.appendingPathComponent("preread/articles/\(articleID)", isDirectory: true)
             for ext in ["jpg", "jpeg", "png", "webp", "gif", "avif"] {
                 let path = articleDir.appendingPathComponent("thumbnail.\(ext)")
                 if FileManager.default.fileExists(atPath: path.path),
                    let data = try? Data(contentsOf: path),
                    let img = UIImage(data: data) {
-                    return img
+                    return (img, false)
                 }
             }
-            return nil
+
+            // Fall back to source's cached favicon
+            let faviconPath = appSupport.appendingPathComponent("preread/sources/\(sourceID)/favicon.png")
+            if FileManager.default.fileExists(atPath: faviconPath.path),
+               let data = try? Data(contentsOf: faviconPath),
+               let img = UIImage(data: data) {
+                return (img, true)
+            }
+
+            return (nil, false)
         }.value
-        cachedThumbnailImage = image
+        cachedThumbnailImage = result.0
+        isFaviconFallback = result.1
         thumbnailLoaded = true
     }
 

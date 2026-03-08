@@ -316,7 +316,7 @@ private final class FeedXMLParser: NSObject, XMLParserDelegate {
         if !isInsideItem && isInFeedHeader {
             switch element {
             case "title":
-                if feedTitle == nil { feedTitle = text }
+                if feedTitle == nil { feedTitle = decodeHTMLEntities(text) }
             case "link":
                 if !isAtom && siteURL == nil && !text.isEmpty {
                     siteURL = resolveURL(text)
@@ -376,8 +376,10 @@ private final class FeedXMLParser: NSObject, XMLParserDelegate {
             thumbnail = extractFirstImageURL(from: itemContentHTML)
         }
 
+        let cleanTitle = itemTitle.isEmpty ? url.absoluteString : decodeHTMLEntities(itemTitle)
+
         items.append(FeedItem(
-            title: itemTitle.isEmpty ? url.absoluteString : itemTitle,
+            title: cleanTitle,
             url: url,
             publishedAt: date,
             thumbnailURL: thumbnail
@@ -431,5 +433,23 @@ private final class FeedXMLParser: NSObject, XMLParserDelegate {
         }
 
         return nil
+    }
+
+    private func decodeHTMLEntities(_ string: String) -> String {
+        // Fast path: no entities to decode
+        guard string.contains("&") else { return string }
+
+        guard let data = string.data(using: .utf8),
+              let attributed = try? NSAttributedString(
+                data: data,
+                options: [
+                    .documentType: NSAttributedString.DocumentType.html,
+                    .characterEncoding: String.Encoding.utf8.rawValue
+                ],
+                documentAttributes: nil
+              ) else {
+            return string
+        }
+        return attributed.string.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }
