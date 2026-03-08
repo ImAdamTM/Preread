@@ -20,10 +20,17 @@ struct ArticleListView: View {
     @State private var currentSourceName: String = ""
     @State private var hasInitializedSettings = false
     @State private var heroTitleMinY: CGFloat = 200
+    @AppStorage("appAppearance") private var appAppearance: String = "system"
 
     private let articleLimit = 50
 
-
+    private var preferredScheme: ColorScheme? {
+        switch appAppearance {
+        case "light": return .light
+        case "dark": return .dark
+        default: return nil
+        }
+    }
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -116,6 +123,7 @@ struct ArticleListView: View {
                 ReaderView(article: article, source: source)
             }
             .presentationDragIndicator(.hidden)
+            .preferredColorScheme(preferredScheme)
         }
     }
 
