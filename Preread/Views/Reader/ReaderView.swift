@@ -10,7 +10,7 @@ struct ReaderView: View {
     @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var toastManager: ToastManager
     @AppStorage("readerTextSize") private var textSize: Double = 18
-    @AppStorage("readerFontFamily") private var fontFamily: String = "system-ui"
+    @AppStorage("readerFontFamily") private var fontFamily: String = "Inter Tight"
     @State private var webViewVisible = false
     @State private var safariURL: URL?
     @State private var showSafari = false

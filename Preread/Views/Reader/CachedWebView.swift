@@ -228,7 +228,7 @@ struct CachedWebView: UIViewRepresentable {
         var pendingIsReaderMode = false
         var pendingUseLightMode = false
         var pendingTextSize: CGFloat = 18
-        var pendingFontFamily: String = "system-ui"
+        var pendingFontFamily: String = "Inter Tight"
 
         private var lastContentOffset: CGFloat = 0
         private var isTracking = false

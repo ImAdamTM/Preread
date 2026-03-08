@@ -327,19 +327,32 @@ actor PageCacheService {
             try preDoc.select("style").remove()
             try preDoc.select("meta[http-equiv=Content-Security-Policy]").remove()
 
-            // Remove placeholder images that JS-heavy sites (e.g. BBC) render
+            // Remove placeholder images that JS-heavy sites render
             // alongside real images. These have a no-JS fallback class and point
             // to a generic grey placeholder, cluttering the extracted content.
             try preDoc.select("img.hide-when-no-script").remove()
             try preDoc.select("img[src*=placeholder]").remove()
+
+            // Strip inline styles and framework class names from images so
+            // Readability sees them as plain content. Some sites use
+            // position:absolute fill styles that make images invisible outside
+            // their original layout containers.
+            try stripImageLayoutStyles(in: preDoc)
 
             // Unwrap <figure> elements so their children (img, figcaption, etc.)
             // become direct content nodes. Readability's cleanConditionally phase
             // removes figures with low text density, which drops legitimate images.
             try preDoc.select("figure").unwrap()
 
+            // Unwrap divs that contain only images (and other image-wrapper divs).
+            // Some sites nest lead images in deep div hierarchies that
+            // Readability excludes because they have zero text density. Collapsing
+            // these wrappers promotes images up to sit alongside article text nodes
+            // so Readability includes them in the extracted content.
+            try flattenImageOnlyDivs(in: preDoc)
+
             // Flatten single-child wrapper <div>s so Readability can find the full article.
-            // Many sites (e.g. ArsTechnica) wrap article paragraphs in deeply nested grid
+            // Many sites wrap article paragraphs in deeply nested grid
             // layout containers. Readability scores nodes bottom-up and picks the highest-
             // scoring container, but deep nesting dilutes ancestor scores, causing it to
             // grab one fragment instead of the full article. Unwrapping pure structural
@@ -355,34 +368,20 @@ actor PageCacheService {
             let articleTitle = extracted?.title ?? ""
             var contentHTML = extracted?.contentHTML ?? html
 
-            // Download hero image from the feed thumbnail if available
-            var heroImageHTML = ""
-            var heroAssetFilename: String?
-            var heroAssetSize = 0
-            if let thumbStr = article.thumbnailURL, let thumbURL = URL(string: thumbStr) {
-                if let heroMapping = try? await downloadAsset(url: thumbURL, to: assetsDir) {
-                    heroImageHTML = "<img class=\"reader-hero\" src=\"./assets/\(heroMapping.filename)\" alt=\"\">"
-                    heroAssetFilename = heroMapping.filename
-                    heroAssetSize = heroMapping.size
-                }
-            }
-
             // Parse the cleaned content to extract image URLs
             let contentDoc = try SwiftSoup.parseBodyFragment(contentHTML, pageURL.absoluteString)
             guard let contentBody = contentDoc.body() else {
                 throw NSError(domain: "PageCacheService", code: 1, userInfo: nil)
             }
 
-            // Remove any image in the content that matches the hero thumbnail
-            // to avoid a duplicate hero stacked on top of the same image
-            if let thumbStr = article.thumbnailURL {
-                let contentImages = try contentDoc.select("img")
-                for img in contentImages {
-                    let src = try img.attr("abs:src")
-                    let dataSrc = try img.attr("data-src")
-                    if src == thumbStr || dataSrc == thumbStr {
-                        try img.remove()
-                    }
+            // Remove duplicate images with the same src that survived extraction
+            // (e.g. responsive desktop/mobile variants).
+            var seenSrcs = Set<String>()
+            for img in try contentDoc.select("img[src]") {
+                let src = try img.attr("src")
+                guard !src.isEmpty, !src.hasPrefix("data:") else { continue }
+                if !seenSrcs.insert(src).inserted {
+                    try img.remove()
                 }
             }
 
@@ -406,17 +405,16 @@ actor PageCacheService {
 
             contentHTML = (try? contentBody.html()) ?? contentHTML
 
-            var allFilenames = downloadResults.compactMap { result -> String? in
+            let allFilenames = downloadResults.compactMap { result -> String? in
                 if case .success(let mapping) = result { return mapping.filename }
                 return nil
             }
-            if let heroFile = heroAssetFilename { allFilenames.append(heroFile) }
             assetFilenames = allFilenames
 
             let assetSize = downloadResults.reduce(0) { sum, result in
                 if case .success(let mapping) = result { return sum + mapping.size }
                 return sum
-            } + heroAssetSize
+            }
             isTruncated = downloadResults.contains { result in
                 if case .success(let mapping) = result { return mapping.wasTruncated }
                 return false
@@ -424,7 +422,6 @@ actor PageCacheService {
 
             // Build templated HTML and calculate total size
             let templatedHTML = readerTemplate
-                .replacingOccurrences(of: "{{HERO_IMAGE}}", with: heroImageHTML)
                 .replacingOccurrences(of: "{{TITLE}}", with: escapeHTML(articleTitle))
                 .replacingOccurrences(of: "{{BODY_HTML}}", with: contentHTML)
             htmlData = Data(templatedHTML.utf8)
@@ -987,6 +984,58 @@ actor PageCacheService {
         }
     }
 
+    // MARK: - Image layout cleanup
+
+    /// Strips inline styles from `<img>` elements that break layout outside their original
+    /// page context. Some sites use `position:absolute; width:100%; height:100%`
+    /// to fill a parent container — once Readability extracts the image, that container is
+    /// gone and the image becomes invisible (zero height). This removes the style attribute
+    /// entirely and cleans up framework-specific attributes that add noise.
+    private func stripImageLayoutStyles(in doc: Document) throws {
+        let images = try doc.select("img")
+        for img in images {
+            try img.removeAttr("style")
+            try img.removeAttr("class")
+            try img.removeAttr("data-nimg")
+            try img.removeAttr("data-chromatic")
+        }
+    }
+
+    // MARK: - Image-only div flattening
+
+    /// Unwraps `<div>` elements that contain only images and/or other divs (no text).
+    /// This promotes images trapped in deep wrapper hierarchies up to the nearest
+    /// text-containing ancestor so Readability can score them as article content.
+    private func flattenImageOnlyDivs(in doc: Document) throws {
+        for _ in 0..<6 {
+            guard let allDivs = try? doc.select("div") else { break }
+            var changed = false
+            for div in allDivs.reversed() {
+                guard div.parent() != nil else { continue }
+                // Skip if it has any direct text
+                let hasText = div.getChildNodes().contains { node in
+                    if let text = node as? TextNode {
+                        return !text.getWholeText().trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                    }
+                    return false
+                }
+                guard !hasText else { continue }
+                // Skip if it contains non-div, non-img element children
+                let children = div.children().array()
+                guard !children.isEmpty else { continue }
+                let allImageOrDiv = children.allSatisfy { $0.tagName() == "div" || $0.tagName() == "img" }
+                guard allImageOrDiv else { continue }
+                // Must contain at least one img (directly or nested)
+                guard (try? div.select("img"))?.isEmpty() == false else { continue }
+                do {
+                    try div.unwrap()
+                    changed = true
+                } catch { continue }
+            }
+            if !changed { break }
+        }
+    }
+
     // MARK: - DOM flattening
 
     /// Unwraps `<div>` elements that serve purely as layout wrappers — those with exactly
@@ -1015,8 +1064,9 @@ actor PageCacheService {
                 // Count element children — only unwrap if there's exactly one child element
                 let elementChildren = div.children().array()
                 guard elementChildren.count == 1 else { continue }
-                // Only unwrap if the single child is also a <div>
-                guard elementChildren[0].tagName() == "div" else { continue }
+                // Only unwrap if the single child is a <div> or <img>
+                let childTag = elementChildren[0].tagName()
+                guard childTag == "div" || childTag == "img" else { continue }
                 // Skip if the div has meaningful direct text
                 var hasDirectText = false
                 for node in div.getChildNodes() {

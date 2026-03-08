@@ -5,7 +5,7 @@ struct FontPickerPopover: View {
     let onChanged: (String) -> Void
 
     private let fonts: [(name: String, displayName: String, preview: Font)] = [
-        ("system-ui", "SF Pro", .system(size: 15)),
+        ("Inter Tight", "Inter Tight", .custom("InterTight-Regular", size: 15)),
         ("Georgia", "Georgia", .custom("Georgia", size: 15)),
         ("New York", "New York", .system(size: 15, design: .serif))
     ]

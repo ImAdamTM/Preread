@@ -7,8 +7,7 @@ struct SettingsView: View {
 
     // MARK: - Reading
 
-    @AppStorage("defaultViewMode") private var defaultViewMode: String = "Web"
-    @AppStorage("readerFontFamily") private var fontFamily: String = "system-ui"
+    @AppStorage("readerFontFamily") private var fontFamily: String = "Inter Tight"
     @AppStorage("readerTextSize") private var textSize: Double = 18
 
     // MARK: - Syncing
@@ -33,7 +32,7 @@ struct SettingsView: View {
     @State private var freeSpaceMB: Int = Int.max
 
     private let fontOptions: [(name: String, display: String)] = [
-        ("system-ui", "SF Pro"),
+        ("Inter Tight", "Inter Tight"),
         ("Georgia", "Georgia"),
         ("New York", "New York")
     ]
@@ -93,19 +92,6 @@ struct SettingsView: View {
 
     private var readingSection: some View {
         Section {
-            // Default view
-            HStack {
-                settingLabel("Default view")
-                Spacer()
-                Picker("", selection: $defaultViewMode) {
-                    Text("Web").tag("Web")
-                    Text("Read").tag("Read")
-                }
-                .pickerStyle(.segmented)
-                .frame(width: 140)
-            }
-            .settingsRow()
-
             // Reading font
             HStack {
                 settingLabel("Reading font")
@@ -125,13 +111,14 @@ struct SettingsView: View {
                     }
                 } label: {
                     HStack(spacing: 4) {
-                        Text(fontOptions.first(where: { $0.name == fontFamily })?.display ?? "SF Pro")
+                        Text(fontOptions.first(where: { $0.name == fontFamily })?.display ?? "Inter Tight")
                             .font(Theme.scaledFont(size: 15, relativeTo: .subheadline))
                             .foregroundColor(Theme.textPrimary)
                         Image(systemName: "chevron.up.chevron.down")
                             .font(.system(size: 10, weight: .semibold))
                             .foregroundColor(Theme.textSecondary)
                     }
+                    .frame(minWidth: 120, alignment: .trailing)
                 }
             }
             .settingsRow()
