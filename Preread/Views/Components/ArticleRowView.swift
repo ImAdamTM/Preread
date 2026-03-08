@@ -204,25 +204,35 @@ struct ArticleRowView: View {
     }
 
     /// Loads the locally cached thumbnail off the main thread.
-    /// Falls back to the source's cached favicon if no article thumbnail exists.
+    /// Prefers the small downsampled `thumb.jpg` for performance, falling back
+    /// to the full-size thumbnail, then the source's cached favicon.
     private func loadLocalThumbnail() async {
         let articleID = article.id.uuidString
         let sourceID = article.sourceID.uuidString
         let result: (UIImage?, Bool) = await Task.detached(priority: .utility) {
             let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-
-            // Try article-specific thumbnail first
             let articleDir = appSupport.appendingPathComponent("preread/articles/\(articleID)", isDirectory: true)
+
+            // 1. Prefer the small downsampled thumbnail
+            let thumbPath = articleDir.appendingPathComponent("thumb.jpg")
+            if FileManager.default.fileExists(atPath: thumbPath.path),
+               let data = try? Data(contentsOf: thumbPath),
+               let img = UIImage(data: data) {
+                return (img, false)
+            }
+
+            // 2. Fall back to the full-size thumbnail (for articles cached before downsampling was added)
+            //    Use ImageIO to downsample on load instead of decoding the full bitmap.
             for ext in ["jpg", "jpeg", "png", "webp", "gif", "avif"] {
                 let path = articleDir.appendingPathComponent("thumbnail.\(ext)")
-                if FileManager.default.fileExists(atPath: path.path),
-                   let data = try? Data(contentsOf: path),
-                   let img = UIImage(data: data) {
-                    return (img, false)
+                if FileManager.default.fileExists(atPath: path.path) {
+                    if let img = Self.downsampledImage(at: path, maxPixels: 192) {
+                        return (img, false)
+                    }
                 }
             }
 
-            // Fall back to source's cached favicon
+            // 3. Fall back to source's cached favicon
             let faviconPath = appSupport.appendingPathComponent("preread/sources/\(sourceID)/favicon.png")
             if FileManager.default.fileExists(atPath: faviconPath.path),
                let data = try? Data(contentsOf: faviconPath),
@@ -235,6 +245,23 @@ struct ArticleRowView: View {
         cachedThumbnailImage = result.0
         isFaviconFallback = result.1
         thumbnailLoaded = true
+    }
+
+    /// Efficiently loads and downsamples an image using ImageIO without
+    /// decoding the full bitmap into memory.
+    private static func downsampledImage(at url: URL, maxPixels: Int) -> UIImage? {
+        let sourceOptions: [CFString: Any] = [kCGImageSourceShouldCache: false]
+        guard let source = CGImageSourceCreateWithURL(url as CFURL, sourceOptions as CFDictionary) else { return nil }
+
+        let downsampleOptions: [CFString: Any] = [
+            kCGImageSourceThumbnailMaxPixelSize: maxPixels,
+            kCGImageSourceCreateThumbnailFromImageAlways: true,
+            kCGImageSourceCreateThumbnailWithTransform: true,
+            kCGImageSourceShouldCacheImmediately: true
+        ]
+
+        guard let cgImage = CGImageSourceCreateThumbnailAtIndex(source, 0, downsampleOptions as CFDictionary) else { return nil }
+        return UIImage(cgImage: cgImage)
     }
 
     private var gradientPlaceholder: some View {

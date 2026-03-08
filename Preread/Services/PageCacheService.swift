@@ -780,7 +780,10 @@ actor PageCacheService {
         )
     }
 
-    /// Downloads the article thumbnail to a predictable local path for offline display.
+    /// Downloads the article thumbnail and saves two downsampled versions:
+    /// - `thumbnail.jpg` — 600px, for hero backdrops, cards, and larger displays
+    /// - `thumb.jpg` — 192px, for 64pt list row thumbnails
+    /// The original full-size image is not kept on disk.
     private func cacheThumbnail(url: URL, to articleDir: URL) async {
         do {
             var request = URLRequest(url: url)
@@ -790,13 +793,32 @@ actor PageCacheService {
                !(200...299).contains(httpResponse.statusCode) { return }
             guard data.count > 100 else { return } // skip tiny/broken images
 
-            let ext = url.pathExtension.lowercased()
-            let fileExt = ["jpg", "jpeg", "png", "webp", "gif", "avif"].contains(ext) ? ext : "jpg"
-            let thumbPath = articleDir.appendingPathComponent("thumbnail.\(fileExt)")
-            try data.write(to: thumbPath)
+            guard let source = CGImageSourceCreateWithData(data as CFData, nil) else { return }
+
+            // Regular size (600px) for hero backdrops, cards, etc.
+            if let regular = downsampleCGImage(source: source, maxPixels: 600),
+               let jpegData = UIImage(cgImage: regular).jpegData(compressionQuality: 0.8) {
+                try jpegData.write(to: articleDir.appendingPathComponent("thumbnail.jpg"))
+            }
+
+            // Small size (192px = 64pt × 3x) for list row thumbnails
+            if let small = downsampleCGImage(source: source, maxPixels: 192),
+               let jpegData = UIImage(cgImage: small).jpegData(compressionQuality: 0.7) {
+                try jpegData.write(to: articleDir.appendingPathComponent("thumb.jpg"))
+            }
         } catch {
             // Thumbnail caching is best-effort; don't fail the article cache
         }
+    }
+
+    /// Downsamples using ImageIO without decoding the full bitmap into memory.
+    private func downsampleCGImage(source: CGImageSource, maxPixels: Int) -> CGImage? {
+        let options: [CFString: Any] = [
+            kCGImageSourceThumbnailMaxPixelSize: maxPixels,
+            kCGImageSourceCreateThumbnailFromImageAlways: true,
+            kCGImageSourceCreateThumbnailWithTransform: true
+        ]
+        return CGImageSourceCreateThumbnailAtIndex(source, 0, options as CFDictionary)
     }
 
     /// For full cache level: after downloading a CSS file, parse it for @font-face URLs.

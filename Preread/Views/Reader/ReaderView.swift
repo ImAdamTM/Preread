@@ -215,17 +215,23 @@ struct ReaderView: View {
 
     private var heroImageURL: URL? {
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-
-        // Try locally cached article thumbnail first
         let articleDir = appSupport.appendingPathComponent("preread/articles/\(article.id.uuidString)", isDirectory: true)
-        for ext in ["jpg", "jpeg", "png", "webp", "gif", "avif"] {
+
+        // Try the regular-size downsampled thumbnail (600px)
+        let thumbnailPath = articleDir.appendingPathComponent("thumbnail.jpg")
+        if FileManager.default.fileExists(atPath: thumbnailPath.path) {
+            return thumbnailPath
+        }
+
+        // Legacy: articles cached before downsampling was added may have other extensions
+        for ext in ["jpeg", "png", "webp", "gif", "avif"] {
             let path = articleDir.appendingPathComponent("thumbnail.\(ext)")
             if FileManager.default.fileExists(atPath: path.path) {
                 return path
             }
         }
 
-        // Try locally cached source favicon
+        // Fall back to source's cached favicon
         let faviconPath = appSupport.appendingPathComponent("preread/sources/\(source.id.uuidString)/favicon.png")
         if FileManager.default.fileExists(atPath: faviconPath.path) {
             return faviconPath
