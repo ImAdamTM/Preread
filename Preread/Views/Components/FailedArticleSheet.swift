@@ -60,10 +60,11 @@ struct FailedArticleSheet: View {
                 .font(.system(size: 20, weight: .bold))
                 .foregroundColor(Theme.textPrimary)
 
-            Text("Preread tried to fetch this page but something went wrong.")
+            Text("Something went wrong fetching this page.")
                 .font(.system(size: 15))
                 .foregroundColor(Theme.textSecondary)
                 .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
 
             Button {
                 onRetry()

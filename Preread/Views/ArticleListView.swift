@@ -6,6 +6,7 @@ struct ArticleListView: View {
 
     @Namespace private var namespace
     @ObservedObject private var coordinator = FetchCoordinator.shared
+    @Environment(\.colorScheme) private var systemColorScheme
     @EnvironmentObject private var deepLinkRouter: DeepLinkRouter
 
     @State private var articles: [Article] = []
@@ -24,11 +25,11 @@ struct ArticleListView: View {
 
     private let articleLimit = 50
 
-    private var preferredScheme: ColorScheme? {
+    private var preferredScheme: ColorScheme {
         switch appAppearance {
         case "light": return .light
         case "dark": return .dark
-        default: return nil
+        default: return systemColorScheme
         }
     }
 

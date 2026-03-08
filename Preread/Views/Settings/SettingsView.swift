@@ -30,14 +30,13 @@ struct SettingsView: View {
     @State private var totalStorageBytes: Int64 = 0
     @State private var showClearCacheConfirmation = false
     @State private var freeSpaceMB: Int = Int.max
-
     private let fontOptions: [(name: String, display: String)] = [
         ("Inter Tight", "Inter Tight"),
         ("Georgia", "Georgia"),
         ("New York", "New York")
     ]
 
-    private let textSizeStops: [Double] = [14, 16, 18, 20, 24]
+    private let textSizeStops: [Double] = [14, 16, 18, 20, 22, 24]
 
     var body: some View {
         List {

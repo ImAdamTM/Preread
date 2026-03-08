@@ -4,7 +4,7 @@ struct TextSizePopover: View {
     @Binding var textSize: CGFloat
     let onChanged: (CGFloat) -> Void
 
-    private let stops: [CGFloat] = [14, 16, 18, 20, 24]
+    private let stops: [CGFloat] = [14, 16, 18, 20, 22, 24]
     private let minSize: CGFloat = 14
     private let maxSize: CGFloat = 24
 
