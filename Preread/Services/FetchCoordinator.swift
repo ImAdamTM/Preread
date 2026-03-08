@@ -30,7 +30,10 @@ final class FetchCoordinator: ObservableObject {
         let sources: [Source]
         do {
             sources = try await DatabaseManager.shared.dbPool.read { db in
-                try Source.order(Column("sortOrder")).fetchAll(db)
+                try Source
+                    .filter(Column("id") != Source.savedPagesID)
+                    .order(Column("sortOrder"))
+                    .fetchAll(db)
             }
         } catch {
             isFetching = false
@@ -188,13 +191,24 @@ final class FetchCoordinator: ObservableObject {
             }
             let existingByURL = Dictionary(existingArticles.map { ($0.articleURL, $0) }, uniquingKeysWith: { first, _ in first })
 
+            // Also find any saved articles that were detached to "Saved Pages"
+            // (e.g. after the source was deleted then re-added)
+            let detachedArticles = try await DatabaseManager.shared.dbPool.read { db in
+                try Article
+                    .filter(Column("sourceID") == Source.savedPagesID)
+                    .filter(Column("isSaved") == true)
+                    .filter(feedURLs.contains(Column("articleURL")))
+                    .fetchAll(db)
+            }
+            let detachedByURL = Dictionary(detachedArticles.map { ($0.articleURL, $0) }, uniquingKeysWith: { first, _ in first })
+
             var needsCaching: [Article] = []
 
             for item in feedWindow {
                 let urlString = item.url.absoluteString
 
                 if var existing = existingByURL[urlString] {
-                    // Article already in DB — check if it needs re-caching
+                    // Article already in DB under this source — check if it needs re-caching
                     switch existing.fetchStatus {
                     case .pending, .failed:
                         // Already needs caching
@@ -230,6 +244,16 @@ final class FetchCoordinator: ObservableObject {
                                 needsCaching.append(existing)
                             }
                         }
+                    }
+                } else if let detached = detachedByURL[urlString] {
+                    // Saved article was detached to "Saved Pages" — re-attach to this source
+                    let articleID = detached.id
+                    let newSourceID = source.id
+                    try await DatabaseManager.shared.dbPool.write { db in
+                        try db.execute(
+                            sql: "UPDATE article SET sourceID = ? WHERE id = ?",
+                            arguments: [newSourceID, articleID]
+                        )
                     }
                 } else {
                     // New article — insert it
@@ -279,6 +303,9 @@ final class FetchCoordinator: ObservableObject {
             if !uncachedArticles.isEmpty {
                 await PageCacheService.shared.cleanupOrphanedSharedAssets()
             }
+
+            // Prune articles that exceed the user's per-source cap
+            await pruneExcessArticles(for: source.id)
 
             // Update source
             source.lastFetchedAt = Date()
@@ -352,11 +379,20 @@ final class FetchCoordinator: ObservableObject {
             for item in items {
                 if limit > 0, inserted.count >= limit { break }
 
-                // Skip if articleURL already exists
-                let exists = try Article
+                // Check if the article already exists anywhere
+                if let existing = try Article
                     .filter(Column("articleURL") == item.url.absoluteString)
-                    .fetchCount(db) > 0
-                guard !exists else { continue }
+                    .fetchOne(db) {
+                    // If it's a saved article detached to "Saved Pages", re-attach it
+                    if existing.sourceID == Source.savedPagesID, existing.isSaved {
+                        var reattached = existing
+                        reattached.sourceID = sourceID
+                        try reattached.update(db)
+                        inserted.append(reattached)
+                    }
+                    // Otherwise it already belongs to a source — skip
+                    continue
+                }
 
                 let article = Article(
                     id: UUID(),
@@ -379,6 +415,72 @@ final class FetchCoordinator: ObservableObject {
                 inserted.append(article)
             }
             return inserted
+        }
+    }
+
+    // MARK: - Pruning
+
+    /// Removes the oldest articles for a source that exceed the user's
+    /// per-source article limit. Saved articles are moved to the hidden
+    /// "Saved Pages" source (detached) rather than deleted.
+    private func pruneExcessArticles(for sourceID: UUID) async {
+        let limit = UserDefaults.standard.integer(forKey: "articleLimit")
+        let articleLimit = limit > 0 ? limit : 100 // default 100
+
+        do {
+            // Fetch ALL articles beyond the cap (saved and unsaved)
+            let excessArticles = try await DatabaseManager.shared.dbPool.read { db in
+                try Article
+                    .filter(Column("sourceID") == sourceID)
+                    .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
+                    .limit(Int.max, offset: articleLimit)
+                    .fetchAll(db)
+            }
+
+            guard !excessArticles.isEmpty else { return }
+
+            let toDelete = excessArticles.filter { !$0.isSaved }
+            let toDetach = excessArticles.filter { $0.isSaved }
+
+            // Move saved articles to the hidden "Saved Pages" source,
+            // stamping original source info for attribution.
+            if !toDetach.isEmpty {
+                let source = try await DatabaseManager.shared.dbPool.read { db in
+                    try Source.fetchOne(db, key: sourceID)
+                }
+                let detachIDs = toDetach.map(\.id)
+                _ = try await DatabaseManager.shared.dbPool.write { db in
+                    for id in detachIDs {
+                        try db.execute(
+                            sql: """
+                                UPDATE article
+                                SET sourceID = ?,
+                                    originalSourceName = COALESCE(originalSourceName, ?),
+                                    originalSourceIconURL = COALESCE(originalSourceIconURL, ?)
+                                WHERE id = ?
+                                """,
+                            arguments: [Source.savedPagesID, source?.title, source?.iconURL, id]
+                        )
+                    }
+                }
+            }
+
+            // Delete cached files for unsaved articles
+            for article in toDelete {
+                try? await PageCacheService.shared.deleteCachedArticle(article.id)
+            }
+
+            // Delete the unsaved article records
+            if !toDelete.isEmpty {
+                let deleteIDs = toDelete.map(\.id)
+                _ = try await DatabaseManager.shared.dbPool.write { db in
+                    try Article
+                        .filter(deleteIDs.contains(Column("id")))
+                        .deleteAll(db)
+                }
+            }
+        } catch {
+            // Non-critical — pruning can retry next refresh
         }
     }
 

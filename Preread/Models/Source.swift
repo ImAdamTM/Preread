@@ -29,6 +29,9 @@ enum AppearanceMode: String, Codable, CaseIterable, DatabaseValueConvertible {
 // MARK: - Source
 
 struct Source: Identifiable, Codable, FetchableRecord, PersistableRecord {
+    /// Well-known UUID for the hidden "Saved Pages" source that holds force-added webpages.
+    static let savedPagesID = UUID(uuidString: "00000000-0000-0000-0000-000000000001")!
+
     var id: UUID
     var title: String
     var feedURL: String
@@ -51,6 +54,9 @@ struct Source: Identifiable, Codable, FetchableRecord, PersistableRecord {
     var effectiveAppearanceMode: AppearanceMode {
         appearanceMode ?? .system
     }
+
+    /// Whether this source is hidden from the main sources list (e.g. the "Saved Pages" source).
+    var isHidden: Bool { id == Source.savedPagesID }
 
     static let databaseTableName = "source"
 }

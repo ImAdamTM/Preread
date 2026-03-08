@@ -8,6 +8,9 @@ struct AddSourceSheet: View {
     /// Called when a source is successfully added, passing the new source ID.
     var onSourceAdded: ((UUID) -> Void)?
 
+    /// Called when a single webpage is saved (force-add), to navigate to the Saved view.
+    var onSavedArticle: (() -> Void)?
+
     // MARK: - State
 
     @State private var urlText = ""
@@ -756,32 +759,10 @@ struct AddSourceSheet: View {
         }
 
         do {
-            let nextSortOrder = try await DatabaseManager.shared.dbPool.read { db in
-                try Source.fetchCount(db)
-            }
-
-            let source = Source(
-                id: UUID(),
-                title: pageTitle,
-                feedURL: raw,
-                siteURL: raw,
-                iconURL: nil,
-                addedAt: Date(),
-                lastFetchedAt: nil,
-                fetchFrequency: .manual,
-                fetchStatus: .idle,
-                cacheLevel: nil,
-                sortOrder: nextSortOrder
-            )
-
-            try await DatabaseManager.shared.dbPool.write { db in
-                try source.save(db)
-            }
-
-            // Insert the URL itself as a single article
+            // Insert the URL as a saved article under the hidden "Saved Pages" source
             let article = Article(
                 id: UUID(),
-                sourceID: source.id,
+                sourceID: Source.savedPagesID,
                 title: pageTitle,
                 articleURL: raw,
                 publishedAt: Date(),
@@ -790,7 +771,8 @@ struct AddSourceSheet: View {
                 cachedAt: nil,
                 fetchStatus: .pending,
                 isRead: false,
-                isSaved: false,
+                isSaved: true,
+                savedAt: Date(),
                 cacheSizeBytes: nil,
                 lastHTTPStatus: nil,
                 etag: nil,
@@ -801,15 +783,16 @@ struct AddSourceSheet: View {
                 try article.save(db)
             }
 
-            onSourceAdded?(source.id)
+            ToastManager.shared.snack("Saved to your collection", icon: "bookmark.fill")
+            onSavedArticle?()
             dismiss()
 
-            // Cache the single article
+            // Cache the article
             Task {
                 try? await PageCacheService.shared.cacheArticle(article, cacheLevel: .standard)
             }
         } catch {
-            ToastManager.shared.show("Couldn't add source", type: .error)
+            ToastManager.shared.show("Couldn't save page", type: .error)
         }
     }
 

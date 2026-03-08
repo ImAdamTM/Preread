@@ -1,6 +1,11 @@
 import SwiftUI
 import GRDB
 
+enum NavigationTarget: Hashable {
+    case source(UUID)
+    case saved
+}
+
 struct SourcesListView: View {
     @ObservedObject private var coordinator = FetchCoordinator.shared
     @EnvironmentObject private var toastManager: ToastManager
@@ -9,6 +14,7 @@ struct SourcesListView: View {
     @State private var sources: [Source] = []
     @State private var articleCounts: [UUID: Int] = [:]
     @State private var unreadCounts: [UUID: Int] = [:]
+    @State private var savedCount: Int = 0
     @State private var showAddSource = false
     @State private var highlightedSourceID: UUID?
     @State private var navigationPath = NavigationPath()
@@ -21,7 +27,7 @@ struct SourcesListView: View {
             ZStack {
                 Theme.background.ignoresSafeArea()
 
-                if sources.isEmpty {
+                if sources.isEmpty && savedCount == 0 {
                     emptyState
                 } else {
                     sourcesList
@@ -99,14 +105,22 @@ struct SourcesListView: View {
                 }
             }
             .sheet(isPresented: $showAddSource) {
-                AddSourceSheet { addedSourceID in
-                    Task {
-                        await loadSources()
-                        highlightedSourceID = addedSourceID
-                        try? await Task.sleep(for: .seconds(1))
-                        highlightedSourceID = nil
+                AddSourceSheet(
+                    onSourceAdded: { addedSourceID in
+                        Task {
+                            await loadSources()
+                            highlightedSourceID = addedSourceID
+                            try? await Task.sleep(for: .seconds(1))
+                            highlightedSourceID = nil
+                        }
+                    },
+                    onSavedArticle: {
+                        Task {
+                            await loadSources()
+                            navigationPath.append(NavigationTarget.saved)
+                        }
                     }
-                }
+                )
             }
             .alert("Edit name", isPresented: Binding(
                 get: { renamingSource != nil },
@@ -121,15 +135,20 @@ struct SourcesListView: View {
                 }
                 Button("Cancel", role: .cancel) { renamingSource = nil }
             }
-            .navigationDestination(for: UUID.self) { sourceID in
-                if let source = sources.first(where: { $0.id == sourceID }) {
-                    ArticleListView(source: source)
+            .navigationDestination(for: NavigationTarget.self) { target in
+                switch target {
+                case .source(let sourceID):
+                    if let source = sources.first(where: { $0.id == sourceID }) {
+                        ArticleListView(source: source)
+                    }
+                case .saved:
+                    SavedArticlesView()
                 }
             }
             .onChange(of: deepLinkRouter.pendingSourceID) { _, sourceID in
                 guard let sourceID else { return }
                 navigationPath = NavigationPath()
-                navigationPath.append(sourceID)
+                navigationPath.append(NavigationTarget.source(sourceID))
                 deepLinkRouter.pendingSourceID = nil
             }
             .onChange(of: deepLinkRouter.pendingArticleID) { _, articleID in
@@ -144,9 +163,15 @@ struct SourcesListView: View {
                         return
                     }
                     navigationPath = NavigationPath()
-                    navigationPath.append(article.sourceID)
+                    navigationPath.append(NavigationTarget.source(article.sourceID))
                     // pendingArticleID stays set — ArticleListView picks it up
                 }
+            }
+            .onChange(of: deepLinkRouter.pendingSavedNavigation) { _, shouldNavigate in
+                guard shouldNavigate else { return }
+                navigationPath = NavigationPath()
+                navigationPath.append(NavigationTarget.saved)
+                deepLinkRouter.pendingSavedNavigation = false
             }
         }
     }
@@ -156,6 +181,15 @@ struct SourcesListView: View {
     private var sourcesList: some View {
         ScrollView {
             LazyVStack(spacing: 12) {
+                if savedCount > 0 {
+                    SavedCardView(
+                        articleCount: savedCount,
+                        onTap: {
+                            navigationPath.append(NavigationTarget.saved)
+                        }
+                    )
+                }
+
                 ForEach(sources) { source in
                     let state = coordinator.sourceStatuses[source.id] ?? .idle
 
@@ -165,7 +199,7 @@ struct SourcesListView: View {
                         unreadCount: unreadCounts[source.id] ?? 0,
                         refreshState: state,
                         onTap: {
-                            navigationPath.append(source.id)
+                            navigationPath.append(NavigationTarget.source(source.id))
                         },
                         onRefresh: {
                             Task {
@@ -280,9 +314,20 @@ struct SourcesListView: View {
     private func loadSources() async {
         do {
             let loadedSources = try await DatabaseManager.shared.dbPool.read { db in
-                try Source.order(Column("sortOrder")).fetchAll(db)
+                try Source
+                    .filter(Column("id") != Source.savedPagesID)
+                    .order(Column("sortOrder"))
+                    .fetchAll(db)
             }
             sources = loadedSources
+
+            // Load saved article count
+            let saved = try await DatabaseManager.shared.dbPool.read { db in
+                try Article
+                    .filter(Column("isSaved") == true)
+                    .fetchCount(db)
+            }
+            savedCount = saved
 
             // Load article counts and unread counts
             var counts: [UUID: Int] = [:]
@@ -357,7 +402,23 @@ struct SourcesListView: View {
         HapticManager.deleteConfirm()
 
         do {
-            // Delete cached files for all articles in this source
+            // Move saved articles to the hidden "Saved Pages" source so they
+            // survive the CASCADE delete that follows. Stamp original source
+            // info so attribution is preserved after the source is deleted.
+            try await DatabaseManager.shared.dbPool.write { db in
+                try db.execute(
+                    sql: """
+                        UPDATE article
+                        SET sourceID = ?,
+                            originalSourceName = COALESCE(originalSourceName, ?),
+                            originalSourceIconURL = COALESCE(originalSourceIconURL, ?)
+                        WHERE sourceID = ? AND isSaved = 1
+                        """,
+                    arguments: [Source.savedPagesID, source.title, source.iconURL, source.id]
+                )
+            }
+
+            // Delete cached files for unsaved articles only (saved ones were moved)
             let articles = try await DatabaseManager.shared.dbPool.read { db in
                 try Article
                     .filter(Column("sourceID") == source.id)
@@ -370,15 +431,21 @@ struct SourcesListView: View {
             // Delete cached source data (favicon, etc.)
             try? await PageCacheService.shared.deleteSourceCache(source.id)
 
-            // Delete source (cascades to articles + cachedPages)
+            // Delete source (cascades to remaining unsaved articles + cachedPages)
             _ = try await DatabaseManager.shared.dbPool.write { db in
                 try Source.deleteOne(db, key: source.id)
+            }
+
+            // Reload saved count (moved articles may have changed it)
+            let newSavedCount = try await DatabaseManager.shared.dbPool.read { db in
+                try Article.filter(Column("isSaved") == true).fetchCount(db)
             }
 
             withAnimation(Theme.gentleAnimation()) {
                 sources.removeAll { $0.id == source.id }
                 articleCounts.removeValue(forKey: source.id)
                 unreadCounts.removeValue(forKey: source.id)
+                savedCount = newSavedCount
             }
         } catch {
             toastManager.show("Couldn't remove source", type: .error)

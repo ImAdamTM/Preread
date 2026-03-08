@@ -21,6 +21,9 @@ struct Article: Identifiable, Codable, Hashable, FetchableRecord, PersistableRec
     var fetchStatus: ArticleFetchStatus
     var isRead: Bool
     var isSaved: Bool
+    var savedAt: Date?
+    var originalSourceName: String?
+    var originalSourceIconURL: String?
     var cacheSizeBytes: Int?
     var lastHTTPStatus: Int?
     var etag: String?

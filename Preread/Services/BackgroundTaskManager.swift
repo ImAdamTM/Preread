@@ -78,6 +78,7 @@ enum BackgroundTaskManager {
         do {
             let sources = try await DatabaseManager.shared.dbPool.read { db in
                 try Source
+                    .filter(Column("id") != Source.savedPagesID)
                     .filter(Column("fetchFrequency") == FetchFrequency.automatic.rawValue)
                     .fetchAll(db)
             }
@@ -92,15 +93,23 @@ enum BackgroundTaskManager {
                         siteURL: source.siteURL.flatMap { URL(string: $0) }
                     )
 
-                    // Insert new articles
+                    // Insert new articles, re-attaching any saved articles
+                    // that were detached to "Saved Pages" after the source was deleted
                     try await DatabaseManager.shared.dbPool.write { db in
                         for item in feed.items {
-                            let exists = try Article
+                            if let existing = try Article
                                 .filter(Column("articleURL") == item.url.absoluteString)
-                                .fetchCount(db) > 0
-                            guard !exists else { continue }
+                                .fetchOne(db) {
+                                // Re-attach saved articles from "Saved Pages"
+                                if existing.sourceID == Source.savedPagesID, existing.isSaved {
+                                    var reattached = existing
+                                    reattached.sourceID = source.id
+                                    try reattached.update(db)
+                                }
+                                continue
+                            }
 
-                            var article = Article(
+                            let article = Article(
                                 id: UUID(),
                                 sourceID: source.id,
                                 title: item.title,
@@ -120,6 +129,9 @@ enum BackgroundTaskManager {
                             try article.insert(db)
                         }
                     }
+
+                    // Prune articles that exceed the user's per-source cap
+                    await Self.pruneExcessArticles(for: source.id)
 
                     source.lastFetchedAt = Date()
                     source.fetchStatus = .idle
@@ -172,6 +184,65 @@ enum BackgroundTaskManager {
         Task {
             await workTask.value
             task.setTaskCompleted(success: true)
+        }
+    }
+
+    /// Removes the oldest articles for a source that exceed the user's
+    /// per-source article limit. Saved articles are moved to the hidden
+    /// "Saved Pages" source (detached) rather than deleted.
+    private static func pruneExcessArticles(for sourceID: UUID) async {
+        let limit = UserDefaults.standard.integer(forKey: "articleLimit")
+        let articleLimit = limit > 0 ? limit : 100
+
+        do {
+            let excessArticles = try await DatabaseManager.shared.dbPool.read { db in
+                try Article
+                    .filter(Column("sourceID") == sourceID)
+                    .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
+                    .limit(Int.max, offset: articleLimit)
+                    .fetchAll(db)
+            }
+
+            guard !excessArticles.isEmpty else { return }
+
+            let toDelete = excessArticles.filter { !$0.isSaved }
+            let toDetach = excessArticles.filter { $0.isSaved }
+
+            if !toDetach.isEmpty {
+                let source = try await DatabaseManager.shared.dbPool.read { db in
+                    try Source.fetchOne(db, key: sourceID)
+                }
+                let detachIDs = toDetach.map(\.id)
+                _ = try await DatabaseManager.shared.dbPool.write { db in
+                    for id in detachIDs {
+                        try db.execute(
+                            sql: """
+                                UPDATE article
+                                SET sourceID = ?,
+                                    originalSourceName = COALESCE(originalSourceName, ?),
+                                    originalSourceIconURL = COALESCE(originalSourceIconURL, ?)
+                                WHERE id = ?
+                                """,
+                            arguments: [Source.savedPagesID, source?.title, source?.iconURL, id]
+                        )
+                    }
+                }
+            }
+
+            for article in toDelete {
+                try? await PageCacheService.shared.deleteCachedArticle(article.id)
+            }
+
+            if !toDelete.isEmpty {
+                let deleteIDs = toDelete.map(\.id)
+                _ = try await DatabaseManager.shared.dbPool.write { db in
+                    try Article
+                        .filter(deleteIDs.contains(Column("id")))
+                        .deleteAll(db)
+                }
+            }
+        } catch {
+            // Non-critical
         }
     }
 

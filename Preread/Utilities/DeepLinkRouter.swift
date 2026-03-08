@@ -10,6 +10,7 @@ import SwiftUI
 final class DeepLinkRouter: ObservableObject {
     @Published var pendingSourceID: UUID?
     @Published var pendingArticleID: UUID?
+    @Published var pendingSavedNavigation = false
 
     /// Parses a `preread://` URL and sets the appropriate pending navigation.
     func handle(_ url: URL) {
@@ -23,6 +24,9 @@ final class DeepLinkRouter: ObservableObject {
         case "article":
             guard let id = extractUUID(from: url) else { return }
             pendingArticleID = id
+
+        case "saved":
+            pendingSavedNavigation = true
 
         default:
             // Unknown host or no host — stay on current screen

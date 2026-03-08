@@ -23,8 +23,7 @@ struct ArticleListView: View {
     @State private var heroTitleMinY: CGFloat = 200
     @AppStorage("appAppearance") private var appAppearance: String = "system"
     @State private var navFaviconImage: UIImage?
-
-    private let articleLimit = 50
+    @AppStorage("articleLimit") private var articleLimit: Int = 100
 
     private var preferredScheme: ColorScheme {
         switch appAppearance {
@@ -429,6 +428,14 @@ struct ArticleListView: View {
         guard let index = articles.firstIndex(where: { $0.id == article.id }) else { return }
         articles[index].isSaved.toggle()
         let nowSaved = articles[index].isSaved
+        articles[index].savedAt = nowSaved ? Date() : nil
+        if nowSaved {
+            articles[index].originalSourceName = source.title
+            articles[index].originalSourceIconURL = source.iconURL
+        } else {
+            articles[index].originalSourceName = nil
+            articles[index].originalSourceIconURL = nil
+        }
         let updatedArticle = articles[index]
         HapticManager.articleCached()
         ToastManager.shared.snack(
@@ -441,6 +448,7 @@ struct ArticleListView: View {
             }
         } catch {
             articles[index].isSaved.toggle()
+            articles[index].savedAt = articles[index].isSaved ? Date() : nil
         }
     }
 
@@ -613,12 +621,13 @@ struct ArticleListView: View {
     // MARK: - Data loading
 
     private func loadArticles() async {
+        let limit = articleLimit
         do {
             let loaded = try await DatabaseManager.shared.dbPool.read { db in
                 try Article
                     .filter(Column("sourceID") == source.id)
                     .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
-                    .limit(articleLimit)
+                    .limit(limit)
                     .fetchAll(db)
             }
             articles = loaded

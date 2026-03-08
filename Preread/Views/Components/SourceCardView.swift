@@ -279,7 +279,7 @@ struct SourceCardView: View {
 
 // MARK: - Card press button style
 
-private struct CardPressStyle: ButtonStyle {
+struct CardPressStyle: ButtonStyle {
     func makeBody(configuration: ButtonStyleConfiguration) -> some View {
         configuration.label
             .scaleEffect(configuration.isPressed && !Theme.reduceMotion ? 0.97 : 1.0)

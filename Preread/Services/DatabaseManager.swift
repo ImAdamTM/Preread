@@ -65,6 +65,9 @@ final class DatabaseManager {
                 t.column("fetchStatus", .text).notNull().defaults(to: "pending")
                 t.column("isRead", .boolean).notNull().defaults(to: false)
                 t.column("isSaved", .boolean).notNull().defaults(to: false)
+                t.column("savedAt", .datetime)
+                t.column("originalSourceName", .text)
+                t.column("originalSourceIconURL", .text)
                 t.column("cacheSizeBytes", .integer)
                 t.column("lastHTTPStatus", .integer)
                 t.column("etag", .text)
@@ -83,6 +86,23 @@ final class DatabaseManager {
                 t.column("cacheLevelUsed", .text).notNull()
                 t.column("darkHtmlPath", .text)
             }
+
+            // Seed the hidden "Saved Pages" source
+            var savedPagesSource = Source(
+                id: Source.savedPagesID,
+                title: "Saved Pages",
+                feedURL: "preread://saved-pages",
+                siteURL: nil,
+                iconURL: nil,
+                addedAt: Date(),
+                lastFetchedAt: nil,
+                fetchFrequency: .manual,
+                fetchStatus: .idle,
+                cacheLevel: nil,
+                appearanceMode: nil,
+                sortOrder: -1
+            )
+            try savedPagesSource.save(db)
         }
     }
 }

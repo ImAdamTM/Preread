@@ -23,6 +23,15 @@ struct ReaderView: View {
     @State private var isRetrying = false
     @State private var navFaviconImage: UIImage?
 
+    /// Display name for the toolbar — prefers the original source name when the article
+    /// has been detached from its original source (e.g. source was deleted).
+    private var displaySourceName: String {
+        if source.isHidden, let original = article.originalSourceName, !original.isEmpty {
+            return original
+        }
+        return source.title
+    }
+
     private var useDarkAppearance: Bool {
         colorScheme == .dark
     }
@@ -76,7 +85,7 @@ struct ReaderView: View {
             ToolbarItem(placement: .principal) {
                 HStack(spacing: 8) {
                     readerSourceFavicon
-                    Text(source.title)
+                    Text(displaySourceName)
                         .font(Theme.scaledFont(size: 17, weight: .semibold))
                         .foregroundColor(Theme.textPrimary)
                         .lineLimit(1)
@@ -253,21 +262,34 @@ struct ReaderView: View {
         } else {
             readerSmallLetterAvatar
                 .task {
+                    // Try the source's cached favicon first
                     let sourceID = source.id
                     if let cached = await Task.detached(priority: .utility, operation: {
                         await PageCacheService.shared.cachedFavicon(for: sourceID)
                     }).value {
                         navFaviconImage = cached
+                        return
+                    }
+
+                    // For detached articles, try loading from the original icon URL
+                    if source.isHidden,
+                       let iconURLString = article.originalSourceIconURL,
+                       let iconURL = URL(string: iconURLString) {
+                        if let (data, _) = try? await URLSession.shared.data(from: iconURL),
+                           let image = UIImage(data: data) {
+                            navFaviconImage = image
+                        }
                     }
                 }
         }
     }
 
     private var readerSmallLetterAvatar: some View {
-        let letter = String(source.title.prefix(1)).uppercased()
+        let name = displaySourceName
+        let letter = String(name.prefix(1)).uppercased()
         return ZStack {
             RoundedRectangle(cornerRadius: 5)
-                .fill(Theme.avatarGradient(for: source.title))
+                .fill(Theme.avatarGradient(for: name))
                 .frame(width: 24, height: 24)
             Text(letter)
                 .font(Theme.scaledFont(size: 12, weight: .bold))

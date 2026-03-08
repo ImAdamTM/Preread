@@ -8,6 +8,8 @@ struct ArticleRowView: View {
     let onToggleSave: () -> Void
     let onRefetch: () -> Void
     let onDelete: () -> Void
+    var sourceName: String? = nil
+    var showUnsaveInsteadOfSave: Bool = false
 
     @State private var appearTime = Date()
     @State private var cachedThumbnailImage: UIImage?
@@ -32,14 +34,25 @@ struct ArticleRowView: View {
                         .matchedGeometryEffect(id: article.id.uuidString + "-title", in: namespace)
 
                     HStack(spacing: 0) {
+                        if let sourceName {
+                            Text("from \(sourceName)")
+                                .font(Theme.scaledFont(size: 13, relativeTo: .footnote))
+                                .foregroundColor(Theme.textSecondary)
+                        }
+
                         if let published = article.publishedAt {
+                            if sourceName != nil {
+                                Text(" · ")
+                                    .font(Theme.scaledFont(size: 13, relativeTo: .footnote))
+                                    .foregroundColor(Theme.textSecondary)
+                            }
                             Text(RelativeTimeFormatter.string(from: published))
                                 .font(Theme.scaledFont(size: 13, relativeTo: .footnote))
                                 .foregroundColor(Theme.textSecondary)
                         }
 
                         if let status = statusLabel {
-                            if article.publishedAt != nil {
+                            if article.publishedAt != nil || sourceName != nil {
                                 Text(" · ")
                                     .font(Theme.scaledFont(size: 13, relativeTo: .footnote))
                                     .foregroundColor(Theme.textSecondary)
@@ -101,15 +114,24 @@ struct ArticleRowView: View {
             .tint(Theme.teal)
         }
         .swipeActions(edge: .leading, allowsFullSwipe: true) {
-            Button {
-                onToggleSave()
-            } label: {
-                Label(
-                    article.isSaved ? "Unsave" : "Save",
-                    systemImage: article.isSaved ? "bookmark.slash" : "bookmark"
-                )
+            if showUnsaveInsteadOfSave {
+                Button {
+                    onToggleSave()
+                } label: {
+                    Label("Remove", systemImage: "bookmark.slash")
+                }
+                .tint(Theme.danger)
+            } else {
+                Button {
+                    onToggleSave()
+                } label: {
+                    Label(
+                        article.isSaved ? "Unsave" : "Save",
+                        systemImage: article.isSaved ? "bookmark.slash" : "bookmark"
+                    )
+                }
+                .tint(Theme.teal)
             }
-            .tint(Theme.teal)
         }
         .onChange(of: article.fetchStatus) { _, newStatus in
             if newStatus == .cached || newStatus == .partial {
@@ -134,10 +156,14 @@ struct ArticleRowView: View {
             Button {
                 onToggleSave()
             } label: {
-                Label(
-                    article.isSaved ? "Unsave" : "Save",
-                    systemImage: article.isSaved ? "bookmark.slash" : "bookmark"
-                )
+                if showUnsaveInsteadOfSave {
+                    Label("Remove from Saved", systemImage: "bookmark.slash")
+                } else {
+                    Label(
+                        article.isSaved ? "Unsave" : "Save",
+                        systemImage: article.isSaved ? "bookmark.slash" : "bookmark"
+                    )
+                }
             }
 
             Button {
