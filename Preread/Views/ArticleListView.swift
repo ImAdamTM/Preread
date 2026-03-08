@@ -131,42 +131,31 @@ struct ArticleListView: View {
     // MARK: - Article list
 
     private var articleList: some View {
-        List {
-            // Hero section
-            heroRow
-                .buttonStyle(.borderless)
-                .listRowInsets(EdgeInsets())
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.clear)
+        ScrollView {
+            LazyVStack(spacing: 0) {
+                // Hero section
+                heroRow
+                    .buttonStyle(.borderless)
 
-            if articles.isEmpty {
-                emptyStateContent
-                    .listRowInsets(EdgeInsets())
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
-            } else {
-                ForEach(articles) { article in
-                    ArticleRowView(
-                        article: article,
-                        namespace: namespace,
-                        onTap: { handleTap(article) },
-                        onToggleRead: { Task { await toggleRead(article) } },
-                        onToggleSave: { Task { await toggleSave(article) } },
-                        onRefetch: { Task { await refetchArticle(article) } },
-                        onDelete: { Task { await deleteArticle(article) } }
-                    )
-                    .listRowInsets(EdgeInsets())
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
+                if articles.isEmpty {
+                    emptyStateContent
+                } else {
+                    ForEach(articles) { article in
+                        ArticleRowView(
+                            article: article,
+                            namespace: namespace,
+                            onTap: { handleTap(article) },
+                            onToggleRead: { Task { await toggleRead(article) } },
+                            onToggleSave: { Task { await toggleSave(article) } },
+                            onRefetch: { Task { await refetchArticle(article) } },
+                            onDelete: { Task { await deleteArticle(article) } }
+                        )
+                    }
+
+                    loadMoreRow
                 }
-
-                loadMoreRow
-                    .listRowInsets(EdgeInsets())
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
             }
         }
-        .listStyle(.plain)
         .contentMargins(.top, -44, for: .scrollContent)
     }
 
