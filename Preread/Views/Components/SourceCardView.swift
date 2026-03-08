@@ -10,7 +10,6 @@ struct SourceCardView: View {
     let onEditName: () -> Void
     let onRemove: () -> Void
 
-    @State private var isPressed = false
     @State private var showUpdated = false
     @State private var showDeleteConfirmation = false
 
@@ -46,17 +45,10 @@ struct SourceCardView: View {
             .clipShape(RoundedRectangle(cornerRadius: 16))
             .overlay(cardBorder)
         }
-        .buttonStyle(.plain)
+        .buttonStyle(CardPressStyle())
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(cardAccessibilityLabel)
         .accessibilityAddTraits(.isButton)
-        .scaleEffect(isPressed && !Theme.reduceMotion ? 0.97 : 1.0)
-        .animation(Theme.gentleAnimation(response: 0.28, dampingFraction: 0.75), value: isPressed)
-        .simultaneousGesture(
-            DragGesture(minimumDistance: 0)
-                .onChanged { _ in if !Theme.reduceMotion { isPressed = true } }
-                .onEnded { _ in isPressed = false }
-        )
         .contextMenu {
             Button {
                 onRefresh()
@@ -277,5 +269,17 @@ struct SourceCardView: View {
             RoundedRectangle(cornerRadius: 16)
                 .stroke(Theme.border, lineWidth: 1)
         }
+    }
+}
+
+// MARK: - Card press button style
+
+/// Uses SwiftUI's built-in press tracking so it doesn't steal
+/// drag gestures from the parent ScrollView.
+private struct CardPressStyle: ButtonStyle {
+    func makeBody(configuration: ButtonStyleConfiguration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed && !Theme.reduceMotion ? 0.97 : 1.0)
+            .animation(Theme.gentleAnimation(response: 0.28, dampingFraction: 0.75), value: configuration.isPressed)
     }
 }

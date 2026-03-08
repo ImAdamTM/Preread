@@ -31,7 +31,7 @@ struct ArticleRowView: View {
                 // Content
                 VStack(alignment: .leading, spacing: 4) {
                     Text(article.title)
-                        .font(Theme.scaledFont(size: 16, weight: article.isRead ? .medium : .semibold))
+                        .font(Theme.scaledFont(size: 17, weight: article.isRead ? .medium : .semibold))
                         .foregroundColor(article.isRead ? Theme.textSecondary : Theme.textPrimary)
                         .lineLimit(2)
                         .matchedGeometryEffect(id: article.id.uuidString + "-title", in: namespace)
