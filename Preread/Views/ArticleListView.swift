@@ -631,29 +631,43 @@ struct ArticleListView: View {
                 siteURL: source.siteURL.flatMap { URL(string: $0) }
             )
 
-            // Insert up to 20 more articles that aren't already in the DB
+            // Sort feed items newest-first so we insert in chronological order,
+            // matching the display sort. Items without a date go last.
+            let sortedItems = feed.items.sorted {
+                ($0.publishedAt ?? .distantPast) > ($1.publishedAt ?? .distantPast)
+            }
+
+            // Insert up to 10 more articles that aren't already in the DB
             let newArticles = try await FetchCoordinator.shared.insertNewArticles(
-                from: feed.items,
+                from: sortedItems,
                 sourceID: source.id,
-                limit: 20
+                limit: 10
             )
 
             if newArticles.isEmpty {
                 feedExhausted = true
             }
 
-            await loadArticles()
-
-            // Cache the newly inserted articles in background
+            // Cache newly inserted articles before showing them,
+            // processing newest-first so the list updates in order.
             if !newArticles.isEmpty {
                 let cacheLevel = currentCacheLevel
-                Task {
-                    for article in newArticles {
-                        try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+                let sorted = newArticles.sorted {
+                    ($0.publishedAt ?? .distantPast) > ($1.publishedAt ?? .distantPast)
+                }
+                for (index, article) in sorted.enumerated() {
+                    try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+                    // Refresh the list periodically so the user sees progress
+                    if (index + 1) % 5 == 0 || index == sorted.count - 1 {
+                        await loadArticles()
                     }
-                    await loadArticles()
+                    if index < sorted.count - 1 {
+                        try? await Task.sleep(for: .milliseconds(200))
+                    }
                 }
             }
+
+            await loadArticles()
         } catch {
             ToastManager.shared.show("Couldn't load more articles", type: .error)
         }
