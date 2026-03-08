@@ -6,6 +6,21 @@ import CryptoKit
 import GRDB
 import WebKit
 
+/// Result of running the standard-mode HTML pipeline (cleaning, Readability
+/// extraction, hero re-injection, post-processing). Used by unit tests to
+/// verify pipeline behaviour against saved HTML fixtures.
+struct PipelineResult {
+    let title: String
+    let contentHTML: String
+    let imageCount: Int
+}
+
+/// Result of running the full-mode HTML cleaning pipeline. Used by unit tests
+/// to verify that interactive elements are stripped without breaking page layout.
+struct FullPipelineResult {
+    let cleanedHTML: String
+}
+
 actor PageCacheService {
     static let shared = PageCacheService()
 
@@ -101,6 +116,135 @@ actor PageCacheService {
             }
         }
     }
+
+    // MARK: - Standard pipeline (testable)
+
+    /// Runs the standard-mode HTML pipeline: cleaning, flattening, Readability
+    /// extraction, hero re-injection, and post-processing. Returns the extracted
+    /// article HTML, title, and image count.
+    ///
+    /// This is the same logic used by `performCacheArticle` for standard mode,
+    /// extracted here so fixture-based unit tests can verify pipeline behaviour
+    /// without requiring network access or database state.
+    func runStandardPipeline(html: String, pageURL: URL) throws -> PipelineResult {
+        let preDoc = try SwiftSoup.parse(html, pageURL.absoluteString)
+        try preDoc.select("script").remove()
+        try preDoc.select("noscript").remove()
+        try preDoc.select("style").remove()
+        try preDoc.select("meta[http-equiv=Content-Security-Policy]").remove()
+
+        try preDoc.select("img.hide-when-no-script").remove()
+        try preDoc.select("img[src*=placeholder]").remove()
+
+        try stripTinyImages(in: preDoc, maxDimension: 30)
+        try stripBadgeClusters(in: preDoc)
+        try stripImageLayoutStyles(in: preDoc)
+
+        try preDoc.select("button").remove()
+        try preDoc.select("dialog").remove()
+        try preDoc.select("svg").remove()
+        try preDoc.select("nav").remove()
+        try preDoc.select("aside").remove()
+        try preDoc.select("form").remove()
+        try preDoc.select("input").remove()
+        try preDoc.select("select").remove()
+        try preDoc.select("textarea").remove()
+        try preDoc.select("iframe").remove()
+
+        try preDoc.select("figure").unwrap()
+        try flattenImageOnlyDivs(in: preDoc)
+        flattenSingleChildDivs(in: preDoc)
+
+        let cleanedHTML = try preDoc.html()
+
+        let readability = Readability(html: cleanedHTML, url: pageURL)
+        let extracted = try readability.parse()
+
+        let articleTitle = extracted?.title ?? ""
+        var contentHTML = extracted?.contentHTML ?? html
+
+        // Hero image re-injection
+        if let heroImg = try? preDoc.select("img[src]").first(where: { img in
+            guard let src = try? img.attr("src"), !src.isEmpty,
+                  !src.hasPrefix("data:") else { return false }
+            return true
+        }) {
+            let heroSrc = try? heroImg.attr("src")
+            if let heroSrc, !heroSrc.isEmpty, !contentHTML.contains(heroSrc) {
+                let heroTag = (try? heroImg.outerHtml()) ?? ""
+                if !heroTag.isEmpty {
+                    contentHTML = heroTag + contentHTML
+                }
+            }
+        }
+
+        // Post-processing
+        let contentDoc = try SwiftSoup.parseBodyFragment(contentHTML, pageURL.absoluteString)
+        guard contentDoc.body() != nil else {
+            throw NSError(domain: "PageCacheService", code: 1, userInfo: nil)
+        }
+
+        // Deduplicate images
+        var seenSrcs = Set<String>()
+        for img in try contentDoc.select("img[src]") {
+            let src = try img.attr("src")
+            guard !src.isEmpty, !src.hasPrefix("data:") else { continue }
+            if !seenSrcs.insert(src).inserted {
+                try img.remove()
+            }
+        }
+
+        try stripEmptyElements(in: contentDoc)
+
+        let imageCount = (try? contentDoc.select("img"))?.size() ?? 0
+        contentHTML = (try? contentDoc.body()?.html()) ?? contentHTML
+
+        return PipelineResult(title: articleTitle, contentHTML: contentHTML, imageCount: imageCount)
+    }
+
+    /// Runs the full-mode HTML cleaning pipeline: strips scripts, navigation,
+    /// noscript fallbacks, interactive elements, and CSP meta tags, then
+    /// removes empty elements left behind.
+    /// Returns the cleaned HTML. Exposed as internal for test access.
+    func runFullPipeline(html: String, pageURL: URL) throws -> FullPipelineResult {
+        let doc = try SwiftSoup.parse(html, pageURL.absoluteString)
+
+        // Strip CSP meta tags
+        try doc.select("meta[http-equiv=Content-Security-Policy]").remove()
+
+        // Strip scripts and noscript fallbacks — we disable JS in the web
+        // view, so noscript blocks render and create huge layout gaps
+        // (e.g. BBC's full site-navigation tree inside <noscript>).
+        try doc.select("script").remove()
+        try doc.select("noscript").remove()
+
+        // Strip navigation — site nav links are non-functional offline
+        // and take up significant space above article content.
+        try doc.select("nav").remove()
+
+        // Strip interactive elements that rely on JS
+        try doc.select("button").remove()
+        try doc.select("dialog").remove()
+        try doc.select("svg").remove()
+        try doc.select("form").remove()
+        try doc.select("input").remove()
+        try doc.select("select").remove()
+        try doc.select("textarea").remove()
+
+        // Strip elements explicitly marked as hidden — these are popovers,
+        // tooltips, and overlays that take up layout space without JS.
+        try doc.select("[aria-hidden=true]").remove()
+
+        // Cascade-remove empty elements left behind by the above stripping.
+        // e.g. a div that contained only a button is now empty and takes up
+        // space via CSS padding/margins. Multiple passes handle nested wrappers.
+        try stripEmptyElements(in: doc)
+
+        let cleanedHTML = try doc.outerHtml()
+        return FullPipelineResult(cleanedHTML: cleanedHTML)
+    }
+
+    // MARK: - Cache article
 
     private func performCacheArticle(_ article: inout Article, cacheLevel: CacheLevel, wasPreviouslyCached: Bool, forceReprocess: Bool = false) async throws {
         // Build conditional request
@@ -233,15 +377,8 @@ actor PageCacheService {
 
         if cacheLevel == .full {
             // FULL: Save the complete page with all assets
-            let doc = try SwiftSoup.parse(html, pageURL.absoluteString)
-
-            // Strip CSP meta tags so Dark Reader can inject styles
-            let cspMetas = try doc.select("meta[http-equiv=Content-Security-Policy]")
-            try cspMetas.remove()
-
-            // Strip <script> tags — page JS is blocked in the web view anyway
-            let scripts = try doc.select("script")
-            try scripts.remove()
+            let fullResult = try runFullPipeline(html: html, pageURL: pageURL)
+            let doc = try SwiftSoup.parse(fullResult.cleanedHTML, pageURL.absoluteString)
 
             let assetURLs = try extractAssetURLs(from: doc, baseURL: pageURL, cacheLevel: cacheLevel)
 
@@ -321,69 +458,14 @@ actor PageCacheService {
             // STANDARD: Extract article content with Readability,
             // then template into reader_template.html
 
-            // Clean HTML before feeding to Readability
-            let preDoc = try SwiftSoup.parse(html, pageURL.absoluteString)
-            try preDoc.select("script").remove()
-            try preDoc.select("noscript").remove()
-            try preDoc.select("style").remove()
-            try preDoc.select("meta[http-equiv=Content-Security-Policy]").remove()
+            let pipelineResult = try runStandardPipeline(html: html, pageURL: pageURL)
+            let articleTitle = pipelineResult.title
+            var contentHTML = pipelineResult.contentHTML
 
-            // Remove placeholder images that JS-heavy sites render
-            // alongside real images. These have a no-JS fallback class and point
-            // to a generic grey placeholder, cluttering the extracted content.
-            try preDoc.select("img.hide-when-no-script").remove()
-            try preDoc.select("img[src*=placeholder]").remove()
-
-            // Strip inline styles and framework class names from images so
-            // Readability sees them as plain content. Some sites use
-            // position:absolute fill styles that make images invisible outside
-            // their original layout containers.
-            try stripImageLayoutStyles(in: preDoc)
-
-            // Unwrap <figure> elements so their children (img, figcaption, etc.)
-            // become direct content nodes. Readability's cleanConditionally phase
-            // removes figures with low text density, which drops legitimate images.
-            try preDoc.select("figure").unwrap()
-
-            // Unwrap divs that contain only images (and other image-wrapper divs).
-            // Some sites nest lead images in deep div hierarchies that
-            // Readability excludes because they have zero text density. Collapsing
-            // these wrappers promotes images up to sit alongside article text nodes
-            // so Readability includes them in the extracted content.
-            try flattenImageOnlyDivs(in: preDoc)
-
-            // Flatten single-child wrapper <div>s so Readability can find the full article.
-            // Many sites wrap article paragraphs in deeply nested grid
-            // layout containers. Readability scores nodes bottom-up and picks the highest-
-            // scoring container, but deep nesting dilutes ancestor scores, causing it to
-            // grab one fragment instead of the full article. Unwrapping pure structural
-            // wrappers (divs with exactly one element child and no direct text) collapses
-            // the nesting so content nodes share a closer common ancestor.
-            flattenSingleChildDivs(in: preDoc)
-
-            let cleanedHTML = try preDoc.html()
-
-            let readability = Readability(html: cleanedHTML, url: pageURL)
-            let extracted = try readability.parse()
-
-            let articleTitle = extracted?.title ?? ""
-            var contentHTML = extracted?.contentHTML ?? html
-
-            // Parse the cleaned content to extract image URLs
+            // Re-parse for asset extraction and URL rewriting
             let contentDoc = try SwiftSoup.parseBodyFragment(contentHTML, pageURL.absoluteString)
             guard let contentBody = contentDoc.body() else {
                 throw NSError(domain: "PageCacheService", code: 1, userInfo: nil)
-            }
-
-            // Remove duplicate images with the same src that survived extraction
-            // (e.g. responsive desktop/mobile variants).
-            var seenSrcs = Set<String>()
-            for img in try contentDoc.select("img[src]") {
-                let src = try img.attr("src")
-                guard !src.isEmpty, !src.hasPrefix("data:") else { continue }
-                if !seenSrcs.insert(src).inserted {
-                    try img.remove()
-                }
             }
 
             let imageURLs = try extractAssetURLs(from: contentDoc, baseURL: pageURL, cacheLevel: .standard)
@@ -544,12 +626,49 @@ actor PageCacheService {
     /// current device without downloading unnecessarily large variants.
     private let srcsetTargetWidth = 1200
 
+    /// Splits a srcset attribute value into individual entries, handling commas
+    /// that appear inside URL query parameters (e.g. `?resize=1200,800`).
+    /// Standard srcset entry separators are commas followed by whitespace and a URL,
+    /// while commas in query params are immediately followed by digits.
+    private func parseSrcsetEntries(_ srcset: String) -> [String] {
+        let rawParts = srcset.components(separatedBy: ",")
+        var entries: [String] = []
+        var current = ""
+
+        for part in rawParts {
+            let trimmed = part.trimmingCharacters(in: .whitespaces)
+            if current.isEmpty {
+                current = trimmed
+            } else {
+                // A new srcset entry starts with a URL-like token — check if
+                // this part's first non-whitespace looks like a URL (contains /
+                // or starts with http/data) or is a bare filename.
+                // If instead it starts with digits (e.g. "800 1200w"), it's a
+                // continuation of a comma-containing URL query param.
+                let firstChar = trimmed.unicodeScalars.first
+                let startsWithDigit = firstChar.map { CharacterSet.decimalDigits.contains($0) } ?? false
+                if startsWithDigit {
+                    // Part of the previous URL's query parameter (e.g. "800 1200w" from "?resize=1200,800 1200w")
+                    current += "," + trimmed
+                } else {
+                    // New srcset entry
+                    entries.append(current)
+                    current = trimmed
+                }
+            }
+        }
+        if !current.isEmpty {
+            entries.append(current)
+        }
+        return entries
+    }
+
     /// Parses a srcset attribute value and returns the best URL for our target width.
     /// Handles width descriptors (e.g. "img-300.jpg 300w, img-600.jpg 600w") and
     /// pixel-density descriptors (e.g. "img.jpg 1x, img@2x.jpg 2x").
     /// Falls back to the first entry when no descriptors are present.
     private func bestURLFromSrcset(_ srcset: String, baseURL: URL) -> URL? {
-        let entries = srcset.components(separatedBy: ",")
+        let entries = parseSrcsetEntries(srcset)
         var candidates: [(url: String, width: Int)] = []
 
         for entry in entries {
@@ -944,7 +1063,7 @@ actor PageCacheService {
         let srcset = try element.attr("srcset")
         guard !srcset.isEmpty else { return false }
 
-        let entries = srcset.components(separatedBy: ",")
+        let entries = parseSrcsetEntries(srcset)
         for entry in entries {
             let urlPart = entry.trimmingCharacters(in: .whitespaces).components(separatedBy: " ").first ?? ""
             guard !urlPart.isEmpty else { continue }
@@ -1007,6 +1126,114 @@ actor PageCacheService {
         }
     }
 
+    // MARK: - Tiny image cleanup
+
+    /// Strips `<img>` elements whose explicit width or height attribute is at or below the given threshold.
+    /// These are almost always badges, tracking pixels, or tiny decorative icons — not article content.
+    private func stripTinyImages(in doc: Document, maxDimension: Int) throws {
+        let images = try doc.select("img")
+        for img in images.reversed() {
+            guard img.parent() != nil else { continue }
+            let widthStr = try img.attr("width")
+            let heightStr = try img.attr("height")
+            let width = Int(widthStr)
+            let height = Int(heightStr)
+            // Remove if either explicit dimension is tiny
+            if let w = width, w > 0, w <= maxDimension {
+                try img.remove()
+            } else if let h = height, h > 0, h <= maxDimension {
+                try img.remove()
+            }
+        }
+    }
+
+    // MARK: - Badge cluster cleanup
+
+    /// Removes `<p>` elements whose only content is linked images with no meaningful text.
+    /// This pattern (a row of `<a><img></a>` with no surrounding words) is almost always a
+    /// badge/shield strip (build status, version, license, etc.) rather than article content.
+    private func stripBadgeClusters(in doc: Document) throws {
+        let paragraphs = try doc.select("p")
+        for p in paragraphs.reversed() {
+            guard p.parent() != nil else { continue }
+            // Check that every child node is either whitespace or an <a> containing only an <img>.
+            // Only remove if there are 2+ images — a single linked image is usually content.
+            var imageCount = 0
+            var isBadgeCluster = true
+            for node in p.getChildNodes() {
+                if let textNode = node as? TextNode {
+                    if !textNode.getWholeText().trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        isBadgeCluster = false
+                        break
+                    }
+                    continue
+                }
+                guard let element = node as? Element else {
+                    isBadgeCluster = false
+                    break
+                }
+                if element.tagName() == "a" {
+                    // Link must contain exactly one child: an <img>
+                    let linkChildren = element.children().array()
+                    let linkHasText = element.getChildNodes().contains { node in
+                        if let t = node as? TextNode {
+                            return !t.getWholeText().trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                        }
+                        return false
+                    }
+                    if linkChildren.count == 1, linkChildren[0].tagName() == "img", !linkHasText {
+                        imageCount += 1
+                    } else {
+                        isBadgeCluster = false
+                        break
+                    }
+                } else if element.tagName() == "img" {
+                    imageCount += 1
+                } else {
+                    isBadgeCluster = false
+                    break
+                }
+            }
+            if isBadgeCluster && imageCount >= 2 {
+                try p.remove()
+            }
+        }
+    }
+
+    // MARK: - Empty element cleanup
+
+    /// Removes elements that contain only whitespace after our cleaning passes
+    /// have stripped their functional content (icons, buttons, etc.).
+    /// Runs multiple passes since removing a child can leave its parent empty.
+    /// Preserves void elements (img, br, hr, input) and table structure.
+    private func stripEmptyElements(in doc: Document) throws {
+        let preservedTags: Set<String> = [
+            "img", "br", "hr", "input", "source", "meta", "link",
+            "video", "audio", "canvas", "iframe", "embed", "object",
+            "table", "thead", "tbody", "tfoot", "tr", "th", "td",
+        ]
+        // Multiple passes: removing empty <li> can leave <ul> empty,
+        // removing empty <div> can leave its parent <div> empty, etc.
+        for _ in 0..<6 {
+            let candidates = try doc.select("li, span, div, p, ul, ol, section, aside, header, footer, fieldset, label")
+            var changed = false
+            for element in candidates.reversed() {
+                guard element.parent() != nil else { continue }
+                let tag = element.tagName()
+                guard !preservedTags.contains(tag) else { continue }
+                // Empty if no child elements and text is whitespace-only
+                let hasChildElements = !element.children().isEmpty()
+                if hasChildElements { continue }
+                let text = try element.text().trimmingCharacters(in: .whitespacesAndNewlines)
+                if text.isEmpty {
+                    try element.remove()
+                    changed = true
+                }
+            }
+            if !changed { break }
+        }
+    }
+
     // MARK: - Image layout cleanup
 
     /// Strips inline styles from `<img>` elements that break layout outside their original
@@ -1046,7 +1273,7 @@ actor PageCacheService {
                 // Skip if it contains non-div, non-img element children
                 let children = div.children().array()
                 guard !children.isEmpty else { continue }
-                let allImageOrDiv = children.allSatisfy { $0.tagName() == "div" || $0.tagName() == "img" }
+                let allImageOrDiv = children.allSatisfy { ["div", "img", "figcaption"].contains($0.tagName()) }
                 guard allImageOrDiv else { continue }
                 // Must contain at least one img (directly or nested)
                 guard (try? div.select("img"))?.isEmpty() == false else { continue }

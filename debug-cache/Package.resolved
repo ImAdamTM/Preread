@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "swift-readability",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/lake-of-fire/swift-readability",
+      "state" : {
+        "branch" : "main",
+        "revision" : "d4f0824f5f4496791d01a83493ffccf3dd89c4cf"
+      }
+    },
+    {
+      "identity" : "swiftsoup",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/scinfu/SwiftSoup.git",
+      "state" : {
+        "revision" : "dba183c96b2da4e4b80bb31b1e2e59cb9542b8fc",
+        "version" : "2.13.0"
+      }
+    }
+  ],
+  "version" : 2
+}

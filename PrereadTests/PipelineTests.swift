@@ -1,0 +1,232 @@
+import Testing
+import Foundation
+@testable import Preread
+
+// MARK: - Helpers
+
+/// Loads a raw HTML fixture from the Fixtures directory on disk.
+private func loadFixture(_ name: String) throws -> String {
+    let fixturesDir = URL(fileURLWithPath: #filePath)
+        .deletingLastPathComponent()
+        .appendingPathComponent("Fixtures", isDirectory: true)
+    let fileURL = fixturesDir.appendingPathComponent("\(name).html")
+    return try String(contentsOf: fileURL, encoding: .utf8)
+}
+
+// MARK: - Standard-mode tests
+
+@Suite("Standard pipeline extraction")
+struct StandardPipelineTests {
+
+    // MARK: - BBC Sport
+
+    @Test("BBC Sport: hero image re-injected, article text extracted")
+    func bbcSport() async throws {
+        let html = try loadFixture("bbc_sport")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.bbc.com/sport/football/articles/example")!
+        )
+
+        #expect(result.imageCount >= 1, "Hero image should be present")
+        #expect(result.title.contains("Liverpool"))
+        #expect(result.title.contains("Grok"))
+        #expect(result.contentHTML.contains("sickening"))
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
+    // MARK: - GitHub README
+
+    @Test("GitHub README: badges stripped, screenshots preserved")
+    func githubReadme() async throws {
+        let html = try loadFixture("github_readme")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://github.com/bostrot/wsl2-distro-manager")!
+        )
+
+        #expect(!result.contentHTML.contains("shields.io"), "Badge images should be stripped")
+        #expect(result.contentHTML.lowercased().contains("screenshot"), "Content screenshots should survive")
+        #expect(result.imageCount >= 2, "Screenshot images should be preserved")
+        #expect(result.contentHTML.contains("WSL"))
+        #expect(!result.contentHTML.contains("<script"))
+    }
+
+    // MARK: - Gizmodo
+
+    @Test("Gizmodo: hero image re-injected, article content extracted")
+    func gizmodoArticle() async throws {
+        let html = try loadFixture("gizmodo_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://gizmodo.com/example")!
+        )
+
+        #expect(result.imageCount >= 1, "Hero image should be re-injected")
+        #expect(result.title.contains("AI"))
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+    }
+
+    // MARK: - The Verge
+
+    @Test("The Verge: content extracted, no scripts or nav")
+    func theVergeArticle() async throws {
+        let html = try loadFixture("theverge_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.theverge.com/example")!
+        )
+
+        #expect(result.title.contains("Sony"))
+        #expect(result.contentHTML.contains("PlayStation"))
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
+    // MARK: - Cell Journal
+
+    @Test("Cell journal: tables preserved, scientific content extracted")
+    func cellJournal() async throws {
+        let html = try loadFixture("cell_journal")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.cell.com/neuron/fulltext/example")!
+        )
+
+        #expect(result.contentHTML.contains("<table"), "Tables should be preserved")
+        #expect(result.title.contains("neurons"))
+        #expect(result.contentHTML.contains("DishBrain"))
+        #expect(result.imageCount >= 5, "Scientific figures should be preserved")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+    }
+}
+
+// MARK: - Full-mode tests
+
+@Suite("Full pipeline extraction")
+struct FullPipelineTests {
+
+    // MARK: - BBC Sport
+
+    @Test("BBC Sport: scripts and navigation stripped, article content preserved")
+    func bbcSport() async throws {
+        let html = try loadFixture("bbc_sport")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.bbc.com/sport/football/articles/example")!
+        )
+
+        // Interactive and structural elements should be stripped
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form"))
+
+        // Content should be preserved
+        #expect(result.cleanedHTML.contains("Liverpool"))
+        #expect(result.cleanedHTML.contains("sickening"))
+        #expect(result.cleanedHTML.contains("Grok"))
+        #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
+    }
+
+    // MARK: - GitHub README
+
+    @Test("GitHub README: interactive elements stripped, README content preserved")
+    func githubReadme() async throws {
+        let html = try loadFixture("github_readme")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://github.com/bostrot/wsl2-distro-manager")!
+        )
+
+        // Interactive elements should be stripped
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form"))
+
+        // Content should be preserved
+        #expect(result.cleanedHTML.contains("WSL"))
+        #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
+        #expect(result.cleanedHTML.contains("<table"), "Tables should be preserved")
+        #expect(result.cleanedHTML.contains("stylesheet"), "CSS should be preserved in full mode")
+    }
+
+    // MARK: - Gizmodo
+
+    @Test("Gizmodo: interactive elements stripped, article content preserved")
+    func gizmodoArticle() async throws {
+        let html = try loadFixture("gizmodo_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://gizmodo.com/example")!
+        )
+
+        // Interactive elements should be stripped
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+
+        // Content should be preserved
+        #expect(result.cleanedHTML.contains("AI"))
+        #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
+        #expect(result.cleanedHTML.contains("stylesheet"), "CSS should be preserved in full mode")
+    }
+
+    // MARK: - The Verge
+
+    @Test("The Verge: interactive elements stripped, content and styles preserved")
+    func theVergeArticle() async throws {
+        let html = try loadFixture("theverge_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.theverge.com/games/891085/sony-dynamic-pricing-playstation-games")!
+        )
+
+        // Interactive elements should be stripped
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<button"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form"))
+        #expect(!result.cleanedHTML.contains("<dialog"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("aria-hidden=\"true\""))
+
+        // Content and page structure should be preserved
+        #expect(result.cleanedHTML.contains("Sony"))
+        #expect(result.cleanedHTML.contains("PlayStation"))
+        #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
+        #expect(result.cleanedHTML.contains("stylesheet"), "CSS should be preserved in full mode")
+    }
+
+    // MARK: - Cell Journal
+
+    @Test("Cell journal: tables and scientific content preserved, navigation stripped")
+    func cellJournal() async throws {
+        let html = try loadFixture("cell_journal")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.cell.com/neuron/fulltext/example")!
+        )
+
+        // Interactive elements should be stripped
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+
+        // Content should be preserved
+        #expect(result.cleanedHTML.contains("<table"), "Tables should be preserved")
+        #expect(result.cleanedHTML.contains("DishBrain"))
+        #expect(result.cleanedHTML.contains("neurons"))
+        #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
+        #expect(result.cleanedHTML.contains("stylesheet"), "CSS should be preserved in full mode")
+    }
+}

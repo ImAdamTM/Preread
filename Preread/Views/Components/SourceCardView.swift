@@ -98,6 +98,19 @@ struct SourceCardView: View {
                     showUpdated = false
                 }
             }
+            // Re-check favicon after refresh completes — it may have been
+            // downloaded during the refresh (e.g. first fetch after adding a source).
+            if cachedFavicon == nil && (newValue == .completed || newValue == .idle) {
+                Task {
+                    let sourceID = source.id
+                    let image = await Task.detached(priority: .utility) {
+                        await PageCacheService.shared.cachedFavicon(for: sourceID)
+                    }.value
+                    if let image {
+                        cachedFavicon = image
+                    }
+                }
+            }
         }
         .padding(.horizontal, 16)
     }

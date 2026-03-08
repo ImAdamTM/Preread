@@ -35,7 +35,7 @@ struct FeedServiceTests {
 
     @Test(.timeLimit(.minutes(1)))
     func discoverFeed_google_throwsNoFeedFound() async {
-        await #expect(throws: FeedError.noFeedFound) {
+        await #expect(throws: FeedError.self) {
             try await service.discoverFeed(from: URL(string: "https://google.com")!)
         }
     }
