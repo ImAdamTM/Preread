@@ -26,13 +26,36 @@ struct ReaderView: View {
         colorScheme == .dark
     }
 
+    /// Checks the dynamic path (not the stored DB path) so it survives
+    /// container path changes in the simulator.
+    private var htmlFileExists: Bool {
+        let url = articleHTMLURL
+        return FileManager.default.fileExists(atPath: url.path)
+    }
+
+    private var articleHTMLURL: URL {
+        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        return appSupport
+            .appendingPathComponent("preread/articles", isDirectory: true)
+            .appendingPathComponent(article.id.uuidString, isDirectory: true)
+            .appendingPathComponent("index.html")
+    }
+
+    private var articleDarkHTMLURL: URL {
+        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        return appSupport
+            .appendingPathComponent("preread/articles", isDirectory: true)
+            .appendingPathComponent(article.id.uuidString, isDirectory: true)
+            .appendingPathComponent("index-dark.html")
+    }
+
     var body: some View {
         ZStack {
             Theme.background.ignoresSafeArea()
 
             if isLoadingCachedPage {
                 EmptyView()
-            } else if let cachedPage, FileManager.default.fileExists(atPath: cachedPage.htmlPath) {
+            } else if let cachedPage, htmlFileExists {
                 readerContent(cachedPage: cachedPage)
             } else {
                 missingContentView
@@ -145,12 +168,11 @@ struct ReaderView: View {
         let htmlURL: URL
         if useDarkAppearance,
            !isReaderMode,
-           let darkPath = cachedPage.darkHtmlPath,
-           FileManager.default.fileExists(atPath: darkPath) {
-            htmlURL = URL(fileURLWithPath: darkPath)
+           FileManager.default.fileExists(atPath: articleDarkHTMLURL.path) {
+            htmlURL = articleDarkHTMLURL
             usePreDarkened = true
         } else {
-            htmlURL = URL(fileURLWithPath: cachedPage.htmlPath)
+            htmlURL = articleHTMLURL
             usePreDarkened = false
         }
         let articleDir = htmlURL.deletingLastPathComponent()

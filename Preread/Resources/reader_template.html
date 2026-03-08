@@ -90,16 +90,18 @@
         font-size: 1em;
       }
 
-      /* Links */
+      /* Links — subtle hint, not distracting */
       a {
-        color: #5b5bde;
-        text-decoration: none;
-        transition: text-decoration 0.15s ease;
+        color: #4a4a6a;
+        text-decoration: underline;
+        text-decoration-color: rgba(74, 74, 106, 0.3);
+        text-underline-offset: 2px;
+        transition: text-decoration-color 0.15s ease;
       }
 
       a:hover,
       a:active {
-        text-decoration: underline;
+        text-decoration-color: rgba(74, 74, 106, 0.6);
       }
 
       /* Images */

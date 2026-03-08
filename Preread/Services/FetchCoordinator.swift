@@ -316,8 +316,18 @@ final class FetchCoordinator: ObservableObject {
 
         sourceStatuses[source.id] = .refreshing
 
-        for (index, article) in articlesToRetry.enumerated() {
-            try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+        for (index, var article) in articlesToRetry.enumerated() {
+            // Clear stale conditional headers so we always get a fresh
+            // response (the cached files may be gone after a rebuild).
+            if article.etag != nil || article.lastModified != nil {
+                article.etag = nil
+                article.lastModified = nil
+                try? await DatabaseManager.shared.dbPool.write { db in
+                    try article.update(db)
+                }
+            }
+
+            try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel, forceReprocess: true)
 
             if index < articlesToRetry.count - 1 {
                 try? await Task.sleep(for: .milliseconds(200))

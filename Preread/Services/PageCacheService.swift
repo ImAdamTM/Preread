@@ -1120,6 +1120,23 @@ actor PageCacheService {
         hasCachedContentOnDisk(for: article)
     }
 
+    /// Returns the current on-disk URL for an article's cached HTML.
+    /// Always builds the path dynamically so it survives container path changes
+    /// (e.g. simulator rebuilds).
+    func cachedHTMLURL(for articleID: UUID) -> URL {
+        articlesBaseURL
+            .appendingPathComponent(articleID.uuidString, isDirectory: true)
+            .appendingPathComponent("index.html")
+    }
+
+    /// Returns the current on-disk URL for an article's dark-mode HTML variant, if it exists.
+    func cachedDarkHTMLURL(for articleID: UUID) -> URL? {
+        let path = articlesBaseURL
+            .appendingPathComponent(articleID.uuidString, isDirectory: true)
+            .appendingPathComponent("index-dark.html")
+        return FileManager.default.fileExists(atPath: path.path) ? path : nil
+    }
+
     /// Escapes HTML special characters for safe insertion into HTML attributes/text.
     private func escapeHTML(_ string: String) -> String {
         string

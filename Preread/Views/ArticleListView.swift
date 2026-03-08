@@ -329,39 +329,43 @@ struct ArticleListView: View {
     }
 
     private func handleTap(_ article: Article) {
-        switch article.fetchStatus {
-        case .cached, .partial:
-            // Verify cached content actually exists before navigating
-            Task {
-                let hasCachedContent = await checkCachedContentExists(for: article)
-                if hasCachedContent {
-                    markAsReadLocally(article)
-                    selectedArticle = article
-                } else {
-                    // Cached content is missing — re-fetch, then open on success
-                    await fetchArticleInline(article, openOnSuccess: true)
+        Task {
+            // Re-read the article's current status from the DB in case
+            // the local array is stale (e.g. background retry just finished).
+            let current: Article
+            if let fresh = try? await DatabaseManager.shared.dbPool.read({ db in
+                try Article.fetchOne(db, key: article.id)
+            }) {
+                current = fresh
+                // Update the local array so the row reflects the latest state
+                if let index = articles.firstIndex(where: { $0.id == article.id }) {
+                    articles[index] = fresh
                 }
+            } else {
+                current = article
             }
-        case .pending:
-            Task { await fetchArticleInline(article, openOnSuccess: true) }
-        case .fetching:
-            // Already syncing — do nothing
-            break
-        case .failed:
-            failedArticle = article
+
+            switch current.fetchStatus {
+            case .cached, .partial:
+                let hasCachedContent = await checkCachedContentExists(for: current)
+                if hasCachedContent {
+                    markAsReadLocally(current)
+                    selectedArticle = current
+                } else {
+                    await fetchArticleInline(current, openOnSuccess: true)
+                }
+            case .pending:
+                await fetchArticleInline(current, openOnSuccess: true)
+            case .fetching:
+                break
+            case .failed:
+                failedArticle = current
+            }
         }
     }
 
     private func checkCachedContentExists(for article: Article) async -> Bool {
-        do {
-            let cachedPage = try await DatabaseManager.shared.dbPool.read { db in
-                try CachedPage.fetchOne(db, key: article.id)
-            }
-            guard let cachedPage else { return false }
-            return FileManager.default.fileExists(atPath: cachedPage.htmlPath)
-        } catch {
-            return false
-        }
+        await PageCacheService.shared.hasCachedContent(for: article)
     }
 
     private func fetchArticleInline(_ article: Article, openOnSuccess: Bool = false) async {
