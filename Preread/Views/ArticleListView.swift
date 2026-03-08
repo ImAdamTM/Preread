@@ -83,6 +83,12 @@ struct ArticleListView: View {
                 selectedArticle = article
                 deepLinkRouter.pendingArticleID = nil
             }
+
+            // Retry any pending/failed articles in the background
+            let retrySource = currentSource
+            Task {
+                await coordinator.retryFailedArticles(for: retrySource)
+            }
         }
         .onChange(of: coordinator.sourceStatuses[source.id]) { _, newState in
             if newState == .completed || newState == .idle {

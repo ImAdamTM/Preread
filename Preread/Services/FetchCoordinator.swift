@@ -289,6 +289,44 @@ final class FetchCoordinator: ObservableObject {
         }
     }
 
+    // MARK: - Retry pending/failed articles
+
+    /// Retries all pending or failed articles for a source.
+    /// Called when the user opens a feed so stale failures get resolved
+    /// without waiting for the next scheduled refresh.
+    /// Shows the refresh spinner in the hero while working.
+    func retryFailedArticles(for source: Source) async {
+        let cacheLevel = source.effectiveCacheLevel
+        let articlesToRetry: [Article]
+        do {
+            articlesToRetry = try await DatabaseManager.shared.dbPool.read { db in
+                try Article
+                    .filter(Column("sourceID") == source.id)
+                    .filter([ArticleFetchStatus.pending.rawValue,
+                             ArticleFetchStatus.failed.rawValue]
+                        .contains(Column("fetchStatus")))
+                    .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
+                    .fetchAll(db)
+            }
+        } catch {
+            return
+        }
+
+        guard !articlesToRetry.isEmpty else { return }
+
+        sourceStatuses[source.id] = .refreshing
+
+        for (index, article) in articlesToRetry.enumerated() {
+            try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+
+            if index < articlesToRetry.count - 1 {
+                try? await Task.sleep(for: .milliseconds(200))
+            }
+        }
+
+        sourceStatuses[source.id] = .completed
+    }
+
     // MARK: - Helpers
 
     /// Inserts new articles from feed items, skipping any whose URL already exists.
