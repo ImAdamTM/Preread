@@ -57,7 +57,7 @@ struct SourceHeroView: View {
             Spacer().frame(height: 12)
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 240)
+        .frame(height: 180)
         .background {
             GeometryReader { geo in
                 let scrollY = geo.frame(in: .scrollView(axis: .vertical)).minY
