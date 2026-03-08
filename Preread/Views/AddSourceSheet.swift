@@ -240,7 +240,7 @@ struct AddSourceSheet: View {
                     letterAvatar(for: detectedFeed?.title ?? "?", size: 48)
                 }
 
-                Text(detectedFeed?.title ?? "")
+                Text(editableName)
                     .font(.system(size: 22, weight: .bold))
                     .foregroundColor(Theme.textPrimary)
                     .multilineTextAlignment(.center)
@@ -540,7 +540,7 @@ struct AddSourceSheet: View {
 
                 stopCyclingTimer()
                 detectedFeed = feed
-                editableName = feed.title
+                editableName = smartTitle(from: feed)
                 sheetState = .feedFound
             } catch {
                 stopCyclingTimer()
@@ -698,6 +698,69 @@ struct AddSourceSheet: View {
         detectedFeed = nil
         sheetState = .input
         isURLFieldFocused = true
+    }
+
+    // MARK: - Smart title
+
+    /// Derives a short, clean default name from a discovered feed.
+    /// If the domain name (e.g. "engadget" from engadget.com) appears in the
+    /// feed title, just use the capitalised domain name. Otherwise truncate to
+    /// the first three words.
+    private func smartTitle(from feed: DiscoveredFeed) -> String {
+        let raw = feed.title.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !raw.isEmpty else { return raw }
+
+        // Short titles are fine as-is — only shorten long ones
+        let wordCount = raw.split(separator: " ").count
+        guard wordCount > 5 else { return raw }
+
+        // Extract domain label from siteURL or feedURL
+        let url = feed.siteURL ?? feed.feedURL
+        let host = url.host ?? ""
+        // "www.engadget.com" → "engadget"
+        let domainLabel = host
+            .lowercased()
+            .replacingOccurrences(of: "www.", with: "")
+            .components(separatedBy: ".").first ?? ""
+
+        if !domainLabel.isEmpty {
+            let words = raw.split(separator: " ").map(String.init)
+            let punct = CharacterSet.punctuationCharacters
+            func cleaned(_ w: String) -> String { w.trimmingCharacters(in: punct).lowercased() }
+
+            // Direct single-word match (e.g. "Engadget" == "engadget")
+            if let match = words.first(where: { cleaned($0) == domainLabel }) {
+                return match.trimmingCharacters(in: punct)
+            }
+
+            // Concatenated words match (e.g. "The Verge" → "theverge")
+            for start in words.indices {
+                var concat = ""
+                for end in start..<words.count {
+                    concat += cleaned(words[end])
+                    if concat == domainLabel {
+                        return words[start...end]
+                            .map { $0.trimmingCharacters(in: punct) }
+                            .joined(separator: " ")
+                    }
+                    if concat.count >= domainLabel.count { break }
+                }
+            }
+        }
+
+        // Fallback: take up to 3 real words, stripping separators
+        let separatorChars = CharacterSet(charactersIn: "––—|>:·•")
+        let separatorStrings: Set<String> = ["-", "–", "—", "|", ">", ":", "·", "•"]
+        let realWords = raw.split(separator: " ")
+            .map(String.init)
+            .filter { !separatorStrings.contains($0) }
+            .map { $0.trimmingCharacters(in: separatorChars) }
+            .filter { !$0.isEmpty }
+
+        if realWords.count > 3 {
+            return realWords.prefix(3).joined(separator: " ")
+        }
+        return realWords.joined(separator: " ")
     }
 
     // MARK: - Cycling timer
