@@ -21,7 +21,6 @@ struct ReaderView: View {
     @State private var showFontPicker = false
     @State private var cachedPage: CachedPage?
     @State private var isLoadingCachedPage = true
-    @State private var retryDarkMode = false
     @State private var isRetrying = false
 
     private var useDarkAppearance: Bool {
@@ -164,22 +163,19 @@ struct ReaderView: View {
                 isDarkMode: isReaderMode ? false : useDarkAppearance,
                 isReaderMode: isReaderMode,
                 useLightMode: isReaderMode && !useDarkAppearance,
-                skipDarkReader: usePreDarkened,
                 textSize: CGFloat(textSize),
                 fontFamily: fontFamily,
                 useTransparentBackground: true,
                 heroImageURL: heroImageURL,
-                retryDarkMode: $retryDarkMode,
                 onScrollDown: { },
                 onScrollUp: { },
                 onLinkTapped: { url in
                     tappedLinkURL = url
                     showLinkConfirmation = true
-                },
-                onDarkReaderReady: { }
+                }
             )
         }
-        .ignoresSafeArea(edges: .top)
+        .ignoresSafeArea(edges: [.top, .bottom])
         .opacity(webViewVisible ? 1 : 0)
         .animation(.easeIn(duration: 0.2), value: webViewVisible)
         .onAppear {
@@ -254,11 +250,6 @@ struct ReaderView: View {
                 Text("Content unavailable")
                     .font(Theme.scaledFont(size: 17, weight: .semibold))
                     .foregroundColor(Theme.textPrimary)
-
-                Text("This article couldn't be saved. The site may block automated access.")
-                    .font(Theme.scaledFont(size: 14, relativeTo: .subheadline))
-                    .foregroundColor(Theme.textSecondary)
-                    .multilineTextAlignment(.center)
 
                 Button {
                     Task { await retryCache() }

@@ -7,25 +7,20 @@ struct CachedWebView: UIViewRepresentable {
     let isDarkMode: Bool
     let isReaderMode: Bool
     let useLightMode: Bool
-    /// When true, Dark Reader injection is skipped (HTML is already pre-darkened).
-    let skipDarkReader: Bool
     let textSize: CGFloat
     let fontFamily: String
     var useTransparentBackground: Bool = false
     var heroImageURL: URL? = nil
     var heroFallbackGradientColors: [UIColor]? = nil
-    @Binding var retryDarkMode: Bool
     let onScrollDown: () -> Void
     let onScrollUp: () -> Void
     let onLinkTapped: (URL) -> Void
-    let onDarkReaderReady: () -> Void
 
     func makeCoordinator() -> Coordinator {
         Coordinator(
             onScrollDown: onScrollDown,
             onScrollUp: onScrollUp,
-            onLinkTapped: onLinkTapped,
-            onDarkReaderReady: onDarkReaderReady
+            onLinkTapped: onLinkTapped
         )
     }
 
@@ -97,20 +92,13 @@ struct CachedWebView: UIViewRepresentable {
         ])
 
         context.coordinator.webView = webView
-
-        // Load Dark Reader source from bundle for full-page dark mode
-        if let drURL = Bundle.main.url(forResource: "darkreader.min", withExtension: "js"),
-           let drSource = try? String(contentsOf: drURL, encoding: .utf8) {
-            context.coordinator.darkReaderSource = drSource
-        }
+        context.coordinator.currentHTMLFileURL = htmlFileURL
 
         // Pass initial state to coordinator so it can apply after page loads
-        context.coordinator.pendingDarkMode = isDarkMode
         context.coordinator.pendingIsReaderMode = isReaderMode
         context.coordinator.pendingUseLightMode = useLightMode
         context.coordinator.pendingTextSize = textSize
         context.coordinator.pendingFontFamily = fontFamily
-        context.coordinator.skipDarkReader = skipDarkReader
 
         // Compile content rules asynchronously, then load
         WKContentRuleListStore.default().compileContentRuleList(
@@ -133,7 +121,6 @@ struct CachedWebView: UIViewRepresentable {
 
         // Update pending state on coordinator — these are applied after page load
         // or immediately if the page has already loaded
-        coordinator.pendingDarkMode = isDarkMode
         coordinator.pendingIsReaderMode = isReaderMode
         coordinator.pendingUseLightMode = useLightMode
         coordinator.pendingTextSize = textSize
@@ -159,17 +146,16 @@ struct CachedWebView: UIViewRepresentable {
                 : .white
         }
 
-        // Only apply JS if the page has finished loading
-        guard coordinator.pageLoaded else { return }
-
-        // Force re-inject Dark Reader when retry flag is toggled
-        if retryDarkMode {
-            DispatchQueue.main.async {
-                self.retryDarkMode = false
-            }
-            coordinator.forceRetryDarkReader(on: webView)
+        // If the HTML file changed (e.g. light ↔ dark variant swap), reload
+        if coordinator.currentHTMLFileURL != htmlFileURL {
+            coordinator.currentHTMLFileURL = htmlFileURL
+            coordinator.pageLoaded = false
+            webView.loadFileURL(htmlFileURL, allowingReadAccessTo: articleDirectory)
             return
         }
+
+        // Only apply JS if the page has finished loading
+        guard coordinator.pageLoaded else { return }
 
         coordinator.applyCurrentState(to: webView)
     }
@@ -233,38 +219,45 @@ struct CachedWebView: UIViewRepresentable {
         let onScrollDown: () -> Void
         let onScrollUp: () -> Void
         let onLinkTapped: (URL) -> Void
-        let onDarkReaderReady: () -> Void
         weak var webView: WKWebView?
 
-        var darkReaderSource: String?
-        var darkReaderInjected = false
-        var currentDarkMode = false
         var pageLoaded = false
+        var currentHTMLFileURL: URL?
 
         // Pending state set by SwiftUI, applied after page load
-        var pendingDarkMode = false
         var pendingIsReaderMode = false
         var pendingUseLightMode = false
         var pendingTextSize: CGFloat = 18
         var pendingFontFamily: String = "system-ui"
-        var skipDarkReader = false
 
         private var lastContentOffset: CGFloat = 0
         private var isTracking = false
 
         init(onScrollDown: @escaping () -> Void,
              onScrollUp: @escaping () -> Void,
-             onLinkTapped: @escaping (URL) -> Void,
-             onDarkReaderReady: @escaping () -> Void) {
+             onLinkTapped: @escaping (URL) -> Void) {
             self.onScrollDown = onScrollDown
             self.onScrollUp = onScrollUp
             self.onLinkTapped = onLinkTapped
-            self.onDarkReaderReady = onDarkReaderReady
         }
 
         /// Applies text size, font, and dark/light mode to the web view.
         /// Called after page load and on SwiftUI state changes.
         func applyCurrentState(to webView: WKWebView) {
+            // Disable pinch-to-zoom via viewport meta tag
+            let viewportJS = """
+            (function() {
+                var meta = document.querySelector('meta[name="viewport"]');
+                if (!meta) {
+                    meta = document.createElement('meta');
+                    meta.name = 'viewport';
+                    document.head.appendChild(meta);
+                }
+                meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+            })();
+            """
+            webView.evaluateJavaScript(viewportJS)
+
             // Inject text size and font family as CSS overrides
             let textSize = Int(pendingTextSize)
             let fontFamily = pendingFontFamily
@@ -281,6 +274,29 @@ struct CachedWebView: UIViewRepresentable {
             """
             webView.evaluateJavaScript(cssJS)
 
+            // Disable sticky/fixed positioned elements (e.g. site headers)
+            if !pendingIsReaderMode {
+                let unstickJS = """
+                (function() {
+                    var style = document.getElementById('preread-unstick-style');
+                    if (!style) {
+                        style = document.createElement('style');
+                        style.id = 'preread-unstick-style';
+                        document.head.appendChild(style);
+                    }
+                    style.textContent = '[style*=\"position\"] { position: static !important; }';
+                    var all = document.querySelectorAll('*');
+                    for (var i = 0; i < all.length; i++) {
+                        var pos = window.getComputedStyle(all[i]).position;
+                        if (pos === 'sticky' || pos === 'fixed') {
+                            all[i].style.setProperty('position', 'static', 'important');
+                        }
+                    }
+                })();
+                """
+                webView.evaluateJavaScript(unstickJS)
+            }
+
             if pendingIsReaderMode {
                 // Reader-mode: toggle .light-mode class on <html>
                 let lightModeJS: String
@@ -290,125 +306,6 @@ struct CachedWebView: UIViewRepresentable {
                     lightModeJS = "document.documentElement.classList.remove('light-mode');"
                 }
                 webView.evaluateJavaScript(lightModeJS)
-            } else if !skipDarkReader {
-                // Full page — use Dark Reader for intelligent dark mode
-                // (skipped when loading pre-darkened HTML)
-                let wasDark = currentDarkMode
-                currentDarkMode = pendingDarkMode
-
-                if pendingDarkMode && !wasDark {
-                    enableDarkReader(on: webView)
-                } else if !pendingDarkMode && wasDark {
-                    webView.evaluateJavaScript("if(typeof DarkReader!=='undefined'){DarkReader.disable();}")
-                }
-            }
-        }
-
-        private func enableDarkReader(on webView: WKWebView) {
-            guard let drSource = darkReaderSource else {
-                onDarkReaderReady()
-                return
-            }
-
-            // Only inject the library once per page load
-            let libraryJS = darkReaderInjected ? "" : drSource + "\n"
-            darkReaderInjected = true
-
-            // Clean up page before Dark Reader:
-            // - Remove CSP meta tags (old caches)
-            // - Remove <script> and <noscript> tags
-            // - Inline any remaining external stylesheets (old caches that weren't
-            //   inlined at cache time) so Dark Reader can read them via the DOM
-            let cleanupJS = """
-            (function() {
-                document.querySelectorAll('meta[http-equiv="Content-Security-Policy"]').forEach(function(el) { el.remove(); });
-                document.querySelectorAll('script').forEach(function(el) { el.remove(); });
-                document.querySelectorAll('noscript').forEach(function(el) { el.remove(); });
-                var remaining = document.querySelectorAll('link[rel="stylesheet"]');
-                remaining.forEach(function(link) {
-                    try {
-                        var xhr = new XMLHttpRequest();
-                        xhr.open('GET', link.href, false);
-                        xhr.send();
-                        if (xhr.status === 200 || xhr.status === 0) {
-                            var style = document.createElement('style');
-                            style.textContent = xhr.responseText;
-                            link.parentNode.replaceChild(style, link);
-                        }
-                    } catch(e) {
-                        console.log('[Preread] Failed to inline stylesheet: ' + link.href + ' error: ' + e);
-                    }
-                });
-                console.log('[Preread] Cleanup done. Remaining link[stylesheet]: ' + document.querySelectorAll('link[rel="stylesheet"]').length + ', style tags: ' + document.querySelectorAll('style').length);
-            })();
-            """
-
-            let enableJS = cleanupJS + libraryJS + """
-            DarkReader.enable({
-                brightness: 100,
-                contrast: 95,
-                sepia: 0
-            }, {
-                css: 'html, body { background-color: #000000 !important; } a { color: #7B7BEE !important; } pre, code { background-color: #1C1C28 !important; }'
-            });
-            """
-            webView.evaluateJavaScript(enableJS) { [weak self] _, error in
-                if let error {
-                    print("[CachedWebView] Dark Reader injection error: \(error)")
-                }
-                DispatchQueue.main.async {
-                    self?.onDarkReaderReady()
-                }
-            }
-        }
-
-        /// Force-retry: disable Dark Reader, reset state, re-inject from scratch.
-        func forceRetryDarkReader(on webView: WKWebView) {
-            guard pendingDarkMode else { return }
-
-            // Disable existing Dark Reader if any
-            let disableJS = "if(typeof DarkReader!=='undefined'){DarkReader.disable();}"
-            webView.evaluateJavaScript(disableJS) { [weak self] _, _ in
-                guard let self else { return }
-
-                // Reset injection state so the library is re-injected fresh
-                self.darkReaderInjected = false
-                self.currentDarkMode = false
-
-                // Log diagnostic info
-                let diagJS = """
-                (function() {
-                    var sheets = document.styleSheets.length;
-                    var inlineStyles = document.querySelectorAll('[style]').length;
-                    var bodyBg = window.getComputedStyle(document.body).backgroundColor;
-                    var htmlBg = window.getComputedStyle(document.documentElement).backgroundColor;
-                    return 'sheets=' + sheets + ' inline=' + inlineStyles + ' bodyBg=' + bodyBg + ' htmlBg=' + htmlBg;
-                })();
-                """
-                webView.evaluateJavaScript(diagJS) { result, _ in
-                    let info = (result as? String) ?? "nil"
-                    print("[CachedWebView] Pre-retry diagnostics: \(info)")
-                }
-
-                // Re-enable
-                self.enableDarkReader(on: webView)
-
-                // Check result after a short delay
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    let checkJS = """
-                    (function() {
-                        var drActive = typeof DarkReader !== 'undefined' && DarkReader.isEnabled();
-                        var bodyBg = window.getComputedStyle(document.body).backgroundColor;
-                        var htmlBg = window.getComputedStyle(document.documentElement).backgroundColor;
-                        return 'drActive=' + drActive + ' bodyBg=' + bodyBg + ' htmlBg=' + htmlBg;
-                    })();
-                    """
-                    webView.evaluateJavaScript(checkJS) { result, error in
-                        let info = (result as? String) ?? "nil"
-                        let errMsg = error.map { String(describing: $0) } ?? "none"
-                        print("[CachedWebView] Post-retry diagnostics: \(info) error: \(errMsg)")
-                    }
-                }
             }
         }
 
@@ -416,8 +313,6 @@ struct CachedWebView: UIViewRepresentable {
 
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
             pageLoaded = true
-            darkReaderInjected = false // Reset for fresh page
-            currentDarkMode = false    // Reset so Dark Reader re-evaluates
             applyCurrentState(to: webView)
         }
 
@@ -488,6 +383,13 @@ struct CachedWebView: UIViewRepresentable {
 
         func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
             isTracking = false
+        }
+
+        func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+            // Reset any zoom that managed to occur
+            if scale != 1.0 {
+                scrollView.setZoomScale(1.0, animated: true)
+            }
         }
     }
 }
