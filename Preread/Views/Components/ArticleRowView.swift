@@ -86,37 +86,32 @@ struct ArticleRowView: View {
         .accessibilityLabel(rowAccessibilityLabel)
         .accessibilityAddTraits(.isButton)
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-            Button(role: .destructive) {
-                HapticManager.deleteConfirm()
-                onDelete()
+            Button {
+                HapticManager.modeToggle()
+                onToggleRead()
             } label: {
-                Label("Delete", systemImage: "trash")
+                Label(
+                    article.isRead ? "Unread" : "Read",
+                    systemImage: article.isRead ? "envelope.badge" : "envelope.open"
+                )
             }
+            .tint(Theme.accent)
 
             Button {
+                HapticManager.pullToRefresh()
                 onRefetch()
             } label: {
                 Label("Re-fetch", systemImage: "arrow.clockwise")
             }
-            .tint(Theme.accent)
-
+            .tint(Theme.teal)
+        }
+        .swipeActions(edge: .leading, allowsFullSwipe: true) {
             Button {
                 onToggleSave()
             } label: {
                 Label(
                     article.isSaved ? "Unsave" : "Save",
                     systemImage: article.isSaved ? "bookmark.slash" : "bookmark"
-                )
-            }
-            .tint(Theme.teal)
-        }
-        .swipeActions(edge: .leading, allowsFullSwipe: true) {
-            Button {
-                onToggleRead()
-            } label: {
-                Label(
-                    article.isRead ? "Mark unread" : "Mark read",
-                    systemImage: article.isRead ? "envelope.badge" : "envelope.open"
                 )
             }
             .tint(Theme.teal)

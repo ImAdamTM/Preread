@@ -19,13 +19,25 @@ struct ToastItem: Identifiable {
     }
 }
 
+struct SnackItem: Identifiable, Equatable {
+    let id = UUID()
+    let message: String
+    let icon: String
+
+    static func == (lhs: SnackItem, rhs: SnackItem) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
 @MainActor
 final class ToastManager: ObservableObject {
     static let shared = ToastManager()
 
     @Published var currentToast: ToastItem?
+    @Published var currentSnack: SnackItem?
 
     private var dismissTask: Task<Void, Never>?
+    private var snackDismissTask: Task<Void, Never>?
 
     private init() {}
 
@@ -43,6 +55,22 @@ final class ToastManager: ObservableObject {
     func dismiss() {
         dismissTask?.cancel()
         currentToast = nil
+    }
+
+    func snack(_ message: String, icon: String, duration: TimeInterval = 1.5) {
+        snackDismissTask?.cancel()
+        currentSnack = SnackItem(message: message, icon: icon)
+
+        snackDismissTask = Task {
+            try? await Task.sleep(for: .seconds(duration))
+            guard !Task.isCancelled else { return }
+            dismissSnack()
+        }
+    }
+
+    func dismissSnack() {
+        snackDismissTask?.cancel()
+        currentSnack = nil
     }
 
     // MARK: - Pre-defined toasts

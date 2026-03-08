@@ -130,31 +130,42 @@ struct ArticleListView: View {
     // MARK: - Article list
 
     private var articleList: some View {
-        ScrollView {
-            LazyVStack(spacing: 0) {
-                // Hero section
-                heroRow
+        List {
+            // Hero section
+            heroRow
+                .buttonStyle(.borderless)
+                .listRowInsets(EdgeInsets())
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
 
-                if articles.isEmpty {
-                    emptyStateContent
-                } else {
-                    ForEach(articles) { article in
-                        ArticleRowView(
-                            article: article,
-                            namespace: namespace,
-                            onTap: { handleTap(article) },
-                            onToggleRead: { Task { await toggleRead(article) } },
-                            onToggleSave: { Task { await toggleSave(article) } },
-                            onRefetch: { Task { await refetchArticle(article) } },
-                            onDelete: { Task { await deleteArticle(article) } }
-                        )
-                        .padding(.horizontal, 10)
-                    }
-
-                    loadMoreRow
+            if articles.isEmpty {
+                emptyStateContent
+                    .listRowInsets(EdgeInsets())
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
+            } else {
+                ForEach(articles) { article in
+                    ArticleRowView(
+                        article: article,
+                        namespace: namespace,
+                        onTap: { handleTap(article) },
+                        onToggleRead: { Task { await toggleRead(article) } },
+                        onToggleSave: { Task { await toggleSave(article) } },
+                        onRefetch: { Task { await refetchArticle(article) } },
+                        onDelete: { Task { await deleteArticle(article) } }
+                    )
+                    .listRowInsets(EdgeInsets())
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
                 }
+
+                loadMoreRow
+                    .listRowInsets(EdgeInsets())
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
             }
         }
+        .listStyle(.plain)
         .contentMargins(.top, -44, for: .scrollContent)
     }
 
@@ -336,7 +347,7 @@ struct ArticleListView: View {
                 }
             }
         case .pending:
-            Task { await fetchArticleInline(article) }
+            Task { await fetchArticleInline(article, openOnSuccess: true) }
         case .fetching:
             // Already syncing — do nothing
             break
@@ -405,7 +416,13 @@ struct ArticleListView: View {
     private func toggleSave(_ article: Article) async {
         guard let index = articles.firstIndex(where: { $0.id == article.id }) else { return }
         articles[index].isSaved.toggle()
+        let nowSaved = articles[index].isSaved
         let updatedArticle = articles[index]
+        HapticManager.articleCached()
+        ToastManager.shared.snack(
+            nowSaved ? "Saved" : "Unsaved",
+            icon: nowSaved ? "bookmark.fill" : "bookmark.slash"
+        )
         do {
             try await DatabaseManager.shared.dbPool.write { db in
                 try updatedArticle.update(db)
