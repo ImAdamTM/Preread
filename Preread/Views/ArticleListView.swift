@@ -111,8 +111,11 @@ struct ArticleListView: View {
         }) {
             sourceSettingsSheet
         }
-        .navigationDestination(item: $selectedArticle) { article in
-            ReaderView(article: article, source: source, namespace: namespace)
+        .sheet(item: $selectedArticle) { article in
+            NavigationStack {
+                ReaderView(article: article, source: source)
+            }
+            .presentationDragIndicator(.hidden)
         }
     }
 

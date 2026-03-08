@@ -5,7 +5,6 @@ import GRDB
 struct ReaderView: View {
     let article: Article
     let source: Source
-    let namespace: Namespace.ID
 
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
@@ -45,7 +44,7 @@ struct ReaderView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button { dismiss() } label: {
-                    Image(systemName: "chevron.left")
+                    Image(systemName: "xmark")
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(Theme.textPrimary)
                 }
