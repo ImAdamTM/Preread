@@ -18,6 +18,7 @@ struct SavedArticlesView: View {
     @State private var readerSelection: ReaderSelection?
     @State private var failedArticle: Article?
     @State private var isLoading = true
+    @State private var heroTitleMinY: CGFloat = 200
 
     private var preferredScheme: ColorScheme {
         switch appAppearance {
@@ -54,6 +55,7 @@ struct SavedArticlesView: View {
                 articleList
             }
         }
+        .toolbarBackground(navBarBackgroundOpacity > 0.5 ? .visible : .hidden, for: .navigationBar)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -61,11 +63,12 @@ struct SavedArticlesView: View {
                     Image(systemName: "bookmark.fill")
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(Theme.teal)
-                    Text("Saved")
+                    Text("Saved Articles")
                         .font(Theme.scaledFont(size: 17, weight: .semibold))
                         .foregroundColor(Theme.textPrimary)
                         .lineLimit(1)
                 }
+                .opacity(navBarTitleOpacity)
             }
         }
         .searchable(text: $searchText, prompt: "Search saved articles")
@@ -131,6 +134,30 @@ struct SavedArticlesView: View {
         .scrollContentBackground(.hidden)
     }
 
+    // MARK: - Nav bar opacity
+
+    private var navBarTitleOpacity: Double {
+        let startFade: CGFloat = 70
+        let fullyVisible: CGFloat = 9
+        if Theme.reduceMotion {
+            return heroTitleMinY < 40 ? 1 : 0
+        }
+        if heroTitleMinY > startFade { return 0 }
+        if heroTitleMinY < fullyVisible { return 1 }
+        return Double(1 - (heroTitleMinY - fullyVisible) / (startFade - fullyVisible))
+    }
+
+    private var navBarBackgroundOpacity: Double {
+        let startFade: CGFloat = 80
+        let fullyOpaque: CGFloat = 9
+        if Theme.reduceMotion {
+            return heroTitleMinY < 50 ? 1 : 0
+        }
+        if heroTitleMinY > startFade { return 0 }
+        if heroTitleMinY < fullyOpaque { return 1 }
+        return Double(1 - (heroTitleMinY - fullyOpaque) / (startFade - fullyOpaque))
+    }
+
     // MARK: - Hero
 
     private var heroRow: some View {
@@ -138,7 +165,7 @@ struct SavedArticlesView: View {
             Spacer()
 
             ZStack {
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: 12)
                     .fill(
                         LinearGradient(
                             colors: [Theme.teal, Theme.teal.opacity(0.7)],
@@ -151,32 +178,60 @@ struct SavedArticlesView: View {
                     .font(.system(size: 24, weight: .medium))
                     .foregroundColor(.white)
             }
-            .shadow(color: .black.opacity(0.08), radius: 4, y: 2)
+            .shadow(color: .black.opacity(0.2), radius: 8, y: 4)
             .padding(.bottom, 10)
 
-            Text("Saved")
+            Text("Saved Articles")
                 .font(Theme.scaledFont(size: 18, weight: .bold))
                 .foregroundColor(Theme.textPrimary)
+                .modifier(HeroTitleScrollTracker { minY in
+                    heroTitleMinY = minY
+                })
 
             Text("\(articles.count) article\(articles.count == 1 ? "" : "s")")
                 .font(Theme.scaledFont(size: 12, relativeTo: .caption))
                 .foregroundColor(Theme.textSecondary)
                 .padding(.top, 6)
 
-            Spacer().frame(height: 16)
+            Spacer().frame(height: 12)
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 160)
         .background {
-            Rectangle()
-                .fill(
-                    LinearGradient(
-                        colors: [Theme.teal.opacity(0.15), Theme.teal.opacity(0.0)],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
+            GeometryReader { geo in
+                let scrollY = geo.frame(in: .scrollView(axis: .vertical)).minY
+                let overscroll = max(scrollY, 0)
+                savedHeroBackground
+                    .frame(height: 240)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+                    .offset(y: -overscroll)
+            }
+            .allowsHitTesting(false)
         }
+    }
+
+    private var savedHeroBackground: some View {
+        Rectangle()
+            .fill(
+                LinearGradient(
+                    colors: [Theme.teal, Theme.teal.opacity(0.5)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .blur(radius: 30)
+            .clipped()
+            .opacity(0.3)
+            .mask(
+                LinearGradient(
+                    stops: [
+                        .init(color: .white, location: 0),
+                        .init(color: .white, location: 0.4),
+                        .init(color: .clear, location: 1.0)
+                    ],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
     }
 
     // MARK: - Empty state
