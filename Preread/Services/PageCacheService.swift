@@ -128,6 +128,7 @@ actor PageCacheService {
         do {
             (data, response) = try await resilientData(for: request)
         } catch {
+            print("[PageCacheService] Network error for \(article.articleURL): \(error.localizedDescription)")
             if wasPreviouslyCached, hasCachedContentOnDisk(for: article) {
                 article.fetchStatus = .cached
             } else {
@@ -181,6 +182,7 @@ actor PageCacheService {
         guard httpResponse.statusCode == 200,
               contentType.contains("text/html"),
               data.count > 1000 else {
+            print("[PageCacheService] Validation failed for \(article.articleURL): status=\(httpResponse.statusCode), contentType=\(contentType), dataSize=\(data.count)")
             article.lastHTTPStatus = httpResponse.statusCode
             if wasPreviouslyCached, hasCachedContentOnDisk(for: article) {
                 article.fetchStatus = .cached

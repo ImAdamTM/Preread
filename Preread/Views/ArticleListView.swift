@@ -342,8 +342,20 @@ struct ArticleListView: View {
         withAnimation(.easeInOut(duration: 0.2)) {
             articles[index].fetchStatus = .fetching
         }
+
+        // Clear stale conditional headers so we get a fresh response
+        // (e.g. after cache wipe, the file is gone but etag/lastModified remain)
+        var articleToCache = article
+        if articleToCache.etag != nil || articleToCache.lastModified != nil {
+            articleToCache.etag = nil
+            articleToCache.lastModified = nil
+            try? await DatabaseManager.shared.dbPool.write { db in
+                try articleToCache.update(db)
+            }
+        }
+
         let cacheLevel = currentCacheLevel
-        try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+        try? await PageCacheService.shared.cacheArticle(articleToCache, cacheLevel: cacheLevel)
         await loadArticles()
 
         if let updatedIndex = articles.firstIndex(where: { $0.id == article.id }) {
