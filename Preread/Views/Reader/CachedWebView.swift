@@ -11,6 +11,9 @@ struct CachedWebView: UIViewRepresentable {
     let skipDarkReader: Bool
     let textSize: CGFloat
     let fontFamily: String
+    var useTransparentBackground: Bool = false
+    var heroImageURL: URL? = nil
+    var heroFallbackGradientColors: [UIColor]? = nil
     @Binding var retryDarkMode: Bool
     let onScrollDown: () -> Void
     let onScrollUp: () -> Void
@@ -26,7 +29,27 @@ struct CachedWebView: UIViewRepresentable {
         )
     }
 
-    func makeUIView(context: Context) -> WKWebView {
+    func makeUIView(context: Context) -> UIView {
+        let container = UIView()
+        container.clipsToBounds = true
+
+        // Hero backdrop (behind the web view)
+        let backdropView = buildHeroBackdrop()
+        backdropView.tag = 100
+        container.addSubview(backdropView)
+        backdropView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            backdropView.topAnchor.constraint(equalTo: container.topAnchor),
+            backdropView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            backdropView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            backdropView.heightAnchor.constraint(equalToConstant: 240)
+        ])
+
+        // Load hero image asynchronously
+        if let heroImageURL {
+            loadHeroImage(from: heroImageURL, into: backdropView)
+        }
+
         let config = WKWebViewConfiguration()
         config.preferences.isTextInteractionEnabled = true
 
@@ -40,6 +63,7 @@ struct CachedWebView: UIViewRepresentable {
         webView.scrollView.delegate = context.coordinator
         webView.isOpaque = false
         webView.scrollView.backgroundColor = .clear
+        webView.scrollView.maximumZoomScale = 1.0
 
         // Tell the web view which appearance to report for prefers-color-scheme.
         // Sites with native dark mode will use their own dark CSS.
@@ -51,7 +75,9 @@ struct CachedWebView: UIViewRepresentable {
 
         // Set the webview background to match the app theme
         // Full-page caches are light by default; reader mode uses template dark bg
-        if isReaderMode {
+        if useTransparentBackground {
+            webView.backgroundColor = .clear
+        } else if isReaderMode {
             webView.backgroundColor = useLightMode
                 ? UIColor(red: 250/255, green: 250/255, blue: 250/255, alpha: 1) // #FAFAFA
                 : UIColor.black
@@ -60,6 +86,17 @@ struct CachedWebView: UIViewRepresentable {
                 ? UIColor.black
                 : .white
         }
+
+        container.addSubview(webView)
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            webView.topAnchor.constraint(equalTo: container.topAnchor),
+            webView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+            webView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: container.trailingAnchor)
+        ])
+
+        context.coordinator.webView = webView
 
         // Load Dark Reader source from bundle for full-page dark mode
         if let drURL = Bundle.main.url(forResource: "darkreader.min", withExtension: "js"),
@@ -87,10 +124,11 @@ struct CachedWebView: UIViewRepresentable {
             webView.loadFileURL(htmlFileURL, allowingReadAccessTo: articleDirectory)
         }
 
-        return webView
+        return container
     }
 
-    func updateUIView(_ webView: WKWebView, context: Context) {
+    func updateUIView(_ container: UIView, context: Context) {
+        guard let webView = context.coordinator.webView else { return }
         let coordinator = context.coordinator
 
         // Update pending state on coordinator — these are applied after page load
@@ -109,7 +147,9 @@ struct CachedWebView: UIViewRepresentable {
         }
 
         // Update webview background colour to prevent flash
-        if isReaderMode {
+        if useTransparentBackground {
+            webView.backgroundColor = .clear
+        } else if isReaderMode {
             webView.backgroundColor = useLightMode
                 ? UIColor(red: 250/255, green: 250/255, blue: 250/255, alpha: 1)
                 : UIColor.black
@@ -134,6 +174,59 @@ struct CachedWebView: UIViewRepresentable {
         coordinator.applyCurrentState(to: webView)
     }
 
+    // MARK: - Hero backdrop (UIKit)
+
+    private func buildHeroBackdrop() -> UIView {
+        let backdrop = GradientMaskedView()
+        backdrop.clipsToBounds = true
+        backdrop.isUserInteractionEnabled = false
+
+        // Content image view (will be populated async or with gradient)
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.tag = 101
+        backdrop.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: backdrop.topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: backdrop.bottomAnchor),
+            imageView.leadingAnchor.constraint(equalTo: backdrop.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: backdrop.trailingAnchor)
+        ])
+
+        // Apply blur
+        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        backdrop.addSubview(blurView)
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            blurView.topAnchor.constraint(equalTo: backdrop.topAnchor),
+            blurView.bottomAnchor.constraint(equalTo: backdrop.bottomAnchor),
+            blurView.leadingAnchor.constraint(equalTo: backdrop.leadingAnchor),
+            blurView.trailingAnchor.constraint(equalTo: backdrop.trailingAnchor)
+        ])
+
+        backdrop.alpha = 0.4
+
+        // Gradient mask applied on layout (needs frame)
+        backdrop.tag = 100
+
+        return backdrop
+    }
+
+    private func loadHeroImage(from url: URL, into backdropView: UIView) {
+        let task = URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard let data, let image = UIImage(data: data) else { return }
+            DispatchQueue.main.async {
+                if let imageView = backdropView.viewWithTag(101) as? UIImageView {
+                    imageView.image = image
+                }
+            }
+        }
+        task.resume()
+    }
+
     // MARK: - Coordinator
 
     final class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler, UIScrollViewDelegate {
@@ -141,6 +234,7 @@ struct CachedWebView: UIViewRepresentable {
         let onScrollUp: () -> Void
         let onLinkTapped: (URL) -> Void
         let onDarkReaderReady: () -> Void
+        weak var webView: WKWebView?
 
         var darkReaderSource: String?
         var darkReaderInjected = false
@@ -395,5 +489,25 @@ struct CachedWebView: UIViewRepresentable {
         func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
             isTracking = false
         }
+    }
+}
+
+// MARK: - Gradient-masked backdrop view
+
+private class GradientMaskedView: UIView {
+    private let gradientMask = CAGradientLayer()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        gradientMask.colors = [UIColor.white.cgColor, UIColor.white.cgColor, UIColor.clear.cgColor]
+        gradientMask.locations = [0, 0.3, 1.0]
+        layer.mask = gradientMask
+    }
+
+    required init?(coder: NSCoder) { fatalError() }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        gradientMask.frame = bounds
     }
 }

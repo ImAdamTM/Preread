@@ -157,24 +157,28 @@ struct ReaderView: View {
         }
         let articleDir = htmlURL.deletingLastPathComponent()
 
-        return CachedWebView(
-            htmlFileURL: htmlURL,
-            articleDirectory: articleDir,
-            isDarkMode: isReaderMode ? false : useDarkAppearance,
-            isReaderMode: isReaderMode,
-            useLightMode: isReaderMode && !useDarkAppearance,
-            skipDarkReader: usePreDarkened,
-            textSize: CGFloat(textSize),
-            fontFamily: fontFamily,
-            retryDarkMode: $retryDarkMode,
-            onScrollDown: { },
-            onScrollUp: { },
-            onLinkTapped: { url in
-                tappedLinkURL = url
-                showLinkConfirmation = true
-            },
-            onDarkReaderReady: { }
-        )
+        return ZStack {
+            CachedWebView(
+                htmlFileURL: htmlURL,
+                articleDirectory: articleDir,
+                isDarkMode: isReaderMode ? false : useDarkAppearance,
+                isReaderMode: isReaderMode,
+                useLightMode: isReaderMode && !useDarkAppearance,
+                skipDarkReader: usePreDarkened,
+                textSize: CGFloat(textSize),
+                fontFamily: fontFamily,
+                useTransparentBackground: true,
+                heroImageURL: heroImageURL,
+                retryDarkMode: $retryDarkMode,
+                onScrollDown: { },
+                onScrollUp: { },
+                onLinkTapped: { url in
+                    tappedLinkURL = url
+                    showLinkConfirmation = true
+                },
+                onDarkReaderReady: { }
+            )
+        }
         .ignoresSafeArea(edges: .top)
         .opacity(webViewVisible ? 1 : 0)
         .animation(.easeIn(duration: 0.2), value: webViewVisible)
@@ -187,6 +191,18 @@ struct ReaderView: View {
                 }
             }
         }
+    }
+
+    // MARK: - Hero image URL
+
+    private var heroImageURL: URL? {
+        if let thumbnailURL = article.thumbnailURL, let url = URL(string: thumbnailURL) {
+            return url
+        }
+        if let iconURL = source.iconURL, let url = URL(string: iconURL) {
+            return url
+        }
+        return nil
     }
 
     // MARK: - Source favicon for toolbar
