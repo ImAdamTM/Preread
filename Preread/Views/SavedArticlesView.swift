@@ -29,8 +29,15 @@ struct SavedArticlesView: View {
 
     private var filteredArticles: [Article] {
         if searchText.isEmpty { return articles }
-        return articles.filter {
-            $0.title.localizedCaseInsensitiveContains(searchText)
+        return articles.filter { article in
+            if article.title.localizedCaseInsensitiveContains(searchText) {
+                return true
+            }
+            let name = article.originalSourceName ?? sourceNames[article.sourceID]
+            if let name, name.localizedCaseInsensitiveContains(searchText) {
+                return true
+            }
+            return false
         }
     }
 
