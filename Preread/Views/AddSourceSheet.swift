@@ -22,6 +22,10 @@ struct AddSourceSheet: View {
     @State private var cyclingTimer: Timer?
     @State private var shakeOffset: CGFloat = 0
     @State private var checkmarkScale: CGFloat = 0
+    @State private var shimmerOffset: CGFloat = -1.0
+    @State private var detectingShimmerOffset: CGFloat = -1.0
+    @State private var cyclingTextOffset: CGFloat = 0
+    @State private var cyclingTextOpacity: Double = 1.0
 
     @FocusState private var isURLFieldFocused: Bool
 
@@ -38,6 +42,12 @@ struct AddSourceSheet: View {
         "Fetching feed details...",
         "Almost there..."
     ]
+
+    /// Dynamic height for the feed-found sheet based on whether articles are present.
+    private var feedFoundSheetHeight: CGFloat {
+        let hasArticles = (detectedFeed?.items.count ?? 0) > 0
+        return hasArticles ? 680 : 560
+    }
 
     private let popularPicks: [(name: String, url: String)] = [
         ("The Verge", "https://www.theverge.com"),
@@ -80,7 +90,7 @@ struct AddSourceSheet: View {
                     .foregroundColor(Theme.textSecondary)
                 }
             }
-            .presentationDetents(sheetState == .feedFound ? [.fraction(0.9)] : [.fraction(0.6)])
+            .presentationDetents(sheetState == .feedFound ? [.height(feedFoundSheetHeight)] : [.fraction(0.6)])
             .presentationDragIndicator(.visible)
             .animation(Theme.gentleAnimation(response: 0.4, dampingFraction: 0.85), value: sheetState)
             .onAppear {
@@ -204,23 +214,46 @@ struct AddSourceSheet: View {
                 ProgressView()
                     .tint(.white)
 
-                Text(cyclingTexts[cyclingTextIndex])
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.white)
+                ZStack {
+                    Text(cyclingTexts[cyclingTextIndex])
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.white)
+                        .opacity(cyclingTextOpacity)
+                        .offset(y: cyclingTextOffset)
+
+                    // Shimmer highlight masked to text
+                    if !Theme.reduceMotion {
+                        Text(cyclingTexts[cyclingTextIndex])
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.clear)
+                            .overlay(detectingShimmerOverlay)
+                            .mask(
+                                Text(cyclingTexts[cyclingTextIndex])
+                                    .font(.system(size: 16, weight: .semibold))
+                            )
+                            .opacity(cyclingTextOpacity)
+                            .offset(y: cyclingTextOffset)
+                    }
+                }
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 16)
             .background(Theme.accentGradient)
             .clipShape(RoundedRectangle(cornerRadius: 14))
+            .onAppear {
+                if !Theme.reduceMotion {
+                    startDetectingShimmer()
+                }
+            }
         }
     }
 
     // MARK: - State C: Feed Found
 
     private var feedFoundState: some View {
-        VStack(spacing: 20) {
-            // Feed header
-            VStack(spacing: 12) {
+        VStack(spacing: 16) {
+            // Feed header — favicon left, details right
+            HStack(spacing: 14) {
                 // Favicon
                 if let siteURL = detectedFeed?.siteURL {
                     let faviconURL = URL(string: "https://www.google.com/s2/favicons?domain=\(siteURL.host ?? "")&sz=96")
@@ -229,38 +262,36 @@ struct AddSourceSheet: View {
                         case .success(let image):
                             image.resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .frame(width: 48, height: 48)
+                                .frame(width: 44, height: 44)
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                         default:
-                            letterAvatar(for: detectedFeed?.title ?? "?", size: 48)
+                            letterAvatar(for: detectedFeed?.title ?? "?", size: 44)
                         }
                     }
-                    .frame(width: 48, height: 48)
+                    .frame(width: 44, height: 44)
                 } else {
-                    letterAvatar(for: detectedFeed?.title ?? "?", size: 48)
+                    letterAvatar(for: detectedFeed?.title ?? "?", size: 44)
                 }
 
-                Text(editableName)
-                    .font(.system(size: 22, weight: .bold))
-                    .foregroundColor(Theme.textPrimary)
-                    .multilineTextAlignment(.center)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(detectedFeed?.feedURL.absoluteString ?? "")
+                        .font(.system(size: 11, design: .monospaced))
+                        .foregroundColor(Theme.textSecondary)
+                        .lineLimit(1)
 
-                Text(detectedFeed?.feedURL.absoluteString ?? "")
-                    .font(.system(size: 12, design: .monospaced))
-                    .foregroundColor(Theme.textSecondary)
-                    .lineLimit(1)
-
-                // Article count pill
-                if let count = detectedFeed?.items.count, count > 0 {
-                    Text("\(count) articles")
-                        .font(.system(size: 11, weight: .semibold))
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 4)
-                        .background(Theme.accentGradient)
-                        .clipShape(Capsule())
+                    // Article count pill
+                    if let count = detectedFeed?.items.count, count > 0 {
+                        Text("\(count) articles")
+                            .font(.system(size: 11, weight: .semibold))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                            .background(Theme.accentGradient)
+                            .clipShape(Capsule())
+                    }
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
 
             // Editable name
             VStack(alignment: .leading, spacing: 6) {
@@ -271,8 +302,8 @@ struct AddSourceSheet: View {
                 TextField("Source name", text: $editableName)
                     .font(.system(size: 16))
                     .foregroundColor(Theme.textPrimary)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 12)
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 10)
                     .background(Theme.surfaceRaised)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
             }
@@ -297,47 +328,64 @@ struct AddSourceSheet: View {
                     .foregroundColor(Theme.textSecondary)
 
                 CacheFidelitySlider(selectedLevel: $selectedCacheLevel)
-                    .padding(.horizontal, 4)
             }
 
             // Preview articles
             if let items = detectedFeed?.items.prefix(3), !items.isEmpty {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Here's what's inside")
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("Recent articles")
                         .font(.system(size: 13, weight: .medium))
                         .foregroundColor(Theme.textSecondary)
 
                     ForEach(Array(items.enumerated()), id: \.offset) { _, item in
-                        HStack(spacing: 10) {
+                        HStack(spacing: 8) {
                             Circle()
                                 .fill(Theme.accent)
-                                .frame(width: 6, height: 6)
+                                .frame(width: 5, height: 5)
                             Text(item.title)
-                                .font(.system(size: 14))
+                                .font(.system(size: 13))
                                 .foregroundColor(Theme.textPrimary)
                                 .lineLimit(1)
                         }
-                        .padding(.vertical, 2)
                     }
                 }
-                .padding(16)
+                .padding(12)
                 .background(Theme.card)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 12)
+                    RoundedRectangle(cornerRadius: 10)
                         .stroke(Theme.border, lineWidth: 1)
                 )
             }
 
             // Primary CTA
             Button(action: addSource) {
-                Text("Add to Preread")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
-                    .background(Theme.accentGradient)
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
+                ZStack {
+                    Text("Add to Preread")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.white)
+
+                    // Shimmer highlight masked to the text shape
+                    if !Theme.reduceMotion {
+                        Text("Add to Preread")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.clear)
+                            .overlay(ctaShimmerOverlay)
+                            .mask(
+                                Text("Add to Preread")
+                                    .font(.system(size: 16, weight: .semibold))
+                            )
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 14)
+                .background(Theme.accentGradient)
+                .clipShape(RoundedRectangle(cornerRadius: 14))
+            }
+            .onAppear {
+                if !Theme.reduceMotion {
+                    startCTAShimmer()
+                }
             }
 
             // Ghost button
@@ -474,6 +522,71 @@ struct AddSourceSheet: View {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(isSelected ? Color.clear : Theme.border, lineWidth: 1)
             )
+        }
+    }
+
+    // MARK: - CTA shimmer
+
+    private var ctaShimmerOverlay: some View {
+        GeometryReader { geo in
+            LinearGradient(
+                colors: [
+                    Color.white.opacity(0),
+                    Color(red: 1.0, green: 0.7, blue: 0.85).opacity(0.6),
+                    Color(red: 1.0, green: 0.75, blue: 0.88),
+                    Color(red: 1.0, green: 0.7, blue: 0.85).opacity(0.6),
+                    Color.white.opacity(0),
+                ],
+                startPoint: .leading,
+                endPoint: .trailing
+            )
+            .frame(width: geo.size.width * 0.35)
+            .offset(x: shimmerOffset * geo.size.width)
+            .frame(width: geo.size.width, height: geo.size.height, alignment: .leading)
+            .clipped()
+        }
+        .allowsHitTesting(false)
+    }
+
+    private var detectingShimmerOverlay: some View {
+        GeometryReader { geo in
+            LinearGradient(
+                colors: [
+                    Color.white.opacity(0),
+                    Color(red: 1.0, green: 0.7, blue: 0.85).opacity(0.6),
+                    Color(red: 1.0, green: 0.75, blue: 0.88),
+                    Color(red: 1.0, green: 0.7, blue: 0.85).opacity(0.6),
+                    Color.white.opacity(0),
+                ],
+                startPoint: .leading,
+                endPoint: .trailing
+            )
+            .frame(width: geo.size.width * 0.35)
+            .offset(x: detectingShimmerOffset * geo.size.width)
+            .frame(width: geo.size.width, height: geo.size.height, alignment: .leading)
+            .clipped()
+        }
+        .allowsHitTesting(false)
+    }
+
+    private func startDetectingShimmer() {
+        detectingShimmerOffset = -1.0
+        withAnimation(
+            .easeInOut(duration: 2.0)
+            .repeatForever(autoreverses: false)
+            .delay(0.3)
+        ) {
+            detectingShimmerOffset = 1.2
+        }
+    }
+
+    private func startCTAShimmer() {
+        withAnimation(
+            .easeInOut(duration: 2.0)
+            .repeatForever(autoreverses: false)
+            .delay(0.5)
+        ) {
+            shimmerOffset = 1.2
         }
     }
 
@@ -773,9 +886,26 @@ struct AddSourceSheet: View {
     // MARK: - Cycling timer
 
     private func startCyclingTimer() {
-        cyclingTimer = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: true) { _ in
+        cyclingTextOffset = 0
+        cyclingTextOpacity = 1.0
+        cyclingTimer = Timer.scheduledTimer(withTimeInterval: 2.5, repeats: true) { _ in
             Task { @MainActor in
+                // Animate current text out: slide up + fade
+                withAnimation(.easeIn(duration: 0.25)) {
+                    cyclingTextOffset = -8
+                    cyclingTextOpacity = 0
+                }
+
+                // Swap text while invisible, position below
+                try? await Task.sleep(for: .milliseconds(250))
+                cyclingTextOffset = 8
                 cyclingTextIndex = (cyclingTextIndex + 1) % cyclingTexts.count
+
+                // Animate new text in: slide up to center + fade in
+                withAnimation(.easeOut(duration: 0.25)) {
+                    cyclingTextOffset = 0
+                    cyclingTextOpacity = 1.0
+                }
             }
         }
     }

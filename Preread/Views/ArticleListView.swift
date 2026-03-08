@@ -525,11 +525,6 @@ struct ArticleListView: View {
                                 .foregroundColor(Theme.textSecondary)
 
                             CacheFidelitySlider(selectedLevel: $currentCacheLevel)
-                                .padding(.horizontal, 4)
-
-                            Text("Applies to articles fetched from now on. Existing saved articles are not affected.")
-                                .font(Theme.scaledFont(size: 12, relativeTo: .caption))
-                                .foregroundColor(Theme.textSecondary)
                         }
 
                     }
