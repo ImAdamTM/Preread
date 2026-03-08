@@ -4,6 +4,7 @@ import GRDB
 
 struct ReaderView: View {
     let article: Article
+    let source: Source
     let namespace: Namespace.ID
 
     @Environment(\.dismiss) private var dismiss
@@ -12,7 +13,6 @@ struct ReaderView: View {
     @AppStorage("readerTextSize") private var textSize: Double = 18
     @AppStorage("readerFontFamily") private var fontFamily: String = "system-ui"
     @State private var webViewVisible = false
-    @State private var scrollProgress: CGFloat = 0
     @State private var safariURL: URL?
     @State private var showSafari = false
     @State private var showLinkConfirmation = false
@@ -33,18 +33,79 @@ struct ReaderView: View {
             Theme.background.ignoresSafeArea()
 
             if isLoadingCachedPage {
-                // Brief loading while DB lookup completes
                 EmptyView()
             } else if let cachedPage, FileManager.default.fileExists(atPath: cachedPage.htmlPath) {
                 readerContent(cachedPage: cachedPage)
             } else {
-                // No cached content available — show fallback
                 missingContentView
             }
         }
         .navigationBarBackButtonHidden(true)
-        .toolbar(.hidden, for: .navigationBar)
-        .statusBarHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(.hidden, for: .navigationBar)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button { dismiss() } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(Theme.textPrimary)
+                }
+            }
+            ToolbarItem(placement: .principal) {
+                HStack(spacing: 8) {
+                    readerSourceFavicon
+                    Text(source.title)
+                        .font(Theme.scaledFont(size: 17, weight: .semibold))
+                        .foregroundColor(Theme.textPrimary)
+                        .lineLimit(1)
+                    Spacer()
+                }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                HStack(spacing: 16) {
+                    // Text size (long press for font picker)
+                    Button {
+                        showTextSize.toggle()
+                    } label: {
+                        Image(systemName: "textformat.size")
+                            .font(.system(size: 15))
+                            .foregroundColor(Theme.textSecondary)
+                    }
+                    .popover(isPresented: $showTextSize) {
+                        TextSizePopover(textSize: Binding(
+                            get: { CGFloat(textSize) },
+                            set: { textSize = Double($0) }
+                        ), onChanged: { _ in })
+                            .presentationCompactAdaptation(.popover)
+                    }
+                    .onLongPressGesture {
+                        HapticManager.fontSelected()
+                        showFontPicker = true
+                    }
+                    .popover(isPresented: $showFontPicker) {
+                        FontPickerPopover(selectedFont: $fontFamily, onChanged: { _ in })
+                            .presentationCompactAdaptation(.popover)
+                    }
+
+                    // Share
+                    ShareLink(item: URL(string: article.articleURL) ?? URL(string: "https://preread.app")!,
+                              subject: Text(article.title)) {
+                        Image(systemName: "square.and.arrow.up")
+                            .font(.system(size: 15))
+                            .foregroundColor(Theme.textSecondary)
+                    }
+
+                    // Settings
+                    NavigationLink {
+                        SettingsView()
+                    } label: {
+                        Image(systemName: "gearshape")
+                            .font(.system(size: 15))
+                            .foregroundColor(Theme.textSecondary)
+                    }
+                }
+            }
+        }
         .task {
             await loadCachedPage()
             isLoadingCachedPage = false
@@ -96,45 +157,27 @@ struct ReaderView: View {
         }
         let articleDir = htmlURL.deletingLastPathComponent()
 
-        return ZStack(alignment: .top) {
-            // Progress bar at top
-            GeometryReader { geo in
-                Theme.accentGradient
-                    .frame(width: geo.size.width * scrollProgress, height: 2)
-                    .clipShape(Capsule())
-                    .shadow(color: Theme.accent.opacity(0.4), radius: 4, y: 1)
-            }
-            .frame(height: 2)
-            .zIndex(2)
-
-            VStack(spacing: 0) {
-                // Title bar
-                titleBar
-                    .zIndex(1)
-
-                // Web view
-                CachedWebView(
-                    htmlFileURL: htmlURL,
-                    articleDirectory: articleDir,
-                    isDarkMode: isReaderMode ? false : useDarkAppearance,
-                    isReaderMode: isReaderMode,
-                    useLightMode: isReaderMode && !useDarkAppearance,
-                    skipDarkReader: usePreDarkened,
-                    textSize: CGFloat(textSize),
-                    fontFamily: fontFamily,
-                    retryDarkMode: $retryDarkMode,
-                    onScrollDown: { },
-                    onScrollUp: { },
-                    onLinkTapped: { url in
-                        tappedLinkURL = url
-                        showLinkConfirmation = true
-                    },
-                    onDarkReaderReady: { }
-                )
-                .opacity(webViewVisible ? 1 : 0)
-                .animation(.easeIn(duration: 0.2), value: webViewVisible)
-            }
-        }
+        return CachedWebView(
+            htmlFileURL: htmlURL,
+            articleDirectory: articleDir,
+            isDarkMode: isReaderMode ? false : useDarkAppearance,
+            isReaderMode: isReaderMode,
+            useLightMode: isReaderMode && !useDarkAppearance,
+            skipDarkReader: usePreDarkened,
+            textSize: CGFloat(textSize),
+            fontFamily: fontFamily,
+            retryDarkMode: $retryDarkMode,
+            onScrollDown: { },
+            onScrollUp: { },
+            onLinkTapped: { url in
+                tappedLinkURL = url
+                showLinkConfirmation = true
+            },
+            onDarkReaderReady: { }
+        )
+        .ignoresSafeArea(edges: .top)
+        .opacity(webViewVisible ? 1 : 0)
+        .animation(.easeIn(duration: 0.2), value: webViewVisible)
         .onAppear {
             if Theme.reduceMotion {
                 webViewVisible = true
@@ -146,108 +189,45 @@ struct ReaderView: View {
         }
     }
 
-    // MARK: - Title bar
+    // MARK: - Source favicon for toolbar
 
-    private var titleBar: some View {
-        HStack(spacing: 12) {
-            Button {
-                dismiss()
-            } label: {
-                Image(systemName: "chevron.left")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(Theme.textPrimary)
-                    .frame(width: 36, height: 36)
-                    .background(Theme.surfaceRaised)
-                    .clipShape(Circle())
-            }
-
-            Text(article.title)
-                .font(Theme.scaledFont(size: 16, weight: .semibold))
-                .foregroundColor(Theme.textPrimary)
-                .lineLimit(1)
-                .matchedGeometryEffect(id: article.id.uuidString + "-title", in: namespace)
-
-            Spacer()
-
-            // Text size
-            Button {
-                showTextSize.toggle()
-            } label: {
-                Image(systemName: "textformat.size")
-                    .font(.system(size: 15))
-                    .foregroundColor(Theme.textSecondary)
-                    .frame(width: 36, height: 36)
-            }
-            .popover(isPresented: $showTextSize) {
-                TextSizePopover(textSize: Binding(
-                    get: { CGFloat(textSize) },
-                    set: { textSize = Double($0) }
-                ), onChanged: { _ in })
-                    .presentationCompactAdaptation(.popover)
-            }
-            .onLongPressGesture {
-                HapticManager.fontSelected()
-                showFontPicker = true
-            }
-            .popover(isPresented: $showFontPicker) {
-                FontPickerPopover(selectedFont: $fontFamily, onChanged: { _ in })
-                    .presentationCompactAdaptation(.popover)
-            }
-
-            // Retry dark mode (debug — full-page dark mode only)
-            if useDarkAppearance, cachedPage?.cacheLevelUsed == .full {
-                Button {
-                    retryDarkMode = true
-                } label: {
-                    Image(systemName: "moon.circle")
-                        .font(.system(size: 15))
-                        .foregroundColor(Theme.textSecondary)
-                        .frame(width: 36, height: 36)
+    @ViewBuilder
+    private var readerSourceFavicon: some View {
+        if let iconURL = source.iconURL, let url = URL(string: iconURL) {
+            AsyncImage(url: url) { phase in
+                switch phase {
+                case .success(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 24, height: 24)
+                        .clipShape(RoundedRectangle(cornerRadius: 5))
+                default:
+                    readerSmallLetterAvatar
                 }
             }
-
-            // Share
-            ShareLink(item: URL(string: article.articleURL) ?? URL(string: "https://preread.app")!,
-                      subject: Text(article.title)) {
-                Image(systemName: "square.and.arrow.up")
-                    .font(.system(size: 15))
-                    .foregroundColor(Theme.textSecondary)
-                    .frame(width: 36, height: 36)
-            }
+            .frame(width: 24, height: 24)
+        } else {
+            readerSmallLetterAvatar
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 10)
-        .background(Theme.background)
+    }
+
+    private var readerSmallLetterAvatar: some View {
+        let letter = String(source.title.prefix(1)).uppercased()
+        return ZStack {
+            RoundedRectangle(cornerRadius: 5)
+                .fill(Theme.avatarGradient(for: source.title))
+                .frame(width: 24, height: 24)
+            Text(letter)
+                .font(Theme.scaledFont(size: 12, weight: .bold))
+                .foregroundColor(.white)
+        }
     }
 
     // MARK: - Missing content fallback
 
     private var missingContentView: some View {
         VStack(spacing: 0) {
-            // Title bar with back button
-            HStack(spacing: 12) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(Theme.textPrimary)
-                        .frame(width: 36, height: 36)
-                        .background(Theme.surfaceRaised)
-                        .clipShape(Circle())
-                }
-
-                Text(article.title)
-                    .font(Theme.scaledFont(size: 16, weight: .semibold))
-                    .foregroundColor(Theme.textPrimary)
-                    .lineLimit(1)
-
-                Spacer()
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
-            .background(Theme.background)
-
             Spacer()
 
             VStack(spacing: 16) {

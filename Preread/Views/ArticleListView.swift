@@ -112,7 +112,7 @@ struct ArticleListView: View {
             sourceSettingsSheet
         }
         .navigationDestination(item: $selectedArticle) { article in
-            ReaderView(article: article, namespace: namespace)
+            ReaderView(article: article, source: source, namespace: namespace)
         }
     }
 
