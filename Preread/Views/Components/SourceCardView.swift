@@ -14,7 +14,6 @@ struct SourceCardView: View {
     @State private var showUpdated = false
     @State private var showDeleteConfirmation = false
     @State private var cachedFavicon: UIImage?
-    @State private var faviconLoaded = false
 
     var body: some View {
         Button(action: onTap) {
@@ -34,12 +33,12 @@ struct SourceCardView: View {
 
                 Spacer(minLength: 4)
 
-                // Right side: unread pill + cache ring
+                // Right side: unread pill + spinner
                 HStack(spacing: 8) {
-                    if unreadCount > 0 {
-                        countPill
+                    countPill
+                    if refreshState == .refreshing {
+                        refreshSpinner
                     }
-                    cacheRing
                 }
             }
             .padding(.horizontal, 16)
@@ -108,34 +107,13 @@ struct SourceCardView: View {
     @ViewBuilder
     private var faviconView: some View {
         if let favicon = cachedFavicon {
-            // Locally cached favicon
             Image(uiImage: favicon)
                 .resizable()
                 .interpolation(.high)
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 40, height: 40)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-        } else if faviconLoaded {
-            // No local cache — try network
-            if let iconURL = source.iconURL, let url = URL(string: iconURL) {
-                AsyncImage(url: url) { phase in
-                    switch phase {
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 40, height: 40)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                    default:
-                        letterAvatar
-                    }
-                }
-                .frame(width: 40, height: 40)
-            } else {
-                letterAvatar
-            }
         } else {
-            // Loading from disk
             letterAvatar
                 .task {
                     let sourceID = source.id
@@ -143,7 +121,6 @@ struct SourceCardView: View {
                         await PageCacheService.shared.cachedFavicon(for: sourceID)
                     }.value
                     cachedFavicon = image
-                    faviconLoaded = true
                 }
         }
     }
@@ -169,11 +146,11 @@ struct SourceCardView: View {
             HStack(spacing: 4) {
                 Text("Refreshing...")
                     .font(Theme.scaledFont(size: 13, relativeTo: .footnote))
-                    .foregroundColor(Theme.accent)
+                    .foregroundColor(Color(red: 0.55, green: 0.55, blue: 1.0))
             }
 
         case .failed:
-            Text("Couldn't refresh · Tap to try again")
+            Text("Couldn't refresh · Try again")
                 .font(Theme.scaledFont(size: 13, relativeTo: .footnote))
                 .foregroundColor(Theme.danger)
 
@@ -209,47 +186,34 @@ struct SourceCardView: View {
             .foregroundColor(.white)
             .padding(.horizontal, 8)
             .padding(.vertical, 3)
-            .background(Theme.accentGradient)
+            .background(unreadCount > 0 ? AnyShapeStyle(Theme.accentGradient) : AnyShapeStyle(Theme.textSecondary.opacity(0.4)))
             .clipShape(Capsule())
     }
 
-    // MARK: - Cache ring / refresh icon
+    // MARK: - Refresh spinner
 
-    private var cacheRing: some View {
-        let isRefreshing = refreshState == .refreshing
-        return ZStack {
-            // Refresh icon — visible when idle
-            Image(systemName: "arrow.clockwise")
-                .font(.system(size: 15, weight: .medium))
-                .foregroundColor(Theme.textSecondary)
-                .opacity(isRefreshing ? 0 : 1)
-                .scaleEffect(isRefreshing ? 0.5 : 1)
+    private var refreshSpinner: some View {
+        TimelineView(.animation(minimumInterval: 1.0 / 60.0)) { context in
+            let angle = context.date.timeIntervalSinceReferenceDate.remainder(dividingBy: 1.2) / 1.2 * 360
+            ZStack {
+                Circle()
+                    .stroke(Theme.borderProminent, lineWidth: 2.5)
+                    .frame(width: 28, height: 28)
 
-            // Spinning ring — visible when refreshing
-            TimelineView(.animation(minimumInterval: 1.0 / 60.0, paused: !isRefreshing)) { context in
-                let angle = context.date.timeIntervalSinceReferenceDate.remainder(dividingBy: 1.2) / 1.2 * 360
-                ZStack {
-                    Circle()
-                        .stroke(Theme.borderProminent, lineWidth: 2.5)
-                        .frame(width: 28, height: 28)
-
-                    Circle()
-                        .trim(from: 0, to: 0.3)
-                        .stroke(
-                            AngularGradient(
-                                colors: [Theme.accent.opacity(0.6), Theme.accent],
-                                center: .center
-                            ),
-                            style: StrokeStyle(lineWidth: 2.5, lineCap: .round)
-                        )
-                        .frame(width: 28, height: 28)
-                        .rotationEffect(.degrees(angle))
-                }
+                Circle()
+                    .trim(from: 0, to: 0.3)
+                    .stroke(
+                        AngularGradient(
+                            colors: [Theme.accent.opacity(0.6), Theme.accent],
+                            center: .center
+                        ),
+                        style: StrokeStyle(lineWidth: 2.5, lineCap: .round)
+                    )
+                    .frame(width: 28, height: 28)
+                    .rotationEffect(.degrees(angle))
             }
-            .opacity(isRefreshing ? 1 : 0)
-            .scaleEffect(isRefreshing ? 1 : 0.5)
         }
-        .animation(.easeInOut(duration: 0.25), value: isRefreshing)
+        .transition(.scale.combined(with: .opacity))
     }
 
     // MARK: - Shortcuts
@@ -302,8 +266,6 @@ struct SourceCardView: View {
 
 // MARK: - Card press button style
 
-/// Uses SwiftUI's built-in press tracking so it doesn't steal
-/// drag gestures from the parent ScrollView.
 private struct CardPressStyle: ButtonStyle {
     func makeBody(configuration: ButtonStyleConfiguration) -> some View {
         configuration.label
@@ -311,3 +273,5 @@ private struct CardPressStyle: ButtonStyle {
             .animation(Theme.gentleAnimation(response: 0.28, dampingFraction: 0.75), value: configuration.isPressed)
     }
 }
+
+

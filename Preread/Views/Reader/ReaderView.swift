@@ -90,8 +90,8 @@ struct ReaderView: View {
                         showTextSize.toggle()
                     } label: {
                         Image(systemName: "textformat.size")
-                            .font(.system(size: 15))
-                            .foregroundColor(Theme.textSecondary)
+                            .font(.system(size: 17))
+                            .foregroundColor(Theme.textPrimary)
                     }
                     .popover(isPresented: $showTextSize) {
                         TextSizePopover(textSize: Binding(
@@ -113,8 +113,8 @@ struct ReaderView: View {
                     ShareLink(item: URL(string: article.articleURL) ?? URL(string: "https://preread.app")!,
                               subject: Text(article.title)) {
                         Image(systemName: "square.and.arrow.up")
-                            .font(.system(size: 15))
-                            .foregroundColor(Theme.textSecondary)
+                            .font(.system(size: 17))
+                            .foregroundColor(Theme.textPrimary)
                     }
 
                     // Settings
@@ -122,8 +122,8 @@ struct ReaderView: View {
                         SettingsView()
                     } label: {
                         Image(systemName: "gearshape")
-                            .font(.system(size: 15))
-                            .foregroundColor(Theme.textSecondary)
+                            .font(.system(size: 17))
+                            .foregroundColor(Theme.textPrimary)
                     }
                 }
             }

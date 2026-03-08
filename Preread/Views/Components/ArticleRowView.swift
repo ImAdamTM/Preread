@@ -27,7 +27,7 @@ struct ArticleRowView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(article.title)
                         .font(Theme.scaledFont(size: 17, weight: article.isRead ? .medium : .semibold))
-                        .foregroundColor(article.isRead ? Theme.textPrimary.opacity(0.6) : Theme.textPrimary)
+                        .foregroundColor(article.isRead ? Theme.textPrimary.opacity(0.85) : Theme.textPrimary)
                         .lineLimit(2)
                         .matchedGeometryEffect(id: article.id.uuidString + "-title", in: namespace)
 
@@ -192,24 +192,7 @@ struct ArticleRowView: View {
                     .frame(width: 64, height: 64)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
             } else if thumbnailLoaded {
-                // Local load finished with no result — fall back to remote
-                if let thumbURL = article.thumbnailURL, let url = URL(string: thumbURL) {
-                    AsyncImage(url: url) { phase in
-                        switch phase {
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 64, height: 64)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                        default:
-                            gradientPlaceholder
-                        }
-                    }
-                    .frame(width: 64, height: 64)
-                } else {
-                    gradientPlaceholder
-                }
+                gradientPlaceholder
             } else {
                 // Placeholder while loading from disk
                 gradientPlaceholder

@@ -163,7 +163,7 @@ actor FeedService {
                 throw FeedError.networkError(error)
             }
         }
-        throw FeedError.networkError(lastError!)
+        throw FeedError.networkError(lastError ?? URLError(.unknown))
     }
 
     /// Looks for <link rel="alternate" type="application/rss+xml"> or atom+xml in HTML.

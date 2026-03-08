@@ -53,7 +53,7 @@ actor PageCacheService {
                 throw error
             }
         }
-        throw lastError!
+        throw lastError ?? URLError(.unknown)
     }
 
     private var articlesBaseURL: URL {
@@ -1272,7 +1272,10 @@ private final class DarkVariantRenderer: NSObject, WKNavigationDelegate {
             }
 
             // Return whichever finishes first; cancel the other
-            let result = try await group.next()!
+            guard let result = try await group.next() else {
+                throw NSError(domain: "DarkVariantRenderer", code: 4,
+                    userInfo: [NSLocalizedDescriptionKey: "Task group completed without result"])
+            }
             group.cancelAll()
             return result
         }

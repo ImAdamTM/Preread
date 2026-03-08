@@ -4,77 +4,50 @@ struct ToastView: View {
     let item: ToastItem
     let onDismiss: () -> Void
 
-    @State private var offset: CGFloat = -120
-    @State private var dragOffset: CGFloat = 0
-
-    private var accentColor: Color {
+    private var iconName: String {
         switch item.type {
-        case .info: Theme.teal
-        case .success: Theme.success
+        case .info: "info.circle.fill"
+        case .success: "checkmark.circle.fill"
+        case .error: "exclamationmark.triangle.fill"
+        }
+    }
+
+    private var iconColor: Color {
+        switch item.type {
+        case .info: .white
+        case .success: .white
         case .error: Theme.danger
         }
     }
 
     var body: some View {
-        HStack(spacing: 12) {
-            RoundedRectangle(cornerRadius: 1.5)
-                .fill(accentColor)
-                .frame(width: 3)
-
+        HStack(spacing: 10) {
+            Image(systemName: iconName)
+                .font(.system(size: 13, weight: .semibold))
+                .foregroundStyle(iconColor)
             Text(item.message)
-                .font(.system(size: 14))
-                .foregroundStyle(Theme.textPrimary)
+                .font(Theme.scaledFont(size: 14, weight: .medium))
                 .lineLimit(2)
-
-            Spacer(minLength: 0)
+                .multilineTextAlignment(.leading)
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 14)
+        .foregroundStyle(.white)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 10)
         .background {
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Theme.card)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 16)
-                        .fill(.ultraThinMaterial)
-                }
-                .overlay {
-                    RoundedRectangle(cornerRadius: 16)
-                        .strokeBorder(Theme.border, lineWidth: 1)
-                }
+            Capsule()
+                .fill(.ultraThinMaterial)
+                .environment(\.colorScheme, .dark)
         }
-        .padding(.horizontal, 16)
-        .offset(y: offset + dragOffset)
+        .shadow(color: .black.opacity(0.15), radius: 8, y: 4)
+        .padding(.top, 4)
         .gesture(
             DragGesture()
-                .onChanged { value in
-                    if value.translation.height < 0 {
-                        dragOffset = value.translation.height
-                    }
-                }
                 .onEnded { value in
-                    if value.translation.height < -30 {
-                        dismiss()
-                    } else {
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                            dragOffset = 0
-                        }
+                    if value.translation.height < -20 {
+                        onDismiss()
                     }
                 }
         )
-        .onAppear {
-            withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
-                offset = 0
-            }
-        }
-    }
-
-    private func dismiss() {
-        withAnimation(.spring(response: 0.3, dampingFraction: 0.9)) {
-            offset = -120
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            onDismiss()
-        }
     }
 }
 

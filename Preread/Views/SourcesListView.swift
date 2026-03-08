@@ -71,7 +71,11 @@ struct SourcesListView: View {
             }
             .refreshable {
                 HapticManager.pullToRefresh()
-                await coordinator.refreshAllSources()
+                // Run in an unstructured Task so SwiftUI's pull-to-refresh
+                // lifecycle doesn't cancel the refresh when the spinner dismisses.
+                await Task {
+                    await coordinator.refreshAllSources()
+                }.value
                 await loadSources()
             }
             .onChange(of: coordinator.isFetching) { _, isFetching in
@@ -152,7 +156,7 @@ struct SourcesListView: View {
     private var sourcesList: some View {
         ScrollView {
             LazyVStack(spacing: 12) {
-                ForEach(Array(sources.enumerated()), id: \.element.id) { index, source in
+                ForEach(sources) { source in
                     let state = coordinator.sourceStatuses[source.id] ?? .idle
 
                     SourceCardView(
@@ -184,36 +188,6 @@ struct SourcesListView: View {
                             .allowsHitTesting(false)
                             .padding(.horizontal, 16)
                     )
-                    .draggable(source.id.uuidString) {
-                        // Drag preview
-                        SourceCardView(
-                            source: source,
-                            articleCount: articleCounts[source.id] ?? 0,
-                            unreadCount: unreadCounts[source.id] ?? 0,
-                            refreshState: .idle,
-                            onTap: {},
-                            onRefresh: {},
-                            onEditName: {},
-                            onRemove: {}
-                        )
-                        .scaleEffect(Theme.reduceMotion ? 1.0 : 1.04)
-                        .rotationEffect(.degrees(Theme.reduceMotion ? 0 : 2))
-                        .shadow(color: .black.opacity(0.3), radius: 12)
-                        .onAppear { HapticManager.cardLift() }
-                    }
-                    .dropDestination(for: String.self) { items, _ in
-                        guard let draggedIDString = items.first,
-                              let draggedID = UUID(uuidString: draggedIDString),
-                              let fromIndex = sources.firstIndex(where: { $0.id == draggedID }),
-                              fromIndex != index else { return false }
-
-                        withAnimation(Theme.gentleAnimation()) {
-                            sources.move(fromOffsets: IndexSet(integer: fromIndex), toOffset: index > fromIndex ? index + 1 : index)
-                        }
-                        HapticManager.cardDrop()
-                        Task { await saveSortOrder() }
-                        return true
-                    }
                 }
             }
             .padding(.vertical, 12)

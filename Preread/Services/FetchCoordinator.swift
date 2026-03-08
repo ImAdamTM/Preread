@@ -52,8 +52,11 @@ final class FetchCoordinator: ObservableObject {
                 let sourceID = source.id
                 group.addTask { [weak self] in
                     await self?.performRefresh(source)
+                    // Only mark completed if performRefresh didn't already set .failed
                     await MainActor.run {
-                        self?.sourceStatuses[sourceID] = .completed
+                        if self?.sourceStatuses[sourceID] != .failed {
+                            self?.sourceStatuses[sourceID] = .completed
+                        }
                     }
                 }
                 sourceStatuses[source.id] = .refreshing
@@ -68,7 +71,9 @@ final class FetchCoordinator: ObservableObject {
                     group.addTask { [weak self] in
                         await self?.performRefresh(source)
                         await MainActor.run {
-                            self?.sourceStatuses[sourceID] = .completed
+                            if self?.sourceStatuses[sourceID] != .failed {
+                                self?.sourceStatuses[sourceID] = .completed
+                            }
                         }
                     }
                     sourceStatuses[source.id] = .refreshing
@@ -283,9 +288,7 @@ final class FetchCoordinator: ObservableObject {
         } catch {
             source.fetchStatus = .error
             try? await saveSource(&source)
-            await MainActor.run { [source] in
-                sourceStatuses[source.id] = .failed
-            }
+            sourceStatuses[source.id] = .failed
         }
     }
 
