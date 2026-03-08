@@ -27,6 +27,8 @@ struct SourceHeroView: View {
     let onRefreshTapped: () -> Void
     var onTitlePositionChange: ((CGFloat) -> Void)?
 
+    @State private var iconImage: UIImage?
+
     var body: some View {
         VStack(spacing: 0) {
             Spacer()
@@ -61,25 +63,28 @@ struct SourceHeroView: View {
                 .frame(height: 240)
                 .allowsHitTesting(false)
         }
+        .task(id: source.iconURL) {
+            guard let iconURL = source.iconURL,
+                  let url = URL(string: iconURL) else { return }
+            do {
+                let (data, _) = try await URLSession.shared.data(from: url)
+                iconImage = UIImage(data: data)
+            } catch {
+                // Fall back to letter avatar / gradient
+            }
+        }
     }
 
     // MARK: - Blurred background
 
     private var blurredBackground: some View {
         ZStack {
-            if let iconURL = source.iconURL, let url = URL(string: iconURL) {
-                AsyncImage(url: url) { phase in
-                    switch phase {
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .blur(radius: 40)
-                            .clipped()
-                    default:
-                        gradientFallbackBackground
-                    }
-                }
+            if let iconImage {
+                Image(uiImage: iconImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .blur(radius: 40)
+                    .clipped()
             } else {
                 gradientFallbackBackground
             }
@@ -109,21 +114,13 @@ struct SourceHeroView: View {
 
     @ViewBuilder
     private var heroFavicon: some View {
-        if let iconURL = source.iconURL, let url = URL(string: iconURL) {
-            AsyncImage(url: url) { phase in
-                switch phase {
-                case .success(let image):
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 52, height: 52)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .shadow(color: .black.opacity(0.08), radius: 4, y: 2)
-                default:
-                    heroLetterAvatar
-                }
-            }
-            .frame(width: 52, height: 52)
+        if let iconImage {
+            Image(uiImage: iconImage)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 52, height: 52)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .shadow(color: .black.opacity(0.08), radius: 4, y: 2)
         } else {
             heroLetterAvatar
         }
