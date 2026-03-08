@@ -117,8 +117,11 @@ struct Theme {
 
     // MARK: - Dynamic Type scaled font
 
-    /// Returns a SwiftUI Font that scales with Dynamic Type settings.
-    /// Uses UIFontMetrics to scale a custom point size relative to a text style.
+    /// The custom font family name. Change this to swap the app-wide typeface.
+    private static let fontFamily = "Inter Tight"
+
+    /// Returns a SwiftUI Font using Inter Tight that scales with Dynamic Type settings.
+    /// Falls back to the system font if the custom font isn't available.
     static func scaledFont(size: CGFloat, weight: Font.Weight = .regular, design: Font.Design = .default, relativeTo style: Font.TextStyle = .body) -> Font {
         let uiWeight: UIFont.Weight = switch weight {
         case .ultraLight: .ultraLight
@@ -132,10 +135,25 @@ struct Theme {
         case .black: .black
         default: .regular
         }
-        let uiFont = UIFont.systemFont(ofSize: size, weight: uiWeight)
+
         let textStyle = style.uiTextStyle
         let metrics = UIFontMetrics(forTextStyle: textStyle)
-        let scaledSize = metrics.scaledValue(for: uiFont.pointSize)
+
+        // Try custom font via descriptor with weight trait
+        let descriptor = UIFontDescriptor(fontAttributes: [
+            .family: fontFamily,
+            .traits: [UIFontDescriptor.TraitKey.weight: uiWeight]
+        ])
+        let uiFont = UIFont(descriptor: descriptor, size: size)
+
+        // Verify we actually got Inter Tight, not a fallback
+        if uiFont.familyName == "Inter Tight" {
+            let scaledSize = metrics.scaledValue(for: size)
+            return Font.custom(uiFont.fontName, size: scaledSize, relativeTo: style)
+        }
+
+        // Fallback to system font
+        let scaledSize = metrics.scaledValue(for: size)
         return .system(size: scaledSize, weight: weight, design: design)
     }
 }

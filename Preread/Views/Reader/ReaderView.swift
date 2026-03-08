@@ -22,6 +22,7 @@ struct ReaderView: View {
     @State private var cachedPage: CachedPage?
     @State private var isLoadingCachedPage = true
     @State private var retryDarkMode = false
+    @State private var isRetrying = false
 
     private var useDarkAppearance: Bool {
         colorScheme == .dark
@@ -36,6 +37,9 @@ struct ReaderView: View {
                 EmptyView()
             } else if let cachedPage, FileManager.default.fileExists(atPath: cachedPage.htmlPath) {
                 readerContent(cachedPage: cachedPage)
+            } else {
+                // No cached content available — show fallback
+                missingContentView
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -216,6 +220,92 @@ struct ReaderView: View {
         .background(Theme.background)
     }
 
+    // MARK: - Missing content fallback
+
+    private var missingContentView: some View {
+        VStack(spacing: 0) {
+            // Title bar with back button
+            HStack(spacing: 12) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(Theme.textPrimary)
+                        .frame(width: 36, height: 36)
+                        .background(Theme.surfaceRaised)
+                        .clipShape(Circle())
+                }
+
+                Text(article.title)
+                    .font(Theme.scaledFont(size: 16, weight: .semibold))
+                    .foregroundColor(Theme.textPrimary)
+                    .lineLimit(1)
+
+                Spacer()
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            .background(Theme.background)
+
+            Spacer()
+
+            VStack(spacing: 16) {
+                Image(systemName: "exclamationmark.triangle")
+                    .font(.system(size: 40, weight: .light))
+                    .foregroundColor(Theme.textSecondary)
+
+                Text("Content unavailable")
+                    .font(Theme.scaledFont(size: 17, weight: .semibold))
+                    .foregroundColor(Theme.textPrimary)
+
+                Text("This article couldn't be saved. The site may block automated access.")
+                    .font(Theme.scaledFont(size: 14, relativeTo: .subheadline))
+                    .foregroundColor(Theme.textSecondary)
+                    .multilineTextAlignment(.center)
+
+                Button {
+                    Task { await retryCache() }
+                } label: {
+                    if isRetrying {
+                        ProgressView()
+                            .tint(.white)
+                            .frame(width: 20, height: 20)
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 12)
+                            .background(Theme.accentGradient)
+                            .clipShape(Capsule())
+                    } else {
+                        Label("Try Again", systemImage: "arrow.clockwise")
+                            .font(Theme.scaledFont(size: 15, weight: .medium))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 12)
+                            .background(Theme.accentGradient)
+                            .clipShape(Capsule())
+                    }
+                }
+                .disabled(isRetrying)
+                .padding(.top, 8)
+
+                if let url = URL(string: article.articleURL) {
+                    Button {
+                        safariURL = url
+                        showSafari = true
+                    } label: {
+                        Label("Open in Safari", systemImage: "safari")
+                            .font(Theme.scaledFont(size: 15, weight: .medium))
+                            .foregroundColor(Theme.textSecondary)
+                    }
+                    .padding(.top, 4)
+                }
+            }
+            .padding(.horizontal, 32)
+
+            Spacer()
+        }
+    }
+
     // MARK: - Data
 
     private func loadCachedPage() async {
@@ -226,6 +316,33 @@ struct ReaderView: View {
         } catch {
             cachedPage = nil
         }
+    }
+
+    private func retryCache() async {
+        isRetrying = true
+        do {
+            // Look up the source's cache level
+            let source = try await DatabaseManager.shared.dbPool.read { db in
+                try Source.fetchOne(db, key: article.sourceID)
+            }
+            let cacheLevel = source?.effectiveCacheLevel ?? .standard
+
+            // Clear stale conditional headers so we get a fresh response
+            var mutable = article
+            mutable.etag = nil
+            mutable.lastModified = nil
+            try await DatabaseManager.shared.dbPool.write { db in
+                try mutable.update(db)
+            }
+
+            try await PageCacheService.shared.cacheArticle(mutable, cacheLevel: cacheLevel)
+            await loadCachedPage()
+
+            // If we now have content, the view will automatically show it
+        } catch {
+            // Stay on the missing content view
+        }
+        isRetrying = false
     }
 
     private func markAsRead() async {

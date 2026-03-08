@@ -106,6 +106,7 @@ enum BackgroundTaskManager {
                                 title: item.title,
                                 articleURL: item.url.absoluteString,
                                 publishedAt: item.publishedAt,
+                                addedAt: Date(),
                                 thumbnailURL: item.thumbnailURL?.absoluteString,
                                 cachedAt: nil,
                                 fetchStatus: .pending,

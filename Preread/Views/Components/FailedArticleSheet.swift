@@ -43,9 +43,9 @@ struct FailedArticleSheet: View {
                     }
                 }
             }
-            .presentationDetents([.fraction(0.45)])
-            .presentationDragIndicator(.visible)
         }
+        .presentationDetents([.fraction(0.45)])
+        .presentationDragIndicator(.visible)
     }
 
     // MARK: - Generic failure

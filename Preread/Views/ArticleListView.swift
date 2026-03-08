@@ -11,7 +11,6 @@ struct ArticleListView: View {
     @State private var articles: [Article] = []
     @State private var isLoading = true
     @State private var failedArticle: Article?
-    @State private var showFailedSheet = false
     @State private var isLoadingMore = false
     @State private var feedExhausted = false
     @State private var selectedArticle: Article?
@@ -43,12 +42,21 @@ struct ArticleListView: View {
             ToolbarItem(placement: .principal) {
                 HStack(spacing: 8) {
                     sourceFavicon
-                    Text(source.title)
+                    Text(currentSourceName)
                         .font(Theme.scaledFont(size: 17, weight: .semibold))
                         .foregroundColor(Theme.textPrimary)
                         .lineLimit(1)
                 }
                 .opacity(navBarTitleOpacity)
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink {
+                    SettingsView()
+                } label: {
+                    Image(systemName: "gearshape")
+                        .font(.system(size: 17))
+                        .foregroundColor(Theme.textPrimary)
+                }
             }
         }
         .task {
@@ -82,20 +90,25 @@ struct ArticleListView: View {
                 }
             }
         }
-        .sheet(isPresented: $showFailedSheet) {
-            if let article = failedArticle {
-                FailedArticleSheet(
-                    article: article,
-                    onRetry: {
-                        Task { await refetchArticle(article) }
-                    },
-                    onRemove: {
-                        Task { await deleteArticle(article) }
-                    }
-                )
-            }
+        .sheet(item: $failedArticle) { article in
+            FailedArticleSheet(
+                article: article,
+                onRetry: {
+                    Task { await refetchArticle(article) }
+                },
+                onRemove: {
+                    Task { await deleteArticle(article) }
+                }
+            )
         }
-        .sheet(isPresented: $showSourceSettings) {
+        .sheet(isPresented: $showSourceSettings, onDismiss: {
+            let trimmed = currentSourceName.trimmingCharacters(in: .whitespaces)
+            if !trimmed.isEmpty && trimmed != source.title {
+                Task { await updateSourceName(trimmed) }
+            } else if trimmed.isEmpty {
+                currentSourceName = source.title
+            }
+        }) {
             sourceSettingsSheet
         }
         .navigationDestination(item: $selectedArticle) { article in
@@ -107,7 +120,7 @@ struct ArticleListView: View {
 
     private var articleList: some View {
         ScrollView {
-            LazyVStack(spacing: 0) {
+            LazyVStack(spacing: 6) {
                 // Hero section
                 heroRow
 
@@ -124,25 +137,31 @@ struct ArticleListView: View {
                             onRefetch: { Task { await refetchArticle(article) } },
                             onDelete: { Task { await deleteArticle(article) } }
                         )
+                        .padding(.horizontal, 10)
                     }
 
                     loadMoreRow
                 }
             }
         }
-        .scrollClipDisabled()
-        .ignoresSafeArea(.container, edges: .top)
+        .contentMargins(.top, -44, for: .scrollContent)
     }
 
     // MARK: - Hero row
 
+    private var displaySource: Source {
+        var s = source
+        s.title = currentSourceName
+        return s
+    }
+
     private var heroRow: some View {
         SourceHeroView(
-            source: source,
+            source: displaySource,
             isRefreshing: coordinator.sourceStatuses[source.id] == .refreshing,
             onSettingsTapped: { showSourceSettings = true },
             onRefreshTapped: {
-                Task { await FetchCoordinator.shared.refreshSingleSource(source) }
+                Task { await FetchCoordinator.shared.refreshSingleSource(currentSource) }
             },
             onTitlePositionChange: { heroTitleMinY = $0 }
         )
@@ -283,7 +302,16 @@ struct ArticleListView: View {
     private func handleTap(_ article: Article) {
         switch article.fetchStatus {
         case .cached, .partial:
-            selectedArticle = article
+            // Verify cached content actually exists before navigating
+            Task {
+                let hasCachedContent = await checkCachedContentExists(for: article)
+                if hasCachedContent {
+                    selectedArticle = article
+                } else {
+                    // Cached content is missing — re-fetch, then open on success
+                    await fetchArticleInline(article, openOnSuccess: true)
+                }
+            }
         case .pending:
             Task { await fetchArticleInline(article) }
         case .fetching:
@@ -291,18 +319,38 @@ struct ArticleListView: View {
             break
         case .failed:
             failedArticle = article
-            showFailedSheet = true
         }
     }
 
-    private func fetchArticleInline(_ article: Article) async {
+    private func checkCachedContentExists(for article: Article) async -> Bool {
+        do {
+            let cachedPage = try await DatabaseManager.shared.dbPool.read { db in
+                try CachedPage.fetchOne(db, key: article.id)
+            }
+            guard let cachedPage else { return false }
+            return FileManager.default.fileExists(atPath: cachedPage.htmlPath)
+        } catch {
+            return false
+        }
+    }
+
+    private func fetchArticleInline(_ article: Article, openOnSuccess: Bool = false) async {
         guard let index = articles.firstIndex(where: { $0.id == article.id }) else { return }
         withAnimation(.easeInOut(duration: 0.2)) {
             articles[index].fetchStatus = .fetching
         }
-        let cacheLevel = source.effectiveCacheLevel
+        let cacheLevel = currentCacheLevel
         try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
         await loadArticles()
+
+        if let updatedIndex = articles.firstIndex(where: { $0.id == article.id }) {
+            let updated = articles[updatedIndex]
+            if updated.fetchStatus == .failed {
+                failedArticle = updated
+            } else if openOnSuccess, updated.fetchStatus == .cached || updated.fetchStatus == .partial {
+                selectedArticle = updated
+            }
+        }
     }
 
     private func toggleRead(_ article: Article) async {
@@ -337,7 +385,7 @@ struct ArticleListView: View {
                 articles[index].fetchStatus = .fetching
             }
         }
-        let cacheLevel = source.effectiveCacheLevel
+        let cacheLevel = currentCacheLevel
         try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel, forceReprocess: true)
         await loadArticles()
     }
@@ -469,8 +517,17 @@ struct ArticleListView: View {
         }
     }
 
+    /// Builds a source with all current local state applied, so updates don't overwrite each other.
+    private var currentSource: Source {
+        var s = source
+        s.title = currentSourceName.trimmingCharacters(in: .whitespaces).isEmpty ? source.title : currentSourceName
+        s.fetchFrequency = currentFetchFrequency
+        s.cacheLevel = currentCacheLevel
+        return s
+    }
+
     private func updateSourceName(_ name: String) async {
-        var updated = source
+        var updated = currentSource
         updated.title = name
         try? await DatabaseManager.shared.dbPool.write { db in
             try updated.update(db)
@@ -478,7 +535,7 @@ struct ArticleListView: View {
     }
 
     private func updateSourceFetchFrequency(_ frequency: FetchFrequency) async {
-        var updated = source
+        var updated = currentSource
         updated.fetchFrequency = frequency
         try? await DatabaseManager.shared.dbPool.write { db in
             try updated.update(db)
@@ -486,7 +543,7 @@ struct ArticleListView: View {
     }
 
     private func updateSourceCacheLevel(_ level: CacheLevel) async {
-        var updated = source
+        var updated = currentSource
         updated.cacheLevel = level
         try? await DatabaseManager.shared.dbPool.write { db in
             try updated.update(db)
@@ -500,7 +557,7 @@ struct ArticleListView: View {
             let loaded = try await DatabaseManager.shared.dbPool.read { db in
                 try Article
                     .filter(Column("sourceID") == source.id)
-                    .order(Column("publishedAt").desc)
+                    .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
                     .limit(articleLimit)
                     .fetchAll(db)
             }
@@ -536,7 +593,7 @@ struct ArticleListView: View {
 
             // Cache the newly inserted articles in background
             if !newArticles.isEmpty {
-                let cacheLevel = source.effectiveCacheLevel
+                let cacheLevel = currentCacheLevel
                 Task {
                     for article in newArticles {
                         try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)

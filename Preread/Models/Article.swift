@@ -15,6 +15,7 @@ struct Article: Identifiable, Codable, Hashable, FetchableRecord, PersistableRec
     var title: String
     var articleURL: String
     var publishedAt: Date?
+    var addedAt: Date
     var thumbnailURL: String?
     var cachedAt: Date?
     var fetchStatus: ArticleFetchStatus

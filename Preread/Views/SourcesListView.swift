@@ -72,6 +72,13 @@ struct SourcesListView: View {
                     checkForFailures()
                 }
             }
+            .onChange(of: coordinator.sourceStatuses) { _, statuses in
+                // Reload when any individual source finishes (e.g. after adding a new feed)
+                let hasCompleted = statuses.values.contains { $0 == .completed }
+                if hasCompleted {
+                    Task { await loadSources() }
+                }
+            }
             .sheet(isPresented: $showAddSource) {
                 AddSourceSheet { addedSourceID in
                     Task {
@@ -254,7 +261,7 @@ struct SourcesListView: View {
                         .trim(from: 0, to: 0.3)
                         .stroke(
                             AngularGradient(
-                                colors: [Theme.teal, Theme.accent],
+                                colors: [Theme.accent.opacity(0.6), Theme.accent],
                                 center: .center
                             ),
                             style: StrokeStyle(lineWidth: 2, lineCap: .round)

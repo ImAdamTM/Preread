@@ -36,24 +36,29 @@ struct SourceHeroView: View {
 
             // Source title — its Y position drives the nav bar title fade
             Text(source.title)
-                .font(Theme.scaledFont(size: 20, weight: .bold))
+                .font(Theme.scaledFont(size: 18, weight: .bold))
                 .foregroundColor(Theme.textPrimary)
                 .lineLimit(1)
+                .frame(maxWidth: UIScreen.main.bounds.width * 0.6)
                 .modifier(HeroTitleScrollTracker { minY in
                     onTitlePositionChange?(minY)
                 })
 
-            Spacer().frame(height: 20)
+            // Last updated label
+            lastUpdatedLabel
+                .padding(.top, 6)
+
+            Spacer().frame(height: 16)
 
             heroActionButtons
 
             Spacer().frame(height: 12)
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 280)
+        .frame(height: 240)
         .background(alignment: .bottom) {
             blurredBackground
-                .frame(height: 280)
+                .frame(height: 240)
                 .allowsHitTesting(false)
         }
     }
@@ -113,7 +118,7 @@ struct SourceHeroView: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 52, height: 52)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .shadow(color: .black.opacity(0.2), radius: 8, y: 4)
+                        .shadow(color: .black.opacity(0.08), radius: 4, y: 2)
                 default:
                     heroLetterAvatar
                 }
@@ -137,68 +142,88 @@ struct SourceHeroView: View {
         .shadow(color: .black.opacity(0.2), radius: 8, y: 4)
     }
 
+    // MARK: - Last updated label
+
+    private var lastUpdatedLabel: some View {
+        Group {
+            if let lastFetched = source.lastFetchedAt {
+                Text("Updated \(RelativeTimeFormatter.string(from: lastFetched))")
+            } else {
+                Text("Not yet synced")
+            }
+        }
+        .font(Theme.scaledFont(size: 12, relativeTo: .caption))
+        .foregroundColor(Theme.textSecondary)
+    }
+
     // MARK: - Action buttons
 
     private var heroActionButtons: some View {
-        HStack(spacing: 12) {
-            Button(action: onSettingsTapped) {
-                HStack(spacing: 6) {
-                    Image(systemName: "slider.horizontal.3")
-                        .font(.system(size: 12, weight: .medium))
-                    Text("Settings")
-                        .font(Theme.scaledFont(size: 13, weight: .medium, relativeTo: .footnote))
-                }
-                .foregroundColor(Theme.textSecondary)
-                .padding(.horizontal, 14)
-                .padding(.vertical, 8)
-                .background(Theme.surfaceRaised)
-                .clipShape(Capsule())
-                .overlay(Capsule().stroke(Theme.border, lineWidth: 1))
-            }
-
-            Button(action: onRefreshTapped) {
-                HStack(spacing: 6) {
-                    heroRefreshIcon
-                    Text("Refresh")
-                        .font(Theme.scaledFont(size: 13, weight: .medium, relativeTo: .footnote))
-                }
-                .foregroundColor(isRefreshing ? Theme.teal : Theme.textSecondary)
-                .padding(.horizontal, 14)
-                .padding(.vertical, 8)
-                .background(Theme.surfaceRaised)
-                .clipShape(Capsule())
-                .overlay(
-                    Capsule().stroke(isRefreshing ? Theme.teal.opacity(0.3) : Theme.border, lineWidth: 1)
-                )
-            }
+        HStack(spacing: 32) {
+            circleButton(
+                icon: isRefreshing ? nil : "arrow.clockwise",
+                label: "Refresh",
+                isActive: isRefreshing,
+                action: onRefreshTapped
+            )
+            
+            circleButton(
+                icon: "slider.horizontal.3",
+                label: "Settings",
+                action: onSettingsTapped
+            )
             .disabled(isRefreshing)
         }
     }
 
-    @ViewBuilder
-    private var heroRefreshIcon: some View {
-        if isRefreshing {
-            TimelineView(.animation(minimumInterval: 1.0 / 60.0)) { context in
-                let angle = context.date.timeIntervalSinceReferenceDate.remainder(dividingBy: 1.2) / 1.2 * 360
+    private func circleButton(
+        icon: String?,
+        label: String,
+        isActive: Bool = false,
+        action: @escaping () -> Void
+    ) -> some View {
+        Button(action: action) {
+            VStack(spacing: 5) {
                 ZStack {
                     Circle()
-                        .stroke(Theme.borderProminent, lineWidth: 1.5)
-                    Circle()
-                        .trim(from: 0, to: 0.3)
-                        .stroke(
-                            AngularGradient(
-                                colors: [Theme.teal, Theme.accent],
-                                center: .center
-                            ),
-                            style: StrokeStyle(lineWidth: 1.5, lineCap: .round)
-                        )
-                        .rotationEffect(.degrees(angle))
+                        .fill(.regularMaterial)
+                        .frame(width: 40, height: 40)
+                        .shadow(color: .black.opacity(0.08), radius: 4, y: 2)
+
+                    if let icon {
+                        Image(systemName: icon)
+                            .font(.system(size: 15, weight: .medium))
+                            .foregroundStyle(isActive ? Theme.accent : .primary)
+                    } else if isActive {
+                        heroRefreshSpinner
+                    }
                 }
-                .frame(width: 14, height: 14)
+
+                Text(label)
+                    .font(Theme.scaledFont(size: 11, relativeTo: .caption))
+                    .foregroundStyle(isActive ? Theme.accent : Color.primary)
             }
-        } else {
-            Image(systemName: "arrow.clockwise")
-                .font(.system(size: 12, weight: .medium))
+        }
+    }
+
+    private var heroRefreshSpinner: some View {
+        TimelineView(.animation(minimumInterval: 1.0 / 60.0)) { context in
+            let angle = context.date.timeIntervalSinceReferenceDate.remainder(dividingBy: 1.2) / 1.2 * 360
+            ZStack {
+                Circle()
+                    .stroke(Theme.borderProminent, lineWidth: 1.5)
+                Circle()
+                    .trim(from: 0, to: 0.3)
+                    .stroke(
+                        AngularGradient(
+                            colors: [Theme.accent.opacity(0.6), Theme.accent],
+                            center: .center
+                        ),
+                        style: StrokeStyle(lineWidth: 1.5, lineCap: .round)
+                    )
+                    .rotationEffect(.degrees(angle))
+            }
+            .frame(width: 18, height: 18)
         }
     }
 }

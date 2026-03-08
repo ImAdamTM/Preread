@@ -9,6 +9,7 @@ struct ArticleRowView: View {
     let onRefetch: () -> Void
     let onDelete: () -> Void
 
+    @Environment(\.colorScheme) private var colorScheme
     @State private var appearTime = Date()
     @State private var unreadDotScale: CGFloat = 1.0
     @State private var cachedThumbnailImage: UIImage?
@@ -32,7 +33,7 @@ struct ArticleRowView: View {
                 // Content
                 VStack(alignment: .leading, spacing: 4) {
                     Text(article.title)
-                        .font(Theme.scaledFont(size: 16, weight: .semibold))
+                        .font(Theme.scaledFont(size: 16, weight: .medium))
                         .foregroundColor(Theme.textPrimary)
                         .lineLimit(2)
                         .matchedGeometryEffect(id: article.id.uuidString + "-title", in: namespace)
@@ -70,9 +71,14 @@ struct ArticleRowView: View {
                     }
                 }
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, hasThumbnail ? 12 : 8)
+            .contentShape(Rectangle())
+            .padding(.horizontal, 14)
+            .padding(.vertical, hasThumbnail ? 12 : 10)
             .frame(minHeight: hasThumbnail ? 80 : 64)
+            .background(
+                RoundedRectangle(cornerRadius: 14)
+                    .fill(colorScheme == .dark ? AnyShapeStyle(.ultraThinMaterial) : AnyShapeStyle(Color.white.opacity(0.6)))
+            )
         }
         .buttonStyle(.plain)
         .accessibilityElement(children: .ignore)
@@ -241,12 +247,8 @@ struct ArticleRowView: View {
     @ViewBuilder
     private var cacheStatusIcon: some View {
         switch article.fetchStatus {
-        case .cached:
+        case .cached, .partial:
             Image(systemName: "checkmark")
-                .font(.system(size: 17, weight: .medium))
-                .foregroundColor(Theme.textSecondary)
-        case .partial:
-            Image(systemName: "arrow.triangle.2.circlepath")
                 .font(.system(size: 17, weight: .medium))
                 .foregroundColor(Theme.textSecondary)
         case .fetching:
@@ -273,7 +275,7 @@ struct ArticleRowView: View {
                     .trim(from: 0, to: 0.3)
                     .stroke(
                         AngularGradient(
-                            colors: [Theme.teal, Theme.accent],
+                            colors: [Theme.accent.opacity(0.6), Theme.accent],
                             center: .center
                         ),
                         style: StrokeStyle(lineWidth: 1.5, lineCap: .round)
@@ -286,8 +288,7 @@ struct ArticleRowView: View {
 
     private var cacheStatusAccessibilityLabel: String {
         switch article.fetchStatus {
-        case .cached: return "Saved"
-        case .partial: return "Partially saved"
+        case .cached, .partial: return "Saved"
         case .fetching: return "Saving"
         case .pending: return "Not saved"
         case .failed: return "Save failed"

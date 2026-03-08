@@ -47,6 +47,7 @@ final class DatabaseManager {
                 t.column("fetchFrequency", .text).notNull().defaults(to: "automatic")
                 t.column("fetchStatus", .text).notNull().defaults(to: "idle")
                 t.column("cacheLevel", .text)
+                t.column("appearanceMode", .text)
                 t.column("sortOrder", .integer).notNull().defaults(to: 0)
             }
 
@@ -58,10 +59,12 @@ final class DatabaseManager {
                 t.column("title", .text).notNull()
                 t.column("articleURL", .text).notNull().unique()
                 t.column("publishedAt", .datetime)
+                t.column("addedAt", .datetime).notNull().defaults(to: Date())
                 t.column("thumbnailURL", .text)
                 t.column("cachedAt", .datetime)
                 t.column("fetchStatus", .text).notNull().defaults(to: "pending")
                 t.column("isRead", .boolean).notNull().defaults(to: false)
+                t.column("isSaved", .boolean).notNull().defaults(to: false)
                 t.column("cacheSizeBytes", .integer)
                 t.column("lastHTTPStatus", .integer)
                 t.column("etag", .text)
@@ -78,24 +81,7 @@ final class DatabaseManager {
                 t.column("totalSizeBytes", .integer).notNull().defaults(to: 0)
                 t.column("isTruncated", .boolean).notNull().defaults(to: false)
                 t.column("cacheLevelUsed", .text).notNull()
-            }
-        }
-
-        migrator.registerMigration("v2-appearance-mode") { db in
-            try db.alter(table: "source") { t in
-                t.add(column: "appearanceMode", .text)
-            }
-        }
-
-        migrator.registerMigration("v3-article-isSaved") { db in
-            try db.alter(table: "article") { t in
-                t.add(column: "isSaved", .boolean).notNull().defaults(to: false)
-            }
-        }
-
-        migrator.registerMigration("v4-dark-html-path") { db in
-            try db.alter(table: "cachedPage") { t in
-                t.add(column: "darkHtmlPath", .text)
+                t.column("darkHtmlPath", .text)
             }
         }
     }

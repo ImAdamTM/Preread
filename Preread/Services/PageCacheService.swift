@@ -20,8 +20,15 @@ actor PageCacheService {
         return URLSession(configuration: config)
     }
 
-    private let maxTotalAssetBytes = 25 * 1024 * 1024 // 25 MB
+    private let maxTotalAssetBytes = 8 * 1024 * 1024  // 8 MB per article
+    private let maxSingleAssetBytes = 2 * 1024 * 1024 // 2 MB per individual asset
     private let maxConcurrentDownloads = 8
+
+    /// Shared asset pool directory — assets are stored once here and hardlinked into article dirs.
+    private var sharedAssetsURL: URL {
+        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        return appSupport.appendingPathComponent("preread/shared_assets", isDirectory: true)
+    }
 
     /// Fetches data with retry on QUIC/HTTP3 failures.
     /// On QUIC failure, invalidates the session and creates a fresh one to reset connection state.
@@ -84,7 +91,11 @@ actor PageCacheService {
         } catch {
             // Ensure we never leave an article stuck at .fetching
             if article.fetchStatus == .fetching {
-                article.fetchStatus = wasPreviouslyCached ? .cached : .failed
+                if wasPreviouslyCached, hasCachedContentOnDisk(for: article) {
+                    article.fetchStatus = .cached
+                } else {
+                    article.fetchStatus = .failed
+                }
                 try? updateArticle(&article)
             }
         }
@@ -117,32 +128,43 @@ actor PageCacheService {
         do {
             (data, response) = try await resilientData(for: request)
         } catch {
-            if !wasPreviouslyCached {
-                article.fetchStatus = .failed
-                try updateArticle(&article)
-            } else {
+            if wasPreviouslyCached, hasCachedContentOnDisk(for: article) {
                 article.fetchStatus = .cached
-                try updateArticle(&article)
+            } else {
+                article.fetchStatus = .failed
             }
+            try updateArticle(&article)
             return
         }
 
         guard let httpResponse = response as? HTTPURLResponse else {
-            if !wasPreviouslyCached {
-                article.fetchStatus = .failed
-                try updateArticle(&article)
-            } else {
+            if wasPreviouslyCached, hasCachedContentOnDisk(for: article) {
                 article.fetchStatus = .cached
-                try updateArticle(&article)
+            } else {
+                article.fetchStatus = .failed
             }
+            try updateArticle(&article)
             return
         }
 
         // 304 Not Modified — content unchanged, just update timestamp
+        // Only mark as cached if we actually have content on disk
         if httpResponse.statusCode == 304 {
-            article.cachedAt = Date()
-            article.fetchStatus = .cached
-            try updateArticle(&article)
+            let articleDir = articlesBaseURL.appendingPathComponent(article.id.uuidString, isDirectory: true)
+            let indexPath = articleDir.appendingPathComponent("index.html")
+            if FileManager.default.fileExists(atPath: indexPath.path) {
+                article.cachedAt = Date()
+                article.fetchStatus = .cached
+                try updateArticle(&article)
+            }
+            // No content on disk despite 304 — clear conditional headers so next
+            // attempt does a full fetch, and mark as failed for now.
+            else {
+                article.etag = nil
+                article.lastModified = nil
+                article.fetchStatus = .failed
+                try updateArticle(&article)
+            }
             return
         }
 
@@ -160,10 +182,10 @@ actor PageCacheService {
               contentType.contains("text/html"),
               data.count > 1000 else {
             article.lastHTTPStatus = httpResponse.statusCode
-            if !wasPreviouslyCached {
-                article.fetchStatus = .failed
-            } else {
+            if wasPreviouslyCached, hasCachedContentOnDisk(for: article) {
                 article.fetchStatus = .cached
+            } else {
+                article.fetchStatus = .failed
             }
             try updateArticle(&article)
             return
@@ -174,20 +196,24 @@ actor PageCacheService {
             ?? String(data: data, encoding: .ascii)
             ?? ""
         guard !html.isEmpty else {
-            if !wasPreviouslyCached {
-                article.fetchStatus = .failed
-                try updateArticle(&article)
-            } else {
+            if wasPreviouslyCached, hasCachedContentOnDisk(for: article) {
                 article.fetchStatus = .cached
-                try updateArticle(&article)
+            } else {
+                article.fetchStatus = .failed
             }
+            try updateArticle(&article)
             return
         }
 
-        // Set up article directory
+        // Set up article directory — wipe any previous cache so we don't
+        // leave behind artifacts from a different cache level (e.g. CSS files,
+        // dark HTML variants, or extra assets from full mode).
         let articleDir = articlesBaseURL.appendingPathComponent(article.id.uuidString, isDirectory: true)
         let assetsDir = articleDir.appendingPathComponent("assets", isDirectory: true)
         let fm = FileManager.default
+        if fm.fileExists(atPath: articleDir.path) {
+            try? fm.removeItem(at: articleDir)
+        }
         try fm.createDirectory(at: assetsDir, withIntermediateDirectories: true)
 
         // Cache thumbnail locally (all cache levels)
@@ -231,6 +257,12 @@ actor PageCacheService {
                 }
             }
 
+            // Clean up remaining remote image references that weren't rewritten.
+            // The webview blocks all https?:// requests, so any remaining srcset
+            // entries or <picture><source> elements pointing to remote URLs will
+            // fail to load. Strip them so the browser falls through to local src.
+            try stripRemoteImageReferences(in: doc)
+
             // Inline CSS stylesheets directly into the HTML.
             // Dark Reader can't fetch() file:// URLs due to CORS, so it can't read
             // external <link> stylesheets. Inlining lets it access rules via the DOM.
@@ -255,6 +287,13 @@ actor PageCacheService {
                     cssInlineReplacements[placeholder] = cssText
                 }
             }
+
+            // Remove ALL remaining <link rel=stylesheet> that weren't inlined.
+            // Successfully inlined links were already replaced with <style> tags above.
+            // Any still present either failed to download or failed to read — they can't
+            // be loaded from a local file:// webview and cause WebContent process crashes.
+            let remainingCSS = try doc.select("link[rel=stylesheet]")
+            try remainingCSS.remove()
 
             var finalHTML = try doc.outerHtml()
             // Replace CSS placeholders with actual CSS content
@@ -434,6 +473,20 @@ actor PageCacheService {
         }
     }
 
+    /// Removes shared assets that are no longer hardlinked by any article.
+    /// On APFS, a file with linkCount == 1 means only the shared pool copy remains.
+    func cleanupOrphanedSharedAssets() {
+        let fm = FileManager.default
+        let sharedDir = sharedAssetsURL
+        guard let files = try? fm.contentsOfDirectory(at: sharedDir, includingPropertiesForKeys: [.linkCountKey]) else { return }
+        for file in files {
+            guard let values = try? file.resourceValues(forKeys: [.linkCountKey]),
+                  let linkCount = values.linkCount,
+                  linkCount <= 1 else { continue }
+            try? fm.removeItem(at: file)
+        }
+    }
+
     // MARK: - Asset extraction
 
     private func extractAssetURLs(from doc: Document, baseURL: URL, cacheLevel: CacheLevel) throws -> [URL] {
@@ -457,17 +510,12 @@ actor PageCacheService {
             }
 
         case .full:
-            // Images from <img> tags
+            // Images from <img> tags — this covers both standalone <img> and
+            // <picture><img> fallbacks. We skip <source srcset> variants to avoid
+            // downloading multiple sizes of the same image.
             let images = try doc.select("img")
             for img in images {
                 if let url = try resolveImageURL(img, baseURL: baseURL) {
-                    urls.append(url)
-                }
-            }
-            // Images from <picture><source srcset="..."> tags
-            let pictureSources = try doc.select("picture > source[srcset]")
-            for source in pictureSources {
-                if let url = try resolveSourceSrcsetURL(source, baseURL: baseURL) {
                     urls.append(url)
                 }
             }
@@ -490,8 +538,74 @@ actor PageCacheService {
         return urls.filter { seen.insert($0).inserted }
     }
 
+    /// Target width in CSS pixels for srcset selection.
+    /// 2x retina on a ~390pt-wide iPhone ≈ 780px, but article content areas are
+    /// typically narrower than full screen. ~1200px gives sharp images on any
+    /// current device without downloading unnecessarily large variants.
+    private let srcsetTargetWidth = 1200
+
+    /// Parses a srcset attribute value and returns the best URL for our target width.
+    /// Handles width descriptors (e.g. "img-300.jpg 300w, img-600.jpg 600w") and
+    /// pixel-density descriptors (e.g. "img.jpg 1x, img@2x.jpg 2x").
+    /// Falls back to the first entry when no descriptors are present.
+    private func bestURLFromSrcset(_ srcset: String, baseURL: URL) -> URL? {
+        let entries = srcset.components(separatedBy: ",")
+        var candidates: [(url: String, width: Int)] = []
+
+        for entry in entries {
+            let parts = entry.trimmingCharacters(in: .whitespaces)
+                .components(separatedBy: .whitespaces)
+                .filter { !$0.isEmpty }
+            guard let urlPart = parts.first, !urlPart.isEmpty, !urlPart.hasPrefix("data:") else { continue }
+
+            if parts.count >= 2 {
+                let descriptor = parts.last!.lowercased()
+                if descriptor.hasSuffix("w"), let w = Int(descriptor.dropLast()) {
+                    candidates.append((urlPart, w))
+                } else if descriptor.hasSuffix("x"), let x = Double(descriptor.dropLast()) {
+                    // Treat pixel-density as a rough width estimate
+                    candidates.append((urlPart, Int(x * 600)))
+                } else {
+                    // Unknown descriptor — treat as no-descriptor
+                    candidates.append((urlPart, 0))
+                }
+            } else {
+                candidates.append((urlPart, 0))
+            }
+        }
+
+        guard !candidates.isEmpty else { return nil }
+
+        // If we have width descriptors, pick the smallest one >= target, or the largest available
+        let withWidths = candidates.filter { $0.width > 0 }
+        let chosen: String
+        if !withWidths.isEmpty {
+            let atOrAbove = withWidths.filter { $0.width >= srcsetTargetWidth }
+                .sorted { $0.width < $1.width }
+            if let best = atOrAbove.first {
+                chosen = best.url
+            } else {
+                // All smaller than target — pick the largest
+                chosen = withWidths.sorted { $0.width > $1.width }.first!.url
+            }
+        } else {
+            // No width descriptors — pick the first entry
+            chosen = candidates.first!.url
+        }
+
+        return URL(string: chosen, relativeTo: baseURL)?.absoluteURL
+    }
+
     /// Resolves an image URL from src, data-src, or srcset attributes.
+    /// When srcset contains width descriptors, picks the best size for the device.
     private func resolveImageURL(_ img: Element, baseURL: URL) throws -> URL? {
+        // Check srcset first — if it has width descriptors we can pick the right size
+        let srcset = try img.attr("srcset")
+        if !srcset.isEmpty {
+            if let url = bestURLFromSrcset(srcset, baseURL: baseURL), !isPlaceholderImage(url) {
+                return url
+            }
+        }
         // Prefer src
         let src = try img.attr("src")
         if !src.isEmpty, !src.hasPrefix("data:") {
@@ -502,13 +616,6 @@ actor PageCacheService {
         let dataSrc = try img.attr("data-src")
         if !dataSrc.isEmpty, !dataSrc.hasPrefix("data:") {
             if let url = URL(string: dataSrc, relativeTo: baseURL)?.absoluteURL, !isPlaceholderImage(url) { return url }
-        }
-        // Try first URL from srcset
-        let srcset = try img.attr("srcset")
-        if !srcset.isEmpty {
-            let firstEntry = srcset.components(separatedBy: ",").first ?? ""
-            let urlPart = firstEntry.trimmingCharacters(in: .whitespaces).components(separatedBy: " ").first ?? ""
-            if !urlPart.isEmpty, let url = URL(string: urlPart, relativeTo: baseURL)?.absoluteURL, !isPlaceholderImage(url) { return url }
         }
         return nil
     }
@@ -535,17 +642,11 @@ actor PageCacheService {
     }
 
     /// Resolves a URL from a <picture><source srcset="..."> element.
-    /// Picks the last (highest resolution) entry from the srcset.
+    /// Picks the best size for the device using width descriptors when available.
     private func resolveSourceSrcsetURL(_ source: Element, baseURL: URL) throws -> URL? {
         let srcset = try source.attr("srcset")
         guard !srcset.isEmpty else { return nil }
-        // srcset may contain multiple entries like "url1 300w, url2 600w"
-        // Pick the last entry (usually the highest resolution)
-        let entries = srcset.components(separatedBy: ",")
-        let lastEntry = entries.last ?? entries.first ?? ""
-        let urlPart = lastEntry.trimmingCharacters(in: .whitespaces).components(separatedBy: " ").first ?? ""
-        guard !urlPart.isEmpty, !urlPart.hasPrefix("data:") else { return nil }
-        return URL(string: urlPart, relativeTo: baseURL)?.absoluteURL
+        return bestURLFromSrcset(srcset, baseURL: baseURL)
     }
 
     // MARK: - Asset downloading
@@ -613,6 +714,31 @@ actor PageCacheService {
     }
 
     private func downloadAsset(url: URL, to assetsDir: URL) async throws -> AssetMapping {
+        let filename = hashedFilename(for: url)
+        let filePath = assetsDir.appendingPathComponent(filename)
+        let fm = FileManager.default
+
+        // Check shared pool first — if we already downloaded this asset for another article,
+        // hardlink it instead of re-downloading
+        let sharedDir = sharedAssetsURL
+        try fm.createDirectory(at: sharedDir, withIntermediateDirectories: true)
+        let sharedPath = sharedDir.appendingPathComponent(filename)
+
+        if fm.fileExists(atPath: sharedPath.path) {
+            let attrs = try fm.attributesOfItem(atPath: sharedPath.path)
+            let size = (attrs[.size] as? Int) ?? 0
+            // Remove existing file at destination (e.g. from a previous cache)
+            // before hardlinking, since linkItem throws if destination exists
+            try? fm.removeItem(at: filePath)
+            try fm.linkItem(at: sharedPath, to: filePath)
+            return AssetMapping(
+                originalURL: url.absoluteString,
+                filename: filename,
+                size: size,
+                wasTruncated: false
+            )
+        }
+
         var request = URLRequest(url: url)
         request.assumesHTTP3Capable = false
 
@@ -624,9 +750,27 @@ actor PageCacheService {
             throw URLError(.badServerResponse)
         }
 
-        let filename = hashedFilename(for: url)
-        let filePath = assetsDir.appendingPathComponent(filename)
-        try data.write(to: filePath)
+        // Reject responses that are too large
+        if data.count > maxSingleAssetBytes {
+            throw URLError(.dataLengthExceedsMaximum)
+        }
+
+        // Validate content type — reject HTML error pages saved as images
+        if let httpResponse = response as? HTTPURLResponse,
+           let contentType = httpResponse.value(forHTTPHeaderField: "Content-Type")?.lowercased() {
+            let validPrefixes = ["image/", "text/css", "font/", "application/font", "application/x-font",
+                                 "image/svg+xml", "application/octet-stream"]
+            let isValid = validPrefixes.contains { contentType.hasPrefix($0) }
+            if !isValid {
+                throw URLError(.cannotDecodeContentData)
+            }
+        }
+
+        // Write to shared pool, then hardlink into article dir
+        try data.write(to: sharedPath)
+        // Remove existing file at destination before hardlinking
+        try? fm.removeItem(at: filePath)
+        try fm.linkItem(at: sharedPath, to: filePath)
 
         return AssetMapping(
             originalURL: url.absoluteString,
@@ -728,20 +872,28 @@ actor PageCacheService {
             }
         }
 
-        // Rewrite <picture><source srcset="..."> — replace srcset with the local file
-        // and collapse the <picture> to just show the cached image
+        // Rewrite <picture><source srcset="..."> — if the inner <img> was already
+        // rewritten to a local path, just remove the <source>. Otherwise set src on
+        // the inner <img> and remove the <source> so the browser uses the local file.
         let pictureSources = try doc.select("picture > source[srcset]")
         for source in pictureSources {
             if try rewriteSrcsetIfMatching(element: source, original: original, originalURL: originalURL, replacement: replacement) {
-                // We've matched this source. Replace the whole <picture> with a simple <img>.
                 if let picture = source.parent(), picture.tagName() == "picture" {
-                    // Find the <img> inside the <picture> to preserve alt text
-                    let altText = (try? picture.select("img").first()?.attr("alt")) ?? ""
-                    let imgTag = Element(Tag("img"), "")
-                    try imgTag.attr("src", replacement)
-                    try imgTag.attr("alt", altText)
-                    try picture.replaceWith(imgTag)
+                    // Rewrite the inner <img> if it hasn't been rewritten already
+                    if let innerImg = try picture.select("img").first() {
+                        let currentSrc = try innerImg.attr("src")
+                        if !currentSrc.hasPrefix("./assets/") && !currentSrc.hasPrefix("assets/") {
+                            try innerImg.attr("src", replacement)
+                            try innerImg.removeAttr("srcset")
+                            try innerImg.removeAttr("srcSet")
+                            try innerImg.removeAttr("sizes")
+                            try innerImg.removeAttr("loading")
+                            try innerImg.removeAttr("decoding")
+                        }
+                    }
                 }
+                // Remove the <source> element — the <img> now has the local path
+                try source.remove()
             }
         }
 
@@ -791,6 +943,46 @@ actor PageCacheService {
             }
         }
         return false
+    }
+
+    // MARK: - Remote image cleanup
+
+    /// Strips remaining non-local references after URL rewriting.
+    /// Removes `<source>` elements inside `<picture>` that weren't rewritten to local paths,
+    /// and strips non-local srcset/src from `<img>` tags to prevent WKWebView sandbox errors.
+    private func stripRemoteImageReferences(in doc: Document) throws {
+        // Remove <source> elements inside <picture> that weren't rewritten to local
+        let pictureSources = try doc.select("picture > source[srcset]")
+        for source in pictureSources {
+            let srcset = try source.attr("srcset")
+            if !srcset.hasPrefix("./assets/") && !srcset.hasPrefix("assets/") {
+                try source.remove()
+            }
+        }
+
+        // For <img> tags with local src: strip any remaining remote srcset
+        // For <img> tags with non-local src: the download failed — remove src
+        // to prevent WKWebView from trying to resolve relative paths on the filesystem
+        let images = try doc.select("img[src]")
+        for img in images {
+            let src = try img.attr("src")
+            let isLocal = src.hasPrefix("./assets/") || src.hasPrefix("assets/") || src.hasPrefix("data:")
+            if isLocal {
+                // Clean up any remaining srcset that points elsewhere
+                let srcset = try img.attr("srcset")
+                if !srcset.isEmpty && !srcset.hasPrefix("./assets/") {
+                    try img.removeAttr("srcset")
+                    try img.removeAttr("srcSet")
+                    try img.removeAttr("sizes")
+                }
+            } else {
+                // Image download failed — clear src to avoid sandbox errors
+                try img.attr("src", "")
+                try img.removeAttr("srcset")
+                try img.removeAttr("srcSet")
+                try img.removeAttr("sizes")
+            }
+        }
     }
 
     // MARK: - DOM flattening
@@ -863,6 +1055,19 @@ actor PageCacheService {
         }
     }
 
+    /// Checks whether an article has actual cached HTML content on disk.
+    private func hasCachedContentOnDisk(for article: Article) -> Bool {
+        let indexPath = articlesBaseURL
+            .appendingPathComponent(article.id.uuidString, isDirectory: true)
+            .appendingPathComponent("index.html")
+        return FileManager.default.fileExists(atPath: indexPath.path)
+    }
+
+    /// Public wrapper for external callers (e.g. FetchCoordinator) to verify cached content exists.
+    func hasCachedContent(for article: Article) -> Bool {
+        hasCachedContentOnDisk(for: article)
+    }
+
     /// Escapes HTML special characters for safe insertion into HTML attributes/text.
     private func escapeHTML(_ string: String) -> String {
         string
@@ -928,18 +1133,33 @@ private final class DarkVariantRenderer: NSObject, WKNavigationDelegate {
     }
 
     private func process(htmlFileURL: URL, articleDirectory: URL) async throws -> String {
-        return try await withCheckedThrowingContinuation { continuation in
-            self.continuation = continuation
+        return try await withThrowingTaskGroup(of: String.self) { group in
+            group.addTask { @MainActor in
+                try await withCheckedThrowingContinuation { continuation in
+                    self.continuation = continuation
 
-            let config = WKWebViewConfiguration()
-            // Allow JS so Dark Reader can run its MutationObserver-based processing
-            config.defaultWebpagePreferences.allowsContentJavaScript = true
+                    let config = WKWebViewConfiguration()
+                    config.defaultWebpagePreferences.allowsContentJavaScript = true
 
-            let webView = WKWebView(frame: CGRect(x: 0, y: 0, width: 1024, height: 768), configuration: config)
-            webView.navigationDelegate = self
-            self.webView = webView
+                    let webView = WKWebView(frame: CGRect(x: 0, y: 0, width: 1024, height: 768), configuration: config)
+                    webView.navigationDelegate = self
+                    self.webView = webView
 
-            webView.loadFileURL(htmlFileURL, allowingReadAccessTo: articleDirectory)
+                    webView.loadFileURL(htmlFileURL, allowingReadAccessTo: articleDirectory)
+                }
+            }
+
+            // Timeout task — 15 seconds is more than enough for Dark Reader
+            group.addTask { @MainActor in
+                try await Task.sleep(for: .seconds(15))
+                throw NSError(domain: "DarkVariantRenderer", code: 2,
+                    userInfo: [NSLocalizedDescriptionKey: "Dark variant generation timed out"])
+            }
+
+            // Return whichever finishes first; cancel the other
+            let result = try await group.next()!
+            group.cancelAll()
+            return result
         }
     }
 
@@ -960,6 +1180,13 @@ private final class DarkVariantRenderer: NSObject, WKNavigationDelegate {
     nonisolated func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         Task { @MainActor in
             self.finish(with: .failure(error))
+        }
+    }
+
+    nonisolated func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        Task { @MainActor in
+            self.finish(with: .failure(NSError(domain: "DarkVariantRenderer", code: 3,
+                userInfo: [NSLocalizedDescriptionKey: "WebContent process crashed during dark variant rendering"])))
         }
     }
 

@@ -603,38 +603,10 @@ struct AddSourceSheet: View {
                     try source.save(db)
                 }
 
-                // Insert articles from feed
-                try await DatabaseManager.shared.dbPool.write { db in
-                    for item in feed.items {
-                        let exists = try Article
-                            .filter(Column("articleURL") == item.url.absoluteString)
-                            .fetchCount(db) > 0
-                        guard !exists else { continue }
-
-                        let article = Article(
-                            id: UUID(),
-                            sourceID: source.id,
-                            title: item.title,
-                            articleURL: item.url.absoluteString,
-                            publishedAt: item.publishedAt,
-                            thumbnailURL: item.thumbnailURL?.absoluteString,
-                            cachedAt: nil,
-                            fetchStatus: .pending,
-                            isRead: false,
-                            isSaved: false,
-                            cacheSizeBytes: nil,
-                            lastHTTPStatus: nil,
-                            etag: nil,
-                            lastModified: nil
-                        )
-                        try article.save(db)
-                    }
-                }
-
                 onSourceAdded?(source.id)
                 dismiss()
 
-                // Kick off caching in background
+                // Kick off article insertion + caching in background
                 Task {
                     await FetchCoordinator.shared.refreshSingleSource(source)
                 }
@@ -693,6 +665,7 @@ struct AddSourceSheet: View {
                 title: pageTitle,
                 articleURL: raw,
                 publishedAt: Date(),
+                addedAt: Date(),
                 thumbnailURL: nil,
                 cachedAt: nil,
                 fetchStatus: .pending,

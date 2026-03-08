@@ -63,6 +63,9 @@ enum IntegrityChecker {
             if resetCount > 0 {
                 print("[IntegrityChecker] Reset \(resetCount) article(s) with missing cache files.")
             }
+
+            // Clean up shared assets no longer referenced by any article
+            await PageCacheService.shared.cleanupOrphanedSharedAssets()
         } catch {
             print("[IntegrityChecker] Error during integrity check: \(error)")
         }

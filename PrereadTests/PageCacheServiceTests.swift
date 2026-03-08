@@ -34,6 +34,7 @@ private func makeArticle(sourceID: UUID, url: String, fetchStatus: ArticleFetchS
         title: "Test Article",
         articleURL: url,
         publishedAt: nil,
+        addedAt: Date(),
         thumbnailURL: nil,
         cachedAt: nil,
         fetchStatus: fetchStatus,

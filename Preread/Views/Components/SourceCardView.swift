@@ -152,7 +152,7 @@ struct SourceCardView: View {
             HStack(spacing: 4) {
                 Text("Refreshing...")
                     .font(Theme.scaledFont(size: 13, relativeTo: .footnote))
-                    .foregroundColor(Theme.teal)
+                    .foregroundColor(Theme.accent)
             }
 
         case .failed:
@@ -220,7 +220,7 @@ struct SourceCardView: View {
                         .trim(from: 0, to: 0.3)
                         .stroke(
                             AngularGradient(
-                                colors: [Theme.teal, Theme.accent],
+                                colors: [Theme.accent.opacity(0.6), Theme.accent],
                                 center: .center
                             ),
                             style: StrokeStyle(lineWidth: 2.5, lineCap: .round)
