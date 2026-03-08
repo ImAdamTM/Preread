@@ -235,9 +235,9 @@ struct ArticleRowView: View {
         case .fetching:
             return ("Saving", Theme.textSecondary)
         case .pending:
-            return ("Pending", Theme.warning)
+            return ("Not cached", Theme.warning.opacity(0.7))
         case .failed:
-            return ("Failed", Theme.danger)
+            return ("Failed", Theme.danger.opacity(0.7))
         }
     }
 
