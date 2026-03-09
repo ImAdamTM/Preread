@@ -15,12 +15,14 @@ struct CachedWebView: UIViewRepresentable {
     let onScrollDown: () -> Void
     let onScrollUp: () -> Void
     let onLinkTapped: (URL) -> Void
+    var onImageTapped: ((URL) -> Void)? = nil
 
     func makeCoordinator() -> Coordinator {
         Coordinator(
             onScrollDown: onScrollDown,
             onScrollUp: onScrollUp,
-            onLinkTapped: onLinkTapped
+            onLinkTapped: onLinkTapped,
+            onImageTapped: onImageTapped
         )
     }
 
@@ -99,6 +101,26 @@ struct CachedWebView: UIViewRepresentable {
         context.coordinator.pendingUseLightMode = useLightMode
         context.coordinator.pendingTextSize = textSize
         context.coordinator.pendingFontFamily = fontFamily
+
+        // In reader mode, inject a script to make images tappable for lightbox
+        if isReaderMode {
+            let ucc = webView.configuration.userContentController
+            ucc.add(context.coordinator, name: "imageTap")
+
+            let imageTapScript = WKUserScript(source: """
+                document.addEventListener('click', function(e) {
+                    var img = e.target.closest('img');
+                    if (!img) return;
+                    var src = img.src;
+                    if (src && src.length > 0) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        window.webkit.messageHandlers.imageTap.postMessage(src);
+                    }
+                }, true);
+                """, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+            ucc.addUserScript(imageTapScript)
+        }
 
         // Compile content rules asynchronously, then load
         WKContentRuleListStore.default().compileContentRuleList(
@@ -228,6 +250,7 @@ struct CachedWebView: UIViewRepresentable {
         let onScrollDown: () -> Void
         let onScrollUp: () -> Void
         let onLinkTapped: (URL) -> Void
+        let onImageTapped: ((URL) -> Void)?
         weak var webView: WKWebView?
 
         var pageLoaded = false
@@ -244,10 +267,12 @@ struct CachedWebView: UIViewRepresentable {
 
         init(onScrollDown: @escaping () -> Void,
              onScrollUp: @escaping () -> Void,
-             onLinkTapped: @escaping (URL) -> Void) {
+             onLinkTapped: @escaping (URL) -> Void,
+             onImageTapped: ((URL) -> Void)? = nil) {
             self.onScrollDown = onScrollDown
             self.onScrollUp = onScrollUp
             self.onLinkTapped = onLinkTapped
+            self.onImageTapped = onImageTapped
         }
 
         /// Applies text size, font, and dark/light mode to the web view.
@@ -358,7 +383,11 @@ struct CachedWebView: UIViewRepresentable {
 
         func userContentController(_ userContentController: WKUserContentController,
                                    didReceive message: WKScriptMessage) {
-            // Reserved for future script message handling
+            if message.name == "imageTap",
+               let src = message.body as? String,
+               let url = URL(string: src) {
+                onImageTapped?(url)
+            }
         }
 
         // MARK: - UIScrollViewDelegate
