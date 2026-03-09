@@ -52,7 +52,7 @@ enum BackgroundTaskManager {
         }
     }
 
-    // MARK: - Refresh handler (~30s budget: feed parsing only, no caching)
+    // MARK: - Refresh handler (~30s budget: parse feeds + cache new articles)
 
     private static func handleRefreshTask(_ task: BGAppRefreshTask) {
         // Re-submit next request immediately
@@ -72,8 +72,16 @@ enum BackgroundTaskManager {
         }
     }
 
-    /// Parses all source feeds, inserts new articles as .pending, then caches
-    /// a few articles opportunistically if time remains within the ~30s budget.
+    /// Pending item waiting to be cached during background refresh.
+    private struct PendingItem {
+        let feedItem: FeedItem
+        let source: Source
+    }
+
+    /// Parses all source feeds, then round-robin caches new articles across
+    /// sources so no single source monopolises the time budget. An article is
+    /// only committed to the database once it has been successfully cached,
+    /// so the user never sees uncached placeholder rows in their feed.
     private static func refreshFeeds() async {
         do {
             let sources = try await DatabaseManager.shared.dbPool.read { db in
@@ -82,6 +90,10 @@ enum BackgroundTaskManager {
                     .filter(Column("fetchFrequency") == FetchFrequency.automatic.rawValue)
                     .fetchAll(db)
             }
+
+            // Phase 1: Parse all feeds (fast) and collect new items per source.
+            // Re-attach any saved articles that were detached.
+            var queues: [[PendingItem]] = []
 
             for var source in sources {
                 guard !Task.isCancelled else { return }
@@ -93,45 +105,39 @@ enum BackgroundTaskManager {
                         siteURL: source.siteURL.flatMap { URL(string: $0) }
                     )
 
-                    // Insert new articles, re-attaching any saved articles
-                    // that were detached to "Saved Pages" after the source was deleted
-                    try await DatabaseManager.shared.dbPool.write { db in
-                        for item in feed.items {
-                            if let existing = try Article
+                    var newItems: [PendingItem] = []
+
+                    // Sort newest first so the round-robin picks the most
+                    // recent article from each source first.
+                    let sortedItems = feed.items.sorted {
+                        ($0.publishedAt ?? .distantPast) > ($1.publishedAt ?? .distantPast)
+                    }
+
+                    for item in sortedItems {
+                        let existing = try await DatabaseManager.shared.dbPool.read { db in
+                            try Article
                                 .filter(Column("articleURL") == item.url.absoluteString)
-                                .fetchOne(db) {
-                                // Re-attach saved articles from "Saved Pages"
-                                if existing.sourceID == Source.savedPagesID, existing.isSaved {
+                                .fetchOne(db)
+                        }
+
+                        if let existing {
+                            // Re-attach saved articles from "Saved Pages"
+                            if existing.sourceID == Source.savedPagesID, existing.isSaved {
+                                try await DatabaseManager.shared.dbPool.write { db in
                                     var reattached = existing
                                     reattached.sourceID = source.id
                                     try reattached.update(db)
                                 }
-                                continue
                             }
-
-                            let article = Article(
-                                id: UUID(),
-                                sourceID: source.id,
-                                title: item.title,
-                                articleURL: item.url.absoluteString,
-                                publishedAt: item.publishedAt,
-                                addedAt: Date(),
-                                thumbnailURL: item.thumbnailURL?.absoluteString,
-                                cachedAt: nil,
-                                fetchStatus: .pending,
-                                isRead: false,
-                                isSaved: false,
-                                cacheSizeBytes: nil,
-                                lastHTTPStatus: nil,
-                                etag: nil,
-                                lastModified: nil
-                            )
-                            try article.insert(db)
+                            continue
                         }
+
+                        newItems.append(PendingItem(feedItem: item, source: source))
                     }
 
-                    // Prune articles that exceed the user's per-source cap
-                    await Self.pruneExcessArticles(for: source.id)
+                    if !newItems.isEmpty {
+                        queues.append(newItems)
+                    }
 
                     source.lastFetchedAt = Date()
                     source.fetchStatus = .idle
@@ -146,21 +152,64 @@ enum BackgroundTaskManager {
                 }
             }
 
-            // Opportunistically cache a few pending articles with remaining time
-            guard !Task.isCancelled else { return }
-            let pending = try await DatabaseManager.shared.dbPool.read { db in
-                try Article
-                    .filter(Column("fetchStatus") == ArticleFetchStatus.pending.rawValue)
-                    .limit(5)
-                    .fetchAll(db)
-            }
-            for article in pending {
+            // Phase 2: Round-robin cache one article from each source at a
+            // time, so every source gets fair treatment within the budget.
+            var indices = Array(repeating: 0, count: queues.count)
+            var remaining = true
+
+            while remaining {
                 guard !Task.isCancelled else { return }
-                let source = try await DatabaseManager.shared.dbPool.read { db in
-                    try Source.fetchOne(db, key: article.sourceID)
+                remaining = false
+
+                for queueIndex in queues.indices {
+                    guard !Task.isCancelled else { return }
+                    let itemIndex = indices[queueIndex]
+                    guard itemIndex < queues[queueIndex].count else { continue }
+                    remaining = true
+
+                    let pending = queues[queueIndex][itemIndex]
+                    indices[queueIndex] += 1
+
+                    let article = Article(
+                        id: UUID(),
+                        sourceID: pending.source.id,
+                        title: pending.feedItem.title,
+                        articleURL: pending.feedItem.url.absoluteString,
+                        publishedAt: pending.feedItem.publishedAt,
+                        addedAt: Date(),
+                        thumbnailURL: pending.feedItem.thumbnailURL?.absoluteString,
+                        cachedAt: nil,
+                        fetchStatus: .pending,
+                        isRead: false,
+                        isSaved: false,
+                        cacheSizeBytes: nil,
+                        lastHTTPStatus: nil,
+                        etag: nil,
+                        lastModified: nil
+                    )
+
+                    // Insert temporarily so cacheArticle can find & update it
+                    try await DatabaseManager.shared.dbPool.write { db in
+                        try article.insert(db)
+                    }
+
+                    let cacheLevel = pending.source.effectiveCacheLevel
+                    do {
+                        try await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+                    } catch {
+                        // Caching failed — remove so it doesn't appear uncached
+                        _ = try? await DatabaseManager.shared.dbPool.write { db in
+                            try Article.deleteOne(db, key: article.id)
+                        }
+                        try? await PageCacheService.shared.deleteCachedArticle(article.id)
+                    }
                 }
-                let cacheLevel = source?.effectiveCacheLevel ?? .standard
-                try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+            }
+
+            // Phase 3: Prune excess articles for each source that got new items
+            let affectedSourceIDs = Set(queues.flatMap { $0.map(\.source.id) })
+            for sourceID in affectedSourceIDs {
+                await Self.pruneExcessArticles(for: sourceID)
             }
         } catch {
             print("[BackgroundTaskManager] Refresh feeds error: \(error)")
@@ -246,12 +295,13 @@ enum BackgroundTaskManager {
         }
     }
 
-    /// Caches pending articles one at a time (interruptible).
+    /// Caches pending articles one at a time (interruptible), newest first.
     private static func cachePendingArticles() async {
         do {
             let pendingArticles = try await DatabaseManager.shared.dbPool.read { db in
                 try Article
                     .filter(Column("fetchStatus") == ArticleFetchStatus.pending.rawValue)
+                    .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
                     .fetchAll(db)
             }
 
