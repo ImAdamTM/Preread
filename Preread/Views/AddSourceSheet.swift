@@ -308,24 +308,8 @@ struct AddSourceSheet: View {
         VStack(spacing: 16) {
             // Feed header — favicon left, details right
             HStack(spacing: 14) {
-                // Favicon
-                if let siteURL = detectedFeed?.siteURL {
-                    let faviconURL = URL(string: "https://www.google.com/s2/favicons?domain=\(siteURL.host ?? "")&sz=96")
-                    AsyncImage(url: faviconURL) { phase in
-                        switch phase {
-                        case .success(let image):
-                            image.resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 44, height: 44)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                        default:
-                            letterAvatar(for: detectedFeed?.title ?? "?", size: 44)
-                        }
-                    }
-                    .frame(width: 44, height: 44)
-                } else {
-                    letterAvatar(for: detectedFeed?.title ?? "?", size: 44)
-                }
+                // Favicon (letter avatar; real favicon is cached when source is saved)
+                letterAvatar(for: editableName.isEmpty ? "?" : editableName, size: 44)
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(detectedFeed?.feedURL.absoluteString ?? "")
@@ -459,24 +443,8 @@ struct AddSourceSheet: View {
         VStack(spacing: 16) {
             // Page header — favicon left, URL right
             HStack(spacing: 14) {
-                // Favicon
-                if let url = URL(string: urlText), let host = url.host {
-                    let faviconURL = URL(string: "https://www.google.com/s2/favicons?domain=\(host)&sz=96")
-                    AsyncImage(url: faviconURL) { phase in
-                        switch phase {
-                        case .success(let image):
-                            image.resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 44, height: 44)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                        default:
-                            letterAvatar(for: editableName, size: 44)
-                        }
-                    }
-                    .frame(width: 44, height: 44)
-                } else {
-                    letterAvatar(for: editableName, size: 44)
-                }
+                // Favicon (letter avatar; real favicon is cached when page is saved)
+                letterAvatar(for: editableName.isEmpty ? "?" : editableName, size: 44)
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(urlText)
@@ -848,7 +816,15 @@ struct AddSourceSheet: View {
 
                     stopCyclingTimer()
                     detectedFeed = feed
-                    editableName = smartTitle(from: feed)
+                    // If the feed came from Google News (fallback), use the domain
+                    // the user typed instead of the ugly "site:x" feed title
+                    if feed.feedURL.host?.lowercased() == "news.google.com",
+                       let inputURL = URL(string: normalized) {
+                        let domain = inputURL.host?.replacingOccurrences(of: "www.", with: "") ?? feed.title
+                        editableName = domain
+                    } else {
+                        editableName = smartTitle(from: feed)
+                    }
                     sheetState = .feedFound
                 } catch {
                     stopCyclingTimer()
@@ -888,18 +864,12 @@ struct AddSourceSheet: View {
                     try Source.fetchCount(db)
                 }
 
-                // Build favicon URL from siteURL domain via Google's favicon service
-                let iconURL: String? = {
-                    guard let siteURL = feed.siteURL, let host = siteURL.host else { return nil }
-                    return "https://www.google.com/s2/favicons?domain=\(host)&sz=96"
-                }()
-
                 let source = Source(
                     id: UUID(),
                     title: editableName.isEmpty ? feed.title : editableName,
                     feedURL: feed.feedURL.absoluteString,
                     siteURL: feed.siteURL?.absoluteString,
-                    iconURL: iconURL,
+                    iconURL: nil,
                     addedAt: Date(),
                     lastFetchedAt: nil,
                     fetchFrequency: selectedFrequency,
@@ -912,11 +882,10 @@ struct AddSourceSheet: View {
                     try source.save(db)
                 }
 
-                // Cache the favicon locally for offline use
-                if let iconURL = iconURL {
-                    Task {
-                        await PageCacheService.shared.cacheFavicon(for: source.id, from: iconURL)
-                    }
+                // Discover and cache favicon from the site's HTML before
+                // dismissing so the source card can display it immediately
+                if let siteURL = feed.siteURL {
+                    await PageCacheService.shared.discoverAndCacheFavicon(for: source.id, siteURL: siteURL)
                 }
 
                 onSourceAdded?(source.id)
@@ -1001,12 +970,6 @@ struct AddSourceSheet: View {
 
             let title = editableName.trimmingCharacters(in: .whitespacesAndNewlines)
 
-            // Build favicon URL from the page's domain
-            let faviconURL: String? = {
-                guard let pageURL = URL(string: raw), let host = pageURL.host else { return nil }
-                return "https://www.google.com/s2/favicons?domain=\(host)&sz=96"
-            }()
-
             let article = Article(
                 id: UUID(),
                 sourceID: Source.savedPagesID,
@@ -1021,7 +984,7 @@ struct AddSourceSheet: View {
                 isSaved: true,
                 savedAt: Date(),
                 originalSourceName: URL(string: raw)?.host?.replacingOccurrences(of: "www.", with: ""),
-                originalSourceIconURL: faviconURL,
+                originalSourceIconURL: nil,
                 cacheSizeBytes: nil,
                 lastHTTPStatus: nil,
                 etag: nil,
@@ -1036,20 +999,11 @@ struct AddSourceSheet: View {
             onSavedArticle?()
             dismiss()
 
-            // Cache article content, then favicon (cacheArticle wipes the article dir)
-            let articleID = article.id
+            // Cache article content in background — performCacheArticle
+            // handles favicon discovery from the page HTML automatically
             let cacheLevel = selectedCacheLevel
             Task {
                 try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
-                if let faviconURL {
-                    await PageCacheService.shared.cacheArticleFavicon(for: articleID, from: faviconURL)
-                    // Touch the article in DB so the row view reloads and picks up the favicon
-                    _ = try? await DatabaseManager.shared.dbPool.write { db in
-                        try Article
-                            .filter(Column("id") == articleID.uuidString)
-                            .updateAll(db, Column("cachedAt").set(to: Date()))
-                    }
-                }
             }
         } catch {
             ToastManager.shared.show("Couldn't save page", type: .error)

@@ -73,6 +73,80 @@ actor PageCacheService {
         throw lastError ?? URLError(.unknown)
     }
 
+    /// Resolves a Google News redirect URL to the real article URL.
+    /// Google News RSS feeds return URLs like `news.google.com/rss/articles/CBMi...`
+    /// that use JS-based redirects. This method extracts the real URL by fetching
+    /// decoding parameters from the page and calling Google's batchexecute API.
+    /// Returns the original URL unchanged if it's not a Google News URL or resolution fails.
+    private func resolveGoogleNewsURL(_ url: URL) async -> URL {
+        guard let host = url.host?.lowercased(),
+              host == "news.google.com",
+              url.path.contains("articles") || url.path.contains("read") else {
+            return url
+        }
+
+        // Extract the base64 article ID from the URL path
+        let pathComponents = url.path.split(separator: "/")
+        guard let base64ID = pathComponents.last.map(String.init), !base64ID.isEmpty else {
+            return url
+        }
+
+        do {
+            // Step 1: Fetch the Google News page to get decoding parameters
+            var pageRequest = URLRequest(url: url)
+            pageRequest.assumesHTTP3Capable = false
+            let (pageData, _) = try await session.data(for: pageRequest)
+            let pageHTML = String(data: pageData, encoding: .utf8) ?? ""
+
+            // Extract data-n-a-ts (timestamp) and data-n-a-sg (signature)
+            guard let tsRange = pageHTML.range(of: #"data-n-a-ts="([^"]+)""#, options: .regularExpression),
+                  let sgRange = pageHTML.range(of: #"data-n-a-sg="([^"]+)""#, options: .regularExpression) else {
+                print("[PageCacheService] Google News: could not find decoding params")
+                return url
+            }
+
+            let tsMatch = pageHTML[tsRange]
+            let sgMatch = pageHTML[sgRange]
+            let timestamp = String(tsMatch.split(separator: "\"")[1])
+            let signature = String(sgMatch.split(separator: "\"")[1])
+
+            // Step 2: Call batchexecute to resolve the real URL
+            let bq = "\\\""
+            let inner = "[\(bq)garturlreq\(bq),[[\(bq)en\(bq),\(bq)US\(bq),[\(bq)FINANCE_TOP_INDICES\(bq),\(bq)WEB_TEST_1_0_0\(bq)],null,null,1,1,\(bq)US:en\(bq),null,180,null,null,null,null,null,0,null,null,[1608992183,723341000]],\(bq)en\(bq),\(bq)US\(bq),1,[2,3,4,8],1,1,null,0,0,null,0],\(bq)\(base64ID)\(bq),\(bq)\(timestamp)\(bq),\(bq)\(signature)\(bq)]"
+            let reqPayload = "[[[\"Fbv4je\",\"\(inner)\",\"generic\"]]]"
+
+            var batchRequest = URLRequest(url: URL(string: "https://news.google.com/_/DotsSplashUi/data/batchexecute")!)
+            batchRequest.httpMethod = "POST"
+            batchRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+            batchRequest.assumesHTTP3Capable = false
+
+            var components = URLComponents()
+            components.queryItems = [URLQueryItem(name: "f.req", value: reqPayload)]
+            batchRequest.httpBody = components.percentEncodedQuery?.data(using: .utf8)
+
+            let (batchData, _) = try await session.data(for: batchRequest)
+            let batchResponse = String(data: batchData, encoding: .utf8) ?? ""
+
+            // Parse the response — find "garturlres" then extract the URL after it
+            if let garRange = batchResponse.range(of: "garturlres") {
+                let afterGar = String(batchResponse[garRange.upperBound...])
+                if let httpsRange = afterGar.range(of: "https://[^\"\\\\]+", options: .regularExpression) {
+                    let realURLString = String(afterGar[httpsRange])
+                    if let realURL = URL(string: realURLString) {
+                        print("[PageCacheService] Google News resolved: \(realURL.absoluteString)")
+                        return realURL
+                    }
+                }
+            }
+
+            print("[PageCacheService] Google News: could not parse batchexecute response")
+            return url
+        } catch {
+            print("[PageCacheService] Google News resolution failed: \(error.localizedDescription)")
+            return url
+        }
+    }
+
     private var articlesBaseURL: URL {
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
         return appSupport.appendingPathComponent("preread/articles", isDirectory: true)
@@ -272,12 +346,20 @@ actor PageCacheService {
 
     private func performCacheArticle(_ article: inout Article, cacheLevel: CacheLevel, wasPreviouslyCached: Bool, forceReprocess: Bool = false) async throws {
         // Build conditional request
-        guard let pageURL = URL(string: article.articleURL) else {
+        guard var pageURL = URL(string: article.articleURL) else {
             if !wasPreviouslyCached {
                 article.fetchStatus = .failed
                 try updateArticle(&article)
             }
             return
+        }
+
+        // Resolve Google News redirect URLs to real article URLs
+        let resolvedURL = await resolveGoogleNewsURL(pageURL)
+        if resolvedURL != pageURL {
+            pageURL = resolvedURL
+            article.articleURL = resolvedURL.absoluteString
+            try? updateArticle(&article)
         }
 
         var request = URLRequest(url: pageURL)
@@ -545,6 +627,16 @@ actor PageCacheService {
             let resolved = heroURL.absoluteString
             article.thumbnailURL = resolved
             await cacheThumbnail(url: heroURL, to: articleDir)
+        }
+
+        // Cache a per-article favicon extracted from the page's HTML.
+        // This is useful for multi-source feeds (e.g. Google News keyword feeds)
+        // where each article comes from a different site.
+        let articleFaviconPath = articleDir.appendingPathComponent("favicon.png")
+        if !FileManager.default.fileExists(atPath: articleFaviconPath.path) {
+            if let rawDoc = try? SwiftSoup.parse(html, pageURL.absoluteString) {
+                await cacheArticleFavicon(for: article.id, fromDoc: rawDoc, baseURL: pageURL)
+            }
         }
 
         let indexPath = articleDir.appendingPathComponent("index.html")
@@ -1430,45 +1522,101 @@ actor PageCacheService {
         return appSupport.appendingPathComponent("preread/sources", isDirectory: true)
     }
 
-    /// Downloads and caches the favicon for a source to local storage.
-    func cacheFavicon(for sourceID: UUID, from iconURL: String) async {
-        guard let url = URL(string: iconURL) else { return }
+    /// Discovers the best favicon URL from an HTML document.
+    /// Prefers apple-touch-icon (high-res PNG), then icon links sorted by
+    /// size descending, then falls back to /favicon.ico at the domain root.
+    private func discoverFaviconURL(in html: String, baseURL: URL) -> URL? {
+        guard let doc = try? SwiftSoup.parse(html, baseURL.absoluteString) else { return nil }
+        return discoverFaviconURL(in: doc, baseURL: baseURL)
+    }
 
+    /// Discovers the best favicon URL from a parsed SwiftSoup Document.
+    private func discoverFaviconURL(in doc: Document, baseURL: URL) -> URL? {
+        // 1. apple-touch-icon — always a high-res PNG (typically 180×180)
+        if let appleTouchIcon = try? doc.select("link[rel=apple-touch-icon], link[rel=apple-touch-icon-precomposed]").first(),
+           let href = try? appleTouchIcon.attr("abs:href"),
+           !href.isEmpty,
+           let url = URL(string: href) {
+            return url
+        }
+
+        // 2. <link rel="icon"> — pick the largest available
+        if let icons = try? doc.select("link[rel~=icon]") {
+            var best: (url: URL, size: Int)?
+            for icon in icons {
+                guard let href = try? icon.attr("abs:href"),
+                      !href.isEmpty,
+                      let url = URL(string: href) else { continue }
+                // Parse sizes attribute (e.g. "96x96", "32x32")
+                let sizes = (try? icon.attr("sizes")) ?? ""
+                let size = sizes.split(separator: "x").first.flatMap { Int($0) } ?? 0
+                if best == nil || size > best!.size {
+                    best = (url, size)
+                }
+            }
+            if let best { return best.url }
+        }
+
+        // 3. Fallback to /favicon.ico
+        var components = URLComponents()
+        components.scheme = baseURL.scheme ?? "https"
+        components.host = baseURL.host
+        components.path = "/favicon.ico"
+        return components.url
+    }
+
+    /// Discovers and caches a favicon for a source by fetching the site's HTML
+    /// and extracting the best icon link. Falls back to /favicon.ico.
+    func discoverAndCacheFavicon(for sourceID: UUID, siteURL: URL) async {
         do {
-            let (data, response) = try await session.data(from: url)
-            guard let httpResponse = response as? HTTPURLResponse,
-                  httpResponse.statusCode == 200,
-                  !data.isEmpty else { return }
+            var request = URLRequest(url: siteURL)
+            request.assumesHTTP3Capable = false
+            let (data, _) = try await session.data(for: request)
+            let html = String(data: data, encoding: .utf8) ?? ""
 
-            let sourceDir = sourcesBaseURL.appendingPathComponent(sourceID.uuidString, isDirectory: true)
-            try FileManager.default.createDirectory(at: sourceDir, withIntermediateDirectories: true)
-
-            let faviconPath = sourceDir.appendingPathComponent("favicon.png")
-            try data.write(to: faviconPath)
+            guard let faviconURL = discoverFaviconURL(in: html, baseURL: siteURL) else { return }
+            await downloadFavicon(from: faviconURL, to: sourcesBaseURL.appendingPathComponent(sourceID.uuidString, isDirectory: true))
         } catch {
-            // Non-critical — favicon will fall back to gradient
+            // Non-critical — favicon will fall back to letter avatar
         }
     }
 
-    /// Downloads and caches a favicon into an article's directory.
-    /// Used for saved-pages articles that don't belong to a real source.
-    func cacheArticleFavicon(for articleID: UUID, from iconURL: String) async {
-        guard let url = URL(string: iconURL) else { return }
-
+    /// Downloads a favicon from a URL and saves it as favicon.png in the given directory.
+    private func downloadFavicon(from url: URL, to directory: URL) async {
         do {
-            let (data, response) = try await session.data(from: url)
+            var request = URLRequest(url: url)
+            request.assumesHTTP3Capable = false
+            let (data, response) = try await session.data(for: request)
             guard let httpResponse = response as? HTTPURLResponse,
                   httpResponse.statusCode == 200,
                   !data.isEmpty else { return }
 
-            let articleDir = articlesBaseURL.appendingPathComponent(articleID.uuidString, isDirectory: true)
-            try FileManager.default.createDirectory(at: articleDir, withIntermediateDirectories: true)
-
-            let faviconPath = articleDir.appendingPathComponent("favicon.png")
+            try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+            let faviconPath = directory.appendingPathComponent("favicon.png")
             try data.write(to: faviconPath)
         } catch {
-            // Non-critical — favicon will fall back to gradient
+            // Non-critical — favicon will fall back to letter avatar
         }
+    }
+
+    /// Downloads and caches the favicon for a source from a direct URL.
+    /// Used as a fallback when siteURL is unavailable.
+    func cacheFavicon(for sourceID: UUID, from iconURL: String) async {
+        guard let url = URL(string: iconURL) else { return }
+        await downloadFavicon(from: url, to: sourcesBaseURL.appendingPathComponent(sourceID.uuidString, isDirectory: true))
+    }
+
+    /// Downloads and caches a favicon into an article's directory from a direct URL.
+    func cacheArticleFavicon(for articleID: UUID, from iconURL: String) async {
+        guard let url = URL(string: iconURL) else { return }
+        await downloadFavicon(from: url, to: articlesBaseURL.appendingPathComponent(articleID.uuidString, isDirectory: true))
+    }
+
+    /// Discovers and caches a per-article favicon from already-parsed HTML.
+    /// Extracts the best icon link from the document without an extra network request.
+    func cacheArticleFavicon(for articleID: UUID, fromDoc doc: Document, baseURL: URL) async {
+        guard let faviconURL = discoverFaviconURL(in: doc, baseURL: baseURL) else { return }
+        await downloadFavicon(from: faviconURL, to: articlesBaseURL.appendingPathComponent(articleID.uuidString, isDirectory: true))
     }
 
     /// Returns the locally cached favicon image for a source, if it exists.

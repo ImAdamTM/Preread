@@ -303,9 +303,16 @@ struct ArticleRowView: View {
     }
 
     private var gradientPlaceholder: some View {
-        RoundedRectangle(cornerRadius: 10)
-            .fill(Theme.avatarGradient(for: article.title))
-            .frame(width: 64, height: 64)
+        let label = sourceName ?? article.title
+        let letter = String(label.prefix(1)).uppercased()
+        return ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Theme.avatarGradient(for: label))
+            Text(letter)
+                .font(.system(size: 24, weight: .bold))
+                .foregroundColor(.white)
+        }
+        .frame(width: 64, height: 64)
     }
 
     // MARK: - Status label
