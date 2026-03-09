@@ -93,6 +93,7 @@ struct SavedArticlesView: View {
             NavigationStack {
                 ReaderView(article: selection.article, source: selection.source)
             }
+            .toastOverlay()
             .presentationDragIndicator(.hidden)
             .preferredColorScheme(preferredScheme)
         }

@@ -7,6 +7,7 @@ struct ArticleListView: View {
     @Namespace private var namespace
     @ObservedObject private var coordinator = FetchCoordinator.shared
     @Environment(\.colorScheme) private var systemColorScheme
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var deepLinkRouter: DeepLinkRouter
 
     @State private var articles: [Article] = []
@@ -99,6 +100,18 @@ struct ArticleListView: View {
                 await coordinator.retryFailedArticles(for: retrySource)
             }
         }
+        .onAppear {
+            // If the source was deleted (e.g. from Settings while this view
+            // was in the navigation stack), pop back to the sources list.
+            Task {
+                let exists = try? await DatabaseManager.shared.dbPool.read { db in
+                    try Source.fetchOne(db, key: source.id) != nil
+                }
+                if exists == false {
+                    dismiss()
+                }
+            }
+        }
         .onChange(of: coordinator.sourceStatuses[source.id]) { _, newState in
             if newState == .completed || newState == .idle {
                 Task {
@@ -134,6 +147,7 @@ struct ArticleListView: View {
             NavigationStack {
                 ReaderView(article: article, source: source)
             }
+            .toastOverlay()
             .presentationDragIndicator(.hidden)
             .preferredColorScheme(preferredScheme)
         }

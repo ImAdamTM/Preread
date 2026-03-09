@@ -23,6 +23,13 @@ struct ReaderView: View {
     @State private var isRetrying = false
     @State private var navFaviconImage: UIImage?
     @State private var lightboxImageURL: URL?
+    @State private var isSaved: Bool
+
+    init(article: Article, source: Source) {
+        self.article = article
+        self.source = source
+        _isSaved = State(initialValue: article.isSaved)
+    }
 
     /// Display name for the toolbar — prefers the original source name when the article
     /// has been detached from its original source (e.g. source was deleted).
@@ -127,13 +134,13 @@ struct ReaderView: View {
                             .foregroundColor(Theme.textPrimary)
                     }
 
-                    // Settings
-                    NavigationLink {
-                        SettingsView()
+                    // Save / Unsave
+                    Button {
+                        Task { await toggleSave() }
                     } label: {
-                        Image(systemName: "gearshape")
+                        Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
                             .font(.system(size: 17))
-                            .foregroundColor(Theme.textPrimary)
+                            .foregroundColor(isSaved ? Theme.accent : Theme.textPrimary)
                     }
                 }
             }
@@ -416,6 +423,37 @@ struct ReaderView: View {
             }
         } catch {
             // Non-critical
+        }
+    }
+
+    private func toggleSave() async {
+        let newSaved = !isSaved
+        isSaved = newSaved
+
+        var mutable = article
+        mutable.isSaved = newSaved
+        mutable.savedAt = newSaved ? Date() : nil
+        if newSaved {
+            mutable.originalSourceName = source.title
+            mutable.originalSourceIconURL = source.iconURL
+        } else {
+            mutable.originalSourceName = nil
+            mutable.originalSourceIconURL = nil
+        }
+
+        HapticManager.articleCached()
+        ToastManager.shared.snack(
+            newSaved ? "Saved" : "Unsaved",
+            icon: newSaved ? "bookmark.fill" : "bookmark.slash"
+        )
+
+        let toSave = mutable
+        do {
+            try await DatabaseManager.shared.dbPool.write { db in
+                try toSave.update(db)
+            }
+        } catch {
+            isSaved = !newSaved
         }
     }
 }

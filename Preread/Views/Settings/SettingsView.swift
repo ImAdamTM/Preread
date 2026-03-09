@@ -26,6 +26,10 @@ struct SettingsView: View {
     // MARK: - State
 
     @State private var sources: [Source] = []
+    @State private var editableSources: [Source] = []
+    @State private var sourceToDelete: Source?
+    @State private var faviconCache: [UUID: UIImage] = [:]
+    @State private var sourcesEditMode: EditMode = .inactive
     @State private var storageBySource: [(source: Source, bytes: Int64)] = []
     @State private var totalStorageBytes: Int64 = 0
     @State private var showClearCacheConfirmation = false
@@ -43,6 +47,7 @@ struct SettingsView: View {
             appearanceSection
             readingSection
             syncingSection
+            sourcesSection
             storageSection
             homeScreenSection
             aboutSection
@@ -50,9 +55,11 @@ struct SettingsView: View {
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
         .background(Theme.background.ignoresSafeArea())
+        .environment(\.editMode, $sourcesEditMode)
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.large)
         .task {
+            await loadSources()
             await loadStorageData()
             checkFreeSpace()
         }
@@ -67,6 +74,99 @@ struct SettingsView: View {
             Button("Keep everything", role: .cancel) {}
         } message: {
             Text("This will remove all saved article data and free up storage. Your sources and reading history will be kept.")
+        }
+        .confirmationDialog(
+            "Delete \"\(sourceToDelete?.title ?? "")\"?",
+            isPresented: Binding(
+                get: { sourceToDelete != nil },
+                set: { if !$0 { sourceToDelete = nil } }
+            ),
+            titleVisibility: .visible
+        ) {
+            Button("Delete source", role: .destructive) {
+                if let source = sourceToDelete {
+                    Task { await deleteSource(source) }
+                }
+            }
+            Button("Cancel", role: .cancel) { sourceToDelete = nil }
+        } message: {
+            Text("Saved articles from this source will be moved to your Saved collection.")
+        }
+    }
+
+    // MARK: - Sources section
+
+    private var sourcesSection: some View {
+        Section {
+            if editableSources.isEmpty {
+                Text("No sources added yet")
+                    .font(Theme.scaledFont(size: 14, relativeTo: .subheadline))
+                    .foregroundColor(Theme.textSecondary)
+            } else {
+                ForEach(editableSources) { source in
+                    HStack(spacing: 12) {
+                        sourceFavicon(source)
+                            .frame(width: 28, height: 28)
+
+                        Text(source.title)
+                            .font(Theme.scaledFont(size: 15, weight: .medium, relativeTo: .subheadline))
+                            .foregroundColor(Theme.textPrimary)
+                            .lineLimit(1)
+                    }
+                }
+                .onMove { indices, newOffset in
+                    editableSources.move(fromOffsets: indices, toOffset: newOffset)
+                    Task { await persistSourceOrder() }
+                }
+                .onDelete { indices in
+                    if let index = indices.first {
+                        sourceToDelete = editableSources[index]
+                    }
+                }
+            }
+        } header: {
+            HStack {
+                sectionHeader("SOURCES")
+                Spacer()
+                if !editableSources.isEmpty {
+                    Button {
+                        withAnimation {
+                            sourcesEditMode = sourcesEditMode.isEditing ? .inactive : .active
+                        }
+                    } label: {
+                        Text(sourcesEditMode.isEditing ? "Done" : "Edit")
+                            .font(Theme.scaledFont(size: 12, weight: .semibold, relativeTo: .caption))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 4)
+                            .background(Theme.accentGradient)
+                            .clipShape(Capsule())
+                    }
+                    .textCase(nil)
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func sourceFavicon(_ source: Source) -> some View {
+        if let favicon = faviconCache[source.id] {
+            Image(uiImage: favicon)
+                .resizable()
+                .interpolation(.high)
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 28, height: 28)
+                .clipShape(RoundedRectangle(cornerRadius: 6))
+        } else {
+            let letter = String(source.title.prefix(1)).uppercased()
+            ZStack {
+                RoundedRectangle(cornerRadius: 6)
+                    .fill(Theme.avatarGradient(for: source.title))
+                Text(letter)
+                    .font(.system(size: 13, weight: .bold))
+                    .foregroundColor(.white)
+            }
+            .frame(width: 28, height: 28)
         }
     }
 
@@ -354,6 +454,58 @@ struct SettingsView: View {
         Text(text)
             .font(Theme.scaledFont(size: 15, weight: .medium, relativeTo: .subheadline))
             .foregroundColor(Theme.textPrimary)
+    }
+
+    // MARK: - Source management
+
+    private func loadSources() async {
+        do {
+            let loaded = try await DatabaseManager.shared.dbPool.read { db in
+                try Source
+                    .filter(Column("id") != Source.savedPagesID)
+                    .order(Column("sortOrder"))
+                    .fetchAll(db)
+            }
+            editableSources = loaded
+
+            // Load favicons from disk cache
+            for source in loaded {
+                let sourceID = source.id
+                let image = await Task.detached(priority: .utility) {
+                    await PageCacheService.shared.cachedFavicon(for: sourceID)
+                }.value
+                if let image {
+                    faviconCache[sourceID] = image
+                }
+            }
+        } catch { }
+    }
+
+    private func persistSourceOrder() async {
+        let ordered = editableSources
+        do {
+            try await DatabaseManager.shared.dbPool.write { db in
+                for (index, var source) in ordered.enumerated() {
+                    source.sortOrder = index
+                    try source.update(db)
+                }
+            }
+        } catch { }
+    }
+
+    private func deleteSource(_ source: Source) async {
+        HapticManager.deleteConfirm()
+
+        do {
+            try await Source.deleteWithCleanup(source)
+
+            withAnimation {
+                editableSources.removeAll { $0.id == source.id }
+            }
+
+            // Refresh storage data since it changed
+            await loadStorageData()
+        } catch { }
     }
 
     // MARK: - Data

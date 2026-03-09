@@ -424,39 +424,7 @@ struct SourcesListView: View {
         HapticManager.deleteConfirm()
 
         do {
-            // Move saved articles to the hidden "Saved Pages" source so they
-            // survive the CASCADE delete that follows. Stamp original source
-            // info so attribution is preserved after the source is deleted.
-            try await DatabaseManager.shared.dbPool.write { db in
-                try db.execute(
-                    sql: """
-                        UPDATE article
-                        SET sourceID = ?,
-                            originalSourceName = COALESCE(originalSourceName, ?),
-                            originalSourceIconURL = COALESCE(originalSourceIconURL, ?)
-                        WHERE sourceID = ? AND isSaved = 1
-                        """,
-                    arguments: [Source.savedPagesID, source.title, source.iconURL, source.id]
-                )
-            }
-
-            // Delete cached files for unsaved articles only (saved ones were moved)
-            let articles = try await DatabaseManager.shared.dbPool.read { db in
-                try Article
-                    .filter(Column("sourceID") == source.id)
-                    .fetchAll(db)
-            }
-            for article in articles {
-                try? await PageCacheService.shared.deleteCachedArticle(article.id)
-            }
-
-            // Delete cached source data (favicon, etc.)
-            try? await PageCacheService.shared.deleteSourceCache(source.id)
-
-            // Delete source (cascades to remaining unsaved articles + cachedPages)
-            _ = try await DatabaseManager.shared.dbPool.write { db in
-                try Source.deleteOne(db, key: source.id)
-            }
+            try await Source.deleteWithCleanup(source)
 
             // Reload saved count (moved articles may have changed it)
             let newSavedCount = try await DatabaseManager.shared.dbPool.read { db in
