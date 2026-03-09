@@ -15,6 +15,7 @@ struct SourcesListView: View {
     @State private var articleCounts: [UUID: Int] = [:]
     @State private var unreadCounts: [UUID: Int] = [:]
     @State private var savedCount: Int = 0
+    @State private var savedUnreadCount: Int = 0
     @State private var showAddSource = false
     @State private var highlightedSourceID: UUID?
     @State private var navigationPath = NavigationPath()
@@ -184,6 +185,7 @@ struct SourcesListView: View {
                 if savedCount > 0 {
                     SavedCardView(
                         articleCount: savedCount,
+                        unreadCount: savedUnreadCount,
                         onTap: {
                             navigationPath.append(NavigationTarget.saved)
                         }
@@ -321,13 +323,19 @@ struct SourcesListView: View {
             }
             sources = loadedSources
 
-            // Load saved article count
-            let saved = try await DatabaseManager.shared.dbPool.read { db in
-                try Article
+            // Load saved article count and unread count
+            let (saved, savedUnread) = try await DatabaseManager.shared.dbPool.read { db in
+                let total = try Article
                     .filter(Column("isSaved") == true)
                     .fetchCount(db)
+                let unread = try Article
+                    .filter(Column("isSaved") == true)
+                    .filter(Column("isRead") == false)
+                    .fetchCount(db)
+                return (total, unread)
             }
             savedCount = saved
+            savedUnreadCount = savedUnread
 
             // Load article counts and unread counts
             var counts: [UUID: Int] = [:]
@@ -391,6 +399,20 @@ struct SourcesListView: View {
             }
             articleCounts = counts
             unreadCounts = unread
+
+            // Refresh saved counts
+            let (saved, savedUnread) = try await DatabaseManager.shared.dbPool.read { db in
+                let total = try Article
+                    .filter(Column("isSaved") == true)
+                    .fetchCount(db)
+                let unread = try Article
+                    .filter(Column("isSaved") == true)
+                    .filter(Column("isRead") == false)
+                    .fetchCount(db)
+                return (total, unread)
+            }
+            savedCount = saved
+            savedUnreadCount = savedUnread
         } catch {
             // Silently fail
         }

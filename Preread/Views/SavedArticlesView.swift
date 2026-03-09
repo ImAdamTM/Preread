@@ -106,28 +106,30 @@ struct SavedArticlesView: View {
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
 
+            ForEach(filteredArticles) { article in
+                ArticleRowView(
+                    article: article,
+                    namespace: namespace,
+                    onTap: { handleTap(article) },
+                    onToggleRead: { Task { await toggleRead(article) } },
+                    onToggleSave: { Task { await unsaveArticle(article) } },
+                    onRefetch: { Task { await refetchArticle(article) } },
+                    onDelete: { Task { await deleteArticle(article) } },
+                    sourceName: article.originalSourceName ?? sourceNames[article.sourceID],
+                    showUnsaveInsteadOfSave: true
+                )
+                .listRowInsets(EdgeInsets())
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
+            }
+
             if filteredArticles.isEmpty {
                 noResultsRow
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
             } else {
-                ForEach(filteredArticles) { article in
-                    ArticleRowView(
-                        article: article,
-                        namespace: namespace,
-                        onTap: { handleTap(article) },
-                        onToggleRead: { Task { await toggleRead(article) } },
-                        onToggleSave: { Task { await unsaveArticle(article) } },
-                        onRefetch: { Task { await refetchArticle(article) } },
-                        onDelete: { Task { await deleteArticle(article) } },
-                        sourceName: article.originalSourceName ?? sourceNames[article.sourceID],
-                        showUnsaveInsteadOfSave: true
-                    )
-                    .listRowInsets(EdgeInsets())
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
-                }
+                
             }
         }
         .listStyle(.plain)
@@ -403,15 +405,22 @@ struct SavedArticlesView: View {
         HapticManager.articleCached()
         ToastManager.shared.snack("Removed from Saved", icon: "bookmark.slash")
 
+        // Remove from the array immediately so the swipe collapse animation
+        // can run. The DB write happens in the background afterward.
+        withAnimation(Theme.gentleAnimation()) {
+            articles.removeAll { $0.id == article.id }
+        }
+
+        let articleToUpdate = updated
         do {
             try await DatabaseManager.shared.dbPool.write { db in
-                try updated.update(db)
-            }
-            _ = withAnimation(Theme.gentleAnimation()) {
-                articles.remove(at: index)
+                try articleToUpdate.update(db)
             }
         } catch {
-            // Revert on failure
+            // DB write failed — re-insert the article
+            withAnimation(Theme.gentleAnimation()) {
+                articles.insert(updated, at: min(index, articles.count))
+            }
         }
     }
 
@@ -431,16 +440,16 @@ struct SavedArticlesView: View {
 
     private func deleteArticle(_ article: Article) async {
         HapticManager.deleteConfirm()
+
+        // Remove from the array immediately so the row collapse animation runs
+        withAnimation(Theme.gentleAnimation()) {
+            articles.removeAll { $0.id == article.id }
+        }
+
+        // Clean up cached data and DB record in the background
         try? await PageCacheService.shared.deleteCachedArticle(article.id)
-        do {
-            _ = try await DatabaseManager.shared.dbPool.write { db in
-                try Article.deleteOne(db, key: article.id)
-            }
-            withAnimation(Theme.gentleAnimation()) {
-                articles.removeAll { $0.id == article.id }
-            }
-        } catch {
-            // Deletion failed silently
+        _ = try? await DatabaseManager.shared.dbPool.write { db in
+            try Article.deleteOne(db, key: article.id)
         }
     }
 }

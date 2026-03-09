@@ -115,7 +115,7 @@ struct ArticleRowView: View {
         }
         .swipeActions(edge: .leading, allowsFullSwipe: true) {
             if showUnsaveInsteadOfSave {
-                Button {
+                Button(role: .destructive) {
                     onToggleSave()
                 } label: {
                     Label("Remove", systemImage: "bookmark.slash")
@@ -153,12 +153,10 @@ struct ArticleRowView: View {
                 )
             }
 
-            Button {
-                onToggleSave()
-            } label: {
-                if showUnsaveInsteadOfSave {
-                    Label("Remove from Saved", systemImage: "bookmark.slash")
-                } else {
+            if !showUnsaveInsteadOfSave {
+                Button {
+                    onToggleSave()
+                } label: {
                     Label(
                         article.isSaved ? "Unsave" : "Save",
                         systemImage: article.isSaved ? "bookmark.slash" : "bookmark"
@@ -182,12 +180,14 @@ struct ArticleRowView: View {
                 }
             }
 
-            Divider()
+            if showUnsaveInsteadOfSave {
+                Divider()
 
-            Button(role: .destructive) {
-                onDelete()
-            } label: {
-                Label("Delete", systemImage: "trash")
+                Button(role: .destructive) {
+                    onToggleSave()
+                } label: {
+                    Label("Remove from Saved", systemImage: "bookmark.slash")
+                }
             }
         }
     }

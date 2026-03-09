@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SavedCardView: View {
     let articleCount: Int
+    let unreadCount: Int
     let onTap: () -> Void
 
     var body: some View {
@@ -36,6 +37,15 @@ struct SavedCardView: View {
                 }
 
                 Spacer(minLength: 4)
+
+                // Unread pill
+                Text("\(unreadCount)")
+                    .font(Theme.scaledFont(size: 11, weight: .semibold, relativeTo: .caption2))
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 3)
+                    .background(unreadCount > 0 ? AnyShapeStyle(Theme.accentGradient) : AnyShapeStyle(Theme.textSecondary.opacity(0.4)))
+                    .clipShape(Capsule())
             }
             .padding(.horizontal, 16)
             .frame(height: 88)
@@ -48,7 +58,7 @@ struct SavedCardView: View {
         }
         .buttonStyle(CardPressStyle())
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Saved, \(articleCount) article\(articleCount == 1 ? "" : "s")")
+        .accessibilityLabel("Saved, \(articleCount) article\(articleCount == 1 ? "" : "s")\(unreadCount > 0 ? ", \(unreadCount) unread" : "")")
         .accessibilityAddTraits(.isButton)
         .padding(.horizontal, 16)
     }

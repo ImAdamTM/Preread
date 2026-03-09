@@ -24,6 +24,7 @@ struct ArticleListView: View {
     @AppStorage("appAppearance") private var appAppearance: String = "system"
     @State private var navFaviconImage: UIImage?
     @AppStorage("articleLimit") private var articleLimit: Int = 100
+    @State private var searchText = ""
 
     private var preferredScheme: ColorScheme {
         switch appAppearance {
@@ -151,7 +152,7 @@ struct ArticleListView: View {
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
             } else {
-                ForEach(articles) { article in
+                ForEach(filteredArticles) { article in
                     ArticleRowView(
                         article: article,
                         namespace: namespace,
@@ -174,6 +175,7 @@ struct ArticleListView: View {
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
+        .searchable(text: $searchText, prompt: "Search articles")
     }
 
     // MARK: - Hero row
@@ -219,6 +221,13 @@ struct ArticleListView: View {
         if heroTitleMinY > startFade { return 0 }
         if heroTitleMinY < fullyOpaque { return 1 }
         return Double(1 - (heroTitleMinY - fullyOpaque) / (startFade - fullyOpaque))
+    }
+
+    // MARK: - Search filtering
+
+    private var filteredArticles: [Article] {
+        if searchText.isEmpty { return articles }
+        return articles.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
     }
 
     // MARK: - Source favicon
