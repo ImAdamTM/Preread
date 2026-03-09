@@ -139,6 +139,41 @@ actor FeedService {
         throw FeedError.noFeedFound
     }
 
+    // MARK: - Topic search
+
+    /// Searches Google News RSS for a topic/keyword (not a URL).
+    func searchGoogleNews(query: String) async throws -> DiscoveredFeed {
+        var components = URLComponents(string: "https://news.google.com/rss/search")!
+        components.queryItems = [
+            URLQueryItem(name: "q", value: query),
+            URLQueryItem(name: "hl", value: "en-US"),
+            URLQueryItem(name: "gl", value: "US"),
+            URLQueryItem(name: "ceid", value: "US:en"),
+        ]
+
+        guard let googleFeedURL = components.url else {
+            throw FeedError.noFeedFound
+        }
+
+        let (data, response) = try await fetchData(from: googleFeedURL)
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+            throw FeedError.noFeedFound
+        }
+
+        let parser = FeedXMLParser(feedURL: googleFeedURL, siteURL: nil)
+        guard parser.parse(data: data), !parser.items.isEmpty else {
+            throw FeedError.noFeedFound
+        }
+
+        return DiscoveredFeed(
+            feedURL: googleFeedURL,
+            title: parser.feedTitle ?? query,
+            siteURL: nil,
+            items: parser.items
+        )
+    }
+
     // MARK: - Parsing
 
     /// Parses an RSS 2.0 or Atom feed from a URL.
