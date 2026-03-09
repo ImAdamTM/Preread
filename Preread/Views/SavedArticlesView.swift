@@ -70,6 +70,15 @@ struct SavedArticlesView: View {
                 }
                 .opacity(navBarTitleOpacity)
             }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink {
+                    SettingsView()
+                } label: {
+                    Image(systemName: "gearshape")
+                        .font(.system(size: 17))
+                        .foregroundColor(Theme.textPrimary)
+                }
+            }
         }
         .searchable(text: $searchText, prompt: "Search saved articles")
         .task {

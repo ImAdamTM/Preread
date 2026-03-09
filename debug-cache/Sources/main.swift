@@ -355,24 +355,39 @@ if isFullMode {
         var contentHTML = extracted.contentHTML
 
         // If Readability dropped the hero image, re-inject it.
-        // Find the first <img> with a real src (not a data URI). If that
-        // first image is an SVG or a site logo, stop — the real hero is
-        // behind JS-rendered content we can't reach.
-        if let firstImg = try? preDoc.select("img[src]").first(where: { img in
-            guard let src = try? img.attr("src"), !src.isEmpty,
-                  !src.hasPrefix("data:") else { return false }
-            return true
-        }) {
-            let src = (try? firstImg.attr("src")) ?? ""
-            let imgId = (try? firstImg.attr("id"))?.lowercased() ?? ""
-            let alt = (try? firstImg.attr("alt"))?.lowercased() ?? ""
-            let isSiteChrome = src.lowercased().contains(".svg")
-                || imgId.contains("logo")
-                || alt.contains("logo")
+        // Look for the first meaningful <img> inside content landmarks
+        // (article, main) first, then fall back to the whole page.
+        // Skip SVGs, logos, tiny icons, and other site chrome.
+        let candidateSelectors = [
+            "article img[src]",
+            "[itemprop=articleBody] img[src]",
+            "main img[src]",
+            "[role=main] img[src]",
+            "img[src]"
+        ]
+        let heroImg: Element? = candidateSelectors.lazy.compactMap { selector in
+            try? preDoc.select(selector).first(where: { img in
+                guard let src = try? img.attr("src"), !src.isEmpty,
+                      !src.hasPrefix("data:") else { return false }
+                let srcLower = src.lowercased()
+                let imgId = (try? img.attr("id"))?.lowercased() ?? ""
+                let alt = (try? img.attr("alt"))?.lowercased() ?? ""
+                if srcLower.contains(".svg") { return false }
+                let chromeWords = [
+                    "logo", "flag", "icon", "badge", "avatar", "spinner",
+                    "facebook", "twitter", "instagram", "pinterest", "tiktok",
+                    "furniture", "share", "follow"
+                ]
+                for word in chromeWords {
+                    if imgId.contains(word) || alt.contains(word) || srcLower.contains(word) { return false }
+                }
+                return true
+            })
+        }.first
 
-            if isSiteChrome {
-                print("  -> First image is site chrome (SVG/logo), skipping hero injection")
-            } else if !contentHTML.contains(src) {
+        if let firstImg = heroImg {
+            let src = (try? firstImg.attr("src")) ?? ""
+            if !contentHTML.contains(src) {
                 let heroTag = (try? firstImg.outerHtml()) ?? ""
                 if !heroTag.isEmpty {
                     print("  -> Hero image re-injected (first image, dropped by Readability)")

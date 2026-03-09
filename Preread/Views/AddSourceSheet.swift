@@ -32,6 +32,8 @@ struct AddSourceSheet: View {
     @State private var cyclingTextOpacity: Double = 1.0
     @State private var sheetContentHeight: CGFloat = 350
     @State private var lastAttemptWasSearch = false
+    @State private var showSourceLimitAlert = false
+    @State private var previewFavicon: UIImage?
 
     @FocusState private var isURLFieldFocused: Bool
 
@@ -128,6 +130,11 @@ struct AddSourceSheet: View {
         .presentationDetents([.height(sheetContentHeight)])
         .presentationDragIndicator(.visible)
         .animation(Theme.gentleAnimation(response: 0.4, dampingFraction: 0.85), value: sheetContentHeight)
+        .alert("Source limit reached", isPresented: $showSourceLimitAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("You've reached the maximum of \(Source.maxSources) sources. Remove a source in Settings to make room.")
+        }
         .onAppear {
             isURLFieldFocused = true
         }
@@ -308,8 +315,17 @@ struct AddSourceSheet: View {
         VStack(spacing: 16) {
             // Feed header — favicon left, details right
             HStack(spacing: 14) {
-                // Favicon (letter avatar; real favicon is cached when source is saved)
-                letterAvatar(for: editableName.isEmpty ? "?" : editableName, size: 44)
+                // Favicon — show real icon if fetched, else letter avatar
+                if let favicon = previewFavicon {
+                    Image(uiImage: favicon)
+                        .resizable()
+                        .interpolation(.high)
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 44, height: 44)
+                        .clipShape(RoundedRectangle(cornerRadius: 44 * 0.2))
+                } else {
+                    letterAvatar(for: editableName.isEmpty ? "?" : editableName, size: 44)
+                }
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(detectedFeed?.feedURL.absoluteString ?? "")
@@ -722,6 +738,17 @@ struct AddSourceSheet: View {
         }
     }
 
+    // MARK: - Favicon preview
+
+    private func fetchPreviewFavicon(for feed: DiscoveredFeed) {
+        previewFavicon = nil
+        guard let siteURL = feed.siteURL else { return }
+        Task {
+            let image = await PageCacheService.shared.fetchFaviconImage(siteURL: siteURL)
+            previewFavicon = image
+        }
+    }
+
     // MARK: - Letter avatar
 
     private func letterAvatar(for title: String, size: CGFloat) -> some View {
@@ -771,6 +798,7 @@ struct AddSourceSheet: View {
                     detectedFeed = feed
                     editableName = raw
                     sheetState = .feedFound
+                    fetchPreviewFavicon(for: feed)
                 } catch {
                     stopCyclingTimer()
                     sheetState = .notFound
@@ -826,6 +854,7 @@ struct AddSourceSheet: View {
                         editableName = smartTitle(from: feed)
                     }
                     sheetState = .feedFound
+                    fetchPreviewFavicon(for: feed)
                 } catch {
                     stopCyclingTimer()
                     sheetState = .notFound
@@ -864,6 +893,13 @@ struct AddSourceSheet: View {
                     try Source.fetchCount(db)
                 }
 
+                // Exclude the hidden "Saved Pages" source from the count
+                let userSourceCount = nextSortOrder - 1
+                if userSourceCount >= Source.maxSources {
+                    showSourceLimitAlert = true
+                    return
+                }
+
                 let source = Source(
                     id: UUID(),
                     title: editableName.isEmpty ? feed.title : editableName,
@@ -882,10 +918,15 @@ struct AddSourceSheet: View {
                     try source.save(db)
                 }
 
-                // Discover and cache favicon from the site's HTML before
-                // dismissing so the source card can display it immediately
-                if let siteURL = feed.siteURL {
-                    await PageCacheService.shared.discoverAndCacheFavicon(for: source.id, siteURL: siteURL)
+                // Save the already-fetched preview favicon to disk so the
+                // source card can display it immediately. If the preview
+                // hasn't loaded yet, kick off a background fetch instead.
+                if let favicon = previewFavicon {
+                    await PageCacheService.shared.saveFavicon(favicon, for: source.id)
+                } else if let siteURL = feed.siteURL {
+                    Task {
+                        await PageCacheService.shared.discoverAndCacheFavicon(for: source.id, siteURL: siteURL)
+                    }
                 }
 
                 onSourceAdded?(source.id)
@@ -1013,6 +1054,7 @@ struct AddSourceSheet: View {
     private func resetToInput() {
         urlText = ""
         detectedFeed = nil
+        previewFavicon = nil
         sheetState = .input
         isURLFieldFocused = true
     }

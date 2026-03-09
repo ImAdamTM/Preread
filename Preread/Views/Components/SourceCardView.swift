@@ -130,10 +130,20 @@ struct SourceCardView: View {
             letterAvatar
                 .task {
                     let sourceID = source.id
-                    let image = await Task.detached(priority: .utility) {
-                        await PageCacheService.shared.cachedFavicon(for: sourceID)
-                    }.value
-                    cachedFavicon = image
+                    // Check immediately, then retry a few times in case the
+                    // favicon is still being downloaded in the background.
+                    for attempt in 0..<5 {
+                        if attempt > 0 {
+                            try? await Task.sleep(for: .seconds(2))
+                        }
+                        let image = await Task.detached(priority: .utility) {
+                            await PageCacheService.shared.cachedFavicon(for: sourceID)
+                        }.value
+                        if let image {
+                            cachedFavicon = image
+                            return
+                        }
+                    }
                 }
         }
     }

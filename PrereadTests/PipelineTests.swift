@@ -124,6 +124,27 @@ struct StandardPipelineTests {
         #expect(!result.contentHTML.contains("<nav"))
         #expect(!result.contentHTML.contains("<style"))
     }
+
+    // MARK: - Nintendo
+
+    @Test("Nintendo: flag icon not used as hero, article image injected")
+    func nintendoArticle() async throws {
+        let html = try loadFixture("nintendo_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.nintendo.com/us/whatsnew/mobile-news-wonder-flowers-arrive-for-a-super-mario-run-special-event/")!
+        )
+
+        #expect(result.title.contains("Super Mario Run"))
+        #expect(result.contentHTML.contains("Wonder Flower"))
+        #expect(!result.contentHTML.contains("FlagUsa"), "Flag icon should not be injected as hero image")
+        #expect(result.contentHTML.contains("Super_Mario_Run_Wonder"), "Article hero image should be present")
+        #expect(result.heroImageURL?.contains("Super_Mario_Run_Wonder") == true, "Hero URL should be the article image, not the flag")
+        #expect(result.imageCount >= 1, "Article image should be preserved")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
 }
 
 // MARK: - Full-mode tests
@@ -268,6 +289,29 @@ struct FullPipelineTests {
         // Content should be preserved
         #expect(result.cleanedHTML.contains("Rihanna"))
         #expect(result.cleanedHTML.contains("Beverly Hills"))
+        #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
+    }
+
+    // MARK: - Nintendo
+
+    @Test("Nintendo: interactive elements stripped, article content preserved")
+    func nintendoArticle() async throws {
+        let html = try loadFixture("nintendo_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.nintendo.com/us/whatsnew/mobile-news-wonder-flowers-arrive-for-a-super-mario-run-special-event/")!
+        )
+
+        // Interactive elements should be stripped
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form"))
+
+        // Content should be preserved
+        #expect(result.cleanedHTML.contains("Super Mario Run"))
+        #expect(result.cleanedHTML.contains("Wonder Flower"))
         #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
     }
 }

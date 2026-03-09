@@ -239,30 +239,57 @@ actor PageCacheService {
         let articleTitle = extracted?.title ?? ""
         var contentHTML = extracted?.contentHTML ?? html
 
-        // If Readability dropped the hero image, re-inject it.
-        // Find the first <img> with a real src (not a data URI). If that
-        // first image is an SVG or a site logo, stop — the real hero is
-        // behind JS-rendered content we can't reach.
-        var heroImageURL: String?
-        if let firstImg = try? preDoc.select("img[src]").first(where: { img in
-            guard let src = try? img.attr("src"), !src.isEmpty,
-                  !src.hasPrefix("data:") else { return false }
-            return true
-        }) {
-            let src = (try? firstImg.attr("src")) ?? ""
-            let imgId = (try? firstImg.attr("id"))?.lowercased() ?? ""
-            let alt = (try? firstImg.attr("alt"))?.lowercased() ?? ""
-            let isSiteChrome = src.lowercased().contains(".svg")
-                || imgId.contains("logo")
-                || alt.contains("logo")
+        // Detect empty content (e.g. JS-rendered SPAs with no server-side HTML).
+        // Parse contentHTML and check for meaningful text — if there's nothing
+        // readable, there's no point caching an empty article.
+        let textCheck = try SwiftSoup.parseBodyFragment(contentHTML, pageURL.absoluteString)
+        let plainText = (try? textCheck.body()?.text())?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        if plainText.count < 50 {
+            throw NSError(domain: "PageCacheService", code: 3, userInfo: [
+                NSLocalizedDescriptionKey: "Extracted content too short (\(plainText.count) chars) — page may require JavaScript"
+            ])
+        }
 
-            if !isSiteChrome {
-                heroImageURL = src
-                if !contentHTML.contains(src) {
-                    let heroTag = (try? firstImg.outerHtml()) ?? ""
-                    if !heroTag.isEmpty {
-                        contentHTML = heroTag + contentHTML
-                    }
+        // If Readability dropped the hero image, re-inject it.
+        // Look for the first meaningful <img> inside content landmarks
+        // (article, main) first, then fall back to the whole page.
+        // Skip SVGs, logos, tiny icons, and other site chrome.
+        var heroImageURL: String?
+        let candidateSelectors = [
+            "article img[src]",
+            "[itemprop=articleBody] img[src]",
+            "main img[src]",
+            "[role=main] img[src]",
+            "img[src]"
+        ]
+        let heroImg: Element? = candidateSelectors.lazy.compactMap { selector in
+            try? preDoc.select(selector).first(where: { img in
+                guard let src = try? img.attr("src"), !src.isEmpty,
+                      !src.hasPrefix("data:") else { return false }
+                let srcLower = src.lowercased()
+                let imgId = (try? img.attr("id"))?.lowercased() ?? ""
+                let alt = (try? img.attr("alt"))?.lowercased() ?? ""
+                // Skip site chrome: SVGs, logos, flags, icons, social widgets
+                if srcLower.contains(".svg") { return false }
+                let chromeWords = [
+                    "logo", "flag", "icon", "badge", "avatar", "spinner",
+                    "facebook", "twitter", "instagram", "pinterest", "tiktok",
+                    "furniture", "share", "follow"
+                ]
+                for word in chromeWords {
+                    if imgId.contains(word) || alt.contains(word) || srcLower.contains(word) { return false }
+                }
+                return true
+            })
+        }.first
+
+        if let firstImg = heroImg {
+            let src = (try? firstImg.attr("src")) ?? ""
+            heroImageURL = src
+            if !contentHTML.contains(src) {
+                let heroTag = (try? firstImg.outerHtml()) ?? ""
+                if !heroTag.isEmpty {
+                    contentHTML = heroTag + contentHTML
                 }
             }
         }
@@ -329,13 +356,44 @@ actor PageCacheService {
         // space via CSS padding/margins. Multiple passes handle nested wrappers.
         try stripEmptyElements(in: doc)
 
-        // Capture the first real image for thumbnail backfill
+        // Capture the first meaningful image for thumbnail backfill,
+        // preferring images inside content landmarks over page chrome.
         var heroImageURL: String?
-        if let firstImg = try? doc.select("img[src]").first() {
-            let src = try? firstImg.attr("src")
-            if let src, !src.isEmpty, !src.hasPrefix("data:") {
-                heroImageURL = src
-            }
+        let fullCandidateSelectors = [
+            "article img[src]",
+            "[itemprop=articleBody] img[src]",
+            "main img[src]",
+            "[role=main] img[src]",
+            "img[src]"
+        ]
+        if let firstImg: Element = fullCandidateSelectors.lazy.compactMap({ selector in
+            try? doc.select(selector).first(where: { img in
+                guard let src = try? img.attr("src"), !src.isEmpty,
+                      !src.hasPrefix("data:") else { return false }
+                let srcLower = src.lowercased()
+                let imgId = (try? img.attr("id"))?.lowercased() ?? ""
+                let alt = (try? img.attr("alt"))?.lowercased() ?? ""
+                if srcLower.contains(".svg") { return false }
+                let chromeWords = [
+                    "logo", "flag", "icon", "badge", "avatar", "spinner",
+                    "facebook", "twitter", "instagram", "pinterest", "tiktok",
+                    "furniture", "share", "follow"
+                ]
+                for word in chromeWords {
+                    if imgId.contains(word) || alt.contains(word) || srcLower.contains(word) { return false }
+                }
+                return true
+            })
+        }).first {
+            heroImageURL = try? firstImg.attr("src")
+        }
+
+        // Detect empty content (e.g. JS-rendered SPAs with no server-side HTML).
+        let plainText = (try? doc.body()?.text())?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        if plainText.count < 50 {
+            throw NSError(domain: "PageCacheService", code: 3, userInfo: [
+                NSLocalizedDescriptionKey: "Cleaned content too short (\(plainText.count) chars) — page may require JavaScript"
+            ])
         }
 
         let cleanedHTML = try doc.outerHtml()
@@ -1627,6 +1685,43 @@ actor PageCacheService {
         guard FileManager.default.fileExists(atPath: path.path),
               let data = try? Data(contentsOf: path) else { return nil }
         return UIImage(data: data)
+    }
+
+    /// Fetches a favicon from a site URL and returns it as a UIImage without
+    /// saving to disk. Used for previewing favicons before a source is added.
+    func fetchFaviconImage(siteURL: URL) async -> UIImage? {
+        do {
+            var request = URLRequest(url: siteURL)
+            request.assumesHTTP3Capable = false
+            let (data, _) = try await session.data(for: request)
+            let html = String(data: data, encoding: .utf8) ?? ""
+
+            guard let faviconURL = discoverFaviconURL(in: html, baseURL: siteURL) else { return nil }
+
+            var iconRequest = URLRequest(url: faviconURL)
+            iconRequest.assumesHTTP3Capable = false
+            let (iconData, iconResponse) = try await session.data(for: iconRequest)
+            guard let httpResponse = iconResponse as? HTTPURLResponse,
+                  httpResponse.statusCode == 200,
+                  !iconData.isEmpty else { return nil }
+            return UIImage(data: iconData)
+        } catch {
+            return nil
+        }
+    }
+
+    /// Saves a UIImage as the favicon for a source.
+    /// Used when the favicon was already fetched for preview purposes.
+    func saveFavicon(_ image: UIImage, for sourceID: UUID) async {
+        guard let data = image.pngData() else { return }
+        let directory = sourcesBaseURL.appendingPathComponent(sourceID.uuidString, isDirectory: true)
+        do {
+            try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+            let faviconPath = directory.appendingPathComponent("favicon.png")
+            try data.write(to: faviconPath)
+        } catch {
+            // Non-critical
+        }
     }
 
     /// Deletes all cached data for a source (favicon, etc).
