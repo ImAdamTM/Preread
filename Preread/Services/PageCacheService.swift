@@ -236,12 +236,18 @@ actor PageCacheService {
         let readability = Readability(html: cleanedHTML, url: pageURL)
         let extracted = try readability.parse()
 
-        let articleTitle = extracted?.title ?? ""
-        var contentHTML = extracted?.contentHTML ?? html
+        // If Readability couldn't extract anything, the page likely requires
+        // JavaScript to render (e.g. SPAs). Fail instead of caching empty content.
+        guard let extracted = extracted else {
+            throw NSError(domain: "PageCacheService", code: 3, userInfo: [
+                NSLocalizedDescriptionKey: "Readability returned nil — page may require JavaScript"
+            ])
+        }
 
-        // Detect empty content (e.g. JS-rendered SPAs with no server-side HTML).
-        // Parse contentHTML and check for meaningful text — if there's nothing
-        // readable, there's no point caching an empty article.
+        let articleTitle = extracted.title ?? ""
+        var contentHTML = extracted.contentHTML
+
+        // Also check that extracted content has meaningful text
         let textCheck = try SwiftSoup.parseBodyFragment(contentHTML, pageURL.absoluteString)
         let plainText = (try? textCheck.body()?.text())?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         if plainText.count < 50 {
@@ -1551,9 +1557,27 @@ actor PageCacheService {
         return FileManager.default.fileExists(atPath: indexPath.path)
     }
 
-    /// Public wrapper for external callers (e.g. FetchCoordinator) to verify cached content exists.
+    /// Verifies that cached HTML actually contains meaningful article text.
+    /// More expensive than hasCachedContentOnDisk — reads and parses the file.
+    /// Used to detect articles that were cached before the empty-content guard
+    /// was added (e.g. JS-rendered SPAs that produced empty templates).
+    private func cachedContentHasMeaningfulText(for article: Article) -> Bool {
+        let indexPath = articlesBaseURL
+            .appendingPathComponent(article.id.uuidString, isDirectory: true)
+            .appendingPathComponent("index.html")
+        guard let data = try? Data(contentsOf: indexPath),
+              let html = String(data: data, encoding: .utf8),
+              let doc = try? SwiftSoup.parse(html),
+              let bodyText = try? doc.body()?.text().trimmingCharacters(in: .whitespacesAndNewlines)
+        else { return false }
+        return bodyText.count >= 50
+    }
+
+    /// Public wrapper for external callers (e.g. FetchCoordinator, ArticleListView)
+    /// to verify cached content exists and has meaningful text.
     func hasCachedContent(for article: Article) -> Bool {
-        hasCachedContentOnDisk(for: article)
+        guard hasCachedContentOnDisk(for: article) else { return false }
+        return cachedContentHasMeaningfulText(for: article)
     }
 
     /// Returns the current on-disk URL for an article's cached HTML.

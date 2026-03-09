@@ -245,8 +245,9 @@ struct ArticleListView: View {
     // MARK: - Search filtering
 
     private var filteredArticles: [Article] {
-        if searchText.isEmpty { return articles }
-        return articles.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+        let visible = articles.filter { $0.fetchStatus != .failed }
+        if searchText.isEmpty { return visible }
+        return visible.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
     }
 
     // MARK: - Source favicon

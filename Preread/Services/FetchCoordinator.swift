@@ -219,9 +219,11 @@ final class FetchCoordinator: ObservableObject {
                         break
 
                     case .cached, .partial:
-                        // Check for missing files on disk
+                        // Check for missing or empty content on disk
                         let hasContent = await PageCacheService.shared.hasCachedContent(for: existing)
                         if !hasContent {
+                            // Delete stale/empty cache files so re-cache starts fresh
+                            try? await PageCacheService.shared.deleteCachedArticle(existing.id)
                             existing.etag = nil
                             existing.lastModified = nil
                             existing.fetchStatus = .pending
