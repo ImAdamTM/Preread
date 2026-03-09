@@ -53,7 +53,7 @@ actor FeedService {
 
     /// Discovers a feed from a website URL by checking HTML link tags, then fallback paths.
     func discoverFeed(from url: URL) async throws -> DiscoveredFeed {
-        // Fetch the page HTML, following redirects
+        // Fetch the page, following redirects
         let (data, response) = try await fetchData(from: url)
         guard let httpResponse = response as? HTTPURLResponse,
               httpResponse.statusCode == 200 else {
@@ -61,6 +61,22 @@ actor FeedService {
         }
 
         let resolvedURL = httpResponse.url ?? url
+
+        // If the URL itself is a valid feed, use it directly
+        let contentType = httpResponse.value(forHTTPHeaderField: "Content-Type")?.lowercased() ?? ""
+        let xmlTypes = ["xml", "rss", "atom"]
+        if xmlTypes.contains(where: { contentType.contains($0) }) {
+            let parser = FeedXMLParser(feedURL: resolvedURL, siteURL: nil)
+            if parser.parse(data: data), !parser.items.isEmpty {
+                return DiscoveredFeed(
+                    feedURL: resolvedURL,
+                    title: parser.feedTitle ?? resolvedURL.host ?? "Untitled",
+                    siteURL: parser.siteURL,
+                    items: parser.items
+                )
+            }
+        }
+
         let html = String(data: data, encoding: .utf8) ?? ""
 
         // Try <link rel="alternate"> discovery
@@ -103,7 +119,59 @@ actor FeedService {
             }
         }
 
+        // Last resort: try Google News RSS for this domain
+        if let host = resolvedURL.host {
+            let domain = host.replacingOccurrences(of: "www.", with: "")
+            let googleQuery = "site:\(domain)"
+            var components = URLComponents(string: "https://news.google.com/rss/search")!
+            components.queryItems = [
+                URLQueryItem(name: "q", value: googleQuery),
+                URLQueryItem(name: "hl", value: "en-US"),
+                URLQueryItem(name: "gl", value: "US"),
+                URLQueryItem(name: "ceid", value: "US:en"),
+            ]
+            if let googleFeedURL = components.url,
+               let feed = try? await tryParseFeed(from: googleFeedURL, siteURL: resolvedURL) {
+                return feed
+            }
+        }
+
         throw FeedError.noFeedFound
+    }
+
+    // MARK: - Topic search
+
+    /// Searches Google News RSS for a topic/keyword (not a URL).
+    func searchGoogleNews(query: String) async throws -> DiscoveredFeed {
+        var components = URLComponents(string: "https://news.google.com/rss/search")!
+        components.queryItems = [
+            URLQueryItem(name: "q", value: query),
+            URLQueryItem(name: "hl", value: "en-US"),
+            URLQueryItem(name: "gl", value: "US"),
+            URLQueryItem(name: "ceid", value: "US:en"),
+        ]
+
+        guard let googleFeedURL = components.url else {
+            throw FeedError.noFeedFound
+        }
+
+        let (data, response) = try await fetchData(from: googleFeedURL)
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+            throw FeedError.noFeedFound
+        }
+
+        let parser = FeedXMLParser(feedURL: googleFeedURL, siteURL: nil)
+        guard parser.parse(data: data), !parser.items.isEmpty else {
+            throw FeedError.noFeedFound
+        }
+
+        return DiscoveredFeed(
+            feedURL: googleFeedURL,
+            title: parser.feedTitle ?? query,
+            siteURL: nil,
+            items: parser.items
+        )
     }
 
     // MARK: - Parsing

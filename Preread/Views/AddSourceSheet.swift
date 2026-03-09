@@ -31,8 +31,22 @@ struct AddSourceSheet: View {
     @State private var cyclingTextOffset: CGFloat = 0
     @State private var cyclingTextOpacity: Double = 1.0
     @State private var sheetContentHeight: CGFloat = 350
+    @State private var lastAttemptWasSearch = false
 
     @FocusState private var isURLFieldFocused: Bool
+
+    /// True when the user typed a search term rather than a URL.
+    private var isSearchMode: Bool {
+        let raw = urlText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !raw.isEmpty else { return false }
+        // If it already has a scheme, it's a URL
+        if raw.lowercased().hasPrefix("http://") || raw.lowercased().hasPrefix("https://") { return false }
+        // If it contains a dot followed by letters (e.g. "bbc.com"), treat as URL
+        let dotPattern = #"\.[a-zA-Z]{2,}"#
+        if raw.range(of: dotPattern, options: .regularExpression) != nil { return false }
+        // Otherwise it's a search term
+        return true
+    }
 
     private enum SheetState {
         case input
@@ -43,11 +57,20 @@ struct AddSourceSheet: View {
         case alreadySubscribed
     }
 
-    private let cyclingTexts = [
-        "Checking for a feed...",
-        "Fetching feed details...",
-        "Almost there..."
-    ]
+    private var cyclingTexts: [String] {
+        if lastAttemptWasSearch {
+            return [
+                "Searching for articles...",
+                "Fetching results...",
+                "Almost there..."
+            ]
+        }
+        return [
+            "Checking for a feed...",
+            "Fetching feed details...",
+            "Almost there..."
+        ]
+    }
 
     private let popularPicks: [(name: String, url: String)] = [
         ("The Verge", "https://www.theverge.com"),
@@ -123,10 +146,10 @@ struct AddSourceSheet: View {
 
             // URL field
             HStack {
-                TextField("Paste a site URL", text: $urlText)
+                TextField("Paste a URL or search a topic", text: $urlText)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
-                    .keyboardType(.URL)
+                    .keyboardType(isSearchMode ? .default : .URL)
                     .font(.system(size: 16))
                     .foregroundColor(Theme.textPrimary)
                     .focused($isURLFieldFocused)
@@ -197,21 +220,21 @@ struct AddSourceSheet: View {
                 }
                 .disabled(isEmpty)
 
-                // Secondary CTA
+                // Secondary CTA — disabled for search terms (not a URL)
                 Button(action: startSavePageFlow) {
                     Text("Save single page")
                         .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(isEmpty ? Theme.textSecondary.opacity(0.5) : Theme.textPrimary)
+                        .foregroundColor((isEmpty || isSearchMode) ? Theme.textSecondary.opacity(0.5) : Theme.textPrimary)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 16)
                         .background(Theme.surfaceRaised)
                         .clipShape(RoundedRectangle(cornerRadius: 14))
                         .overlay(
                             RoundedRectangle(cornerRadius: 14)
-                                .stroke(isEmpty ? Theme.border.opacity(0.5) : Theme.border, lineWidth: 1)
+                                .stroke((isEmpty || isSearchMode) ? Theme.border.opacity(0.5) : Theme.border, lineWidth: 1)
                         )
                 }
-                .disabled(isEmpty)
+                .disabled(isEmpty || isSearchMode)
             }
         }
     }
@@ -547,11 +570,13 @@ struct AddSourceSheet: View {
                 .foregroundColor(Theme.textSecondary)
                 .offset(x: shakeOffset)
 
-            Text("No feed found")
+            Text(lastAttemptWasSearch ? "No results found" : "No feed found")
                 .font(.system(size: 22, weight: .bold))
                 .foregroundColor(Theme.textPrimary)
 
-            Text("This site doesn't seem to have a public feed...")
+            Text(lastAttemptWasSearch
+                 ? "We couldn't find articles for that search..."
+                 : "This site doesn't seem to have a public feed...")
                 .font(.system(size: 15))
                 .foregroundColor(Theme.textSecondary)
                 .multilineTextAlignment(.center)
@@ -562,7 +587,7 @@ struct AddSourceSheet: View {
             Button {
                 resetToInput()
             } label: {
-                Text("Try another URL")
+                Text(lastAttemptWasSearch ? "Try another search" : "Try another URL")
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(Theme.textPrimary)
                     .frame(maxWidth: .infinity)
@@ -575,13 +600,15 @@ struct AddSourceSheet: View {
                     )
             }
 
-            // Save as single page
-            Button {
-                startSavePageFlow()
-            } label: {
-                Text("Save it anyway")
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(Theme.accent)
+            // Save as single page — only for URL attempts
+            if !lastAttemptWasSearch {
+                Button {
+                    startSavePageFlow()
+                } label: {
+                    Text("Save it anyway")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(Theme.accent)
+                }
             }
         }
     }
@@ -747,55 +774,87 @@ struct AddSourceSheet: View {
         let raw = urlText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !raw.isEmpty else { return }
 
-        // Normalize URL
-        var normalized = raw
-        if !normalized.lowercased().hasPrefix("http://") && !normalized.lowercased().hasPrefix("https://") {
-            normalized = "https://\(normalized)"
-        }
-        urlText = normalized
-
-        guard let url = URL(string: normalized) else { return }
+        let searchMode = isSearchMode
+        lastAttemptWasSearch = searchMode
 
         isURLFieldFocused = false
         sheetState = .detecting
         cyclingTextIndex = 0
         startCyclingTimer()
 
-        Task {
-            // Check for duplicate first
-            do {
-                let isDuplicate = try await FeedService.shared.checkForDuplicate(feedURL: normalized)
-                if isDuplicate {
-                    showAlreadySubscribed(feedURL: normalized)
-                    return
-                }
-            } catch {
-                // Continue with discovery
-            }
-
-            // Discover feed
-            do {
-                let feed = try await FeedService.shared.discoverFeed(from: url)
-
-                // Check if discovered feed URL is a duplicate
+        if searchMode {
+            // Search mode: go straight to Google News with the raw query
+            Task {
                 do {
-                    let isDuplicate = try await FeedService.shared.checkForDuplicate(feedURL: feed.feedURL.absoluteString)
+                    let feed = try await FeedService.shared.searchGoogleNews(query: raw)
+
+                    // Check if this Google News feed URL is already subscribed
+                    do {
+                        let isDuplicate = try await FeedService.shared.checkForDuplicate(feedURL: feed.feedURL.absoluteString)
+                        if isDuplicate {
+                            showAlreadySubscribed(feedURL: feed.feedURL.absoluteString)
+                            return
+                        }
+                    } catch {
+                        // Continue
+                    }
+
+                    stopCyclingTimer()
+                    detectedFeed = feed
+                    editableName = raw
+                    sheetState = .feedFound
+                } catch {
+                    stopCyclingTimer()
+                    sheetState = .notFound
+                    triggerShake()
+                }
+            }
+        } else {
+            // URL mode: normalize and run full discovery pipeline
+            var normalized = raw
+            if !normalized.lowercased().hasPrefix("http://") && !normalized.lowercased().hasPrefix("https://") {
+                normalized = "https://\(normalized)"
+            }
+            urlText = normalized
+
+            guard let url = URL(string: normalized) else { return }
+
+            Task {
+                // Check for duplicate first
+                do {
+                    let isDuplicate = try await FeedService.shared.checkForDuplicate(feedURL: normalized)
                     if isDuplicate {
-                        showAlreadySubscribed(feedURL: feed.feedURL.absoluteString)
+                        showAlreadySubscribed(feedURL: normalized)
                         return
                     }
                 } catch {
-                    // Continue
+                    // Continue with discovery
                 }
 
-                stopCyclingTimer()
-                detectedFeed = feed
-                editableName = smartTitle(from: feed)
-                sheetState = .feedFound
-            } catch {
-                stopCyclingTimer()
-                sheetState = .notFound
-                triggerShake()
+                // Discover feed
+                do {
+                    let feed = try await FeedService.shared.discoverFeed(from: url)
+
+                    // Check if discovered feed URL is a duplicate
+                    do {
+                        let isDuplicate = try await FeedService.shared.checkForDuplicate(feedURL: feed.feedURL.absoluteString)
+                        if isDuplicate {
+                            showAlreadySubscribed(feedURL: feed.feedURL.absoluteString)
+                            return
+                        }
+                    } catch {
+                        // Continue
+                    }
+
+                    stopCyclingTimer()
+                    detectedFeed = feed
+                    editableName = smartTitle(from: feed)
+                    sheetState = .feedFound
+                } catch {
+                    stopCyclingTimer()
+                    sheetState = .notFound
+                    triggerShake()
+                }
             }
         }
     }

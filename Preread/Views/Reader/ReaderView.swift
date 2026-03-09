@@ -22,6 +22,7 @@ struct ReaderView: View {
     @State private var isLoadingCachedPage = true
     @State private var isRetrying = false
     @State private var navFaviconImage: UIImage?
+    @State private var lightboxImageURL: URL?
 
     /// Display name for the toolbar — prefers the original source name when the article
     /// has been detached from its original source (e.g. source was deleted).
@@ -203,8 +204,19 @@ struct ReaderView: View {
                 onLinkTapped: { url in
                     tappedLinkURL = url
                     showLinkConfirmation = true
-                }
+                },
+                onImageTapped: isReaderMode ? { url in
+                    lightboxImageURL = url
+                } : nil
             )
+        }
+        .overlay {
+            if let lightboxURL = lightboxImageURL {
+                ImageLightboxView(imageURL: lightboxURL) {
+                    lightboxImageURL = nil
+                }
+                .transition(.opacity)
+            }
         }
         .ignoresSafeArea(edges: [.top, .bottom])
         .opacity(webViewVisible ? 1 : 0)
