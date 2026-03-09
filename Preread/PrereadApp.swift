@@ -8,6 +8,7 @@ struct PrereadApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     @StateObject private var deepLinkRouter = DeepLinkRouter()
+    @Environment(\.scenePhase) private var scenePhase
     @AppStorage("appAppearance") private var appAppearance: String = "system"
 
     private var preferredScheme: ColorScheme? {
@@ -32,7 +33,15 @@ struct PrereadApp: App {
                 .task {
                     await startupSequence()
                 }
-                // 3. Deep link handling
+                // 3. Refresh stale sources when returning to foreground
+                .onChange(of: scenePhase) { _, phase in
+                    if phase == .active {
+                        Task {
+                            await FetchCoordinator.shared.refreshStaleAutoSources()
+                        }
+                    }
+                }
+                // 4. Deep link handling
                 .onOpenURL { url in
                     handleDeepLink(url)
                 }
