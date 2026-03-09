@@ -25,6 +25,7 @@ struct ArticleListView: View {
     @State private var navFaviconImage: UIImage?
     @AppStorage("articleLimit") private var articleLimit: Int = 100
     @State private var searchText = ""
+    @State private var lastFetchedAt: Date?
 
     private var preferredScheme: ColorScheme {
         switch appAppearance {
@@ -73,6 +74,7 @@ struct ArticleListView: View {
                 currentCacheLevel = source.cacheLevel ?? .standard
                 currentFetchFrequency = source.fetchFrequency
                 currentSourceName = source.title
+                lastFetchedAt = source.lastFetchedAt
                 hasInitializedSettings = true
             }
             await loadArticles()
@@ -85,6 +87,12 @@ struct ArticleListView: View {
                 deepLinkRouter.pendingArticleID = nil
             }
 
+            // If we arrived while a refresh is already in progress, start
+            // polling immediately — .onChange won't fire for the current state.
+            if coordinator.sourceStatuses[source.id] == .refreshing {
+                Task { await pollWhileRefreshing() }
+            }
+
             // Retry any pending/failed articles in the background
             let retrySource = currentSource
             Task {
@@ -93,16 +101,12 @@ struct ArticleListView: View {
         }
         .onChange(of: coordinator.sourceStatuses[source.id]) { _, newState in
             if newState == .completed || newState == .idle {
-                Task { await loadArticles() }
-            } else if newState == .refreshing {
-                // Poll for article status changes while refreshing
                 Task {
-                    while coordinator.sourceStatuses[source.id] == .refreshing {
-                        try? await Task.sleep(for: .seconds(1))
-                        guard coordinator.sourceStatuses[source.id] == .refreshing else { break }
-                        await loadArticles()
-                    }
+                    await loadArticles()
+                    await reloadSourceFromDB()
                 }
+            } else if newState == .refreshing {
+                Task { await pollWhileRefreshing() }
             }
         }
         .sheet(item: $failedArticle) { article in
@@ -183,6 +187,7 @@ struct ArticleListView: View {
     private var displaySource: Source {
         var s = source
         s.title = currentSourceName
+        s.lastFetchedAt = lastFetchedAt ?? source.lastFetchedAt
         return s
     }
 
@@ -628,6 +633,27 @@ struct ArticleListView: View {
     }
 
     // MARK: - Data loading
+
+    /// Polls for article changes while the source is refreshing.
+    /// Called both when entering mid-refresh and when a refresh starts.
+    private func pollWhileRefreshing() async {
+        while coordinator.sourceStatuses[source.id] == .refreshing {
+            try? await Task.sleep(for: .seconds(1))
+            guard coordinator.sourceStatuses[source.id] == .refreshing else { break }
+            await loadArticles()
+        }
+    }
+
+    /// Re-reads the source from the database to pick up changes like lastFetchedAt.
+    private func reloadSourceFromDB() async {
+        guard let fresh = try? await DatabaseManager.shared.dbPool.read({ db in
+            try Source.fetchOne(db, key: source.id)
+        }) else { return }
+        currentSourceName = fresh.title
+        currentCacheLevel = fresh.cacheLevel ?? .standard
+        currentFetchFrequency = fresh.fetchFrequency
+        lastFetchedAt = fresh.lastFetchedAt
+    }
 
     private func loadArticles() async {
         let limit = articleLimit
