@@ -11,7 +11,6 @@ struct ArticleRowView: View {
     var sourceName: String? = nil
     var showUnsaveInsteadOfSave: Bool = false
 
-    @State private var appearTime = Date()
     @State private var cachedThumbnailImage: UIImage?
     @State private var isFaviconFallback = false
     @State private var thumbnailLoaded = false
@@ -19,9 +18,6 @@ struct ArticleRowView: View {
     var body: some View {
         Button(action: onTap) {
             HStack(spacing: 16) {
-                // New article left border
-                newArticleBorder
-
                 // Thumbnail or favicon fallback
                 thumbnailView
 
@@ -143,6 +139,14 @@ struct ArticleRowView: View {
                 }
             }
         }
+        .onChange(of: article.cachedAt) { _, _ in
+            // Reload thumbnail when cachedAt is touched (e.g. after favicon caching)
+            if isFaviconFallback || cachedThumbnailImage == nil {
+                Task {
+                    await loadLocalThumbnail()
+                }
+            }
+        }
         .contextMenu {
             Button {
                 onToggleRead()
@@ -258,7 +262,15 @@ struct ArticleRowView: View {
                 }
             }
 
-            // 3. Fall back to source's cached favicon
+            // 3. Fall back to article-level favicon (saved pages)
+            let articleFaviconPath = articleDir.appendingPathComponent("favicon.png")
+            if FileManager.default.fileExists(atPath: articleFaviconPath.path),
+               let data = try? Data(contentsOf: articleFaviconPath),
+               let img = UIImage(data: data) {
+                return (img, true)
+            }
+
+            // 4. Fall back to source's cached favicon
             let faviconPath = appSupport.appendingPathComponent("preread/sources/\(sourceID)/favicon.png")
             if FileManager.default.fileExists(atPath: faviconPath.path),
                let data = try? Data(contentsOf: faviconPath),
@@ -351,20 +363,4 @@ struct ArticleRowView: View {
         return parts.joined(separator: ", ")
     }
 
-    // MARK: - New article border
-
-    @ViewBuilder
-    private var newArticleBorder: some View {
-        let isNew: Bool = {
-            guard let published = article.publishedAt else { return false }
-            return appearTime.timeIntervalSince(published) < 60
-        }()
-
-        if isNew {
-            RoundedRectangle(cornerRadius: 1)
-                .fill(Theme.accentGradient)
-                .frame(width: 2)
-                .opacity(max(0, 1.0 - appearTime.timeIntervalSince(article.publishedAt ?? appearTime) / 60.0))
-        }
-    }
 }

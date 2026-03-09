@@ -165,34 +165,30 @@ actor PageCacheService {
         let articleTitle = extracted?.title ?? ""
         var contentHTML = extracted?.contentHTML ?? html
 
-        // Hero image re-injection
-        // Also capture the first real image URL for thumbnail backfill.
+        // If Readability dropped the hero image, re-inject it.
+        // Find the first <img> with a real src (not a data URI). If that
+        // first image is an SVG or a site logo, stop — the real hero is
+        // behind JS-rendered content we can't reach.
         var heroImageURL: String?
-        if let heroImg = try? preDoc.select("img[src]").first(where: { img in
+        if let firstImg = try? preDoc.select("img[src]").first(where: { img in
             guard let src = try? img.attr("src"), !src.isEmpty,
                   !src.hasPrefix("data:") else { return false }
             return true
         }) {
-            let heroSrc = try? heroImg.attr("src")
-            if let heroSrc, !heroSrc.isEmpty {
-                heroImageURL = heroSrc
-                if !contentHTML.contains(heroSrc) {
-                    let heroTag = (try? heroImg.outerHtml()) ?? ""
+            let src = (try? firstImg.attr("src")) ?? ""
+            let imgId = (try? firstImg.attr("id"))?.lowercased() ?? ""
+            let alt = (try? firstImg.attr("alt"))?.lowercased() ?? ""
+            let isSiteChrome = src.lowercased().contains(".svg")
+                || imgId.contains("logo")
+                || alt.contains("logo")
+
+            if !isSiteChrome {
+                heroImageURL = src
+                if !contentHTML.contains(src) {
+                    let heroTag = (try? firstImg.outerHtml()) ?? ""
                     if !heroTag.isEmpty {
                         contentHTML = heroTag + contentHTML
                     }
-                }
-            }
-        }
-
-        // If no hero was found above, fall back to the first image in the
-        // extracted content itself.
-        if heroImageURL == nil {
-            let contentDoc2 = try SwiftSoup.parseBodyFragment(contentHTML, pageURL.absoluteString)
-            if let firstImg = try? contentDoc2.select("img[src]").first() {
-                let src = try? firstImg.attr("src")
-                if let src, !src.isEmpty, !src.hasPrefix("data:") {
-                    heroImageURL = src
                 }
             }
         }
@@ -1448,6 +1444,27 @@ actor PageCacheService {
             try FileManager.default.createDirectory(at: sourceDir, withIntermediateDirectories: true)
 
             let faviconPath = sourceDir.appendingPathComponent("favicon.png")
+            try data.write(to: faviconPath)
+        } catch {
+            // Non-critical — favicon will fall back to gradient
+        }
+    }
+
+    /// Downloads and caches a favicon into an article's directory.
+    /// Used for saved-pages articles that don't belong to a real source.
+    func cacheArticleFavicon(for articleID: UUID, from iconURL: String) async {
+        guard let url = URL(string: iconURL) else { return }
+
+        do {
+            let (data, response) = try await session.data(from: url)
+            guard let httpResponse = response as? HTTPURLResponse,
+                  httpResponse.statusCode == 200,
+                  !data.isEmpty else { return }
+
+            let articleDir = articlesBaseURL.appendingPathComponent(articleID.uuidString, isDirectory: true)
+            try FileManager.default.createDirectory(at: articleDir, withIntermediateDirectories: true)
+
+            let faviconPath = articleDir.appendingPathComponent("favicon.png")
             try data.write(to: faviconPath)
         } catch {
             // Non-critical — favicon will fall back to gradient

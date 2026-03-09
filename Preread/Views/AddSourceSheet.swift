@@ -25,10 +25,12 @@ struct AddSourceSheet: View {
     @State private var cyclingTimer: Timer?
     @State private var shakeOffset: CGFloat = 0
     @State private var checkmarkScale: CGFloat = 0
+    @State private var isLoadingPageTitle = false
     @State private var shimmerOffset: CGFloat = -1.0
     @State private var detectingShimmerOffset: CGFloat = -1.0
     @State private var cyclingTextOffset: CGFloat = 0
     @State private var cyclingTextOpacity: Double = 1.0
+    @State private var sheetContentHeight: CGFloat = 350
 
     @FocusState private var isURLFieldFocused: Bool
 
@@ -36,6 +38,7 @@ struct AddSourceSheet: View {
         case input
         case detecting
         case feedFound
+        case savePage
         case notFound
         case alreadySubscribed
     }
@@ -45,12 +48,6 @@ struct AddSourceSheet: View {
         "Fetching feed details...",
         "Almost there..."
     ]
-
-    /// Dynamic height for the feed-found sheet based on whether articles are present.
-    private var feedFoundSheetHeight: CGFloat {
-        let hasArticles = (detectedFeed?.items.count ?? 0) > 0
-        return hasArticles ? 680 : 560
-    }
 
     private let popularPicks: [(name: String, url: String)] = [
         ("The Verge", "https://www.theverge.com"),
@@ -62,28 +59,39 @@ struct AddSourceSheet: View {
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                Theme.background.ignoresSafeArea()
-
-                ScrollView {
-                    VStack(spacing: 24) {
-                        switch sheetState {
-                        case .input:
-                            inputState
-                        case .detecting:
-                            detectingState
-                        case .feedFound:
-                            feedFoundState
-                        case .notFound:
-                            notFoundState
-                        case .alreadySubscribed:
-                            alreadySubscribedState
-                        }
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.top, 24)
+            VStack(spacing: 24) {
+                switch sheetState {
+                case .input:
+                    inputState
+                case .detecting:
+                    detectingState
+                case .feedFound:
+                    feedFoundState
+                case .savePage:
+                    savePageState
+                case .notFound:
+                    notFoundState
+                case .alreadySubscribed:
+                    alreadySubscribedState
                 }
             }
+            .padding(.horizontal, 20)
+            .padding(.top, 24)
+            .padding(.bottom, 16)
+            .fixedSize(horizontal: false, vertical: true)
+            .background(
+                GeometryReader { geo in
+                    Color.clear
+                        .onAppear {
+                            sheetContentHeight = geo.size.height + 76
+                        }
+                        .onChange(of: geo.size.height) { _, newHeight in
+                            sheetContentHeight = newHeight + 76
+                        }
+                }
+            )
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .background(Theme.background)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -93,15 +101,15 @@ struct AddSourceSheet: View {
                     .foregroundColor(Theme.textSecondary)
                 }
             }
-            .presentationDetents(sheetState == .feedFound ? [.height(feedFoundSheetHeight)] : [.fraction(0.6)])
-            .presentationDragIndicator(.visible)
-            .animation(Theme.gentleAnimation(response: 0.4, dampingFraction: 0.85), value: sheetState)
-            .onAppear {
-                isURLFieldFocused = true
-            }
-            .onDisappear {
-                cyclingTimer?.invalidate()
-            }
+        }
+        .presentationDetents([.height(sheetContentHeight)])
+        .presentationDragIndicator(.visible)
+        .animation(Theme.gentleAnimation(response: 0.4, dampingFraction: 0.85), value: sheetContentHeight)
+        .onAppear {
+            isURLFieldFocused = true
+        }
+        .onDisappear {
+            cyclingTimer?.invalidate()
         }
     }
 
@@ -170,21 +178,41 @@ struct AddSourceSheet: View {
 
             Spacer().frame(height: 8)
 
-            // CTA
-            Button(action: startDetection) {
-                Text("Look for articles")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
-                    .background(
-                        urlText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-                            ? AnyShapeStyle(Color.gray.opacity(0.3))
-                            : AnyShapeStyle(Theme.accentGradient)
-                    )
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
+            let isEmpty = urlText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+
+            HStack(spacing: 10) {
+                // Primary CTA
+                Button(action: startDetection) {
+                    Text("Search for articles")
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .background(
+                            isEmpty
+                                ? AnyShapeStyle(Color.gray.opacity(0.3))
+                                : AnyShapeStyle(Theme.accentGradient)
+                        )
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                }
+                .disabled(isEmpty)
+
+                // Secondary CTA
+                Button(action: startSavePageFlow) {
+                    Text("Save single page")
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundColor(isEmpty ? Theme.textSecondary.opacity(0.5) : Theme.textPrimary)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .background(Theme.surfaceRaised)
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 14)
+                                .stroke(isEmpty ? Theme.border.opacity(0.5) : Theme.border, lineWidth: 1)
+                        )
+                }
+                .disabled(isEmpty)
             }
-            .disabled(urlText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
         }
     }
 
@@ -402,7 +430,113 @@ struct AddSourceSheet: View {
         }
     }
 
-    // MARK: - State D: Not Found
+    // MARK: - State D: Save Page
+
+    private var savePageState: some View {
+        VStack(spacing: 16) {
+            // Page header — favicon left, URL right
+            HStack(spacing: 14) {
+                // Favicon
+                if let url = URL(string: urlText), let host = url.host {
+                    let faviconURL = URL(string: "https://www.google.com/s2/favicons?domain=\(host)&sz=96")
+                    AsyncImage(url: faviconURL) { phase in
+                        switch phase {
+                        case .success(let image):
+                            image.resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 44, height: 44)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                        default:
+                            letterAvatar(for: editableName, size: 44)
+                        }
+                    }
+                    .frame(width: 44, height: 44)
+                } else {
+                    letterAvatar(for: editableName, size: 44)
+                }
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(urlText)
+                        .font(.system(size: 11, design: .monospaced))
+                        .foregroundColor(Theme.textSecondary)
+                        .lineLimit(1)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+            // Editable name
+            VStack(alignment: .leading, spacing: 6) {
+                Text("Name")
+                    .font(.system(size: 13, weight: .medium))
+                    .foregroundColor(Theme.textSecondary)
+
+                HStack {
+                    TextField("Page name", text: $editableName)
+                        .font(.system(size: 16))
+                        .foregroundColor(Theme.textPrimary)
+
+                    if isLoadingPageTitle {
+                        ProgressView()
+                            .controlSize(.small)
+                    }
+                }
+                .padding(.horizontal, 14)
+                .padding(.vertical, 10)
+                .background(Theme.surfaceRaised)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+
+            // Save quality
+            VStack(alignment: .leading, spacing: 6) {
+                Text("Save quality")
+                    .font(.system(size: 13, weight: .medium))
+                    .foregroundColor(Theme.textSecondary)
+
+                CacheFidelitySlider(selectedLevel: $selectedCacheLevel)
+            }
+
+            // Primary CTA
+            Button(action: { Task { await savePage() } }) {
+                ZStack {
+                    Text("Save to Preread")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.white)
+
+                    // Shimmer highlight masked to the text shape
+                    if !Theme.reduceMotion {
+                        Text("Save to Preread")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.clear)
+                            .overlay(ctaShimmerOverlay)
+                            .mask(
+                                Text("Save to Preread")
+                                    .font(.system(size: 16, weight: .semibold))
+                            )
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 14)
+                .background(Theme.accentGradient)
+                .clipShape(RoundedRectangle(cornerRadius: 14))
+            }
+            .onAppear {
+                if !Theme.reduceMotion {
+                    startCTAShimmer()
+                }
+            }
+
+            // Ghost button
+            Button {
+                resetToInput()
+            } label: {
+                Text("Not this one")
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(Theme.textSecondary)
+            }
+        }
+    }
+
+    // MARK: - State E: Not Found
 
     private var notFoundState: some View {
         VStack(spacing: 20) {
@@ -441,11 +575,11 @@ struct AddSourceSheet: View {
                     )
             }
 
-            // Force-add link
+            // Save as single page
             Button {
-                Task { await forceAddSource() }
+                startSavePageFlow()
             } label: {
-                Text("Add it anyway")
+                Text("Save it anyway")
                     .font(.system(size: 14, weight: .medium))
                     .foregroundColor(Theme.accent)
             }
@@ -740,30 +874,84 @@ struct AddSourceSheet: View {
         }
     }
 
-    private func forceAddSource() async {
+    private func startSavePageFlow() {
         let raw = urlText.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard let url = URL(string: raw) else { return }
+        guard !raw.isEmpty else { return }
 
-        // Try to fetch <title> from the page
-        var pageTitle = url.host ?? "Untitled"
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            if let html = String(data: data, encoding: .utf8) {
-                let doc = try SwiftSoup.parse(html)
-                if let title = try? doc.title(), !title.isEmpty {
-                    pageTitle = title
-                }
-            }
-        } catch {
-            // Use host as title
+        var normalized = raw
+        if !normalized.lowercased().hasPrefix("http://"),
+           !normalized.lowercased().hasPrefix("https://") {
+            normalized = "https://\(normalized)"
         }
+        urlText = normalized
+
+        guard let url = URL(string: normalized) else { return }
+
+        isURLFieldFocused = false
+        selectedFrequency = .manual
+        selectedCacheLevel = .standard
+
+        // Pre-fill with domain, improve with <title> in background
+        editableName = url.host?.replacingOccurrences(of: "www.", with: "") ?? "Untitled"
+
+        sheetState = .savePage
+
+        // Fetch <title> in background
+        isLoadingPageTitle = true
+        Task {
+            defer { isLoadingPageTitle = false }
+            do {
+                let (data, _) = try await URLSession.shared.data(from: url)
+                if let html = String(data: data, encoding: .utf8) {
+                    let doc = try SwiftSoup.parse(html)
+                    if let title = try? doc.title(), !title.isEmpty {
+                        editableName = shortenTitle(title, url: url)
+                    }
+                }
+            } catch {
+                // Keep domain name fallback
+            }
+        }
+    }
+
+    private func savePage() async {
+        let raw = urlText.trimmingCharacters(in: .whitespacesAndNewlines)
 
         do {
-            // Insert the URL as a saved article under the hidden "Saved Pages" source
+            // Check if this URL is already saved
+            let existing = try await DatabaseManager.shared.dbPool.read { db in
+                try Article.filter(Column("articleURL") == raw).fetchOne(db)
+            }
+
+            if let existing {
+                // Already exists — mark as saved and navigate there
+                if !existing.isSaved {
+                    var updated = existing
+                    updated.isSaved = true
+                    updated.savedAt = Date()
+                    let articleToSave = updated
+                    try await DatabaseManager.shared.dbPool.write { db in
+                        try articleToSave.update(db)
+                    }
+                }
+                ToastManager.shared.snack("Already in your collection", icon: "bookmark.fill")
+                onSavedArticle?()
+                dismiss()
+                return
+            }
+
+            let title = editableName.trimmingCharacters(in: .whitespacesAndNewlines)
+
+            // Build favicon URL from the page's domain
+            let faviconURL: String? = {
+                guard let pageURL = URL(string: raw), let host = pageURL.host else { return nil }
+                return "https://www.google.com/s2/favicons?domain=\(host)&sz=96"
+            }()
+
             let article = Article(
                 id: UUID(),
                 sourceID: Source.savedPagesID,
-                title: pageTitle,
+                title: title.isEmpty ? (URL(string: raw)?.host ?? "Untitled") : title,
                 articleURL: raw,
                 publishedAt: Date(),
                 addedAt: Date(),
@@ -773,6 +961,8 @@ struct AddSourceSheet: View {
                 isRead: false,
                 isSaved: true,
                 savedAt: Date(),
+                originalSourceName: URL(string: raw)?.host?.replacingOccurrences(of: "www.", with: ""),
+                originalSourceIconURL: faviconURL,
                 cacheSizeBytes: nil,
                 lastHTTPStatus: nil,
                 etag: nil,
@@ -787,9 +977,20 @@ struct AddSourceSheet: View {
             onSavedArticle?()
             dismiss()
 
-            // Cache the article
+            // Cache article content, then favicon (cacheArticle wipes the article dir)
+            let articleID = article.id
+            let cacheLevel = selectedCacheLevel
             Task {
-                try? await PageCacheService.shared.cacheArticle(article, cacheLevel: .standard)
+                try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+                if let faviconURL {
+                    await PageCacheService.shared.cacheArticleFavicon(for: articleID, from: faviconURL)
+                    // Touch the article in DB so the row view reloads and picks up the favicon
+                    _ = try? await DatabaseManager.shared.dbPool.write { db in
+                        try Article
+                            .filter(Column("id") == articleID.uuidString)
+                            .updateAll(db, Column("cachedAt").set(to: Date()))
+                    }
+                }
             }
         } catch {
             ToastManager.shared.show("Couldn't save page", type: .error)
@@ -806,19 +1007,23 @@ struct AddSourceSheet: View {
     // MARK: - Smart title
 
     /// Derives a short, clean default name from a discovered feed.
-    /// If the domain name (e.g. "engadget" from engadget.com) appears in the
-    /// feed title, just use the capitalised domain name. Otherwise truncate to
-    /// the first three words.
     private func smartTitle(from feed: DiscoveredFeed) -> String {
-        let raw = feed.title.trimmingCharacters(in: .whitespacesAndNewlines)
+        let url = feed.siteURL ?? feed.feedURL
+        return shortenTitle(feed.title, url: url)
+    }
+
+    /// Shortens a long title by extracting the domain name if it appears
+    /// in the title, or falling back to the first few meaningful words.
+    /// Titles of 5 words or fewer are kept as-is.
+    private func shortenTitle(_ title: String, url: URL) -> String {
+        let raw = title.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !raw.isEmpty else { return raw }
 
         // Short titles are fine as-is — only shorten long ones
         let wordCount = raw.split(separator: " ").count
         guard wordCount > 5 else { return raw }
 
-        // Extract domain label from siteURL or feedURL
-        let url = feed.siteURL ?? feed.feedURL
+        // Extract domain label from URL
         let host = url.host ?? ""
         // "www.engadget.com" → "engadget"
         let domainLabel = host
@@ -909,4 +1114,8 @@ struct AddSourceSheet: View {
             withAnimation(.spring(response: 0.2, dampingFraction: 0.4)) { shakeOffset = 0 }
         }
     }
+}
+
+#Preview("AddSourceSheet") {
+    AddSourceSheet()
 }

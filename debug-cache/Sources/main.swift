@@ -355,19 +355,31 @@ if isFullMode {
         var contentHTML = extracted.contentHTML
 
         // If Readability dropped the hero image, re-inject it.
-        // Find the first <img> with a real src (not a data URI).
-        if let heroImg = try? preDoc.select("img[src]").first(where: { img in
+        // Find the first <img> with a real src (not a data URI). If that
+        // first image is an SVG or a site logo, stop — the real hero is
+        // behind JS-rendered content we can't reach.
+        if let firstImg = try? preDoc.select("img[src]").first(where: { img in
             guard let src = try? img.attr("src"), !src.isEmpty,
                   !src.hasPrefix("data:") else { return false }
             return true
         }) {
-            let heroSrc = try? heroImg.attr("src")
-            if let heroSrc, !heroSrc.isEmpty, !contentHTML.contains(heroSrc) {
-                let heroTag = (try? heroImg.outerHtml()) ?? ""
+            let src = (try? firstImg.attr("src")) ?? ""
+            let imgId = (try? firstImg.attr("id"))?.lowercased() ?? ""
+            let alt = (try? firstImg.attr("alt"))?.lowercased() ?? ""
+            let isSiteChrome = src.lowercased().contains(".svg")
+                || imgId.contains("logo")
+                || alt.contains("logo")
+
+            if isSiteChrome {
+                print("  -> First image is site chrome (SVG/logo), skipping hero injection")
+            } else if !contentHTML.contains(src) {
+                let heroTag = (try? firstImg.outerHtml()) ?? ""
                 if !heroTag.isEmpty {
                     print("  -> Hero image re-injected (first image, dropped by Readability)")
                     contentHTML = heroTag + contentHTML
                 }
+            } else {
+                print("  -> Hero image already in extracted content")
             }
         }
 

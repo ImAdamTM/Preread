@@ -104,6 +104,26 @@ struct StandardPipelineTests {
         #expect(!result.contentHTML.contains("<script"))
         #expect(!result.contentHTML.contains("<nav"))
     }
+
+    // MARK: - Daily Mail
+
+    @Test("Daily Mail: logo not injected as hero, article images preserved")
+    func dailymailArticle() async throws {
+        let html = try loadFixture("dailymail_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.dailymail.co.uk/tvshowbiz/article-15627191/Rihanna-home-targeted-shooting-woman-arrested.html")!
+        )
+
+        #expect(result.title.contains("Rihanna"))
+        #expect(result.contentHTML.contains("Beverly Hills"))
+        #expect(!result.contentHTML.contains("DailyMail_Main.png"), "Site logo should not be injected as hero image")
+        #expect(!result.contentHTML.contains("sitelogos"), "No site logo images should appear in content")
+        #expect(result.imageCount >= 5, "Article photos should be preserved")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
 }
 
 // MARK: - Full-mode tests
@@ -228,5 +248,26 @@ struct FullPipelineTests {
         #expect(result.cleanedHTML.contains("neurons"))
         #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
         #expect(result.cleanedHTML.contains("stylesheet"), "CSS should be preserved in full mode")
+    }
+
+    // MARK: - Daily Mail
+
+    @Test("Daily Mail: interactive elements stripped, article content preserved")
+    func dailymailArticle() async throws {
+        let html = try loadFixture("dailymail_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.dailymail.co.uk/tvshowbiz/article-15627191/Rihanna-home-targeted-shooting-woman-arrested.html")!
+        )
+
+        // Interactive elements should be stripped
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<form"))
+        #expect(!result.cleanedHTML.contains("<button"))
+
+        // Content should be preserved
+        #expect(result.cleanedHTML.contains("Rihanna"))
+        #expect(result.cleanedHTML.contains("Beverly Hills"))
+        #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
     }
 }

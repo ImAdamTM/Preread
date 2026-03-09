@@ -5,7 +5,7 @@ let package = Package(
     name: "CacheDebugger",
     platforms: [.macOS(.v13)],
     dependencies: [
-        .package(url: "https://github.com/scinfu/SwiftSoup", from: "2.6.0"),
+        .package(url: "https://github.com/scinfu/SwiftSoup", exact: "2.11.3"),
         .package(url: "https://github.com/lake-of-fire/swift-readability", branch: "main"),
     ],
     targets: [

@@ -75,6 +75,8 @@ struct SavedArticlesView: View {
         .task {
             await loadArticles()
             isLoading = false
+            // If any articles are still pending/fetching, poll until they settle
+            await pollWhileCaching()
         }
         .sheet(item: $failedArticle) { article in
             FailedArticleSheet(
@@ -302,6 +304,13 @@ struct SavedArticlesView: View {
         }
     }
 
+    private func pollWhileCaching() async {
+        while articles.contains(where: { $0.fetchStatus == .pending || $0.fetchStatus == .fetching }) {
+            try? await Task.sleep(for: .seconds(1))
+            await loadArticles()
+        }
+    }
+
     // MARK: - Actions
 
     private func handleTap(_ article: Article) {
@@ -399,9 +408,7 @@ struct SavedArticlesView: View {
 
     private func unsaveArticle(_ article: Article) async {
         guard let index = articles.firstIndex(where: { $0.id == article.id }) else { return }
-        var updated = articles[index]
-        updated.isSaved = false
-        updated.savedAt = nil
+        let isSavedPage = article.sourceID == Source.savedPagesID
         HapticManager.articleCached()
         ToastManager.shared.snack("Removed from Saved", icon: "bookmark.slash")
 
@@ -411,15 +418,29 @@ struct SavedArticlesView: View {
             articles.removeAll { $0.id == article.id }
         }
 
-        let articleToUpdate = updated
-        do {
-            try await DatabaseManager.shared.dbPool.write { db in
-                try articleToUpdate.update(db)
+        if isSavedPage {
+            // Saved-pages articles have no feed source — delete entirely
+            try? await PageCacheService.shared.deleteCachedArticle(article.id)
+            _ = try? await DatabaseManager.shared.dbPool.write { db in
+                try Article.deleteOne(db, key: article.id)
             }
-        } catch {
-            // DB write failed — re-insert the article
-            withAnimation(Theme.gentleAnimation()) {
-                articles.insert(updated, at: min(index, articles.count))
+        } else {
+            // Feed articles: just un-flag, keep the article in its source
+            var updated = article
+            updated.isSaved = false
+            updated.savedAt = nil
+            updated.originalSourceName = nil
+            updated.originalSourceIconURL = nil
+            let articleToUpdate = updated
+            do {
+                try await DatabaseManager.shared.dbPool.write { db in
+                    try articleToUpdate.update(db)
+                }
+            } catch {
+                // DB write failed — re-insert the article
+                withAnimation(Theme.gentleAnimation()) {
+                    articles.insert(article, at: min(index, articles.count))
+                }
             }
         }
     }
