@@ -60,7 +60,7 @@ struct SourceSectionView: View {
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 10)
                 }
-                .listRowInsets(EdgeInsets())
+                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 0))
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
             }

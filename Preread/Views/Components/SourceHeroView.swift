@@ -32,37 +32,37 @@ struct SourceHeroView: View {
     @State private var fallbackGradientImage: UIImage?
 
     var body: some View {
-        VStack(spacing: 0) {
+        HStack(alignment: .top, spacing: 0) {
+            // Left: favicon + title + metadata
+            HStack(alignment: .top, spacing: 12) {
+                heroFavicon
+
+                VStack(alignment: .leading, spacing: -2) {
+                    // Source title — its Y position drives the nav bar title fade
+                    Text(source.title)
+                        .font(.system(size: 20, weight: .regular))
+                        .foregroundColor(Theme.textPrimary)
+                        .lineLimit(2)
+                        .modifier(HeroTitleScrollTracker { minY in
+                            onTitlePositionChange?(minY)
+                        })
+
+                    lastUpdatedLabel
+                }
+            }
+
             Spacer()
 
-            heroFavicon
-                .padding(.bottom, 10)
-
-            // Source title — its Y position drives the nav bar title fade
-            Text(source.title)
-                .font(Theme.scaledFont(size: 18, weight: .bold))
-                .foregroundColor(Theme.textPrimary)
-                .lineLimit(1)
-                .frame(maxWidth: UIScreen.main.bounds.width * 0.6)
-                .modifier(HeroTitleScrollTracker { minY in
-                    onTitlePositionChange?(minY)
-                })
-
-            // Last updated label
-            lastUpdatedLabel
-                .padding(.top, 6)
-
-            Spacer().frame(height: 16)
-
+            // Right: action buttons
             heroActionButtons
-
-            Spacer().frame(height: 12)
         }
-        .frame(maxWidth: .infinity)
-        .frame(height: 180)
-        .background(alignment: .bottom) {
+        .padding(.horizontal, 16)
+        .padding(.top, 16)
+        .padding(.bottom, 22)
+        .frame(maxWidth: .infinity, alignment: .topLeading)
+        .background(alignment: .top) {
             blurredBackground
-                .frame(height: 240)
+                .frame(height: 140)
                 .frame(maxWidth: .infinity)
                 .allowsHitTesting(false)
         }
@@ -138,8 +138,8 @@ struct SourceHeroView: View {
             Image(uiImage: iconImage)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 52, height: 52)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .frame(width: 38, height: 38)
+                .clipShape(RoundedRectangle(cornerRadius: 9))
                 .shadow(color: .black.opacity(0.08), radius: 4, y: 2)
         } else {
             heroLetterAvatar
@@ -149,11 +149,11 @@ struct SourceHeroView: View {
     private var heroLetterAvatar: some View {
         let letter = String(source.title.prefix(1)).uppercased()
         return ZStack {
-            RoundedRectangle(cornerRadius: 12)
+            RoundedRectangle(cornerRadius: 9)
                 .fill(Theme.avatarGradient(for: source.title))
-                .frame(width: 52, height: 52)
+                .frame(width: 38, height: 38)
             Text(letter)
-                .font(Theme.scaledFont(size: 24, weight: .bold))
+                .font(Theme.scaledFont(size: 16, weight: .bold))
                 .foregroundColor(.white)
         }
         .shadow(color: .black.opacity(0.2), radius: 8, y: 4)
@@ -169,24 +169,22 @@ struct SourceHeroView: View {
                 Text("Not yet synced")
             }
         }
-        .font(Theme.scaledFont(size: 12, relativeTo: .caption))
-        .foregroundColor(Theme.textSecondary)
+        .font(Theme.scaledFont(size: 13, relativeTo: .caption))
+        .foregroundColor(Theme.textPrimary.opacity(0.6))
     }
 
     // MARK: - Action buttons
 
     private var heroActionButtons: some View {
-        HStack(spacing: 32) {
+        HStack(spacing: 12) {
             circleButton(
                 icon: isRefreshing ? nil : "arrow.clockwise",
-                label: "Refresh",
                 isActive: isRefreshing,
                 action: onRefreshTapped
             )
             
             circleButton(
                 icon: "slider.horizontal.3",
-                label: "Settings",
                 action: onSettingsTapped
             )
             .disabled(isRefreshing)
@@ -195,30 +193,23 @@ struct SourceHeroView: View {
 
     private func circleButton(
         icon: String?,
-        label: String,
         isActive: Bool = false,
         action: @escaping () -> Void
     ) -> some View {
         Button(action: action) {
-            VStack(spacing: 5) {
-                ZStack {
-                    Circle()
-                        .fill(.regularMaterial)
-                        .frame(width: 40, height: 40)
-                        .shadow(color: .black.opacity(0.08), radius: 4, y: 2)
+            ZStack {
+                Circle()
+                    .fill(.regularMaterial)
+                    .frame(width: 36, height: 36)
+                    .shadow(color: .black.opacity(0.08), radius: 4, y: 2)
 
-                    if let icon {
-                        Image(systemName: icon)
-                            .font(.system(size: 15, weight: .medium))
-                            .foregroundStyle(isActive ? Theme.accent : .primary)
-                    } else if isActive {
-                        heroRefreshSpinner
-                    }
+                if let icon {
+                    Image(systemName: icon)
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundStyle(isActive ? Theme.accent : .primary)
+                } else if isActive {
+                    heroRefreshSpinner
                 }
-
-                Text(label)
-                    .font(Theme.scaledFont(size: 11, relativeTo: .caption))
-                    .foregroundStyle(isActive ? Theme.accent : Color.primary)
             }
         }
     }

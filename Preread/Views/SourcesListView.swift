@@ -224,9 +224,15 @@ struct SourcesListView: View {
             List {
                 if !sources.isEmpty {
                     Text("Your Prereads")
-                        .font(.system(size: 28, weight: .regular))
-                        .foregroundColor(Theme.textPrimary)
-                        .listRowInsets(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
+                        .font(.system(size: 37, weight: .regular))
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [Theme.textPrimary, Theme.purple],
+                                startPoint: .leading,
+                                endPoint: UnitPoint(x: 2.5, y: 0.5)
+                            )
+                        )
+                        .listRowInsets(EdgeInsets(top: 16, leading: 16, bottom: 15, trailing: 16))
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
 
@@ -235,7 +241,7 @@ struct SourcesListView: View {
                             openArticleInReader(article)
                         }
                     )
-                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 12, trailing: 0))
+                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
                 }

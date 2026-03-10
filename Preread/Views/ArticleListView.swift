@@ -161,12 +161,34 @@ struct ArticleListView: View {
                 .listRowBackground(Color.clear)
                 .buttonStyle(.borderless)
 
+            // Per-source carousel
+            if !articles.isEmpty {
+                SourceCarouselView(
+                    sourceID: source.id,
+                    cacheLevel: currentCacheLevel,
+                    onOpenArticle: { article in
+                        markAsReadLocally(article)
+                        selectedArticle = article
+                    }
+                )
+                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 21, trailing: 0))
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
+            }
+
             if articles.isEmpty {
                 emptyStateContent
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
             } else {
+                Text("All Articles")
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundColor(Theme.textPrimary)
+                    .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 8, trailing: 16))
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
+
                 ForEach(filteredArticles) { article in
                     ArticleRowView(
                         article: article,

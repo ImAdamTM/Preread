@@ -19,6 +19,7 @@ struct SavedArticlesView: View {
     @State private var failedArticle: Article?
     @State private var isLoading = true
     @State private var heroTitleMinY: CGFloat = 200
+    @State private var tealGradientImage: UIImage?
 
     private var preferredScheme: ColorScheme {
         switch appAppearance {
@@ -118,6 +119,24 @@ struct SavedArticlesView: View {
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
 
+            // Saved articles carousel
+            SavedCarouselView(
+                onOpenArticle: { article in
+                    markAsReadLocally(article)
+                    Task { await openArticle(article) }
+                }
+            )
+            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 21, trailing: 0))
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color.clear)
+
+            Text("All Articles")
+                .font(.system(size: 17, weight: .semibold))
+                .foregroundColor(Theme.textPrimary)
+                .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 8, trailing: 16))
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
+
             ForEach(filteredArticles) { article in
                 ArticleRowView(
                     article: article,
@@ -175,11 +194,10 @@ struct SavedArticlesView: View {
     // MARK: - Hero
 
     private var heroRow: some View {
-        VStack(spacing: 0) {
-            Spacer()
-
+        HStack(alignment: .top, spacing: 12) {
+            // Saved icon
             ZStack {
-                RoundedRectangle(cornerRadius: 12)
+                RoundedRectangle(cornerRadius: 9)
                     .fill(
                         LinearGradient(
                             colors: [Theme.teal, Theme.teal.opacity(0.7)],
@@ -187,65 +205,79 @@ struct SavedArticlesView: View {
                             endPoint: .bottomTrailing
                         )
                     )
-                    .frame(width: 52, height: 52)
+                    .frame(width: 38, height: 38)
                 Image(systemName: "bookmark.fill")
-                    .font(.system(size: 24, weight: .medium))
+                    .font(.system(size: 16, weight: .medium))
                     .foregroundColor(.white)
             }
             .shadow(color: .black.opacity(0.2), radius: 8, y: 4)
-            .padding(.bottom, 10)
 
-            Text("Saved Articles")
-                .font(Theme.scaledFont(size: 18, weight: .bold))
-                .foregroundColor(Theme.textPrimary)
-                .modifier(HeroTitleScrollTracker { minY in
-                    heroTitleMinY = minY
-                })
+            VStack(alignment: .leading, spacing: -2) {
+                Text("Saved Articles")
+                    .font(.system(size: 20, weight: .regular))
+                    .foregroundColor(Theme.textPrimary)
+                    .modifier(HeroTitleScrollTracker { minY in
+                        heroTitleMinY = minY
+                    })
 
-            Text("\(articles.count) article\(articles.count == 1 ? "" : "s")")
-                .font(Theme.scaledFont(size: 12, relativeTo: .caption))
-                .foregroundColor(Theme.textSecondary)
-                .padding(.top, 6)
-
-            Spacer().frame(height: 12)
-        }
-        .frame(maxWidth: .infinity)
-        .background {
-            GeometryReader { geo in
-                let scrollY = geo.frame(in: .scrollView(axis: .vertical)).minY
-                let overscroll = max(scrollY, 0)
-                savedHeroBackground
-                    .frame(height: 240)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-                    .offset(y: -overscroll)
+                Text("\(articles.count) article\(articles.count == 1 ? "" : "s")")
+                    .font(Theme.scaledFont(size: 13, relativeTo: .caption))
+                    .foregroundColor(Theme.textPrimary.opacity(0.6))
             }
-            .allowsHitTesting(false)
+
+            Spacer()
+        }
+        .padding(.horizontal, 16)
+        .padding(.top, 16)
+        .padding(.bottom, 22)
+        .frame(maxWidth: .infinity, alignment: .topLeading)
+        .background(alignment: .top) {
+            blurredTealBackground
+                .frame(height: 140)
+                .frame(maxWidth: .infinity)
+                .allowsHitTesting(false)
         }
     }
 
-    private var savedHeroBackground: some View {
-        Rectangle()
-            .fill(
-                LinearGradient(
-                    colors: [Theme.teal, Theme.teal.opacity(0.5)],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
+    // MARK: - Blurred background (matches SourceHeroView pattern)
+
+    private var blurredTealBackground: some View {
+        ZStack {
+            if let img = tealGradientImage {
+                Image(uiImage: img)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .blur(radius: 40)
+                    .clipped()
+            } else {
+                Color.clear
+                    .task {
+                        tealGradientImage = Self.makeTealGradientImage()
+                    }
+            }
+        }
+        .opacity(0.3)
+        .mask(
+            LinearGradient(
+                stops: [
+                    .init(color: .white, location: 0),
+                    .init(color: .white, location: 0.4),
+                    .init(color: .clear, location: 1.0)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
             )
-            .blur(radius: 30)
-            .clipped()
-            .opacity(0.3)
-            .mask(
-                LinearGradient(
-                    stops: [
-                        .init(color: .white, location: 0),
-                        .init(color: .white, location: 0.4),
-                        .init(color: .clear, location: 1.0)
-                    ],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-            )
+        )
+    }
+
+    private static func makeTealGradientImage() -> UIImage {
+        let size = CGSize(width: 64, height: 64)
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { ctx in
+            let cgColors = [UIColor(Theme.teal).cgColor, UIColor(Theme.teal.opacity(0.5)).cgColor]
+            guard let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: cgColors as CFArray, locations: [0, 1]) else { return }
+            ctx.cgContext.drawLinearGradient(gradient, start: .zero, end: CGPoint(x: size.width, y: size.height), options: [.drawsBeforeStartLocation, .drawsAfterEndLocation])
+        }
     }
 
     // MARK: - Empty state
