@@ -106,6 +106,7 @@ enum BackgroundTaskManager {
                     )
 
                     var newItems: [PendingItem] = []
+                    var seenTitles = Set<String>()
 
                     // Sort newest first so the round-robin picks the most
                     // recent article from each source first.
@@ -114,6 +115,9 @@ enum BackgroundTaskManager {
                     }
 
                     for item in sortedItems {
+                        // Skip duplicate titles (Google News feeds can contain
+                        // the same article with different redirect URLs)
+                        guard seenTitles.insert(item.title).inserted else { continue }
                         let existing = try await DatabaseManager.shared.dbPool.read { db in
                             try Article
                                 .filter(Column("articleURL") == item.url.absoluteString)
@@ -131,6 +135,16 @@ enum BackgroundTaskManager {
                             }
                             continue
                         }
+
+                        // Also check by title within the same source to catch
+                        // Google News URL rotation between fetches
+                        let titleExists = try await DatabaseManager.shared.dbPool.read { db in
+                            try Article
+                                .filter(Column("sourceID") == source.id)
+                                .filter(Column("title") == item.title)
+                                .fetchCount(db) > 0
+                        }
+                        if titleExists { continue }
 
                         newItems.append(PendingItem(feedItem: item, source: source))
                     }

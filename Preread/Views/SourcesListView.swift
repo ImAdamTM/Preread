@@ -12,24 +12,22 @@ struct SourcesListView: View {
     @EnvironmentObject private var deepLinkRouter: DeepLinkRouter
 
     @State private var sources: [Source] = []
-    @State private var articleCounts: [UUID: Int] = [:]
-    @State private var unreadCounts: [UUID: Int] = [:]
-    @State private var savedCount: Int = 0
-    @State private var savedUnreadCount: Int = 0
+    @State private var hasSavedArticles: Bool = false
     @State private var showAddSource = false
     @State private var addSourceInitialURL: String?
     @State private var highlightedSourceID: UUID?
     @State private var navigationPath = NavigationPath()
     @State private var renamingSource: Source?
     @State private var renameText = ""
-    @State private var countPollTask: Task<Void, Never>?
+    
+    @State private var scrollToSourceID: UUID?
 
     var body: some View {
         NavigationStack(path: $navigationPath) {
             ZStack {
                 Theme.background.ignoresSafeArea()
 
-                if sources.isEmpty && savedCount == 0 {
+                if sources.isEmpty && !hasSavedArticles {
                     emptyState
                 } else {
                     sourcesList
@@ -93,14 +91,7 @@ struct SourcesListView: View {
                 }
             }
             .onChange(of: coordinator.sourceStatuses) { _, statuses in
-                let isAnyRefreshing = statuses.values.contains { $0 == .refreshing }
                 let hasCompleted = statuses.values.contains { $0 == .completed }
-
-                if isAnyRefreshing {
-                    startCountPolling()
-                } else {
-                    stopCountPolling()
-                }
 
                 if hasCompleted {
                     Task { await loadSources() }
@@ -112,6 +103,7 @@ struct SourcesListView: View {
                     onSourceAdded: { addedSourceID in
                         Task {
                             await loadSources()
+                            scrollToSourceID = addedSourceID
                             highlightedSourceID = addedSourceID
                             try? await Task.sleep(for: .seconds(1))
                             highlightedSourceID = nil
@@ -200,53 +192,52 @@ struct SourcesListView: View {
     // MARK: - Sources list
 
     private var sourcesList: some View {
-        ScrollView {
-            LazyVStack(spacing: 12) {
-                if savedCount > 0 {
-                    SavedCardView(
-                        articleCount: savedCount,
-                        unreadCount: savedUnreadCount,
-                        onTap: {
-                            navigationPath.append(NavigationTarget.saved)
-                        }
-                    )
-                }
+        ScrollViewReader { proxy in
+            ScrollView {
+                LazyVStack(spacing: 24) {
+                    ForEach(sources) { source in
+                        let state = coordinator.sourceStatuses[source.id] ?? .idle
 
-                ForEach(sources) { source in
-                    let state = coordinator.sourceStatuses[source.id] ?? .idle
-
-                    SourceCardView(
-                        source: source,
-                        articleCount: articleCounts[source.id] ?? 0,
-                        unreadCount: unreadCounts[source.id] ?? 0,
-                        refreshState: state,
-                        onTap: {
-                            navigationPath.append(NavigationTarget.source(source.id))
-                        },
-                        onRefresh: {
-                            Task {
-                                await coordinator.refreshSingleSource(source)
-                                await loadSources()
+                        SourceSectionView(
+                            source: source,
+                            refreshState: state,
+                            onViewAll: {
+                                navigationPath.append(NavigationTarget.source(source.id))
+                            },
+                            onRefresh: {
+                                Task {
+                                    await coordinator.refreshSingleSource(source)
+                                    await loadSources()
+                                }
+                            },
+                            onEditName: {
+                                renameText = source.title
+                                renamingSource = source
+                            },
+                            onRemove: {
+                                Task { await removeSource(source) }
                             }
-                        },
-                        onEditName: {
-                            renameText = source.title
-                            renamingSource = source
-                        },
-                        onRemove: {
-                            Task { await removeSource(source) }
-                        }
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(Theme.accent.opacity(highlightedSourceID == source.id ? 0.15 : 0))
-                            .animation(Theme.reduceMotion ? .linear(duration: 0.2) : .easeInOut(duration: 0.5).repeatCount(2, autoreverses: true), value: highlightedSourceID)
-                            .allowsHitTesting(false)
-                            .padding(.horizontal, 16)
-                    )
+                        )
+                        .id(source.id)
+                    }
+
+                    if hasSavedArticles {
+                        SavedSectionView(
+                            onViewAll: {
+                                navigationPath.append(NavigationTarget.saved)
+                            }
+                        )
+                    }
                 }
+                .padding(.vertical, 12)
             }
-            .padding(.vertical, 12)
+            .onChange(of: scrollToSourceID) { _, sourceID in
+                guard let sourceID else { return }
+                withAnimation(Theme.gentleAnimation()) {
+                    proxy.scrollTo(sourceID, anchor: .top)
+                }
+                scrollToSourceID = nil
+            }
         }
     }
 
@@ -343,98 +334,14 @@ struct SourcesListView: View {
             }
             sources = loadedSources
 
-            // Load saved article count and unread count
-            let (saved, savedUnread) = try await DatabaseManager.shared.dbPool.read { db in
-                let total = try Article
+            let savedExists = try await DatabaseManager.shared.dbPool.read { db in
+                try Article
                     .filter(Column("isSaved") == true)
-                    .fetchCount(db)
-                let unread = try Article
-                    .filter(Column("isSaved") == true)
-                    .filter(Column("isRead") == false)
-                    .fetchCount(db)
-                return (total, unread)
+                    .fetchCount(db) > 0
             }
-            savedCount = saved
-            savedUnreadCount = savedUnread
-
-            // Load article counts and unread counts
-            var counts: [UUID: Int] = [:]
-            var unread: [UUID: Int] = [:]
-            for source in loadedSources {
-                let (total, unreadCount) = try await DatabaseManager.shared.dbPool.read { db in
-                    let total = try Article
-                        .filter(Column("sourceID") == source.id)
-                        .fetchCount(db)
-                    let unreadCount = try Article
-                        .filter(Column("sourceID") == source.id)
-                        .filter(Column("isRead") == false)
-                        .fetchCount(db)
-                    return (total, unreadCount)
-                }
-                counts[source.id] = total
-                unread[source.id] = unreadCount
-            }
-            articleCounts = counts
-            unreadCounts = unread
+            hasSavedArticles = savedExists
         } catch {
             // Silently fail — sources will remain as last loaded
-        }
-    }
-
-    // MARK: - Live count polling
-
-    private func startCountPolling() {
-        guard countPollTask == nil else { return }
-        countPollTask = Task {
-            while !Task.isCancelled {
-                try? await Task.sleep(for: .seconds(2))
-                guard !Task.isCancelled else { break }
-                await refreshCounts()
-            }
-        }
-    }
-
-    private func stopCountPolling() {
-        countPollTask?.cancel()
-        countPollTask = nil
-    }
-
-    private func refreshCounts() async {
-        do {
-            var counts: [UUID: Int] = [:]
-            var unread: [UUID: Int] = [:]
-            for source in sources {
-                let (total, unreadCount) = try await DatabaseManager.shared.dbPool.read { db in
-                    let total = try Article
-                        .filter(Column("sourceID") == source.id)
-                        .fetchCount(db)
-                    let unreadCount = try Article
-                        .filter(Column("sourceID") == source.id)
-                        .filter(Column("isRead") == false)
-                        .fetchCount(db)
-                    return (total, unreadCount)
-                }
-                counts[source.id] = total
-                unread[source.id] = unreadCount
-            }
-            articleCounts = counts
-            unreadCounts = unread
-
-            // Refresh saved counts
-            let (saved, savedUnread) = try await DatabaseManager.shared.dbPool.read { db in
-                let total = try Article
-                    .filter(Column("isSaved") == true)
-                    .fetchCount(db)
-                let unread = try Article
-                    .filter(Column("isSaved") == true)
-                    .filter(Column("isRead") == false)
-                    .fetchCount(db)
-                return (total, unread)
-            }
-            savedCount = saved
-            savedUnreadCount = savedUnread
-        } catch {
-            // Silently fail
         }
     }
 
@@ -446,17 +353,15 @@ struct SourcesListView: View {
         do {
             try await Source.deleteWithCleanup(source)
 
-            // Reload saved count (moved articles may have changed it)
-            let newSavedCount = try await DatabaseManager.shared.dbPool.read { db in
-                try Article.filter(Column("isSaved") == true).fetchCount(db)
-            }
-
             withAnimation(Theme.gentleAnimation()) {
                 sources.removeAll { $0.id == source.id }
-                articleCounts.removeValue(forKey: source.id)
-                unreadCounts.removeValue(forKey: source.id)
-                savedCount = newSavedCount
             }
+
+            // Refresh saved status in case removing the source affected saved articles
+            let savedExists = try await DatabaseManager.shared.dbPool.read { db in
+                try Article.filter(Column("isSaved") == true).fetchCount(db) > 0
+            }
+            hasSavedArticles = savedExists
         } catch {
             toastManager.show("Couldn't remove source", type: .error)
         }

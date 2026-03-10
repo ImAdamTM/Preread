@@ -54,6 +54,11 @@ struct PrereadApp: App {
         // Run integrity checker (orphan detection)
         await IntegrityChecker.run()
 
+        // Signal views to reload with corrected article statuses
+        await MainActor.run {
+            FetchCoordinator.shared.startupComplete = true
+        }
+
         // Schedule background tasks
         let bgEnabled = UserDefaults.standard.bool(forKey: "backgroundRefreshEnabled")
         // Default to true if key hasn't been set yet

@@ -14,6 +14,7 @@ final class FetchCoordinator: ObservableObject {
 
     @Published var isFetching = false
     @Published var sourceStatuses: [UUID: SourceRefreshState] = [:]
+    @Published var startupComplete = false
 
     private let maxConcurrentSources = 3
 
@@ -21,8 +22,13 @@ final class FetchCoordinator: ObservableObject {
 
     // MARK: - Refresh all sources
 
-    /// Refreshes all sources concurrently (max 3 at a time).
-    /// Guards against duplicate calls — if already fetching, returns immediately.
+    /// Refreshes all sources using a three-phase pipeline:
+    /// 1. Parse feeds + insert articles (concurrent, max 3 at a time)
+    /// 2. Priority-cache the 5 newest uncached articles per source (round-robin)
+    /// 3. Backfill-cache remaining uncached articles (round-robin)
+    ///
+    /// This ensures the home screen (which shows 5 articles per source) updates
+    /// quickly, while the full article cap is cached in the background.
     func refreshAllSources() async {
         guard !isFetching else { return }
         isFetching = true
@@ -40,49 +46,7 @@ final class FetchCoordinator: ObservableObject {
             return
         }
 
-        // Reset statuses
-        for source in sources {
-            sourceStatuses[source.id] = .idle
-        }
-
-        await withTaskGroup(of: Void.self) { group in
-            var iterator = sources.makeIterator()
-            var active = 0
-
-            // Seed initial batch
-            while active < maxConcurrentSources, let source = iterator.next() {
-                active += 1
-                let sourceID = source.id
-                group.addTask { [weak self] in
-                    await self?.performRefresh(source)
-                    // Only mark completed if performRefresh didn't already set .failed
-                    await MainActor.run {
-                        if self?.sourceStatuses[sourceID] != .failed {
-                            self?.sourceStatuses[sourceID] = .completed
-                        }
-                    }
-                }
-                sourceStatuses[source.id] = .refreshing
-            }
-
-            // As each completes, launch next
-            for await _ in group {
-                active -= 1
-                if let source = iterator.next() {
-                    active += 1
-                    let sourceID = source.id
-                    group.addTask { [weak self] in
-                        await self?.performRefresh(source)
-                        await MainActor.run {
-                            if self?.sourceStatuses[sourceID] != .failed {
-                                self?.sourceStatuses[sourceID] = .completed
-                            }
-                        }
-                    }
-                    sourceStatuses[source.id] = .refreshing
-                }
-            }
-        }
+        await refreshSourcesWithPriority(sources)
 
         isFetching = false
         HapticManager.allRefreshComplete()
@@ -98,11 +62,8 @@ final class FetchCoordinator: ObservableObject {
                     .filter(Column("fetchFrequency") == FetchFrequency.onOpen.rawValue)
                     .fetchAll(db)
             }
-            for source in onOpenSources {
-                sourceStatuses[source.id] = .refreshing
-                await performRefresh(source)
-                sourceStatuses[source.id] = .completed
-            }
+            guard !onOpenSources.isEmpty else { return }
+            await refreshSourcesWithPriority(onOpenSources)
         } catch {
             // Non-critical
         }
@@ -124,11 +85,8 @@ final class FetchCoordinator: ObservableObject {
                 guard let lastFetched = source.lastFetchedAt else { return true }
                 return Date().timeIntervalSince(lastFetched) > staleThreshold
             }
-            for source in staleSources {
-                sourceStatuses[source.id] = .refreshing
-                await performRefresh(source)
-                sourceStatuses[source.id] = .completed
-            }
+            guard !staleSources.isEmpty else { return }
+            await refreshSourcesWithPriority(staleSources)
         } catch {
             // Non-critical
         }
@@ -137,62 +95,211 @@ final class FetchCoordinator: ObservableObject {
     // MARK: - Refresh single source (user-initiated, no guard)
 
     /// Refreshes a single source. Always runs even if a bulk refresh is in progress.
+    /// Uses priority caching (top 5 first, then backfill).
     func refreshSingleSource(_ source: Source) async {
         sourceStatuses[source.id] = .refreshing
-        await performRefresh(source)
+
+        let result = await parseFeedAndPrepareArticles(source)
+        guard let result else {
+            sourceStatuses[source.id] = .failed
+            return
+        }
+
+        let cacheLevel = source.effectiveCacheLevel
+        let priority = Array(result.needsCaching.prefix(visibleArticleCount))
+        let backfill = Array(result.needsCaching.dropFirst(visibleArticleCount))
+
+        // Cache priority articles first
+        for (index, article) in priority.enumerated() {
+            try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+            HapticManager.articleCached()
+            if index < priority.count - 1 {
+                try? await Task.sleep(for: .milliseconds(200))
+            }
+        }
+
+        // Then backfill
+        for (index, article) in backfill.enumerated() {
+            try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+            HapticManager.articleCached()
+            if index < backfill.count - 1 {
+                try? await Task.sleep(for: .milliseconds(200))
+            }
+        }
+
+        // Post-cache cleanup
+        if !result.needsCaching.isEmpty {
+            await PageCacheService.shared.cleanupOrphanedSharedAssets()
+        }
+        await pruneExcessArticles(for: source.id)
+
         sourceStatuses[source.id] = .completed
     }
 
-    // MARK: - Core refresh logic
+    // MARK: - Three-phase refresh pipeline
 
-    private func performRefresh(_ source: Source) async {
+    /// The number of articles visible on the home screen per source.
+    /// These are prioritised during multi-source refreshes.
+    private let visibleArticleCount = 5
+
+    /// Result of parsing a feed and preparing articles for caching.
+    private struct FeedParseResult {
+        let source: Source
+        let needsCaching: [Article]  // sorted newest-first
+    }
+
+    /// Three-phase refresh for multiple sources:
+    /// 1. Parse all feeds concurrently and insert/update articles in DB
+    /// 2. Round-robin cache the top N (visible) articles across all sources
+    /// 3. Round-robin cache remaining articles across all sources
+    private func refreshSourcesWithPriority(_ sources: [Source]) async {
+        // Reset statuses
+        for source in sources {
+            sourceStatuses[source.id] = .refreshing
+        }
+
+        // ── Phase 1: Parse feeds concurrently ──
+        var parseResults: [FeedParseResult] = []
+
+        await withTaskGroup(of: FeedParseResult?.self) { group in
+            var iterator = sources.makeIterator()
+            var active = 0
+
+            // Seed initial batch
+            while active < maxConcurrentSources, let source = iterator.next() {
+                active += 1
+                group.addTask { [weak self] in
+                    await self?.parseFeedAndPrepareArticles(source)
+                }
+            }
+
+            // As each completes, collect result and launch next
+            for await result in group {
+                active -= 1
+                if let result {
+                    parseResults.append(result)
+                }
+                if let source = iterator.next() {
+                    active += 1
+                    group.addTask { [weak self] in
+                        await self?.parseFeedAndPrepareArticles(source)
+                    }
+                }
+            }
+        }
+
+        // Mark sources that failed parsing (no result returned)
+        let parsedSourceIDs = Set(parseResults.map(\.source.id))
+        for source in sources where !parsedSourceIDs.contains(source.id) {
+            sourceStatuses[source.id] = .failed
+        }
+
+        // ── Phase 2: Priority-cache top 5 per source (round-robin) ──
+        var priorityQueues: [(source: Source, articles: [Article])] = parseResults.map { result in
+            (result.source, Array(result.needsCaching.prefix(visibleArticleCount)))
+        }
+
+        await roundRobinCache(queues: &priorityQueues)
+
+        // ── Phase 3: Backfill remaining articles (round-robin) ──
+        var backfillQueues: [(source: Source, articles: [Article])] = parseResults.map { result in
+            (result.source, Array(result.needsCaching.dropFirst(visibleArticleCount)))
+        }
+
+        await roundRobinCache(queues: &backfillQueues)
+
+        // ── Post-cache cleanup ──
+        let hasAnyCaching = parseResults.contains { !$0.needsCaching.isEmpty }
+        if hasAnyCaching {
+            await PageCacheService.shared.cleanupOrphanedSharedAssets()
+        }
+
+        for result in parseResults {
+            await pruneExcessArticles(for: result.source.id)
+            if sourceStatuses[result.source.id] != .failed {
+                sourceStatuses[result.source.id] = .completed
+            }
+        }
+    }
+
+    /// Caches articles round-robin across sources: one article from each source
+    /// in turn, repeating until all queues are exhausted.
+    private func roundRobinCache(queues: inout [(source: Source, articles: [Article])]) async {
+        var indices = Array(repeating: 0, count: queues.count)
+        var remaining = true
+
+        while remaining {
+            remaining = false
+            for queueIndex in queues.indices {
+                let itemIndex = indices[queueIndex]
+                guard itemIndex < queues[queueIndex].articles.count else { continue }
+                remaining = true
+
+                let article = queues[queueIndex].articles[itemIndex]
+                let cacheLevel = queues[queueIndex].source.effectiveCacheLevel
+                indices[queueIndex] += 1
+
+                try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+                HapticManager.articleCached()
+
+                try? await Task.sleep(for: .milliseconds(200))
+            }
+        }
+    }
+
+    // MARK: - Feed parsing (phase 1 of refresh)
+
+    /// Parses a source's feed, inserts new articles, identifies articles needing
+    /// caching, and updates the source's lastFetchedAt. Returns nil on failure.
+    private func parseFeedAndPrepareArticles(_ source: Source) async -> FeedParseResult? {
         var source = source
 
-        // Mark source as fetching
         source.fetchStatus = .fetching
         try? await saveSource(&source)
 
         do {
-            // Parse feed for new items
             guard let feedURL = URL(string: source.feedURL) else {
                 source.fetchStatus = .error
                 try? await saveSource(&source)
-                return
+                return nil
             }
 
             let feed = try await FeedService.shared.parseFeed(from: feedURL, siteURL: source.siteURL.flatMap { URL(string: $0) })
 
-            // The article limit determines the "refresh window" — how many of
-            // the feed's newest items we consider on each refresh.
-            // Full-page caching is much heavier, so the window is smaller.
             let currentCacheLevel = source.effectiveCacheLevel
             let articleLimit = currentCacheLevel == .full ? 10 : 20
 
-            // Sort feed items newest-first so the window is always chronological,
-            // regardless of the order the RSS feed provides them in.
-            // Items without a date are treated as very old so dated items take priority.
-            // Deduplicate by URL before taking the window so duplicates in the feed
-            // don't reduce the number of articles we process.
             var seenURLs = Set<String>()
+            var seenTitles = Set<String>()
             let uniqueSortedItems = feed.items
                 .sorted { a, b in
                     (a.publishedAt ?? .distantPast) > (b.publishedAt ?? .distantPast)
                 }
-                .filter { seenURLs.insert($0.url.absoluteString).inserted }
+                .filter { item in
+                    // Deduplicate by URL and by title (Google News feeds can
+                    // contain the same article with different redirect URLs)
+                    let urlNew = seenURLs.insert(item.url.absoluteString).inserted
+                    let titleNew = seenTitles.insert(item.title).inserted
+                    return urlNew && titleNew
+                }
             let feedWindow = Array(uniqueSortedItems.prefix(articleLimit))
 
-            // Build a lookup of existing articles by URL for the feed window
             let feedURLs = feedWindow.map(\.url.absoluteString)
+            let feedTitles = feedWindow.map(\.title)
             let existingArticles = try await DatabaseManager.shared.dbPool.read { db in
+                // Match by URL or title so Google News redirect URL changes
+                // don't cause duplicate articles
                 try Article
                     .filter(Column("sourceID") == source.id)
-                    .filter(feedURLs.contains(Column("articleURL")))
+                    .filter(
+                        feedURLs.contains(Column("articleURL")) ||
+                        feedTitles.contains(Column("title"))
+                    )
                     .fetchAll(db)
             }
             let existingByURL = Dictionary(existingArticles.map { ($0.articleURL, $0) }, uniquingKeysWith: { first, _ in first })
+            let existingByTitle = Dictionary(existingArticles.map { ($0.title, $0) }, uniquingKeysWith: { first, _ in first })
 
-            // Also find any saved articles that were detached to "Saved Pages"
-            // (e.g. after the source was deleted then re-added)
             let detachedArticles = try await DatabaseManager.shared.dbPool.read { db in
                 try Article
                     .filter(Column("sourceID") == Source.savedPagesID)
@@ -207,22 +314,17 @@ final class FetchCoordinator: ObservableObject {
             for item in feedWindow {
                 let urlString = item.url.absoluteString
 
-                if var existing = existingByURL[urlString] {
-                    // Article already in DB under this source — check if it needs re-caching
+                if var existing = existingByURL[urlString] ?? existingByTitle[item.title] {
                     switch existing.fetchStatus {
                     case .pending, .failed:
-                        // Already needs caching
                         needsCaching.append(existing)
 
                     case .fetching:
-                        // Currently being cached by another task — skip
                         break
 
                     case .cached, .partial:
-                        // Check for missing or empty content on disk
                         let hasContent = await PageCacheService.shared.hasCachedContent(for: existing)
                         if !hasContent {
-                            // Delete stale/empty cache files so re-cache starts fresh
                             try? await PageCacheService.shared.deleteCachedArticle(existing.id)
                             existing.etag = nil
                             existing.lastModified = nil
@@ -232,7 +334,6 @@ final class FetchCoordinator: ObservableObject {
                             }
                             needsCaching.append(existing)
                         } else {
-                            // Check for cache level mismatch
                             let cachedPage = try await DatabaseManager.shared.dbPool.read { db in
                                 try CachedPage.fetchOne(db, key: existing.id)
                             }
@@ -248,7 +349,6 @@ final class FetchCoordinator: ObservableObject {
                         }
                     }
                 } else if let detached = detachedByURL[urlString] {
-                    // Saved article was detached to "Saved Pages" — re-attach to this source
                     let articleID = detached.id
                     let newSourceID = source.id
                     try await DatabaseManager.shared.dbPool.write { db in
@@ -258,7 +358,6 @@ final class FetchCoordinator: ObservableObject {
                         )
                     }
                 } else {
-                    // New article — insert it
                     let article = Article(
                         id: UUID(),
                         sourceID: source.id,
@@ -282,42 +381,23 @@ final class FetchCoordinator: ObservableObject {
                         }
                         needsCaching.append(article)
                     } catch {
-                        // Duplicate URL or other insert failure — skip this item
+                        // Duplicate URL or other insert failure — skip
                     }
                 }
             }
 
-            let uncachedArticles = needsCaching
-
-            let cacheLevel = source.effectiveCacheLevel
-            for (index, article) in uncachedArticles.enumerated() {
-                try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
-                HapticManager.articleCached()
-
-                // Brief pause between articles to avoid rate-limiting from aggressive CDNs
-                if index < uncachedArticles.count - 1 {
-                    try? await Task.sleep(for: .milliseconds(200))
-                }
-            }
-
-            // Clean up shared assets that are no longer referenced by any article
-            // (e.g. after downgrading from full to standard cache level)
-            if !uncachedArticles.isEmpty {
-                await PageCacheService.shared.cleanupOrphanedSharedAssets()
-            }
-
-            // Prune articles that exceed the user's per-source cap
-            await pruneExcessArticles(for: source.id)
-
-            // Update source
+            // Update source timestamp
             source.lastFetchedAt = Date()
             source.fetchStatus = .idle
             try? await saveSource(&source)
+
+            return FeedParseResult(source: source, needsCaching: needsCaching)
 
         } catch {
             source.fetchStatus = .error
             try? await saveSource(&source)
             sourceStatuses[source.id] = .failed
+            return nil
         }
     }
 
@@ -378,10 +458,17 @@ final class FetchCoordinator: ObservableObject {
     func insertNewArticles(from items: [FeedItem], sourceID: UUID, limit: Int = 0) async throws -> [Article] {
         try await DatabaseManager.shared.dbPool.write { db in
             var inserted: [Article] = []
+            var seenTitles = Set<String>()
             for item in items {
                 if limit > 0, inserted.count >= limit { break }
 
-                // Check if the article already exists anywhere
+                // Skip duplicate titles (Google News feeds can contain
+                // the same article with different redirect URLs)
+                guard seenTitles.insert(item.title).inserted else { continue }
+
+                // Check if the article already exists anywhere (by URL or
+                // by title within the same source — Google News feeds can
+                // return the same article with different redirect URLs)
                 if let existing = try Article
                     .filter(Column("articleURL") == item.url.absoluteString)
                     .fetchOne(db) {
@@ -393,6 +480,15 @@ final class FetchCoordinator: ObservableObject {
                         inserted.append(reattached)
                     }
                     // Otherwise it already belongs to a source — skip
+                    continue
+                }
+
+                // Also check by title within the same source to catch
+                // Google News URL rotation
+                if try Article
+                    .filter(Column("sourceID") == sourceID)
+                    .filter(Column("title") == item.title)
+                    .fetchCount(db) > 0 {
                     continue
                 }
 

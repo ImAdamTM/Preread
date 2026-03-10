@@ -895,12 +895,12 @@ struct AddSourceSheet: View {
 
         Task {
             do {
-                let nextSortOrder = try await DatabaseManager.shared.dbPool.read { db in
-                    try Source.fetchCount(db)
+                let userSourceCount = try await DatabaseManager.shared.dbPool.read { db in
+                    let total = try Source.fetchCount(db)
+                    // Exclude the hidden "Saved Pages" source from the count
+                    return total - 1
                 }
 
-                // Exclude the hidden "Saved Pages" source from the count
-                let userSourceCount = nextSortOrder - 1
                 if userSourceCount >= Source.maxSources {
                     showSourceLimitAlert = true
                     return
@@ -917,10 +917,15 @@ struct AddSourceSheet: View {
                     fetchFrequency: selectedFrequency,
                     fetchStatus: .idle,
                     cacheLevel: selectedCacheLevel,
-                    sortOrder: nextSortOrder
+                    sortOrder: 0
                 )
 
                 try await DatabaseManager.shared.dbPool.write { db in
+                    // Bump all existing sources down to make room at the top
+                    try db.execute(
+                        sql: "UPDATE source SET sortOrder = sortOrder + 1 WHERE id != ?",
+                        arguments: [Source.savedPagesID.uuidString]
+                    )
                     try source.save(db)
                 }
 
