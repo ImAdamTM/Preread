@@ -83,6 +83,7 @@ enum BackgroundTaskManager {
     /// only committed to the database once it has been successfully cached,
     /// so the user never sees uncached placeholder rows in their feed.
     private static func refreshFeeds() async {
+        guard !NetworkMonitor.shouldSkipForWiFiOnly else { return }
         do {
             let sources = try await DatabaseManager.shared.dbPool.read { db in
                 try Source
@@ -312,6 +313,7 @@ enum BackgroundTaskManager {
 
     /// Caches pending articles one at a time (interruptible), newest first.
     private static func cachePendingArticles() async {
+        guard !NetworkMonitor.shouldSkipForWiFiOnly else { return }
         do {
             let pendingArticles = try await DatabaseManager.shared.dbPool.read { db in
                 try Article

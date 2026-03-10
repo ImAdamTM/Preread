@@ -12,7 +12,7 @@ struct SettingsView: View {
 
     // MARK: - Syncing
 
-    @AppStorage("wifiOnly") private var wifiOnly = true
+    @AppStorage("wifiOnly") private var wifiOnly = false
     @AppStorage("backgroundRefreshEnabled") private var backgroundRefreshEnabled = true
 
     // MARK: - Storage

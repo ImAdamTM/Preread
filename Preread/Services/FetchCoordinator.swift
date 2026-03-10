@@ -57,6 +57,7 @@ final class FetchCoordinator: ObservableObject {
 
     /// Refreshes only sources whose fetchFrequency is .onOpen.
     func refreshOnOpenSources() async {
+        guard !NetworkMonitor.shouldSkipForWiFiOnly else { return }
         do {
             let onOpenSources = try await DatabaseManager.shared.dbPool.read { db in
                 try Source
@@ -76,6 +77,7 @@ final class FetchCoordinator: ObservableObject {
     /// Uses a 1-hour staleness threshold — if background tasks ran on time,
     /// this is a no-op. Acts as a safety net when background execution is delayed.
     func refreshStaleAutoSources() async {
+        guard !NetworkMonitor.shouldSkipForWiFiOnly else { return }
         let staleThreshold: TimeInterval = 60 * 60 // 1 hour
         do {
             let staleSources = try await DatabaseManager.shared.dbPool.read { db in
