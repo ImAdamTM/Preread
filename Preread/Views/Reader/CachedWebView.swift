@@ -179,7 +179,7 @@ struct CachedWebView: UIViewRepresentable {
         // Only apply JS if the page has finished loading
         guard coordinator.pageLoaded else { return }
 
-        coordinator.applyCurrentState(to: webView)
+        coordinator.scheduleApplyCurrentState(to: webView)
     }
 
     // MARK: - Hero backdrop (UIKit)
@@ -264,6 +264,7 @@ struct CachedWebView: UIViewRepresentable {
 
         private var lastContentOffset: CGFloat = 0
         private var isTracking = false
+        private var applyDebounceTimer: Timer?
 
         init(onScrollDown: @escaping () -> Void,
              onScrollUp: @escaping () -> Void,
@@ -273,6 +274,15 @@ struct CachedWebView: UIViewRepresentable {
             self.onScrollUp = onScrollUp
             self.onLinkTapped = onLinkTapped
             self.onImageTapped = onImageTapped
+        }
+
+        /// Debounces calls to `applyCurrentState` so that rapid slider drags
+        /// don't fire expensive JS evaluation on every pixel of movement.
+        func scheduleApplyCurrentState(to webView: WKWebView) {
+            applyDebounceTimer?.invalidate()
+            applyDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: false) { [weak self] _ in
+                self?.applyCurrentState(to: webView)
+            }
         }
 
         /// Applies text size, font, and dark/light mode to the web view.
@@ -307,29 +317,6 @@ struct CachedWebView: UIViewRepresentable {
             })();
             """
             webView.evaluateJavaScript(cssJS)
-
-            // Disable sticky/fixed positioned elements (e.g. site headers)
-            if !pendingIsReaderMode {
-                let unstickJS = """
-                (function() {
-                    var style = document.getElementById('preread-unstick-style');
-                    if (!style) {
-                        style = document.createElement('style');
-                        style.id = 'preread-unstick-style';
-                        document.head.appendChild(style);
-                    }
-                    style.textContent = '[style*=\"position\"] { position: static !important; }';
-                    var all = document.querySelectorAll('*');
-                    for (var i = 0; i < all.length; i++) {
-                        var pos = window.getComputedStyle(all[i]).position;
-                        if (pos === 'sticky' || pos === 'fixed') {
-                            all[i].style.setProperty('position', 'static', 'important');
-                        }
-                    }
-                })();
-                """
-                webView.evaluateJavaScript(unstickJS)
-            }
 
             if pendingIsReaderMode {
                 // Reader-mode: toggle .light-mode class on <html>

@@ -216,6 +216,31 @@ func stripEmptyElements(in doc: Document) throws {
     }
 }
 
+// MARK: - Helper: strip sticky/fixed positioning
+
+func stripStickyPositioning(in doc: Document) throws {
+    for el in try doc.select("[style*=position]") {
+        guard let style = try? el.attr("style") else { continue }
+        let cleaned = style.replacingOccurrences(
+            of: #"position\s*:\s*(sticky|fixed)"#,
+            with: "position:static",
+            options: .regularExpression
+        )
+        if cleaned != style {
+            try el.attr("style", cleaned)
+        }
+    }
+    if let head = doc.head() {
+        try head.prepend("""
+            <style id="preread-unstick">
+            header, [role="banner"], [style*="position"] {
+                position: static !important;
+            }
+            </style>
+            """)
+    }
+}
+
 // MARK: - Helper: save step
 
 func saveStep(_ name: String, html: String) {
@@ -292,6 +317,9 @@ if isFullMode {
 
     // Strip elements explicitly marked as hidden
     try doc.select("[aria-hidden=true]").remove()
+
+    // Neutralise sticky/fixed positioning
+    try stripStickyPositioning(in: doc)
 
     // Cascade-remove empty elements left behind by the above stripping
     try stripEmptyElements(in: doc)
