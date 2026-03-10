@@ -179,7 +179,7 @@ struct CachedWebView: UIViewRepresentable {
         // Only apply JS if the page has finished loading
         guard coordinator.pageLoaded else { return }
 
-        coordinator.applyCurrentState(to: webView)
+        coordinator.scheduleApplyCurrentState(to: webView)
     }
 
     // MARK: - Hero backdrop (UIKit)
@@ -255,6 +255,7 @@ struct CachedWebView: UIViewRepresentable {
 
         var pageLoaded = false
         var currentHTMLFileURL: URL?
+        private var hasUnstuck = false
 
         // Pending state set by SwiftUI, applied after page load
         var pendingIsReaderMode = false
@@ -264,6 +265,7 @@ struct CachedWebView: UIViewRepresentable {
 
         private var lastContentOffset: CGFloat = 0
         private var isTracking = false
+        private var applyDebounceTimer: Timer?
 
         init(onScrollDown: @escaping () -> Void,
              onScrollUp: @escaping () -> Void,
@@ -273,6 +275,15 @@ struct CachedWebView: UIViewRepresentable {
             self.onScrollUp = onScrollUp
             self.onLinkTapped = onLinkTapped
             self.onImageTapped = onImageTapped
+        }
+
+        /// Debounces calls to `applyCurrentState` so that rapid slider drags
+        /// don't fire expensive JS evaluation on every pixel of movement.
+        func scheduleApplyCurrentState(to webView: WKWebView) {
+            applyDebounceTimer?.invalidate()
+            applyDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: false) { [weak self] _ in
+                self?.applyCurrentState(to: webView)
+            }
         }
 
         /// Applies text size, font, and dark/light mode to the web view.
@@ -308,8 +319,26 @@ struct CachedWebView: UIViewRepresentable {
             """
             webView.evaluateJavaScript(cssJS)
 
-            // Disable sticky/fixed positioned elements (e.g. site headers)
-            if !pendingIsReaderMode {
+            if pendingIsReaderMode {
+                // Reader-mode: toggle .light-mode class on <html>
+                let lightModeJS: String
+                if pendingUseLightMode {
+                    lightModeJS = "document.documentElement.classList.add('light-mode');"
+                } else {
+                    lightModeJS = "document.documentElement.classList.remove('light-mode');"
+                }
+                webView.evaluateJavaScript(lightModeJS)
+            }
+        }
+
+        // MARK: - WKNavigationDelegate
+
+        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            pageLoaded = true
+            // Unstick fixed/sticky elements once on page load — no need to
+            // re-run on every text size or font change.
+            if !pendingIsReaderMode && !hasUnstuck {
+                hasUnstuck = true
                 let unstickJS = """
                 (function() {
                     var style = document.getElementById('preread-unstick-style');
@@ -330,23 +359,6 @@ struct CachedWebView: UIViewRepresentable {
                 """
                 webView.evaluateJavaScript(unstickJS)
             }
-
-            if pendingIsReaderMode {
-                // Reader-mode: toggle .light-mode class on <html>
-                let lightModeJS: String
-                if pendingUseLightMode {
-                    lightModeJS = "document.documentElement.classList.add('light-mode');"
-                } else {
-                    lightModeJS = "document.documentElement.classList.remove('light-mode');"
-                }
-                webView.evaluateJavaScript(lightModeJS)
-            }
-        }
-
-        // MARK: - WKNavigationDelegate
-
-        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            pageLoaded = true
             applyCurrentState(to: webView)
         }
 
