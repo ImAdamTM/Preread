@@ -427,11 +427,13 @@ struct ArticleListView: View {
         let cacheLevel = currentCacheLevel
         try? await PageCacheService.shared.cacheArticle(articleToCache, cacheLevel: cacheLevel)
 
-        // Read the updated article directly from the DB (the observation
-        // will update the list, but we need the status now for openOnSuccess)
+        // Always reconcile local state with DB so the spinner never stays stuck
         if let updated = try? await DatabaseManager.shared.dbPool.read({ db in
             try Article.fetchOne(db, key: article.id)
         }) {
+            if let index = articles.firstIndex(where: { $0.id == article.id }) {
+                articles[index] = updated
+            }
             if updated.fetchStatus == .failed {
                 failedArticle = updated
             } else if openOnSuccess, updated.fetchStatus == .cached || updated.fetchStatus == .partial {
@@ -494,6 +496,14 @@ struct ArticleListView: View {
         }
         let cacheLevel = currentCacheLevel
         try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel, forceReprocess: true)
+        // Reconcile local state with DB so the spinner never stays stuck
+        if let index = articles.firstIndex(where: { $0.id == article.id }),
+           articles[index].fetchStatus == .fetching,
+           let fresh = try? await DatabaseManager.shared.dbPool.read({ db in
+               try Article.fetchOne(db, key: article.id)
+           }) {
+            articles[index] = fresh
+        }
     }
 
     private func deleteArticle(_ article: Article) async {
