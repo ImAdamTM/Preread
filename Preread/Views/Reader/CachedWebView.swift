@@ -255,7 +255,6 @@ struct CachedWebView: UIViewRepresentable {
 
         var pageLoaded = false
         var currentHTMLFileURL: URL?
-        private var hasUnstuck = false
 
         // Pending state set by SwiftUI, applied after page load
         var pendingIsReaderMode = false
@@ -335,30 +334,6 @@ struct CachedWebView: UIViewRepresentable {
 
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
             pageLoaded = true
-            // Unstick fixed/sticky elements once on page load — no need to
-            // re-run on every text size or font change.
-            if !pendingIsReaderMode && !hasUnstuck {
-                hasUnstuck = true
-                let unstickJS = """
-                (function() {
-                    var style = document.getElementById('preread-unstick-style');
-                    if (!style) {
-                        style = document.createElement('style');
-                        style.id = 'preread-unstick-style';
-                        document.head.appendChild(style);
-                    }
-                    style.textContent = '[style*=\"position\"] { position: static !important; }';
-                    var all = document.querySelectorAll('*');
-                    for (var i = 0; i < all.length; i++) {
-                        var pos = window.getComputedStyle(all[i]).position;
-                        if (pos === 'sticky' || pos === 'fixed') {
-                            all[i].style.setProperty('position', 'static', 'important');
-                        }
-                    }
-                })();
-                """
-                webView.evaluateJavaScript(unstickJS)
-            }
             applyCurrentState(to: webView)
         }
 

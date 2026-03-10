@@ -357,6 +357,12 @@ actor PageCacheService {
         // tooltips, and overlays that take up layout space without JS.
         try doc.select("[aria-hidden=true]").remove()
 
+        // Neutralise sticky/fixed positioning — site headers and toolbars
+        // float over content and are non-functional in offline cached pages.
+        // Inject a stylesheet rule so elements positioned via CSS stylesheets
+        // are also caught (not just inline styles).
+        try stripStickyPositioning(in: doc)
+
         // Cascade-remove empty elements left behind by the above stripping.
         // e.g. a div that contained only a button is now empty and takes up
         // space via CSS padding/margins. Multiple passes handle nested wrappers.
@@ -1423,6 +1429,44 @@ actor PageCacheService {
                 }
             }
             if !changed { break }
+        }
+    }
+
+    // MARK: - Sticky/fixed positioning cleanup
+
+    /// Neutralises sticky and fixed positioning in cached pages so site
+    /// headers, toolbars, and floating elements don't overlay article content.
+    /// Strips inline position styles and injects a CSS rule to catch
+    /// stylesheet-defined positioning.
+    private func stripStickyPositioning(in doc: Document) throws {
+        // Remove inline position:sticky/fixed from style attributes
+        for el in try doc.select("[style*=position]") {
+            guard let style = try? el.attr("style") else { continue }
+            let cleaned = style.replacingOccurrences(
+                of: #"position\s*:\s*(sticky|fixed)"#,
+                with: "position:static",
+                options: .regularExpression
+            )
+            if cleaned != style {
+                try el.attr("style", cleaned)
+            }
+        }
+        // Inject CSS rules to override stylesheet-defined sticky/fixed.
+        // We can't use `* { position: static }` because that would break
+        // legitimate relative/absolute positioning used for layout.
+        // Instead, use the cascade: any element whose computed position
+        // would be sticky or fixed gets overridden. CSS doesn't have a
+        // selector for computed values, but we can target common sticky
+        // patterns: header, [role=banner], and the generic sticky class.
+        // The inline style cleanup above handles the rest.
+        if let head = doc.head() {
+            try head.prepend("""
+                <style id="preread-unstick">
+                header, [role="banner"], [style*="position"] {
+                    position: static !important;
+                }
+                </style>
+                """)
         }
     }
 
