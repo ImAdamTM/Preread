@@ -270,6 +270,25 @@ struct SourcesListView: View {
                         }
                     )
                 }
+
+                if !sources.isEmpty {
+                    Button {
+                        showAddSource = true
+                    } label: {
+                        VStack(spacing: 6) {
+                            Image(systemName: "plus.circle")
+                                .font(.system(size: 24))
+                            Text("Add a new source")
+                                .font(Theme.scaledFont(size: 15))
+                        }
+                        .foregroundColor(Theme.accent)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 24)
+                    .listRowInsets(EdgeInsets())
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
+                }
             }
             .listStyle(.plain)
             .scrollContentBackground(.hidden)

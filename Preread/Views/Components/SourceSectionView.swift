@@ -13,6 +13,7 @@ struct SourceSectionView: View {
     @ObservedObject private var coordinator = FetchCoordinator.shared
     @Namespace private var namespace
     @State private var articles: [Article] = []
+    @State private var totalArticleCount: Int = 0
     @State private var cachedFavicon: UIImage?
     @State private var showDeleteConfirmation = false
     @State private var isAutoCaching = false
@@ -50,6 +51,26 @@ struct SourceSectionView: View {
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
             }
+
+            if totalArticleCount > articles.count {
+                Button(action: onViewAll) {
+                    Text("View all \(totalArticleCount) articles")
+                        .font(Theme.scaledFont(size: 14, weight: .medium, relativeTo: .subheadline))
+                        .foregroundColor(Theme.accent)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 10)
+                }
+                .listRowInsets(EdgeInsets())
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
+            }
+
+            // Section bottom spacer
+            Spacer()
+                .frame(height: 8)
+                .listRowInsets(EdgeInsets())
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
         } header: {
             sectionHeader
                 .padding(.bottom, 4)
@@ -225,35 +246,47 @@ struct SourceSectionView: View {
     /// whenever the database changes, replacing the old 2-second polling loop.
     private func startArticleObservation() {
         let sourceID = source.id
-        let observation = ValueObservation.tracking { db in
-            try Article
+        let observation = ValueObservation.tracking { db -> ([Article], Int) in
+            let articles = try Article
                 .filter(Column("sourceID") == sourceID)
                 .filter(Column("fetchStatus") != ArticleFetchStatus.failed.rawValue)
                 .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
                 .limit(5)
                 .fetchAll(db)
+            let count = try Article
+                .filter(Column("sourceID") == sourceID)
+                .filter(Column("fetchStatus") != ArticleFetchStatus.failed.rawValue)
+                .fetchCount(db)
+            return (articles, count)
         }
         articleObservation = observation.start(
             in: DatabaseManager.shared.dbPool,
             scheduling: .async(onQueue: .main)
         ) { error in
-            // Observation failed — keep existing articles
-        } onChange: { newArticles in
+            // Observation failed — keep existing data
+        } onChange: { (newArticles, count) in
             articles = newArticles
+            totalArticleCount = count
         }
     }
 
     private func loadArticles() async {
         do {
-            let loaded = try await DatabaseManager.shared.dbPool.read { db in
-                try Article
+            let (loaded, count) = try await DatabaseManager.shared.dbPool.read { db in
+                let articles = try Article
                     .filter(Column("sourceID") == source.id)
                     .filter(Column("fetchStatus") != ArticleFetchStatus.failed.rawValue)
                     .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
                     .limit(5)
                     .fetchAll(db)
+                let count = try Article
+                    .filter(Column("sourceID") == source.id)
+                    .filter(Column("fetchStatus") != ArticleFetchStatus.failed.rawValue)
+                    .fetchCount(db)
+                return (articles, count)
             }
             articles = loaded
+            totalArticleCount = count
         } catch {
             // Keep existing articles
         }
