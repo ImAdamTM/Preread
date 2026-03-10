@@ -58,16 +58,11 @@ struct SourceHeroView: View {
         }
         .frame(maxWidth: .infinity)
         .frame(height: 180)
-        .background {
-            GeometryReader { geo in
-                let scrollY = geo.frame(in: .scrollView(axis: .vertical)).minY
-                let overscroll = max(scrollY, 0)
-                blurredBackground
-                    .frame(height: 240)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-                    .offset(y: -overscroll)
-            }
-            .allowsHitTesting(false)
+        .background(alignment: .bottom) {
+            blurredBackground
+                .frame(height: 240)
+                .frame(maxWidth: .infinity)
+                .allowsHitTesting(false)
         }
         .task(id: source.iconURL) {
             let sourceID = source.id
