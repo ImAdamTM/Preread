@@ -15,6 +15,7 @@ final class FetchCoordinator: ObservableObject {
     @Published var isFetching = false
     @Published var sourceStatuses: [UUID: SourceRefreshState] = [:]
     @Published var startupComplete = false
+    @Published var savedArticlesVersion = 0
 
     private let maxConcurrentSources = 3
 

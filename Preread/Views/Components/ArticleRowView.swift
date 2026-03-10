@@ -78,7 +78,7 @@ struct ArticleRowView: View {
             }
             .contentShape(Rectangle())
             .padding(.horizontal, 14)
-            .padding(.vertical, 16)
+            .padding(.vertical, 20)
             .frame(minHeight: 96)
             .overlay(alignment: .bottom) {
                 Theme.borderProminent

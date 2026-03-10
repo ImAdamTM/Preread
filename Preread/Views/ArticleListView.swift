@@ -475,6 +475,7 @@ struct ArticleListView: View {
             try await DatabaseManager.shared.dbPool.write { db in
                 try updatedArticle.update(db)
             }
+            coordinator.savedArticlesVersion += 1
         } catch {
             articles[index].isSaved.toggle()
             articles[index].savedAt = articles[index].isSaved ? Date() : nil

@@ -62,6 +62,9 @@ struct SavedSectionView: View {
                 Task { await loadArticles() }
             }
         }
+        .onChange(of: coordinator.savedArticlesVersion) { _, _ in
+            Task { await loadArticles() }
+        }
         .sheet(item: $readerSelection) { selection in
             NavigationStack {
                 ReaderView(article: selection.article, source: selection.source)
@@ -243,6 +246,7 @@ struct SavedSectionView: View {
             try await DatabaseManager.shared.dbPool.write { db in
                 try updatedArticle.update(db)
             }
+            coordinator.savedArticlesVersion += 1
             if !nowSaved {
                 // Reload to remove the unsaved article from the list
                 await loadArticles()

@@ -63,8 +63,8 @@ struct Theme {
 
     static let borderProminent = Color(uiColor: UIColor { traits in
         traits.userInterfaceStyle == .dark
-            ? UIColor.white.withAlphaComponent(0.1)
-            : UIColor.black.withAlphaComponent(0.1)
+            ? UIColor.white.withAlphaComponent(0.16)
+            : UIColor.black.withAlphaComponent(0.15)
     })
 
     // MARK: - Gradients

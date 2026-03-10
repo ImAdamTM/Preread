@@ -97,6 +97,9 @@ struct SourcesListView: View {
                     Task { await loadSources() }
                 }
             }
+            .onChange(of: coordinator.savedArticlesVersion) { _, _ in
+                Task { await loadSources() }
+            }
             .sheet(isPresented: $showAddSource) {
                 AddSourceSheet(
                     initialURL: addSourceInitialURL,

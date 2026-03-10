@@ -452,6 +452,7 @@ struct ReaderView: View {
             try await DatabaseManager.shared.dbPool.write { db in
                 try toSave.update(db)
             }
+            FetchCoordinator.shared.savedArticlesVersion += 1
         } catch {
             isSaved = !newSaved
         }
