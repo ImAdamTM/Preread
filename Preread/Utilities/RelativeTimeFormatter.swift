@@ -24,11 +24,7 @@ enum RelativeTimeFormatter {
 
         let hours = Int(seconds / 3600)
         if hours < 24 {
-            // Check if it's still "today" vs "yesterday" in calendar terms
-            if calendar.isDate(date, inSameDayAs: now) {
-                return "\(hours)h ago"
-            }
-            // Falls through to yesterday check below
+            return "\(hours)h ago"
         }
 
         if isCalendarYesterday(date, relativeTo: now, calendar: calendar) {
@@ -41,11 +37,6 @@ enum RelativeTimeFormatter {
         if let daysBetween = calendar.dateComponents([.day], from: startOfDateDay, to: startOfToday).day,
            daysBetween >= 2 && daysBetween <= 6 {
             return "\(daysBetween) days ago"
-        }
-
-        // For "Xh ago" when within the same calendar day but hours > 0
-        if hours >= 1 && hours < 24 && calendar.isDate(date, inSameDayAs: now) {
-            return "\(hours)h ago"
         }
 
         return formattedMediumDate(date, prefix: prefix)
