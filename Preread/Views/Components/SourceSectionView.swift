@@ -8,46 +8,35 @@ struct SourceSectionView: View {
     let onRefresh: () -> Void
     let onEditName: () -> Void
     let onRemove: () -> Void
+    let onOpenArticle: (Article) -> Void
 
     @ObservedObject private var coordinator = FetchCoordinator.shared
     @Namespace private var namespace
-    @Environment(\.colorScheme) private var systemColorScheme
     @State private var articles: [Article] = []
     @State private var cachedFavicon: UIImage?
     @State private var showDeleteConfirmation = false
-    @State private var selectedArticle: Article?
     @State private var isAutoCaching = false
-    @AppStorage("appAppearance") private var appAppearance: String = "system"
-
-    private var preferredScheme: ColorScheme {
-        switch appAppearance {
-        case "light": return .light
-        case "dark": return .dark
-        default: return systemColorScheme
-        }
-    }
 
     var body: some View {
-        VStack(spacing: 0) {
-            sectionHeader
-                .padding(.horizontal, 16)
-                .padding(.bottom, 12)
-
-            if !articles.isEmpty {
-                VStack(spacing: 0) {
-                    ForEach(articles) { article in
-                        ArticleRowView(
-                            article: article,
-                            namespace: namespace,
-                            onTap: { handleTap(article) },
-                            onToggleRead: { Task { await toggleRead(article) } },
-                            onToggleSave: { Task { await toggleSave(article) } },
-                            onRefetch: { Task { await refetchArticle(article) } },
-                            onDelete: { Task { await deleteArticle(article) } }
-                        )
-                    }
-                }
+        Section {
+            ForEach(articles) { article in
+                ArticleRowView(
+                    article: article,
+                    namespace: namespace,
+                    onTap: { handleTap(article) },
+                    onToggleRead: { Task { await toggleRead(article) } },
+                    onToggleSave: { Task { await toggleSave(article) } },
+                    onRefetch: { Task { await refetchArticle(article) } },
+                    onDelete: { Task { await deleteArticle(article) } }
+                )
+                .listRowInsets(EdgeInsets())
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
             }
+        } header: {
+            sectionHeader
+                .padding(.bottom, 4)
+                .textCase(nil)
         }
         .task {
             await loadArticles()
@@ -101,14 +90,6 @@ struct SourceSectionView: View {
                     await cacheUncachedArticles()
                 }
             }
-        }
-        .sheet(item: $selectedArticle) { article in
-            NavigationStack {
-                ReaderView(article: article, source: source)
-            }
-            .toastOverlay()
-            .presentationDragIndicator(.hidden)
-            .preferredColorScheme(preferredScheme)
         }
         .confirmationDialog(
             "Remove \(source.title)?",
@@ -314,7 +295,7 @@ struct SourceSectionView: View {
                 let hasContent = await PageCacheService.shared.hasCachedContent(for: current)
                 if hasContent {
                     markAsReadLocally(current)
-                    selectedArticle = current
+                    onOpenArticle(current)
                 } else {
                     await fetchArticleInline(current, openOnSuccess: true)
                 }
@@ -362,7 +343,7 @@ struct SourceSectionView: View {
             let updated = articles[updatedIndex]
             if openOnSuccess, updated.fetchStatus == .cached || updated.fetchStatus == .partial {
                 markAsReadLocally(updated)
-                selectedArticle = updated
+                onOpenArticle(updated)
             }
         }
     }

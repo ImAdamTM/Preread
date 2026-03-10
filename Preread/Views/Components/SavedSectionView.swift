@@ -1,53 +1,36 @@
 import SwiftUI
 import GRDB
 
-private struct ReaderSelection: Identifiable {
-    let id = UUID()
-    let article: Article
-    let source: Source
-}
-
 struct SavedSectionView: View {
     let onViewAll: () -> Void
+    let onOpenArticle: (Article) -> Void
 
     @ObservedObject private var coordinator = FetchCoordinator.shared
     @Namespace private var namespace
-    @Environment(\.colorScheme) private var systemColorScheme
     @State private var articles: [Article] = []
-    @State private var readerSelection: ReaderSelection?
-    @AppStorage("appAppearance") private var appAppearance: String = "system"
-
-    private var preferredScheme: ColorScheme {
-        switch appAppearance {
-        case "light": return .light
-        case "dark": return .dark
-        default: return systemColorScheme
-        }
-    }
 
     var body: some View {
-        VStack(spacing: 0) {
-            sectionHeader
-                .padding(.horizontal, 16)
-                .padding(.bottom, 12)
-
-            if !articles.isEmpty {
-                VStack(spacing: 0) {
-                    ForEach(articles) { article in
-                        ArticleRowView(
-                            article: article,
-                            namespace: namespace,
-                            onTap: { handleTap(article) },
-                            onToggleRead: { Task { await toggleRead(article) } },
-                            onToggleSave: { Task { await toggleSave(article) } },
-                            onRefetch: { Task { await refetchArticle(article) } },
-                            onDelete: { Task { await deleteArticle(article) } },
-                            sourceName: article.originalSourceName,
-                            showUnsaveInsteadOfSave: true
-                        )
-                    }
-                }
+        Section {
+            ForEach(articles) { article in
+                ArticleRowView(
+                    article: article,
+                    namespace: namespace,
+                    onTap: { handleTap(article) },
+                    onToggleRead: { Task { await toggleRead(article) } },
+                    onToggleSave: { Task { await toggleSave(article) } },
+                    onRefetch: { Task { await refetchArticle(article) } },
+                    onDelete: { Task { await deleteArticle(article) } },
+                    sourceName: article.originalSourceName,
+                    showUnsaveInsteadOfSave: true
+                )
+                .listRowInsets(EdgeInsets())
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
             }
+        } header: {
+            sectionHeader
+                .padding(.bottom, 4)
+                .textCase(nil)
         }
         .task {
             await loadArticles()
@@ -64,14 +47,6 @@ struct SavedSectionView: View {
         }
         .onChange(of: coordinator.savedArticlesVersion) { _, _ in
             Task { await loadArticles() }
-        }
-        .sheet(item: $readerSelection) { selection in
-            NavigationStack {
-                ReaderView(article: selection.article, source: selection.source)
-            }
-            .toastOverlay()
-            .presentationDragIndicator(.hidden)
-            .preferredColorScheme(preferredScheme)
         }
     }
 
@@ -163,11 +138,7 @@ struct SavedSectionView: View {
     }
 
     private func openArticle(_ article: Article) async {
-        let source = try? await DatabaseManager.shared.dbPool.read { db in
-            try Source.fetchOne(db, key: article.sourceID)
-        }
-        guard let source else { return }
-        readerSelection = ReaderSelection(article: article, source: source)
+        onOpenArticle(article)
     }
 
     private func markAsReadLocally(_ article: Article) {

@@ -6,6 +6,12 @@ enum NavigationTarget: Hashable {
     case saved
 }
 
+private struct ReaderSelection: Identifiable {
+    let id = UUID()
+    let article: Article
+    let source: Source
+}
+
 struct SourcesListView: View {
     @ObservedObject private var coordinator = FetchCoordinator.shared
     @EnvironmentObject private var toastManager: ToastManager
@@ -21,6 +27,17 @@ struct SourcesListView: View {
     @State private var renameText = ""
     
     @State private var scrollToSourceID: UUID?
+    @State private var readerSelection: ReaderSelection?
+    @Environment(\.colorScheme) private var systemColorScheme
+    @AppStorage("appAppearance") private var appAppearance: String = "system"
+
+    private var preferredScheme: ColorScheme {
+        switch appAppearance {
+        case "light": return .light
+        case "dark": return .dark
+        default: return systemColorScheme
+        }
+    }
 
     var body: some View {
         NavigationStack(path: $navigationPath) {
@@ -123,6 +140,14 @@ struct SourcesListView: View {
                     addSourceInitialURL = nil
                 }
             }
+            .sheet(item: $readerSelection) { selection in
+                NavigationStack {
+                    ReaderView(article: selection.article, source: selection.source)
+                }
+                .toastOverlay()
+                .presentationDragIndicator(.hidden)
+                .preferredColorScheme(preferredScheme)
+            }
             .alert("Edit name", isPresented: Binding(
                 get: { renamingSource != nil },
                 set: { if !$0 { renamingSource = nil } }
@@ -196,44 +221,49 @@ struct SourcesListView: View {
 
     private var sourcesList: some View {
         ScrollViewReader { proxy in
-            ScrollView {
-                LazyVStack(spacing: 24) {
-                    ForEach(sources) { source in
-                        let state = coordinator.sourceStatuses[source.id] ?? .idle
+            List {
+                ForEach(sources) { source in
+                    let state = coordinator.sourceStatuses[source.id] ?? .idle
 
-                        SourceSectionView(
-                            source: source,
-                            refreshState: state,
-                            onViewAll: {
-                                navigationPath.append(NavigationTarget.source(source.id))
-                            },
-                            onRefresh: {
-                                Task {
-                                    await coordinator.refreshSingleSource(source)
-                                    await loadSources()
-                                }
-                            },
-                            onEditName: {
-                                renameText = source.title
-                                renamingSource = source
-                            },
-                            onRemove: {
-                                Task { await removeSource(source) }
+                    SourceSectionView(
+                        source: source,
+                        refreshState: state,
+                        onViewAll: {
+                            navigationPath.append(NavigationTarget.source(source.id))
+                        },
+                        onRefresh: {
+                            Task {
+                                await coordinator.refreshSingleSource(source)
+                                await loadSources()
                             }
-                        )
-                        .id(source.id)
-                    }
-
-                    if hasSavedArticles {
-                        SavedSectionView(
-                            onViewAll: {
-                                navigationPath.append(NavigationTarget.saved)
-                            }
-                        )
-                    }
+                        },
+                        onEditName: {
+                            renameText = source.title
+                            renamingSource = source
+                        },
+                        onRemove: {
+                            Task { await removeSource(source) }
+                        },
+                        onOpenArticle: { article in
+                            openArticleInReader(article)
+                        }
+                    )
+                    .id(source.id)
                 }
-                .padding(.vertical, 12)
+
+                if hasSavedArticles {
+                    SavedSectionView(
+                        onViewAll: {
+                            navigationPath.append(NavigationTarget.saved)
+                        },
+                        onOpenArticle: { article in
+                            openArticleInReader(article)
+                        }
+                    )
+                }
             }
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
             .onChange(of: scrollToSourceID) { _, sourceID in
                 guard let sourceID else { return }
                 withAnimation(Theme.gentleAnimation()) {
@@ -323,6 +353,17 @@ struct SourcesListView: View {
         Image(systemName: "square.stack.3d.down.right.fill")
             .font(.system(size: 20))
             .foregroundStyle(Theme.accentGradient)
+    }
+
+    // MARK: - Reader
+
+    private func openArticleInReader(_ article: Article) {
+        Task {
+            guard let source = try? await DatabaseManager.shared.dbPool.read({ db in
+                try Source.fetchOne(db, key: article.sourceID)
+            }) else { return }
+            readerSelection = ReaderSelection(article: article, source: source)
+        }
     }
 
     // MARK: - Data loading
