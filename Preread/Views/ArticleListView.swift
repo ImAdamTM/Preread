@@ -748,8 +748,6 @@ struct ArticleListView: View {
 // MARK: - Skeleton row
 
 private struct SkeletonRow: View {
-    @State private var shimmerOffset: CGFloat = -200
-
     var body: some View {
         HStack(spacing: 12) {
             RoundedRectangle(cornerRadius: 8)
@@ -769,32 +767,5 @@ private struct SkeletonRow: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
-        .overlay(Theme.reduceMotion ? nil : shimmerOverlay)
-        .onAppear { if !Theme.reduceMotion { startShimmer() } }
-    }
-
-    private var shimmerOverlay: some View {
-        GeometryReader { geo in
-            LinearGradient(
-                colors: [
-                    Theme.borderProminent.opacity(0),
-                    Theme.borderProminent.opacity(0.5),
-                    Theme.borderProminent.opacity(0)
-                ],
-                startPoint: .leading,
-                endPoint: .trailing
-            )
-            .frame(width: 100)
-            .rotationEffect(.degrees(25))
-            .offset(x: shimmerOffset)
-            .frame(width: geo.size.width, height: geo.size.height)
-            .clipped()
-        }
-    }
-
-    private func startShimmer() {
-        withAnimation(.linear(duration: 1.2).repeatForever(autoreverses: false)) {
-            shimmerOffset = 400
-        }
     }
 }
