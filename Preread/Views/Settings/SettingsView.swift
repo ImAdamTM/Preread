@@ -17,7 +17,7 @@ struct SettingsView: View {
 
     // MARK: - Storage
 
-    @AppStorage("articleLimit") private var articleLimit: Int = 100
+    @AppStorage("articleLimit") private var articleLimit: Int = 25
 
     // MARK: - Appearance
 
@@ -343,11 +343,13 @@ struct SettingsView: View {
                 settingLabel("Article limit per source")
                 Spacer()
                 Picker("", selection: $articleLimit) {
+                    Text("25").tag(25)
                     Text("50").tag(50)
+                    Text("75").tag(75)
                     Text("100").tag(100)
                 }
                 .pickerStyle(.segmented)
-                .frame(width: 120)
+                .frame(width: 200)
             }
             .settingsRow()
 

@@ -257,7 +257,7 @@ enum BackgroundTaskManager {
     /// "Saved Pages" source (detached) rather than deleted.
     private static func pruneExcessArticles(for sourceID: UUID) async {
         let limit = UserDefaults.standard.integer(forKey: "articleLimit")
-        let articleLimit = limit > 0 ? limit : 100
+        let articleLimit = limit > 0 ? limit : 25
 
         do {
             let excessArticles = try await DatabaseManager.shared.dbPool.read { db in

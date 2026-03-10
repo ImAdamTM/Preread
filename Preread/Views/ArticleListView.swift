@@ -24,7 +24,7 @@ struct ArticleListView: View {
     @State private var heroTitleMinY: CGFloat = 200
     @AppStorage("appAppearance") private var appAppearance: String = "system"
     @State private var navFaviconImage: UIImage?
-    @AppStorage("articleLimit") private var articleLimit: Int = 100
+    @AppStorage("articleLimit") private var articleLimit: Int = 25
     @State private var searchText = ""
     @State private var lastFetchedAt: Date?
     @State private var articleObservation: AnyDatabaseCancellable?

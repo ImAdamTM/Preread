@@ -540,7 +540,7 @@ final class FetchCoordinator: ObservableObject {
     /// "Saved Pages" source (detached) rather than deleted.
     private func pruneExcessArticles(for sourceID: UUID) async {
         let limit = UserDefaults.standard.integer(forKey: "articleLimit")
-        let articleLimit = limit > 0 ? limit : 100 // default 100
+        let articleLimit = limit > 0 ? limit : 25 // default 25
 
         do {
             // Fetch ALL articles beyond the cap (saved and unsaved)
