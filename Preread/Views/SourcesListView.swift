@@ -291,6 +291,7 @@ struct SourcesListView: View {
                 }
             }
             .listStyle(.plain)
+            .listSectionSpacing(30)
             .scrollContentBackground(.hidden)
             .onChange(of: scrollToSourceID) { _, sourceID in
                 guard let sourceID else { return }

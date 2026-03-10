@@ -65,18 +65,19 @@ struct SourceSectionView: View {
                 .listRowBackground(Color.clear)
             }
 
-            // Section bottom spacer
-            Spacer()
-                .frame(height: 8)
-                .listRowInsets(EdgeInsets())
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.clear)
         } header: {
             sectionHeader
                 .padding(.bottom, 4)
                 .textCase(nil)
         }
         .task {
+            let sourceID = source.id
+            let favicon = await Task.detached(priority: .utility) {
+                await PageCacheService.shared.cachedFavicon(for: sourceID)
+            }.value
+            if let favicon {
+                cachedFavicon = favicon
+            }
             await loadArticles()
             // Observe article changes reactively instead of polling.
             startArticleObservation()
@@ -91,11 +92,11 @@ struct SourceSectionView: View {
             if cachedFavicon == nil && (newValue == .completed || newValue == .idle) {
                 Task {
                     let sourceID = source.id
-                    let image = await Task.detached(priority: .utility) {
+                    let favicon = await Task.detached(priority: .utility) {
                         await PageCacheService.shared.cachedFavicon(for: sourceID)
                     }.value
-                    if let image {
-                        cachedFavicon = image
+                    if let favicon {
+                        cachedFavicon = favicon
                     }
                 }
             }
@@ -190,11 +191,11 @@ struct SourceSectionView: View {
                         if attempt > 0 {
                             try? await Task.sleep(for: .seconds(2))
                         }
-                        let image = await Task.detached(priority: .utility) {
+                        let favicon = await Task.detached(priority: .utility) {
                             await PageCacheService.shared.cachedFavicon(for: sourceID)
                         }.value
-                        if let image {
-                            cachedFavicon = image
+                        if let favicon {
+                            cachedFavicon = favicon
                             return
                         }
                     }
