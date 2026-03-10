@@ -78,7 +78,7 @@ struct ArticleRowView: View {
             }
             .contentShape(Rectangle())
             .padding(.horizontal, 14)
-            .padding(.vertical, 20)
+            .padding(.vertical, 14)
             .frame(minHeight: 96)
             .overlay(alignment: .bottom) {
                 Theme.borderProminent
@@ -209,17 +209,17 @@ struct ArticleRowView: View {
                         .resizable()
                         .interpolation(.high)
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 28, height: 28)
+                        .frame(width: 34, height: 34)
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                         .saturation(1)
                         .opacity(0.7)
                 }
-                .frame(width: 64, height: 64)
+                .frame(width: 80, height: 80)
             } else if let uiImage = cachedThumbnailImage {
                 Image(uiImage: uiImage)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 64, height: 64)
+                    .frame(width: 80, height: 80)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
             } else if thumbnailLoaded {
                 gradientPlaceholder
@@ -256,7 +256,7 @@ struct ArticleRowView: View {
             for ext in ["jpg", "jpeg", "png", "webp", "gif", "avif"] {
                 let path = articleDir.appendingPathComponent("thumbnail.\(ext)")
                 if FileManager.default.fileExists(atPath: path.path) {
-                    if let img = Self.downsampledImage(at: path, maxPixels: 192) {
+                    if let img = Self.downsampledImage(at: path, maxPixels: 240) {
                         return (img, false)
                     }
                 }
@@ -312,7 +312,7 @@ struct ArticleRowView: View {
                 .font(.system(size: 24, weight: .bold))
                 .foregroundColor(.white)
         }
-        .frame(width: 64, height: 64)
+        .frame(width: 80, height: 80)
     }
 
     // MARK: - Status label

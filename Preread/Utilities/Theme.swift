@@ -79,13 +79,20 @@ struct Theme {
 
     /// Six deterministic gradient pairs for letter-avatars and storage bar.
     static let avatarGradients: [(Color, Color)] = [
-        (Color(hex: "5B5BDE"), Color(hex: "A855F7")),
-        (Color(hex: "22D3EE"), Color(hex: "5B5BDE")),
+        (Color(hex: "6B6BF0"), Color(hex: "A855F7")),
+        (Color(hex: "22D3EE"), Color(hex: "6B6BF0")),
         (Color(hex: "34D399"), Color(hex: "22D3EE")),
         (Color(hex: "E8A020"), Color(hex: "F87171")),
         (Color(hex: "A855F7"), Color(hex: "F87171")),
         (Color(hex: "5B5BDE"), Color(hex: "34D399")),
     ]
+
+    /// Returns the raw color pair for a given source title.
+    static func avatarGradientColors(for title: String) -> (Color, Color) {
+        let hash = title.utf8.reduce(0) { ($0 &* 31) &+ Int($1) }
+        let index = abs(hash) % avatarGradients.count
+        return avatarGradients[index]
+    }
 
     /// Returns a consistent gradient for a given source title.
     static func avatarGradient(for title: String) -> LinearGradient {

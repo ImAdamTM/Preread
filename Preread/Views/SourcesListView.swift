@@ -222,6 +222,15 @@ struct SourcesListView: View {
     private var sourcesList: some View {
         ScrollViewReader { proxy in
             List {
+                if !sources.isEmpty {
+                    Text("Your Prereads")
+                        .font(.system(size: 28, weight: .regular))
+                        .foregroundColor(Theme.textPrimary)
+                        .listRowInsets(EdgeInsets(top: 16, leading: 16, bottom: 8, trailing: 16))
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                }
+
                 ForEach(sources) { source in
                     let state = coordinator.sourceStatuses[source.id] ?? .idle
 

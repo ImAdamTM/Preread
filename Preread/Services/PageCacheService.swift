@@ -1106,7 +1106,7 @@ actor PageCacheService {
 
     /// Downloads the article thumbnail and saves two downsampled versions:
     /// - `thumbnail.jpg` — 600px, for hero backdrops, cards, and larger displays
-    /// - `thumb.jpg` — 192px, for 64pt list row thumbnails
+    /// - `thumb.jpg` — 240px, for 80pt list row thumbnails
     /// The original full-size image is not kept on disk.
     private func cacheThumbnail(url: URL, to articleDir: URL) async {
         do {
@@ -1125,8 +1125,8 @@ actor PageCacheService {
                 try jpegData.write(to: articleDir.appendingPathComponent("thumbnail.jpg"))
             }
 
-            // Small size (192px = 64pt × 3x) for list row thumbnails
-            if let small = downsampleCGImage(source: source, maxPixels: 192),
+            // Small size (240px = 80pt × 3x) for list row thumbnails
+            if let small = downsampleCGImage(source: source, maxPixels: 240),
                let jpegData = UIImage(cgImage: small).jpegData(compressionQuality: 0.7) {
                 try jpegData.write(to: articleDir.appendingPathComponent("thumb.jpg"))
             }

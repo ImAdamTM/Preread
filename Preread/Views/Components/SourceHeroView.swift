@@ -23,11 +23,13 @@ struct HeroTitleScrollTracker: ViewModifier {
 struct SourceHeroView: View {
     let source: Source
     let isRefreshing: Bool
+    let articleCount: Int
     let onSettingsTapped: () -> Void
     let onRefreshTapped: () -> Void
     var onTitlePositionChange: ((CGFloat) -> Void)?
 
     @State private var iconImage: UIImage?
+    @State private var fallbackGradientImage: UIImage?
 
     var body: some View {
         VStack(spacing: 0) {
@@ -87,7 +89,6 @@ struct SourceHeroView: View {
                 gradientFallbackBackground
             }
         }
-        .clipped()
         .opacity(0.3)
         .mask(
             LinearGradient(
@@ -102,10 +103,31 @@ struct SourceHeroView: View {
         )
     }
 
+    @ViewBuilder
     private var gradientFallbackBackground: some View {
-        Rectangle()
-            .fill(Theme.avatarGradient(for: source.title))
-            .blur(radius: 30)
+        if let img = fallbackGradientImage {
+            Image(uiImage: img)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .blur(radius: 40)
+                .clipped()
+        } else {
+            Color.clear
+                .task {
+                    fallbackGradientImage = Self.makeGradientImage(for: source.title)
+                }
+        }
+    }
+
+    private static func makeGradientImage(for title: String) -> UIImage {
+        let size = CGSize(width: 64, height: 64)
+        let renderer = UIGraphicsImageRenderer(size: size)
+        let colors = Theme.avatarGradientColors(for: title)
+        return renderer.image { ctx in
+            let cgColors = [UIColor(colors.0).cgColor, UIColor(colors.1).cgColor]
+            guard let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: cgColors as CFArray, locations: [0, 1]) else { return }
+            ctx.cgContext.drawLinearGradient(gradient, start: .zero, end: CGPoint(x: size.width, y: 0), options: [.drawsBeforeStartLocation, .drawsAfterEndLocation])
+        }
     }
 
     // MARK: - Hero favicon (large)
@@ -142,7 +164,7 @@ struct SourceHeroView: View {
     private var lastUpdatedLabel: some View {
         Group {
             if let lastFetched = source.lastFetchedAt {
-                Text("Updated \(RelativeTimeFormatter.string(from: lastFetched))")
+                Text("\(articleCount) article\(articleCount == 1 ? "" : "s") · Updated \(RelativeTimeFormatter.string(from: lastFetched))")
             } else {
                 Text("Not yet synced")
             }

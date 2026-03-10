@@ -206,6 +206,7 @@ struct ArticleListView: View {
         SourceHeroView(
             source: displaySource,
             isRefreshing: coordinator.sourceStatuses[source.id] == .refreshing,
+            articleCount: articles.count,
             onSettingsTapped: { showSourceSettings = true },
             onRefreshTapped: {
                 Task { await FetchCoordinator.shared.refreshSingleSource(currentSource) }

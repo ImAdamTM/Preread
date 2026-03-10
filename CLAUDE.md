@@ -94,6 +94,7 @@ Before introducing any of the following patterns, **flag the performance implica
 - **Runtime JS evaluation in web views** — batch or debounce calls (e.g. text size slider) rather than evaluating on every state change. Prefer doing work at cache/build time over runtime when possible.
 - **Continuous observation of high-frequency state** (e.g. `.onChange` on a value that updates many times per second) — debounce or throttle the downstream work.
 - **Background tasks that iterate large datasets** — ensure they yield (`Task.sleep`, batching) and don't block the main thread.
+- **Work inside SwiftUI `body`** — `body` re-evaluates on every state change and during scrolling. Never create `UIImage`, run `UIGraphicsImageRenderer`, or do other non-trivial computation inline in `body`. Cache results in `@State` and generate them once via `.task` or `onAppear`.
 
 The general principle: **if something runs repeatedly, ask whether it needs to**. One-shot or reactive approaches are always preferred over polling or continuous loops.
 

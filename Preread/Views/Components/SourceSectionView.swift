@@ -20,6 +20,21 @@ struct SourceSectionView: View {
 
     var body: some View {
         Section {
+            if articles.isEmpty && (refreshState == .refreshing || isAutoCaching) {
+                HStack(spacing: 8) {
+                    ProgressView()
+                        .controlSize(.small)
+                        .tint(Theme.textSecondary)
+                    Text("Loading articles...")
+                        .font(Theme.scaledFont(size: 15))
+                        .foregroundColor(Theme.textSecondary)
+                }
+                .padding(.vertical, 12)
+                .padding(.horizontal, 16)
+                .listRowInsets(EdgeInsets())
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
+            }
             ForEach(articles) { article in
                 ArticleRowView(
                     article: article,
