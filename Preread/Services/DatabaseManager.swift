@@ -72,6 +72,7 @@ final class DatabaseManager {
                 t.column("lastHTTPStatus", .integer)
                 t.column("etag", .text)
                 t.column("lastModified", .text)
+                t.column("retryCount", .integer).notNull().defaults(to: 0)
             }
 
             // cachedPage table

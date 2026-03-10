@@ -85,6 +85,18 @@ Bad (site-specific):
 
 If a site has layout problems after caching, the fix should work across any site with the same structural pattern (e.g. hidden popovers, empty wrappers, noscript fallbacks).
 
+## Performance and battery
+
+Before introducing any of the following patterns, **flag the performance implications** and discuss alternatives with the user first:
+
+- **Polling loops** (`Task.sleep` + retry) — prefer reactive observation (e.g. GRDB `ValueObservation`, Combine publishers, `AsyncSequence`) so work only happens when data actually changes.
+- **Repeating animations** (`.repeatForever`, `TimelineView` with high refresh rates) — each one keeps the GPU active and prevents the display from dropping to lower refresh rates. Evaluate whether the animation is visible and necessary.
+- **Runtime JS evaluation in web views** — batch or debounce calls (e.g. text size slider) rather than evaluating on every state change. Prefer doing work at cache/build time over runtime when possible.
+- **Continuous observation of high-frequency state** (e.g. `.onChange` on a value that updates many times per second) — debounce or throttle the downstream work.
+- **Background tasks that iterate large datasets** — ensure they yield (`Task.sleep`, batching) and don't block the main thread.
+
+The general principle: **if something runs repeatedly, ask whether it needs to**. One-shot or reactive approaches are always preferred over polling or continuous loops.
+
 ## Problem-solving approach
 
 When a fix attempt fails, **do not guess at another fix**. Instead:

@@ -28,6 +28,7 @@ struct Article: Identifiable, Codable, Hashable, FetchableRecord, PersistableRec
     var lastHTTPStatus: Int?
     var etag: String?
     var lastModified: String?
+    var retryCount: Int
 
     static let databaseTableName = "article"
 }

@@ -385,7 +385,10 @@ struct SourceSectionView: View {
     }
 
     private func refetchArticle(_ article: Article) async {
+        var article = article
+        article.retryCount = 0
         if let index = articles.firstIndex(where: { $0.id == article.id }) {
+            articles[index].retryCount = 0
             withAnimation(.easeInOut(duration: 0.2)) {
                 articles[index].fetchStatus = .fetching
             }

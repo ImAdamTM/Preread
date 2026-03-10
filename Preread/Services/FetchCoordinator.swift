@@ -143,6 +143,10 @@ final class FetchCoordinator: ObservableObject {
     /// These are prioritised during multi-source refreshes.
     private let visibleArticleCount = 5
 
+    /// Maximum number of automatic cache retries before an article is
+    /// left as .failed until the user manually re-fetches it.
+    private let maxAutoRetries = 2
+
     /// Result of parsing a feed and preparing articles for caching.
     private struct FeedParseResult {
         let source: Source
@@ -318,7 +322,10 @@ final class FetchCoordinator: ObservableObject {
                 if var existing = existingByURL[urlString] ?? existingByTitle[item.title] {
                     switch existing.fetchStatus {
                     case .pending, .failed:
-                        needsCaching.append(existing)
+                        // Skip articles that have already failed too many times
+                        if existing.retryCount < self.maxAutoRetries {
+                            needsCaching.append(existing)
+                        }
 
                     case .fetching:
                         break
@@ -374,7 +381,8 @@ final class FetchCoordinator: ObservableObject {
                         cacheSizeBytes: nil,
                         lastHTTPStatus: nil,
                         etag: nil,
-                        lastModified: nil
+                        lastModified: nil,
+                        retryCount: 0
                     )
                     do {
                         try await DatabaseManager.shared.dbPool.write { db in
@@ -419,6 +427,7 @@ final class FetchCoordinator: ObservableObject {
                     .filter([ArticleFetchStatus.pending.rawValue,
                              ArticleFetchStatus.failed.rawValue]
                         .contains(Column("fetchStatus")))
+                    .filter(Column("retryCount") < self.maxAutoRetries)
                     .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
                     .limit(retryLimit)
                     .fetchAll(db)
@@ -462,6 +471,10 @@ final class FetchCoordinator: ObservableObject {
             var seenTitles = Set<String>()
             for item in items {
                 if limit > 0, inserted.count >= limit { break }
+
+                // Skip URLs that are clearly not articles (login pages,
+                // auth endpoints, account portals, etc.)
+                guard !Self.isNonArticleURL(item.url) else { continue }
 
                 // Skip duplicate titles (Google News feeds can contain
                 // the same article with different redirect URLs)
@@ -508,7 +521,8 @@ final class FetchCoordinator: ObservableObject {
                     cacheSizeBytes: nil,
                     lastHTTPStatus: nil,
                     etag: nil,
-                    lastModified: nil
+                    lastModified: nil,
+                    retryCount: 0
                 )
                 try article.insert(db)
                 inserted.append(article)
@@ -587,5 +601,48 @@ final class FetchCoordinator: ObservableObject {
         try await DatabaseManager.shared.dbPool.write { db in
             try source.update(db)
         }
+    }
+
+    // MARK: - URL filtering
+
+    /// Returns true if the URL is clearly not an article and should be
+    /// excluded from the feed. Matches generic patterns like login pages,
+    /// auth endpoints, and account portals — not site-specific selectors.
+    nonisolated static func isNonArticleURL(_ url: URL) -> Bool {
+        let path = url.path.lowercased()
+        let host = url.host?.lowercased() ?? ""
+
+        // Hosts that are entirely auth/account subdomains
+        let authHostPrefixes = ["accounts.", "account.", "auth.", "login.", "signin.", "sso."]
+        if authHostPrefixes.contains(where: { host.hasPrefix($0) }) {
+            return true
+        }
+
+        // Path segments that indicate non-article pages
+        let authPathSegments = [
+            "/login", "/signin", "/sign-in", "/signup", "/sign-up",
+            "/register", "/auth", "/oauth", "/sso",
+            "/password", "/forgot-password", "/reset-password",
+            "/logout", "/signout", "/sign-out",
+            "/subscribe", "/subscription", "/checkout", "/payment",
+            "/unsubscribe", "/preferences/notifications",
+        ]
+        for segment in authPathSegments {
+            if path == segment || path.hasPrefix(segment + "/") || path.hasPrefix(segment + "?") {
+                return true
+            }
+        }
+
+        // Query parameters that indicate redirected auth flows
+        let authQueryParams = ["post_login_redirect", "redirect_uri", "return_to", "login_challenge"]
+        if let query = url.query?.lowercased() {
+            for param in authQueryParams {
+                if query.contains(param + "=") {
+                    return true
+                }
+            }
+        }
+
+        return false
     }
 }

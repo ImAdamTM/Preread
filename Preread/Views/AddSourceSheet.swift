@@ -1040,7 +1040,8 @@ struct AddSourceSheet: View {
                 cacheSizeBytes: nil,
                 lastHTTPStatus: nil,
                 etag: nil,
-                lastModified: nil
+                lastModified: nil,
+                retryCount: 0
             )
 
             try await DatabaseManager.shared.dbPool.write { db in

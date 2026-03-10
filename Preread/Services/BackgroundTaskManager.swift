@@ -199,7 +199,8 @@ enum BackgroundTaskManager {
                         cacheSizeBytes: nil,
                         lastHTTPStatus: nil,
                         etag: nil,
-                        lastModified: nil
+                        lastModified: nil,
+                        retryCount: 0
                     )
 
                     // Insert temporarily so cacheArticle can find & update it

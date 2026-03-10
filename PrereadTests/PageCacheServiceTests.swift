@@ -43,7 +43,8 @@ private func makeArticle(sourceID: UUID, url: String, fetchStatus: ArticleFetchS
         cacheSizeBytes: nil,
         lastHTTPStatus: nil,
         etag: nil,
-        lastModified: nil
+        lastModified: nil,
+        retryCount: 0
     )
     try DatabaseManager.shared.dbPool.write { db in
         try article.save(db)

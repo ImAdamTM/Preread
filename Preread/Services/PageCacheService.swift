@@ -187,6 +187,7 @@ actor PageCacheService {
                     article.fetchStatus = .cached
                 } else {
                     article.fetchStatus = .failed
+                    article.retryCount += 1
                 }
                 try? updateArticle(&article)
             }
@@ -419,6 +420,7 @@ actor PageCacheService {
         guard var pageURL = URL(string: article.articleURL) else {
             if !wasPreviouslyCached {
                 article.fetchStatus = .failed
+                article.retryCount += 1
                 try updateArticle(&article)
             }
             return
@@ -454,6 +456,7 @@ actor PageCacheService {
                 article.fetchStatus = .cached
             } else {
                 article.fetchStatus = .failed
+                article.retryCount += 1
             }
             try updateArticle(&article)
             return
@@ -464,6 +467,7 @@ actor PageCacheService {
                 article.fetchStatus = .cached
             } else {
                 article.fetchStatus = .failed
+                article.retryCount += 1
             }
             try updateArticle(&article)
             return
@@ -485,6 +489,7 @@ actor PageCacheService {
                 article.etag = nil
                 article.lastModified = nil
                 article.fetchStatus = .failed
+                article.retryCount += 1
                 try updateArticle(&article)
             }
             return
@@ -509,6 +514,7 @@ actor PageCacheService {
                 article.fetchStatus = .cached
             } else {
                 article.fetchStatus = .failed
+                article.retryCount += 1
             }
             try updateArticle(&article)
             return
@@ -523,6 +529,7 @@ actor PageCacheService {
                 article.fetchStatus = .cached
             } else {
                 article.fetchStatus = .failed
+                article.retryCount += 1
             }
             try updateArticle(&article)
             return
