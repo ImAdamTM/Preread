@@ -16,6 +16,7 @@ struct SourceSectionView: View {
     @State private var cachedFavicon: UIImage?
     @State private var showDeleteConfirmation = false
     @State private var isAutoCaching = false
+    @State private var articleObservation: AnyDatabaseCancellable?
 
     var body: some View {
         Section {
@@ -40,25 +41,15 @@ struct SourceSectionView: View {
         }
         .task {
             await loadArticles()
-            // If a refresh is already in progress when the view appears
-            // (e.g. newly added source), start polling immediately
-            if refreshState == .refreshing || coordinator.isFetching {
-                await pollWhileRefreshing()
-            } else {
-                // Auto-cache any visible pending/failed articles (e.g. after
-                // cache wipe or integrity checker reset)
+            // Observe article changes reactively instead of polling.
+            startArticleObservation()
+            // Auto-cache any visible pending/failed articles (e.g. after
+            // cache wipe or integrity checker reset) when not refreshing
+            if refreshState != .refreshing && !coordinator.isFetching {
                 await cacheUncachedArticles()
             }
         }
         .onChange(of: refreshState) { oldValue, newValue in
-            if newValue == .refreshing {
-                // Poll for article updates while this source is refreshing
-                // (covers single-source refresh where isFetching isn't set)
-                Task { await pollWhileRefreshing() }
-            }
-            if newValue == .completed || newValue == .idle {
-                Task { await loadArticles() }
-            }
             // Re-check favicon after refresh completes
             if cachedFavicon == nil && (newValue == .completed || newValue == .idle) {
                 Task {
@@ -72,21 +63,12 @@ struct SourceSectionView: View {
                 }
             }
         }
-        .onChange(of: coordinator.isFetching) { oldValue, newValue in
-            if newValue {
-                // Poll for article updates during bulk refresh
-                Task { await pollWhileRefreshing() }
-            } else if oldValue {
-                // Final reload when fetch cycle completes
-                Task { await loadArticles() }
-            }
-        }
         .onChange(of: coordinator.startupComplete) { _, complete in
             if complete {
                 // IntegrityChecker may have reset articles from .cached to
-                // .pending — reload and re-cache any that need it
+                // .pending — re-cache any that need it (article list updates
+                // are handled automatically by the database observation)
                 Task {
-                    await loadArticles()
                     await cacheUncachedArticles()
                 }
             }
@@ -223,14 +205,25 @@ struct SourceSectionView: View {
 
     // MARK: - Data loading
 
-    /// Polls for article changes while a refresh is in progress,
-    /// so articles appear on the home screen as they're cached.
-    /// Covers both bulk refresh (isFetching) and single-source refresh (refreshState).
-    private func pollWhileRefreshing() async {
-        while refreshState == .refreshing || coordinator.isFetching {
-            try? await Task.sleep(for: .seconds(2))
-            guard refreshState == .refreshing || coordinator.isFetching else { break }
-            await loadArticles()
+    /// Starts a GRDB ValueObservation that reactively updates articles
+    /// whenever the database changes, replacing the old 2-second polling loop.
+    private func startArticleObservation() {
+        let sourceID = source.id
+        let observation = ValueObservation.tracking { db in
+            try Article
+                .filter(Column("sourceID") == sourceID)
+                .filter(Column("fetchStatus") != ArticleFetchStatus.failed.rawValue)
+                .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
+                .limit(5)
+                .fetchAll(db)
+        }
+        articleObservation = observation.start(
+            in: DatabaseManager.shared.dbPool,
+            scheduling: .async(onQueue: .main)
+        ) { error in
+            // Observation failed — keep existing articles
+        } onChange: { newArticles in
+            articles = newArticles
         }
     }
 
@@ -269,7 +262,6 @@ struct SourceSectionView: View {
                 }
             }
             try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
-            await loadArticles()
         }
         isAutoCaching = false
     }
@@ -337,14 +329,16 @@ struct SourceSectionView: View {
 
         let cacheLevel = source.cacheLevel ?? .standard
         try? await PageCacheService.shared.cacheArticle(articleToCache, cacheLevel: cacheLevel)
-        await loadArticles()
 
-        if let updatedIndex = articles.firstIndex(where: { $0.id == article.id }) {
-            let updated = articles[updatedIndex]
-            if openOnSuccess, updated.fetchStatus == .cached || updated.fetchStatus == .partial {
-                markAsReadLocally(updated)
-                onOpenArticle(updated)
-            }
+        // Read the updated article directly from the DB (the observation
+        // will update the list, but we need the status now for openOnSuccess)
+        if openOnSuccess,
+           let updated = try? await DatabaseManager.shared.dbPool.read({ db in
+               try Article.fetchOne(db, key: article.id)
+           }),
+           updated.fetchStatus == .cached || updated.fetchStatus == .partial {
+            markAsReadLocally(updated)
+            onOpenArticle(updated)
         }
     }
 
@@ -398,7 +392,6 @@ struct SourceSectionView: View {
         }
         let cacheLevel = source.cacheLevel ?? .standard
         try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel, forceReprocess: true)
-        await loadArticles()
     }
 
     private func deleteArticle(_ article: Article) async {

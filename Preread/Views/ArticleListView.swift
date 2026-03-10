@@ -27,6 +27,7 @@ struct ArticleListView: View {
     @AppStorage("articleLimit") private var articleLimit: Int = 100
     @State private var searchText = ""
     @State private var lastFetchedAt: Date?
+    @State private var articleObservation: AnyDatabaseCancellable?
 
     private var preferredScheme: ColorScheme {
         switch appAppearance {
@@ -88,11 +89,10 @@ struct ArticleListView: View {
                 deepLinkRouter.pendingArticleID = nil
             }
 
-            // If we arrived while a refresh is already in progress, start
-            // polling immediately — .onChange won't fire for the current state.
-            if coordinator.sourceStatuses[source.id] == .refreshing {
-                Task { await pollWhileRefreshing() }
-            }
+            // Observe article changes reactively instead of polling.
+            // ValueObservation fires whenever articles for this source
+            // are inserted, updated, or deleted in the database.
+            startArticleObservation()
 
             // Retry any pending/failed articles in the background
             let retrySource = currentSource
@@ -115,11 +115,8 @@ struct ArticleListView: View {
         .onChange(of: coordinator.sourceStatuses[source.id]) { _, newState in
             if newState == .completed || newState == .idle {
                 Task {
-                    await loadArticles()
                     await reloadSourceFromDB()
                 }
-            } else if newState == .refreshing {
-                Task { await pollWhileRefreshing() }
             }
         }
         .sheet(item: $failedArticle) { article in
@@ -427,10 +424,12 @@ struct ArticleListView: View {
 
         let cacheLevel = currentCacheLevel
         try? await PageCacheService.shared.cacheArticle(articleToCache, cacheLevel: cacheLevel)
-        await loadArticles()
 
-        if let updatedIndex = articles.firstIndex(where: { $0.id == article.id }) {
-            let updated = articles[updatedIndex]
+        // Read the updated article directly from the DB (the observation
+        // will update the list, but we need the status now for openOnSuccess)
+        if let updated = try? await DatabaseManager.shared.dbPool.read({ db in
+            try Article.fetchOne(db, key: article.id)
+        }) {
             if updated.fetchStatus == .failed {
                 failedArticle = updated
             } else if openOnSuccess, updated.fetchStatus == .cached || updated.fetchStatus == .partial {
@@ -490,7 +489,6 @@ struct ArticleListView: View {
         }
         let cacheLevel = currentCacheLevel
         try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel, forceReprocess: true)
-        await loadArticles()
     }
 
     private func deleteArticle(_ article: Article) async {
@@ -650,13 +648,25 @@ struct ArticleListView: View {
 
     // MARK: - Data loading
 
-    /// Polls for article changes while the source is refreshing.
-    /// Called both when entering mid-refresh and when a refresh starts.
-    private func pollWhileRefreshing() async {
-        while coordinator.sourceStatuses[source.id] == .refreshing {
-            try? await Task.sleep(for: .seconds(1))
-            guard coordinator.sourceStatuses[source.id] == .refreshing else { break }
-            await loadArticles()
+    /// Starts a GRDB ValueObservation that reactively updates articles
+    /// whenever the database changes, replacing the old 1-second polling loop.
+    private func startArticleObservation() {
+        let sourceID = source.id
+        let limit = articleLimit
+        let observation = ValueObservation.tracking { db in
+            try Article
+                .filter(Column("sourceID") == sourceID)
+                .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
+                .limit(limit)
+                .fetchAll(db)
+        }
+        articleObservation = observation.start(
+            in: DatabaseManager.shared.dbPool,
+            scheduling: .async(onQueue: .main)
+        ) { error in
+            // Observation failed — keep existing articles
+        } onChange: { newArticles in
+            articles = newArticles
         }
     }
 
@@ -724,17 +734,11 @@ struct ArticleListView: View {
                 }
                 for (index, article) in sorted.enumerated() {
                     try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
-                    // Refresh the list periodically so the user sees progress
-                    if (index + 1) % 5 == 0 || index == sorted.count - 1 {
-                        await loadArticles()
-                    }
                     if index < sorted.count - 1 {
                         try? await Task.sleep(for: .milliseconds(200))
                     }
                 }
             }
-
-            await loadArticles()
         } catch {
             ToastManager.shared.show("Couldn't load more articles", type: .error)
         }
