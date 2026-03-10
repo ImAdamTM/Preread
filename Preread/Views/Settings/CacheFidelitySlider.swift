@@ -32,12 +32,14 @@ struct CacheFidelitySlider: View {
                 Image(systemName: icon)
                     .font(.system(size: 18))
                     .foregroundColor(isSelected ? .white : Theme.textPrimary)
-                Text(title)
-                    .font(Theme.scaledFont(size: 14, weight: .semibold, relativeTo: .subheadline))
-                    .foregroundColor(isSelected ? .white : Theme.textPrimary)
-                Text(subtitle)
-                    .font(Theme.scaledFont(size: 11, relativeTo: .caption))
-                    .foregroundColor(isSelected ? .white.opacity(0.7) : Theme.textSecondary)
+                VStack(spacing: 2) {
+                    Text(title)
+                        .font(Theme.scaledFont(size: 14, weight: .semibold, relativeTo: .subheadline))
+                        .foregroundColor(isSelected ? .white : Theme.textPrimary)
+                    Text(subtitle)
+                        .font(Theme.scaledFont(size: 11, relativeTo: .caption))
+                        .foregroundColor(isSelected ? .white.opacity(0.7) : Theme.textSecondary)
+                }
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 12)

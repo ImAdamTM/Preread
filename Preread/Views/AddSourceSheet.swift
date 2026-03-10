@@ -77,12 +77,6 @@ struct AddSourceSheet: View {
         ]
     }
 
-    private let popularPicks: [(name: String, url: String)] = [
-        ("The Verge", "https://www.theverge.com"),
-        ("Ars Technica", "https://arstechnica.com"),
-        ("kottke.org", "https://kottke.org"),
-    ]
-
     // MARK: - Body
 
     var body: some View {
@@ -153,16 +147,21 @@ struct AddSourceSheet: View {
 
     private var inputState: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text("Add a source")
-                .font(.system(size: 28, weight: .bold))
-                .foregroundColor(Theme.textPrimary)
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Add a source")
+                    .font(.system(size: 28, weight: .regular))
+                    .foregroundColor(Theme.textPrimary)
+                Text("Paste a link or search for a topic to get started")
+                    .font(.system(size: 15))
+                    .foregroundColor(Theme.textSecondary)
+            }
 
             // URL field
             HStack {
-                TextField("Paste a URL or search a topic", text: $urlText)
+                TextField("Paste a link or search a topic", text: $urlText)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
-                    .keyboardType(isSearchMode ? .default : .URL)
+                    .keyboardType(.default)
                     .font(.system(size: 16))
                     .foregroundColor(Theme.textPrimary)
                     .focused($isURLFieldFocused)
@@ -183,36 +182,6 @@ struct AddSourceSheet: View {
             .padding(.vertical, 14)
             .background(Theme.surfaceRaised)
             .clipShape(RoundedRectangle(cornerRadius: 12))
-
-            // Popular picks
-            VStack(alignment: .leading, spacing: 10) {
-                Text("Popular picks")
-                    .font(.system(size: 13, weight: .medium))
-                    .foregroundColor(Theme.textSecondary)
-
-                HStack(spacing: 8) {
-                    ForEach(popularPicks, id: \.url) { pick in
-                        Button {
-                            urlText = pick.url
-                            startDetection()
-                        } label: {
-                            Text(pick.name)
-                                .font(.system(size: 13, weight: .medium))
-                                .foregroundColor(Theme.textPrimary)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 7)
-                                .background(Theme.surfaceRaised)
-                                .clipShape(Capsule())
-                                .overlay(
-                                    Capsule()
-                                        .stroke(Theme.border, lineWidth: 1)
-                                )
-                        }
-                    }
-                }
-            }
-
-            Spacer().frame(height: 8)
 
             let isEmpty = urlText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
 
@@ -257,7 +226,7 @@ struct AddSourceSheet: View {
     private var detectingState: some View {
         VStack(alignment: .leading, spacing: 20) {
             Text("Add a source")
-                .font(.system(size: 28, weight: .bold))
+                .font(.system(size: 28, weight: .regular))
                 .foregroundColor(Theme.textPrimary)
 
             // Locked URL field
@@ -274,43 +243,47 @@ struct AddSourceSheet: View {
             .background(Theme.surfaceRaised)
             .clipShape(RoundedRectangle(cornerRadius: 12))
 
-            Spacer().frame(height: 8)
-
-            // CTA with spinner
+            // Spinner + cycling text (inline, not a button)
             HStack(spacing: 10) {
                 ProgressView()
-                    .tint(.white)
+                    .tint(Theme.accent)
 
                 ZStack {
                     Text(cyclingTexts[cyclingTextIndex])
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(.white)
+                        .font(.system(size: 15, weight: .medium))
+                        .foregroundColor(Theme.textSecondary)
                         .opacity(cyclingTextOpacity)
                         .offset(y: cyclingTextOffset)
-
-                    // Shimmer highlight masked to text
-                    if !Theme.reduceMotion {
-                        Text(cyclingTexts[cyclingTextIndex])
-                            .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.clear)
-                            .overlay(detectingShimmerOverlay)
-                            .mask(
-                                Text(cyclingTexts[cyclingTextIndex])
-                                    .font(.system(size: 16, weight: .semibold))
-                            )
-                            .opacity(cyclingTextOpacity)
-                            .offset(y: cyclingTextOffset)
-                    }
                 }
             }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 16)
-            .background(Theme.accentGradient)
-            .clipShape(RoundedRectangle(cornerRadius: 14))
+            .frame(maxWidth: .infinity, alignment: .leading)
             .onAppear {
                 if !Theme.reduceMotion {
                     startDetectingShimmer()
                 }
+            }
+
+            // Disabled placeholder buttons to maintain height
+            HStack(spacing: 10) {
+                Text("Search for articles")
+                    .font(.system(size: 15, weight: .semibold))
+                    .foregroundColor(.white.opacity(0.5))
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 16)
+                    .background(Color.gray.opacity(0.3))
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
+
+                Text("Save single page")
+                    .font(.system(size: 15, weight: .semibold))
+                    .foregroundColor(Theme.textSecondary.opacity(0.3))
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 16)
+                    .background(Theme.surfaceRaised.opacity(0.5))
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 14)
+                            .stroke(Theme.border.opacity(0.3), lineWidth: 1)
+                    )
             }
         }
     }
@@ -319,6 +292,11 @@ struct AddSourceSheet: View {
 
     private var feedFoundState: some View {
         VStack(spacing: 16) {
+            Text("Ready to Preread")
+                .font(.system(size: 28, weight: .regular))
+                .foregroundColor(Theme.textPrimary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
             // Feed header — favicon left, details right
             HStack(spacing: 14) {
                 // Favicon — show real icon if fetched, else letter avatar
@@ -463,6 +441,11 @@ struct AddSourceSheet: View {
 
     private var savePageState: some View {
         VStack(spacing: 16) {
+            Text("Ready to Preread")
+                .font(.system(size: 28, weight: .regular))
+                .foregroundColor(Theme.textPrimary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
             // Page header — favicon left, URL right
             HStack(spacing: 14) {
                 // Favicon (letter avatar; real favicon is cached when page is saved)
@@ -660,7 +643,7 @@ struct AddSourceSheet: View {
         return Button {
             selectedFrequency = frequency
         } label: {
-            VStack(spacing: 4) {
+            VStack(spacing: 2) {
                 Text(title)
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(isSelected ? .white : Theme.textPrimary)
@@ -802,7 +785,7 @@ struct AddSourceSheet: View {
 
                     stopCyclingTimer()
                     detectedFeed = feed
-                    editableName = raw
+                    editableName = raw.capitalized
                     sheetState = .feedFound
                     fetchPreviewFavicon(for: feed)
                 } catch {

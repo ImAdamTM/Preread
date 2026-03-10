@@ -597,7 +597,7 @@ struct ArticleListView: View {
         return Button {
             currentFetchFrequency = frequency
         } label: {
-            VStack(spacing: 4) {
+            VStack(spacing: 2) {
                 Text(title)
                     .font(Theme.scaledFont(size: 14, weight: .semibold, relativeTo: .subheadline))
                     .foregroundColor(isSelected ? .white : Theme.textPrimary)
