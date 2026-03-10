@@ -5,6 +5,9 @@ import GRDB
 struct AddSourceSheet: View {
     @Environment(\.dismiss) private var dismiss
 
+    /// Optional URL to pre-fill and auto-detect. Used by the Share Extension deep link.
+    var initialURL: String? = nil
+
     /// Called when a source is successfully added, passing the new source ID.
     var onSourceAdded: ((UUID) -> Void)?
 
@@ -136,6 +139,9 @@ struct AddSourceSheet: View {
             Text("You've reached the maximum of \(Source.maxSources) sources. Remove a source in Settings to make room.")
         }
         .onAppear {
+            if let url = initialURL, !url.isEmpty {
+                urlText = url
+            }
             isURLFieldFocused = true
         }
         .onDisappear {

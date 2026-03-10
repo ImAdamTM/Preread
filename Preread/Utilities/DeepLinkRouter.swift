@@ -5,12 +5,15 @@ import SwiftUI
 /// Supported URLs:
 /// - `preread://source/{uuid}` — opens that source's article list
 /// - `preread://article/{uuid}` — opens the article in the reader
+/// - `preread://saved` — navigates to the Saved Articles view
+/// - `preread://add?url={encoded-url}` — opens Add Source sheet with URL pre-filled
 /// - No ID / invalid ID — stays on current screen (silent failure)
 @MainActor
 final class DeepLinkRouter: ObservableObject {
     @Published var pendingSourceID: UUID?
     @Published var pendingArticleID: UUID?
     @Published var pendingSavedNavigation = false
+    @Published var pendingAddURL: String?
 
     /// Parses a `preread://` URL and sets the appropriate pending navigation.
     func handle(_ url: URL) {
@@ -27,6 +30,12 @@ final class DeepLinkRouter: ObservableObject {
 
         case "saved":
             pendingSavedNavigation = true
+
+        case "add":
+            guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+                  let urlParam = components.queryItems?.first(where: { $0.name == "url" })?.value,
+                  !urlParam.isEmpty else { return }
+            pendingAddURL = urlParam
 
         default:
             // Unknown host or no host — stay on current screen

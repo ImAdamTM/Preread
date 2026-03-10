@@ -17,6 +17,7 @@ struct SourcesListView: View {
     @State private var savedCount: Int = 0
     @State private var savedUnreadCount: Int = 0
     @State private var showAddSource = false
+    @State private var addSourceInitialURL: String?
     @State private var highlightedSourceID: UUID?
     @State private var navigationPath = NavigationPath()
     @State private var renamingSource: Source?
@@ -107,6 +108,7 @@ struct SourcesListView: View {
             }
             .sheet(isPresented: $showAddSource) {
                 AddSourceSheet(
+                    initialURL: addSourceInitialURL,
                     onSourceAdded: { addedSourceID in
                         Task {
                             await loadSources()
@@ -122,6 +124,9 @@ struct SourcesListView: View {
                         }
                     }
                 )
+                .onDisappear {
+                    addSourceInitialURL = nil
+                }
             }
             .alert("Edit name", isPresented: Binding(
                 get: { renamingSource != nil },
@@ -173,6 +178,21 @@ struct SourcesListView: View {
                 navigationPath = NavigationPath()
                 navigationPath.append(NavigationTarget.saved)
                 deepLinkRouter.pendingSavedNavigation = false
+            }
+            .onChange(of: deepLinkRouter.pendingAddURL) { _, urlString in
+                guard let urlString else { return }
+                navigationPath = NavigationPath()
+                addSourceInitialURL = urlString
+                deepLinkRouter.pendingAddURL = nil
+
+                if showAddSource {
+                    showAddSource = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        showAddSource = true
+                    }
+                } else {
+                    showAddSource = true
+                }
             }
         }
     }

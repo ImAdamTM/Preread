@@ -84,3 +84,13 @@ Bad (site-specific):
 - `.site-specific-class-name`
 
 If a site has layout problems after caching, the fix should work across any site with the same structural pattern (e.g. hidden popovers, empty wrappers, noscript fallbacks).
+
+## Problem-solving approach
+
+When a fix attempt fails, **do not guess at another fix**. Instead:
+
+1. Search the web for the specific error, API, or platform behaviour before proposing a second attempt
+2. Check Apple Developer Forums, Stack Overflow, and official documentation for known issues or breaking changes (e.g. iOS version-specific API changes)
+3. Present findings to the user before applying the next fix
+
+This is especially important for platform-level code (extensions, entitlements, background tasks, URL schemes) where behaviour varies across OS versions and documentation is often incomplete.
