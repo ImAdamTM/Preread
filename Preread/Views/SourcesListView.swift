@@ -226,9 +226,18 @@ struct SourcesListView: View {
                     Text("Your Prereads")
                         .font(.system(size: 28, weight: .regular))
                         .foregroundColor(Theme.textPrimary)
-                        .listRowInsets(EdgeInsets(top: 16, leading: 16, bottom: 8, trailing: 16))
+                        .listRowInsets(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
+
+                    LatestCarouselView(
+                        onOpenArticle: { article in
+                            openArticleInReader(article)
+                        }
+                    )
+                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 12, trailing: 0))
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
                 }
 
                 ForEach(sources) { source in
@@ -291,7 +300,7 @@ struct SourcesListView: View {
                 }
             }
             .listStyle(.plain)
-            .listSectionSpacing(30)
+            .listSectionSpacing(20)
             .scrollContentBackground(.hidden)
             .onChange(of: scrollToSourceID) { _, sourceID in
                 guard let sourceID else { return }
