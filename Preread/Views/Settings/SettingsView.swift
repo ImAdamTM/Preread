@@ -32,7 +32,6 @@ struct SettingsView: View {
     @State private var sourcesEditMode: EditMode = .inactive
     @State private var storageBySource: [(source: Source, bytes: Int64)] = []
     @State private var totalStorageBytes: Int64 = 0
-    @State private var showClearCacheConfirmation = false
     @State private var freeSpaceMB: Int = Int.max
     private let fontOptions: [(name: String, display: String)] = [
         ("Inter Tight", "Inter Tight"),
@@ -62,18 +61,6 @@ struct SettingsView: View {
             await loadSources()
             await loadStorageData()
             checkFreeSpace()
-        }
-        .confirmationDialog(
-            "Delete all saved articles?",
-            isPresented: $showClearCacheConfirmation,
-            titleVisibility: .visible
-        ) {
-            Button("Delete all saved articles", role: .destructive) {
-                Task { await clearAllCache() }
-            }
-            Button("Keep everything", role: .cancel) {}
-        } message: {
-            Text("This will remove all saved article data and free up storage. Your sources and reading history will be kept.")
         }
         .confirmationDialog(
             "Delete \"\(sourceToDelete?.title ?? "")\"?",
@@ -353,22 +340,6 @@ struct SettingsView: View {
             }
             .settingsRow()
 
-            // Clear cache
-            Button {
-                showClearCacheConfirmation = true
-            } label: {
-                HStack {
-                    Text("Clear all saved articles")
-                        .font(Theme.scaledFont(size: 15, relativeTo: .subheadline))
-                        .foregroundColor(Theme.danger)
-                    Spacer()
-                    Image(systemName: "trash")
-                        .font(.system(size: 14))
-                        .foregroundColor(Theme.danger)
-                }
-            }
-            .settingsRow()
-
             Text("When a feed refreshes, old articles are replaced by the latest entries. Saved articles are kept until you remove them.")
                 .font(Theme.scaledFont(size: 12, relativeTo: .caption))
                 .foregroundColor(Theme.textSecondary)
@@ -546,35 +517,6 @@ struct SettingsView: View {
         if let attrs = try? FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory()),
            let freeSize = attrs[.systemFreeSize] as? Int64 {
             freeSpaceMB = Int(freeSize / (1024 * 1024))
-        }
-    }
-
-    private func clearAllCache() async {
-        HapticManager.deleteConfirm()
-
-        do {
-            // Get all articles to delete their cached files
-            let articles = try await DatabaseManager.shared.dbPool.read { db in
-                try Article.fetchAll(db)
-            }
-
-            for article in articles {
-                try? await PageCacheService.shared.deleteCachedArticle(article.id)
-            }
-
-            // Delete all cachedPage records
-            _ = try await DatabaseManager.shared.dbPool.write { db in
-                try CachedPage.deleteAll(db)
-            }
-
-            // Reset article fetch statuses
-            try await DatabaseManager.shared.dbPool.write { db in
-                try db.execute(sql: "UPDATE article SET fetchStatus = 'pending', cachedAt = NULL, cacheSizeBytes = NULL")
-            }
-
-            await loadStorageData()
-        } catch {
-            // Clear cache failed
         }
     }
 
