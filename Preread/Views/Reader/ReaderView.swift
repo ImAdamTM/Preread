@@ -71,12 +71,31 @@ struct ReaderView: View {
         ZStack {
             Theme.background.ignoresSafeArea()
 
-            if isLoadingCachedPage {
-                EmptyView()
-            } else if let cachedPage, htmlFileExists {
-                readerContent(cachedPage: cachedPage)
-            } else {
-                missingContentView
+            Group {
+                if isLoadingCachedPage {
+                    EmptyView()
+                } else if let cachedPage, htmlFileExists {
+                    readerContent(cachedPage: cachedPage)
+                } else {
+                    missingContentView
+                }
+            }
+            .alert(
+                "Open External Link",
+                isPresented: $showLinkConfirmation,
+                presenting: tappedLinkURL
+            ) { url in
+                Button("Open in Safari") {
+                    safariURL = url
+                    showSafari = true
+                }
+                Button("Copy Link") {
+                    UIPasteboard.general.url = url
+                    toastManager.show("Link copied", type: .success, duration: 2)
+                }
+                Button("Cancel", role: .cancel) {}
+            } message: { url in
+                Text(url.absoluteString)
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -149,24 +168,6 @@ struct ReaderView: View {
             await loadCachedPage()
             isLoadingCachedPage = false
             await markAsRead()
-        }
-        .confirmationDialog(
-            "Open External Link",
-            isPresented: $showLinkConfirmation,
-            titleVisibility: .visible,
-            presenting: tappedLinkURL
-        ) { url in
-            Button("Open in Safari") {
-                safariURL = url
-                showSafari = true
-            }
-            Button("Copy Link") {
-                UIPasteboard.general.url = url
-                toastManager.show("Link copied", type: .success, duration: 2)
-            }
-            Button("Cancel", role: .cancel) {}
-        } message: { url in
-            Text(url.absoluteString)
         }
         .sheet(isPresented: $showSafari) {
             if let url = safariURL {

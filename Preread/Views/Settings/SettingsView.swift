@@ -27,7 +27,7 @@ struct SettingsView: View {
 
     @State private var sources: [Source] = []
     @State private var editableSources: [Source] = []
-    @State private var sourceToDelete: Source?
+
     @State private var faviconCache: [UUID: UIImage] = [:]
     @State private var sourcesEditMode: EditMode = .inactive
     @State private var storageBySource: [(source: Source, bytes: Int64)] = []
@@ -62,23 +62,6 @@ struct SettingsView: View {
             await loadStorageData()
             checkFreeSpace()
         }
-        .confirmationDialog(
-            "Delete \"\(sourceToDelete?.title ?? "")\"?",
-            isPresented: Binding(
-                get: { sourceToDelete != nil },
-                set: { if !$0 { sourceToDelete = nil } }
-            ),
-            titleVisibility: .visible
-        ) {
-            Button("Delete source", role: .destructive) {
-                if let source = sourceToDelete {
-                    Task { await deleteSource(source) }
-                }
-            }
-            Button("Cancel", role: .cancel) { sourceToDelete = nil }
-        } message: {
-            Text("Saved articles from this source will be moved to your Saved collection.")
-        }
     }
 
     // MARK: - Sources section
@@ -107,7 +90,7 @@ struct SettingsView: View {
                 }
                 .onDelete { indices in
                     if let index = indices.first {
-                        sourceToDelete = editableSources[index]
+                        Task { await deleteSource(editableSources[index]) }
                     }
                 }
             }

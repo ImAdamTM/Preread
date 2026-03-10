@@ -89,18 +89,6 @@ struct SourceSectionView: View {
                 }
             }
         }
-        .confirmationDialog(
-            "Remove \(source.title)?",
-            isPresented: $showDeleteConfirmation,
-            titleVisibility: .visible
-        ) {
-            Button("Remove source and articles", role: .destructive) {
-                onRemove()
-            }
-            Button("Cancel", role: .cancel) {}
-        } message: {
-            Text("This will delete all saved articles from this source.")
-        }
     }
 
     // MARK: - Section header
@@ -147,6 +135,18 @@ struct SourceSectionView: View {
             } label: {
                 Label("Remove", systemImage: "trash")
             }
+        }
+        .confirmationDialog(
+            "Remove \(source.title)?",
+            isPresented: $showDeleteConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button("Remove source and articles", role: .destructive) {
+                onRemove()
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("This will delete all saved articles from this source.")
         }
     }
 
