@@ -59,6 +59,12 @@ struct Source: Identifiable, Codable, FetchableRecord, PersistableRecord {
     /// Whether this source is hidden from the main sources list (e.g. the "Saved Pages" source).
     var isHidden: Bool { id == Source.savedPagesID }
 
+    /// Whether this source is a topic/search feed (e.g. Google News) where
+    /// articles come from multiple different websites.
+    var isTopicFeed: Bool {
+        feedURL.contains("news.google.com")
+    }
+
     static let databaseTableName = "source"
 }
 

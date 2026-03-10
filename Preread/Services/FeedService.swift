@@ -16,6 +16,7 @@ struct FeedItem {
     let url: URL
     let publishedAt: Date?
     let thumbnailURL: URL?
+    let sourceName: String?
 }
 
 enum FeedError: Error, LocalizedError {
@@ -298,6 +299,7 @@ private final class FeedXMLParser: NSObject, XMLParserDelegate {
     private var itemDateString = ""
     private var itemThumbnailURL = ""
     private var itemContentHTML = ""
+    private var itemSourceName = ""
 
     // Feed type detection
     private var isAtom = false
@@ -406,6 +408,8 @@ private final class FeedXMLParser: NSObject, XMLParserDelegate {
                 if itemDateString.isEmpty { itemDateString = text }
             case "content", "content:encoded", "description":
                 if itemContentHTML.isEmpty { itemContentHTML = text }
+            case "source":
+                if itemSourceName.isEmpty { itemSourceName = text }
             default:
                 break
             }
@@ -428,6 +432,7 @@ private final class FeedXMLParser: NSObject, XMLParserDelegate {
         itemDateString = ""
         itemThumbnailURL = ""
         itemContentHTML = ""
+        itemSourceName = ""
     }
 
     private func finishItem() {
@@ -450,7 +455,8 @@ private final class FeedXMLParser: NSObject, XMLParserDelegate {
             title: cleanTitle,
             url: url,
             publishedAt: date,
-            thumbnailURL: thumbnail
+            thumbnailURL: thumbnail,
+            sourceName: itemSourceName.isEmpty ? nil : decodeHTMLEntities(itemSourceName)
         ))
     }
 

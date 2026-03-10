@@ -43,7 +43,8 @@ struct SourceSectionView: View {
                     onToggleRead: { Task { await toggleRead(article) } },
                     onToggleSave: { Task { await toggleSave(article) } },
                     onRefetch: { Task { await refetchArticle(article) } },
-                    onDelete: { Task { await deleteArticle(article) } }
+                    onDelete: { Task { await deleteArticle(article) } },
+                    sourceName: source.isTopicFeed ? article.displayDomain : nil
                 )
                 .listRowInsets(EdgeInsets())
                 .listRowSeparator(.hidden)

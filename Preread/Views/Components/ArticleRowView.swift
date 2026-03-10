@@ -31,9 +31,10 @@ struct ArticleRowView: View {
 
                     HStack(spacing: 0) {
                         if let sourceName {
-                            Text("from \(sourceName)")
+                            Text(sourceName)
                                 .font(Theme.scaledFont(size: 13, relativeTo: .footnote))
                                 .foregroundColor(Theme.textSecondary)
+                                .lineLimit(1)
                         }
 
                         if let published = article.publishedAt {

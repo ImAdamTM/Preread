@@ -197,6 +197,7 @@ enum BackgroundTaskManager {
                         fetchStatus: .pending,
                         isRead: false,
                         isSaved: false,
+                        originalSourceName: pending.feedItem.sourceName,
                         cacheSizeBytes: nil,
                         lastHTTPStatus: nil,
                         etag: nil,
