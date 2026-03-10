@@ -61,6 +61,7 @@ struct CachedWebView: UIViewRepresentable {
         webView.isOpaque = false
         webView.scrollView.backgroundColor = .clear
         webView.scrollView.maximumZoomScale = 1.0
+        webView.scrollView.indicatorStyle = useLightMode ? .black : .white
 
         // Tell the web view which appearance to report for prefers-color-scheme.
         // Sites with native dark mode will use their own dark CSS.
@@ -151,8 +152,10 @@ struct CachedWebView: UIViewRepresentable {
         // Update appearance override so prefers-color-scheme stays in sync
         if isReaderMode {
             webView.overrideUserInterfaceStyle = useLightMode ? .light : .dark
+            webView.scrollView.indicatorStyle = useLightMode ? .black : .white
         } else {
             webView.overrideUserInterfaceStyle = isDarkMode ? .dark : .light
+            webView.scrollView.indicatorStyle = isDarkMode ? .white : .black
         }
 
         // Update webview background colour to prevent flash
