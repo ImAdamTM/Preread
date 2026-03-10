@@ -136,16 +136,13 @@ struct SettingsView: View {
                     } label: {
                         Text(sourcesEditMode.isEditing ? "Done" : "Edit")
                             .font(Theme.scaledFont(size: 12, weight: .semibold, relativeTo: .caption))
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 4)
-                            .background(Theme.accentGradient)
-                            .clipShape(Capsule())
+                            .foregroundColor(Theme.accent)
                     }
                     .textCase(nil)
                 }
             }
         }
+        .listRowBackground(Theme.card)
     }
 
     @ViewBuilder
