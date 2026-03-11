@@ -53,11 +53,11 @@ struct ArticleTimelineProvider: AppIntentTimelineProvider {
             return ArticleWidgetEntry(date: Date(), articles: [], configuration: configuration)
         }
 
-        var sourceID = configuration.source.flatMap { UUID(uuidString: $0.id) }
-
-        // If configured source was deleted, fall back to all sources
-        if let id = sourceID, !provider.sourceExists(id) {
-            sourceID = nil
+        var sourceID: UUID? = nil
+        if !configuration.source.isAllSources,
+           let id = UUID(uuidString: configuration.source.id) {
+            // Verify source still exists; fall back to all sources if deleted
+            sourceID = provider.sourceExists(id) ? id : nil
         }
 
         let limit = articleCount(for: context.family)

@@ -10,7 +10,9 @@ struct ImageLightboxView: View {
     @State private var offset: CGSize = .zero
     @State private var lastOffset: CGSize = .zero
     @State private var dragOffset: CGSize = .zero
-    @State private var backgroundOpacity: Double = 1.0
+    @State private var backgroundOpacity: Double = 0
+    @State private var imageOpacity: Double = 0
+    @State private var dismissScale: CGFloat = 0.85
 
     var body: some View {
         GeometryReader { geometry in
@@ -24,8 +26,9 @@ struct ImageLightboxView: View {
                     Image(uiImage: image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .scaleEffect(scale)
+                        .scaleEffect(scale * dismissScale)
                         .offset(x: offset.width, y: offset.height + dragOffset.height)
+                        .opacity(imageOpacity)
                         .gesture(dragGesture(in: geometry))
                         .gesture(pinchGesture)
                         .onTapGesture(count: 2) { toggleZoom(in: geometry) }
@@ -34,26 +37,7 @@ struct ImageLightboxView: View {
                         .tint(.white)
                 }
 
-                // Close button
-                VStack {
-                    HStack {
-                        Spacer()
-                        Button {
-                            dismiss()
-                        } label: {
-                            Image(systemName: "xmark")
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundColor(.white)
-                                .frame(width: 32, height: 32)
-                                .background(.ultraThinMaterial.opacity(0.6), in: Circle())
-                        }
-                        .padding(.top, geometry.safeAreaInsets.top + 8)
-                        .padding(.trailing, 16)
-                        .opacity(backgroundOpacity)
-                    }
-                    Spacer()
-                }
-                .ignoresSafeArea()
+
             }
         }
         .statusBarHidden()
@@ -128,11 +112,13 @@ struct ImageLightboxView: View {
     // MARK: - Helpers
 
     private func dismiss() {
-        withAnimation(.easeOut(duration: 0.2)) {
+        withAnimation(.easeOut(duration: 0.25)) {
             backgroundOpacity = 0
-            dragOffset = CGSize(width: 0, height: 300)
+            imageOpacity = 0
+            dismissScale = 0.85
+            dragOffset = CGSize(width: 0, height: 60)
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
             onDismiss()
         }
     }
@@ -146,5 +132,10 @@ struct ImageLightboxView: View {
             return
         }
         image = loaded
+        withAnimation(.easeOut(duration: 0.25)) {
+            backgroundOpacity = 1.0
+            imageOpacity = 1.0
+            dismissScale = 1.0
+        }
     }
 }

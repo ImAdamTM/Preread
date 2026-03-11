@@ -175,18 +175,13 @@ struct SourcesListView: View {
             }
             .onChange(of: deepLinkRouter.pendingArticleID) { _, articleID in
                 guard let articleID else { return }
+                deepLinkRouter.pendingArticleID = nil
                 Task {
-                    // Look up the article's sourceID for back-stack navigation
                     guard let article = try? await DatabaseManager.shared.dbPool.read({ db in
                         try Article.fetchOne(db, key: articleID)
-                    }) else {
-                        // Invalid article ID — fail silently
-                        deepLinkRouter.pendingArticleID = nil
-                        return
-                    }
-                    navigationPath = NavigationPath()
-                    navigationPath.append(NavigationTarget.source(article.sourceID))
-                    // pendingArticleID stays set — ArticleListView picks it up
+                    }) else { return }
+                    // Open the article directly as a sheet — no source navigation needed
+                    openArticleInReader(article)
                 }
             }
             .onChange(of: deepLinkRouter.pendingSavedNavigation) { _, shouldNavigate in

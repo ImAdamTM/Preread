@@ -131,7 +131,7 @@ struct SourceSectionView: View {
 
             VStack(alignment: .leading, spacing: -2) {
                 Text(source.title)
-                    .font(.system(size: 20, weight: .regular))
+                    .font(.system(size: 18, weight: .medium))
                     .foregroundColor(Theme.textPrimary)
                     .lineLimit(1)
 
@@ -155,6 +155,9 @@ struct SourceSectionView: View {
             }
         }
         .contentShape(Rectangle())
+        .onTapGesture {
+            onViewAll()
+        }
         .contextMenu {
             Button {
                 onRefresh()

@@ -40,7 +40,7 @@ struct SourceHeroView: View {
                 VStack(alignment: .leading, spacing: -2) {
                     // Source title — its Y position drives the nav bar title fade
                     Text(source.title)
-                        .font(.system(size: 20, weight: .regular))
+                        .font(.system(size: 18, weight: .medium))
                         .foregroundColor(Theme.textPrimary)
                         .lineLimit(2)
                         .modifier(HeroTitleScrollTracker { minY in

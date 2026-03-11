@@ -98,13 +98,18 @@ struct ReaderView: View {
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.hidden, for: .navigationBar)
-        .toolbar(lightboxImageURL != nil ? .hidden : .visible, for: .navigationBar)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 HStack(spacing: 16) {
                     if !detailCoordinator.isSplitView {
                         Button {
-                            dismiss()
+                            if lightboxImageURL != nil {
+                                withAnimation(.easeOut(duration: 0.25)) {
+                                    lightboxImageURL = nil
+                                }
+                            } else {
+                                dismiss()
+                            }
                         } label: {
                             Image(systemName: "xmark")
                                 .font(.system(size: 14, weight: .semibold))
