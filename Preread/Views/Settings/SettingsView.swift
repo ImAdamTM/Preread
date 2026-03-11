@@ -114,7 +114,7 @@ struct SettingsView: View {
                     } label: {
                         Text(sourcesEditMode.isEditing ? "Done" : "Edit")
                             .font(Theme.scaledFont(size: 12, weight: .semibold, relativeTo: .caption))
-                            .foregroundColor(Theme.accent)
+                            .foregroundStyle(Theme.accentGradient)
                     }
                     .textCase(nil)
                 }
