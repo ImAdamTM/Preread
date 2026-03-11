@@ -1,15 +1,10 @@
 import SwiftUI
 import GRDB
 
-private struct ReaderSelection: Identifiable {
-    let id = UUID()
-    let article: Article
-    let source: Source
-}
-
 struct SavedArticlesView: View {
     @Namespace private var namespace
     @Environment(\.colorScheme) private var systemColorScheme
+    @ObservedObject private var detailCoordinator = ArticleDetailCoordinator.shared
     @AppStorage("appAppearance") private var appAppearance: String = "system"
 
     @State private var articles: [Article] = []
@@ -395,7 +390,12 @@ struct SavedArticlesView: View {
             try Source.fetchOne(db, key: article.sourceID)
         }
         guard let source else { return }
-        readerSelection = ReaderSelection(article: article, source: source)
+        let selection = ReaderSelection(article: article, source: source)
+        if detailCoordinator.isSplitView {
+            detailCoordinator.selection = selection
+        } else {
+            readerSelection = selection
+        }
     }
 
     private func markAsReadLocally(_ article: Article) {

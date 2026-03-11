@@ -6,12 +6,6 @@ enum NavigationTarget: Hashable {
     case saved
 }
 
-private struct ReaderSelection: Identifiable {
-    let id = UUID()
-    let article: Article
-    let source: Source
-}
-
 struct SourcesListView: View {
     @ObservedObject private var coordinator = FetchCoordinator.shared
     @EnvironmentObject private var toastManager: ToastManager
@@ -30,6 +24,7 @@ struct SourcesListView: View {
     @State private var readerSelection: ReaderSelection?
     @State private var accentGradientImage: UIImage?
     @Environment(\.colorScheme) private var systemColorScheme
+    @ObservedObject private var detailCoordinator = ArticleDetailCoordinator.shared
     @AppStorage("appAppearance") private var appAppearance: String = "system"
 
     private var preferredScheme: ColorScheme {
@@ -462,7 +457,12 @@ struct SourcesListView: View {
             guard let source = try? await DatabaseManager.shared.dbPool.read({ db in
                 try Source.fetchOne(db, key: article.sourceID)
             }) else { return }
-            readerSelection = ReaderSelection(article: article, source: source)
+            let selection = ReaderSelection(article: article, source: source)
+            if detailCoordinator.isSplitView {
+                detailCoordinator.selection = selection
+            } else {
+                readerSelection = selection
+            }
         }
     }
 

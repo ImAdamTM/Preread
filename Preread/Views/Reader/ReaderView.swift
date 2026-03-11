@@ -8,6 +8,7 @@ struct ReaderView: View {
 
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
+    @ObservedObject private var detailCoordinator = ArticleDetailCoordinator.shared
     @EnvironmentObject private var toastManager: ToastManager
     @AppStorage("readerTextSize") private var textSize: Double = 18
     @AppStorage("readerFontFamily") private var fontFamily: String = "Inter Tight"
@@ -104,10 +105,14 @@ struct ReaderView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 HStack(spacing: 16) {
-                    Button { dismiss() } label: {
-                        Image(systemName: "xmark")
-                            .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(Theme.textPrimary)
+                    if !detailCoordinator.isSplitView {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "xmark")
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(Theme.textPrimary)
+                        }
                     }
                     HStack(spacing: 8) {
                         readerSourceFavicon

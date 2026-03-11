@@ -8,6 +8,7 @@ struct ArticleListView: View {
     @ObservedObject private var coordinator = FetchCoordinator.shared
     @Environment(\.colorScheme) private var systemColorScheme
     @Environment(\.dismiss) private var dismiss
+    @ObservedObject private var detailCoordinator = ArticleDetailCoordinator.shared
     @EnvironmentObject private var deepLinkRouter: DeepLinkRouter
 
     @State private var articles: [Article] = []
@@ -85,7 +86,7 @@ struct ArticleListView: View {
             // Handle article deep link — auto-select after load
             if let articleID = deepLinkRouter.pendingArticleID,
                let article = articles.first(where: { $0.id == articleID }) {
-                selectedArticle = article
+                presentArticle(article)
                 deepLinkRouter.pendingArticleID = nil
             }
 
@@ -168,7 +169,7 @@ struct ArticleListView: View {
                     cacheLevel: currentCacheLevel,
                     onOpenArticle: { article in
                         markAsReadLocally(article)
-                        selectedArticle = article
+                        presentArticle(article)
                     }
                 )
                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 21, trailing: 0))
@@ -393,6 +394,16 @@ struct ArticleListView: View {
         }
     }
 
+    private func presentArticle(_ article: Article) {
+        if detailCoordinator.isSplitView {
+            detailCoordinator.selection = ReaderSelection(
+                article: article, source: source
+            )
+        } else {
+            selectedArticle = article
+        }
+    }
+
     private func handleTap(_ article: Article) {
         Task {
             // Re-read the article's current status from the DB in case
@@ -415,7 +426,7 @@ struct ArticleListView: View {
                 let hasCachedContent = await checkCachedContentExists(for: current)
                 if hasCachedContent {
                     markAsReadLocally(current)
-                    selectedArticle = current
+                    presentArticle(current)
                 } else {
                     await fetchArticleInline(current, openOnSuccess: true)
                 }
@@ -464,7 +475,7 @@ struct ArticleListView: View {
                 failedArticle = updated
             } else if openOnSuccess, updated.fetchStatus == .cached || updated.fetchStatus == .partial {
                 markAsReadLocally(updated)
-                selectedArticle = updated
+                presentArticle(updated)
             }
         }
     }
