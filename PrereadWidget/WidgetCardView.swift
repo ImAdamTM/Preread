@@ -50,6 +50,12 @@ struct WidgetCardView: View {
 
                 // Title + relative time
                 VStack(alignment: .leading, spacing: 2) {
+                    Text("Preread for you")
+                        .font(.system(size: compact ? 9 : 10, weight: .semibold))
+                        .foregroundStyle(.white.opacity(0.6))
+                        .textCase(.uppercase)
+                        .shadow(color: .black.opacity(0.6), radius: 2, x: 0, y: 1)
+
                     Text(article.title)
                         .font(.system(size: compact ? 14 : 16, weight: .semibold))
                         .foregroundStyle(.white)
