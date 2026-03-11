@@ -103,20 +103,19 @@ struct ReaderView: View {
         .toolbarBackground(.hidden, for: .navigationBar)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button { dismiss() } label: {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundColor(Theme.textPrimary)
-                }
-            }
-            ToolbarItem(placement: .principal) {
-                HStack(spacing: 8) {
-                    readerSourceFavicon
-                    Text(displaySourceName)
-                        .font(Theme.scaledFont(size: 17, weight: .semibold))
-                        .foregroundColor(Theme.textPrimary)
-                        .lineLimit(1)
-                    Spacer()
+                HStack(spacing: 16) {
+                    Button { dismiss() } label: {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundColor(Theme.textPrimary)
+                    }
+                    HStack(spacing: 8) {
+                        readerSourceFavicon
+                        Text(displaySourceName)
+                            .font(Theme.scaledFont(size: 17, weight: .semibold))
+                            .foregroundColor(Theme.textPrimary)
+                            .lineLimit(1)
+                    }
                 }
             }
             ToolbarItem(placement: .navigationBarTrailing) {

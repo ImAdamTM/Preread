@@ -28,6 +28,7 @@ struct SourcesListView: View {
     
     @State private var scrollToSourceID: UUID?
     @State private var readerSelection: ReaderSelection?
+    @State private var accentGradientImage: UIImage?
     @Environment(\.colorScheme) private var systemColorScheme
     @AppStorage("appAppearance") private var appAppearance: String = "system"
 
@@ -223,10 +224,8 @@ struct SourcesListView: View {
         ScrollViewReader { proxy in
             List {
                 if !sources.isEmpty {
-                    Text("Your Prereads")
-                        .font(.system(size: 37, weight: .regular))
-                        .foregroundColor(Theme.textPrimary)
-                        .listRowInsets(EdgeInsets(top: 16, leading: 18, bottom: 15, trailing: 18))
+                    homeHeroRow
+                        .listRowInsets(EdgeInsets())
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
 
@@ -397,6 +396,63 @@ struct SourcesListView: View {
         Image(systemName: "square.stack.3d.down.right.fill")
             .font(.system(size: 20))
             .foregroundStyle(Theme.accentGradient)
+    }
+
+    // MARK: - Home hero
+
+    private var homeHeroRow: some View {
+        Text("Your Prereads")
+            .font(.system(size: 37, weight: .regular))
+            .foregroundColor(Theme.textPrimary)
+            .padding(.horizontal, 18)
+            .padding(.top, 16)
+            .padding(.bottom, 15)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(alignment: .top) {
+                blurredAccentBackground
+                    .frame(height: 140)
+                    .frame(maxWidth: .infinity)
+                    .allowsHitTesting(false)
+            }
+    }
+
+    private var blurredAccentBackground: some View {
+        ZStack {
+            if let img = accentGradientImage {
+                Image(uiImage: img)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .blur(radius: 40)
+                    .clipped()
+            } else {
+                Color.clear
+                    .task {
+                        accentGradientImage = Self.makeAccentGradientImage()
+                    }
+            }
+        }
+        .opacity(0.3)
+        .mask(
+            LinearGradient(
+                stops: [
+                    .init(color: .white, location: 0),
+                    .init(color: .white, location: 0.4),
+                    .init(color: .clear, location: 1.0)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
+    }
+
+    private static func makeAccentGradientImage() -> UIImage {
+        let size = CGSize(width: 64, height: 64)
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { ctx in
+            let cgColors = [UIColor(Theme.accent).cgColor, UIColor(Theme.purple).cgColor]
+            guard let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: cgColors as CFArray, locations: [0, 1]) else { return }
+            ctx.cgContext.drawLinearGradient(gradient, start: .zero, end: CGPoint(x: size.width, y: size.height), options: [.drawsBeforeStartLocation, .drawsAfterEndLocation])
+        }
     }
 
     // MARK: - Reader
