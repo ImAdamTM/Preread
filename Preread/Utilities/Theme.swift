@@ -17,6 +17,14 @@ struct Theme {
             : .white
     })
 
+    /// Slightly raised background for sheets — matches `background` in light mode,
+    /// a touch lighter in dark mode so sheets pop against the black canvas.
+    static let sheetBackground = Color(uiColor: UIColor { traits in
+        traits.userInterfaceStyle == .dark
+            ? UIColor(red: 10/255, green: 10/255, blue: 11/255, alpha: 1)  // #121214
+            : .white
+    })
+
     static let card = Color(uiColor: UIColor { traits in
         traits.userInterfaceStyle == .dark
             ? UIColor(red: 17/255, green: 17/255, blue: 24/255, alpha: 1)     // #111118

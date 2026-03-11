@@ -354,25 +354,29 @@ struct ArticleListView: View {
             Button {
                 Task { await loadMoreArticles() }
             } label: {
-                VStack(spacing: 4) {
+                Group {
                     if isLoadingMore {
                         HStack(spacing: 8) {
                             ProgressView()
-                                .tint(Theme.textSecondary)
+                                .tint(.white)
                             Text("Loading...")
-                                .font(Theme.scaledFont(size: 14, weight: .medium, relativeTo: .subheadline))
-                                .foregroundColor(Theme.textSecondary)
+                                .font(Theme.scaledFont(size: 14, weight: .semibold, relativeTo: .subheadline))
+                                .foregroundColor(.white)
                         }
                     } else {
                         Text("Load more articles")
-                            .font(Theme.scaledFont(size: 14, weight: .medium, relativeTo: .subheadline))
-                            .foregroundColor(Theme.accent)
+                            .font(Theme.scaledFont(size: 14, weight: .semibold, relativeTo: .subheadline))
+                            .foregroundColor(.white)
                     }
                 }
+                .padding(.horizontal, 24)
+                .padding(.vertical, 10)
+                .background(Theme.accentGradient)
+                .clipShape(Capsule())
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 16)
             }
             .disabled(isLoadingMore)
+            .padding(.vertical, 16)
         }
     }
 
@@ -548,10 +552,14 @@ struct ArticleListView: View {
     private var sourceSettingsSheet: some View {
         NavigationStack {
             ZStack {
-                Theme.background.ignoresSafeArea()
+                Theme.sheetBackground.ignoresSafeArea()
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 24) {
+                        Text("Source Settings")
+                            .font(.system(size: 28, weight: .regular))
+                            .foregroundColor(Theme.textPrimary)
+
                         // Source name
                         VStack(alignment: .leading, spacing: 10) {
                             Text("NAME")
@@ -605,7 +613,6 @@ struct ArticleListView: View {
                     .padding(.top, 20)
                 }
             }
-            .navigationTitle("Source Settings")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -616,8 +623,9 @@ struct ArticleListView: View {
                 }
             }
         }
-        .presentationDetents([.fraction(0.6)])
+        .presentationDetents([.fraction(0.55)])
         .presentationDragIndicator(.visible)
+        .presentationBackground(Theme.sheetBackground)
         .onChange(of: currentCacheLevel) { _, newLevel in
             Task { await updateSourceCacheLevel(newLevel) }
         }

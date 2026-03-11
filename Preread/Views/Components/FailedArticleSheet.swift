@@ -16,7 +16,7 @@ struct FailedArticleSheet: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Theme.background.ignoresSafeArea()
+                Theme.sheetBackground.ignoresSafeArea()
 
                 VStack(spacing: 20) {
                     Spacer().frame(height: 24)
@@ -46,6 +46,7 @@ struct FailedArticleSheet: View {
         }
         .presentationDetents([.fraction(0.45)])
         .presentationDragIndicator(.visible)
+        .presentationBackground(Theme.sheetBackground)
     }
 
     // MARK: - Generic failure

@@ -113,7 +113,7 @@ struct AddSourceSheet: View {
                 }
             )
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .background(Theme.background)
+            .background(Theme.sheetBackground)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -126,6 +126,7 @@ struct AddSourceSheet: View {
         }
         .presentationDetents([.height(sheetContentHeight)])
         .presentationDragIndicator(.visible)
+        .presentationBackground(Theme.sheetBackground)
         .animation(Theme.gentleAnimation(response: 0.4, dampingFraction: 0.85), value: sheetContentHeight)
         .alert("Source limit reached", isPresented: $showSourceLimitAlert) {
             Button("OK", role: .cancel) { }
