@@ -98,7 +98,7 @@ enum BackgroundTaskManager {
             // Re-attach any saved articles that were detached.
             var queues: [[PendingItem]] = []
 
-            for var source in sources {
+            for source in sources {
                 guard !Task.isCancelled else { return }
                 guard let feedURL = URL(string: source.feedURL) else { continue }
 
@@ -155,17 +155,8 @@ enum BackgroundTaskManager {
                     if !newItems.isEmpty {
                         queues.append(newItems)
                     }
-
-                    source.lastFetchedAt = Date()
-                    source.fetchStatus = .idle
-                    try await DatabaseManager.shared.dbPool.write { db in
-                        try source.update(db)
-                    }
                 } catch {
-                    source.fetchStatus = .error
-                    try? await DatabaseManager.shared.dbPool.write { db in
-                        try source.update(db)
-                    }
+                    // Feed parse failed — skip this source, non-critical
                 }
             }
 
