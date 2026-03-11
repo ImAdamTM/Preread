@@ -121,6 +121,11 @@ enum BackgroundTaskManager {
                         // Skip duplicate titles (Google News feeds can contain
                         // the same article with different redirect URLs)
                         guard seenTitles.insert(item.title).inserted else { continue }
+
+                        // Skip URLs that are clearly not articles (login pages,
+                        // auth endpoints, account portals, etc.)
+                        guard !FetchCoordinator.isNonArticleURL(item.url) else { continue }
+
                         let existing = try await DatabaseManager.shared.dbPool.read { db in
                             try Article
                                 .filter(Column("articleURL") == item.url.absoluteString)

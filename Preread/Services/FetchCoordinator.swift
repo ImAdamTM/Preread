@@ -323,6 +323,21 @@ final class FetchCoordinator: ObservableObject {
             for item in feedWindow {
                 let urlString = item.url.absoluteString
 
+                // Skip URLs that are clearly not articles (login pages,
+                // auth endpoints, account portals, etc.)
+                if Self.isNonArticleURL(item.url) {
+                    // If this non-article URL was already inserted in a
+                    // previous refresh, remove it now so it stops showing
+                    // in the feed (e.g. accounts.nintendo.com auth pages).
+                    if let existing = existingByURL[urlString] ?? existingByTitle[item.title] {
+                        try? await PageCacheService.shared.deleteCachedArticle(existing.id)
+                        _ = try? await DatabaseManager.shared.dbPool.write { db in
+                            try existing.delete(db)
+                        }
+                    }
+                    continue
+                }
+
                 if var existing = existingByURL[urlString] ?? existingByTitle[item.title] {
                     switch existing.fetchStatus {
                     case .pending, .failed:
@@ -332,7 +347,16 @@ final class FetchCoordinator: ObservableObject {
                         }
 
                     case .fetching:
-                        break
+                        // Article was left at .fetching by an interrupted cache
+                        // attempt (app killed, timeout, etc.). Reset it so this
+                        // refresh can retry it.
+                        if existing.retryCount < self.maxAutoRetries {
+                            existing.fetchStatus = .pending
+                            try? await DatabaseManager.shared.dbPool.write { db in
+                                try existing.update(db)
+                            }
+                            needsCaching.append(existing)
+                        }
 
                     case .cached, .partial:
                         let hasContent = await PageCacheService.shared.hasCachedContent(for: existing)
@@ -430,7 +454,8 @@ final class FetchCoordinator: ObservableObject {
                 try Article
                     .filter(Column("sourceID") == source.id)
                     .filter([ArticleFetchStatus.pending.rawValue,
-                             ArticleFetchStatus.failed.rawValue]
+                             ArticleFetchStatus.failed.rawValue,
+                             ArticleFetchStatus.fetching.rawValue]
                         .contains(Column("fetchStatus")))
                     .filter(Column("retryCount") < self.maxAutoRetries)
                     .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
@@ -446,6 +471,16 @@ final class FetchCoordinator: ObservableObject {
         sourceStatuses[source.id] = .refreshing
 
         for (index, var article) in articlesToRetry.enumerated() {
+            // Skip non-article URLs (auth pages etc.) that slipped in
+            // before filtering was added to the main refresh path.
+            if let url = URL(string: article.articleURL), Self.isNonArticleURL(url) {
+                try? await PageCacheService.shared.deleteCachedArticle(article.id)
+                _ = try? await DatabaseManager.shared.dbPool.write { db in
+                    try article.delete(db)
+                }
+                continue
+            }
+
             // Clear stale conditional headers so we always get a fresh
             // response (the cached files may be gone after a rebuild).
             if article.etag != nil || article.lastModified != nil {

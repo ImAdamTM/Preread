@@ -37,6 +37,9 @@ struct PrereadApp: App {
                 .onChange(of: scenePhase) { _, phase in
                     if phase == .active {
                         Task {
+                            // Reset any articles left at .fetching by a
+                            // cancelled background task or interrupted cache
+                            await IntegrityChecker.resetStaleFetchingArticles()
                             await FetchCoordinator.shared.refreshStaleAutoSources()
                         }
                     }

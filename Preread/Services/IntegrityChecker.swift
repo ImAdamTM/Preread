@@ -2,6 +2,25 @@ import Foundation
 import GRDB
 
 enum IntegrityChecker {
+    /// Lightweight check that resets articles stuck in .fetching back to
+    /// .pending. Called on foreground resume so the UI stops showing a
+    /// spinner for articles whose cache task was interrupted (e.g. by a
+    /// cancelled background task or app suspension).
+    static func resetStaleFetchingArticles() async {
+        do {
+            let count = try await DatabaseManager.shared.dbPool.write { db -> Int in
+                try Article
+                    .filter(Column("fetchStatus") == ArticleFetchStatus.fetching.rawValue)
+                    .updateAll(db, Column("fetchStatus").set(to: ArticleFetchStatus.pending.rawValue))
+            }
+            if count > 0 {
+                print("[IntegrityChecker] Reset \(count) stale fetching article(s) on foreground.")
+            }
+        } catch {
+            // Non-critical
+        }
+    }
+
     /// Verifies that all cached articles still have their HTML files on disk.
     /// Resets any orphaned articles back to .pending and removes their CachedPage records.
     /// Also resets articles stuck in .fetching (orphaned by a mid-cache app kill)
