@@ -2,16 +2,31 @@ import SwiftUI
 import SafariServices
 
 struct LicencesView: View {
-    private let libraries: [(name: String, copyright: String, url: String)] = [
+    private let libraries: [(name: String, copyright: String, url: String, license: String)] = [
         ("Dark Reader",
          "© 2014–2025 Alexander Shutau",
-         "https://github.com/darkreader/darkreader"),
-        ("SwiftSoup",
-         "© 2016 Nabil Chatbi",
-         "https://github.com/scinfu/SwiftSoup"),
+         "https://github.com/darkreader/darkreader",
+         "MIT"),
         ("GRDB.swift",
          "© 2015–2024 Gwendal Roué",
-         "https://github.com/groue/GRDB.swift"),
+         "https://github.com/groue/GRDB.swift",
+         "MIT"),
+        ("LRUCache",
+         "© 2021 Nick Lockwood",
+         "https://github.com/nicklockwood/LRUCache",
+         "MIT"),
+        ("Swift Atomics",
+         "© Apple Inc.",
+         "https://github.com/apple/swift-atomics",
+         "Apache 2.0"),
+        ("SwiftReadability",
+         "© Lake of Fire",
+         "https://github.com/lake-of-fire/swift-readability",
+         "BSD 3-Clause"),
+        ("SwiftSoup",
+         "© 2016 Nabil Chatbi",
+         "https://github.com/scinfu/SwiftSoup",
+         "MIT"),
     ]
 
     @State private var safariURL: URL?
@@ -44,7 +59,7 @@ struct LicencesView: View {
 
     // MARK: - Card
 
-    private func licenceCard(_ lib: (name: String, copyright: String, url: String)) -> some View {
+    private func licenceCard(_ lib: (name: String, copyright: String, url: String, license: String)) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Text(lib.name)
@@ -53,8 +68,7 @@ struct LicencesView: View {
 
                 Spacer()
 
-                // MIT gradient pill
-                Text("MIT")
+                Text(lib.license)
                     .font(.system(size: 11, weight: .bold))
                     .foregroundColor(.white)
                     .padding(.horizontal, 10)

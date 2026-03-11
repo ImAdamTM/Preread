@@ -1,9 +1,11 @@
 import SwiftUI
+import StoreKit
 import AppIntents
 import GRDB
 
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.requestReview) private var requestReview
 
     // MARK: - Reading
 
@@ -387,6 +389,35 @@ struct SettingsView: View {
                 Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0")
                     .font(Theme.scaledFont(size: 15, relativeTo: .subheadline))
                     .foregroundColor(Theme.textSecondary)
+            }
+            .settingsRow()
+
+            Link(destination: URL(string: "https://preread.app")!) {
+                HStack {
+                    settingLabel("Website")
+                    Spacer()
+                    Image(systemName: "arrow.up.right")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundColor(Theme.textSecondary)
+                }
+            }
+            .settingsRow()
+
+            Link(destination: URL(string: "https://preread.app/privacy")!) {
+                HStack {
+                    settingLabel("Privacy policy")
+                    Spacer()
+                    Image(systemName: "arrow.up.right")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundColor(Theme.textSecondary)
+                }
+            }
+            .settingsRow()
+
+            Button {
+                requestReview()
+            } label: {
+                settingLabel("Rate Preread")
             }
             .settingsRow()
 
