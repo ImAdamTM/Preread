@@ -218,6 +218,7 @@ struct SourcesListView: View {
                         .listRowInsets(EdgeInsets())
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
+                        .zIndex(-1)
 
                     LatestCarouselView(
                         onOpenArticle: { article in

@@ -113,6 +113,7 @@ struct SavedArticlesView: View {
                 .listRowInsets(EdgeInsets())
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
+                .zIndex(-1)
 
             // Saved articles carousel
             SavedCarouselView(

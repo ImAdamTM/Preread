@@ -154,6 +154,7 @@ struct ArticleListView: View {
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
                 .buttonStyle(.borderless)
+                .zIndex(-1)
 
             // Per-source carousel
             if !articles.isEmpty {
