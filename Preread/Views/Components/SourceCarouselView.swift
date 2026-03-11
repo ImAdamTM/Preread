@@ -18,6 +18,9 @@ struct SourceCarouselView: View {
         articles.filter { thumbnailImages[$0.id] != nil }
     }
 
+    /// Fixed card height — matches SourceCarouselCardView's frame.
+    private let cardHeight: CGFloat = 220
+
     var body: some View {
         Group {
             if !visible.isEmpty {
@@ -46,7 +49,9 @@ struct SourceCarouselView: View {
                 .contentMargins(.horizontal, 20, for: .scrollContent)
                 .scrollTargetBehavior(.viewAligned)
             } else {
-                Color.clear.frame(height: 0)
+                // Reserve the card height while thumbnails load so the
+                // list layout doesn't jump when the carousel appears.
+                Color.clear.frame(height: cardHeight)
             }
         }
         .task { startObservation() }
@@ -79,6 +84,10 @@ struct SourceCarouselView: View {
     private func loadThumbnails(for articles: [Article]) {
         for article in articles {
             if thumbnailImages[article.id] != nil { continue }
+            if let cached = ThumbnailCache.shared.cardThumbnail(for: article.id) {
+                thumbnailImages[article.id] = cached
+                continue
+            }
             let articleID = article.id
             Task {
                 let image: UIImage? = await Task.detached(priority: .utility) {
@@ -103,6 +112,7 @@ struct SourceCarouselView: View {
 
                 if let image {
                     thumbnailImages[articleID] = image
+                    ThumbnailCache.shared.setCardThumbnail(image, for: articleID)
                 }
             }
         }

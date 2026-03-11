@@ -89,6 +89,10 @@ struct SavedCarouselView: View {
     private func loadThumbnails(for articles: [Article]) {
         for article in articles {
             if thumbnailImages[article.id] != nil { continue }
+            if let cached = ThumbnailCache.shared.cardThumbnail(for: article.id) {
+                thumbnailImages[article.id] = cached
+                continue
+            }
             let articleID = article.id
             Task {
                 let image: UIImage? = await Task.detached(priority: .utility) {
@@ -113,6 +117,7 @@ struct SavedCarouselView: View {
 
                 if let image {
                     thumbnailImages[articleID] = image
+                    ThumbnailCache.shared.setCardThumbnail(image, for: articleID)
                 }
             }
         }

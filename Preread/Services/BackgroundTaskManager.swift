@@ -255,6 +255,9 @@ enum BackgroundTaskManager {
     /// Removes the oldest articles for a source that exceed the user's
     /// per-source article limit. Saved articles are moved to the hidden
     /// "Saved Pages" source (detached) rather than deleted.
+    ///
+    /// Uncached articles (pending/fetching/failed) don't count toward the
+    /// cap — they remain as opportunistic and get pruned once cached.
     private static func pruneExcessArticles(for sourceID: UUID) async {
         let limit = UserDefaults.standard.integer(forKey: "articleLimit")
         let articleLimit = limit > 0 ? limit : 25
@@ -263,6 +266,9 @@ enum BackgroundTaskManager {
             let excessArticles = try await DatabaseManager.shared.dbPool.read { db in
                 try Article
                     .filter(Column("sourceID") == sourceID)
+                    .filter([ArticleFetchStatus.cached.rawValue,
+                             ArticleFetchStatus.partial.rawValue]
+                        .contains(Column("fetchStatus")))
                     .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
                     .limit(Int.max, offset: articleLimit)
                     .fetchAll(db)

@@ -82,6 +82,9 @@ struct ArticleListView: View {
                 hasInitializedSettings = true
             }
             await loadArticles()
+            // Pre-warm row thumbnails into the shared cache so they
+            // render instantly when the skeleton is replaced by the list.
+            await ThumbnailCache.prewarmRowThumbnails(for: articles)
             isLoading = false
 
             // Observe article changes reactively instead of polling.
@@ -276,9 +279,14 @@ struct ArticleListView: View {
 
     // MARK: - Source favicon
 
+    /// Resolved nav favicon: prefer @State (async-loaded), then synchronous LRU cache hit.
+    private var resolvedNavFavicon: UIImage? {
+        navFaviconImage ?? ThumbnailCache.shared.favicon(for: source.id)
+    }
+
     @ViewBuilder
     private var sourceFavicon: some View {
-        if let favicon = navFaviconImage {
+        if let favicon = resolvedNavFavicon {
             Image(uiImage: favicon)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -288,10 +296,11 @@ struct ArticleListView: View {
             smallLetterAvatar
                 .task {
                     let sourceID = source.id
-                    if let cached = await Task.detached(priority: .utility, operation: {
+                    if let loaded = await Task.detached(priority: .utility, operation: {
                         await PageCacheService.shared.cachedFavicon(for: sourceID)
                     }).value {
-                        navFaviconImage = cached
+                        navFaviconImage = loaded
+                        ThumbnailCache.shared.setFavicon(loaded, for: sourceID)
                     }
                 }
         }

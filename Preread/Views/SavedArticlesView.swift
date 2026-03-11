@@ -80,6 +80,7 @@ struct SavedArticlesView: View {
         .searchable(text: $searchText, prompt: "Search saved articles")
         .task {
             await loadArticles()
+            await ThumbnailCache.prewarmRowThumbnails(for: articles)
             isLoading = false
             // If any articles are still pending/fetching, poll until they settle
             await pollWhileCaching()

@@ -68,10 +68,18 @@ struct SourceHeroView: View {
         }
         .task(id: source.iconURL) {
             let sourceID = source.id
-            let cached = await Task.detached(priority: .utility, operation: {
+            // Check shared favicon cache first (populated by SourceSectionView)
+            if let cached = ThumbnailCache.shared.favicon(for: sourceID) {
+                iconImage = cached
+                return
+            }
+            let loaded = await Task.detached(priority: .utility, operation: {
                 await PageCacheService.shared.cachedFavicon(for: sourceID)
             }).value
-            iconImage = cached
+            if let loaded {
+                iconImage = loaded
+                ThumbnailCache.shared.setFavicon(loaded, for: sourceID)
+            }
         }
     }
 
@@ -79,8 +87,8 @@ struct SourceHeroView: View {
 
     private var blurredBackground: some View {
         ZStack {
-            if let iconImage {
-                Image(uiImage: iconImage)
+            if let favicon = resolvedFavicon {
+                Image(uiImage: favicon)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .blur(radius: 40)
@@ -132,10 +140,15 @@ struct SourceHeroView: View {
 
     // MARK: - Hero favicon (large)
 
+    /// Resolved favicon: prefer @State (async-loaded), then synchronous LRU cache hit.
+    private var resolvedFavicon: UIImage? {
+        iconImage ?? ThumbnailCache.shared.favicon(for: source.id)
+    }
+
     @ViewBuilder
     private var heroFavicon: some View {
-        if let iconImage {
-            Image(uiImage: iconImage)
+        if let favicon = resolvedFavicon {
+            Image(uiImage: favicon)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 38, height: 38)

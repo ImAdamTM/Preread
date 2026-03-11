@@ -15,6 +15,11 @@ struct ArticleRowView: View {
     @State private var isFaviconFallback = false
     @State private var thumbnailLoaded = false
 
+    /// Seed image provided by the parent (pre-warmed from ThumbnailCache).
+    /// When set, the row skips its own disk load on first appearance.
+    var preloadedThumbnail: UIImage? = nil
+    var preloadedIsFavicon: Bool = false
+
     var body: some View {
         Button(action: onTap) {
             HStack(spacing: 16) {
@@ -133,11 +138,12 @@ struct ArticleRowView: View {
         }
         .onChange(of: article.fetchStatus) { _, newStatus in
             if newStatus == .cached || newStatus == .partial {
-                // Re-check for a real thumbnail now that caching is done
-                if isFaviconFallback || cachedThumbnailImage == nil {
-                    Task {
-                        await loadLocalThumbnail()
-                    }
+                // Article just finished caching — a real thumbnail is now on
+                // disk. Invalidate the cached entry (which may be a stale
+                // favicon fallback) and re-load from disk unconditionally.
+                ThumbnailCache.shared.removeRowThumbnail(for: article.id)
+                Task {
+                    await loadLocalThumbnail()
                 }
             }
         }
@@ -225,13 +231,65 @@ struct ArticleRowView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
             } else if thumbnailLoaded {
                 gradientPlaceholder
+            } else if let cached = synchronousCacheHit {
+                // Synchronous cache hit — render immediately without a frame delay.
+                // The onAppear below writes the values into @State so subsequent
+                // renders go through the branches above instead of re-checking.
+                thumbnailImage(cached.image, isFavicon: cached.isFavicon)
+                    .onAppear {
+                        cachedThumbnailImage = cached.image
+                        isFaviconFallback = cached.isFavicon
+                        thumbnailLoaded = true
+                    }
             } else {
-                // Placeholder while loading from disk
+                // No cache hit — show gradient placeholder while loading from disk
                 gradientPlaceholder
                     .task {
+                        // Use preloaded image from parent if available
+                        if let preloaded = preloadedThumbnail {
+                            cachedThumbnailImage = preloaded
+                            isFaviconFallback = preloadedIsFavicon
+                            thumbnailLoaded = true
+                            return
+                        }
                         await loadLocalThumbnail()
                     }
             }
+        }
+    }
+
+    /// Checks the LRU cache synchronously during body evaluation.
+    /// This avoids the one-frame flash from the async `.task` path.
+    private var synchronousCacheHit: CachedThumbnail? {
+        if let preloaded = preloadedThumbnail {
+            return CachedThumbnail(image: preloaded, isFavicon: preloadedIsFavicon)
+        }
+        return ThumbnailCache.shared.rowThumbnail(for: article.id)
+    }
+
+    /// Renders a thumbnail image in either favicon or full-bleed style.
+    @ViewBuilder
+    private func thumbnailImage(_ uiImage: UIImage, isFavicon: Bool) -> some View {
+        if isFavicon {
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color(.tertiarySystemFill))
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .interpolation(.high)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 34, height: 34)
+                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                    .saturation(1)
+                    .opacity(0.7)
+            }
+            .frame(width: 80, height: 80)
+        } else {
+            Image(uiImage: uiImage)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 80, height: 80)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
         }
     }
 
@@ -284,6 +342,10 @@ struct ArticleRowView: View {
         cachedThumbnailImage = result.0
         isFaviconFallback = result.1
         thumbnailLoaded = true
+        // Populate shared cache for future use
+        if let image = result.0 {
+            ThumbnailCache.shared.setRowThumbnail(image, isFavicon: result.1, for: article.id)
+        }
     }
 
     /// Efficiently loads and downsamples an image using ImageIO without

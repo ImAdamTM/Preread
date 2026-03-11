@@ -574,18 +574,28 @@ final class FetchCoordinator: ObservableObject {
 
     // MARK: - Pruning
 
-    /// Removes the oldest articles for a source that exceed the user's
-    /// per-source article limit. Saved articles are moved to the hidden
-    /// "Saved Pages" source (detached) rather than deleted.
+    /// Removes the oldest **cached** articles for a source that exceed the
+    /// user's per-source article limit. Saved articles are moved to the
+    /// hidden "Saved Pages" source (detached) rather than deleted.
+    ///
+    /// Uncached articles (pending/fetching/failed) don't count toward the
+    /// cap. They remain in the DB as opportunistic — they'll cache when
+    /// connectivity allows and get pruned on a future pass once cached.
+    /// This prevents a feed refresh from deleting readable articles to
+    /// make room for articles that haven't finished downloading yet.
     private func pruneExcessArticles(for sourceID: UUID) async {
         let limit = UserDefaults.standard.integer(forKey: "articleLimit")
         let articleLimit = limit > 0 ? limit : 25 // default 25
 
         do {
-            // Fetch ALL articles beyond the cap (saved and unsaved)
+            // Only count cached/partial articles against the cap.
+            // Pending/fetching/failed articles are invisible to pruning.
             let excessArticles = try await DatabaseManager.shared.dbPool.read { db in
                 try Article
                     .filter(Column("sourceID") == sourceID)
+                    .filter([ArticleFetchStatus.cached.rawValue,
+                             ArticleFetchStatus.partial.rawValue]
+                        .contains(Column("fetchStatus")))
                     .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
                     .limit(Int.max, offset: articleLimit)
                     .fetchAll(db)

@@ -81,13 +81,21 @@ struct SourceSectionView: View {
         }
         .task {
             let sourceID = source.id
-            let favicon = await Task.detached(priority: .utility) {
-                await PageCacheService.shared.cachedFavicon(for: sourceID)
-            }.value
-            if let favicon {
-                cachedFavicon = favicon
+            // Check shared cache first (may already be warm from previous visit)
+            if let cached = ThumbnailCache.shared.favicon(for: sourceID) {
+                cachedFavicon = cached
+            } else {
+                let favicon = await Task.detached(priority: .utility) {
+                    await PageCacheService.shared.cachedFavicon(for: sourceID)
+                }.value
+                if let favicon {
+                    cachedFavicon = favicon
+                    ThumbnailCache.shared.setFavicon(favicon, for: sourceID)
+                }
             }
             await loadArticles()
+            // Pre-warm row thumbnails for these 5 articles
+            await ThumbnailCache.prewarmRowThumbnails(for: articles)
             // Observe article changes reactively instead of polling.
             startArticleObservation()
             // Auto-cache any visible pending/failed articles (e.g. after
@@ -106,6 +114,7 @@ struct SourceSectionView: View {
                     }.value
                     if let favicon {
                         cachedFavicon = favicon
+                        ThumbnailCache.shared.setFavicon(favicon, for: sourceID)
                     }
                 }
             }
@@ -223,6 +232,7 @@ struct SourceSectionView: View {
                         }.value
                         if let favicon {
                             cachedFavicon = favicon
+                            ThumbnailCache.shared.setFavicon(favicon, for: sourceID)
                             return
                         }
                     }
