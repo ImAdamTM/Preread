@@ -189,6 +189,49 @@ func stripBadgeClusters(in doc: Document) throws {
     }
 }
 
+// MARK: - Helper: deduplicate sibling images
+
+/// Regex matching dimension suffixes like -640x426, -1024x648
+let dimensionSuffixPattern = try! NSRegularExpression(pattern: #"-\d+x\d+"#)
+
+func imageDedupKey(for src: String) -> String {
+    let range = NSRange(src.startIndex..<src.endIndex, in: src)
+    return dimensionSuffixPattern.stringByReplacingMatches(
+        in: src, range: range, withTemplate: ""
+    )
+}
+
+/// Removes duplicate sibling `<img>` elements that share the same base URL
+/// (differing only in dimension suffixes). Keeps the variant with the largest width.
+func deduplicateSiblingImages(in doc: Document) throws {
+    struct ParentKey: Hashable {
+        let parentHash: Int
+        let dedupKey: String
+    }
+
+    var groups: [ParentKey: [Element]] = [:]
+    for img in try doc.select("img[src]") {
+        guard let parent = img.parent() else { continue }
+        let src = try img.attr("src")
+        guard !src.isEmpty, !src.hasPrefix("data:") else { continue }
+        let key = imageDedupKey(for: src)
+        guard key != src else { continue }
+        let pk = ParentKey(parentHash: ObjectIdentifier(parent).hashValue, dedupKey: key)
+        groups[pk, default: []].append(img)
+    }
+
+    for (_, group) in groups where group.count > 1 {
+        let sorted = group.sorted { a, b in
+            let wa = Int((try? a.attr("width")) ?? "") ?? 0
+            let wb = Int((try? b.attr("width")) ?? "") ?? 0
+            return wa > wb
+        }
+        for img in sorted.dropFirst() {
+            try img.remove()
+        }
+    }
+}
+
 // MARK: - Helper: strip empty elements
 
 func stripEmptyElements(in doc: Document) throws {
@@ -428,8 +471,23 @@ if isFullMode {
 
         print("  -> Readability title: \(title)")
 
-        // Strip empty elements left behind by our cleaning passes
+        // Post-processing
         let contentDoc = try SwiftSoup.parseBodyFragment(contentHTML, pageURL.absoluteString)
+
+        // Deduplicate images — exact src match
+        var seenSrcs = Set<String>()
+        for img in try contentDoc.select("img[src]") {
+            let src = try img.attr("src")
+            guard !src.isEmpty, !src.hasPrefix("data:") else { continue }
+            if !seenSrcs.insert(src).inserted {
+                try img.remove()
+            }
+        }
+
+        // Deduplicate sibling images with same base URL but different dimension suffixes
+        try deduplicateSiblingImages(in: contentDoc)
+
+        // Strip empty elements left behind by our cleaning passes
         try stripEmptyElements(in: contentDoc)
         contentHTML = (try? contentDoc.body()?.html()) ?? contentHTML
 

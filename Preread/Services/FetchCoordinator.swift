@@ -18,6 +18,14 @@ final class FetchCoordinator: ObservableObject {
     @Published var startupComplete = false
     @Published var savedArticlesVersion = 0
 
+    /// The source currently being viewed by the user. When set, foreground
+    /// stale-source refreshes prioritise this source and defer the rest.
+    var activeSourceID: UUID?
+
+    /// Sources whose refresh was deferred because the user was viewing a
+    /// specific feed when the app returned to foreground.
+    private var deferredStaleSources: [Source] = []
+
     private let maxConcurrentSources = 3
 
     private init() {}
@@ -73,11 +81,16 @@ final class FetchCoordinator: ObservableObject {
         }
     }
 
-    // MARK: - Refresh stale .automatic sources (called at app launch)
+    // MARK: - Refresh stale .automatic sources (called on foreground resume)
 
     /// Refreshes .automatic sources that haven't been checked recently.
     /// Uses a 1-hour staleness threshold — if background tasks ran on time,
     /// this is a no-op. Acts as a safety net when background execution is delayed.
+    ///
+    /// When the user is viewing a specific source (`activeSourceID` is set),
+    /// only that source is refreshed immediately. The remaining stale sources
+    /// are deferred until `refreshDeferredStaleSources()` is called (typically
+    /// when navigating back to the home screen).
     func refreshStaleAutoSources() async {
         guard !NetworkMonitor.shouldSkipForWiFiOnly else { return }
         let staleThreshold: TimeInterval = 60 * 60 // 1 hour
@@ -91,10 +104,37 @@ final class FetchCoordinator: ObservableObject {
                 return Date().timeIntervalSince(lastFetched) > staleThreshold
             }
             guard !staleSources.isEmpty else { return }
-            await refreshSourcesWithPriority(staleSources)
+
+            if let activeID = activeSourceID {
+                // User is viewing a specific feed — refresh only that source now
+                let (active, deferred) = staleSources.reduce(into: ([Source](), [Source]())) { result, source in
+                    if source.id == activeID {
+                        result.0.append(source)
+                    } else {
+                        result.1.append(source)
+                    }
+                }
+                deferredStaleSources = deferred
+                if !active.isEmpty {
+                    await refreshSourcesWithPriority(active)
+                }
+            } else {
+                // On home screen — refresh everything
+                deferredStaleSources = []
+                await refreshSourcesWithPriority(staleSources)
+            }
         } catch {
             // Non-critical
         }
+    }
+
+    /// Refreshes sources that were deferred because the user was viewing a
+    /// specific feed when the app last returned to foreground. No-op if empty.
+    func refreshDeferredStaleSources() async {
+        let deferred = deferredStaleSources
+        deferredStaleSources = []
+        guard !deferred.isEmpty else { return }
+        await refreshSourcesWithPriority(deferred)
     }
 
     // MARK: - Refresh single source (user-initiated, no guard)
@@ -233,6 +273,8 @@ final class FetchCoordinator: ObservableObject {
 
     /// Caches articles round-robin across sources: one article from each source
     /// in turn, repeating until all queues are exhausted.
+    /// Haptics only fire for articles in the currently-viewed source (or for all
+    /// articles when on the home screen).
     private func roundRobinCache(queues: inout [(source: Source, articles: [Article])]) async {
         var indices = Array(repeating: 0, count: queues.count)
         var remaining = true
@@ -245,11 +287,16 @@ final class FetchCoordinator: ObservableObject {
                 remaining = true
 
                 let article = queues[queueIndex].articles[itemIndex]
-                let cacheLevel = queues[queueIndex].source.effectiveCacheLevel
+                let source = queues[queueIndex].source
+                let cacheLevel = source.effectiveCacheLevel
                 indices[queueIndex] += 1
 
                 try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
-                HapticManager.articleCached()
+
+                // Only fire haptic if on home screen or caching the viewed source
+                if activeSourceID == nil || activeSourceID == source.id {
+                    HapticManager.articleCached()
+                }
 
                 try? await Task.sleep(for: .milliseconds(200))
             }

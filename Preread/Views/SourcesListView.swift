@@ -88,6 +88,9 @@ struct SourcesListView: View {
                 // Refresh counts when navigating back (e.g. after reading articles)
                 if path.isEmpty {
                     Task { await loadSources() }
+                    // Kick off any stale-source refreshes that were deferred
+                    // while the user was viewing a specific feed.
+                    Task { await coordinator.refreshDeferredStaleSources() }
                 }
             }
             .refreshable {

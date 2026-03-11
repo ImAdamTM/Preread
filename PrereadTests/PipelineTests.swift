@@ -1,5 +1,6 @@
 import Testing
 import Foundation
+import SwiftSoup
 @testable import Preread
 
 // MARK: - Helpers
@@ -120,6 +121,35 @@ struct StandardPipelineTests {
         #expect(!result.contentHTML.contains("DailyMail_Main.png"), "Site logo should not be injected as hero image")
         #expect(!result.contentHTML.contains("sitelogos"), "No site logo images should appear in content")
         #expect(result.imageCount >= 5, "Article photos should be preserved")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
+    // MARK: - Ars Technica
+
+    @Test("Ars Technica: duplicate hero images deduplicated, article content extracted")
+    func arstechnicaArticle() async throws {
+        let html = try loadFixture("arstechnica_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://arstechnica.com/tech-policy/2026/03/binance-sues-wsj-over-report-sparking-government-probes-into-exchange/")!
+        )
+
+        #expect(result.title.contains("Binance"))
+        #expect(result.contentHTML.contains("Wall Street Journal"))
+        #expect(result.imageCount >= 1, "Hero image should be present")
+
+        // The key check: Ars Technica puts two <img> siblings with different
+        // dimension suffixes (e.g. -640x426 vs -1024x648) inside one <a>.
+        // After deduplication, only the largest variant should remain.
+        let contentDoc = try SwiftSoup.parseBodyFragment(result.contentHTML, "https://arstechnica.com")
+        let heroImages = try contentDoc.select("img").array().filter { img in
+            let src = (try? img.attr("src")) ?? ""
+            return src.contains("GettyImages-2263087121")
+        }
+        #expect(heroImages.count == 1, "Duplicate hero images should be deduplicated to one")
+
         #expect(!result.contentHTML.contains("<script"))
         #expect(!result.contentHTML.contains("<nav"))
         #expect(!result.contentHTML.contains("<style"))
@@ -289,6 +319,29 @@ struct FullPipelineTests {
         // Content should be preserved
         #expect(result.cleanedHTML.contains("Rihanna"))
         #expect(result.cleanedHTML.contains("Beverly Hills"))
+        #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
+    }
+
+    // MARK: - Ars Technica
+
+    @Test("Ars Technica: interactive elements stripped, article content preserved")
+    func arstechnicaArticle() async throws {
+        let html = try loadFixture("arstechnica_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://arstechnica.com/tech-policy/2026/03/binance-sues-wsj-over-report-sparking-government-probes-into-exchange/")!
+        )
+
+        // Interactive elements should be stripped
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form"))
+
+        // Content should be preserved
+        #expect(result.cleanedHTML.contains("Binance"))
+        #expect(result.cleanedHTML.contains("Wall Street Journal"))
         #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
     }
 

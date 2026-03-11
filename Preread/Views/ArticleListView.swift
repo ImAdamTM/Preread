@@ -74,6 +74,8 @@ struct ArticleListView: View {
             }
         }
         .task {
+            coordinator.activeSourceID = source.id
+
             if !hasInitializedSettings {
                 currentCacheLevel = source.cacheLevel ?? .standard
                 currentFetchFrequency = source.fetchFrequency
@@ -108,6 +110,12 @@ struct ArticleListView: View {
                 if exists == false {
                     dismiss()
                 }
+            }
+        }
+        .onDisappear {
+            // Clear active source so deferred refreshes can proceed
+            if coordinator.activeSourceID == source.id {
+                coordinator.activeSourceID = nil
             }
         }
         .onChange(of: coordinator.sourceStatuses[source.id]) { _, newState in

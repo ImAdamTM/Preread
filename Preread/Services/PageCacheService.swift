@@ -305,7 +305,7 @@ actor PageCacheService {
             throw NSError(domain: "PageCacheService", code: 1, userInfo: nil)
         }
 
-        // Deduplicate images
+        // Deduplicate images — exact src match
         var seenSrcs = Set<String>()
         for img in try contentDoc.select("img[src]") {
             let src = try img.attr("src")
@@ -314,6 +314,11 @@ actor PageCacheService {
                 try img.remove()
             }
         }
+
+        // Deduplicate sibling images that share the same base URL
+        // but differ only in dimension suffixes (e.g. image-640x426.jpg
+        // vs image-1024x648.jpg). Keeps the largest variant.
+        try deduplicateSiblingImages(in: contentDoc)
 
         try stripEmptyElements(in: contentDoc)
 
@@ -1512,6 +1517,60 @@ actor PageCacheService {
             try img.removeAttr("class")
             try img.removeAttr("data-nimg")
             try img.removeAttr("data-chromatic")
+        }
+    }
+
+    // MARK: - Sibling image deduplication
+
+    /// A regex that matches dimension suffixes like `-640x426`, `-1024x648`, `-980x652`
+    /// commonly used in responsive image URLs.
+    private static let dimensionSuffixPattern = try! NSRegularExpression(
+        pattern: #"-\d+x\d+"#
+    )
+
+    /// Strips the dimension suffix from an image URL to produce a base key for comparison.
+    /// e.g. "https://cdn.example.com/image-640x426.jpg" → "https://cdn.example.com/image.jpg"
+    private func imageDedupKey(for src: String) -> String {
+        let range = NSRange(src.startIndex..<src.endIndex, in: src)
+        return Self.dimensionSuffixPattern.stringByReplacingMatches(
+            in: src, range: range, withTemplate: ""
+        )
+    }
+
+    /// Removes duplicate sibling `<img>` elements that share the same base URL
+    /// (differing only in dimension suffixes like `-640x426` vs `-1024x648`).
+    /// Keeps the variant with the largest width. This handles responsive image
+    /// patterns where sites place multiple resolution variants as sibling elements.
+    private func deduplicateSiblingImages(in doc: Document) throws {
+        // Group all images by (parent identity, dedup key)
+        struct ParentKey: Hashable {
+            let parentHash: Int  // ObjectIdentifier-like hash for the parent element
+            let dedupKey: String
+        }
+
+        var groups: [ParentKey: [Element]] = [:]
+        for img in try doc.select("img[src]") {
+            guard let parent = img.parent() else { continue }
+            let src = try img.attr("src")
+            guard !src.isEmpty, !src.hasPrefix("data:") else { continue }
+            let key = imageDedupKey(for: src)
+            // Only group if the dedup key differs from the src (i.e. there was a dimension suffix)
+            guard key != src else { continue }
+            let pk = ParentKey(parentHash: ObjectIdentifier(parent).hashValue, dedupKey: key)
+            groups[pk, default: []].append(img)
+        }
+
+        for (_, group) in groups where group.count > 1 {
+            // Keep the image with the largest width attribute
+            let sorted = group.sorted { a, b in
+                let wa = Int((try? a.attr("width")) ?? "") ?? 0
+                let wb = Int((try? b.attr("width")) ?? "") ?? 0
+                return wa > wb
+            }
+            // Remove all but the first (largest)
+            for img in sorted.dropFirst() {
+                try img.remove()
+            }
         }
     }
 
