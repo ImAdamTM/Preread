@@ -87,8 +87,7 @@ struct SavedCarouselView: View {
             let articleID = article.id
             Task {
                 let image: UIImage? = await Task.detached(priority: .utility) {
-                    let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-                    let articleDir = appSupport.appendingPathComponent("preread/articles/\(articleID.uuidString)", isDirectory: true)
+                    let articleDir = ContainerPaths.articlesBaseURL.appendingPathComponent(articleID.uuidString, isDirectory: true)
 
                     let thumbnailPath = articleDir.appendingPathComponent("thumbnail.jpg")
                     if FileManager.default.fileExists(atPath: thumbnailPath.path),

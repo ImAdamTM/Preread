@@ -44,8 +44,7 @@ actor PageCacheService {
 
     /// Shared asset pool directory — assets are stored once here and hardlinked into article dirs.
     private var sharedAssetsURL: URL {
-        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        return appSupport.appendingPathComponent("preread/shared_assets", isDirectory: true)
+        ContainerPaths.sharedAssetsURL
     }
 
     /// Fetches data with retry on QUIC/HTTP3 failures.
@@ -148,8 +147,7 @@ actor PageCacheService {
     }
 
     private var articlesBaseURL: URL {
-        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        return appSupport.appendingPathComponent("preread/articles", isDirectory: true)
+        ContainerPaths.articlesBaseURL
     }
 
     /// Loads the reader template from the app bundle once.
@@ -1651,8 +1649,7 @@ actor PageCacheService {
     // MARK: - Favicon caching
 
     private var sourcesBaseURL: URL {
-        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        return appSupport.appendingPathComponent("preread/sources", isDirectory: true)
+        ContainerPaths.sourcesBaseURL
     }
 
     /// Discovers the best favicon URL from an HTML document.

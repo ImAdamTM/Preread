@@ -124,8 +124,7 @@ struct LatestCarouselView: View {
             let articleID = article.id
             Task {
                 let image: UIImage? = await Task.detached(priority: .utility) {
-                    let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-                    let articleDir = appSupport.appendingPathComponent("preread/articles/\(articleID.uuidString)", isDirectory: true)
+                    let articleDir = ContainerPaths.articlesBaseURL.appendingPathComponent(articleID.uuidString, isDirectory: true)
 
                     // Prefer the large 600px thumbnail for carousel cards
                     let thumbnailPath = articleDir.appendingPathComponent("thumbnail.jpg")

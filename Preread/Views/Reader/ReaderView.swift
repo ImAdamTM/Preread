@@ -53,17 +53,13 @@ struct ReaderView: View {
     }
 
     private var articleHTMLURL: URL {
-        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        return appSupport
-            .appendingPathComponent("preread/articles", isDirectory: true)
+        return ContainerPaths.articlesBaseURL
             .appendingPathComponent(article.id.uuidString, isDirectory: true)
             .appendingPathComponent("index.html")
     }
 
     private var articleDarkHTMLURL: URL {
-        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        return appSupport
-            .appendingPathComponent("preread/articles", isDirectory: true)
+        return ContainerPaths.articlesBaseURL
             .appendingPathComponent(article.id.uuidString, isDirectory: true)
             .appendingPathComponent("index-dark.html")
     }
@@ -247,8 +243,7 @@ struct ReaderView: View {
     // MARK: - Hero image URL
 
     private var heroImageURL: URL? {
-        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        let articleDir = appSupport.appendingPathComponent("preread/articles/\(article.id.uuidString)", isDirectory: true)
+        let articleDir = ContainerPaths.articlesBaseURL.appendingPathComponent(article.id.uuidString, isDirectory: true)
 
         // Try the regular-size downsampled thumbnail (600px)
         let thumbnailPath = articleDir.appendingPathComponent("thumbnail.jpg")
@@ -265,7 +260,7 @@ struct ReaderView: View {
         }
 
         // Fall back to source's cached favicon
-        let faviconPath = appSupport.appendingPathComponent("preread/sources/\(source.id.uuidString)/favicon.png")
+        let faviconPath = ContainerPaths.sourcesBaseURL.appendingPathComponent("\(source.id.uuidString)/favicon.png")
         if FileManager.default.fileExists(atPath: faviconPath.path) {
             return faviconPath
         }

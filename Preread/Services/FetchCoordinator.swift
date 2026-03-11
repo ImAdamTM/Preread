@@ -1,5 +1,6 @@
 import Foundation
 import GRDB
+import WidgetKit
 
 enum SourceRefreshState: Equatable {
     case idle
@@ -50,6 +51,7 @@ final class FetchCoordinator: ObservableObject {
         await refreshSourcesWithPriority(sources)
 
         isFetching = false
+        WidgetCenter.shared.reloadAllTimelines()
         HapticManager.allRefreshComplete()
     }
 

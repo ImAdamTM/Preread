@@ -8,9 +8,11 @@ final class DatabaseManager {
 
     private init() {
         do {
+            // Migrate data from legacy app sandbox to shared app-group container
+            ContainerPaths.migrateToAppGroupIfNeeded()
+
             let fileManager = FileManager.default
-            let appSupport = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-            let prereadDir = appSupport.appendingPathComponent("preread", isDirectory: true)
+            let prereadDir = ContainerPaths.prereadRoot
 
             if !fileManager.fileExists(atPath: prereadDir.path) {
                 try fileManager.createDirectory(at: prereadDir, withIntermediateDirectories: true)
@@ -22,7 +24,7 @@ final class DatabaseManager {
             var mutableDir = prereadDir
             try mutableDir.setResourceValues(resourceValues)
 
-            let dbPath = prereadDir.appendingPathComponent("preread.db").path
+            let dbPath = ContainerPaths.databasePath
             dbPool = try DatabasePool(path: dbPath)
 
             var migrator = DatabaseMigrator()

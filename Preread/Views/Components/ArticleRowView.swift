@@ -242,8 +242,7 @@ struct ArticleRowView: View {
         let articleID = article.id.uuidString
         let sourceID = article.sourceID.uuidString
         let result: (UIImage?, Bool) = await Task.detached(priority: .utility) {
-            let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-            let articleDir = appSupport.appendingPathComponent("preread/articles/\(articleID)", isDirectory: true)
+            let articleDir = ContainerPaths.articlesBaseURL.appendingPathComponent(articleID, isDirectory: true)
 
             // 1. Prefer the small downsampled thumbnail
             let thumbPath = articleDir.appendingPathComponent("thumb.jpg")
@@ -273,7 +272,7 @@ struct ArticleRowView: View {
             }
 
             // 4. Fall back to source's cached favicon
-            let faviconPath = appSupport.appendingPathComponent("preread/sources/\(sourceID)/favicon.png")
+            let faviconPath = ContainerPaths.sourcesBaseURL.appendingPathComponent("\(sourceID)/favicon.png")
             if FileManager.default.fileExists(atPath: faviconPath.path),
                let data = try? Data(contentsOf: faviconPath),
                let img = UIImage(data: data) {

@@ -1,6 +1,7 @@
 import UIKit
 import BackgroundTasks
 import GRDB
+import WidgetKit
 
 final class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
@@ -68,6 +69,7 @@ enum BackgroundTaskManager {
 
         Task {
             await workTask.value
+            WidgetCenter.shared.reloadAllTimelines()
             task.setTaskCompleted(success: true)
         }
     }
@@ -249,6 +251,7 @@ enum BackgroundTaskManager {
 
         Task {
             await workTask.value
+            WidgetCenter.shared.reloadAllTimelines()
             task.setTaskCompleted(success: true)
         }
     }
