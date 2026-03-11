@@ -20,8 +20,10 @@ struct SourcesListView: View {
     @State private var renamingSource: Source?
     @State private var renameText = ""
     
+    @Namespace private var namespace
     @State private var scrollToSourceID: UUID?
     @State private var readerSelection: ReaderSelection?
+    @State private var transitionSourceID: String?
     @State private var accentGradientImage: UIImage?
     @Environment(\.colorScheme) private var systemColorScheme
     @ObservedObject private var detailCoordinator = ArticleDetailCoordinator.shared
@@ -140,6 +142,7 @@ struct SourcesListView: View {
                 NavigationStack {
                     ReaderView(article: selection.article, source: selection.source)
                 }
+                .navigationTransition(.zoom(sourceID: transitionSourceID ?? "\(selection.source.id)-\(selection.article.id)", in: namespace))
                 .toastOverlay()
                 .presentationDragIndicator(.hidden)
                 .preferredColorScheme(preferredScheme)
@@ -181,6 +184,7 @@ struct SourcesListView: View {
                         try Article.fetchOne(db, key: articleID)
                     }) else { return }
                     // Open the article directly as a sheet — no source navigation needed
+                    transitionSourceID = nil
                     openArticleInReader(article)
                 }
             }
@@ -221,7 +225,9 @@ struct SourcesListView: View {
                         .zIndex(-1)
 
                     LatestCarouselView(
+                        transitionNamespace: namespace,
                         onOpenArticle: { article in
+                            transitionSourceID = "latest-carousel-\(article.id)"
                             openArticleInReader(article)
                         }
                     )
@@ -236,6 +242,7 @@ struct SourcesListView: View {
                     SourceSectionView(
                         source: source,
                         refreshState: state,
+                        transitionNamespace: namespace,
                         onViewAll: {
                             navigationPath.append(NavigationTarget.source(source.id))
                         },
@@ -253,6 +260,7 @@ struct SourcesListView: View {
                             Task { await removeSource(source) }
                         },
                         onOpenArticle: { article in
+                            transitionSourceID = "\(source.id)-\(article.id)"
                             openArticleInReader(article)
                         }
                     )
@@ -261,10 +269,12 @@ struct SourcesListView: View {
 
                 if hasSavedArticles {
                     SavedSectionView(
+                        transitionNamespace: namespace,
                         onViewAll: {
                             navigationPath.append(NavigationTarget.saved)
                         },
                         onOpenArticle: { article in
+                            transitionSourceID = "saved-section-\(article.id)"
                             openArticleInReader(article)
                         }
                     )

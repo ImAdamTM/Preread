@@ -4,6 +4,7 @@ import GRDB
 struct SourceSectionView: View {
     let source: Source
     let refreshState: SourceRefreshState
+    var transitionNamespace: Namespace.ID
     let onViewAll: () -> Void
     let onRefresh: () -> Void
     let onEditName: () -> Void
@@ -47,6 +48,10 @@ struct SourceSectionView: View {
                     onDelete: { Task { await deleteArticle(article) } },
                     sourceName: source.isTopicFeed ? article.displayDomain : nil
                 )
+                .matchedTransitionSource(id: "\(source.id)-\(article.id)", in: transitionNamespace) {
+                    $0.clipShape(RoundedRectangle(cornerRadius: 12))
+                        .background(Theme.background)
+                }
                 .listRowInsets(EdgeInsets())
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)

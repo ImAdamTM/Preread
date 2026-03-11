@@ -2,6 +2,7 @@ import SwiftUI
 import GRDB
 
 struct LatestCarouselView: View {
+    var transitionNamespace: Namespace.ID
     let onOpenArticle: (Article) -> Void
 
     @State private var articles: [Article] = []
@@ -30,6 +31,10 @@ struct LatestCarouselView: View {
                                 isFetching: fetchingArticleIDs.contains(article.id),
                                 onTap: { handleTap(article) }
                             )
+                            .matchedTransitionSource(id: "latest-carousel-\(article.id)", in: transitionNamespace) {
+                                $0.clipShape(RoundedRectangle(cornerRadius: 16))
+                                    .background(Theme.background)
+                            }
                             .scrollTransition { content, phase in
                                 content
                                     .scaleEffect(phase.isIdentity ? 1.0 : 0.93)

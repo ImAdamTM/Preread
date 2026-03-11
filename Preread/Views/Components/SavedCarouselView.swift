@@ -3,6 +3,7 @@ import GRDB
 
 /// A horizontal carousel showing the latest 10 saved articles with thumbnails.
 struct SavedCarouselView: View {
+    var transitionNamespace: Namespace.ID
     let onOpenArticle: (Article) -> Void
 
     @State private var articles: [Article] = []
@@ -30,6 +31,10 @@ struct SavedCarouselView: View {
                                 isFetching: fetchingArticleIDs.contains(article.id),
                                 onTap: { handleTap(article) }
                             )
+                            .matchedTransitionSource(id: "saved-carousel-\(article.id)", in: transitionNamespace) {
+                                $0.clipShape(RoundedRectangle(cornerRadius: 16))
+                                    .background(Theme.background)
+                            }
                             .scrollTransition { content, phase in
                                 content
                                     .scaleEffect(phase.isIdentity ? 1.0 : 0.93)

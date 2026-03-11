@@ -11,6 +11,7 @@ struct SavedArticlesView: View {
     @State private var sourceNames: [UUID: String] = [:]
     @State private var searchText = ""
     @State private var readerSelection: ReaderSelection?
+    @State private var transitionSourceID: String?
     @State private var failedArticle: Article?
     @State private var isLoading = true
     @State private var heroTitleMinY: CGFloat = 200
@@ -98,6 +99,7 @@ struct SavedArticlesView: View {
             NavigationStack {
                 ReaderView(article: selection.article, source: selection.source)
             }
+            .navigationTransition(.zoom(sourceID: transitionSourceID ?? "row-\(selection.article.id)", in: namespace))
             .toastOverlay()
             .presentationDragIndicator(.hidden)
             .preferredColorScheme(preferredScheme)
@@ -117,8 +119,10 @@ struct SavedArticlesView: View {
 
             // Saved articles carousel
             SavedCarouselView(
+                transitionNamespace: namespace,
                 onOpenArticle: { article in
                     markAsReadLocally(article)
+                    transitionSourceID = "saved-carousel-\(article.id)"
                     Task { await openArticle(article) }
                 }
             )
@@ -137,7 +141,7 @@ struct SavedArticlesView: View {
                 ArticleRowView(
                     article: article,
                     namespace: namespace,
-                    onTap: { handleTap(article) },
+                    onTap: { transitionSourceID = "row-\(article.id)"; handleTap(article) },
                     onToggleRead: { Task { await toggleRead(article) } },
                     onToggleSave: { Task { await unsaveArticle(article) } },
                     onRefetch: { Task { await refetchArticle(article) } },
@@ -145,6 +149,10 @@ struct SavedArticlesView: View {
                     sourceName: article.originalSourceName ?? sourceNames[article.sourceID],
                     showUnsaveInsteadOfSave: true
                 )
+                .matchedTransitionSource(id: "row-\(article.id)", in: namespace) {
+                    $0.clipShape(RoundedRectangle(cornerRadius: 12))
+                        .background(Theme.background)
+                }
                 .listRowInsets(EdgeInsets())
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)

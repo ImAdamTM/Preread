@@ -2,6 +2,7 @@ import SwiftUI
 import GRDB
 
 struct SavedSectionView: View {
+    var transitionNamespace: Namespace.ID
     let onViewAll: () -> Void
     let onOpenArticle: (Article) -> Void
 
@@ -24,6 +25,10 @@ struct SavedSectionView: View {
                     sourceName: article.originalSourceName,
                     showUnsaveInsteadOfSave: true
                 )
+                .matchedTransitionSource(id: "saved-section-\(article.id)", in: transitionNamespace) {
+                    $0.clipShape(RoundedRectangle(cornerRadius: 12))
+                        .background(Theme.background)
+                }
                 .listRowInsets(EdgeInsets())
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)

@@ -17,6 +17,7 @@ struct ArticleListView: View {
     @State private var isLoadingMore = false
     @State private var feedExhausted = false
     @State private var selectedArticle: Article?
+    @State private var transitionSourceID: String?
     @State private var showSourceSettings = false
     @State private var currentCacheLevel: CacheLevel = .standard
     @State private var currentFetchFrequency: FetchFrequency = .automatic
@@ -138,6 +139,7 @@ struct ArticleListView: View {
             NavigationStack {
                 ReaderView(article: article, source: source)
             }
+            .navigationTransition(.zoom(sourceID: transitionSourceID ?? "row-\(article.id)", in: namespace))
             .toastOverlay()
             .presentationDragIndicator(.hidden)
             .preferredColorScheme(preferredScheme)
@@ -161,8 +163,10 @@ struct ArticleListView: View {
                 SourceCarouselView(
                     sourceID: source.id,
                     cacheLevel: currentCacheLevel,
+                    transitionNamespace: namespace,
                     onOpenArticle: { article in
                         markAsReadLocally(article)
+                        transitionSourceID = "source-carousel-\(article.id)"
                         presentArticle(article)
                     }
                 )
@@ -188,13 +192,17 @@ struct ArticleListView: View {
                     ArticleRowView(
                         article: article,
                         namespace: namespace,
-                        onTap: { handleTap(article) },
+                        onTap: { transitionSourceID = "row-\(article.id)"; handleTap(article) },
                         onToggleRead: { Task { await toggleRead(article) } },
                         onToggleSave: { Task { await toggleSave(article) } },
                         onRefetch: { Task { await refetchArticle(article) } },
                         onDelete: { Task { await deleteArticle(article) } },
                         sourceName: source.isTopicFeed ? article.displayDomain : nil
                     )
+                    .matchedTransitionSource(id: "row-\(article.id)", in: namespace) {
+                        $0.clipShape(RoundedRectangle(cornerRadius: 12))
+                            .background(Theme.background)
+                    }
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
