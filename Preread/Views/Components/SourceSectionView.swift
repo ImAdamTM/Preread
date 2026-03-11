@@ -19,6 +19,7 @@ struct SourceSectionView: View {
     @State private var showDeleteConfirmation = false
     @State private var isAutoCaching = false
     @State private var articleObservation: AnyDatabaseCancellable?
+    @AppStorage("articleLimit") private var articleLimit: Int = 25
 
     var body: some View {
         Section {
@@ -293,7 +294,8 @@ struct SourceSectionView: View {
             // Observation failed — keep existing data
         } onChange: { (newArticles, count) in
             articles = newArticles
-            totalArticleCount = count
+            let cap = articleLimit > 0 ? articleLimit : 25
+            totalArticleCount = min(count, cap)
         }
     }
 
@@ -313,7 +315,8 @@ struct SourceSectionView: View {
                 return (articles, count)
             }
             articles = loaded
-            totalArticleCount = count
+            let cap = articleLimit > 0 ? articleLimit : 25
+            totalArticleCount = min(count, cap)
         } catch {
             // Keep existing articles
         }
