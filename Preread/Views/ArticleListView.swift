@@ -84,10 +84,8 @@ struct ArticleListView: View {
             isLoading = false
 
             // Handle article deep link — auto-select after load
-            if let articleID = deepLinkRouter.pendingArticleID,
-               let article = articles.first(where: { $0.id == articleID }) {
-                presentArticle(article)
-                deepLinkRouter.pendingArticleID = nil
+            if let articleID = deepLinkRouter.pendingArticleID {
+                await openArticleByID(articleID)
             }
 
             // Observe article changes reactively instead of polling.
@@ -118,6 +116,12 @@ struct ArticleListView: View {
                 Task {
                     await reloadSourceFromDB()
                 }
+            }
+        }
+        .onChange(of: deepLinkRouter.pendingArticleID) { _, articleID in
+            guard let articleID else { return }
+            Task {
+                await openArticleByID(articleID)
             }
         }
         .sheet(item: $failedArticle) { article in
@@ -402,6 +406,19 @@ struct ArticleListView: View {
         } else {
             selectedArticle = article
         }
+    }
+
+    /// Opens an article by ID from a deep link. Fetches directly from the DB
+    /// so it works even if the article isn't in the currently loaded page.
+    private func openArticleByID(_ articleID: UUID) async {
+        guard let article = try? await DatabaseManager.shared.dbPool.read({ db in
+            try Article.fetchOne(db, key: articleID)
+        }), article.sourceID == source.id else {
+            // Not for this source — leave pendingArticleID for the correct view
+            return
+        }
+        deepLinkRouter.pendingArticleID = nil
+        presentArticle(article)
     }
 
     private func handleTap(_ article: Article) {
