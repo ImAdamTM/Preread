@@ -78,7 +78,8 @@ struct ArticleRowView: View {
                 .frame(width: 24)
             }
             .contentShape(Rectangle())
-            .padding(.horizontal, 14)
+            .padding(.leading, 20)
+            .padding(.trailing, 12)
             .padding(.vertical, 14)
             .frame(minHeight: 96)
             .overlay(alignment: .bottom) {

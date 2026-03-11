@@ -225,14 +225,8 @@ struct SourcesListView: View {
                 if !sources.isEmpty {
                     Text("Your Prereads")
                         .font(.system(size: 37, weight: .regular))
-                        .foregroundStyle(
-                            LinearGradient(
-                                colors: [Theme.textPrimary, Theme.purple],
-                                startPoint: .leading,
-                                endPoint: UnitPoint(x: 2.5, y: 0.5)
-                            )
-                        )
-                        .listRowInsets(EdgeInsets(top: 16, leading: 16, bottom: 15, trailing: 16))
+                        .foregroundColor(Theme.textPrimary)
+                        .listRowInsets(EdgeInsets(top: 16, leading: 18, bottom: 15, trailing: 18))
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
 
@@ -291,12 +285,18 @@ struct SourcesListView: View {
                         showAddSource = true
                     } label: {
                         VStack(spacing: 6) {
-                            Image(systemName: "plus.circle")
-                                .font(.system(size: 24))
+                            ZStack {
+                                Circle()
+                                    .fill(Theme.accentGradient)
+                                    .frame(width: 36, height: 36)
+                                Image(systemName: "plus")
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundColor(.white)
+                            }
                             Text("Add a new source")
                                 .font(Theme.scaledFont(size: 15))
+                                .foregroundColor(Theme.textSecondary)
                         }
-                        .foregroundColor(Theme.accent)
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 24)

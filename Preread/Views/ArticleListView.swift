@@ -185,7 +185,7 @@ struct ArticleListView: View {
                 Text("All Articles")
                     .font(.system(size: 17, weight: .semibold))
                     .foregroundColor(Theme.textPrimary)
-                    .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 8, trailing: 16))
+                    .listRowInsets(EdgeInsets(top: 4, leading: 20, bottom: 8, trailing: 20))
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
 

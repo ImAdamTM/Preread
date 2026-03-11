@@ -21,7 +21,7 @@ struct SourceCarouselView: View {
         Group {
             if !visible.isEmpty {
                 ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack(spacing: 3) {
+                    LazyHStack(spacing: 0) {
                         ForEach(visible) { article in
                             SourceCarouselCardView(
                                 article: article,
@@ -38,7 +38,7 @@ struct SourceCarouselView: View {
                     }
                     .scrollTargetLayout()
                 }
-                .contentMargins(.horizontal, 24, for: .scrollContent)
+                .contentMargins(.horizontal, 20, for: .scrollContent)
                 .scrollTargetBehavior(.viewAligned)
             } else {
                 Color.clear.frame(height: 0)

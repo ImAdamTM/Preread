@@ -55,12 +55,15 @@ struct SourceSectionView: View {
             if totalArticleCount > articles.count {
                 Button(action: onViewAll) {
                     Text("View all \(totalArticleCount) articles")
-                        .font(Theme.scaledFont(size: 14, weight: .medium, relativeTo: .subheadline))
-                        .foregroundColor(Theme.accent)
-                        .frame(maxWidth: .infinity)
+                        .font(Theme.scaledFont(size: 14, weight: .semibold, relativeTo: .subheadline))
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 24)
                         .padding(.vertical, 10)
+                        .background(Theme.accentGradient)
+                        .clipShape(Capsule())
+                        .frame(maxWidth: .infinity)
                 }
-                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 0))
+                .listRowInsets(EdgeInsets(top: 20, leading: 0, bottom: 15, trailing: 0))
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
             }
@@ -115,17 +118,32 @@ struct SourceSectionView: View {
 
     // MARK: - Section header
 
+    private var subtitleText: String {
+        if totalArticleCount > articles.count {
+            return "Latest \(articles.count) · \(totalArticleCount) articles"
+        }
+        return "\(totalArticleCount) article\(totalArticleCount == 1 ? "" : "s")"
+    }
+
     private var sectionHeader: some View {
-        HStack(spacing: 10) {
+        HStack(alignment: .center, spacing: 12) {
             faviconView
 
-            Text(source.title)
-                .font(Theme.scaledFont(size: 17, weight: .semibold))
-                .foregroundColor(Theme.textPrimary)
-                .lineLimit(1)
+            VStack(alignment: .leading, spacing: -2) {
+                Text(source.title)
+                    .font(.system(size: 20, weight: .regular))
+                    .foregroundColor(Theme.textPrimary)
+                    .lineLimit(1)
 
-            if refreshState == .refreshing || isAutoCaching {
-                refreshSpinner
+                HStack(spacing: 4) {
+                    Text(subtitleText)
+                        .font(Theme.scaledFont(size: 13, relativeTo: .caption))
+                        .foregroundColor(Theme.textPrimary.opacity(0.6))
+
+                    if refreshState == .refreshing || isAutoCaching {
+                        refreshSpinner
+                    }
+                }
             }
 
             Spacer(minLength: 4)
@@ -133,7 +151,7 @@ struct SourceSectionView: View {
             Button(action: onViewAll) {
                 Text("View all")
                     .font(Theme.scaledFont(size: 14, weight: .medium, relativeTo: .subheadline))
-                    .foregroundColor(Theme.accent)
+                    .foregroundStyle(Theme.accentGradient)
             }
         }
         .contentShape(Rectangle())
@@ -181,8 +199,8 @@ struct SourceSectionView: View {
                 .resizable()
                 .interpolation(.high)
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 32, height: 32)
-                .clipShape(RoundedRectangle(cornerRadius: 7))
+                .frame(width: 38, height: 38)
+                .clipShape(RoundedRectangle(cornerRadius: 9))
         } else {
             letterAvatar
                 .task {
@@ -206,11 +224,11 @@ struct SourceSectionView: View {
     private var letterAvatar: some View {
         let letter = String(source.title.prefix(1)).uppercased()
         return ZStack {
-            RoundedRectangle(cornerRadius: 7)
+            RoundedRectangle(cornerRadius: 9)
                 .fill(Theme.avatarGradient(for: source.title))
-                .frame(width: 32, height: 32)
+                .frame(width: 38, height: 38)
             Text(letter)
-                .font(Theme.scaledFont(size: 15, weight: .bold))
+                .font(Theme.scaledFont(size: 16, weight: .bold))
                 .foregroundColor(.white)
         }
     }

@@ -133,7 +133,7 @@ struct SavedArticlesView: View {
             Text("All Articles")
                 .font(.system(size: 17, weight: .semibold))
                 .foregroundColor(Theme.textPrimary)
-                .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 8, trailing: 16))
+                .listRowInsets(EdgeInsets(top: 4, leading: 20, bottom: 8, trailing: 20))
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
 
@@ -227,7 +227,7 @@ struct SavedArticlesView: View {
 
             Spacer()
         }
-        .padding(.horizontal, 16)
+        .padding(.horizontal, 20)
         .padding(.top, 16)
         .padding(.bottom, 22)
         .frame(maxWidth: .infinity, alignment: .topLeading)

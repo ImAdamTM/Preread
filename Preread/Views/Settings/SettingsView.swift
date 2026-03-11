@@ -43,6 +43,13 @@ struct SettingsView: View {
 
     var body: some View {
         List {
+            Text("Settings")
+                .font(.system(size: 37, weight: .regular))
+                .foregroundColor(Theme.textPrimary)
+                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
+
             appearanceSection
             readingSection
             syncingSection
@@ -52,11 +59,12 @@ struct SettingsView: View {
             aboutSection
         }
         .listStyle(.insetGrouped)
+        .contentMargins(.top, 15, for: .scrollContent)
         .scrollContentBackground(.hidden)
         .background(Theme.background.ignoresSafeArea())
         .environment(\.editMode, $sourcesEditMode)
         .navigationTitle("Settings")
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.inline)
         .task {
             await loadSources()
             await loadStorageData()

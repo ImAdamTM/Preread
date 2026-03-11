@@ -56,7 +56,7 @@ struct SourceHeroView: View {
             // Right: action buttons
             heroActionButtons
         }
-        .padding(.horizontal, 16)
+        .padding(.horizontal, 20)
         .padding(.top, 16)
         .padding(.bottom, 22)
         .frame(maxWidth: .infinity, alignment: .topLeading)

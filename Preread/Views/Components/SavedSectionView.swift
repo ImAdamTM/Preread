@@ -8,6 +8,7 @@ struct SavedSectionView: View {
     @ObservedObject private var coordinator = FetchCoordinator.shared
     @Namespace private var namespace
     @State private var articles: [Article] = []
+    @State private var totalSavedCount: Int = 0
 
     var body: some View {
         Section {
@@ -52,11 +53,18 @@ struct SavedSectionView: View {
 
     // MARK: - Section header
 
+    private var subtitleText: String {
+        if totalSavedCount > articles.count {
+            return "Latest \(articles.count) · \(totalSavedCount) articles"
+        }
+        return "\(totalSavedCount) article\(totalSavedCount == 1 ? "" : "s")"
+    }
+
     private var sectionHeader: some View {
-        HStack(spacing: 10) {
+        HStack(alignment: .center, spacing: 12) {
             // Bookmark icon
             ZStack {
-                RoundedRectangle(cornerRadius: 7)
+                RoundedRectangle(cornerRadius: 9)
                     .fill(
                         LinearGradient(
                             colors: [Theme.teal, Theme.teal.opacity(0.7)],
@@ -64,23 +72,29 @@ struct SavedSectionView: View {
                             endPoint: .bottomTrailing
                         )
                     )
-                    .frame(width: 32, height: 32)
+                    .frame(width: 38, height: 38)
                 Image(systemName: "bookmark.fill")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(.system(size: 16, weight: .medium))
                     .foregroundColor(.white)
             }
 
-            Text("Saved")
-                .font(Theme.scaledFont(size: 17, weight: .semibold))
-                .foregroundColor(Theme.textPrimary)
-                .lineLimit(1)
+            VStack(alignment: .leading, spacing: -2) {
+                Text("Saved")
+                    .font(.system(size: 20, weight: .regular))
+                    .foregroundColor(Theme.textPrimary)
+                    .lineLimit(1)
+
+                Text(subtitleText)
+                    .font(Theme.scaledFont(size: 13, relativeTo: .caption))
+                    .foregroundColor(Theme.textPrimary.opacity(0.6))
+            }
 
             Spacer(minLength: 4)
 
             Button(action: onViewAll) {
                 Text("View all")
                     .font(Theme.scaledFont(size: 14, weight: .medium, relativeTo: .subheadline))
-                    .foregroundColor(Theme.accent)
+                    .foregroundStyle(Theme.accentGradient)
             }
         }
     }
@@ -89,14 +103,19 @@ struct SavedSectionView: View {
 
     private func loadArticles() async {
         do {
-            let loaded = try await DatabaseManager.shared.dbPool.read { db in
-                try Article
+            let (loaded, count) = try await DatabaseManager.shared.dbPool.read { db in
+                let articles = try Article
                     .filter(Column("isSaved") == true)
                     .order(SQL("COALESCE(savedAt, addedAt)").sqlExpression.desc)
                     .limit(5)
                     .fetchAll(db)
+                let count = try Article
+                    .filter(Column("isSaved") == true)
+                    .fetchCount(db)
+                return (articles, count)
             }
             articles = loaded
+            totalSavedCount = count
         } catch {
             // Keep existing articles
         }
