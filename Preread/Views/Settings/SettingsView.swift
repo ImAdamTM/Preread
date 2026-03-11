@@ -9,7 +9,7 @@ struct SettingsView: View {
 
     // MARK: - Reading
 
-    @AppStorage("readerFontFamily") private var fontFamily: String = "Inter Tight"
+    @AppStorage("readerFontFamily") private var fontFamily: String = "-apple-system"
     @AppStorage("readerTextSize") private var textSize: Double = 18
 
     // MARK: - Syncing
@@ -36,9 +36,10 @@ struct SettingsView: View {
     @State private var totalStorageBytes: Int64 = 0
     @State private var freeSpaceMB: Int = Int.max
     private let fontOptions: [(name: String, display: String)] = [
-        ("Inter Tight", "Inter Tight"),
+        ("-apple-system", "System"),
         ("Georgia", "Georgia"),
-        ("New York", "New York")
+        ("New York", "New York"),
+        ("Palatino", "Palatino")
     ]
 
     private let textSizeStops: [Double] = [14, 16, 18, 20, 22, 24]
@@ -187,7 +188,7 @@ struct SettingsView: View {
                     }
                 } label: {
                     HStack(spacing: 4) {
-                        Text(fontOptions.first(where: { $0.name == fontFamily })?.display ?? "Inter Tight")
+                        Text(fontOptions.first(where: { $0.name == fontFamily })?.display ?? "System")
                             .font(Theme.scaledFont(size: 15, relativeTo: .subheadline))
                             .foregroundColor(Theme.textPrimary)
                         Image(systemName: "chevron.up.chevron.down")

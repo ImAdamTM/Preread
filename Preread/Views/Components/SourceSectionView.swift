@@ -240,8 +240,8 @@ struct SourceSectionView: View {
             let angle = context.date.timeIntervalSinceReferenceDate.remainder(dividingBy: 1.2) / 1.2 * 360
             ZStack {
                 Circle()
-                    .stroke(Theme.borderProminent, lineWidth: 2)
-                    .frame(width: 16, height: 16)
+                    .stroke(Theme.borderProminent, lineWidth: 1.5)
+                    .frame(width: 11, height: 11)
 
                 Circle()
                     .trim(from: 0, to: 0.3)
@@ -250,9 +250,9 @@ struct SourceSectionView: View {
                             colors: [Theme.accent.opacity(0.6), Theme.accent],
                             center: .center
                         ),
-                        style: StrokeStyle(lineWidth: 2, lineCap: .round)
+                        style: StrokeStyle(lineWidth: 1.5, lineCap: .round)
                     )
-                    .frame(width: 16, height: 16)
+                    .frame(width: 11, height: 11)
                     .rotationEffect(.degrees(angle))
             }
         }

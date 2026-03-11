@@ -695,13 +695,24 @@ actor PageCacheService {
             totalSize = htmlData.count + assetSize
         }
 
-        // Backfill thumbnail from hero image when the RSS feed didn't provide one
-        if article.thumbnailURL == nil,
-           let heroSrc = pipelineHeroImageURL,
+        // Backfill or upgrade thumbnail from hero image.
+        // - Backfill: RSS feed didn't provide a thumbnail at all
+        // - Upgrade: RSS thumbnail was low-resolution (< 400px wide on disk)
+        if let heroSrc = pipelineHeroImageURL,
            let heroURL = URL(string: heroSrc, relativeTo: pageURL) {
-            let resolved = heroURL.absoluteString
-            article.thumbnailURL = resolved
-            await cacheThumbnail(url: heroURL, to: articleDir)
+            let shouldUseHero: Bool
+            if article.thumbnailURL == nil {
+                shouldUseHero = true
+            } else {
+                // Check if the cached thumbnail is low-resolution
+                let thumbPath = articleDir.appendingPathComponent("thumbnail.jpg")
+                shouldUseHero = isThumbnailLowRes(at: thumbPath, threshold: 400)
+            }
+            if shouldUseHero {
+                let resolved = heroURL.absoluteString
+                article.thumbnailURL = resolved
+                await cacheThumbnail(url: heroURL, to: articleDir)
+            }
         }
 
         // Cache a per-article favicon extracted from the page's HTML.
@@ -1131,6 +1142,18 @@ actor PageCacheService {
         } catch {
             // Thumbnail caching is best-effort; don't fail the article cache
         }
+    }
+
+    /// Checks if a cached thumbnail is below a pixel-width threshold
+    /// without fully decoding the image, using ImageIO properties.
+    private func isThumbnailLowRes(at url: URL, threshold: Int) -> Bool {
+        guard FileManager.default.fileExists(atPath: url.path),
+              let source = CGImageSourceCreateWithURL(url as CFURL, nil),
+              let properties = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any],
+              let width = properties[kCGImagePropertyPixelWidth] as? Int else {
+            return true // No thumbnail or unreadable — treat as low-res
+        }
+        return width < threshold
     }
 
     /// Downsamples using ImageIO without decoding the full bitmap into memory.

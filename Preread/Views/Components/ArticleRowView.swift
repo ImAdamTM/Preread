@@ -24,8 +24,8 @@ struct ArticleRowView: View {
                 // Content
                 VStack(alignment: .leading, spacing: 4) {
                     Text(article.title)
-                        .font(Theme.scaledFont(size: 17, weight: article.isRead ? .regular : .semibold))
-                        .foregroundColor(Theme.textPrimary.opacity(0.85))
+                        .font(Theme.scaledFont(size: 17, weight: .medium))
+                        .foregroundColor(Theme.textPrimary.opacity(article.isRead ? 0.5 : 0.85))
                         .lineLimit(2)
                         .matchedGeometryEffect(id: article.id.uuidString + "-title", in: namespace)
 
@@ -33,7 +33,7 @@ struct ArticleRowView: View {
                         if let sourceName {
                             Text(sourceName)
                                 .font(Theme.scaledFont(size: 13, relativeTo: .footnote))
-                                .foregroundColor(Theme.textSecondary)
+                                .foregroundColor(Theme.textSecondary.opacity(0.7))
                                 .lineLimit(1)
                         }
 
@@ -41,18 +41,18 @@ struct ArticleRowView: View {
                             if sourceName != nil {
                                 Text(" · ")
                                     .font(Theme.scaledFont(size: 13, relativeTo: .footnote))
-                                    .foregroundColor(Theme.textSecondary)
+                                    .foregroundColor(Theme.textSecondary.opacity(0.7))
                             }
                             Text(RelativeTimeFormatter.string(from: published))
                                 .font(Theme.scaledFont(size: 13, relativeTo: .footnote))
-                                .foregroundColor(Theme.textSecondary)
+                                .foregroundColor(Theme.textSecondary.opacity(0.7))
                         }
 
                         if let status = statusLabel {
                             if article.publishedAt != nil || sourceName != nil {
                                 Text(" · ")
                                     .font(Theme.scaledFont(size: 13, relativeTo: .footnote))
-                                    .foregroundColor(Theme.textSecondary)
+                                    .foregroundColor(Theme.textSecondary.opacity(0.7))
                             }
                             Text(status.text)
                                 .font(Theme.scaledFont(size: 13, weight: .medium, relativeTo: .footnote))
@@ -321,13 +321,13 @@ struct ArticleRowView: View {
     private var statusLabel: (text: String, color: Color)? {
         switch article.fetchStatus {
         case .cached, .partial:
-            return ("Saved", Theme.textSecondary)
+            return ("Saved", Theme.textSecondary.opacity(0.7))
         case .fetching:
-            return ("Saving", Theme.textSecondary)
+            return ("Saving", Theme.textSecondary.opacity(0.7))
         case .pending:
-            return ("Pending", Theme.warning.opacity(0.7))
+            return ("Pending", Theme.warning.opacity(0.5))
         case .failed:
-            return ("Failed", Theme.danger.opacity(0.7))
+            return ("Failed", Theme.danger.opacity(0.5))
         }
     }
 

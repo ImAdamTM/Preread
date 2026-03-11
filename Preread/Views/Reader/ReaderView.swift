@@ -11,7 +11,7 @@ struct ReaderView: View {
     @ObservedObject private var detailCoordinator = ArticleDetailCoordinator.shared
     @EnvironmentObject private var toastManager: ToastManager
     @AppStorage("readerTextSize") private var textSize: Double = 18
-    @AppStorage("readerFontFamily") private var fontFamily: String = "Inter Tight"
+    @AppStorage("readerFontFamily") private var fontFamily: String = "-apple-system"
     @State private var webViewVisible = false
     @State private var safariURL: URL?
     @State private var showSafari = false
@@ -98,6 +98,7 @@ struct ReaderView: View {
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.hidden, for: .navigationBar)
+        .toolbar(lightboxImageURL != nil ? .hidden : .visible, for: .navigationBar)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 HStack(spacing: 16) {
@@ -230,6 +231,10 @@ struct ReaderView: View {
         .opacity(webViewVisible ? 1 : 0)
         .animation(.easeIn(duration: 0.2), value: webViewVisible)
         .onAppear {
+            // Migrate legacy font choice
+            if fontFamily == "Inter Tight" {
+                fontFamily = "-apple-system"
+            }
             if Theme.reduceMotion {
                 webViewVisible = true
             } else {

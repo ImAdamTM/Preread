@@ -5,9 +5,10 @@ struct FontPickerPopover: View {
     let onChanged: (String) -> Void
 
     private let fonts: [(name: String, displayName: String, preview: Font)] = [
-        ("Inter Tight", "Inter Tight", .custom("InterTight-Regular", size: 15)),
+        ("-apple-system", "System", .system(size: 15, design: .default)),
         ("Georgia", "Georgia", .custom("Georgia", size: 15)),
-        ("New York", "New York", .system(size: 15, design: .serif))
+        ("New York", "New York", .system(size: 15, design: .serif)),
+        ("Palatino", "Palatino", .custom("Palatino", size: 15))
     ]
 
     var body: some View {

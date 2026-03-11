@@ -26,14 +26,34 @@ struct ImageLightboxView: View {
                         .aspectRatio(contentMode: .fit)
                         .scaleEffect(scale)
                         .offset(x: offset.width, y: offset.height + dragOffset.height)
+                        .gesture(dragGesture(in: geometry))
                         .gesture(pinchGesture)
-                        .gesture(panGesture(in: geometry))
-                        .simultaneousGesture(dismissDragGesture)
                         .onTapGesture(count: 2) { toggleZoom(in: geometry) }
                 } else {
                     ProgressView()
                         .tint(.white)
                 }
+
+                // Close button
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "xmark")
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(.white)
+                                .frame(width: 32, height: 32)
+                                .background(.ultraThinMaterial.opacity(0.6), in: Circle())
+                        }
+                        .padding(.top, geometry.safeAreaInsets.top + 8)
+                        .padding(.trailing, 16)
+                        .opacity(backgroundOpacity)
+                    }
+                    Spacer()
+                }
+                .ignoresSafeArea()
             }
         }
         .statusBarHidden()
@@ -60,38 +80,32 @@ struct ImageLightboxView: View {
             }
     }
 
-    /// Pan only when zoomed in.
-    private func panGesture(in geometry: GeometryProxy) -> some Gesture {
+    /// Unified drag gesture: pans when zoomed in, drags to dismiss at 1x.
+    private func dragGesture(in geometry: GeometryProxy) -> some Gesture {
         DragGesture()
             .onChanged { value in
-                guard scale > 1.0 else { return }
-                offset = CGSize(
-                    width: lastOffset.width + value.translation.width,
-                    height: lastOffset.height + value.translation.height
-                )
-            }
-            .onEnded { _ in
-                lastOffset = offset
-            }
-    }
-
-    /// Vertical drag to dismiss when at 1x zoom.
-    private var dismissDragGesture: some Gesture {
-        DragGesture()
-            .onChanged { value in
-                guard scale <= 1.0 else { return }
-                dragOffset = CGSize(width: 0, height: value.translation.height)
-                let progress = min(abs(value.translation.height) / 300, 1.0)
-                backgroundOpacity = 1.0 - (progress * 0.5)
+                if scale > 1.0 {
+                    offset = CGSize(
+                        width: lastOffset.width + value.translation.width,
+                        height: lastOffset.height + value.translation.height
+                    )
+                } else {
+                    dragOffset = CGSize(width: 0, height: value.translation.height)
+                    let progress = min(abs(value.translation.height) / 300, 1.0)
+                    backgroundOpacity = 1.0 - (progress * 0.5)
+                }
             }
             .onEnded { value in
-                guard scale <= 1.0 else { return }
-                if abs(value.translation.height) > 100 {
-                    dismiss()
+                if scale > 1.0 {
+                    lastOffset = offset
                 } else {
-                    withAnimation(.easeOut(duration: 0.2)) {
-                        dragOffset = .zero
-                        backgroundOpacity = 1.0
+                    if abs(value.translation.height) > 100 {
+                        dismiss()
+                    } else {
+                        withAnimation(.easeOut(duration: 0.2)) {
+                            dragOffset = .zero
+                            backgroundOpacity = 1.0
+                        }
                     }
                 }
             }
