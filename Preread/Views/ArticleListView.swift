@@ -183,8 +183,8 @@ struct ArticleListView: View {
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
             } else {
-                Text("All Articles")
-                    .font(.system(size: 17, weight: .semibold))
+                Text("All articles")
+                    .font(.system(size: 20, weight: .regular))
                     .foregroundColor(Theme.textPrimary)
                     .listRowInsets(EdgeInsets(top: 4, leading: 20, bottom: 8, trailing: 20))
                     .listRowSeparator(.hidden)
