@@ -14,6 +14,7 @@ struct WidgetArticle: Identifiable {
     let title: String
     let sourceName: String
     let publishedAt: Date?
+    let readingMinutes: Int?
     let thumbnailImage: UIImage?
     let faviconImage: UIImage?
     let deepLinkURL: URL

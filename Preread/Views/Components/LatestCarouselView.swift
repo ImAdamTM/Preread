@@ -311,6 +311,13 @@ private struct CarouselCardView: View {
             .overlay(alignment: .bottomLeading) {
                 // Article title + metadata — bottom left
                 VStack(alignment: .leading, spacing: 3) {
+                    if let minutes = article.readingMinutes {
+                        Text(ReadingTimeFormatter.articleFormatted(minutes: minutes))
+                            .font(.system(size: 11))
+                            .foregroundStyle(.white.opacity(0.6))
+                            .shadow(color: .black.opacity(0.5), radius: 1, x: 0, y: 1)
+                    }
+
                     Text(article.title)
                         .font(.system(size: 18, weight: .semibold))
                         .foregroundStyle(.white)

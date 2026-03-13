@@ -24,6 +24,7 @@ struct SourceHeroView: View {
     let source: Source
     let isRefreshing: Bool
     let articleCount: Int
+    var totalReadingMinutes: Int = 0
     let onSettingsTapped: () -> Void
     let onRefreshTapped: () -> Void
     var showActionButtons: Bool = true
@@ -60,8 +61,8 @@ struct SourceHeroView: View {
             }
         }
         .padding(.horizontal, 20)
-        .padding(.top, 16)
-        .padding(.bottom, 22)
+        .padding(.top, 21)
+        .padding(.bottom, 20)
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .background(alignment: .top) {
             blurredBackground
@@ -180,7 +181,9 @@ struct SourceHeroView: View {
     private var lastUpdatedLabel: some View {
         Group {
             if let lastFetched = source.lastFetchedAt {
-                Text("\(articleCount) article\(articleCount == 1 ? "" : "s") · Updated \(RelativeTimeFormatter.string(from: lastFetched))")
+                let readingPart = ReadingTimeFormatter.formatted(minutes: totalReadingMinutes)
+                    .map { " · \($0) reading" } ?? ""
+                Text("\(articleCount) article\(articleCount == 1 ? "" : "s")\(readingPart) · Updated \(RelativeTimeFormatter.string(from: lastFetched))")
             } else {
                 Text("Not yet synced")
             }

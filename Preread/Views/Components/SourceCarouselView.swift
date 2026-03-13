@@ -6,6 +6,7 @@ import GRDB
 struct SourceCarouselView: View {
     let sourceID: UUID
     let cacheLevel: CacheLevel
+    var isTopicFeed: Bool = false
     var transitionNamespace: Namespace.ID
     let onOpenArticle: (Article) -> Void
 
@@ -31,6 +32,7 @@ struct SourceCarouselView: View {
                                 article: article,
                                 thumbnail: thumbnailImages[article.id],
                                 isFetching: fetchingArticleIDs.contains(article.id),
+                                isTopicFeed: isTopicFeed,
                                 onTap: { handleTap(article) }
                             )
                             .matchedTransitionSource(id: "source-carousel-\(article.id)", in: transitionNamespace) {
@@ -173,6 +175,7 @@ private struct SourceCarouselCardView: View {
     let article: Article
     let thumbnail: UIImage?
     let isFetching: Bool
+    var isTopicFeed: Bool = false
     let onTap: () -> Void
 
     var body: some View {
@@ -209,6 +212,13 @@ private struct SourceCarouselCardView: View {
             }
             .overlay(alignment: .bottomLeading) {
                 VStack(alignment: .leading, spacing: 3) {
+                    if let minutes = article.readingMinutes {
+                        Text(ReadingTimeFormatter.articleFormatted(minutes: minutes))
+                            .font(.system(size: 11))
+                            .foregroundStyle(.white.opacity(0.6))
+                            .shadow(color: .black.opacity(0.5), radius: 1, x: 0, y: 1)
+                    }
+
                     Text(article.title)
                         .font(.system(size: 18, weight: .semibold))
                         .foregroundStyle(.white)
@@ -222,6 +232,10 @@ private struct SourceCarouselCardView: View {
                     HStack(spacing: 0) {
                         if let published = article.publishedAt {
                             Text(RelativeTimeFormatter.string(from: published))
+                            Text(" · ")
+                        }
+                        if isTopicFeed, let domain = article.displayDomain {
+                            Text(domain)
                             Text(" · ")
                         }
                         Text(statusText)

@@ -78,6 +78,7 @@ struct ArticleTimelineProvider: AppIntentTimelineProvider {
                 title: item.article.title,
                 sourceName: item.sourceName,
                 publishedAt: item.article.publishedAt,
+                readingMinutes: item.article.readingMinutes,
                 thumbnailImage: thumbnail,
                 faviconImage: favicon,
                 deepLinkURL: deepLink
@@ -120,6 +121,7 @@ struct ArticleTimelineProvider: AppIntentTimelineProvider {
             title: "Article Title",
             sourceName: "Source",
             publishedAt: Date(),
+            readingMinutes: 5,
             thumbnailImage: nil,
             faviconImage: nil,
             deepLinkURL: URL(string: "preread://")!

@@ -56,6 +56,13 @@ struct WidgetCardView: View {
                         .textCase(.uppercase)
                         .shadow(color: .black.opacity(0.6), radius: 2, x: 0, y: 1)
 
+                    if let minutes = article.readingMinutes {
+                        Text("\(minutes) min read")
+                            .font(.system(size: compact ? 9 : 11))
+                            .foregroundStyle(.white.opacity(0.6))
+                            .shadow(color: .black.opacity(0.5), radius: 1, x: 0, y: 1)
+                    }
+
                     Text(article.title)
                         .font(.system(size: compact ? 14 : 16, weight: .semibold))
                         .foregroundStyle(.white)

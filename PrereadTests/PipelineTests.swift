@@ -33,6 +33,7 @@ struct StandardPipelineTests {
         #expect(result.title.contains("Liverpool"))
         #expect(result.title.contains("Grok"))
         #expect(result.contentHTML.contains("sickening"))
+        #expect(result.wordCount > 0, "Word count should be positive")
         #expect(!result.contentHTML.contains("<script"))
         #expect(!result.contentHTML.contains("<nav"))
         #expect(!result.contentHTML.contains("<style"))
@@ -204,6 +205,7 @@ struct FullPipelineTests {
         #expect(result.cleanedHTML.contains("sickening"))
         #expect(result.cleanedHTML.contains("Grok"))
         #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
+        #expect(result.wordCount > 0, "Word count should be positive")
     }
 
     // MARK: - GitHub README

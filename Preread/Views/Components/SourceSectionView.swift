@@ -15,6 +15,7 @@ struct SourceSectionView: View {
     @Namespace private var namespace
     @State private var articles: [Article] = []
     @State private var totalArticleCount: Int = 0
+    @State private var totalReadingMinutes: Int = 0
     @State private var cachedFavicon: UIImage?
     @State private var showDeleteConfirmation = false
     @State private var isAutoCaching = false
@@ -130,10 +131,15 @@ struct SourceSectionView: View {
     // MARK: - Section header
 
     private var subtitleText: String {
-        if totalArticleCount > articles.count {
-            return "Latest \(articles.count) · \(totalArticleCount) articles"
+        var parts: [String] = []
+
+        if let readingText = ReadingTimeFormatter.formatted(minutes: totalReadingMinutes) {
+            parts.append("\(readingText) reading")
         }
-        return "\(totalArticleCount) article\(totalArticleCount == 1 ? "" : "s")"
+
+        parts.append("\(totalArticleCount) article\(totalArticleCount == 1 ? "" : "s")")
+
+        return parts.joined(separator: " · ")
     }
 
     private var sectionHeader: some View {
@@ -278,7 +284,7 @@ struct SourceSectionView: View {
         let sourceID = source.id
         let cachedStatuses = [ArticleFetchStatus.cached.rawValue,
                               ArticleFetchStatus.partial.rawValue]
-        let observation = ValueObservation.tracking { db -> ([Article], Int) in
+        let observation = ValueObservation.tracking { db -> ([Article], Int, Int) in
             let articles = try Article
                 .filter(Column("sourceID") == sourceID)
                 .filter(cachedStatuses.contains(Column("fetchStatus")))
@@ -289,17 +295,24 @@ struct SourceSectionView: View {
                 .filter(Column("sourceID") == sourceID)
                 .filter(cachedStatuses.contains(Column("fetchStatus")))
                 .fetchCount(db)
-            return (articles, count)
+            let readingSum = try Int.fetchOne(db, sql: """
+                SELECT COALESCE(SUM(readingMinutes), 0)
+                FROM article
+                WHERE sourceID = ?
+                  AND fetchStatus IN ('cached', 'partial')
+            """, arguments: [sourceID]) ?? 0
+            return (articles, count, readingSum)
         }
         articleObservation = observation.start(
             in: DatabaseManager.shared.dbPool,
             scheduling: .async(onQueue: .main)
         ) { error in
             // Observation failed — keep existing data
-        } onChange: { (newArticles, count) in
+        } onChange: { (newArticles, count, readingSum) in
             articles = newArticles
             let cap = articleLimit > 0 ? articleLimit : 25
             totalArticleCount = min(count, cap)
+            totalReadingMinutes = readingSum
         }
     }
 
@@ -307,7 +320,7 @@ struct SourceSectionView: View {
         let cachedStatuses = [ArticleFetchStatus.cached.rawValue,
                               ArticleFetchStatus.partial.rawValue]
         do {
-            let (loaded, count) = try await DatabaseManager.shared.dbPool.read { db in
+            let (loaded, count, readingSum) = try await DatabaseManager.shared.dbPool.read { db in
                 let articles = try Article
                     .filter(Column("sourceID") == source.id)
                     .filter(cachedStatuses.contains(Column("fetchStatus")))
@@ -318,11 +331,18 @@ struct SourceSectionView: View {
                     .filter(Column("sourceID") == source.id)
                     .filter(cachedStatuses.contains(Column("fetchStatus")))
                     .fetchCount(db)
-                return (articles, count)
+                let readingSum = try Int.fetchOne(db, sql: """
+                    SELECT COALESCE(SUM(readingMinutes), 0)
+                    FROM article
+                    WHERE sourceID = ?
+                      AND fetchStatus IN ('cached', 'partial')
+                """, arguments: [source.id]) ?? 0
+                return (articles, count, readingSum)
             }
             articles = loaded
             let cap = articleLimit > 0 ? articleLimit : 25
             totalArticleCount = min(count, cap)
+            totalReadingMinutes = readingSum
         } catch {
             // Keep existing articles
         }

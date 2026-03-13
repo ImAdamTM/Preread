@@ -29,6 +29,7 @@ struct Article: Identifiable, Codable, Hashable, FetchableRecord, PersistableRec
     var etag: String?
     var lastModified: String?
     var retryCount: Int
+    var readingMinutes: Int?
 
     static let databaseTableName = "article"
 }

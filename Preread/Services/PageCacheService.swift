@@ -14,6 +14,7 @@ struct PipelineResult {
     let contentHTML: String
     let imageCount: Int
     let heroImageURL: String?
+    let wordCount: Int
 }
 
 /// Result of running the full-mode HTML cleaning pipeline. Used by unit tests
@@ -21,6 +22,7 @@ struct PipelineResult {
 struct FullPipelineResult {
     let cleanedHTML: String
     let heroImageURL: String?
+    let wordCount: Int
 }
 
 actor PageCacheService {
@@ -259,6 +261,7 @@ actor PageCacheService {
         // Also check that extracted content has meaningful text
         let textCheck = try SwiftSoup.parseBodyFragment(contentHTML, pageURL.absoluteString)
         let plainText = (try? textCheck.body()?.text())?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let wordCount = plainText.split { $0.isWhitespace || $0.isNewline }.count
         if plainText.count < 50 {
             throw NSError(domain: "PageCacheService", code: 3, userInfo: [
                 NSLocalizedDescriptionKey: "Extracted content too short (\(plainText.count) chars) — page may require JavaScript"
@@ -335,7 +338,7 @@ actor PageCacheService {
         let imageCount = (try? contentDoc.select("img"))?.size() ?? 0
         contentHTML = (try? contentDoc.body()?.html()) ?? contentHTML
 
-        return PipelineResult(title: articleTitle, contentHTML: contentHTML, imageCount: imageCount, heroImageURL: heroImageURL)
+        return PipelineResult(title: articleTitle, contentHTML: contentHTML, imageCount: imageCount, heroImageURL: heroImageURL, wordCount: wordCount)
     }
 
     /// Runs the full-mode HTML cleaning pipeline: strips scripts, navigation,
@@ -416,6 +419,7 @@ actor PageCacheService {
 
         // Detect empty content (e.g. JS-rendered SPAs with no server-side HTML).
         let plainText = (try? doc.body()?.text())?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let wordCount = plainText.split { $0.isWhitespace || $0.isNewline }.count
         if plainText.count < 50 {
             throw NSError(domain: "PageCacheService", code: 3, userInfo: [
                 NSLocalizedDescriptionKey: "Cleaned content too short (\(plainText.count) chars) — page may require JavaScript"
@@ -423,7 +427,7 @@ actor PageCacheService {
         }
 
         let cleanedHTML = try doc.outerHtml()
-        return FullPipelineResult(cleanedHTML: cleanedHTML, heroImageURL: heroImageURL)
+        return FullPipelineResult(cleanedHTML: cleanedHTML, heroImageURL: heroImageURL, wordCount: wordCount)
     }
 
     // MARK: - Cache article
@@ -580,11 +584,13 @@ actor PageCacheService {
         var anyFailed = false
         var cssInlineReplacements: [String: String] = [:]
         var pipelineHeroImageURL: String?
+        var readingMinutes: Int?
 
         if cacheLevel == .full {
             // FULL: Save the complete page with all assets
             let fullResult = try runFullPipeline(html: html, pageURL: pageURL)
             pipelineHeroImageURL = fullResult.heroImageURL
+            readingMinutes = ReadingTimeFormatter.estimateMinutes(wordCount: fullResult.wordCount)
             let doc = try SwiftSoup.parse(fullResult.cleanedHTML, pageURL.absoluteString)
 
             let assetURLs = try extractAssetURLs(from: doc, baseURL: pageURL, cacheLevel: cacheLevel)
@@ -667,6 +673,7 @@ actor PageCacheService {
 
             let pipelineResult = try runStandardPipeline(html: html, pageURL: pageURL)
             pipelineHeroImageURL = pipelineResult.heroImageURL
+            readingMinutes = ReadingTimeFormatter.estimateMinutes(wordCount: pipelineResult.wordCount)
             let articleTitle = pipelineResult.title
             var contentHTML = pipelineResult.contentHTML
 
@@ -779,6 +786,7 @@ actor PageCacheService {
         // Update article
         article.cachedAt = Date()
         article.cacheSizeBytes = totalSize
+        article.readingMinutes = readingMinutes
         article.fetchStatus = anyFailed ? .partial : .cached
         article.lastHTTPStatus = 200
         try updateArticle(&article)

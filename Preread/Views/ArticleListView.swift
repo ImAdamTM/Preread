@@ -173,6 +173,7 @@ struct ArticleListView: View {
                 SourceCarouselView(
                     sourceID: source.id,
                     cacheLevel: currentCacheLevel,
+                    isTopicFeed: source.isTopicFeed,
                     transitionNamespace: namespace,
                     onOpenArticle: { article in
                         markAsReadLocally(article)
@@ -192,6 +193,7 @@ struct ArticleListView: View {
                     .listRowBackground(Color.clear)
             } else {
                 allArticlesHeader
+                    .buttonStyle(.borderless)
                     .listRowInsets(EdgeInsets(top: 4, leading: 20, bottom: 8, trailing: 20))
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
@@ -237,6 +239,7 @@ struct ArticleListView: View {
             source: displaySource,
             isRefreshing: coordinator.sourceStatuses[source.id] == .refreshing,
             articleCount: articles.count,
+            totalReadingMinutes: articles.compactMap(\.readingMinutes).reduce(0, +),
             onSettingsTapped: {},
             onRefreshTapped: {},
             showActionButtons: false,
@@ -258,11 +261,13 @@ struct ArticleListView: View {
 
             Spacer(minLength: 4)
 
-            HStack(spacing: 12) {
+            HStack(spacing: 4) {
                 Button {
                     Task { await FetchCoordinator.shared.refreshSingleSource(currentSource) }
                 } label: {
                     allArticlesRefreshIcon
+                        .frame(width: 36, height: 36)
+                        .contentShape(Rectangle())
                 }
                 .disabled(isSourceRefreshing)
 
@@ -272,6 +277,8 @@ struct ArticleListView: View {
                     Image(systemName: "slider.horizontal.3")
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(Theme.textSecondary)
+                        .frame(width: 36, height: 36)
+                        .contentShape(Rectangle())
                 }
                 .disabled(isSourceRefreshing)
             }

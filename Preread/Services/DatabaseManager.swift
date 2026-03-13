@@ -107,5 +107,11 @@ final class DatabaseManager {
             )
             try savedPagesSource.save(db)
         }
+
+        migrator.registerMigration("v2-add-reading-minutes") { db in
+            try db.alter(table: "article") { t in
+                t.add(column: "readingMinutes", .integer)
+            }
+        }
     }
 }
