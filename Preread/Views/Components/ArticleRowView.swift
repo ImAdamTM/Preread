@@ -200,6 +200,14 @@ struct ArticleRowView: View {
                 } label: {
                     Label("Remove from Saved", systemImage: "bookmark.slash")
                 }
+            } else {
+                Divider()
+
+                Button(role: .destructive) {
+                    onDelete()
+                } label: {
+                    Label("Remove article", systemImage: "trash")
+                }
             }
         }
     }

@@ -272,18 +272,22 @@ struct SourceSectionView: View {
 
     /// Starts a GRDB ValueObservation that reactively updates articles
     /// whenever the database changes, replacing the old 2-second polling loop.
+    /// Only shows cached/partial articles on the home screen so pending
+    /// articles don't displace readable content during refreshes.
     private func startArticleObservation() {
         let sourceID = source.id
+        let cachedStatuses = [ArticleFetchStatus.cached.rawValue,
+                              ArticleFetchStatus.partial.rawValue]
         let observation = ValueObservation.tracking { db -> ([Article], Int) in
             let articles = try Article
                 .filter(Column("sourceID") == sourceID)
-                .filter(Column("fetchStatus") != ArticleFetchStatus.failed.rawValue)
+                .filter(cachedStatuses.contains(Column("fetchStatus")))
                 .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
                 .limit(5)
                 .fetchAll(db)
             let count = try Article
                 .filter(Column("sourceID") == sourceID)
-                .filter(Column("fetchStatus") != ArticleFetchStatus.failed.rawValue)
+                .filter(cachedStatuses.contains(Column("fetchStatus")))
                 .fetchCount(db)
             return (articles, count)
         }
@@ -300,17 +304,19 @@ struct SourceSectionView: View {
     }
 
     private func loadArticles() async {
+        let cachedStatuses = [ArticleFetchStatus.cached.rawValue,
+                              ArticleFetchStatus.partial.rawValue]
         do {
             let (loaded, count) = try await DatabaseManager.shared.dbPool.read { db in
                 let articles = try Article
                     .filter(Column("sourceID") == source.id)
-                    .filter(Column("fetchStatus") != ArticleFetchStatus.failed.rawValue)
+                    .filter(cachedStatuses.contains(Column("fetchStatus")))
                     .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
                     .limit(5)
                     .fetchAll(db)
                 let count = try Article
                     .filter(Column("sourceID") == source.id)
-                    .filter(Column("fetchStatus") != ArticleFetchStatus.failed.rawValue)
+                    .filter(cachedStatuses.contains(Column("fetchStatus")))
                     .fetchCount(db)
                 return (articles, count)
             }

@@ -57,10 +57,12 @@ struct LatestCarouselView: View {
 
     private func startObservation() {
         let observation = ValueObservation.tracking { db -> ([Article], [UUID: String], [UUID: CacheLevel]) in
-            // Fetch a broad pool of recent articles with thumbnails
+            // Fetch a broad pool of recent cached articles with thumbnails
+            let cachedStatuses = [ArticleFetchStatus.cached.rawValue,
+                                  ArticleFetchStatus.partial.rawValue]
             let allArticles = try Article
                 .filter(Column("sourceID") != Source.savedPagesID)
-                .filter(Column("fetchStatus") != ArticleFetchStatus.failed.rawValue)
+                .filter(cachedStatuses.contains(Column("fetchStatus")))
                 .filter(Column("thumbnailURL") != nil)
                 .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
                 .fetchAll(db)

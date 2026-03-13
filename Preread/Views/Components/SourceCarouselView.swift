@@ -61,10 +61,12 @@ struct SourceCarouselView: View {
 
     private func startObservation() {
         let sid = sourceID
+        let cachedStatuses = [ArticleFetchStatus.cached.rawValue,
+                              ArticleFetchStatus.partial.rawValue]
         let observation = ValueObservation.tracking { db in
             try Article
                 .filter(Column("sourceID") == sid)
-                .filter(Column("fetchStatus") != ArticleFetchStatus.failed.rawValue)
+                .filter(cachedStatuses.contains(Column("fetchStatus")))
                 .filter(Column("thumbnailURL") != nil)
                 .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
                 .limit(10)

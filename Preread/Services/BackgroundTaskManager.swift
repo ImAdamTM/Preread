@@ -210,15 +210,10 @@ enum BackgroundTaskManager {
                     }
 
                     let cacheLevel = pending.source.effectiveCacheLevel
-                    do {
-                        try await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
-                    } catch {
-                        // Caching failed — remove so it doesn't appear uncached
-                        _ = try? await DatabaseManager.shared.dbPool.write { db in
-                            try Article.deleteOne(db, key: article.id)
-                        }
-                        try? await PageCacheService.shared.deleteCachedArticle(article.id)
-                    }
+                    // Best-effort cache — if it fails the article stays as
+                    // .pending (or .failed) and will be retried by the
+                    // processing task or on next foreground open.
+                    try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
                 }
             }
 
@@ -226,6 +221,7 @@ enum BackgroundTaskManager {
             let affectedSourceIDs = Set(queues.flatMap { $0.map(\.source.id) })
             for sourceID in affectedSourceIDs {
                 await Self.pruneExcessArticles(for: sourceID)
+                await Self.pruneExcessPendingArticles(for: sourceID)
             }
         } catch {
             print("[BackgroundTaskManager] Refresh feeds error: \(error)")
@@ -313,6 +309,40 @@ enum BackgroundTaskManager {
                         .filter(deleteIDs.contains(Column("id")))
                         .deleteAll(db)
                 }
+            }
+        } catch {
+            // Non-critical
+        }
+    }
+
+    /// Removes the oldest uncached articles (pending/fetching/failed) for a
+    /// source that exceed the user's per-source article limit. This prevents
+    /// unbounded growth of pending articles that never get cached (e.g. due
+    /// to persistent network issues or sites that require JavaScript).
+    private static func pruneExcessPendingArticles(for sourceID: UUID) async {
+        let limit = UserDefaults.standard.integer(forKey: "articleLimit")
+        let pendingLimit = limit > 0 ? limit : 25
+
+        do {
+            let excess = try await DatabaseManager.shared.dbPool.read { db in
+                try Article
+                    .filter(Column("sourceID") == sourceID)
+                    .filter([ArticleFetchStatus.pending.rawValue,
+                             ArticleFetchStatus.fetching.rawValue,
+                             ArticleFetchStatus.failed.rawValue]
+                        .contains(Column("fetchStatus")))
+                    .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
+                    .limit(Int.max, offset: pendingLimit)
+                    .fetchAll(db)
+            }
+
+            guard !excess.isEmpty else { return }
+
+            let deleteIDs = excess.map(\.id)
+            _ = try await DatabaseManager.shared.dbPool.write { db in
+                try Article
+                    .filter(deleteIDs.contains(Column("id")))
+                    .deleteAll(db)
             }
         } catch {
             // Non-critical

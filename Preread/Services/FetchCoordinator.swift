@@ -178,6 +178,7 @@ final class FetchCoordinator: ObservableObject {
             await PageCacheService.shared.cleanupOrphanedSharedAssets()
         }
         await pruneExcessArticles(for: source.id)
+        await pruneExcessPendingArticles(for: source.id)
 
         sourceStatuses[source.id] = .completed
     }
@@ -266,6 +267,7 @@ final class FetchCoordinator: ObservableObject {
 
         for result in parseResults {
             await pruneExcessArticles(for: result.source.id)
+            await pruneExcessPendingArticles(for: result.source.id)
             if sourceStatuses[result.source.id] != .failed {
                 sourceStatuses[result.source.id] = .completed
             }
@@ -442,11 +444,33 @@ final class FetchCoordinator: ObservableObject {
                         )
                     }
                 } else {
+                    // Resolve Google News redirect URLs to real article URLs
+                    // before inserting, so we never store news.google.com URLs.
+                    var resolvedURLString = urlString
+                    if let itemURL = URL(string: urlString),
+                       PageCacheService.isGoogleNewsURL(itemURL) {
+                        let resolved = await PageCacheService.shared.resolveGoogleNewsURL(itemURL)
+                        if resolved != itemURL {
+                            resolvedURLString = resolved.absoluteString
+                            // Check if the resolved URL already exists (dedup)
+                            let alreadyExists = try? await DatabaseManager.shared.dbPool.read { db in
+                                try Article
+                                    .filter(Column("articleURL") == resolvedURLString)
+                                    .fetchCount(db) > 0
+                            }
+                            if alreadyExists == true { continue }
+                        } else {
+                            // Resolution failed — skip this article entirely
+                            // rather than inserting a broken Google News URL
+                            continue
+                        }
+                    }
+
                     let article = Article(
                         id: UUID(),
                         sourceID: source.id,
                         title: item.title,
-                        articleURL: urlString,
+                        articleURL: resolvedURLString,
                         publishedAt: item.publishedAt,
                         addedAt: Date(),
                         thumbnailURL: item.thumbnailURL?.absoluteString,
@@ -690,6 +714,39 @@ final class FetchCoordinator: ObservableObject {
                         .filter(deleteIDs.contains(Column("id")))
                         .deleteAll(db)
                 }
+            }
+        } catch {
+            // Non-critical — pruning can retry next refresh
+        }
+    }
+
+    /// Removes the oldest uncached articles (pending/fetching/failed) for a
+    /// source that exceed the user's per-source article limit. This prevents
+    /// unbounded growth of pending articles that never get cached.
+    private func pruneExcessPendingArticles(for sourceID: UUID) async {
+        let limit = UserDefaults.standard.integer(forKey: "articleLimit")
+        let pendingLimit = limit > 0 ? limit : 25
+
+        do {
+            let excess = try await DatabaseManager.shared.dbPool.read { db in
+                try Article
+                    .filter(Column("sourceID") == sourceID)
+                    .filter([ArticleFetchStatus.pending.rawValue,
+                             ArticleFetchStatus.fetching.rawValue,
+                             ArticleFetchStatus.failed.rawValue]
+                        .contains(Column("fetchStatus")))
+                    .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
+                    .limit(Int.max, offset: pendingLimit)
+                    .fetchAll(db)
+            }
+
+            guard !excess.isEmpty else { return }
+
+            let deleteIDs = excess.map(\.id)
+            _ = try await DatabaseManager.shared.dbPool.write { db in
+                try Article
+                    .filter(deleteIDs.contains(Column("id")))
+                    .deleteAll(db)
             }
         } catch {
             // Non-critical — pruning can retry next refresh

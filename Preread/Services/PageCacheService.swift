@@ -72,12 +72,22 @@ actor PageCacheService {
         throw lastError ?? URLError(.unknown)
     }
 
+    /// Returns true if the URL is a Google News redirect that needs resolution.
+    static func isGoogleNewsURL(_ url: URL) -> Bool {
+        guard let host = url.host?.lowercased(),
+              host == "news.google.com",
+              url.path.contains("articles") || url.path.contains("read") else {
+            return false
+        }
+        return true
+    }
+
     /// Resolves a Google News redirect URL to the real article URL.
     /// Google News RSS feeds return URLs like `news.google.com/rss/articles/CBMi...`
     /// that use JS-based redirects. This method extracts the real URL by fetching
     /// decoding parameters from the page and calling Google's batchexecute API.
     /// Returns the original URL unchanged if it's not a Google News URL or resolution fails.
-    private func resolveGoogleNewsURL(_ url: URL) async -> URL {
+    func resolveGoogleNewsURL(_ url: URL) async -> URL {
         guard let host = url.host?.lowercased(),
               host == "news.google.com",
               url.path.contains("articles") || url.path.contains("read") else {
@@ -430,11 +440,20 @@ actor PageCacheService {
         }
 
         // Resolve Google News redirect URLs to real article URLs
-        let resolvedURL = await resolveGoogleNewsURL(pageURL)
-        if resolvedURL != pageURL {
-            pageURL = resolvedURL
-            article.articleURL = resolvedURL.absoluteString
-            try? updateArticle(&article)
+        if Self.isGoogleNewsURL(pageURL) {
+            let resolvedURL = await resolveGoogleNewsURL(pageURL)
+            if resolvedURL != pageURL {
+                pageURL = resolvedURL
+                article.articleURL = resolvedURL.absoluteString
+                try? updateArticle(&article)
+            } else {
+                // Resolution failed — don't try to cache the Google News
+                // redirect page (it's JS-only and produces garbage content)
+                article.fetchStatus = .failed
+                article.retryCount += 1
+                try updateArticle(&article)
+                return
+            }
         }
 
         var request = URLRequest(url: pageURL)
