@@ -12,7 +12,14 @@ struct SourceEntity: AppEntity {
     var title: String
 
     var displayRepresentation: DisplayRepresentation {
-        DisplayRepresentation(title: "\(title)")
+        let faviconPath = ContainerPaths.sourcesBaseURL
+            .appendingPathComponent(id, isDirectory: true)
+            .appendingPathComponent("favicon.png")
+        let image: DisplayRepresentation.Image? = {
+            guard let data = try? Data(contentsOf: faviconPath), !data.isEmpty else { return nil }
+            return DisplayRepresentation.Image(data: data)
+        }()
+        return DisplayRepresentation(title: "\(title)", image: image)
     }
 }
 

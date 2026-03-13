@@ -33,7 +33,7 @@ struct ArticleTimelineProvider: AppIntentTimelineProvider {
         for index in entry.articles.indices {
             let entryDate = entry.date.addingTimeInterval(Double(index) * interval)
             // Rotate the articles array so the current article is first
-            var rotated = Array(entry.articles[index...]) + Array(entry.articles[..<index])
+            let rotated = Array(entry.articles[index...]) + Array(entry.articles[..<index])
             entries.append(ArticleWidgetEntry(
                 date: entryDate,
                 articles: rotated,
@@ -60,15 +60,17 @@ struct ArticleTimelineProvider: AppIntentTimelineProvider {
             sourceID = provider.sourceExists(id) ? id : nil
         }
 
-        let limit = articleCount(for: context.family)
-        let results = provider.fetchArticles(sourceID: sourceID, limit: limit)
+        let family = context.family
+        let limit = articleCount(for: family)
+        let accessory = isAccessoryFamily(family)
+        let results = provider.fetchArticles(sourceID: sourceID, limit: limit, requireThumbnail: !accessory)
 
         let widgetArticles: [WidgetArticle] = results.compactMap { item in
-            let thumbnail = provider.loadThumbnail(for: item.article.id)
-            // Skip articles without thumbnail images on disk
-            guard let thumbnail else { return nil }
+            let thumbnail = accessory ? nil : provider.loadThumbnail(for: item.article.id)
+            // For system widgets, skip articles without thumbnail images on disk
+            if !accessory, thumbnail == nil { return nil }
 
-            let favicon = provider.loadFavicon(for: item.article.sourceID)
+            let favicon = accessory ? nil : provider.loadFavicon(for: item.article.sourceID)
             let deepLink = URL(string: "preread://article/\(item.article.id.uuidString)")!
 
             return WidgetArticle(
@@ -89,11 +91,25 @@ struct ArticleTimelineProvider: AppIntentTimelineProvider {
         )
     }
 
+    private func isAccessoryFamily(_ family: WidgetFamily) -> Bool {
+        switch family {
+        case .accessoryRectangular, .accessoryCircular, .accessoryInline:
+            return true
+        default:
+            return false
+        }
+    }
+
     private func articleCount(for family: WidgetFamily) -> Int {
         switch family {
         case .systemSmall: return 5
         case .systemMedium: return 8
         case .systemLarge: return 10
+        case .systemExtraLarge: return 10
+        case .accessoryRectangular: return 3
+        case .accessoryCircular: return 1
+        case .accessoryInline: return 3
+        case .accessoryCorner: return 1
         @unknown default: return 5
         }
     }

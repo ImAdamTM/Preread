@@ -54,8 +54,18 @@ actor FeedService {
 
     /// Discovers a feed from a website URL by checking HTML link tags, then fallback paths.
     func discoverFeed(from url: URL) async throws -> DiscoveredFeed {
+        // Upgrade http:// to https:// to avoid ATS blocking the request
+        var resolvedInput = url
+        if url.scheme?.lowercased() == "http",
+           var components = URLComponents(url: url, resolvingAgainstBaseURL: true) {
+            components.scheme = "https"
+            if let httpsURL = components.url {
+                resolvedInput = httpsURL
+            }
+        }
+
         // Fetch the page, following redirects
-        let (data, response) = try await fetchData(from: url)
+        let (data, response) = try await fetchData(from: resolvedInput)
         guard let httpResponse = response as? HTTPURLResponse,
               httpResponse.statusCode == 200 else {
             throw FeedError.noFeedFound
@@ -63,10 +73,14 @@ actor FeedService {
 
         let resolvedURL = httpResponse.url ?? url
 
-        // If the URL itself is a valid feed, use it directly
+        // If the URL itself is a valid feed, use it directly.
+        // Check Content-Type first, but also try parsing as XML regardless —
+        // some servers return text/html or other types for RSS/Atom feeds.
         let contentType = httpResponse.value(forHTTPHeaderField: "Content-Type")?.lowercased() ?? ""
         let xmlTypes = ["xml", "rss", "atom"]
-        if xmlTypes.contains(where: { contentType.contains($0) }) {
+        let looksLikeXML = xmlTypes.contains(where: { contentType.contains($0) })
+
+        if looksLikeXML {
             let parser = FeedXMLParser(feedURL: resolvedURL, siteURL: nil)
             if parser.parse(data: data), !parser.items.isEmpty {
                 return DiscoveredFeed(
@@ -79,6 +93,20 @@ actor FeedService {
         }
 
         let html = String(data: data, encoding: .utf8) ?? ""
+
+        // If Content-Type wasn't XML-like, still try parsing as a feed —
+        // the URL might point directly to a feed with a wrong Content-Type.
+        if !looksLikeXML {
+            let parser = FeedXMLParser(feedURL: resolvedURL, siteURL: nil)
+            if parser.parse(data: data), !parser.items.isEmpty {
+                return DiscoveredFeed(
+                    feedURL: resolvedURL,
+                    title: parser.feedTitle ?? resolvedURL.host ?? "Untitled",
+                    siteURL: parser.siteURL,
+                    items: parser.items
+                )
+            }
+        }
 
         // Try <link rel="alternate"> discovery
         if let feedURL = try discoverFeedLink(in: html, baseURL: resolvedURL) {

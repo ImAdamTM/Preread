@@ -22,7 +22,7 @@ struct ArticleRowView: View {
 
     var body: some View {
         Button(action: onTap) {
-            HStack(spacing: 16) {
+            HStack(spacing: 12) {
                 // Thumbnail or favicon fallback
                 thumbnailView
 
@@ -30,7 +30,7 @@ struct ArticleRowView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(article.title)
                         .font(Theme.scaledFont(size: 17, weight: .medium))
-                        .foregroundColor(Theme.textPrimary.opacity(article.isRead ? 0.5 : 0.85))
+                        .foregroundColor(Theme.textPrimary.opacity(0.85))
                         .lineLimit(2)
                         .matchedGeometryEffect(id: article.id.uuidString + "-title", in: namespace)
 
@@ -77,7 +77,7 @@ struct ArticleRowView: View {
                     } else {
                         Circle()
                             .fill(article.isRead ? Theme.textSecondary.opacity(0.2) : Theme.accent)
-                            .frame(width: 8, height: 8)
+                            .frame(width: 6, height: 6)
                     }
                 }
                 .frame(width: 24)
@@ -222,12 +222,12 @@ struct ArticleRowView: View {
                         .saturation(1)
                         .opacity(0.7)
                 }
-                .frame(width: 80, height: 80)
+                .frame(width: 70, height: 70)
             } else if let uiImage = cachedThumbnailImage {
                 Image(uiImage: uiImage)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 80, height: 80)
+                    .frame(width: 70, height: 70)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
             } else if thumbnailLoaded {
                 gradientPlaceholder
@@ -283,12 +283,12 @@ struct ArticleRowView: View {
                     .saturation(1)
                     .opacity(0.7)
             }
-            .frame(width: 80, height: 80)
+            .frame(width: 70, height: 70)
         } else {
             Image(uiImage: uiImage)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 80, height: 80)
+                .frame(width: 70, height: 70)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
         }
     }
@@ -375,7 +375,7 @@ struct ArticleRowView: View {
                 .font(.system(size: 24, weight: .bold))
                 .foregroundColor(.white)
         }
-        .frame(width: 80, height: 80)
+        .frame(width: 70, height: 70)
     }
 
     // MARK: - Status label

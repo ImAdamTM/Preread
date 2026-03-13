@@ -70,6 +70,7 @@ enum BackgroundTaskManager {
         Task {
             await workTask.value
             WidgetCenter.shared.reloadAllTimelines()
+            WatchConnectivityManager.shared.pushArticlesToWatch()
             task.setTaskCompleted(success: true)
         }
     }
@@ -248,6 +249,7 @@ enum BackgroundTaskManager {
         Task {
             await workTask.value
             WidgetCenter.shared.reloadAllTimelines()
+            WatchConnectivityManager.shared.pushArticlesToWatch()
             task.setTaskCompleted(success: true)
         }
     }

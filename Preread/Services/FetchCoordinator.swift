@@ -1,6 +1,7 @@
 import Foundation
 import GRDB
 import WidgetKit
+import WatchConnectivity
 
 enum SourceRefreshState: Equatable {
     case idle
@@ -59,7 +60,7 @@ final class FetchCoordinator: ObservableObject {
         await refreshSourcesWithPriority(sources)
 
         isFetching = false
-        WidgetCenter.shared.reloadAllTimelines()
+        notifyExtensions()
         HapticManager.allRefreshComplete()
     }
 
@@ -742,5 +743,11 @@ final class FetchCoordinator: ObservableObject {
         }
 
         return false
+    }
+
+    /// Reloads widget timelines and pushes latest data to Apple Watch.
+    private func notifyExtensions() {
+        WidgetCenter.shared.reloadAllTimelines()
+        WatchConnectivityManager.shared.pushArticlesToWatch()
     }
 }

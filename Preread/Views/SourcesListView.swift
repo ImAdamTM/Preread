@@ -175,40 +175,36 @@ struct SourcesListView: View {
             }
             .onChange(of: deepLinkRouter.pendingSourceID) { _, sourceID in
                 guard let sourceID else { return }
-                navigationPath = NavigationPath()
-                navigationPath.append(NavigationTarget.source(sourceID))
                 deepLinkRouter.pendingSourceID = nil
+                dismissAndNavigate {
+                    navigationPath.append(NavigationTarget.source(sourceID))
+                }
             }
             .onChange(of: deepLinkRouter.pendingArticleID) { _, articleID in
                 guard let articleID else { return }
                 deepLinkRouter.pendingArticleID = nil
-                Task {
-                    guard let article = try? await DatabaseManager.shared.dbPool.read({ db in
-                        try Article.fetchOne(db, key: articleID)
-                    }) else { return }
-                    // Open the article directly as a sheet — no source navigation needed
-                    transitionSourceID = nil
-                    openArticleInReader(article)
+                dismissAndNavigate {
+                    Task {
+                        guard let article = try? await DatabaseManager.shared.dbPool.read({ db in
+                            try Article.fetchOne(db, key: articleID)
+                        }) else { return }
+                        transitionSourceID = nil
+                        openArticleInReader(article)
+                    }
                 }
             }
             .onChange(of: deepLinkRouter.pendingSavedNavigation) { _, shouldNavigate in
                 guard shouldNavigate else { return }
-                navigationPath = NavigationPath()
-                navigationPath.append(NavigationTarget.saved)
                 deepLinkRouter.pendingSavedNavigation = false
+                dismissAndNavigate {
+                    navigationPath.append(NavigationTarget.saved)
+                }
             }
             .onChange(of: deepLinkRouter.pendingAddURL) { _, urlString in
                 guard let urlString else { return }
-                navigationPath = NavigationPath()
-                addSourceInitialURL = urlString
                 deepLinkRouter.pendingAddURL = nil
-
-                if showAddSource {
-                    showAddSource = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        showAddSource = true
-                    }
-                } else {
+                addSourceInitialURL = urlString
+                dismissAndNavigate {
                     showAddSource = true
                 }
             }
@@ -453,9 +449,32 @@ struct SourcesListView: View {
         let size = CGSize(width: 64, height: 64)
         let renderer = UIGraphicsImageRenderer(size: size)
         return renderer.image { ctx in
-            let cgColors = [UIColor(Theme.accent).cgColor, UIColor(Theme.purple).cgColor]
+            let cgColors = [UIColor(Theme.teal).cgColor, UIColor(Theme.purple).cgColor]
             guard let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: cgColors as CFArray, locations: [0, 1]) else { return }
             ctx.cgContext.drawLinearGradient(gradient, start: .zero, end: CGPoint(x: size.width, y: size.height), options: [.drawsBeforeStartLocation, .drawsAfterEndLocation])
+        }
+    }
+
+    // MARK: - Deep link navigation
+
+    /// Dismisses any open sheets and pops the nav stack to root,
+    /// then runs the provided navigation action after a brief delay
+    /// so that dismissals complete before the new navigation begins.
+    private func dismissAndNavigate(then navigate: @escaping () -> Void) {
+        let needsDismissal = !navigationPath.isEmpty || showAddSource || readerSelection != nil
+
+        // Pop to root and close any open sheets
+        navigationPath = NavigationPath()
+        showAddSource = false
+        readerSelection = nil
+
+        if needsDismissal {
+            // Small delay to let sheet/navigation dismissals animate out
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                navigate()
+            }
+        } else {
+            navigate()
         }
     }
 

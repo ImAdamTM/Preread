@@ -14,8 +14,7 @@ struct ArticleListView: View {
     @State private var articles: [Article] = []
     @State private var isLoading = true
     @State private var failedArticle: Article?
-    @State private var isLoadingMore = false
-    @State private var feedExhausted = false
+
     @State private var selectedArticle: Article?
     @State private var transitionSourceID: String?
     @State private var showSourceSettings = false
@@ -192,9 +191,7 @@ struct ArticleListView: View {
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
             } else {
-                Text("All articles")
-                    .font(.system(size: 18, weight: .medium))
-                    .foregroundColor(Theme.textPrimary)
+                allArticlesHeader
                     .listRowInsets(EdgeInsets(top: 4, leading: 20, bottom: 8, trailing: 20))
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
@@ -219,10 +216,6 @@ struct ArticleListView: View {
                     .listRowBackground(Color.clear)
                 }
 
-                loadMoreRow
-                    .listRowInsets(EdgeInsets())
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
             }
         }
         .listStyle(.plain)
@@ -244,12 +237,78 @@ struct ArticleListView: View {
             source: displaySource,
             isRefreshing: coordinator.sourceStatuses[source.id] == .refreshing,
             articleCount: articles.count,
-            onSettingsTapped: { showSourceSettings = true },
-            onRefreshTapped: {
-                Task { await FetchCoordinator.shared.refreshSingleSource(currentSource) }
-            },
+            onSettingsTapped: {},
+            onRefreshTapped: {},
+            showActionButtons: false,
             onTitlePositionChange: { heroTitleMinY = $0 }
         )
+    }
+
+    // MARK: - All articles header
+
+    private var isSourceRefreshing: Bool {
+        coordinator.sourceStatuses[source.id] == .refreshing
+    }
+
+    private var allArticlesHeader: some View {
+        HStack(alignment: .center) {
+            Text("All articles")
+                .font(.system(size: 18, weight: .medium))
+                .foregroundColor(Theme.textPrimary)
+
+            Spacer(minLength: 4)
+
+            HStack(spacing: 12) {
+                Button {
+                    Task { await FetchCoordinator.shared.refreshSingleSource(currentSource) }
+                } label: {
+                    allArticlesRefreshIcon
+                }
+                .disabled(isSourceRefreshing)
+
+                Button {
+                    showSourceSettings = true
+                } label: {
+                    Image(systemName: "slider.horizontal.3")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(Theme.textSecondary)
+                }
+                .disabled(isSourceRefreshing)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var allArticlesRefreshIcon: some View {
+        if isSourceRefreshing {
+            inlineRefreshSpinner
+        } else {
+            Image(systemName: "arrow.clockwise")
+                .font(.system(size: 14, weight: .medium))
+                .foregroundColor(Theme.textSecondary)
+        }
+    }
+
+    private var inlineRefreshSpinner: some View {
+        TimelineView(.animation(minimumInterval: 1.0 / 60.0)) { context in
+            let angle = context.date.timeIntervalSinceReferenceDate.remainder(dividingBy: 1.2) / 1.2 * 360
+            ZStack {
+                Circle()
+                    .stroke(Theme.borderProminent, lineWidth: 1.5)
+                    .frame(width: 14, height: 14)
+                Circle()
+                    .trim(from: 0, to: 0.3)
+                    .stroke(
+                        AngularGradient(
+                            colors: [Theme.accent.opacity(0.6), Theme.accent],
+                            center: .center
+                        ),
+                        style: StrokeStyle(lineWidth: 1.5, lineCap: .round)
+                    )
+                    .frame(width: 14, height: 14)
+                    .rotationEffect(.degrees(angle))
+            }
+        }
     }
 
     // MARK: - Nav bar title opacity
@@ -355,49 +414,6 @@ struct ArticleListView: View {
         .frame(maxWidth: .infinity)
         .padding(.horizontal, 32)
         .padding(.vertical, 60)
-    }
-
-    // MARK: - Load more row
-
-    @ViewBuilder
-    private var loadMoreRow: some View {
-        if feedExhausted {
-            HStack {
-                Spacer()
-                Text("That's everything in the feed.")
-                    .font(Theme.scaledFont(size: 13, relativeTo: .footnote))
-                    .foregroundColor(Theme.textSecondary)
-                Spacer()
-            }
-            .padding(.vertical, 20)
-        } else if !articles.isEmpty {
-            Button {
-                Task { await loadMoreArticles() }
-            } label: {
-                Group {
-                    if isLoadingMore {
-                        HStack(spacing: 8) {
-                            ProgressView()
-                                .tint(.white)
-                            Text("Loading...")
-                                .font(Theme.scaledFont(size: 14, weight: .semibold, relativeTo: .subheadline))
-                                .foregroundColor(.white)
-                        }
-                    } else {
-                        Text("Load more articles")
-                            .font(Theme.scaledFont(size: 14, weight: .semibold, relativeTo: .subheadline))
-                            .foregroundColor(.white)
-                    }
-                }
-                .padding(.horizontal, 24)
-                .padding(.vertical, 10)
-                .background(Theme.accentGradient)
-                .clipShape(Capsule())
-                .frame(maxWidth: .infinity)
-            }
-            .disabled(isLoadingMore)
-            .padding(.vertical, 16)
-        }
     }
 
     // MARK: - Actions
@@ -772,52 +788,7 @@ struct ArticleListView: View {
         }
     }
 
-    private func loadMoreArticles() async {
-        isLoadingMore = true
-        defer { isLoadingMore = false }
 
-        do {
-            guard let feedURL = URL(string: source.feedURL) else { return }
-            let feed = try await FeedService.shared.parseFeed(
-                from: feedURL,
-                siteURL: source.siteURL.flatMap { URL(string: $0) }
-            )
-
-            // Sort feed items newest-first so we insert in chronological order,
-            // matching the display sort. Items without a date go last.
-            let sortedItems = feed.items.sorted {
-                ($0.publishedAt ?? .distantPast) > ($1.publishedAt ?? .distantPast)
-            }
-
-            // Insert up to 10 more articles that aren't already in the DB
-            let newArticles = try await FetchCoordinator.shared.insertNewArticles(
-                from: sortedItems,
-                sourceID: source.id,
-                limit: 10
-            )
-
-            if newArticles.isEmpty {
-                feedExhausted = true
-            }
-
-            // Cache newly inserted articles before showing them,
-            // processing newest-first so the list updates in order.
-            if !newArticles.isEmpty {
-                let cacheLevel = currentCacheLevel
-                let sorted = newArticles.sorted {
-                    ($0.publishedAt ?? .distantPast) > ($1.publishedAt ?? .distantPast)
-                }
-                for (index, article) in sorted.enumerated() {
-                    try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
-                    if index < sorted.count - 1 {
-                        try? await Task.sleep(for: .milliseconds(200))
-                    }
-                }
-            }
-        } catch {
-            ToastManager.shared.show("Couldn't load more articles", type: .error)
-        }
-    }
 }
 
 // MARK: - Skeleton row

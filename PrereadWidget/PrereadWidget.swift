@@ -15,7 +15,10 @@ struct PrereadArticleWidget: Widget {
         }
         .configurationDisplayName("Latest Articles")
         .description("See the latest articles from your sources.")
-        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+        .supportedFamilies([
+            .systemSmall, .systemMedium, .systemLarge,
+            .accessoryRectangular, .accessoryCircular, .accessoryInline
+        ])
         .contentMarginsDisabled()
     }
 }

@@ -26,6 +26,7 @@ struct SourceHeroView: View {
     let articleCount: Int
     let onSettingsTapped: () -> Void
     let onRefreshTapped: () -> Void
+    var showActionButtons: Bool = true
     var onTitlePositionChange: ((CGFloat) -> Void)?
 
     @State private var iconImage: UIImage?
@@ -54,7 +55,9 @@ struct SourceHeroView: View {
             Spacer()
 
             // Right: action buttons
-            heroActionButtons
+            if showActionButtons {
+                heroActionButtons
+            }
         }
         .padding(.horizontal, 20)
         .padding(.top, 16)
@@ -133,7 +136,7 @@ struct SourceHeroView: View {
         let colors = Theme.avatarGradientColors(for: title)
         return renderer.image { ctx in
             let cgColors = [UIColor(colors.0).cgColor, UIColor(colors.1).cgColor]
-            guard let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: cgColors as CFArray, locations: [0, 1]) else { return }
+            guard let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: cgColors as CFArray, locations: [0, 0.5]) else { return }
             ctx.cgContext.drawLinearGradient(gradient, start: .zero, end: CGPoint(x: size.width, y: 0), options: [.drawsBeforeStartLocation, .drawsAfterEndLocation])
         }
     }

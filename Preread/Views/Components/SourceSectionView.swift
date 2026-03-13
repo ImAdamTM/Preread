@@ -61,15 +61,11 @@ struct SourceSectionView: View {
             if totalArticleCount > articles.count {
                 Button(action: onViewAll) {
                     Text("View all \(totalArticleCount) articles")
-                        .font(Theme.scaledFont(size: 14, weight: .semibold, relativeTo: .subheadline))
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 24)
-                        .padding(.vertical, 10)
-                        .background(Theme.accentGradient)
-                        .clipShape(Capsule())
+                        .font(Theme.scaledFont(size: 14, weight: .medium, relativeTo: .subheadline))
+                        .foregroundStyle(Theme.accentGradient)
                         .frame(maxWidth: .infinity)
                 }
-                .listRowInsets(EdgeInsets(top: 20, leading: 0, bottom: 15, trailing: 0))
+                .listRowInsets(EdgeInsets(top: 12, leading: 0, bottom: 15, trailing: 0))
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
             }
@@ -144,13 +140,13 @@ struct SourceSectionView: View {
         HStack(alignment: .center, spacing: 12) {
             faviconView
 
-            VStack(alignment: .leading, spacing: -2) {
+            VStack(alignment: .leading, spacing: -1) {
                 Text(source.title)
                     .font(.system(size: 18, weight: .medium))
                     .foregroundColor(Theme.textPrimary)
                     .lineLimit(1)
 
-                HStack(spacing: 4) {
+                HStack(spacing: 5) {
                     Text(subtitleText)
                         .font(Theme.scaledFont(size: 13, relativeTo: .caption))
                         .foregroundColor(Theme.textPrimary.opacity(0.6))
@@ -162,12 +158,6 @@ struct SourceSectionView: View {
             }
 
             Spacer(minLength: 4)
-
-            Button(action: onViewAll) {
-                Text("View all")
-                    .font(Theme.scaledFont(size: 14, weight: .medium, relativeTo: .subheadline))
-                    .foregroundStyle(Theme.accentGradient)
-            }
         }
         .contentShape(Rectangle())
         .onTapGesture {
@@ -260,7 +250,7 @@ struct SourceSectionView: View {
             ZStack {
                 Circle()
                     .stroke(Theme.borderProminent, lineWidth: 1.5)
-                    .frame(width: 11, height: 11)
+                    .frame(width: 9, height: 9)
 
                 Circle()
                     .trim(from: 0, to: 0.3)
@@ -271,7 +261,7 @@ struct SourceSectionView: View {
                         ),
                         style: StrokeStyle(lineWidth: 1.5, lineCap: .round)
                     )
-                    .frame(width: 11, height: 11)
+                    .frame(width: 9, height: 9)
                     .rotationEffect(.degrees(angle))
             }
         }

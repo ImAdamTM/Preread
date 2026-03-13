@@ -280,7 +280,7 @@ struct SavedArticlesView: View {
         let renderer = UIGraphicsImageRenderer(size: size)
         return renderer.image { ctx in
             let cgColors = [UIColor(Theme.teal).cgColor, UIColor(Theme.teal.opacity(0.5)).cgColor]
-            guard let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: cgColors as CFArray, locations: [0, 1]) else { return }
+            guard let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: cgColors as CFArray, locations: [0, 0.5]) else { return }
             ctx.cgContext.drawLinearGradient(gradient, start: .zero, end: CGPoint(x: size.width, y: size.height), options: [.drawsBeforeStartLocation, .drawsAfterEndLocation])
         }
     }

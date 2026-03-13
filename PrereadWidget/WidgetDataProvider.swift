@@ -22,16 +22,19 @@ struct WidgetDataProvider {
 
     /// Fetches recent articles with thumbnails, newest first.
     /// If sourceID is nil, returns articles from all sources (excluding "Saved Pages").
-    func fetchArticles(sourceID: UUID? = nil, limit: Int = 10) -> [(article: Article, sourceName: String)] {
+    func fetchArticles(sourceID: UUID? = nil, limit: Int = 10, requireThumbnail: Bool = true) -> [(article: Article, sourceName: String)] {
         do {
             return try dbQueue.read { db in
                 var sql = """
                     SELECT article.*, source.title AS sourceName
                     FROM article
                     INNER JOIN source ON source.id = article.sourceID
-                    WHERE article.thumbnailURL IS NOT NULL
-                    AND article.fetchStatus IN ('cached', 'partial')
+                    WHERE article.fetchStatus IN ('cached', 'partial')
                     """
+
+                if requireThumbnail {
+                    sql += " AND article.thumbnailURL IS NOT NULL"
+                }
 
                 var arguments: [DatabaseValueConvertible] = []
 

@@ -1,3 +1,4 @@
+import AppIntents
 import SwiftUI
 
 // MARK: - App entry point
@@ -54,6 +55,9 @@ struct PrereadApp: App {
     // MARK: - Startup sequence
 
     private func startupSequence() async {
+        // Activate Watch Connectivity session
+        WatchConnectivityManager.shared.activate()
+
         // Run integrity checker (orphan detection)
         await IntegrityChecker.run()
 
@@ -69,6 +73,10 @@ struct PrereadApp: App {
             BackgroundTaskManager.scheduleRefresh()
             BackgroundTaskManager.scheduleProcessing()
         }
+
+        // Register App Shortcuts parameters so the Shortcuts app
+        // knows which sources are available for the "Open Source" shortcut.
+        PrereadShortcutsProvider.updateAppShortcutParameters()
 
         // Backfill cached favicons for any sources missing them
         await backfillFavicons()
@@ -90,6 +98,9 @@ struct PrereadApp: App {
 
     /// Downloads and caches favicons for any sources that don't have one on disk yet.
     private func backfillFavicons() async {
+        // Generate the gradient bookmark icon for Saved Pages
+        await PageCacheService.shared.generateSavedPagesFavicon()
+
         do {
             let sources = try await DatabaseManager.shared.dbPool.read { db in
                 try Source.fetchAll(db)

@@ -717,6 +717,9 @@ actor PageCacheService {
                 let resolved = heroURL.absoluteString
                 article.thumbnailURL = resolved
                 await cacheThumbnail(url: heroURL, to: articleDir)
+                // Invalidate in-memory caches so carousels pick up the new image
+                ThumbnailCache.shared.removeRowThumbnail(for: article.id)
+                ThumbnailCache.shared.removeCardThumbnail(for: article.id)
             }
         }
 
@@ -1839,6 +1842,53 @@ actor PageCacheService {
         guard FileManager.default.fileExists(atPath: path.path),
               let data = try? Data(contentsOf: path) else { return nil }
         return UIImage(data: data)
+    }
+
+    /// Generates and saves a gradient bookmark favicon for the Saved Pages source.
+    /// No-op if the favicon already exists on disk.
+    func generateSavedPagesFavicon() {
+        let sourceDir = sourcesBaseURL
+            .appendingPathComponent(Source.savedPagesID.uuidString, isDirectory: true)
+        let faviconPath = sourceDir.appendingPathComponent("favicon.png")
+        guard !FileManager.default.fileExists(atPath: faviconPath.path) else { return }
+
+        let size = CGSize(width: 128, height: 128)
+        let renderer = UIGraphicsImageRenderer(size: size)
+        let image = renderer.image { ctx in
+            // Gradient background matching Theme.accentGradient
+            let colors = [
+                UIColor(red: 0x6B/255.0, green: 0x6B/255.0, blue: 0xF0/255.0, alpha: 1).cgColor,
+                UIColor(red: 0xA8/255.0, green: 0x55/255.0, blue: 0xF7/255.0, alpha: 1).cgColor
+            ]
+            guard let gradient = CGGradient(
+                colorsSpace: CGColorSpaceCreateDeviceRGB(),
+                colors: colors as CFArray,
+                locations: [0, 1]
+            ) else { return }
+            ctx.cgContext.drawLinearGradient(
+                gradient,
+                start: .zero,
+                end: CGPoint(x: size.width, y: size.height),
+                options: [.drawsBeforeStartLocation, .drawsAfterEndLocation]
+            )
+
+            // Draw bookmark.fill SF Symbol centered
+            let symbolConfig = UIImage.SymbolConfiguration(pointSize: 56, weight: .medium)
+            if let symbol = UIImage(systemName: "bookmark.fill", withConfiguration: symbolConfig) {
+                let symbolSize = symbol.size
+                let origin = CGPoint(
+                    x: (size.width - symbolSize.width) / 2,
+                    y: (size.height - symbolSize.height) / 2
+                )
+                symbol.withTintColor(.white, renderingMode: .alwaysOriginal)
+                    .draw(at: origin)
+            }
+        }
+
+        try? FileManager.default.createDirectory(at: sourceDir, withIntermediateDirectories: true)
+        if let pngData = image.pngData() {
+            try? pngData.write(to: faviconPath)
+        }
     }
 
     /// Fetches a favicon from a site URL and returns it as a UIImage without

@@ -1,3 +1,4 @@
+import AppIntents
 import SwiftUI
 import SwiftSoup
 import GRDB
@@ -926,6 +927,9 @@ struct AddSourceSheet: View {
 
                 onSourceAdded?(source.id)
                 dismiss()
+
+                // Update App Shortcuts so the new source is available
+                PrereadShortcutsProvider.updateAppShortcutParameters()
 
                 // Kick off article insertion + caching in background
                 Task {

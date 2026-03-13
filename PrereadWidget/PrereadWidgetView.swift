@@ -7,20 +7,36 @@ struct PrereadWidgetView: View {
 
     var body: some View {
         Group {
-            if entry.isEmpty {
-                emptyStateView
-            } else {
-                switch family {
-                case .systemSmall:
-                    smallWidget
-                case .systemMedium:
-                    mediumWidget
-                case .systemLarge:
-                    largeWidget
-                @unknown default:
-                    smallWidget
+            switch family {
+            case .accessoryRectangular:
+                AccessoryRectangularView(entry: entry)
+            case .accessoryCircular:
+                AccessoryCircularView(entry: entry)
+            case .accessoryInline:
+                AccessoryInlineView(entry: entry)
+            default:
+                if entry.isEmpty {
+                    emptyStateView
+                } else {
+                    systemWidget
                 }
             }
+        }
+    }
+
+    // MARK: - System widget dispatch
+
+    @ViewBuilder
+    private var systemWidget: some View {
+        switch family {
+        case .systemSmall:
+            smallWidget
+        case .systemMedium:
+            mediumWidget
+        case .systemLarge:
+            largeWidget
+        default:
+            smallWidget
         }
     }
 

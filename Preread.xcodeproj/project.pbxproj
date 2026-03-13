@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1AA000D2F70000000000001 /* PrereadWatchWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B1BB00042F70000000000001 /* PrereadWatchWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B1BB000C2F70000000000001 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5609DBD2F6100AA002BCE25 /* WidgetKit.framework */; };
+		B1BB000D2F70000000000001 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5609DBF2F6100AA002BCE25 /* SwiftUI.framework */; };
+		C100CC032F70000000000001 /* PrereadWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = A1AA00042F70000000000001 /* PrereadWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C50BA2D02F5F951900596161 /* PrereadShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C50BA2C62F5F951900596161 /* PrereadShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C5609DBE2F6100AA002BCE25 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5609DBD2F6100AA002BCE25 /* WidgetKit.framework */; };
 		C5609DC02F6100AA002BCE25 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5609DBF2F6100AA002BCE25 /* SwiftUI.framework */; };
@@ -18,6 +22,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A1AA000B2F70000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C57374EF2F5B093E00D2C20D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B1BB00052F70000000000001;
+			remoteInfo = PrereadWatchWidget;
+		};
+		C100CC012F70000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C57374EF2F5B093E00D2C20D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1AA00052F70000000000001;
+			remoteInfo = PrereadWatch;
+		};
 		C50BA2CE2F5F951900596161 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C57374EF2F5B093E00D2C20D /* Project object */;
@@ -49,6 +67,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		A1AA000A2F70000000000001 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A1AA000D2F70000000000001 /* PrereadWatchWidget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C100CC042F70000000000001 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				C100CC032F70000000000001 /* PrereadWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C50BA2D12F5F951900596161 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -64,6 +104,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A1AA00042F70000000000001 /* PrereadWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrereadWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1BB00042F70000000000001 /* PrereadWatchWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PrereadWatchWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C50BA2C62F5F951900596161 /* PrereadShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PrereadShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5609DBB2F6100AA002BCE25 /* PrereadWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PrereadWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5609DBD2F6100AA002BCE25 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -75,6 +117,36 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		A1AA000E2F70000000000001 /* Exceptions for "Preread" folder in "PrereadWatch" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/WatchArticle.swift,
+				Utilities/RelativeTimeFormatter.swift,
+			);
+			target = A1AA00052F70000000000001 /* PrereadWatch */;
+		};
+		B1BB000A2F70000000000001 /* Exceptions for "Preread" folder in "PrereadWatchWidget" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/WatchArticle.swift,
+				Utilities/RelativeTimeFormatter.swift,
+			);
+			target = B1BB00052F70000000000001 /* PrereadWatchWidget */;
+		};
+		B1BB000B2F70000000000001 /* Exceptions for "PrereadWatch" folder in "PrereadWatchWidget" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				WatchDataStore.swift,
+			);
+			target = B1BB00052F70000000000001 /* PrereadWatchWidget */;
+		};
+		B1BB000E2F70000000000001 /* Exceptions for "PrereadWatchWidget" folder in "PrereadWatchWidget" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = B1BB00052F70000000000001 /* PrereadWatchWidget */;
+		};
 		C50BA2D42F5F951900596161 /* Exceptions for "PrereadShareExtension" folder in "PrereadShareExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -96,6 +168,7 @@
 				Models/CachedPage.swift,
 				Models/ReaderSelection.swift,
 				Models/Source.swift,
+				Models/WatchArticle.swift,
 				Services/ContainerPaths.swift,
 				Utilities/RelativeTimeFormatter.swift,
 			);
@@ -104,6 +177,22 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		A1AA00092F70000000000001 /* PrereadWatch */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				B1BB000B2F70000000000001 /* Exceptions for "PrereadWatch" folder in "PrereadWatchWidget" target */,
+			);
+			path = PrereadWatch;
+			sourceTree = "<group>";
+		};
+		B1BB00092F70000000000001 /* PrereadWatchWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				B1BB000E2F70000000000001 /* Exceptions for "PrereadWatchWidget" folder in "PrereadWatchWidget" target */,
+			);
+			path = PrereadWatchWidget;
+			sourceTree = "<group>";
+		};
 		C50BA2C72F5F951900596161 /* PrereadShareExtension */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -124,6 +213,8 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				C5609DEA2F6103E8002BCE25 /* Exceptions for "Preread" folder in "PrereadWidgetExtension" target */,
+				A1AA000E2F70000000000001 /* Exceptions for "Preread" folder in "PrereadWatch" target */,
+				B1BB000A2F70000000000001 /* Exceptions for "Preread" folder in "PrereadWatchWidget" target */,
 			);
 			path = Preread;
 			sourceTree = "<group>";
@@ -141,6 +232,22 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A1AA00022F70000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1BB00022F70000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1BB000D2F70000000000001 /* SwiftUI.framework in Frameworks */,
+				B1BB000C2F70000000000001 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C50BA2C32F5F951900596161 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -203,6 +310,8 @@
 				C57375112F5B093F00D2C20D /* PrereadUITests */,
 				C50BA2C72F5F951900596161 /* PrereadShareExtension */,
 				C5609DC12F6100AA002BCE25 /* PrereadWidget */,
+				A1AA00092F70000000000001 /* PrereadWatch */,
+				B1BB00092F70000000000001 /* PrereadWatchWidget */,
 				C5609DBC2F6100AA002BCE25 /* Frameworks */,
 				C57374F82F5B093E00D2C20D /* Products */,
 			);
@@ -216,6 +325,8 @@
 				C573750E2F5B093F00D2C20D /* PrereadUITests.xctest */,
 				C50BA2C62F5F951900596161 /* PrereadShareExtension.appex */,
 				C5609DBB2F6100AA002BCE25 /* PrereadWidgetExtension.appex */,
+				A1AA00042F70000000000001 /* PrereadWatch.app */,
+				B1BB00042F70000000000001 /* PrereadWatchWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -223,6 +334,52 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A1AA00052F70000000000001 /* PrereadWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1AA00082F70000000000001 /* Build configuration list for PBXNativeTarget "PrereadWatch" */;
+			buildPhases = (
+				A1AA00012F70000000000001 /* Sources */,
+				A1AA00022F70000000000001 /* Frameworks */,
+				A1AA00032F70000000000001 /* Resources */,
+				A1AA000A2F70000000000001 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A1AA000C2F70000000000001 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				A1AA00092F70000000000001 /* PrereadWatch */,
+			);
+			name = PrereadWatch;
+			packageProductDependencies = (
+			);
+			productName = PrereadWatch;
+			productReference = A1AA00042F70000000000001 /* PrereadWatch.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B1BB00052F70000000000001 /* PrereadWatchWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B1BB00082F70000000000001 /* Build configuration list for PBXNativeTarget "PrereadWatchWidget" */;
+			buildPhases = (
+				B1BB00012F70000000000001 /* Sources */,
+				B1BB00022F70000000000001 /* Frameworks */,
+				B1BB00032F70000000000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				B1BB00092F70000000000001 /* PrereadWatchWidget */,
+			);
+			name = PrereadWatchWidget;
+			packageProductDependencies = (
+			);
+			productName = PrereadWatchWidget;
+			productReference = B1BB00042F70000000000001 /* PrereadWatchWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		C50BA2C52F5F951900596161 /* PrereadShareExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C50BA2D52F5F951900596161 /* Build configuration list for PBXNativeTarget "PrereadShareExtension" */;
@@ -276,12 +433,14 @@
 				C57374F42F5B093E00D2C20D /* Frameworks */,
 				C57374F52F5B093E00D2C20D /* Resources */,
 				C50BA2D12F5F951900596161 /* Embed Foundation Extensions */,
+				C100CC042F70000000000001 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				C50BA2CF2F5F951900596161 /* PBXTargetDependency */,
 				C5609DD02F6100AB002BCE25 /* PBXTargetDependency */,
+				C100CC022F70000000000001 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				C57374F92F5B093E00D2C20D /* Preread */,
@@ -352,6 +511,12 @@
 				LastSwiftUpdateCheck = 2630;
 				LastUpgradeCheck = 1630;
 				TargetAttributes = {
+					A1AA00052F70000000000001 = {
+						CreatedOnToolsVersion = 26.3;
+					};
+					B1BB00052F70000000000001 = {
+						CreatedOnToolsVersion = 26.3;
+					};
 					C50BA2C52F5F951900596161 = {
 						CreatedOnToolsVersion = 26.3;
 					};
@@ -395,11 +560,27 @@
 				C573750D2F5B093F00D2C20D /* PrereadUITests */,
 				C50BA2C52F5F951900596161 /* PrereadShareExtension */,
 				C5609DBA2F6100AA002BCE25 /* PrereadWidgetExtension */,
+				A1AA00052F70000000000001 /* PrereadWatch */,
+				B1BB00052F70000000000001 /* PrereadWatchWidget */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A1AA00032F70000000000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1BB00032F70000000000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C50BA2C42F5F951900596161 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -438,6 +619,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A1AA00012F70000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1BB00012F70000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C50BA2C22F5F951900596161 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -476,6 +671,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		A1AA000C2F70000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B1BB00052F70000000000001 /* PrereadWatchWidget */;
+			targetProxy = A1AA000B2F70000000000001 /* PBXContainerItemProxy */;
+		};
+		C100CC022F70000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A1AA00052F70000000000001 /* PrereadWatch */;
+			targetProxy = C100CC012F70000000000001 /* PBXContainerItemProxy */;
+		};
 		C50BA2CF2F5F951900596161 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C50BA2C52F5F951900596161 /* PrereadShareExtension */;
@@ -499,6 +704,108 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		A1AA00062F70000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PrereadWatch/PrereadWatch.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2SH6ZS5455;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = PrereadWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.ahartwig.preread;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ahartwig.preread.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Debug;
+		};
+		A1AA00072F70000000000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PrereadWatch/PrereadWatch.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2SH6ZS5455;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = PrereadWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.ahartwig.preread;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ahartwig.preread.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Release;
+		};
+		B1BB00062F70000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = PrereadWatchWidget/PrereadWatchWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2SH6ZS5455;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PrereadWatchWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PrereadWatchWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ahartwig.preread.watchkitapp.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Debug;
+		};
+		B1BB00072F70000000000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = PrereadWatchWidget/PrereadWatchWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2SH6ZS5455;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PrereadWatchWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PrereadWatchWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ahartwig.preread.watchkitapp.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Release;
+		};
 		C50BA2D22F5F951900596161 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -879,6 +1186,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A1AA00082F70000000000001 /* Build configuration list for PBXNativeTarget "PrereadWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1AA00062F70000000000001 /* Debug */,
+				A1AA00072F70000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B1BB00082F70000000000001 /* Build configuration list for PBXNativeTarget "PrereadWatchWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1BB00062F70000000000001 /* Debug */,
+				B1BB00072F70000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C50BA2D52F5F951900596161 /* Build configuration list for PBXNativeTarget "PrereadShareExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

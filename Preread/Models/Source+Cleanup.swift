@@ -1,3 +1,4 @@
+import AppIntents
 import Foundation
 import GRDB
 import WidgetKit
@@ -40,7 +41,11 @@ extension Source {
             try Source.deleteOne(db, key: source.id)
         }
 
-        // 5. Refresh widget timelines so deleted source no longer appears
+        // 5. Refresh widget timelines and push updated data to watch
         WidgetCenter.shared.reloadAllTimelines()
+        WatchConnectivityManager.shared.pushArticlesToWatch()
+
+        // 6. Update App Shortcuts so the deleted source is no longer offered
+        PrereadShortcutsProvider.updateAppShortcutParameters()
     }
 }
