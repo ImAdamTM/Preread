@@ -234,6 +234,12 @@ enum BackgroundTaskManager {
                 await Self.pruneExcessArticles(for: sourceID)
                 await Self.pruneExcessPendingArticles(for: sourceID)
             }
+
+            // Phase 4: Opportunistically cache pending articles with whatever
+            // time remains in the ~30s budget. The expiration handler will
+            // cancel us if we run out of time — that's fine, the processing
+            // task picks up the rest.
+            await cacheArticlesRoundRobin()
         } catch {
             logger.error("Refresh feeds error: \(error.localizedDescription)")
         }
@@ -363,13 +369,22 @@ enum BackgroundTaskManager {
         }
     }
 
-    /// Caches pending articles one at a time (interruptible), newest first.
+    /// Caches pending articles using the processing task's longer budget.
     private static func cachePendingArticles() async {
         guard !NetworkMonitor.shouldSkipForWiFiOnly else {
             logger.info("Skipping pending caching — WiFi-only mode and not on WiFi")
             return
         }
+        await cacheArticlesRoundRobin()
+    }
+
+    /// Round-robin caches pending articles — one from each source per round —
+    /// until cancelled or all pending articles are cached. Used by both the
+    /// refresh task (opportunistically with remaining time) and the processing
+    /// task (with a longer budget).
+    private static func cacheArticlesRoundRobin() async {
         do {
+            // Fetch all pending articles, newest first
             let pendingArticles = try await DatabaseManager.shared.dbPool.read { db in
                 try Article
                     .filter(Column("fetchStatus") == ArticleFetchStatus.pending.rawValue)
@@ -377,24 +392,55 @@ enum BackgroundTaskManager {
                     .fetchAll(db)
             }
 
-            logger.info("Caching \(pendingArticles.count) pending articles")
+            guard !pendingArticles.isEmpty else { return }
+
+            // Group by source, preserving newest-first order within each group
+            var queuesBySource: [UUID: [Article]] = [:]
+            for article in pendingArticles {
+                queuesBySource[article.sourceID, default: []].append(article)
+            }
+            let queues = Array(queuesBySource.values)
+
+            // Pre-fetch source cache levels to avoid repeated DB lookups
+            let sourceIDs = Array(queuesBySource.keys)
+            var cacheLevels: [UUID: CacheLevel] = [:]
+            for sourceID in sourceIDs {
+                let source = try await DatabaseManager.shared.dbPool.read { db in
+                    try Source.fetchOne(db, key: sourceID)
+                }
+                cacheLevels[sourceID] = source?.effectiveCacheLevel ?? .standard
+            }
+
+            logger.info("Caching \(pendingArticles.count) pending articles across \(queues.count) sources")
             var cachedCount = 0
 
-            for article in pendingArticles {
-                // Check for cancellation between articles
+            // Round-robin: cache one article from each source per round
+            var indices = Array(repeating: 0, count: queues.count)
+            var remaining = true
+
+            while remaining {
                 guard !Task.isCancelled else {
                     logger.info("Caching cancelled after \(cachedCount) articles")
                     return
                 }
+                remaining = false
 
-                // Look up the source for its cache level
-                let source = try await DatabaseManager.shared.dbPool.read { db in
-                    try Source.fetchOne(db, key: article.sourceID)
+                for queueIndex in queues.indices {
+                    guard !Task.isCancelled else {
+                        logger.info("Caching cancelled after \(cachedCount) articles")
+                        return
+                    }
+                    let itemIndex = indices[queueIndex]
+                    guard itemIndex < queues[queueIndex].count else { continue }
+                    remaining = true
+
+                    let article = queues[queueIndex][itemIndex]
+                    indices[queueIndex] += 1
+
+                    let cacheLevel = cacheLevels[article.sourceID] ?? .standard
+                    try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+                    cachedCount += 1
                 }
-
-                let cacheLevel = source?.effectiveCacheLevel ?? .standard
-                try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
-                cachedCount += 1
             }
 
             logger.info("Finished caching \(cachedCount) articles")
