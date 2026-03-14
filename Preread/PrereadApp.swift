@@ -43,6 +43,17 @@ struct PrereadApp: App {
                             await IntegrityChecker.resetStaleFetchingArticles()
                             await FetchCoordinator.shared.refreshStaleAutoSources()
                         }
+                    } else if phase == .background {
+                        // Re-schedule background tasks every time the app
+                        // enters the background so iOS always has a fresh
+                        // request. Without this, tasks only get scheduled at
+                        // app launch or when a previous task fires — if iOS
+                        // never runs the first one, they're never re-queued.
+                        let bgEnabled = UserDefaults.standard.bool(forKey: "backgroundRefreshEnabled")
+                        if bgEnabled || !UserDefaults.standard.contains(key: "backgroundRefreshEnabled") {
+                            BackgroundTaskManager.scheduleRefresh()
+                            BackgroundTaskManager.scheduleProcessing()
+                        }
                     }
                 }
                 // 4. Deep link handling
