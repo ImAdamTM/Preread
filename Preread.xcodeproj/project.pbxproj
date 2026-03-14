@@ -166,6 +166,7 @@
 			membershipExceptions = (
 				Models/Article.swift,
 				Models/CachedPage.swift,
+				Models/DiscoverFeed.swift,
 				Models/ReaderSelection.swift,
 				Models/Source.swift,
 				Models/WatchArticle.swift,

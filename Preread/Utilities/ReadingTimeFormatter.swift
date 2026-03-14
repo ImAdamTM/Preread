@@ -24,7 +24,7 @@ enum ReadingTimeFormatter {
     ///
     /// Rules:
     /// - 0 min        → nil (caller should hide)
-    /// - 1-4 min      → "<5min"
+    /// - 1-4 min      → "5min"
     /// - 5-9 min      → exact: "5min", "8min"
     /// - 10-59 min    → rounded to nearest 5: "10min", "30min", "55min"
     /// - 60-299 min   → hours + remaining 5-min blocks: "1hr", "1hr 30min", "2hr 45min"
@@ -33,7 +33,7 @@ enum ReadingTimeFormatter {
         guard minutes > 0 else { return nil }
 
         if minutes < 5 {
-            return "<5min"
+            return "5min"
         }
 
         if minutes >= 300 {

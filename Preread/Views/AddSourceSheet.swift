@@ -35,9 +35,16 @@ struct AddSourceSheet: View {
     @State private var cyclingTextOffset: CGFloat = 0
     @State private var cyclingTextOpacity: Double = 1.0
     @State private var sheetContentHeight: CGFloat = 350
-    @State private var lastAttemptWasSearch = false
+    @State private var selectedDetent: PresentationDetent = .height(350)
     @State private var showSourceLimitAlert = false
     @State private var previewFavicon: UIImage?
+
+    // Discover state
+    @State private var searchResults: [DiscoverFeed] = []
+    @State private var subscribedURLs: Set<String> = []
+    @State private var discoverFaviconCache: [String: UIImage] = [:]
+    @State private var searchTask: Task<Void, Never>?
+    @State private var discoverNavPath: [String] = []
 
     @FocusState private var isURLFieldFocused: Bool
 
@@ -54,7 +61,7 @@ struct AddSourceSheet: View {
         return true
     }
 
-    private enum SheetState {
+    private enum SheetState: Equatable {
         case input
         case detecting
         case feedFound
@@ -64,14 +71,7 @@ struct AddSourceSheet: View {
     }
 
     private var cyclingTexts: [String] {
-        if lastAttemptWasSearch {
-            return [
-                "Searching for articles...",
-                "Fetching results...",
-                "Almost there..."
-            ]
-        }
-        return [
+        [
             "Checking for a feed...",
             "Fetching feed details...",
             "Almost there..."
@@ -81,7 +81,7 @@ struct AddSourceSheet: View {
     // MARK: - Body
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $discoverNavPath) {
             VStack(spacing: 24) {
                 switch sheetState {
                 case .input:
@@ -106,7 +106,9 @@ struct AddSourceSheet: View {
                 GeometryReader { geo in
                     Color.clear
                         .onAppear {
-                            sheetContentHeight = geo.size.height + 76
+                            let h = geo.size.height + 76
+                            sheetContentHeight = h
+                            selectedDetent = .height(h)
                         }
                         .onChange(of: geo.size.height) { _, newHeight in
                             sheetContentHeight = newHeight + 76
@@ -124,11 +126,34 @@ struct AddSourceSheet: View {
                     .foregroundColor(Theme.textSecondary)
                 }
             }
+            .navigationDestination(for: String.self) { value in
+                if value == "__discover__" {
+                    discoverCategoryListDestination
+                } else if value == "__countries__" {
+                    countryListDestination
+                } else {
+                    categoryFeedListDestination(category: value)
+                }
+            }
         }
-        .presentationDetents([.height(sheetContentHeight)])
+        .presentationDetents([.height(sheetContentHeight), .large], selection: $selectedDetent)
+        .presentationContentInteraction(.scrolls)
         .presentationDragIndicator(.visible)
         .presentationBackground(Theme.sheetBackground)
         .animation(Theme.gentleAnimation(response: 0.4, dampingFraction: 0.85), value: sheetContentHeight)
+        .onChange(of: sheetContentHeight) { _, newHeight in
+            if discoverNavPath.isEmpty {
+                selectedDetent = .height(newHeight)
+            }
+        }
+        .onChange(of: discoverNavPath) { oldPath, newPath in
+            // When navigating back to root, shrink the sheet
+            if newPath.isEmpty && !oldPath.isEmpty {
+                withAnimation(Theme.gentleAnimation(response: 0.4, dampingFraction: 0.85)) {
+                    selectedDetent = .height(sheetContentHeight)
+                }
+            }
+        }
         .alert("Source limit reached", isPresented: $showSourceLimitAlert) {
             Button("OK", role: .cancel) { }
         } message: {
@@ -139,9 +164,11 @@ struct AddSourceSheet: View {
                 urlText = url
             }
             isURLFieldFocused = true
+            subscribedURLs = FeedDirectory.shared.subscribedFeedURLs()
         }
         .onDisappear {
             cyclingTimer?.invalidate()
+            searchTask?.cancel()
         }
     }
 
@@ -153,14 +180,14 @@ struct AddSourceSheet: View {
                 Text("Add a source")
                     .font(.system(size: 28, weight: .regular))
                     .foregroundColor(Theme.textPrimary)
-                Text("Paste a link or search for a topic to get started")
+                Text("Search or paste a link")
                     .font(.system(size: 15))
                     .foregroundColor(Theme.textSecondary)
             }
 
             // URL field
             HStack {
-                TextField("Paste a link or search a topic", text: $urlText)
+                TextField("Search or paste a link", text: $urlText)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
                     .keyboardType(.default)
@@ -170,57 +197,341 @@ struct AddSourceSheet: View {
                     .submitLabel(.go)
                     .onSubmit { startDetection() }
 
-                Button {
-                    if let clipboard = UIPasteboard.general.string {
-                        urlText = clipboard
+                if !urlText.isEmpty {
+                    Button {
+                        urlText = ""
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.system(size: 16))
+                            .foregroundColor(Theme.textSecondary.opacity(0.6))
                     }
-                } label: {
-                    Image(systemName: "doc.on.clipboard")
-                        .font(.system(size: 16))
-                        .foregroundColor(Theme.textSecondary)
+                } else {
+                    Button {
+                        if let clipboard = UIPasteboard.general.string {
+                            urlText = clipboard
+                        }
+                    } label: {
+                        Image(systemName: "doc.on.clipboard")
+                            .font(.system(size: 16))
+                            .foregroundColor(Theme.textSecondary)
+                    }
                 }
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 14)
             .background(Theme.surfaceRaised)
             .clipShape(RoundedRectangle(cornerRadius: 12))
+            .onChange(of: urlText) { _, newValue in
+                debounceSearch(query: newValue)
+            }
 
-            let isEmpty = urlText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-
-            HStack(spacing: 10) {
-                // Primary CTA
-                Button(action: startDetection) {
-                    Text("Search for articles")
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(
-                            isEmpty
-                                ? AnyShapeStyle(Color.gray.opacity(0.3))
-                                : AnyShapeStyle(Theme.accentGradient)
-                        )
-                        .clipShape(RoundedRectangle(cornerRadius: 14))
+            // Search results or CTAs
+            if isSearchMode && !searchResults.isEmpty {
+                discoverSearchResults
+            } else if isSearchMode && !urlText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                // Search mode with no results
+                VStack(spacing: 6) {
+                    Text("No feeds found for \"\(urlText.trimmingCharacters(in: .whitespacesAndNewlines))\"")
+                        .font(.system(size: 14))
+                        .foregroundColor(Theme.textSecondary)
+                    Text("Try a different term or paste a feed URL")
+                        .font(.system(size: 12))
+                        .foregroundColor(Theme.textSecondary.opacity(0.7))
                 }
-                .disabled(isEmpty)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 8)
+            } else {
+                let isEmpty = urlText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
 
-                // Secondary CTA — disabled for search terms (not a URL)
-                Button(action: startSavePageFlow) {
-                    Text("Save single page")
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor((isEmpty || isSearchMode) ? Theme.textSecondary.opacity(0.5) : Theme.textPrimary)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(Theme.surfaceRaised)
-                        .clipShape(RoundedRectangle(cornerRadius: 14))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 14)
-                                .stroke((isEmpty || isSearchMode) ? Theme.border.opacity(0.5) : Theme.border, lineWidth: 1)
-                        )
+                HStack(spacing: 10) {
+                    // Primary CTA
+                    Button(action: startDetection) {
+                        Text("Find articles")
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 16)
+                            .background(
+                                isEmpty
+                                    ? AnyShapeStyle(Color.gray.opacity(0.3))
+                                    : AnyShapeStyle(Theme.accentGradient)
+                            )
+                            .clipShape(RoundedRectangle(cornerRadius: 14))
+                    }
+                    .disabled(isEmpty)
+
+                    // Secondary CTA
+                    Button(action: startSavePageFlow) {
+                        Text("Save single page")
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundColor(isEmpty ? Theme.textSecondary.opacity(0.5) : Theme.textPrimary)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 16)
+                            .background(Theme.surfaceRaised)
+                            .clipShape(RoundedRectangle(cornerRadius: 14))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 14)
+                                    .stroke(isEmpty ? Theme.border.opacity(0.5) : Theme.border, lineWidth: 1)
+                            )
+                    }
+                    .disabled(isEmpty)
                 }
-                .disabled(isEmpty || isSearchMode)
+            }
+
+            // Discover link
+            Button {
+                navigateToDiscover()
+            } label: {
+                HStack(spacing: 4) {
+                    Text("Discover feeds")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundStyle(Theme.accentGradient)
+                    Image(systemName: "arrow.right")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundColor(Color("PrereadPurple"))
+                }
+                .frame(maxWidth: .infinity)
             }
         }
+    }
+
+    // MARK: - Discover search results
+
+    private var discoverSearchResults: some View {
+        ScrollView {
+            VStack(spacing: 0) {
+                ForEach(Array(searchResults.prefix(6).enumerated()), id: \.element.id) { index, feed in
+                    if index > 0 {
+                        Divider()
+                            .background(Theme.border)
+                    }
+                    DiscoverFeedRow(
+                        feed: feed,
+                        isSubscribed: subscribedURLs.contains(feed.feedURL),
+                        favicon: discoverFaviconCache[feed.siteURL ?? feed.feedURL],
+                        onTap: { selectDiscoverFeed(feed) }
+                    )
+                    .task {
+                        await loadDiscoverFavicon(for: feed)
+                    }
+                }
+            }
+        }
+        .frame(maxHeight: 340)
+        .background(Theme.card)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Theme.border, lineWidth: 1)
+        )
+    }
+
+    // MARK: - Discover category list destination
+
+    private var discoverCategoryListDestination: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                // Header
+                Text("Discover")
+                    .font(.system(size: 28, weight: .regular))
+                    .foregroundColor(Theme.textPrimary)
+
+                // Topic categories
+                VStack(spacing: 0) {
+                    ForEach(Array(FeedDirectory.shared.categories.enumerated()), id: \.element.id) { index, category in
+                        if index > 0 {
+                            Divider()
+                                .background(Theme.border)
+                        }
+                        Button {
+                            discoverNavPath.append(category.name)
+                        } label: {
+                            HStack(spacing: 10) {
+                                Image(systemName: category.icon)
+                                    .font(.system(size: 14))
+                                    .foregroundColor(Theme.textSecondary)
+                                    .frame(width: 24)
+                                Text(category.name)
+                                    .font(.system(size: 15, weight: .medium))
+                                    .foregroundColor(Theme.textPrimary)
+                                Spacer()
+                                Text("\(category.feedCount)")
+                                    .font(.system(size: 13))
+                                    .foregroundColor(Theme.textSecondary)
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 12, weight: .semibold))
+                                    .foregroundColor(Theme.textSecondary.opacity(0.5))
+                            }
+                            .padding(.horizontal, 14)
+                            .padding(.vertical, 12)
+                            .frame(minHeight: 44)
+                            .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+                    }
+
+                    // Countries row
+                    Divider()
+                        .background(Theme.border)
+
+                    Button {
+                        discoverNavPath.append("__countries__")
+                    } label: {
+                        HStack(spacing: 10) {
+                            Image(systemName: "globe")
+                                .font(.system(size: 14))
+                                .foregroundColor(Theme.textSecondary)
+                                .frame(width: 24)
+                            Text("Countries")
+                                .font(.system(size: 15, weight: .medium))
+                                .foregroundColor(Theme.textPrimary)
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.system(size: 12, weight: .semibold))
+                                .foregroundColor(Theme.textSecondary.opacity(0.5))
+                        }
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 12)
+                        .frame(minHeight: 44)
+                        .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                }
+                .background(Theme.card)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Theme.border, lineWidth: 1)
+                )
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 16)
+        }
+        .background(Theme.sheetBackground)
+        .navigationBarTitleDisplayMode(.inline)
+    }
+
+    // MARK: - Country list navigation destination
+
+    private var countryListDestination: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                // Header
+                HStack(spacing: 8) {
+                    Image(systemName: "globe")
+                        .font(.system(size: 20))
+                        .foregroundColor(Theme.textSecondary)
+                    Text("Countries")
+                        .font(.system(size: 28, weight: .regular))
+                        .foregroundColor(Theme.textPrimary)
+                }
+
+                // Country list
+                VStack(spacing: 0) {
+                    ForEach(Array(FeedDirectory.shared.countries.enumerated()), id: \.element.id) { index, country in
+                        if index > 0 {
+                            Divider()
+                                .background(Theme.border)
+                        }
+                        Button {
+                            discoverNavPath.append(country.name)
+                        } label: {
+                            HStack(spacing: 10) {
+                                Image(systemName: country.icon)
+                                    .font(.system(size: 14))
+                                    .foregroundColor(Theme.textSecondary)
+                                    .frame(width: 24)
+                                Text(country.name)
+                                    .font(.system(size: 15, weight: .medium))
+                                    .foregroundColor(Theme.textPrimary)
+                                Spacer()
+                                Text("\(country.feedCount)")
+                                    .font(.system(size: 13))
+                                    .foregroundColor(Theme.textSecondary)
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 12, weight: .semibold))
+                                    .foregroundColor(Theme.textSecondary.opacity(0.5))
+                            }
+                            .padding(.horizontal, 14)
+                            .padding(.vertical, 12)
+                            .frame(minHeight: 44)
+                            .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+                .background(Theme.card)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Theme.border, lineWidth: 1)
+                )
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 16)
+        }
+        .background(Theme.sheetBackground)
+        .navigationBarTitleDisplayMode(.inline)
+    }
+
+    // MARK: - Category / country feed list destination
+
+    private func categoryFeedListDestination(category: String) -> some View {
+        let feeds = FeedDirectory.shared.feeds(in: category)
+        let isCountry = FeedDirectory.shared.countries.contains(where: { $0.name == category })
+        let icon: String
+        if isCountry {
+            icon = FeedDirectory.shared.countries.first(where: { $0.name == category })?.icon ?? "globe"
+        } else {
+            icon = FeedDirectory.shared.categories.first(where: { $0.name == category })?.icon ?? "square.grid.2x2"
+        }
+
+        return ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                // Category header
+                HStack(spacing: 8) {
+                    Image(systemName: icon)
+                        .font(.system(size: 20))
+                        .foregroundColor(Theme.textSecondary)
+                    Text(category)
+                        .font(.system(size: 28, weight: .regular))
+                        .foregroundColor(Theme.textPrimary)
+                }
+
+                Text("\(feeds.count) feeds")
+                    .font(.system(size: 13))
+                    .foregroundColor(Theme.textSecondary)
+
+                // Feed list
+                VStack(spacing: 0) {
+                    ForEach(Array(feeds.enumerated()), id: \.element.id) { index, feed in
+                        if index > 0 {
+                            Divider()
+                                .background(Theme.border)
+                        }
+                        DiscoverFeedRow(
+                            feed: feed,
+                            isSubscribed: subscribedURLs.contains(feed.feedURL),
+                            favicon: discoverFaviconCache[feed.siteURL ?? feed.feedURL],
+                            onTap: { selectDiscoverFeed(feed) }
+                        )
+                        .task {
+                            await loadDiscoverFavicon(for: feed)
+                        }
+                    }
+                }
+                .background(Theme.card)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Theme.border, lineWidth: 1)
+                )
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 16)
+        }
+        .background(Theme.sheetBackground)
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     // MARK: - State B: Detecting
@@ -267,7 +578,7 @@ struct AddSourceSheet: View {
 
             // Disabled placeholder buttons to maintain height
             HStack(spacing: 10) {
-                Text("Search for articles")
+                Text("Find articles")
                     .font(.system(size: 15, weight: .semibold))
                     .foregroundColor(.white.opacity(0.5))
                     .frame(maxWidth: .infinity)
@@ -545,13 +856,11 @@ struct AddSourceSheet: View {
                 .foregroundColor(Theme.textSecondary)
                 .offset(x: shakeOffset)
 
-            Text(lastAttemptWasSearch ? "No results found" : "No feed found")
+            Text("No feed found")
                 .font(.system(size: 22, weight: .bold))
                 .foregroundColor(Theme.textPrimary)
 
-            Text(lastAttemptWasSearch
-                 ? "We couldn't find articles for that search..."
-                 : "This site doesn't seem to have a public feed...")
+            Text("This site doesn't seem to have a public feed...")
                 .font(.system(size: 15))
                 .foregroundColor(Theme.textSecondary)
                 .multilineTextAlignment(.center)
@@ -562,7 +871,7 @@ struct AddSourceSheet: View {
             Button {
                 resetToInput()
             } label: {
-                Text(lastAttemptWasSearch ? "Try another search" : "Try another URL")
+                Text("Try another URL")
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(Theme.textPrimary)
                     .frame(maxWidth: .infinity)
@@ -575,15 +884,13 @@ struct AddSourceSheet: View {
                     )
             }
 
-            // Save as single page — only for URL attempts
-            if !lastAttemptWasSearch {
-                Button {
-                    startSavePageFlow()
-                } label: {
-                    Text("Save it anyway")
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(Theme.accent)
-                }
+            // Save as single page
+            Button {
+                startSavePageFlow()
+            } label: {
+                Text("Save it anyway")
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(Theme.accent)
             }
         }
     }
@@ -760,97 +1067,64 @@ struct AddSourceSheet: View {
         let raw = urlText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !raw.isEmpty else { return }
 
-        let searchMode = isSearchMode
-        lastAttemptWasSearch = searchMode
-
         isURLFieldFocused = false
         sheetState = .detecting
         cyclingTextIndex = 0
         startCyclingTimer()
 
-        if searchMode {
-            // Search mode: go straight to Google News with the raw query
-            Task {
-                do {
-                    let feed = try await FeedService.shared.searchGoogleNews(query: raw)
+        // Normalize and run full discovery pipeline
+        var normalized = raw
+        if !normalized.lowercased().hasPrefix("http://") && !normalized.lowercased().hasPrefix("https://") {
+            normalized = "https://\(normalized)"
+        }
+        urlText = normalized
 
-                    // Check if this Google News feed URL is already subscribed
-                    do {
-                        let isDuplicate = try await FeedService.shared.checkForDuplicate(feedURL: feed.feedURL.absoluteString)
-                        if isDuplicate {
-                            showAlreadySubscribed(feedURL: feed.feedURL.absoluteString)
-                            return
-                        }
-                    } catch {
-                        // Continue
-                    }
+        guard let url = URL(string: normalized) else { return }
 
-                    stopCyclingTimer()
-                    detectedFeed = feed
-                    editableName = raw.capitalized
-                    sheetState = .feedFound
-                    fetchPreviewFavicon(for: feed)
-                } catch {
-                    stopCyclingTimer()
-                    sheetState = .notFound
-                    triggerShake()
+        Task {
+            // Check for duplicate first
+            do {
+                let isDuplicate = try await FeedService.shared.checkForDuplicate(feedURL: normalized)
+                if isDuplicate {
+                    showAlreadySubscribed(feedURL: normalized)
+                    return
                 }
+            } catch {
+                // Continue with discovery
             }
-        } else {
-            // URL mode: normalize and run full discovery pipeline
-            var normalized = raw
-            if !normalized.lowercased().hasPrefix("http://") && !normalized.lowercased().hasPrefix("https://") {
-                normalized = "https://\(normalized)"
-            }
-            urlText = normalized
 
-            guard let url = URL(string: normalized) else { return }
+            // Discover feed
+            do {
+                let feed = try await FeedService.shared.discoverFeed(from: url)
 
-            Task {
-                // Check for duplicate first
+                // Check if discovered feed URL is a duplicate
                 do {
-                    let isDuplicate = try await FeedService.shared.checkForDuplicate(feedURL: normalized)
+                    let isDuplicate = try await FeedService.shared.checkForDuplicate(feedURL: feed.feedURL.absoluteString)
                     if isDuplicate {
-                        showAlreadySubscribed(feedURL: normalized)
+                        showAlreadySubscribed(feedURL: feed.feedURL.absoluteString)
                         return
                     }
                 } catch {
-                    // Continue with discovery
+                    // Continue
                 }
 
-                // Discover feed
-                do {
-                    let feed = try await FeedService.shared.discoverFeed(from: url)
-
-                    // Check if discovered feed URL is a duplicate
-                    do {
-                        let isDuplicate = try await FeedService.shared.checkForDuplicate(feedURL: feed.feedURL.absoluteString)
-                        if isDuplicate {
-                            showAlreadySubscribed(feedURL: feed.feedURL.absoluteString)
-                            return
-                        }
-                    } catch {
-                        // Continue
-                    }
-
-                    stopCyclingTimer()
-                    detectedFeed = feed
-                    // If the feed came from Google News (fallback), use the domain
-                    // the user typed instead of the ugly "site:x" feed title
-                    if feed.feedURL.host?.lowercased() == "news.google.com",
-                       let inputURL = URL(string: normalized) {
-                        let domain = inputURL.host?.replacingOccurrences(of: "www.", with: "") ?? feed.title
-                        editableName = domain
-                    } else {
-                        editableName = smartTitle(from: feed)
-                    }
-                    sheetState = .feedFound
-                    fetchPreviewFavicon(for: feed)
-                } catch {
-                    stopCyclingTimer()
-                    sheetState = .notFound
-                    triggerShake()
+                stopCyclingTimer()
+                detectedFeed = feed
+                // If the user pasted a Google News RSS URL, use the domain
+                // from the query instead of the raw feed title
+                if feed.feedURL.host?.lowercased() == "news.google.com",
+                   let inputURL = URL(string: normalized) {
+                    let domain = inputURL.host?.replacingOccurrences(of: "www.", with: "") ?? feed.title
+                    editableName = domain
+                } else {
+                    editableName = smartTitle(from: feed)
                 }
+                sheetState = .feedFound
+                fetchPreviewFavicon(for: feed)
+            } catch {
+                stopCyclingTimer()
+                sheetState = .notFound
+                triggerShake()
             }
         }
     }
@@ -1055,8 +1329,115 @@ struct AddSourceSheet: View {
         urlText = ""
         detectedFeed = nil
         previewFavicon = nil
+        searchResults = []
         sheetState = .input
         isURLFieldFocused = true
+    }
+
+    // MARK: - Discover actions
+
+    private func debounceSearch(query: String) {
+        searchTask?.cancel()
+        let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        guard !trimmed.isEmpty, isSearchMode else {
+            searchResults = []
+            return
+        }
+
+        searchTask = Task {
+            try? await Task.sleep(for: .milliseconds(200))
+            guard !Task.isCancelled else { return }
+            searchResults = FeedDirectory.shared.search(trimmed, limit: 20)
+        }
+    }
+
+    /// Grows the sheet to .large first, then pushes the discover category list
+    /// after the detent animation settles — avoids content clipping during transition.
+    private func navigateToDiscover() {
+        withAnimation(Theme.gentleAnimation(response: 0.4, dampingFraction: 0.85)) {
+            selectedDetent = .large
+        }
+        Task { @MainActor in
+            try? await Task.sleep(for: .milliseconds(350))
+            discoverNavPath = ["__discover__"]
+        }
+    }
+
+    private func selectDiscoverFeed(_ feed: DiscoverFeed) {
+        urlText = feed.feedURL
+        editableName = feed.name
+        isURLFieldFocused = false
+        discoverNavPath = []
+        sheetState = .detecting
+        cyclingTextIndex = 0
+        startCyclingTimer()
+
+        // Carry over cached favicon if available
+        let cachedFavicon = discoverFaviconCache[feed.siteURL ?? feed.feedURL]
+
+        Task {
+            // Check for duplicate first
+            do {
+                let isDuplicate = try await FeedService.shared.checkForDuplicate(feedURL: feed.feedURL)
+                if isDuplicate {
+                    showAlreadySubscribed(feedURL: feed.feedURL)
+                    return
+                }
+            } catch {
+                // Continue with discovery
+            }
+
+            guard let feedURL = URL(string: feed.feedURL) else {
+                stopCyclingTimer()
+                sheetState = .notFound
+                triggerShake()
+                return
+            }
+
+            let siteURL = feed.siteURL.flatMap { URL(string: $0) }
+
+            do {
+                let discovered = try await FeedService.shared.parseFeed(from: feedURL, siteURL: siteURL)
+
+                // Check if discovered feed URL is a duplicate
+                do {
+                    let isDuplicate = try await FeedService.shared.checkForDuplicate(feedURL: discovered.feedURL.absoluteString)
+                    if isDuplicate {
+                        showAlreadySubscribed(feedURL: discovered.feedURL.absoluteString)
+                        return
+                    }
+                } catch {
+                    // Continue
+                }
+
+                stopCyclingTimer()
+                detectedFeed = discovered
+                editableName = feed.name
+                sheetState = .feedFound
+
+                // Use cached favicon from discover browsing, or fetch fresh
+                if let cachedFavicon {
+                    previewFavicon = cachedFavicon
+                } else {
+                    fetchPreviewFavicon(for: discovered)
+                }
+            } catch {
+                stopCyclingTimer()
+                sheetState = .notFound
+                triggerShake()
+            }
+        }
+    }
+
+    private func loadDiscoverFavicon(for feed: DiscoverFeed) async {
+        let key = feed.siteURL ?? feed.feedURL
+        guard discoverFaviconCache[key] == nil else { return }
+        guard let siteURL = feed.siteURL ?? URL(string: feed.feedURL)?.host.map({ "https://\($0)" }) else { return }
+        let image = await PageCacheService.shared.fetchFaviconImage(siteURL: URL(string: siteURL)!)
+        if let image {
+            discoverFaviconCache[key] = image
+        }
     }
 
     // MARK: - Smart title

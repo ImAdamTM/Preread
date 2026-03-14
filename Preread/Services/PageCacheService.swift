@@ -1809,18 +1809,10 @@ actor PageCacheService {
 
     /// Discovers and caches a favicon for a source by fetching the site's HTML
     /// and extracting the best icon link. Falls back to /favicon.ico.
+    /// Handles feed subdomains (e.g. feeds.foxnews.com → foxnews.com).
     func discoverAndCacheFavicon(for sourceID: UUID, siteURL: URL) async {
-        do {
-            var request = URLRequest(url: siteURL)
-            request.assumesHTTP3Capable = false
-            let (data, _) = try await session.data(for: request)
-            let html = String(data: data, encoding: .utf8) ?? ""
-
-            guard let faviconURL = discoverFaviconURL(in: html, baseURL: siteURL) else { return }
-            await downloadFavicon(from: faviconURL, to: sourcesBaseURL.appendingPathComponent(sourceID.uuidString, isDirectory: true))
-        } catch {
-            // Non-critical — favicon will fall back to letter avatar
-        }
+        guard let image = await fetchFaviconImage(siteURL: siteURL) else { return }
+        await saveFavicon(image, for: sourceID)
     }
 
     /// Downloads a favicon from a URL and saves it as favicon.png in the given directory.
@@ -1921,19 +1913,50 @@ actor PageCacheService {
     /// Fetches a favicon from a site URL and returns it as a UIImage without
     /// saving to disk. Used for previewing favicons before a source is added.
     func fetchFaviconImage(siteURL: URL) async -> UIImage? {
+        // Try the provided URL first, then fall back to the root domain
+        // if the host is a feed subdomain (e.g. feeds.foxnews.com → foxnews.com)
+        var urlsToTry = [siteURL]
+        if let host = siteURL.host?.lowercased() {
+            let feedPrefixes = ["feeds.", "feed.", "rss.", "xml."]
+            for prefix in feedPrefixes {
+                if host.hasPrefix(prefix) {
+                    let rootHost = String(host.dropFirst(prefix.count))
+                    var components = URLComponents()
+                    components.scheme = siteURL.scheme ?? "https"
+                    components.host = rootHost
+                    if let rootURL = components.url {
+                        urlsToTry.append(rootURL)
+                    }
+                    break
+                }
+            }
+        }
+
+        for url in urlsToTry {
+            if let image = await fetchFaviconFromPage(url) {
+                return image
+            }
+        }
+        return nil
+    }
+
+    /// Attempts to fetch a favicon from a single page URL.
+    private func fetchFaviconFromPage(_ pageURL: URL) async -> UIImage? {
         do {
-            var request = URLRequest(url: siteURL)
+            var request = URLRequest(url: pageURL)
             request.assumesHTTP3Capable = false
-            let (data, _) = try await session.data(for: request)
+            let (data, response) = try await session.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else { return nil }
             let html = String(data: data, encoding: .utf8) ?? ""
 
-            guard let faviconURL = discoverFaviconURL(in: html, baseURL: siteURL) else { return nil }
+            guard let faviconURL = discoverFaviconURL(in: html, baseURL: pageURL) else { return nil }
 
             var iconRequest = URLRequest(url: faviconURL)
             iconRequest.assumesHTTP3Capable = false
             let (iconData, iconResponse) = try await session.data(for: iconRequest)
-            guard let httpResponse = iconResponse as? HTTPURLResponse,
-                  httpResponse.statusCode == 200,
+            guard let iconHTTP = iconResponse as? HTTPURLResponse,
+                  iconHTTP.statusCode == 200,
                   !iconData.isEmpty else { return nil }
             return UIImage(data: iconData)
         } catch {

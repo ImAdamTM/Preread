@@ -1,0 +1,178 @@
+[
+  {
+    "name": "The Verge",
+    "feedURL": "https://www.theverge.com/rss/index.xml",
+    "siteURL": "https://www.theverge.com",
+    "description": "Covering the intersection of technology, science, art, and culture",
+    "category": "Tech",
+    "country": null
+  },
+  {
+    "name": "Engadget",
+    "feedURL": "https://www.engadget.com/rss.xml",
+    "siteURL": "https://www.engadget.com",
+    "description": "The original home for technology news and reviews",
+    "category": "Tech",
+    "country": null
+  },
+  {
+    "name": "Wired",
+    "feedURL": "https://www.wired.com/feed/rss",
+    "siteURL": "https://www.wired.com",
+    "description": "The latest in technology, science, culture, and business",
+    "category": "Tech",
+    "country": null
+  },
+  {
+    "name": "TechCrunch",
+    "feedURL": "https://techcrunch.com/feed/",
+    "siteURL": "https://techcrunch.com",
+    "description": "Startup and technology news",
+    "category": "Tech",
+    "country": null
+  },
+  {
+    "name": "The Next Web",
+    "feedURL": "https://thenextweb.com/feed",
+    "siteURL": "https://thenextweb.com",
+    "description": "Original and proudly opinionated perspectives on technology news",
+    "category": "Tech",
+    "country": null
+  },
+  {
+    "name": "MacStories",
+    "feedURL": "https://www.macstories.net/feed/",
+    "siteURL": "https://www.macstories.net",
+    "description": "Apple news, app reviews, and stories",
+    "category": "Apple",
+    "country": null
+  },
+  {
+    "name": "Daring Fireball",
+    "feedURL": "https://daringfireball.net/feeds/main",
+    "siteURL": "https://daringfireball.net",
+    "description": "By John Gruber",
+    "category": "Apple",
+    "country": null
+  },
+  {
+    "name": "Six Colors",
+    "feedURL": "https://feedpress.me/sixcolors",
+    "siteURL": "https://sixcolors.com",
+    "description": "Apple news and commentary by Jason Snell",
+    "category": "Apple",
+    "country": null
+  },
+  {
+    "name": "Reuters",
+    "feedURL": "https://www.reutersagency.com/feed/",
+    "siteURL": "https://www.reuters.com",
+    "description": "International news agency",
+    "category": "News",
+    "country": null
+  },
+  {
+    "name": "NPR News",
+    "feedURL": "https://feeds.npr.org/1001/rss.xml",
+    "siteURL": "https://www.npr.org",
+    "description": "NPR news, audio, and podcasts",
+    "category": "News",
+    "country": null
+  },
+  {
+    "name": "The Atlantic",
+    "feedURL": "https://www.theatlantic.com/feed/all/",
+    "siteURL": "https://www.theatlantic.com",
+    "description": "News, politics, culture, technology, and more",
+    "category": "News",
+    "country": null
+  },
+  {
+    "name": "Vox",
+    "feedURL": "https://www.vox.com/rss/index.xml",
+    "siteURL": "https://www.vox.com",
+    "description": "Understand the news",
+    "category": "News",
+    "country": null
+  },
+  {
+    "name": "The Register",
+    "feedURL": "https://www.theregister.com/headlines.atom",
+    "siteURL": "https://www.theregister.com",
+    "description": "Sci/Tech news for the world",
+    "category": "Tech",
+    "country": null
+  },
+  {
+    "name": "Polygon",
+    "feedURL": "https://www.polygon.com/rss/index.xml",
+    "siteURL": "https://www.polygon.com",
+    "description": "Gaming news, reviews, and features",
+    "category": "Gaming",
+    "country": null
+  },
+  {
+    "name": "Kotaku",
+    "feedURL": "https://kotaku.com/rss",
+    "siteURL": "https://kotaku.com",
+    "description": "Gaming reviews, news, and culture",
+    "category": "Gaming",
+    "country": null
+  },
+  {
+    "name": "SwiftLee",
+    "feedURL": "https://www.avanderlee.com/feed/",
+    "siteURL": "https://www.avanderlee.com",
+    "description": "A weekly blog about Swift, iOS, and Xcode tips and tricks",
+    "category": "iOS Development",
+    "country": null
+  },
+  {
+    "name": "Hacking with Swift",
+    "feedURL": "https://www.hackingwithswift.com/articles/rss",
+    "siteURL": "https://www.hackingwithswift.com",
+    "description": "Learn Swift coding for iOS with free tutorials",
+    "category": "iOS Development",
+    "country": null
+  },
+  {
+    "name": "Swift by Sundell",
+    "feedURL": "https://www.swiftbysundell.com/rss",
+    "siteURL": "https://www.swiftbysundell.com",
+    "description": "Articles, podcasts, and tips about Swift development",
+    "category": "iOS Development",
+    "country": null
+  },
+  {
+    "name": "Pitchfork",
+    "feedURL": "https://pitchfork.com/feed/feed-news/rss",
+    "siteURL": "https://pitchfork.com",
+    "description": "The most trusted voice in music",
+    "category": "Music",
+    "country": null
+  },
+  {
+    "name": "New Scientist",
+    "feedURL": "https://www.newscientist.com/feed/home/",
+    "siteURL": "https://www.newscientist.com",
+    "description": "Science news and features",
+    "category": "Science",
+    "country": null
+  },
+  {
+    "name": "Nature",
+    "feedURL": "https://www.nature.com/nature.rss",
+    "siteURL": "https://www.nature.com",
+    "description": "International journal of science",
+    "category": "Science",
+    "country": null
+  },
+  {
+    "name": "The A.V. Club",
+    "feedURL": "https://www.avclub.com/rss.xml",
+    "siteURL": "https://www.avclub.com",
+    "description": "Pop culture obsessives writing for the pop culture obsessed",
+    "category": "Movies",
+    "country": null
+  }
+]

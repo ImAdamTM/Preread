@@ -39,7 +39,7 @@ struct SourceHeroView: View {
             HStack(alignment: .top, spacing: 12) {
                 heroFavicon
 
-                VStack(alignment: .leading, spacing: -2) {
+                VStack(alignment: .leading, spacing: -1) {
                     // Source title — its Y position drives the nav bar title fade
                     Text(source.title)
                         .font(.system(size: 18, weight: .medium))

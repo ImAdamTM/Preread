@@ -133,9 +133,9 @@ struct Theme {
     // MARK: - Dynamic Type scaled font
 
     /// The custom font family name. Change this to swap the app-wide typeface.
-    private static let fontFamily = "Inter Tight"
+    private static let fontFamily = "Gabarito"
 
-    /// Returns a SwiftUI Font using Inter Tight that scales with Dynamic Type settings.
+    /// Returns a SwiftUI Font using Gabarito that scales with Dynamic Type settings.
     /// Falls back to the system font if the custom font isn't available.
     static func scaledFont(size: CGFloat, weight: Font.Weight = .regular, design: Font.Design = .default, relativeTo style: Font.TextStyle = .body) -> Font {
         let uiWeight: UIFont.Weight = switch weight {
@@ -161,8 +161,8 @@ struct Theme {
         ])
         let uiFont = UIFont(descriptor: descriptor, size: size)
 
-        // Verify we actually got Inter Tight, not a fallback
-        if uiFont.familyName == "Inter Tight" {
+        // Verify we actually got Gabarito, not a fallback
+        if uiFont.familyName == "Gabarito" {
             let scaledSize = metrics.scaledValue(for: size)
             return Font.custom(uiFont.fontName, size: scaledSize, relativeTo: style)
         }

@@ -146,7 +146,7 @@ struct SourceSectionView: View {
         HStack(alignment: .center, spacing: 12) {
             faviconView
 
-            VStack(alignment: .leading, spacing: -1) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text(source.title)
                     .font(.system(size: 18, weight: .medium))
                     .foregroundColor(Theme.textPrimary)
