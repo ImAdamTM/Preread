@@ -1,6 +1,7 @@
 import UIKit
 import BackgroundTasks
 import GRDB
+import os.log
 import WidgetKit
 
 final class AppDelegate: NSObject, UIApplicationDelegate {
@@ -14,6 +15,8 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
 enum BackgroundTaskManager {
     static let refreshTaskID = "com.preread.refresh"
     static let processingTaskID = "com.preread.process"
+
+    private static let logger = Logger(subsystem: "com.preread", category: "BackgroundTaskManager")
 
     // MARK: - Registration (called from AppDelegate)
 
@@ -36,8 +39,9 @@ enum BackgroundTaskManager {
         request.earliestBeginDate = Date(timeIntervalSinceNow: 15 * 60) // 15 minutes
         do {
             try BGTaskScheduler.shared.submit(request)
+            logger.info("Scheduled refresh task")
         } catch {
-            print("[BackgroundTaskManager] Failed to schedule refresh: \(error)")
+            logger.error("Failed to schedule refresh: \(error.localizedDescription)")
         }
     }
 
@@ -48,14 +52,16 @@ enum BackgroundTaskManager {
         request.requiresExternalPower = false
         do {
             try BGTaskScheduler.shared.submit(request)
+            logger.info("Scheduled processing task")
         } catch {
-            print("[BackgroundTaskManager] Failed to schedule processing: \(error)")
+            logger.error("Failed to schedule processing: \(error.localizedDescription)")
         }
     }
 
-    // MARK: - Refresh handler (~30s budget: parse feeds + cache new articles)
+    // MARK: - Refresh handler (~30s budget: parse feeds + insert articles)
 
     private static func handleRefreshTask(_ task: BGAppRefreshTask) {
+        logger.info("Refresh task started")
         // Re-submit next request immediately
         scheduleRefresh()
 
@@ -64,6 +70,7 @@ enum BackgroundTaskManager {
         }
 
         task.expirationHandler = {
+            logger.warning("Refresh task expired by system")
             workTask.cancel()
         }
 
@@ -71,6 +78,7 @@ enum BackgroundTaskManager {
             await workTask.value
             WidgetCenter.shared.reloadAllTimelines()
             WatchConnectivityManager.shared.pushArticlesToWatch()
+            logger.info("Refresh task completed")
             task.setTaskCompleted(success: true)
         }
     }
@@ -81,12 +89,15 @@ enum BackgroundTaskManager {
         let source: Source
     }
 
-    /// Parses all source feeds, then round-robin caches new articles across
-    /// sources so no single source monopolises the time budget. An article is
-    /// only committed to the database once it has been successfully cached,
-    /// so the user never sees uncached placeholder rows in their feed.
+    /// Parses all source feeds and inserts new articles as `.pending`.
+    /// This is intentionally lightweight — no page caching happens here so the
+    /// work can complete within the ~30-second BGAppRefreshTask budget.
+    /// The heavier processing task handles the actual caching afterwards.
     private static func refreshFeeds() async {
-        guard !NetworkMonitor.shouldSkipForWiFiOnly else { return }
+        guard !NetworkMonitor.shouldSkipForWiFiOnly else {
+            logger.info("Skipping refresh — WiFi-only mode and not on WiFi")
+            return
+        }
         do {
             let sources = try await DatabaseManager.shared.dbPool.read { db in
                 try Source
@@ -94,6 +105,8 @@ enum BackgroundTaskManager {
                     .filter(Column("fetchFrequency") == FetchFrequency.automatic.rawValue)
                     .fetchAll(db)
             }
+
+            logger.info("Refreshing \(sources.count) automatic sources")
 
             // Phase 1: Parse all feeds (fast) and collect new items per source.
             // Re-attach any saved articles that were detached.
@@ -162,12 +175,14 @@ enum BackgroundTaskManager {
                         queues.append(newItems)
                     }
                 } catch {
-                    // Feed parse failed — skip this source, non-critical
+                    logger.warning("Feed parse failed for \(source.title): \(error.localizedDescription)")
                 }
             }
 
-            // Phase 2: Round-robin cache one article from each source at a
-            // time, so every source gets fair treatment within the budget.
+            // Phase 2: Insert discovered articles as .pending (no caching).
+            // Round-robin so every source gets fair treatment in case the
+            // task is cancelled partway through.
+            var insertedCount = 0
             var indices = Array(repeating: 0, count: queues.count)
             var remaining = true
 
@@ -204,18 +219,14 @@ enum BackgroundTaskManager {
                         retryCount: 0
                     )
 
-                    // Insert temporarily so cacheArticle can find & update it
                     try await DatabaseManager.shared.dbPool.write { db in
                         try article.insert(db)
                     }
-
-                    let cacheLevel = pending.source.effectiveCacheLevel
-                    // Best-effort cache — if it fails the article stays as
-                    // .pending (or .failed) and will be retried by the
-                    // processing task or on next foreground open.
-                    try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+                    insertedCount += 1
                 }
             }
+
+            logger.info("Inserted \(insertedCount) new articles as pending")
 
             // Phase 3: Prune excess articles for each source that got new items
             let affectedSourceIDs = Set(queues.flatMap { $0.map(\.source.id) })
@@ -224,13 +235,14 @@ enum BackgroundTaskManager {
                 await Self.pruneExcessPendingArticles(for: sourceID)
             }
         } catch {
-            print("[BackgroundTaskManager] Refresh feeds error: \(error)")
+            logger.error("Refresh feeds error: \(error.localizedDescription)")
         }
     }
 
     // MARK: - Processing handler (heavy caching, power + WiFi)
 
     private static func handleProcessingTask(_ task: BGProcessingTask) {
+        logger.info("Processing task started")
         // Re-submit next request immediately
         scheduleProcessing()
 
@@ -239,6 +251,7 @@ enum BackgroundTaskManager {
         }
 
         task.expirationHandler = {
+            logger.warning("Processing task expired by system")
             workTask.cancel()
         }
 
@@ -246,6 +259,7 @@ enum BackgroundTaskManager {
             await workTask.value
             WidgetCenter.shared.reloadAllTimelines()
             WatchConnectivityManager.shared.pushArticlesToWatch()
+            logger.info("Processing task completed")
             task.setTaskCompleted(success: true)
         }
     }
@@ -351,7 +365,10 @@ enum BackgroundTaskManager {
 
     /// Caches pending articles one at a time (interruptible), newest first.
     private static func cachePendingArticles() async {
-        guard !NetworkMonitor.shouldSkipForWiFiOnly else { return }
+        guard !NetworkMonitor.shouldSkipForWiFiOnly else {
+            logger.info("Skipping pending caching — WiFi-only mode and not on WiFi")
+            return
+        }
         do {
             let pendingArticles = try await DatabaseManager.shared.dbPool.read { db in
                 try Article
@@ -360,9 +377,15 @@ enum BackgroundTaskManager {
                     .fetchAll(db)
             }
 
+            logger.info("Caching \(pendingArticles.count) pending articles")
+            var cachedCount = 0
+
             for article in pendingArticles {
                 // Check for cancellation between articles
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled else {
+                    logger.info("Caching cancelled after \(cachedCount) articles")
+                    return
+                }
 
                 // Look up the source for its cache level
                 let source = try await DatabaseManager.shared.dbPool.read { db in
@@ -371,9 +394,12 @@ enum BackgroundTaskManager {
 
                 let cacheLevel = source?.effectiveCacheLevel ?? .standard
                 try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+                cachedCount += 1
             }
+
+            logger.info("Finished caching \(cachedCount) articles")
         } catch {
-            print("[BackgroundTaskManager] Cache pending articles error: \(error)")
+            logger.error("Cache pending articles error: \(error.localizedDescription)")
         }
     }
 }
