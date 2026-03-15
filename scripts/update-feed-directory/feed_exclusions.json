@@ -1,7 +1,9 @@
 {
   "excludedDomains": [
     "youtube.com",
-    "youtu.be"
+    "youtu.be",
+    "nytimes.com",
+    "washingtonpost.com"
   ],
   "excludedFeedURLs": [
     "https://film.avclub.com/rss",

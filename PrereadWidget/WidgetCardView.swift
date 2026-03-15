@@ -56,24 +56,25 @@ struct WidgetCardView: View {
                         .textCase(.uppercase)
                         .shadow(color: .black.opacity(0.6), radius: 2, x: 0, y: 1)
 
-                    if let minutes = article.readingMinutes {
-                        Text("\(minutes) min read")
-                            .font(.system(size: compact ? 9 : 11))
-                            .foregroundStyle(.white.opacity(0.6))
-                            .shadow(color: .black.opacity(0.5), radius: 1, x: 0, y: 1)
-                    }
-
                     Text(article.title)
                         .font(.system(size: compact ? 14 : 16, weight: .semibold))
                         .foregroundStyle(.white)
                         .lineLimit(compact ? 2 : 3)
                         .shadow(color: .black.opacity(0.6), radius: 2, x: 0, y: 1)
 
-                    if let published = article.publishedAt {
-                        Text(RelativeTimeFormatter.string(from: published))
-                            .font(.system(size: compact ? 10 : 11))
-                            .foregroundStyle(.white.opacity(0.7))
+                    HStack(spacing: 0) {
+                        if let published = article.publishedAt {
+                            Text(RelativeTimeFormatter.string(from: published))
+                        }
+                        if article.publishedAt != nil, let minutes = article.readingMinutes {
+                            Text(" · \(minutes) min read")
+                        } else if let minutes = article.readingMinutes {
+                            Text("\(minutes) min read")
+                        }
                     }
+                    .font(.system(size: compact ? 10 : 11))
+                    .foregroundStyle(.white.opacity(0.7))
+                    .shadow(color: .black.opacity(0.5), radius: 1, x: 0, y: 1)
                 }
                 .padding(.horizontal, compact ? 10 : 12)
                 .padding(.bottom, compact ? 8 : 10)

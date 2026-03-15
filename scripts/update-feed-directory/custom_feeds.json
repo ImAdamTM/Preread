@@ -64,10 +64,10 @@
     "country": null
   },
   {
-    "name": "Reuters",
-    "feedURL": "https://www.reutersagency.com/feed/",
-    "siteURL": "https://www.reuters.com",
-    "description": "International news agency",
+    "name": "Google News",
+    "feedURL": "https://news.google.com/rss",
+    "siteURL": "https://news.google.com",
+    "description": "Top stories from around the web",
     "category": "News",
     "country": null
   },
@@ -173,6 +173,22 @@
     "siteURL": "https://www.avclub.com",
     "description": "Pop culture obsessives writing for the pop culture obsessed",
     "category": "Movies",
+    "country": null
+  },
+  {
+    "name": "Nintendo",
+    "feedURL": "https://www.nintendo.com/en-gb/news.xml",
+    "siteURL": "https://www.nintendo.com",
+    "description": "Official Nintendo news, game announcements, and updates",
+    "category": "Gaming",
+    "country": null
+  },
+  {
+    "name": "Nintendo Life",
+    "feedURL": "https://www.nintendolife.com/feeds/latest",
+    "siteURL": "https://www.nintendolife.com",
+    "description": "Nintendo news, reviews, and features",
+    "category": "Gaming",
     "country": null
   }
 ]

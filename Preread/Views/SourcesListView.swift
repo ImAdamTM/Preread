@@ -408,7 +408,7 @@ struct SourcesListView: View {
                 .foregroundColor(Theme.textPrimary)
 
             Text(ReadingTimeFormatter.formatted(minutes: totalReadingMinutes)
-                 .map { "\($0) reading time" } ?? " ")
+                 .map { "\($0) read" } ?? " ")
                 .font(Theme.scaledFont(size: 13, relativeTo: .caption))
                 .foregroundColor(Theme.textSecondary)
                 .opacity(totalReadingMinutes > 0 ? 1 : 0)

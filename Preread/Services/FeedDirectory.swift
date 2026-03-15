@@ -95,15 +95,79 @@ final class FeedDirectory: @unchecked Sendable {
 
     // MARK: - Subscription check
 
-    /// Returns the set of feed URLs that the user is already subscribed to.
+    /// Returns the set of normalized feed URLs that the user is already subscribed to.
+    /// URLs are normalized so that trivial differences (scheme, www prefix, trailing slash)
+    /// don't prevent matching against discover feed entries.
     func subscribedFeedURLs() -> Set<String> {
         do {
             return try DatabaseManager.shared.dbPool.read { db in
                 let urls = try String.fetchAll(db, sql: "SELECT feedURL FROM source")
-                return Set(urls)
+                return Set(urls.map { Self.normalizeURL($0) })
             }
         } catch {
             return []
+        }
+    }
+
+    /// Returns the set of normalized site URLs from the user's subscribed sources.
+    /// This catches cases where a discover feed has a different feed URL path
+    /// than what the user added (e.g. polygon.com/feed vs polygon.com/rss/index.xml)
+    /// while still allowing multiple feeds from the same domain (e.g. BBC Science vs BBC World)
+    /// because their siteURLs differ.
+    func subscribedSiteURLs() -> Set<String> {
+        do {
+            return try DatabaseManager.shared.dbPool.read { db in
+                let siteURLs = try String.fetchAll(db, sql: "SELECT siteURL FROM source WHERE siteURL IS NOT NULL")
+                return Set(siteURLs.map { Self.normalizeURL($0) })
+            }
+        } catch {
+            return []
+        }
+    }
+
+    /// Normalizes a feed URL for comparison: lowercases host, strips www., removes trailing slash,
+    /// and drops the scheme so that http and https variants match.
+    static func normalizeURL(_ urlString: String) -> String {
+        guard var components = URLComponents(string: urlString) else {
+            return urlString.lowercased()
+        }
+        // Drop scheme
+        components.scheme = nil
+        // Lowercase and strip www.
+        if let host = components.host?.lowercased() {
+            components.host = host.hasPrefix("www.") ? String(host.dropFirst(4)) : host
+        }
+        // Remove trailing slash from path
+        if components.path.hasSuffix("/") {
+            components.path = String(components.path.dropLast())
+        }
+        // Remove fragment
+        components.fragment = nil
+        return components.string ?? urlString.lowercased()
+    }
+
+    /// Finds the existing Source whose feedURL matches the given URL after normalization,
+    /// or whose siteURL matches the discover feed's siteURL (for different feed URL paths
+    /// serving the same content, e.g. polygon.com/feed vs polygon.com/rss/index.xml).
+    func findExistingSource(feedURL: String, siteURL: String? = nil) -> Source? {
+        let normalized = Self.normalizeURL(feedURL)
+        let normalizedSite = siteURL.map { Self.normalizeURL($0) }
+        do {
+            return try DatabaseManager.shared.dbPool.read { db in
+                let sources = try Source.fetchAll(db)
+                // First try exact feed URL match
+                if let match = sources.first(where: { Self.normalizeURL($0.feedURL) == normalized }) {
+                    return match
+                }
+                // Fall back to siteURL match (catches same-site different-feed-path)
+                guard let normalizedSite else { return nil }
+                return sources.first { source in
+                    guard let sourceSite = source.siteURL else { return false }
+                    return Self.normalizeURL(sourceSite) == normalizedSite
+                }
+            }
+        } catch {
+            return nil
         }
     }
 

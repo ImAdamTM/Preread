@@ -47,17 +47,6 @@
     ]
   },
   {
-    "category" : "Space",
-    "description" : "Share & discuss informative content on: * Astrophysics * Cosmology * Space Exploration * Planetary Science * Astrobiology",
-    "feedURL" : "https:\/\/www.reddit.com\/r\/space\/.rss?format=xml",
-    "id" : "2404ba54-c68d-eb9d-6294-6d2c508b8ec7",
-    "name" : "\/r\/space: news, articles and discussion",
-    "siteURL" : "https:\/\/www.reddit.com\/r\/space\/?format=xml",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Food",
     "description" : "When you own over 100 cookbooks, it is time to stop buying, and start cooking. This site chronicles a cookbook collection, one recipe at a time.",
     "feedURL" : "https:\/\/www.101cookbooks.com\/feed",
@@ -148,17 +137,6 @@
     ]
   },
   {
-    "category" : "Architecture",
-    "description" : "(Almost) daily reviews of architecture books",
-    "feedURL" : "https:\/\/feeds.feedburner.com\/archidose",
-    "id" : "ac934ec0-f3e1-fce0-441f-5e7e06ff3787",
-    "name" : "A Daily Dose",
-    "siteURL" : "https:\/\/archidose.blogspot.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Web Development",
     "description" : "Articles for people who make web sites.",
     "feedURL" : "https:\/\/alistapart.com\/main\/feed\/",
@@ -176,18 +154,6 @@
     "id" : "9b271eb8-e1f4-173a-ca17-68ad87f7f1d6",
     "name" : "A year of reading the world",
     "siteURL" : "https:\/\/ayearofreadingtheworld.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Philippines",
-    "country" : "Philippines",
-    "description" : "Mabilis sa Balita",
-    "feedURL" : "https:\/\/tonite.abante.com.ph\/feed\/",
-    "id" : "c978eb21-0355-1de7-5052-d5c2ef38dc90",
-    "name" : "Abante Tonite",
-    "siteURL" : "https:\/\/tonite.abante.com.ph",
     "tags" : [
 
     ]
@@ -223,17 +189,6 @@
     "id" : "7abaf032-6729-b328-a45f-2a67a9dd0568",
     "name" : "Adnkronos - ultimoratop",
     "siteURL" : "https:\/\/www.adnkronos.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Books",
-    "description" : "Romance book reviews. Reviews of books that make my heart race, have a beautiful love story, and a happy ending.",
-    "feedURL" : "https:\/\/aestasbookblog.com\/feed\/",
-    "id" : "70d2f8c1-04e5-5fcc-323d-98eb8ec0e807",
-    "name" : "Aestas Book Blog",
-    "siteURL" : "https:\/\/aestasbookblog.com",
     "tags" : [
 
     ]
@@ -279,17 +234,6 @@
     "id" : "78b02b33-4d32-bd35-c4a9-d85bc90785a2",
     "name" : "Alberto De Bortoli",
     "siteURL" : "https:\/\/albertodebortoli.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Android",
-    "description" : "All About Android delivers everything you want to know about Android each week--the biggest news, freshest hardware, best apps and geekiest how-tos--with Android enthusiasts Jason Howell, Florence Ion, Ron Richards, and a variety of special guests along the way. Records live every Tuesday at 8:00pm Eastern \/ 5:00pm Pacific \/ 00:00 (Wed) UTC.",
-    "feedURL" : "https:\/\/feeds.twit.tv\/aaa.xml",
-    "id" : "98a796b6-fe6e-7869-ebce-afe3e27989ee",
-    "name" : "All About Android (Audio)",
-    "siteURL" : "https:\/\/twit.tv\/shows\/all-about-android",
     "tags" : [
 
     ]
@@ -341,33 +285,11 @@
   },
   {
     "category" : "Android",
-    "description" : "Android news, reviews, tips, and discussions about rooting, tutorials, and apps. Generic discussion about phones\/tablets is allowed, but technical-support, upgrade related questions or buy\/sell posts, app recommendations and carrier-related issues should be asked in their respective subreddits!",
-    "feedURL" : "https:\/\/www.reddit.com\/r\/android\/.rss",
-    "id" : "d6775e6f-b64f-ed7c-9801-829e267898f7",
-    "name" : "Android",
-    "siteURL" : "https:\/\/www.reddit.com\/r\/android\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Android",
     "description" : "Android News, Reviews, How To",
     "feedURL" : "https:\/\/www.androidauthority.com\/feed",
     "id" : "397d546f-627b-76d4-63ea-7cd4c96eab6d",
     "name" : "Android Authority",
     "siteURL" : "https:\/\/www.androidauthority.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Android",
-    "description" : "The Android Authority Podcast – discussing topics in Android every week.  The Android Authority Podcast brings you all the top stories and features based on your favorite mobile operating system: Android. We help make Android more accessible to all, and dive deeper into the details when we can, there's something in here for everyone.  Check out androidauthority.com for all the best news and reviews for your favorite phones and tablets, then join our community forums to join in on the discussion. Don't forget to hit our YouTube channel for even more.",
-    "feedURL" : "https:\/\/androidauthority.libsyn.com\/rss",
-    "id" : "88ddac3b-ea7e-865f-8de0-f2f0bd45ca08",
-    "name" : "Android Authority Podcast",
-    "siteURL" : "https:\/\/www.androidauthority.com\/podcast",
     "tags" : [
 
     ]
@@ -384,56 +306,12 @@
     ]
   },
   {
-    "category" : "Android",
-    "description" : "The Android and Google Podcast for Everyone. Hosted by Daniel Bader.",
-    "feedURL" : "https:\/\/feeds.feedburner.com\/AndroidCentralPodcast",
-    "id" : "87138c14-9a1e-5a3a-d6e3-b925393bfb8c",
-    "name" : "Android Central Podcast",
-    "siteURL" : "https:\/\/www.androidcentral.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Android",
-    "description" : "Android News, Reviews, and Apps",
-    "feedURL" : "https:\/\/androidcommunity.com\/feed\/",
-    "id" : "7f843afa-5e3a-2247-8413-c337ddaf30bf",
-    "name" : "Android Community",
-    "siteURL" : "https:\/\/androidcommunity.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Android Development",
-    "description" : "Android Backstage, a podcast by and for Android developers. Hosted by developers from the Android engineering team, this show covers topics of interest to Android programmers, with in-depth discussions and interviews with engineers on the Android team at Google.",
-    "feedURL" : "https:\/\/feeds.feedburner.com\/blogspot\/androiddevelopersbackstage",
-    "id" : "a017af17-a1c5-b8d0-1cbe-9ee1f1f10447",
-    "name" : "Android Developers Backstage",
-    "siteURL" : "https:\/\/androidbackstage.blogspot.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Android Development",
     "description" : "An Open Handset Alliance Project.",
     "feedURL" : "https:\/\/feeds.feedburner.com\/blogspot\/hsDu",
     "id" : "8d866a51-54d9-b5f5-48eb-108a06c9bcd3",
     "name" : "Android Developers Blog",
     "siteURL" : "https:\/\/android-developers.googleblog.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Android Development",
-    "description" : "Latest stories tagged with Android in MindOrks on Medium",
-    "feedURL" : "https:\/\/medium.com\/feed\/mindorks\/tagged\/android",
-    "id" : "7f89747f-145f-f4df-6371-ef97d19236b4",
-    "name" : "Android in MindOrks on Medium",
-    "siteURL" : "https:\/\/medium.com\/mindorks\/tagged\/android?source=rss----f1a763fc7443--android",
     "tags" : [
 
     ]
@@ -461,45 +339,12 @@
     ]
   },
   {
-    "category" : "DIY",
-    "description" : "Saving the world, one room at a time",
-    "feedURL" : "https:\/\/www.apartmenttherapy.com\/projects.rss",
-    "id" : "38d321fc-0252-b453-3b59-858e126e0e5d",
-    "name" : "Apartment Therapy",
-    "siteURL" : "https:\/\/www.apartmenttherapy.com\/projects",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Interior design",
-    "description" : "Saving the world, one room at a time",
-    "feedURL" : "https:\/\/www.apartmenttherapy.com\/design.rss",
-    "id" : "349567da-015c-8eb7-cde8-722cd783c7ff",
-    "name" : "Apartment Therapy",
-    "siteURL" : "https:\/\/www.apartmenttherapy.com\/design",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "iOS Development",
-    "description" : "",
-    "feedURL" : "https:\/\/developer.apple.com\/news\/rss\/news.rss",
-    "id" : "3179ddb8-2826-b403-0228-6171bb12732f",
-    "name" : "Apple Developer",
-    "siteURL" : "https:\/\/developer.apple.com\/news\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Apple",
     "description" : "",
     "feedURL" : "https:\/\/www.apple.com\/newsroom\/rss-feed.rss",
     "id" : "7e621a3a-0d50-5d36-3115-fbbcba4c71d6",
     "name" : "Apple Newsroom",
-    "siteURL" : "https:\/\/www.apple.com\/newsroom\/2026\/03\/apple-to-celebrate-50-years-of-thinking-different\/",
+    "siteURL" : "https:\/\/www.apple.com\/newsroom\/2026\/03\/apple-hosts-50th-anniversary-celebrations-around-the-world\/",
     "tags" : [
 
     ]
@@ -549,56 +394,12 @@
     ]
   },
   {
-    "category" : "Architecture",
-    "description" : "A community for students, professionals, and lovers of architecture.",
-    "feedURL" : "https:\/\/www.reddit.com\/r\/architecture\/.rss",
-    "id" : "0de44155-219f-0d17-a97e-dadcfcb1c1b5",
-    "name" : "Architecture",
-    "siteURL" : "https:\/\/www.reddit.com\/r\/architecture\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Tech",
     "description" : "Serving the Technologist for more than a decade. IT news, reviews, and analysis.",
     "feedURL" : "https:\/\/feeds.arstechnica.com\/arstechnica\/index",
     "id" : "7170fc47-3d11-956d-2f13-fb12ed675078",
     "name" : "Ars Technica",
     "siteURL" : "https:\/\/arstechnica.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Travel",
-    "description" : "New wonders and curiosities added to the Atlas.",
-    "feedURL" : "https:\/\/www.atlasobscura.com\/feeds\/latest",
-    "id" : "1e0b2d40-6f98-5530-3b31-21181c43fc6a",
-    "name" : "Atlas Obscura",
-    "siteURL" : "https:\/\/www.atlasobscura.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "iOS Development",
-    "description" : "Performant, sleek and elegant.",
-    "feedURL" : "https:\/\/augmentedcode.io\/feed\/",
-    "id" : "184df065-3d35-10ef-b420-b81637e60182",
-    "name" : "Augmented Code",
-    "siteURL" : "https:\/\/augmentedcode.io",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Cars",
-    "description" : "Car and Bike news, reviews and videos.",
-    "feedURL" : "https:\/\/www.autocarindia.com\/RSS\/rss.ashx?type=all_cars",
-    "id" : "9e35a671-60ba-6fa8-a231-a30776c08218",
-    "name" : "Autocar India",
-    "siteURL" : "https:\/\/www.autocarindia.com",
     "tags" : [
 
     ]
@@ -616,44 +417,11 @@
   },
   {
     "category" : "Cars",
-    "description" : "Car and Bike news, reviews and videos.",
-    "feedURL" : "https:\/\/www.autocarindia.com\/RSS\/rss.ashx?type=News",
-    "id" : "c33ade79-d6cf-16df-a331-299e1938df84",
-    "name" : "Autocar India",
-    "siteURL" : "https:\/\/www.autocarindia.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Cars",
     "description" : "Welcome to nirvana for car enthusiasts. You have just entered the online home of the world's oldest car magazine, and the only place on the internet where you can find Autocar's unique mix of up-to-the-minute news, red hot car reviews, conclusive road test verdicts, and a lot more besides.",
     "feedURL" : "https:\/\/www.autocar.co.uk\/rss",
     "id" : "79904079-a84e-46a3-4b7c-fba493e62a52",
     "name" : "Autocar RSS Feed",
     "siteURL" : "https:\/\/www.autocar.co.uk\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Startups",
-    "description" : "Musings of a VC in NYC",
-    "feedURL" : "https:\/\/avc.com\/feed\/",
-    "id" : "98f1a20b-c0e6-69f2-2e7c-df35d708b58d",
-    "name" : "AVC",
-    "siteURL" : "https:\/\/avc.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Funny",
-    "description" : "Spreading the Awkwardness",
-    "feedURL" : "https:\/\/awkwardfamilyphotos.com\/feed\/",
-    "id" : "ec4b367c-ef0a-600f-b28b-ac07efe87f92",
-    "name" : "AwkwardFamilyPhotos.com",
-    "siteURL" : "https:\/\/awkwardfamilyphotos.com\/",
     "tags" : [
 
     ]
@@ -677,18 +445,6 @@
     "id" : "a6d026e5-9175-e6b8-dfdc-84c6ff0bb707",
     "name" : "BBC News",
     "siteURL" : "https:\/\/www.bbc.co.uk\/news\/science_and_environment",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "United Kingdom",
-    "country" : "United Kingdom",
-    "description" : "BBC News - Home",
-    "feedURL" : "https:\/\/feeds.bbci.co.uk\/news\/rss.xml",
-    "id" : "8453e2a8-72e7-cbe3-f994-1ca712374b22",
-    "name" : "BBC News",
-    "siteURL" : "https:\/\/www.bbc.co.uk\/news",
     "tags" : [
 
     ]
@@ -762,28 +518,6 @@
     ]
   },
   {
-    "category" : "iOS Development",
-    "description" : "Recent content on Benoit Pasquier - Swift, Data and more",
-    "feedURL" : "https:\/\/benoitpasquier.com\/index.xml",
-    "id" : "bb108d88-7a2e-5d58-df5f-eb7b08b02815",
-    "name" : "Benoit Pasquier",
-    "siteURL" : "https:\/\/benoitpasquier.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Photography",
-    "description" : "News Stories in Photographs from the Boston Globe.",
-    "feedURL" : "https:\/\/www.bostonglobe.com\/rss\/bigpicture",
-    "id" : "44d552fa-7171-4522-881b-9d8dc721fde6",
-    "name" : "Big Picture",
-    "siteURL" : "https:\/\/www.bostonglobe.com",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Cars",
     "description" : "The world's most exciting custom motorcycles, from cafe racers to bobbers to scramblers and street trackers.",
     "feedURL" : "https:\/\/www.bikeexif.com\/feed",
@@ -812,51 +546,6 @@
     "id" : "38c7dbeb-620c-fd3b-458e-9b59d1716210",
     "name" : "BOOK RIOT",
     "siteURL" : "https:\/\/bookriot.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Startups",
-    "description" : "Perspectives of a 2x entrepreneur turned VC at @UpfrontVC, the largest and most active early-stage fund in Southern California. Snapchat: msuster - Medium",
-    "feedURL" : "https:\/\/bothsidesofthetable.com\/feed",
-    "id" : "2be14d35-f780-78c8-ce0f-283debfb7979",
-    "name" : "Both Sides of the Table",
-    "siteURL" : "https:\/\/bothsidesofthetable.com?source=rss----97f98e5df342---4",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "UI \/ UX",
-    "description" : "The design behind the design.",
-    "feedURL" : "https:\/\/boxesandarrows.com\/rss\/",
-    "id" : "74349963-7b00-285e-0196-c56105baca3b",
-    "name" : "Boxes and Arrows",
-    "siteURL" : "https:\/\/boxesandarrows.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Brazil",
-    "country" : "Brazil",
-    "description" : "",
-    "feedURL" : "https:\/\/www.brasilwire.com\/feed\/",
-    "id" : "228d22f4-8a49-a170-89bf-8c08c808bdca",
-    "name" : "Brasil Wire",
-    "siteURL" : "https:\/\/www.brasilwire.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Business & Economy",
-    "description" : "© seekingalpha.com. Use of this feed is limited to personal, non-commercial use and is governed by Seeking Alpha's Terms of Use (https:\/\/seekingalpha.com\/page\/terms-of-use). Publishing this feed for public or commercial use and\/or misrepresentation by a third party is prohibited.",
-    "feedURL" : "https:\/\/seekingalpha.com\/market_currents.xml",
-    "id" : "a3669aa4-f847-5d29-694c-8d38264090f5",
-    "name" : "Breaking News on Seeking Alpha",
-    "siteURL" : "https:\/\/seekingalpha.com\/news\/all",
     "tags" : [
 
     ]
@@ -892,29 +581,6 @@
     "id" : "d754cfa2-2720-8c23-352a-ccbdbcebb568",
     "name" : "Business Line",
     "siteURL" : "https:\/\/www.thehindubusinessline.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Australia",
-    "country" : "Australia",
-    "description" : "Latest news headlines from Business News.",
-    "feedURL" : "https:\/\/www.businessnews.com.au\/rssfeed\/latest.rss",
-    "id" : "cb6e17e7-1ced-1efa-8f84-bc8b4a1d8145",
-    "name" : "Business News",
-    "siteURL" : "https:\/\/www.businessnews.com.au\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Cricket",
-    "description" : "The second season of the Can't Bowl Can't Throw Cricket Show, in which we talk about cricket on a podcast. In a second season.",
-    "feedURL" : "https:\/\/feeds.feedburner.com\/cantbowlcantthrow",
-    "id" : "57a31352-eed7-7974-703a-42248e9913ad",
-    "name" : "Can't Bowl Can't",
-    "siteURL" : "https:\/\/cantbowlcantthrow.com\/",
     "tags" : [
 
     ]
@@ -1000,17 +666,6 @@
   },
   {
     "category" : "Tech",
-    "description" : "Clockwise is a rapid-fire discussion of current technology issues hosted by Dan Moren and Mikah Sargent and featuring two special guests each week. Four people, four topics--and because we're always watching the clock, no episode is longer than 30 minutes. Hosted by Dan Moren and Mikah Sargent.",
-    "feedURL" : "https:\/\/www.relay.fm\/clockwise\/feed",
-    "id" : "d6dc86f0-6a2f-a26f-8b7e-8f41576a4d87",
-    "name" : "Clockwise",
-    "siteURL" : "https:\/\/www.relay.fm\/clockwise",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Tech",
     "description" : "CNET news editors and reporters provide top technology news, with investigative reporting and in-depth coverage of tech issues and events.",
     "feedURL" : "https:\/\/www.cnet.com\/rss\/news\/",
     "id" : "f5e6f52c-79a4-e098-9786-3116727a6536",
@@ -1038,17 +693,6 @@
     "id" : "5c0c1c50-14df-390c-e593-2060e1e87247",
     "name" : "Code Wall",
     "siteURL" : "https:\/\/www.codewall.co.uk\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Programming",
-    "description" : "Stories and interviews from people on their coding journey.",
-    "feedURL" : "https:\/\/feeds.codenewbie.org\/cnpodcast.xml",
-    "id" : "d2689604-0083-a837-a435-ca8f741ba488",
-    "name" : "CodeNewbie",
-    "siteURL" : "https:\/\/www.codenewbie.org\/podcast",
     "tags" : [
 
     ]
@@ -1087,17 +731,6 @@
     ]
   },
   {
-    "category" : "Music",
-    "description" : "Music, Film, TV and Pop Culture News for the Mainstream and Underground",
-    "feedURL" : "https:\/\/consequenceofsound.net\/feed",
-    "id" : "9d4e27a7-09aa-6f33-2795-af9842010601",
-    "name" : "Consequence",
-    "siteURL" : "https:\/\/consequence.net",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Funny",
     "description" : "Every post that goes up on Cracked.com",
     "feedURL" : "https:\/\/feeds.feedburner.com\/CrackedRSS",
@@ -1109,46 +742,12 @@
     ]
   },
   {
-    "category" : "Cricket",
-    "description" : "News, banter and occasional serious discussion on the great game.",
-    "feedURL" : "https:\/\/www.reddit.com\/r\/Cricket\/.rss",
-    "id" : "3cef181e-c12a-0706-9ac4-2351c954763e",
-    "name" : "Cricket",
-    "siteURL" : "https:\/\/www.reddit.com\/r\/Cricket\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Australia",
-    "country" : "Australia",
-    "description" : "On politics, media, business, the environment and life",
-    "feedURL" : "https:\/\/feeds.feedburner.com\/com\/rCTl",
-    "id" : "18baa77e-4d3b-be49-1903-3c9ca281df8d",
-    "name" : "Crikey",
-    "siteURL" : "https:\/\/www.crikey.com.au\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Web Development",
     "description" : "Tips, Tricks, and Techniques on using Cascading Style Sheets.",
     "feedURL" : "https:\/\/css-tricks.com\/feed\/",
     "id" : "3292e08c-98ab-0fd7-c5df-fd64984e9645",
     "name" : "CSS-Tricks",
     "siteURL" : "https:\/\/css-tricks.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Android",
-    "description" : "Breaking news for Android fans",
-    "feedURL" : "https:\/\/www.cultofandroid.com\/feed",
-    "id" : "7320050d-374b-4490-3581-53fc31cdb5b8",
-    "name" : "Cult of Android",
-    "siteURL" : "https:\/\/www.cultofandroid.com\/",
     "tags" : [
 
     ]
@@ -1177,17 +776,6 @@
     ]
   },
   {
-    "category" : "Android",
-    "description" : "Mod APK | GCam | LineageOS",
-    "feedURL" : "https:\/\/www.cyanogenmods.org\/feed",
-    "id" : "d639a286-1c39-2afa-0fb2-477cd092464e",
-    "name" : "Cyanogen Mods",
-    "siteURL" : "https:\/\/cyanogenmods.org",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "United Kingdom",
     "country" : "United Kingdom",
     "description" : "Simply The Best 7 Days A Week",
@@ -1207,18 +795,6 @@
     "id" : "70910589-a310-4b1d-17f2-292257d6ab67",
     "name" : "Daily Maverick",
     "siteURL" : "https:\/\/www.dailymaverick.co.za",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Nigeria",
-    "country" : "Nigeria",
-    "description" : "",
-    "feedURL" : "https:\/\/dailypost.ng\/feed",
-    "id" : "dfad3a57-5ef8-da73-d3b8-f857bd0623f0",
-    "name" : "Daily Post Nigeria",
-    "siteURL" : "https:\/\/dailypost.ng\/",
     "tags" : [
 
     ]
@@ -1279,18 +855,6 @@
     ]
   },
   {
-    "category" : "Mexico",
-    "country" : "Mexico",
-    "description" : "Últimas Noticias de México y el Mundo",
-    "feedURL" : "https:\/\/www.debate.com.mx\/rss\/feed.xml",
-    "id" : "921f1dd4-418c-b07c-5df5-6e00da4b4d3a",
-    "name" : "DEBATE",
-    "siteURL" : "https:\/\/www.debate.com.mx",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "India",
     "country" : "India",
     "description" : "Deccan Chronicle brings you the latest news, views, analysis and images from India and the world.",
@@ -1332,28 +896,6 @@
     "id" : "14dda539-770f-94e3-25d6-e6242ab2c164",
     "name" : "Deutsche Welle",
     "siteURL" : "https:\/\/www.dw.com\/english\/?maca=en-rss-en-all-1573-rdf",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Programming",
-    "description" : "Developer Tea exists to help driven developers connect to their ultimate purpose and excel at their work so that they can positively impact the people they influence. With over 13 million downloads to date, Developer Tea is a short podcast hosted by Jonathan Cutrell (@jcutrell), co-founder of Spec and Director of Engineering at PBS. We hope you'll take the topics from this podcast and continue the conversation, either online or in person with your peers. Twitter: @developertea :: Email: developertea@gmail.com",
-    "feedURL" : "https:\/\/feeds.simplecast.com\/dLRotFGk",
-    "id" : "9ef5e285-bd53-93a2-e4d4-8b2ac3324579",
-    "name" : "Developer Tea",
-    "siteURL" : "https:\/\/www.developertea.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Android Development",
-    "description" : "News for Android developers with the who, what, where, when and how of the Android community. News \/ Articles \/ Talks \/ Tools \/ Open source!",
-    "feedURL" : "https:\/\/reddit.com\/r\/androiddev.rss",
-    "id" : "4425be9e-5324-9f95-5e67-0615abc4351f",
-    "name" : "Developing Android Apps",
-    "siteURL" : "https:\/\/www.reddit.com\/r\/androiddev",
     "tags" : [
 
     ]
@@ -1425,30 +967,6 @@
     ]
   },
   {
-    "category" : "Poland",
-    "country" : "Poland",
-    "description" : "",
-    "feedURL" : "https:\/\/rss.dziennik.pl\/Dziennik-PL\/",
-    "id" : "c55986ee-7f81-c100-c6d3-35d93da036d9",
-    "name" : "Dziennik.pl Dziennik - dziennik.pl",
-    "siteURL" : "https:\/\/www.dziennik.pl",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Philippines",
-    "country" : "Philippines",
-    "description" : "Breaking News, Latest Philippines Headlines, World, Entertainment, Politics, Weather & Video News",
-    "feedURL" : "https:\/\/www.eaglenews.ph\/feed\/",
-    "id" : "d9c20795-2cae-af1b-db4d-43936d88741f",
-    "name" : "Eagle News",
-    "siteURL" : "https:\/\/www.eaglenews.ph\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Business & Economy",
     "description" : "The Economic Times: Latest business, finance, markets, stocks, company news from India.",
     "feedURL" : "https:\/\/economictimes.indiatimes.com\/rssfeedsdefault.cms",
@@ -1466,17 +984,6 @@
     "id" : "905f1e83-174c-8ba1-029b-217612e8b58c",
     "name" : "EDM.com",
     "siteURL" : "https:\/\/edm.com\/blog\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Football",
-    "description" : "Home of the EFL Championship on Reddit",
-    "feedURL" : "https:\/\/www.reddit.com\/r\/Championship\/.rss?format=xml",
-    "id" : "0f839bec-cf21-a2c0-9c93-c5ce06240df5",
-    "name" : "EFL Championship",
-    "siteURL" : "https:\/\/www.reddit.com\/r\/Championship\/?format=xml",
     "tags" : [
 
     ]
@@ -1541,17 +1048,6 @@
     ]
   },
   {
-    "category" : "Fashion",
-    "description" : "",
-    "feedURL" : "https:\/\/www.elle.com\/rss\/fashion.xml\/",
-    "id" : "728c2be0-25bb-be5e-69f3-6311d741dc01",
-    "name" : "ELLE",
-    "siteURL" : "https:\/\/www.elle.com\/fashion\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Tech",
     "description" : "The original home for technology news and reviews",
     "feedURL" : "https:\/\/www.engadget.com\/rss.xml",
@@ -1607,17 +1103,6 @@
     ]
   },
   {
-    "category" : "Tennis",
-    "description" : "Improve your tennis with the Essential Tennis Podcast, the very first podcast dedicated to tennis lessons and instruction! Tennis professional Ian Westermann answers listener questions about technique, strategy, mental toughness, and much more.",
-    "feedURL" : "https:\/\/feed.podbean.com\/essentialtennis\/feed.xml",
-    "id" : "a3e5763a-6044-025c-5740-c04baa8b93c1",
-    "name" : "Essential Tennis Podcast",
-    "siteURL" : "https:\/\/essentialtennis.podbean.com",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Spain",
     "country" : "Spain",
     "description" : "Spain News",
@@ -1636,17 +1121,6 @@
     "id" : "d4585ded-96dd-d141-bf32-2b1556c124bc",
     "name" : "Eurogamer.net",
     "siteURL" : "https:\/\/www.eurogamer.net\/feed",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Funny",
-    "description" : "Flash Animations, Daily Comics and more!",
-    "feedURL" : "https:\/\/feeds.feedburner.com\/Explosm",
-    "id" : "1ad8be64-1fc4-12d2-64ee-a28860c1136a",
-    "name" : "Explosm.net",
-    "siteURL" : "https:\/\/explosm.net",
     "tags" : [
 
     ]
@@ -1719,17 +1193,6 @@
     ]
   },
   {
-    "category" : "Fashion",
-    "description" : "Fashionista",
-    "feedURL" : "https:\/\/fashionista.com\/.rss\/excerpt\/",
-    "id" : "9c3c9f9a-09d0-f267-256e-8ce27cc3f668",
-    "name" : "Fashionista",
-    "siteURL" : "https:\/\/fashionista.com",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Startups",
     "description" : "",
     "feedURL" : "https:\/\/feld.com\/feed",
@@ -1764,67 +1227,12 @@
     ]
   },
   {
-    "category" : "Programming",
-    "description" : "We're not talking dentistry here; FLOSS all about Free Libre Open Source Software. Join host Doc Searls and his rotating panel of co-hosts every Wednesday as they talk with the most interesting and important people in the Open Source and Free Software community. Records live every Wednesday at 12:30pm Eastern \/ 9:30am Pacific \/ 16:30 UTC.",
-    "feedURL" : "https:\/\/feeds.twit.tv\/floss.xml",
-    "id" : "e328a177-d18b-eec7-f1b2-6e19da383c54",
-    "name" : "FLOSS Weekly (Audio)",
-    "siteURL" : "https:\/\/twit.tv\/shows\/floss-weekly",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Science",
-    "description" : "Strength in Numbers",
-    "feedURL" : "https:\/\/flowingdata.com\/feed",
-    "id" : "81f4798a-0631-74a4-a190-2c0751d7263f",
-    "name" : "FlowingData",
-    "siteURL" : "https:\/\/flowingdata.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Food",
-    "description" : "Eat thoughtfully, live joyfully.",
-    "feedURL" : "https:\/\/feeds.feedburner.com\/food52-TheAandMBlog",
-    "id" : "d402c4c5-ad53-78ee-5146-4d13d2f4c387",
-    "name" : "Food52",
-    "siteURL" : "https:\/\/food52.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Football",
-    "description" : "Home of Football. News, Rumours, Analysis, gossip and much more.",
-    "feedURL" : "https:\/\/www.reddit.com\/r\/football\/.rss?format=xml",
-    "id" : "c886c543-b9f3-ac0f-b795-b2874bce1ca1",
-    "name" : "Football - The People's Sport",
-    "siteURL" : "https:\/\/www.reddit.com\/r\/football\/?format=xml",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Business & Economy",
     "description" : "Forbes - Business",
     "feedURL" : "https:\/\/www.forbes.com\/business\/feed\/",
     "id" : "086a17a7-4573-dec9-f100-6b70cab9fd1a",
     "name" : "Forbes",
     "siteURL" : "https:\/\/www.forbes.com\/business\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Cars",
-    "description" : "The best independent Formula 1 community anywhere. News, stories and discussion from and about the world of Formula 1.",
-    "feedURL" : "https:\/\/www.reddit.com\/r\/formula1\/.rss",
-    "id" : "f0f44ab8-a9a1-da13-41b5-0208cb25511b",
-    "name" : "Formula 1",
-    "siteURL" : "https:\/\/www.reddit.com\/r\/formula1\/",
     "tags" : [
 
     ]
@@ -1848,29 +1256,6 @@
     "id" : "2643d6de-5410-3a6a-fdce-2316e9a040c6",
     "name" : "FOX News",
     "siteURL" : "https:\/\/www.foxnews.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Android Development",
-    "description" : "The Fragmented Podcast is a podcast for Software Developers hosted by Donn Felker and Kaushik Gopal. Our goal is to help you become a better Software Developer. We chat about topics such as Testing, Dependency Injection, Patterns and Practices, useful libraries, and much more. We will also be interviewing some of the top developers out there. Subscribe now and join us on the journey of being a Software Developer.",
-    "feedURL" : "https:\/\/feeds.simplecast.com\/LpAGSLnY",
-    "id" : "2b4f3abc-d9ad-1201-40a9-94d3bd99cbc6",
-    "name" : "Fragmented - The Software Podcast",
-    "siteURL" : "https:\/\/fragmentedpodcast.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "France",
-    "country" : "France",
-    "description" : "",
-    "feedURL" : "https:\/\/www.france24.com\/en\/rss",
-    "id" : "eeb3c2ea-2613-a03f-9d0a-a79e614d0c1a",
-    "name" : "france24.com",
-    "siteURL" : "https:\/\/www.france24.com\/en\/",
     "tags" : [
 
     ]
@@ -1917,7 +1302,7 @@
     "feedURL" : "https:\/\/rss.gazetaprawna.pl\/GazetaPrawna",
     "id" : "8277b26e-7c16-4e40-5f9f-ca461631bd4f",
     "name" : "GazetaPrawna.pl",
-    "siteURL" : "https:\/\/www.gazetaprawna.pl",
+    "siteURL" : "https:\/\/www.gazetaprawna.pl\/twoje-prawo\/swiadczenia\/artykuly\/11214354,zmiana-przepisow-o-swiadczeniu-wspierajacym-beda-nowe-zasady-punktac.html",
     "tags" : [
 
     ]
@@ -1986,17 +1371,6 @@
     "id" : "fe39472a-3338-f318-54e9-e1fb64c6227a",
     "name" : "Google News",
     "siteURL" : "https:\/\/news.google.com\/?hl=en-US&gl=US&ceid=US:en",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Food",
-    "description" : "Healthy Vegetarian Recipes.",
-    "feedURL" : "https:\/\/greenkitchenstories.com\/feed\/",
-    "id" : "57487ed6-efdc-a40d-ee38-147426d9990a",
-    "name" : "Green Kitchen Stories",
-    "siteURL" : "https:\/\/greenkitchenstories.com\/",
     "tags" : [
 
     ]
@@ -2085,17 +1459,6 @@
     "id" : "f5a82056-f7b9-51e8-4a6c-026447d7ad88",
     "name" : "Hanselminutes with Scott Hanselman",
     "siteURL" : "https:\/\/www.hanselminutes.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Business & Economy",
-    "description" : "A weekly podcast featuring the leading thinkers in business and management.",
-    "feedURL" : "https:\/\/feeds.harvardbusiness.org\/harvardbusiness\/ideacast",
-    "id" : "1ef56c77-534e-d7d5-7ee0-9a820d8398d4",
-    "name" : "HBR IdeaCast",
-    "siteURL" : "https:\/\/hbr.org\/podcasts\/ideacast",
     "tags" : [
 
     ]
@@ -2227,17 +1590,6 @@
     ]
   },
   {
-    "category" : "Apple",
-    "description" : "More news and rumors, more help and how-tos, more app and accessory reviews, more iPhone and iPad and iPod touch. More of everything you love. iMore.",
-    "feedURL" : "https:\/\/feeds.feedburner.com\/TheiPhoneBlog",
-    "id" : "8bdf62ac-c247-1a9b-83e8-915efd493616",
-    "name" : "iMore",
-    "siteURL" : "https:\/\/www.imore.com\/feeds.xml",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Startups",
     "description" : "Inc.com, the daily resource for entrepreneurs.",
     "feedURL" : "https:\/\/www.inc.com\/rss\/",
@@ -2290,7 +1642,7 @@
     "feedURL" : "https:\/\/indiegamesplus.com\/feed",
     "id" : "380d5765-8f64-bee4-ec40-db037eade28a",
     "name" : "Indie Games Plus",
-    "siteURL" : "https:\/\/a9m.indiegamesplus.com\/",
+    "siteURL" : "https:\/\/mamnon-mannonphuongtrungii-hanoi.indiegamesplus.com\/",
     "tags" : [
 
     ]
@@ -2376,28 +1728,6 @@
     ]
   },
   {
-    "category" : "Android Development",
-    "description" : "Latest stories tagged with Android in Instagram Engineering on Medium",
-    "feedURL" : "https:\/\/instagram-engineering.com\/feed\/tagged\/android",
-    "id" : "4041dc7f-89f6-46cd-fd31-fbe9ce497ec7",
-    "name" : "Instagram Engineering",
-    "siteURL" : "https:\/\/instagram-engineering.com\/tagged\/android?source=rss----37dc2a3034f2--android",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Programming",
-    "description" : "Stories from the people who build @Instagram - Medium",
-    "feedURL" : "https:\/\/instagram-engineering.com\/feed\/",
-    "id" : "a9e68b42-cb31-c557-ea49-a14408306f73",
-    "name" : "Instagram Engineering",
-    "siteURL" : "https:\/\/instagram-engineering.com?source=rss----37dc2a3034f2---4",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Philippines",
     "country" : "Philippines",
     "description" : "Philippines news features and explanatory reports.",
@@ -2416,6 +1746,18 @@
     "id" : "75e1d84f-ca2f-4528-2674-52a7c301d83d",
     "name" : "International: Top News And Analysis",
     "siteURL" : "https:\/\/www.cnbc.com\/world-top-news\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Italy",
+    "country" : "Italy",
+    "description" : "Ogni settimana il meglio dei giornali di tutto il mondo.",
+    "feedURL" : "https:\/\/www.internazionale.it\/sitemaps\/rss.xml",
+    "id" : "9cd17b59-e051-7cca-54f0-d60dbf694c29",
+    "name" : "Internazionale",
+    "siteURL" : "https:\/\/www.internazionale.it\/",
     "tags" : [
 
     ]
@@ -2463,7 +1805,7 @@
     "feedURL" : "https:\/\/feeds.feedburner.com\/ietopstories",
     "id" : "6150a815-2033-7e07-4175-c9289db3219b",
     "name" : "IrishExaminer.com",
-    "siteURL" : "https:\/\/www.irishexaminer.com\/news\/courtandcrime\/arid-41809808.html",
+    "siteURL" : "https:\/\/www.irishexaminer.com\/sport\/rugby\/arid-41810474.html",
     "tags" : [
 
     ]
@@ -2493,34 +1835,11 @@
   {
     "category" : "Japan",
     "country" : "Japan",
-    "description" : "The latest news from Japan Times, Japan's leading English-language daily newspaper",
-    "feedURL" : "https:\/\/www.japantimes.co.jp\/feed\/topstories\/",
-    "id" : "9390270d-bb30-dc01-9ac2-b784741f97dd",
-    "name" : "Japan Times latest articles",
-    "siteURL" : "https:\/\/www.japantimes.co.jp\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Japan",
-    "country" : "Japan",
     "description" : "Japan News and Discussion",
     "feedURL" : "https:\/\/japantoday.com\/feed",
     "id" : "ac9ae333-5178-365e-42ae-469ec894e2e3",
     "name" : "Japan Today",
     "siteURL" : "https:\/\/japantoday.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Programming",
-    "description" : "Best Practices and Lessons Learned from Writing Awesome Java and SQL Code. Get some hands-on insight on what's behind developing jOOQ.",
-    "feedURL" : "https:\/\/blog.jooq.org\/feed",
-    "id" : "156a65b4-fd75-5829-afcc-fa19e5ebbcc7",
-    "name" : "Java, SQL and jOOQ.",
-    "siteURL" : "https:\/\/blog.jooq.org",
     "tags" : [
 
     ]
@@ -2554,17 +1873,6 @@
     "id" : "a5fc413d-bd0b-d1c6-443c-37dfd081c5fb",
     "name" : "Joe Birch",
     "siteURL" : "https:\/\/joebirch.co",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Programming",
-    "description" : "",
-    "feedURL" : "https:\/\/www.joelonsoftware.com\/feed\/",
-    "id" : "1ce6dc73-9034-3ecd-48da-b47317dba84a",
-    "name" : "Joel on Software",
-    "siteURL" : "https:\/\/www.joelonsoftware.com",
     "tags" : [
 
     ]
@@ -2610,6 +1918,18 @@
     "id" : "512a92d9-201e-bc0b-055a-b08c2406c9da",
     "name" : "JUST™ Creative",
     "siteURL" : "https:\/\/justcreative.com",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Bangladesh",
+    "country" : "Bangladesh",
+    "description" : "kalerkantho.com RSS Feed",
+    "feedURL" : "https:\/\/www.kalerkantho.com\/rss.xml",
+    "id" : "59e0c6e4-f09a-ea39-1c32-5002ad79b946",
+    "name" : "kalerkantho Kantho",
+    "siteURL" : "https:\/\/www.kalerkantho.com",
     "tags" : [
 
     ]
@@ -2666,18 +1986,6 @@
     "id" : "8df4f934-099d-d0d9-c183-4660b7044ecd",
     "name" : "L'essentiel",
     "siteURL" : "https:\/\/www.sudouest.fr\/essentiel\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "France",
-    "country" : "France",
-    "description" : "Actualité politique, information sociale ou internationale",
-    "feedURL" : "https:\/\/www.nouvelobs.com\/a-la-une\/rss.xml",
-    "id" : "00bac666-9196-1528-61b6-95857ee1cb14",
-    "name" : "L'Obs - A la une",
-    "siteURL" : "https:\/\/www.nouvelobs.com\/a-la-une\/rss.xml",
     "tags" : [
 
     ]
@@ -2743,18 +2051,6 @@
     ]
   },
   {
-    "category" : "Russia",
-    "country" : "Russia",
-    "description" : "Новости, статьи, фотографии, видео. Семь дней в неделю, 24 часа в сутки.",
-    "feedURL" : "https:\/\/lenta.ru\/rss",
-    "id" : "92805ded-9ed2-3205-e3ad-6860f66d2671",
-    "name" : "Lenta.ru : Новости",
-    "siteURL" : "https:\/\/lenta.ru",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Italy",
     "country" : "Italy",
     "description" : "Libero Quotidiano contents",
@@ -2789,40 +2085,6 @@
     ]
   },
   {
-    "category" : "Photography",
-    "description" : "Lightroom Presets, Videos, Tips and News",
-    "feedURL" : "https:\/\/lightroomkillertips.com\/feed\/",
-    "id" : "2ff91709-2f3a-ea3a-d573-a39aa1212b78",
-    "name" : "Lightroom Killer Tips",
-    "siteURL" : "https:\/\/lightroomkillertips.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "India",
-    "country" : "India",
-    "description" : "www.livehindustan.com delivers news and information on the latest top stories, Videsh, Desh, Cricket, Entertainment, Business, Life Style, Editors Artical and other related local news.",
-    "feedURL" : "https:\/\/feed.livehindustan.com\/rss\/3127",
-    "id" : "ff6844c9-8bff-8da5-03eb-b2e1fdd9877f",
-    "name" : "Live Hindustan Rss feed",
-    "siteURL" : "https:\/\/www.livehindustan.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Travel",
-    "description" : "Your travel partner for life",
-    "feedURL" : "https:\/\/www.livelifetravel.world\/feed\/",
-    "id" : "c733ac3c-d4d6-8729-fea3-4d6bdb6b571b",
-    "name" : "Live Life Travel",
-    "siteURL" : "https:\/\/www.livelifetravel.world\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Mexico",
     "country" : "Mexico",
     "description" : "Vanguardia",
@@ -2841,17 +2103,6 @@
     "id" : "79d00486-80c4-8fba-162b-53a91722e155",
     "name" : "Love and Olive Oil",
     "siteURL" : "https:\/\/www.loveandoliveoil.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Apple",
-    "description" : "Apple, iPhone, iPad, Mac News and Rumors",
-    "feedURL" : "https:\/\/feeds.macrumors.com\/MacRumors-Mac",
-    "id" : "a2ec51d4-11a9-370e-21b7-6169bd75644a",
-    "name" : "MacRumors",
-    "siteURL" : "https:\/\/www.macrumors.com",
     "tags" : [
 
     ]
@@ -2902,17 +2153,6 @@
     ]
   },
   {
-    "category" : "Apple",
-    "description" : "I’m Marco Arment, creator of Overcast, technology podcaster and writer, and coffee enthusiast.",
-    "feedURL" : "https:\/\/marco.org\/rss",
-    "id" : "4b02e926-1315-f82c-d839-5d83dbbd86a1",
-    "name" : "Marco.org",
-    "siteURL" : "https:\/\/marco.org\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Programming",
     "description" : "Master feed of news and updates from martinfowler.com",
     "feedURL" : "https:\/\/martinfowler.com\/feed.atom",
@@ -2953,51 +2193,6 @@
     "id" : "e2ca2e09-bb18-922e-c44b-6add4fdd0268",
     "name" : "Medium",
     "siteURL" : "https:\/\/medium.com\/androiddevelopers?source=rss----95b274b437c2---4",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Android Development",
-    "description" : "Latest stories tagged with Android in The Airbnb Tech Blog on Medium",
-    "feedURL" : "https:\/\/medium.com\/feed\/airbnb-engineering\/tagged\/android",
-    "id" : "1168a63c-7ea8-0633-e413-97b05d26bec9",
-    "name" : "Medium",
-    "siteURL" : "https:\/\/medium.com\/airbnb-engineering\/tagged\/android?source=rss----53c7c27702d5--android",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Programming",
-    "description" : "Advice for programmers. - Medium",
-    "feedURL" : "https:\/\/medium.com\/feed\/better-programming",
-    "id" : "73c3c194-b84d-91ec-98b8-ac7d831be7ca",
-    "name" : "Medium",
-    "siteURL" : "https:\/\/betterprogramming.pub?source=rss----d0b105d10f0a---4",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Programming",
-    "description" : "Elijah McClain, George Floyd, Eric Garner, Breonna Taylor, Ahmaud Arbery, Michael Brown, Oscar Grant, Atatiana Jefferson, Tamir Rice, Bettie Jones, Botham Jean - Medium",
-    "feedURL" : "https:\/\/medium.com\/feed\/hackernoon",
-    "id" : "37864150-4138-0107-8f8b-7f637aa6c7c7",
-    "name" : "Medium",
-    "siteURL" : "https:\/\/medium.com\/hackernoon?source=rss----3a8144eabfe3---4",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Russia",
-    "country" : "Russia",
-    "description" : "Мы выбираем для вас самые важные новости и готовим лучшие тексты о том, что происходит в России и мире.",
-    "feedURL" : "https:\/\/meduza.io\/rss\/all",
-    "id" : "a5415077-01d8-a7a8-51ba-f06f26b4c332",
-    "name" : "Meduza.io",
-    "siteURL" : "https:\/\/meduza.io",
     "tags" : [
 
     ]
@@ -3050,41 +2245,6 @@
     ]
   },
   {
-    "category" : "France",
-    "country" : "France",
-    "description" : "",
-    "feedURL" : "https:\/\/www.diplomatie.gouv.fr\/spip.php?page=backend-fd&lang=en",
-    "id" : "f9e1b314-c6f6-6990-be0a-81eb4057a4f8",
-    "name" : "Ministry for Europe",
-    "siteURL" : "https:\/\/www.diplomatie.gouv.fr?xtor=RSS-1\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "iOS Development",
-    "description" : "Recent content on Mobile A11y",
-    "feedURL" : "https:\/\/mobilea11y.com\/index.xml",
-    "id" : "1b774391-daed-189c-db0f-623953378c44",
-    "name" : "Mobile A11y",
-    "siteURL" : "https:\/\/mobilea11y.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "India",
-    "country" : "India",
-    "description" : "Latest News from Moneycontrol.com",
-    "feedURL" : "https:\/\/www.moneycontrol.com\/rss\/latestnews.xml",
-    "id" : "f379ceb6-9484-ca07-0b5a-bb89f88d0b0e",
-    "name" : "Moneycontrol Latest News",
-    "siteURL" : "https:\/\/www.moneycontrol.com",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "South Africa",
     "country" : "South Africa",
     "description" : "Business, Financial and Investment news and tools",
@@ -3092,17 +2252,6 @@
     "id" : "03deadca-0e8b-fa59-8456-d114b729a75c",
     "name" : "Moneyweb",
     "siteURL" : "https:\/\/www.moneyweb.co.za",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Movies",
-    "description" : "News & Discussion about Major Motion Pictures",
-    "feedURL" : "https:\/\/reddit.com\/r\/movies\/.rss",
-    "id" : "2e6422fd-5ffc-dcdf-ccd1-18562a027fe0",
-    "name" : "Movie News and Discussion",
-    "siteURL" : "https:\/\/www.reddit.com\/r\/movies\/",
     "tags" : [
 
     ]
@@ -3233,17 +2382,6 @@
     ]
   },
   {
-    "category" : "Science",
-    "description" : "Science news and features",
-    "feedURL" : "https:\/\/www.newscientist.com\/feed\/home\/",
-    "id" : "be84762c-0520-3043-9b68-550373bf9304",
-    "name" : "New Scientist",
-    "siteURL" : "https:\/\/www.newscientist.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Books",
     "description" : "Answering the Age old question - What are you reading?",
     "feedURL" : "https:\/\/www.newinbooks.com\/feed\/",
@@ -3267,18 +2405,6 @@
     ]
   },
   {
-    "category" : "Ukraine",
-    "country" : "Ukraine",
-    "description" : "UNIAN",
-    "feedURL" : "https:\/\/rss.unian.net\/site\/news_eng.rss",
-    "id" : "567ea098-eab8-03a8-c405-0ac10eea5ac9",
-    "name" : "News Agency UNIAN",
-    "siteURL" : "https:\/\/www.unian.info",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Pakistan",
     "country" : "Pakistan",
     "description" : "Latest News Technology, Travel, Sports, Health and Entertainment News from World",
@@ -3297,19 +2423,7 @@
     "feedURL" : "https:\/\/feeds.news24.com\/articles\/news24\/TopStories\/rss",
     "id" : "b5b16cb5-36be-4f67-350b-75550911066c",
     "name" : "News24 Top Stories",
-    "siteURL" : "https:\/\/www.news24.com\/southafrica\/weather\/saturdays-weather-heatwave-hits-eastern-cape-rain-in-mpumalanga-warm-elsewhere-20260313-0883",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Poland",
-    "country" : "Poland",
-    "description" : "Wiadomości newsweek.pl",
-    "feedURL" : "https:\/\/www.newsweek.pl\/rss.xml",
-    "id" : "2778ee4c-6753-ba80-3936-5fb881d52b40",
-    "name" : "Newsweek Polska",
-    "siteURL" : "https:\/\/www.newsweek.pl\/rss.xml",
+    "siteURL" : "https:\/\/www.news24.com\/southafrica\/crime-and-courts\/suspect-arrested-in-murder-of-madlanga-commissions-witness-d-20260314-1088",
     "tags" : [
 
     ]
@@ -3322,6 +2436,28 @@
     "id" : "1531f98c-7b74-7429-eb38-34d9ed8ddf71",
     "name" : "Nigerian News Latest",
     "siteURL" : "https:\/\/www.nigerianeye.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Gaming",
+    "description" : "Official Nintendo news, game announcements, and updates",
+    "feedURL" : "https:\/\/www.nintendo.com\/en-gb\/news.xml",
+    "id" : "feb036c6-8a6e-8bc6-2aa7-6d73783810f0",
+    "name" : "Nintendo",
+    "siteURL" : "https:\/\/www.nintendo.com\/en-gb\/?utm_source=rss_reader&utm_medium=rss&utm_campaign=rss_news",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Gaming",
+    "description" : "Nintendo news, reviews, and features",
+    "feedURL" : "https:\/\/www.nintendolife.com\/feeds\/latest",
+    "id" : "ab3b8722-2f1d-5919-5aca-ee182649601d",
+    "name" : "Nintendo Life",
+    "siteURL" : "https:\/\/www.nintendolife.com\/feeds\/latest",
     "tags" : [
 
     ]
@@ -3360,136 +2496,12 @@
     ]
   },
   {
-    "category" : "United States",
-    "country" : "United States",
-    "description" : "",
-    "feedURL" : "https:\/\/rss.nytimes.com\/services\/xml\/rss\/nyt\/HomePage.xml",
-    "id" : "9dfe110b-0027-d7bc-bab5-be6f42f45121",
-    "name" : "NYT",
-    "siteURL" : "https:\/\/www.nytimes.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Food",
-    "description" : "",
-    "feedURL" : "https:\/\/rss.nytimes.com\/services\/xml\/rss\/nyt\/DiningandWine.xml",
-    "id" : "22b42ad8-16c2-3fef-2a96-a986c43cf439",
-    "name" : "NYT > Food",
-    "siteURL" : "https:\/\/www.nytimes.com\/section\/food",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Japan",
-    "country" : "Japan",
-    "description" : "",
-    "feedURL" : "https:\/\/www.nytimes.com\/svc\/collections\/v1\/publish\/http:\/\/www.nytimes.com\/topic\/destination\/japan\/rss.xml",
-    "id" : "269c7cc7-4ab8-1013-35f8-bc9b84296f65",
-    "name" : "NYT > Japan",
-    "siteURL" : "https:\/\/www.nytimes.com\/topic\/destination\/japan",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Fashion",
-    "description" : "",
-    "feedURL" : "https:\/\/rss.nytimes.com\/services\/xml\/rss\/nyt\/FashionandStyle.xml",
-    "id" : "a1823e13-c4d1-5e2d-fac8-836f8f39d20c",
-    "name" : "NYT > Style",
-    "siteURL" : "https:\/\/www.nytimes.com\/section\/style",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Travel",
-    "description" : "",
-    "feedURL" : "https:\/\/rss.nytimes.com\/services\/xml\/rss\/nyt\/Travel.xml",
-    "id" : "b0130b1c-0bea-a719-bb57-121e9f98f4b9",
-    "name" : "NYT > Travel",
-    "siteURL" : "https:\/\/www.nytimes.com\/section\/travel",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "News",
-    "description" : "",
-    "feedURL" : "https:\/\/rss.nytimes.com\/services\/xml\/rss\/nyt\/World.xml",
-    "id" : "78f77fae-2e1f-fc14-f759-d22ea8b749b9",
-    "name" : "NYT > World News",
-    "siteURL" : "https:\/\/www.nytimes.com\/section\/world",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "DIY",
-    "description" : "Oh Happy Day is a party and lifestyle blog based in San Francisco. We love to throw parties and make things!",
-    "feedURL" : "https:\/\/ohhappyday.com\/feed\/",
-    "id" : "5460de09-efc8-a944-81e9-a00dd6c00c45",
-    "name" : "Oh Happy Day!",
-    "siteURL" : "https:\/\/ohhappyday.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Food",
-    "description" : "Vegan Recipes to Glow From The Inside Out",
-    "feedURL" : "https:\/\/ohsheglows.com\/feed\/",
-    "id" : "400cf31a-731b-f096-4cff-180a1b0f8c47",
-    "name" : "Oh She Glows",
-    "siteURL" : "https:\/\/ohsheglows.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Android Development",
-    "description" : "A premier blog on Kotlin.",
-    "feedURL" : "https:\/\/okkotlin.com\/rss.xml",
-    "id" : "5c1e47d4-cd29-f3bd-b86c-6b12e83ab687",
-    "name" : "OkKotlin",
-    "siteURL" : "https:\/\/okkotlin.com",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "iOS Development",
     "description" : "",
     "feedURL" : "https:\/\/oleb.net\/blog\/atom.xml",
     "id" : "2c124350-95c6-5735-c007-3aaf87fd5d6c",
     "name" : "Ole Begemann",
     "siteURL" : "https:\/\/oleb.net\/blog\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Photography",
-    "description" : "a Picture is Worth a Thousand Words | Submit Your Photo | World's Best Photography",
-    "feedURL" : "https:\/\/feeds.feedburner.com\/OneBigPhoto",
-    "id" : "6510ffc9-099d-813c-c524-182c08c54574",
-    "name" : "One Big Photo",
-    "siteURL" : "https:\/\/onebigphoto.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "India",
-    "country" : "India",
-    "description" : "Read all latest news headlines from India and around the world, get today's breaking news and live updates on politics, elections, business, sports, economy, current affairs, results and more on Oneindia.",
-    "feedURL" : "https:\/\/www.oneindia.com\/rss\/news-fb.xml",
-    "id" : "ce098f3d-7953-d565-1649-5e2880cfef1c",
-    "name" : "Oneindia",
-    "siteURL" : "https:\/\/www.oneindia.com\/",
     "tags" : [
 
     ]
@@ -3644,17 +2656,6 @@
     ]
   },
   {
-    "category" : "Funny",
-    "description" : "Providing global up-to-the-minute procrastination!",
-    "feedURL" : "https:\/\/phdcomics.com\/gradfeed.php",
-    "id" : "df1b867f-170f-6d2d-aa23-98fe899f28ce",
-    "name" : "PHD Comics",
-    "siteURL" : "https:\/\/www.phdcomics.com",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Philippines",
     "country" : "Philippines",
     "description" : "Voice Against Biased Media",
@@ -3758,17 +2759,6 @@
     ]
   },
   {
-    "category" : "Funny",
-    "description" : "",
-    "feedURL" : "https:\/\/postsecret.com\/feed\/?alt=rss",
-    "id" : "5b8c33c2-fad2-dc94-1692-64a9be53bd72",
-    "name" : "PostSecret",
-    "siteURL" : "https:\/\/postsecret.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Nigeria",
     "country" : "Nigeria",
     "description" : "Premium Times - Nigeria's leading online newspaper, delivering breaking news and deep investigative reports from Nigeria",
@@ -3803,17 +2793,6 @@
     ]
   },
   {
-    "category" : "Programming",
-    "description" : "Programming Throwdown educates Computer Scientists and Software Engineers on a cavalcade of programming and tech topics. Every show will cover a new programming language, so listeners will be able to speak intelligently about any programming language.",
-    "feedURL" : "https:\/\/feeds.feedburner.com\/ProgrammingThrowdown",
-    "id" : "38924511-3b4d-bd4c-7715-ab669b838108",
-    "name" : "Programming Throwdown",
-    "siteURL" : "https:\/\/www.programmingthrowdown.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Android Development",
     "description" : "Jesse Wilson on programming.",
     "feedURL" : "https:\/\/publicobject.com\/rss\/",
@@ -3825,68 +2804,12 @@
     ]
   },
   {
-    "category" : "Gaming",
-    "description" : "A subreddit for (almost) anything related to games - video games, board games, card games, etc. (but not sports).",
-    "feedURL" : "https:\/\/www.reddit.com\/r\/gaming.rss",
-    "id" : "ad7505c1-014d-f656-8c5a-0d6e4395888a",
-    "name" : "r\/gaming",
-    "siteURL" : "https:\/\/www.reddit.com\/r\/gaming",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Apple",
-    "description" : "Reddit’s corner for iPhone lovers (or those who mildly enjoy it...)",
-    "feedURL" : "https:\/\/www.reddit.com\/r\/iphone\/.rss",
-    "id" : "d9439c76-b0ad-c3d1-1184-b89e4e4eea65",
-    "name" : "r\/iPhone",
-    "siteURL" : "https:\/\/www.reddit.com\/r\/iphone\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Tech",
     "description" : "The Blog of Things",
     "feedURL" : "https:\/\/readwrite.com\/feed\/",
     "id" : "09bc5991-0369-545d-f6e1-5ac5d6e0716c",
     "name" : "ReadWrite",
     "siteURL" : "https:\/\/readwrite.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Sports",
-    "description" : "Sports News and Highlights from the NFL, NBA, NHL, MLB, MLS, and leagues around the world.",
-    "feedURL" : "https:\/\/www.reddit.com\/r\/sports.rss",
-    "id" : "b848479d-d115-268c-cce4-e48af442523d",
-    "name" : "Reddit Sports",
-    "siteURL" : "https:\/\/www.reddit.com\/r\/sports",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Fashion",
-    "description" : "Refinery29",
-    "feedURL" : "https:\/\/www.refinery29.com\/fashion\/rss.xml",
-    "id" : "6092ede7-b316-b86c-1bbd-8cf1c903afea",
-    "name" : "Refinery29",
-    "siteURL" : "https:\/\/www.refinery29.com\/fashion",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Italy",
-    "country" : "Italy",
-    "description" : "Repubblica.it: il quotidiano online in tempo reale.",
-    "feedURL" : "https:\/\/www.repubblica.it\/rss\/homepage\/rss2.0.xml",
-    "id" : "027ce737-234b-cd1e-5afc-d62fe2ebce76",
-    "name" : "Repubblica.it > Homepage",
-    "siteURL" : "https:\/\/repubblica.it",
     "tags" : [
 
     ]
@@ -3916,17 +2839,6 @@
     ]
   },
   {
-    "category" : "Programming",
-    "description" : "Software engineer. One-track lover down a two-way lane",
-    "feedURL" : "https:\/\/robertheaton.com\/feed.xml",
-    "id" : "df4a1943-624b-a5c5-8497-2b3c7c8fbf14",
-    "name" : "Robert Heaton",
-    "siteURL" : "https:\/\/robertheaton.com",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Gaming",
     "description" : "This is a feed of all the latest articles from Rock Paper Shotgun.",
     "feedURL" : "https:\/\/feeds.feedburner.com\/RockPaperShotgun",
@@ -3938,47 +2850,13 @@
     ]
   },
   {
-    "category" : "News",
-    "description" : "CNN.com delivers up-to-the-minute news and information on the latest top stories, weather, entertainment, politics and more.",
-    "feedURL" : "https:\/\/rss.cnn.com\/rss\/edition_world.rss",
-    "id" : "95e320d0-9146-3878-740e-25cfd20d1e23",
-    "name" : "RSS",
-    "siteURL" : "https:\/\/www.cnn.com\/world\/index.html",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "United States",
-    "country" : "United States",
-    "description" : "CNN.com delivers up-to-the-minute news and information on the latest top stories, weather, entertainment, politics and more.",
-    "feedURL" : "https:\/\/rss.cnn.com\/rss\/edition.rss",
-    "id" : "1606c868-c252-962e-bd07-12df866cc480",
-    "name" : "RSS",
-    "siteURL" : "https:\/\/www.cnn.com\/app-international-edition\/index.html",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Italy",
     "country" : "Italy",
     "description" : "Updated every day - FOR PERSONAL USE ONLY",
     "feedURL" : "https:\/\/www.ansa.it\/sito\/ansait_rss.xml",
     "id" : "f3afd903-e63c-53e0-1560-18ab65d76359",
     "name" : "RSS di - ANSA.it",
-    "siteURL" : "https:\/\/www.ansa.it\/sito\/videogallery\/spettacolo\/2026\/03\/13\/vladimir-luxuria-trump-contro-i-trans-mi-ricorda-quando-mi-bullizzavano-da-piccola_a176f37e-0558-4082-9fb9-343f16dc4bcb.html",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Music",
-    "description" : "News content RSS feed",
-    "feedURL" : "https:\/\/pitchfork.com\/rss\/news",
-    "id" : "24e04da4-7c3a-6f38-d39f-225821009960",
-    "name" : "RSS: News",
-    "siteURL" : "https:\/\/pitchfork.com",
+    "siteURL" : "https:\/\/www.ansa.it\/sito\/videogallery\/short_video\/2026\/03\/14\/il-racconto-della-settimana-in-foto_b02787b1-d4a0-448a-9ed2-0a0f00be5932.html",
     "tags" : [
 
     ]
@@ -3991,29 +2869,6 @@
     "id" : "4013c31a-b9b5-59f0-5fa4-d977847af3d8",
     "name" : "RT",
     "siteURL" : "https:\/\/www.rt.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Russia",
-    "country" : "Russia",
-    "description" : "",
-    "feedURL" : "https:\/\/russia-insider.com\/en\/all-content\/rss",
-    "id" : "68c2a6c3-a7e0-9da7-05f4-8084fe9a92b9",
-    "name" : "Russia Insider Daily Headlines",
-    "siteURL" : "https:\/\/russia-insider.com\/en",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Funny",
-    "description" : "Latest Saturday Morning Breakfast Cereal comics and news",
-    "feedURL" : "https:\/\/www.smbc-comics.com\/comic\/rss",
-    "id" : "ceeb90df-ad7a-328d-f8c9-c1f7d81b4d15",
-    "name" : "Saturday Morning Breakfast Cereal",
-    "siteURL" : "https:\/\/www.smbc-comics.com\/",
     "tags" : [
 
     ]
@@ -4048,29 +2903,6 @@
     "id" : "61bb71bb-1f7e-ee06-1eac-2ce4be914215",
     "name" : "Scroll.in",
     "siteURL" : "https:\/\/scroll.in",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "India",
-    "country" : "India",
-    "description" : "SEBI RSS Feed",
-    "feedURL" : "https:\/\/www.sebi.gov.in\/sebirss.xml",
-    "id" : "53da9e61-f477-6ea4-1c89-9fcf3a8e3fe3",
-    "name" : "SEBI RSS Feed",
-    "siteURL" : "https:\/\/www.sebi.gov.in\/sebirss.xml",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Food",
-    "description" : "Our Favorite Recipes, Curated and Collected",
-    "feedURL" : "https:\/\/feeds.feedburner.com\/seriouseats\/recipes",
-    "id" : "f94d1ce2-99f5-a9c8-fbbe-d5c2b061bc3d",
-    "name" : "Serious Eats: Recipes",
-    "siteURL" : "https:\/\/www.seriouseats.com\/recipes\/",
     "tags" : [
 
     ]
@@ -4164,17 +2996,6 @@
     ]
   },
   {
-    "category" : "Books",
-    "description" : "This is a moderated subreddit. It is our intent and purpose to foster and encourage in-depth discussion about all things related to books, authors, genres, or publishing in a safe, supportive environment. If you're looking for help with a personal book recommendation, consult our Weekly Recommendation Thread, Suggested Reading page, or ask in r\/suggestmeabook.",
-    "feedURL" : "https:\/\/reddit.com\/r\/books\/.rss",
-    "id" : "7dc8eb44-6bc6-1ee7-2a30-1a2b51e5f73c",
-    "name" : "So many books",
-    "siteURL" : "https:\/\/www.reddit.com\/r\/books\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Football",
     "description" : "The Latest Soccer News from around the globe.",
     "feedURL" : "https:\/\/www.soccernews.com\/feed",
@@ -4197,34 +3018,12 @@
     ]
   },
   {
-    "category" : "Music",
-    "description" : "A podcast where musicians take apart their songs, and piece by piece, tell the story of how they were made.",
-    "feedURL" : "https:\/\/songexploder.net\/feed",
-    "id" : "33af6c0a-182a-1e9a-b9f9-226e577dffa6",
-    "name" : "Song Exploder",
-    "siteURL" : "https:\/\/songexploder.net\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Space",
     "description" : "Get the latest space exploration, innovation and astronomy news. Space.com celebrates humanity's ongoing expansion across the final frontier.",
     "feedURL" : "https:\/\/www.space.com\/feeds\/all",
     "id" : "c2edd5eb-4423-abe3-82cb-a6f22ae12fac",
     "name" : "Space.com",
     "siteURL" : "https:\/\/www.space.com\/feeds.xml",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Cars",
-    "description" : "Global Car Culture Since 2008",
-    "feedURL" : "https:\/\/feeds.feedburner.com\/speedhunters",
-    "id" : "55830c35-fed6-2042-5c2c-5b6737ee0e34",
-    "name" : "Speedhunters",
-    "siteURL" : "https:\/\/www.speedhunters.com",
     "tags" : [
 
     ]
@@ -4252,45 +3051,12 @@
     ]
   },
   {
-    "category" : "Food",
-    "description" : "",
-    "feedURL" : "https:\/\/www.sproutedkitchen.com\/home?format=rss",
-    "id" : "2c4de9e5-e337-d705-3c31-2fa41b0da418",
-    "name" : "Sprouted Kitchen",
-    "siteURL" : "https:\/\/www.sproutedkitchen.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Gaming",
     "description" : "All Steam news, all the time!",
     "feedURL" : "https:\/\/store.steampowered.com\/feeds\/news.xml",
     "id" : "b3a5a1c1-829b-6b2f-e4e4-2081acb973f8",
     "name" : "Steam RSS News Feed",
     "siteURL" : "https:\/\/www.steampowered.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Photography",
-    "description" : "Learn How to Light.",
-    "feedURL" : "https:\/\/feeds.feedburner.com\/blogspot\/WOBq",
-    "id" : "c57fe6f8-18f9-4bef-84d8-beca9f04e426",
-    "name" : "Strobist",
-    "siteURL" : "https:\/\/strobist.blogspot.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Photography",
-    "description" : "Trey Ratcliff's Travel Photography blog with daily inspiration to motivate you!",
-    "feedURL" : "https:\/\/stuckincustoms.com\/feed\/",
-    "id" : "0b725e4e-0695-735a-4201-1440fa9915ce",
-    "name" : "Stuck in Customs",
-    "siteURL" : "https:\/\/stuckincustoms.com\/",
     "tags" : [
 
     ]
@@ -4303,39 +3069,6 @@
     "id" : "bd843d5b-d28a-ff1f-0b6a-1b3396340404",
     "name" : "Swarajya",
     "siteURL" : "https:\/\/swarajyamag.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "iOS Development",
-    "description" : "Weekly Swift articles, podcasts and tips by John Sundell",
-    "feedURL" : "https:\/\/www.swiftbysundell.com\/feed.rss",
-    "id" : "95ecc155-c51d-f3ae-1eae-5fe54c421e54",
-    "name" : "Swift by Sundell",
-    "siteURL" : "https:\/\/www.swiftbysundell.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "iOS Development",
-    "description" : "Weekly Swift articles, podcasts and tips by John Sundell",
-    "feedURL" : "https:\/\/swiftbysundell.com\/feed.rss",
-    "id" : "4360adf5-908b-b57b-7e4a-01624fa9691b",
-    "name" : "Swift by Sundell",
-    "siteURL" : "https:\/\/www.swiftbysundell.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "iOS Development",
-    "description" : "Articles, podcasts, and tips about Swift development",
-    "feedURL" : "https:\/\/www.swiftbysundell.com\/rss",
-    "id" : "aad1cc34-097d-3087-4923-c3ef93efff9c",
-    "name" : "Swift by Sundell",
-    "siteURL" : "https:\/\/www.swiftbysundell.com",
     "tags" : [
 
     ]
@@ -4398,18 +3131,6 @@
     ]
   },
   {
-    "category" : "Russia",
-    "country" : "Russia",
-    "description" : "TASS News Agency",
-    "feedURL" : "https:\/\/tass.com\/rss\/v2.xml",
-    "id" : "188d1719-d4ac-3575-fdaa-f7f4c63e4121",
-    "name" : "TASS",
-    "siteURL" : "https:\/\/tass.com",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "South Africa",
     "country" : "South Africa",
     "description" : "South Africa's best technology journalism",
@@ -4457,34 +3178,12 @@
     ]
   },
   {
-    "category" : "Television",
-    "description" : "‎",
-    "feedURL" : "https:\/\/reddit.com\/r\/television\/.rss",
-    "id" : "d717e953-5308-64c5-cdf7-8c8368f3ff60",
-    "name" : "Television News and Discussion",
-    "siteURL" : "https:\/\/www.reddit.com\/r\/television\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Tennis",
     "description" : "Headline News - powered by FeedBurner",
     "feedURL" : "https:\/\/www.atptour.com\/en\/media\/rss-feed\/xml-feed",
     "id" : "6dbfbb56-2565-88e1-e2f2-72bfd498cf73",
     "name" : "Tennis - ATP World Tour",
     "siteURL" : "https:\/\/www.atptour.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Tennis",
-    "description" : "Tennis News & Discussion",
-    "feedURL" : "https:\/\/www.reddit.com\/r\/tennis\/.rss",
-    "id" : "70bcac8b-b2f5-01fd-853a-44ab2a715b75",
-    "name" : "Tennis News & Discussion",
-    "siteURL" : "https:\/\/www.reddit.com\/r\/tennis\/",
     "tags" : [
 
     ]
@@ -4546,28 +3245,6 @@
     ]
   },
   {
-    "category" : "iOS Development",
-    "description" : "Recent content on The Atomic Birdhouse",
-    "feedURL" : "https:\/\/atomicbird.com\/index.xml",
-    "id" : "780cabf7-1ab3-e240-8307-8b4493ce97eb",
-    "name" : "The Atomic Birdhouse",
-    "siteURL" : "https:\/\/atomicbird.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Beauty",
-    "description" : "Real scientists answer your beauty questions",
-    "feedURL" : "https:\/\/thebeautybrains.com\/blog\/feed\/",
-    "id" : "7b4dbce4-7af8-58f9-5540-4f5f37b49e77",
-    "name" : "The Beauty Brains",
-    "siteURL" : "https:\/\/thebeautybrains.com",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Funny",
     "description" : "Like Mother Teresa, only better.",
     "feedURL" : "https:\/\/thebloggess.com\/feed\/",
@@ -4602,18 +3279,6 @@
     ]
   },
   {
-    "category" : "Bangladesh",
-    "country" : "Bangladesh",
-    "description" : "Headlines from The Daily Star",
-    "feedURL" : "https:\/\/www.thedailystar.net\/frontpage\/rss.xml",
-    "id" : "36aa86cb-cab4-35d1-95c9-d363057cc5e1",
-    "name" : "The Daily Star",
-    "siteURL" : "https:\/\/www.thedailystar.net\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Funny",
     "description" : "Curious Perversions in Information Technology",
     "feedURL" : "https:\/\/syndication.thedailywtf.com\/TheDailyWtf",
@@ -4625,93 +3290,12 @@
     ]
   },
   {
-    "category" : "Pakistan",
-    "country" : "Pakistan",
-    "description" : "The Express Tribune keeps you up to date with all the latest happenings from Pakistan and across the world!",
-    "feedURL" : "https:\/\/tribune.com.pk\/feed\/home",
-    "id" : "a7ee6317-9fdc-1d25-db21-68e2f0c84236",
-    "name" : "The Express Tribune",
-    "siteURL" : "https:\/\/tribune.com.pk",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Fashion",
     "description" : "The latest fashion news, advice and comment from the Guardian",
     "feedURL" : "https:\/\/www.theguardian.com\/fashion\/rss",
     "id" : "75940817-f17f-6454-ef14-a6aacb27c591",
     "name" : "The Guardian",
     "siteURL" : "https:\/\/www.theguardian.com\/fashion",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "News",
-    "description" : "Latest World news news, comment and analysis from the Guardian, the world's leading liberal voice",
-    "feedURL" : "https:\/\/www.theguardian.com\/world\/rss",
-    "id" : "d64709a6-05cb-acc0-04d9-8965ab19a65f",
-    "name" : "The Guardian",
-    "siteURL" : "https:\/\/www.theguardian.com\/world",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Space",
-    "description" : "Latest news and features from theguardian.com, the world's leading liberal voice",
-    "feedURL" : "https:\/\/www.theguardian.com\/science\/space\/rss",
-    "id" : "0ebaae9e-8dd1-b1c6-405d-b62ca3981615",
-    "name" : "The Guardian",
-    "siteURL" : "https:\/\/www.theguardian.com\/science\/space",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Travel",
-    "description" : "Latest travel news and reviews on UK and world holidays, travel guides to global destinations, city breaks, hotels and restaurant information from the Guardian, the world's leading liberal voice",
-    "feedURL" : "https:\/\/www.theguardian.com\/uk\/travel\/rss",
-    "id" : "341bee61-429b-7fce-c50e-0327e8d59629",
-    "name" : "The Guardian",
-    "siteURL" : "https:\/\/www.theguardian.com\/uk\/travel",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "India",
-    "country" : "India",
-    "description" : "Latest news and features from theguardian.com, the world's leading liberal voice",
-    "feedURL" : "https:\/\/www.theguardian.com\/world\/india\/rss",
-    "id" : "56638537-009c-19c7-16e2-13dfd7b7cc45",
-    "name" : "The Guardian",
-    "siteURL" : "https:\/\/www.theguardian.com\/world\/india",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Italy",
-    "country" : "Italy",
-    "description" : "Latest news and features from theguardian.com, the world's leading liberal voice",
-    "feedURL" : "https:\/\/www.theguardian.com\/world\/italy\/rss",
-    "id" : "dadba2fa-f86b-97ba-f347-d569b8da96e0",
-    "name" : "The Guardian",
-    "siteURL" : "https:\/\/www.theguardian.com\/world\/italy",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Mexico",
-    "country" : "Mexico",
-    "description" : "Latest news and features from theguardian.com, the world's leading liberal voice",
-    "feedURL" : "https:\/\/www.theguardian.com\/world\/mexico\/rss",
-    "id" : "7d4e80b3-e9fd-dd05-53f6-9cb504c500b3",
-    "name" : "The Guardian",
-    "siteURL" : "https:\/\/www.theguardian.com\/world\/mexico",
     "tags" : [
 
     ]
@@ -4747,28 +3331,6 @@
     "feedURL" : "https:\/\/feeds.thelocal.com\/rss\/it",
     "id" : "be7a0fea-4d37-b491-b4ef-f89139abd6c4",
     "name" : "The Local",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Spain",
-    "country" : "Spain",
-    "description" : "Europe's news in English",
-    "feedURL" : "https:\/\/feeds.thelocal.com\/rss\/es",
-    "id" : "6dc1ff7e-2eec-8bed-49e0-ce9a2b90b793",
-    "name" : "The Local",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Apple",
-    "description" : "Making Sense of Technology",
-    "feedURL" : "https:\/\/www.loopinsight.com\/feed",
-    "id" : "d2812aa8-7e2a-9ad5-1bdd-750a5fa09450",
-    "name" : "The Loop",
-    "siteURL" : "https:\/\/www.loopinsight.com",
     "tags" : [
 
     ]
@@ -4822,17 +3384,6 @@
   },
   {
     "category" : "Funny",
-    "description" : "I make comics about science, cats, technology, and sometimes goats.",
-    "feedURL" : "https:\/\/feeds.feedburner.com\/oatmealfeed",
-    "id" : "37b9cba2-c6b3-a7e9-459e-9fb385d07d21",
-    "name" : "The Oatmeal",
-    "siteURL" : "https:\/\/theoatmeal.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Funny",
     "description" : "America's Finest News Source.",
     "feedURL" : "https:\/\/www.theonion.com\/rss",
     "id" : "613b5a03-7a84-ccea-643c-3684d89a017e",
@@ -4866,6 +3417,18 @@
     ]
   },
   {
+    "category" : "Brazil",
+    "country" : "Brazil",
+    "description" : "News in Rio de Janeiro, Brazil",
+    "feedURL" : "https:\/\/riotimesonline.com\/feed\/",
+    "id" : "238937ad-3da5-9643-59a7-1374916affb2",
+    "name" : "The Rio Times",
+    "siteURL" : "https:\/\/www.riotimesonline.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "South Africa",
     "country" : "South Africa",
     "description" : "South Africa News",
@@ -4884,28 +3447,6 @@
     "id" : "36fb51a2-54bc-b7f7-c4e5-91933d876723",
     "name" : "The Truth About Cars",
     "siteURL" : "https:\/\/www.thetruthaboutcars.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Television",
-    "description" : "TV News, Previews, Spoilers and Reviews",
-    "feedURL" : "https:\/\/feeds.feedburner.com\/thetvaddict\/AXob",
-    "id" : "0c05421d-99c3-6961-e777-652a5007288e",
-    "name" : "the TV addict",
-    "siteURL" : "https:\/\/www.thetvaddict.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Apple",
-    "description" : "An unofficial community to discuss Apple devices and software, including news, rumors, opinions and analysis pertaining to the company located at One Apple Park Way.",
-    "feedURL" : "https:\/\/www.reddit.com\/r\/apple\/.rss",
-    "id" : "d9070b79-691a-bea5-4abe-1397bfdae265",
-    "name" : "The unofficial Apple community",
-    "siteURL" : "https:\/\/www.reddit.com\/r\/apple\/",
     "tags" : [
 
     ]
@@ -4957,18 +3498,6 @@
     ]
   },
   {
-    "category" : "India",
-    "country" : "India",
-    "description" : "The Times of India: Breaking news, views, reviews, cricket from across India",
-    "feedURL" : "https:\/\/timesofindia.indiatimes.com\/rssfeedstopstories.cms",
-    "id" : "b30e3231-ec8a-99e5-be6b-4050b0896be1",
-    "name" : "Times of India",
-    "siteURL" : "https:\/\/timesofindia.indiatimes.com",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Philippines",
     "country" : "Philippines",
     "description" : "The Philippines best online source of info on cars and the automotive industry.",
@@ -5005,17 +3534,6 @@
     ]
   },
   {
-    "category" : "Gaming",
-    "description" : "iPhone and iPad Games and News",
-    "feedURL" : "https:\/\/toucharcade.com\/community\/forums\/-\/index.rss",
-    "id" : "7368de37-ecd7-f6cd-070f-2a7a82a0e454",
-    "name" : "TouchArcade",
-    "siteURL" : "https:\/\/toucharcade.com\/community\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Indonesia",
     "country" : "Indonesia",
     "description" : "Berita Terkini dari Tribunnews.com",
@@ -5023,17 +3541,6 @@
     "id" : "89efa977-3216-34ab-9dc1-ba1a2dfaeee3",
     "name" : "Tribunnews.com",
     "siteURL" : "https:\/\/www.tribunnews.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Television",
-    "description" : "Comics, Movies, TV, Games",
-    "feedURL" : "https:\/\/www.bleedingcool.com\/tv\/feed\/",
-    "id" : "00b4a40a-e157-88ae-580d-64abc72e3316",
-    "name" : "TV",
-    "siteURL" : "https:\/\/bleedingcool.com",
     "tags" : [
 
     ]
@@ -5056,17 +3563,6 @@
     "id" : "ed625c11-bff0-31ab-de41-1163a4d0c8f1",
     "name" : "TVLine",
     "siteURL" : "https:\/\/www.tvline.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "iOS Development",
-    "description" : "",
-    "feedURL" : "https:\/\/tyler.io\/feed\/",
-    "id" : "65cc5e10-592a-5732-704c-3fc4a817415f",
-    "name" : "tyler.io",
-    "siteURL" : "https:\/\/tyler.io",
     "tags" : [
 
     ]
@@ -5119,17 +3615,6 @@
     ]
   },
   {
-    "category" : "UI \/ UX",
-    "description" : "Usability & User Experience (UX) Blog",
-    "feedURL" : "https:\/\/usabilitygeek.com\/feed\/",
-    "id" : "96f4a000-c5cb-944e-07e1-538893176ed2",
-    "name" : "Usability Geek",
-    "siteURL" : "https:\/\/usabilitygeek.com",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "iOS Development",
     "description" : "Recent content on Use Your Loaf - iOS Development News & Tips",
     "feedURL" : "https:\/\/useyourloaf.com\/blog\/rss.xml",
@@ -5142,33 +3627,11 @@
   },
   {
     "category" : "UI \/ UX",
-    "description" : "User experience design is the process of enhancing user satisfaction by improving the usability, ease of use, and pleasure provided in the interaction between the user and the product. ‎‎‎‎‎ ‎ ‎ User experience design encompasses traditional human–computer interaction design (HCI\/d), and extends it by addressing all aspects of a product or service as perceived by users.",
-    "feedURL" : "https:\/\/www.reddit.com\/r\/userexperience\/.rss",
-    "id" : "38353b68-12ea-34a4-65a8-6193d6fb89a1",
-    "name" : "User Experience",
-    "siteURL" : "https:\/\/www.reddit.com\/r\/userexperience\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "UI \/ UX",
     "description" : "We believe designers are thinkers as much as they are makers. Curated stories on UX, Visual & Product Design. - Medium",
     "feedURL" : "https:\/\/uxdesign.cc\/feed",
     "id" : "efe18eb2-8037-4393-b598-d54a5e5745cb",
     "name" : "UX Collective - Medium",
     "siteURL" : "https:\/\/uxdesign.cc?source=rss----138adf9c44c---4",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "UI \/ UX",
-    "description" : "",
-    "feedURL" : "https:\/\/uxmovement.com\/feed\/",
-    "id" : "b8d19b0c-bc7a-f674-ed3d-4e56ad094bb4",
-    "name" : "UX Movement",
-    "siteURL" : "https:\/\/uxmovement.com",
     "tags" : [
 
     ]
@@ -5218,39 +3681,6 @@
     ]
   },
   {
-    "category" : "Books",
-    "description" : "Books any time any day.",
-    "feedURL" : "https:\/\/wokeread.home.blog\/feed\/",
-    "id" : "8e64e022-2a33-e9e9-1f8f-a9e281d797b7",
-    "name" : "Wokeread",
-    "siteURL" : "https:\/\/wokeread.home.blog",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "DIY",
-    "description" : "Hot new how-to videos and articles on WonderHowTo.",
-    "feedURL" : "https:\/\/www.wonderhowto.com\/rss.xml",
-    "id" : "b65e3b52-f924-872f-f443-4c8709211a32",
-    "name" : "WonderHowTo",
-    "siteURL" : "https:\/\/www.wonderhowto.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "News",
-    "description" : "The Washington Post World section provides information and analysis of breaking world news stories. In addition to our world news and video, Post World News offers discussions and blogs on major international news and economic issues.",
-    "feedURL" : "https:\/\/feeds.washingtonpost.com\/rss\/world",
-    "id" : "4bf53cb6-0241-7030-f320-13bf2071c76f",
-    "name" : "World",
-    "siteURL" : "https:\/\/www.washingtonpost.com",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "United States",
     "country" : "United States",
     "description" : "Nation and World articles from the Los Angeles Times.",
@@ -5263,17 +3693,6 @@
     ]
   },
   {
-    "category" : "News",
-    "description" : "A place for major news from around the world, excluding US-internal news.",
-    "feedURL" : "https:\/\/www.reddit.com\/r\/worldnews\/.rss",
-    "id" : "b8331e72-76e5-9d07-2efa-d518acebc122",
-    "name" : "World News",
-    "siteURL" : "https:\/\/www.reddit.com\/r\/worldnews\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "United States",
     "country" : "United States",
     "description" : "Catch up on the latest World News news, photos, videos, and opinion.",
@@ -5281,18 +3700,6 @@
     "id" : "c22ab88a-b4ad-1ead-9c20-f383b2c9be5c",
     "name" : "World News",
     "siteURL" : "https:\/\/www.huffpost.com\/news\/world-news",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "United States",
-    "country" : "United States",
-    "description" : "World News",
-    "feedURL" : "https:\/\/feeds.a.dj.com\/rss\/RSSWorldNews.xml",
-    "id" : "4288464f-77b2-1d15-9a5c-90ee13157013",
-    "name" : "WSJ.com: World News",
-    "siteURL" : "https:\/\/online.wsj.com\/page\/2_0006.html",
     "tags" : [
 
     ]
@@ -5338,41 +3745,6 @@
     "id" : "77980663-12ae-f6cf-2ef9-ee6b0f7382d9",
     "name" : "Xbox's Major Nelson",
     "siteURL" : "https:\/\/news.xbox.com\/en-us\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Funny",
-    "description" : "xkcd.com: A webcomic of romance and math humor.",
-    "feedURL" : "https:\/\/xkcd.com\/rss.xml",
-    "id" : "c2bceeac-6c2a-eabf-78e6-f248a52b0c96",
-    "name" : "xkcd.com",
-    "siteURL" : "https:\/\/xkcd.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Germany",
-    "country" : "Germany",
-    "description" : "Aktuelle Nachrichten, Kommentare, Analysen und Hintergrundberichte aus Politik, Wirtschaft, Gesellschaft, Wissen, Kultur und Sport lesen Sie auf ZEIT ONLINE. Aktuelle Nachrichten, Kommentare, Analysen und Hintergrundberichte aus Politik, Wirtschaft, Gesellschaft, Wissen, Kultur und Sport lesen Sie auf ZEIT.de. Aktuelle Nachrichten, Kommentare, Analysen und Hintergrundberichte aus Politik, Wirtschaft, Gesellschaft, Wissen, Kultur und Sport lesen Sie bei der ZEIT. Aktuelle Nachrichten, Kommentare, Analysen und Hintergrundberichte aus Politik, Wirtschaft, Gesellschaft, Wissen, Kultur und Sport – die ZEIT. Aktuelle News, Kommentare, Analysen und Hintergrundberichte aus Politik, Wirtschaft, Gesellschaft, Wissen, Kultur und Sport lesen Sie auf ZEIT ONLINE.",
-    "feedURL" : "https:\/\/newsfeed.zeit.de\/index",
-    "id" : "4cfb831b-58a3-9056-08a9-7696e566c520",
-    "name" : "ZEIT ONLINE",
-    "siteURL" : "https:\/\/www.zeit.de\/index",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Russia",
-    "country" : "Russia",
-    "description" : "Московский Комсомолец",
-    "feedURL" : "https:\/\/www.mk.ru\/rss\/index.xml",
-    "id" : "35165fbb-686f-2223-7f79-c1cdf8d50343",
-    "name" : "Все материалы - Московский Комсомолец",
-    "siteURL" : "https:\/\/www.mk.ru\/",
     "tags" : [
 
     ]
@@ -5426,90 +3798,6 @@
     ]
   },
   {
-    "category" : "Ukraine",
-    "country" : "Ukraine",
-    "description" : "TSN.UA RSS feed",
-    "feedURL" : "https:\/\/tsn.ua\/rss\/full.rss",
-    "id" : "efb0b90d-3a01-bb2b-7bf1-88bbc1c04374",
-    "name" : "Новини на tsn.ua",
-    "siteURL" : "https:\/\/tsn.ua",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Ukraine",
-    "country" : "Ukraine",
-    "description" : "Корреспондент - информационно-новостной портал №1 в Украине. Объективно о событиях по всему миру.",
-    "feedURL" : "https:\/\/k.img.com.ua\/rss\/ru\/all_news2.0.xml",
-    "id" : "b62d4160-150f-4fa5-ea6e-4da45856eb05",
-    "name" : "Последние новости на сайте korrespondent.net",
-    "siteURL" : "https:\/\/korrespondent.net\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Russia",
-    "country" : "Russia",
-    "description" : "Российская газета",
-    "feedURL" : "https:\/\/rg.ru\/xml\/index.xml",
-    "id" : "af1b8157-7acc-b0fb-9fef-c4fcbd863f2a",
-    "name" : "Российская Газета",
-    "siteURL" : "https:\/\/rg.ru",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Ukraine",
-    "country" : "Ukraine",
-    "description" : "",
-    "feedURL" : "https:\/\/www.pravda.com.ua\/rss\/",
-    "id" : "a92ac648-8716-0baa-16cb-ebb766073637",
-    "name" : "Українська правда",
-    "siteURL" : "https:\/\/www.pravda.com.ua",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Ukraine",
-    "country" : "Ukraine",
-    "description" : "Самые свежие новости Украины и мира",
-    "feedURL" : "https:\/\/censor.net.ua\/includes\/news_ru.xml",
-    "id" : "384d6ac2-0cea-027b-2953-aaa3e47b554f",
-    "name" : "Цензор.НЕТ - Новости",
-    "siteURL" : "https:\/\/censor.net\/ru",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Pakistan",
-    "country" : "Pakistan",
-    "description" : "Latest Breaking News from Pakistan, Business, Life, Style, Cricket, Videos, Comments",
-    "feedURL" : "https:\/\/www.express.pk\/feed\/",
-    "id" : "11cbd96f-f308-2ab3-1ffe-2cb739e5b781",
-    "name" : "ایکسپریس اردو",
-    "siteURL" : "https:\/\/www.express.pk\/feed",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Pakistan",
-    "country" : "Pakistan",
-    "description" : "Daily Jang Urdu News | Pakistan News | Latest News - Breaking News",
-    "feedURL" : "https:\/\/jang.com.pk\/rss\/1\/1",
-    "id" : "6ac893e3-d7c2-8325-d897-266ecb965d9b",
-    "name" : "قومی خبریں",
-    "siteURL" : "https:\/\/jang.com.pk\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "India",
     "country" : "India",
     "description" : "News in Hindi(हिन्दी में समाचार), Hindi News(हिंदी समाचार): देश के सबसे विश्वसनीय अख़बार पर पढ़ें ताज़ा ख़बरें। पढ़ें देश, विदेश, बॉलीवुड, लाइफस्टाइल और राजनीती की ब्रेकिंग ख़बरें. Read Latest Hindi News, Breaking News at Dainik Bhaskar",
@@ -5541,30 +3829,6 @@
     "id" : "9742bec5-08d3-4352-67bc-287482df86e4",
     "name" : "ઈન્ડિયા | દિવ્ય ભાસ્કર",
     "siteURL" : "https:\/\/www.divyabhaskar.co.in\/national\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Japan",
-    "country" : "Japan",
-    "description" : "ライブドアニュース - 主要トピックス",
-    "feedURL" : "https:\/\/news.livedoor.com\/topics\/rss\/top.xml",
-    "id" : "4d7ff1b4-112b-0ab1-2524-b247b74fedac",
-    "name" : "ライブドアニュース - 主要トピックス",
-    "siteURL" : "https:\/\/news.livedoor.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Japan",
-    "country" : "Japan",
-    "description" : "朝日新聞デジタル",
-    "feedURL" : "https:\/\/rss.asahi.com\/rss\/asahi\/newsheadlines.rdf",
-    "id" : "63dc30ed-664c-6e06-350f-ee8062e20db9",
-    "name" : "朝日新聞デジタル",
-    "siteURL" : "https:\/\/www.asahi.com\/",
     "tags" : [
 
     ]

@@ -182,7 +182,7 @@ struct SourceHeroView: View {
         Group {
             if let lastFetched = source.lastFetchedAt {
                 let readingPart = ReadingTimeFormatter.formatted(minutes: totalReadingMinutes)
-                    .map { " · \($0) reading" } ?? ""
+                    .map { " · \($0) read" } ?? ""
                 Text("\(articleCount) article\(articleCount == 1 ? "" : "s")\(readingPart) · Updated \(RelativeTimeFormatter.string(from: lastFetched))")
             } else {
                 Text("Not yet synced")

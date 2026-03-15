@@ -133,11 +133,11 @@ struct SourceSectionView: View {
     private var subtitleText: String {
         var parts: [String] = []
 
-        if let readingText = ReadingTimeFormatter.formatted(minutes: totalReadingMinutes) {
-            parts.append("\(readingText) reading")
-        }
-
         parts.append("\(totalArticleCount) article\(totalArticleCount == 1 ? "" : "s")")
+
+        if let readingText = ReadingTimeFormatter.formatted(minutes: totalReadingMinutes) {
+            parts.append("\(readingText) read")
+        }
 
         return parts.joined(separator: " · ")
     }

@@ -176,12 +176,28 @@ actor FeedService {
 
     // MARK: - Duplicate check
 
-    /// Returns true if a Source with the given feedURL already exists.
-    func checkForDuplicate(feedURL: String) throws -> Bool {
-        try DatabaseManager.shared.dbPool.read { db in
-            try Source.filter(Column("feedURL") == feedURL).fetchCount(db) > 0
+    /// Returns true if a Source with a matching feedURL already exists.
+    /// Uses normalized URL comparison so trivial differences (scheme, www, trailing slash) still match.
+    func checkForDuplicate(feedURL: String, siteURL: String? = nil) throws -> Bool {
+        let normalized = FeedDirectory.normalizeURL(feedURL)
+        let normalizedSite = siteURL.map { FeedDirectory.normalizeURL($0) }
+        return try DatabaseManager.shared.dbPool.read { db in
+            let sources = try Source.fetchAll(db)
+            // Exact feed URL match
+            if sources.contains(where: { FeedDirectory.normalizeURL($0.feedURL) == normalized }) {
+                return true
+            }
+            // Site URL match — catches different feed URL paths for the same site
+            // (e.g. polygon.com/feed vs polygon.com/rss/index.xml)
+            // Uses full siteURL path, not bare domain, so BBC Science != BBC World
+            guard let normalizedSite else { return false }
+            return sources.contains { source in
+                guard let sourceSite = source.siteURL else { return false }
+                return FeedDirectory.normalizeURL(sourceSite) == normalizedSite
+            }
         }
     }
+
 
     // MARK: - Private helpers
 

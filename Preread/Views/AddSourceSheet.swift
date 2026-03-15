@@ -42,6 +42,7 @@ struct AddSourceSheet: View {
     // Discover state
     @State private var searchResults: [DiscoverFeed] = []
     @State private var subscribedURLs: Set<String> = []
+    @State private var subscribedSiteURLs: Set<String> = []
     @State private var discoverFaviconCache: [String: UIImage] = [:]
     @State private var searchTask: Task<Void, Never>?
     @State private var discoverNavPath: [String] = []
@@ -165,6 +166,7 @@ struct AddSourceSheet: View {
             }
             isURLFieldFocused = true
             subscribedURLs = FeedDirectory.shared.subscribedFeedURLs()
+            subscribedSiteURLs = FeedDirectory.shared.subscribedSiteURLs()
         }
         .onDisappear {
             cyclingTimer?.invalidate()
@@ -307,7 +309,7 @@ struct AddSourceSheet: View {
                     }
                     DiscoverFeedRow(
                         feed: feed,
-                        isSubscribed: subscribedURLs.contains(feed.feedURL),
+                        isSubscribed: isDiscoverFeedSubscribed(feed),
                         favicon: discoverFaviconCache[feed.siteURL ?? feed.feedURL],
                         onTap: { selectDiscoverFeed(feed) }
                     )
@@ -511,7 +513,7 @@ struct AddSourceSheet: View {
                         }
                         DiscoverFeedRow(
                             feed: feed,
-                            isSubscribed: subscribedURLs.contains(feed.feedURL),
+                            isSubscribed: isDiscoverFeedSubscribed(feed),
                             favicon: discoverFaviconCache[feed.siteURL ?? feed.feedURL],
                             onTap: { selectDiscoverFeed(feed) }
                         )
@@ -1099,9 +1101,12 @@ struct AddSourceSheet: View {
 
                 // Check if discovered feed URL is a duplicate
                 do {
-                    let isDuplicate = try await FeedService.shared.checkForDuplicate(feedURL: feed.feedURL.absoluteString)
+                    let isDuplicate = try await FeedService.shared.checkForDuplicate(
+                        feedURL: feed.feedURL.absoluteString,
+                        siteURL: feed.siteURL?.absoluteString
+                    )
                     if isDuplicate {
-                        showAlreadySubscribed(feedURL: feed.feedURL.absoluteString)
+                        showAlreadySubscribed(feedURL: feed.feedURL.absoluteString, siteURL: feed.siteURL?.absoluteString)
                         return
                     }
                 } catch {
@@ -1130,20 +1135,13 @@ struct AddSourceSheet: View {
     }
 
     @MainActor
-    private func showAlreadySubscribed(feedURL: String) {
+    private func showAlreadySubscribed(feedURL: String, siteURL: String? = nil) {
         stopCyclingTimer()
 
-        // Look up the existing source
-        do {
-            let source = try DatabaseManager.shared.dbPool.read { db in
-                try Source.filter(Column("feedURL") == feedURL).fetchOne(db)
-            }
-            existingSourceName = source?.title
-            existingSourceID = source?.id
-        } catch {
-            existingSourceName = nil
-            existingSourceID = nil
-        }
+        // Look up the existing source using normalized URL + siteURL comparison
+        let source = FeedDirectory.shared.findExistingSource(feedURL: feedURL, siteURL: siteURL)
+        existingSourceName = source?.title
+        existingSourceID = source?.id
 
         checkmarkScale = 0.3
         sheetState = .alreadySubscribed
@@ -1379,9 +1377,9 @@ struct AddSourceSheet: View {
         Task {
             // Check for duplicate first
             do {
-                let isDuplicate = try await FeedService.shared.checkForDuplicate(feedURL: feed.feedURL)
+                let isDuplicate = try await FeedService.shared.checkForDuplicate(feedURL: feed.feedURL, siteURL: feed.siteURL)
                 if isDuplicate {
-                    showAlreadySubscribed(feedURL: feed.feedURL)
+                    showAlreadySubscribed(feedURL: feed.feedURL, siteURL: feed.siteURL)
                     return
                 }
             } catch {
@@ -1402,9 +1400,12 @@ struct AddSourceSheet: View {
 
                 // Check if discovered feed URL is a duplicate
                 do {
-                    let isDuplicate = try await FeedService.shared.checkForDuplicate(feedURL: discovered.feedURL.absoluteString)
+                    let isDuplicate = try await FeedService.shared.checkForDuplicate(
+                        feedURL: discovered.feedURL.absoluteString,
+                        siteURL: discovered.siteURL?.absoluteString
+                    )
                     if isDuplicate {
-                        showAlreadySubscribed(feedURL: discovered.feedURL.absoluteString)
+                        showAlreadySubscribed(feedURL: discovered.feedURL.absoluteString, siteURL: discovered.siteURL?.absoluteString)
                         return
                     }
                 } catch {
@@ -1537,6 +1538,24 @@ struct AddSourceSheet: View {
     private func stopCyclingTimer() {
         cyclingTimer?.invalidate()
         cyclingTimer = nil
+    }
+
+    // MARK: - Subscription check
+
+    /// Checks if a discover feed is already subscribed, matching by both
+    /// normalized feed URL and normalized siteURL. Site URL matching catches
+    /// cases where the user added a source via a different feed URL path than
+    /// the discover directory entry (e.g. polygon.com/feed vs polygon.com/rss/index.xml).
+    /// Using siteURL (not bare domain) preserves the ability to subscribe to
+    /// multiple feeds from the same domain (e.g. BBC Science vs BBC World).
+    private func isDiscoverFeedSubscribed(_ feed: DiscoverFeed) -> Bool {
+        if subscribedURLs.contains(FeedDirectory.normalizeURL(feed.feedURL)) {
+            return true
+        }
+        if let siteURL = feed.siteURL {
+            return subscribedSiteURLs.contains(FeedDirectory.normalizeURL(siteURL))
+        }
+        return false
     }
 
     // MARK: - Shake animation

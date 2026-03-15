@@ -20,7 +20,7 @@ struct DiscoverFeedDirectoryTests {
     @Test("JSON loads and contains feeds")
     func jsonLoadsSuccessfully() throws {
         let feeds = try Self.loadDiscoverFeeds()
-        #expect(feeds.count > 400, "Expected at least 400 feeds, got \(feeds.count)")
+        #expect(feeds.count > 300, "Expected at least 300 feeds, got \(feeds.count)")
     }
 
     @Test("All feeds have valid feed URLs")

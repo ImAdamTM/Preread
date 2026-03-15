@@ -43,6 +43,7 @@ struct FeedExclusions: Codable {
 
 let gitHubAPIBase = "https://api.github.com/repos/plenaryapp/awesome-rss-feeds/contents"
 let skipValidation = CommandLine.arguments.contains("--skip-validation")
+let skipQuality = CommandLine.arguments.contains("--skip-quality")
 let verbose = CommandLine.arguments.contains("--verbose")
 
 // MARK: - Helpers
@@ -212,6 +213,7 @@ func run() async throws {
 
     let parser = OPMLParser()
     var allRawFeeds: [OPMLParser.RawFeed] = []
+    var customFeedURLs = Set<String>()  // Track custom feeds to bypass quality checks
 
     // 1. Fetch recommended category OPML file list from GitHub API
     print("📥 Fetching recommended category file list...")
@@ -269,6 +271,7 @@ func run() async throws {
        let customFeeds = try? JSONDecoder().decode([CustomFeed].self, from: data) {
         print("📥 Loaded \(customFeeds.count) custom feeds")
         for cf in customFeeds {
+            customFeedURLs.insert(cf.feedURL.lowercased())
             allRawFeeds.append(OPMLParser.RawFeed(
                 name: cf.name,
                 feedURL: cf.feedURL,
@@ -292,7 +295,23 @@ func run() async throws {
             uniqueFeeds.append(feed)
         }
     }
-    print("📊 After dedup: \(uniqueFeeds.count) unique feeds")
+    print("📊 After URL dedup: \(uniqueFeeds.count) unique feeds")
+
+    // 4b. Deduplicate by site domain + simplified name (e.g. Autocar India with 3 different feed URLs)
+    // Uses simplifyName() so feeds whose raw names differ but simplify to the same display name
+    // (e.g. "Autocar India - All Bike Reviews" → "Autocar India") get deduped.
+    var seenDomainName = Set<String>()
+    let beforeSiteDedup = uniqueFeeds.count
+    uniqueFeeds.removeAll { feed in
+        guard let host = URL(string: feed.feedURL)?.host?.lowercased() else { return false }
+        let domain = host.replacingOccurrences(of: "www.", with: "")
+        let simplified = simplifyName(feed.name, feedURL: feed.feedURL).lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        let key = "\(domain)|\(simplified)"
+        return !seenDomainName.insert(key).inserted
+    }
+    if beforeSiteDedup != uniqueFeeds.count {
+        print("📊 After site dedup: \(uniqueFeeds.count) feeds (\(beforeSiteDedup - uniqueFeeds.count) same-site duplicates removed)")
+    }
 
     // 3b. Apply exclusions
     let exclusionsURL = scriptDir.appendingPathComponent("feed_exclusions.json")
@@ -330,12 +349,21 @@ func run() async throws {
         print("🚫 Excluded \(beforeExclusion - uniqueFeeds.count) feeds → \(uniqueFeeds.count) remaining")
     }
 
-    // 4. Validate feeds (unless --skip-validation)
-    var validatedFeeds: [(OPMLParser.RawFeed, String?)] = []
+    // 5. Validate feeds (unless --skip-validation)
+    // Stores: (rawFeed, siteURL, newestItemDate, articleURLs)
+    struct ValidatedFeed {
+        let raw: OPMLParser.RawFeed
+        let siteURL: String?
+        let newestItemDate: Date?
+        let articleURLs: [String]
+    }
+    var validatedFeeds: [ValidatedFeed] = []
 
     if skipValidation {
         print("⏭️  Skipping validation (--skip-validation)")
-        validatedFeeds = uniqueFeeds.map { ($0, $0.siteURL) }
+        validatedFeeds = uniqueFeeds.map {
+            ValidatedFeed(raw: $0, siteURL: $0.siteURL, newestItemDate: nil, articleURLs: [])
+        }
     } else {
         print("🔍 Validating feeds (this may take a few minutes)...")
         var validCount = 0
@@ -366,10 +394,16 @@ func run() async throws {
 
             for (feed, result) in results {
                 if result.isValid {
-                    validatedFeeds.append((feed, result.siteURL ?? feed.siteURL))
+                    validatedFeeds.append(ValidatedFeed(
+                        raw: feed,
+                        siteURL: result.siteURL ?? feed.siteURL,
+                        newestItemDate: result.newestItemDate,
+                        articleURLs: result.articleURLs
+                    ))
                     validCount += 1
                     if verbose {
-                        print("  ✓ \(feed.name) (\(feed.feedURL))")
+                        let dateStr = result.newestItemDate.map { dateFormatter.string(from: $0) } ?? "no date"
+                        print("  ✓ \(feed.name) (\(feed.feedURL)) — newest: \(dateStr), \(result.articleURLs.count) URLs")
                     }
                 } else {
                     invalidCount += 1
@@ -386,7 +420,114 @@ func run() async throws {
         print("✅ Validation: \(validCount) valid, \(invalidCount) dead")
     }
 
-    // 5. Load tag overrides
+    // 6. Quality checks (unless --skip-quality or --skip-validation)
+    var staleFeeds: [(name: String, category: String, lastDate: Date)] = []
+    var thinFeeds: [(name: String, category: String, words: Int, images: Int)] = []
+
+    if !skipQuality && !skipValidation {
+        let sixMonthsAgo = Calendar.current.date(byAdding: .month, value: -6, to: Date())!
+
+        // 6a. Staleness check
+        validatedFeeds.removeAll { feed in
+            let isCustom = customFeedURLs.contains(feed.raw.feedURL.lowercased())
+            if isCustom { return false }
+
+            if let newestDate = feed.newestItemDate, newestDate < sixMonthsAgo {
+                staleFeeds.append((
+                    name: feed.raw.name,
+                    category: feed.raw.category,
+                    lastDate: newestDate
+                ))
+                return true
+            }
+            return false
+        }
+        if !staleFeeds.isEmpty {
+            print("🕐 Stale feeds removed: \(staleFeeds.count)")
+            for stale in staleFeeds.sorted(by: { $0.lastDate < $1.lastDate }) {
+                print("   - \(stale.name) (\(stale.category)) — last article: \(dateFormatter.string(from: stale.lastDate))")
+            }
+        }
+
+        // 6b. Content quality check
+        // Only check non-custom feeds that have article URLs
+        let feedsToCheck = validatedFeeds.filter { feed in
+            let isCustom = customFeedURLs.contains(feed.raw.feedURL.lowercased())
+            return !isCustom && !feed.articleURLs.isEmpty
+        }
+
+        if !feedsToCheck.isEmpty {
+            print("📄 Checking content quality for \(feedsToCheck.count) feeds...")
+
+            // Use a separate session with lower timeout for article fetches
+            let qualitySession = URLSession(configuration: {
+                let config = URLSessionConfiguration.default
+                config.timeoutIntervalForRequest = 10
+                config.httpMaximumConnectionsPerHost = 5
+                return config
+            }())
+
+            var thinFeedURLs = Set<String>()
+
+            let qualityBatchSize = 5
+            for batchStart in stride(from: 0, to: feedsToCheck.count, by: qualityBatchSize) {
+                let batchEnd = min(batchStart + qualityBatchSize, feedsToCheck.count)
+                let batch = Array(feedsToCheck[batchStart..<batchEnd])
+
+                let results = await withTaskGroup(
+                    of: ContentQualityChecker.QualityResult.self
+                ) { group in
+                    for feed in batch {
+                        group.addTask {
+                            await ContentQualityChecker.check(
+                                feedURL: feed.raw.feedURL,
+                                articleURLs: feed.articleURLs,
+                                session: qualitySession
+                            )
+                        }
+                    }
+                    var collected: [ContentQualityChecker.QualityResult] = []
+                    for await result in group {
+                        collected.append(result)
+                    }
+                    return collected
+                }
+
+                for result in results {
+                    if !result.isAcceptable {
+                        thinFeedURLs.insert(result.feedURL)
+                        if let feed = feedsToCheck.first(where: { $0.raw.feedURL == result.feedURL }) {
+                            thinFeeds.append((
+                                name: feed.raw.name,
+                                category: feed.raw.category,
+                                words: result.medianWordCount,
+                                images: result.medianImageCount
+                            ))
+                        }
+                    }
+                    if verbose {
+                        print("   \(result.isAcceptable ? "✓" : "✗") \(result.feedURL) — \(result.reason)")
+                    }
+                }
+
+                let progress = min(batchEnd, feedsToCheck.count)
+                print("  Quality progress: \(progress)/\(feedsToCheck.count)")
+            }
+
+            // Remove thin feeds
+            if !thinFeedURLs.isEmpty {
+                validatedFeeds.removeAll { thinFeedURLs.contains($0.raw.feedURL) }
+                print("📄 Thin content feeds removed: \(thinFeeds.count)")
+                for thin in thinFeeds.sorted(by: { $0.words < $1.words }) {
+                    print("   - \(thin.name) (\(thin.category)) — median: \(thin.words) words, \(thin.images) images")
+                }
+            }
+        }
+    } else if skipQuality {
+        print("⏭️  Skipping quality checks (--skip-quality)")
+    }
+
+    // 7. Load tag overrides
     let tagOverridesURL = scriptDir.appendingPathComponent("tag_overrides.json")
     var tagOverrides: [String: [String]] = [:]
     if let data = try? Data(contentsOf: tagOverridesURL),
@@ -397,17 +538,17 @@ func run() async throws {
         print("🏷️  No tag overrides found (or empty)")
     }
 
-    // 6. Build output
+    // 8. Build output
     var outputFeeds: [DiscoverFeedOutput] = []
-    for (feed, siteURL) in validatedFeeds {
-        let tags = tagOverrides[feed.feedURL] ?? []
+    for feed in validatedFeeds {
+        let tags = tagOverrides[feed.raw.feedURL] ?? []
 
         // Upgrade http:// to https:// (iOS ATS blocks plain HTTP)
         let finalFeedURL: String
-        if feed.feedURL.lowercased().hasPrefix("http://") {
-            finalFeedURL = "https://" + feed.feedURL.dropFirst("http://".count)
+        if feed.raw.feedURL.lowercased().hasPrefix("http://") {
+            finalFeedURL = "https://" + feed.raw.feedURL.dropFirst("http://".count)
         } else {
-            finalFeedURL = feed.feedURL
+            finalFeedURL = feed.raw.feedURL
         }
 
         // CDN / feed-hosting domains that don't represent the actual publisher's site.
@@ -429,7 +570,7 @@ func run() async throws {
         }
 
         let finalSiteURL: String?
-        if let siteURL, !siteURL.isEmpty,
+        if let siteURL = feed.siteURL, !siteURL.isEmpty,
            let siteHost = URL(string: siteURL)?.host?.lowercased(),
            !isCDNHost(siteHost) {
             if siteURL.lowercased().hasPrefix("http://") {
@@ -437,7 +578,7 @@ func run() async throws {
             } else {
                 finalSiteURL = siteURL
             }
-        } else if let url = URL(string: feed.feedURL), let host = url.host,
+        } else if let url = URL(string: feed.raw.feedURL), let host = url.host,
                   !isCDNHost(host.lowercased()) {
             finalSiteURL = "https://\(host)"
         } else {
@@ -449,13 +590,13 @@ func run() async throws {
             "blog feed", "rss feed", "feed", "blog", "news", "home", "rss",
         ]
         let feedName: String
-        if feed.name.isEmpty || genericNames.contains(feed.name.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)),
-           let url = URL(string: feed.feedURL), let host = url.host {
+        if feed.raw.name.isEmpty || genericNames.contains(feed.raw.name.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)),
+           let url = URL(string: feed.raw.feedURL), let host = url.host {
             feedName = host
                 .replacingOccurrences(of: "www.", with: "")
                 .replacingOccurrences(of: "feeds.", with: "")
         } else {
-            feedName = simplifyName(feed.name, feedURL: finalFeedURL)
+            feedName = simplifyName(feed.raw.name, feedURL: finalFeedURL)
         }
 
         outputFeeds.append(DiscoverFeedOutput(
@@ -463,9 +604,9 @@ func run() async throws {
             name: feedName,
             feedURL: finalFeedURL,
             siteURL: finalSiteURL,
-            description: feed.description,
-            category: feed.category,
-            country: feed.country,
+            description: feed.raw.description,
+            category: feed.raw.category,
+            country: feed.raw.country,
             tags: tags
         ))
     }
@@ -473,7 +614,7 @@ func run() async throws {
         $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
     }
 
-    // 7. Write JSON output
+    // 9. Write JSON output
     let encoder = JSONEncoder()
     encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
     let jsonData = try encoder.encode(outputFeeds)
@@ -497,6 +638,17 @@ func run() async throws {
     print("🎉 Done! Generated \(outputFeeds.count) feeds (\(sizeKB)KB)")
     print("   Output: \(outputPath.path)")
 
+    if !staleFeeds.isEmpty || !thinFeeds.isEmpty {
+        print("")
+        print("📋 Quality summary:")
+        if !staleFeeds.isEmpty {
+            print("   🕐 Stale (>6 months): \(staleFeeds.count) removed")
+        }
+        if !thinFeeds.isEmpty {
+            print("   📄 Thin content: \(thinFeeds.count) removed")
+        }
+    }
+
     let categoryCounts = Dictionary(grouping: outputFeeds, by: \.category)
         .mapValues(\.count)
         .sorted { $0.value > $1.value }
@@ -507,6 +659,14 @@ func run() async throws {
         print("   \(category): \(count)")
     }
 }
+
+// MARK: - Date formatting for reports
+
+let dateFormatter: DateFormatter = {
+    let f = DateFormatter()
+    f.dateFormat = "yyyy-MM-dd"
+    return f
+}()
 
 // Run
 do {

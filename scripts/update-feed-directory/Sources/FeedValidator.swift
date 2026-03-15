@@ -1,19 +1,22 @@
 import Foundation
 
-/// Validates feed URLs and extracts site URLs from feed XML.
+/// Validates feed URLs, extracts site URLs, and parses feed items for quality checks.
 enum FeedValidator {
 
     struct ValidationResult {
         let feedURL: String
         let siteURL: String?
         let isValid: Bool
+        let newestItemDate: Date?   // Most recent item publish date (nil if no dates found)
+        let articleURLs: [String]   // Up to 10 item URLs from the feed
     }
 
     /// Validates a feed URL by fetching it and checking for valid XML content.
-    /// Also extracts the site URL from the feed's `<link>` element.
+    /// Also extracts the site URL, newest item date, and article URLs.
     static func validate(feedURL: String, session: URLSession) async -> ValidationResult {
         guard let url = URL(string: feedURL) else {
-            return ValidationResult(feedURL: feedURL, siteURL: nil, isValid: false)
+            return ValidationResult(feedURL: feedURL, siteURL: nil, isValid: false,
+                                    newestItemDate: nil, articleURLs: [])
         }
 
         do {
@@ -24,7 +27,8 @@ enum FeedValidator {
 
             guard let httpResponse = response as? HTTPURLResponse,
                   (200...299).contains(httpResponse.statusCode) else {
-                return ValidationResult(feedURL: feedURL, siteURL: nil, isValid: false)
+                return ValidationResult(feedURL: feedURL, siteURL: nil, isValid: false,
+                                        newestItemDate: nil, articleURLs: [])
             }
 
             // Check that the response looks like XML/RSS/Atom
@@ -35,15 +39,26 @@ enum FeedValidator {
                                 prefix.contains("<opml")
 
             guard looksLikeFeed else {
-                return ValidationResult(feedURL: feedURL, siteURL: nil, isValid: false)
+                return ValidationResult(feedURL: feedURL, siteURL: nil, isValid: false,
+                                        newestItemDate: nil, articleURLs: [])
             }
 
             // Extract site URL from feed content
             let siteURL = extractSiteURL(from: data)
 
-            return ValidationResult(feedURL: feedURL, siteURL: siteURL, isValid: true)
+            // Extract item dates and URLs from feed content
+            let itemInfo = extractFeedItems(from: data)
+
+            return ValidationResult(
+                feedURL: feedURL,
+                siteURL: siteURL,
+                isValid: true,
+                newestItemDate: itemInfo.newestDate,
+                articleURLs: itemInfo.urls
+            )
         } catch {
-            return ValidationResult(feedURL: feedURL, siteURL: nil, isValid: false)
+            return ValidationResult(feedURL: feedURL, siteURL: nil, isValid: false,
+                                    newestItemDate: nil, articleURLs: [])
         }
     }
 
@@ -55,6 +70,15 @@ enum FeedValidator {
         xmlParser.delegate = parser
         xmlParser.parse()
         return parser.siteURL
+    }
+
+    /// Extracts item dates and URLs from the feed XML.
+    private static func extractFeedItems(from data: Data) -> (newestDate: Date?, urls: [String]) {
+        let extractor = FeedItemExtractor()
+        let xmlParser = XMLParser(data: data)
+        xmlParser.delegate = extractor
+        xmlParser.parse()
+        return (extractor.newestDate, extractor.articleURLs)
     }
 }
 
@@ -123,5 +147,186 @@ private final class SiteURLExtractor: NSObject, XMLParserDelegate {
 
         currentText = ""
         currentElement = ""
+    }
+}
+
+// MARK: - Feed Item Extractor
+
+/// Parses feed XML to extract item dates and URLs (up to 10 items).
+private final class FeedItemExtractor: NSObject, XMLParserDelegate {
+    var newestDate: Date?
+    var articleURLs: [String] = []
+
+    private let maxItems = 10
+    private var itemCount = 0
+
+    // State tracking
+    private var isAtomFeed = false
+    private var isInsideItem = false       // RSS <item> or Atom <entry>
+    private var isInsideChannel = false    // RSS <channel> (skip channel-level link)
+    private var currentElement = ""
+    private var currentText = ""
+
+    // Per-item state
+    private var currentItemURL: String?
+    private var currentItemDate: Date?
+
+    // Date formatters (lazily initialized once)
+    private static let iso8601: ISO8601DateFormatter = {
+        let f = ISO8601DateFormatter()
+        f.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        return f
+    }()
+
+    private static let iso8601NoFrac: ISO8601DateFormatter = {
+        let f = ISO8601DateFormatter()
+        f.formatOptions = [.withInternetDateTime]
+        return f
+    }()
+
+    private static let rfc822Formatters: [DateFormatter] = {
+        let formats = [
+            "EEE, dd MMM yyyy HH:mm:ss zzz",
+            "EEE, dd MMM yyyy HH:mm:ss Z",
+            "dd MMM yyyy HH:mm:ss zzz",
+            "dd MMM yyyy HH:mm:ss Z",
+            "EEE, dd MMM yyyy HH:mm zzz",
+            "EEE, dd MMM yyyy HH:mm Z",
+        ]
+        return formats.map { format in
+            let f = DateFormatter()
+            f.dateFormat = format
+            f.locale = Locale(identifier: "en_US_POSIX")
+            return f
+        }
+    }()
+
+    func parser(_ parser: XMLParser, didStartElement elementName: String,
+                namespaceURI: String?, qualifiedName qName: String?,
+                attributes attributeDict: [String: String]) {
+
+        guard itemCount < maxItems else {
+            parser.abortParsing()
+            return
+        }
+
+        let element = elementName.lowercased()
+        currentElement = element
+        currentText = ""
+
+        switch element {
+        case "feed":
+            isAtomFeed = true
+        case "channel":
+            isInsideChannel = true
+        case "item", "entry":
+            isInsideItem = true
+            currentItemURL = nil
+            currentItemDate = nil
+        case "link":
+            if isInsideItem {
+                if isAtomFeed {
+                    // Atom: <link rel="alternate" href="..."/>
+                    let rel = attributeDict["rel"]?.lowercased() ?? "alternate"
+                    if rel == "alternate" || attributeDict["rel"] == nil,
+                       let href = attributeDict["href"],
+                       !href.isEmpty,
+                       href.hasPrefix("http") {
+                        currentItemURL = href.trimmingCharacters(in: .whitespacesAndNewlines)
+                    }
+                }
+            }
+        default:
+            break
+        }
+    }
+
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
+        guard isInsideItem else { return }
+        currentText += string
+    }
+
+    func parser(_ parser: XMLParser, didEndElement elementName: String,
+                namespaceURI: String?, qualifiedName qName: String?) {
+        let element = elementName.lowercased()
+
+        switch element {
+        case "channel":
+            isInsideChannel = false
+
+        case "item", "entry":
+            // Finalize current item
+            if let url = currentItemURL {
+                articleURLs.append(url)
+            }
+            if let date = currentItemDate {
+                if newestDate == nil || date > newestDate! {
+                    newestDate = date
+                }
+            }
+            itemCount += 1
+            isInsideItem = false
+
+        case "link":
+            // RSS: <item><link>https://...</link></item>
+            if isInsideItem && !isAtomFeed {
+                let trimmed = currentText.trimmingCharacters(in: .whitespacesAndNewlines)
+                if !trimmed.isEmpty, trimmed.hasPrefix("http") {
+                    currentItemURL = trimmed
+                }
+            }
+
+        case "guid":
+            // RSS fallback: use <guid> as URL if no <link> found
+            if isInsideItem && currentItemURL == nil {
+                let trimmed = currentText.trimmingCharacters(in: .whitespacesAndNewlines)
+                if trimmed.hasPrefix("http") {
+                    currentItemURL = trimmed
+                }
+            }
+
+        case "pubdate":
+            // RSS: <pubDate>
+            if isInsideItem {
+                let trimmed = currentText.trimmingCharacters(in: .whitespacesAndNewlines)
+                if let date = Self.parseDate(trimmed) {
+                    currentItemDate = date
+                }
+            }
+
+        case "published", "updated":
+            // Atom: <published> or <updated>
+            if isInsideItem && currentItemDate == nil {
+                let trimmed = currentText.trimmingCharacters(in: .whitespacesAndNewlines)
+                if let date = Self.parseDate(trimmed) {
+                    currentItemDate = date
+                }
+            }
+
+        case "date":
+            // Dublin Core: <dc:date> (element name after namespace stripping)
+            if isInsideItem && currentItemDate == nil {
+                let trimmed = currentText.trimmingCharacters(in: .whitespacesAndNewlines)
+                if let date = Self.parseDate(trimmed) {
+                    currentItemDate = date
+                }
+            }
+
+        default:
+            break
+        }
+
+        currentText = ""
+        currentElement = ""
+    }
+
+    /// Tries multiple date formats: ISO 8601, then RFC 822 variants.
+    private static func parseDate(_ string: String) -> Date? {
+        if let date = iso8601.date(from: string) { return date }
+        if let date = iso8601NoFrac.date(from: string) { return date }
+        for formatter in rfc822Formatters {
+            if let date = formatter.date(from: string) { return date }
+        }
+        return nil
     }
 }
