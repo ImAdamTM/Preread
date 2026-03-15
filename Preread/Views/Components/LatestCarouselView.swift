@@ -85,10 +85,10 @@ struct LatestCarouselView: View {
             var indices = [UUID: Int]()
             for id in sortedSourceIDs { indices[id] = 0 }
 
-            while result.count < 10 {
+            while result.count < 30 {
                 var pickedAny = false
                 for sourceID in sortedSourceIDs {
-                    guard result.count < 10 else { break }
+                    guard result.count < 30 else { break }
                     let idx = indices[sourceID]!
                     let bucket = buckets[sourceID]!
                     if idx < bucket.count {

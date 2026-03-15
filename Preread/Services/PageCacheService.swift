@@ -269,45 +269,68 @@ actor PageCacheService {
         }
 
         // If Readability dropped the hero image, re-inject it.
-        // Look for the first meaningful <img> inside content landmarks
-        // (article, main) first, then fall back to the whole page.
-        // Skip SVGs, logos, tiny icons, and other site chrome.
+        // First look inside content landmarks (article, main) to avoid
+        // sidebar images, then fall back to the whole page.
         var heroImageURL: String?
-        let candidateSelectors = [
+
+        let isHeroCandidate: (Element) -> Bool = { img in
+            guard let src = try? img.attr("src"), !src.isEmpty,
+                  !src.hasPrefix("data:") else { return false }
+            let srcLower = src.lowercased()
+            let imgId = (try? img.attr("id"))?.lowercased() ?? ""
+            let alt = (try? img.attr("alt"))?.lowercased() ?? ""
+            // Skip site chrome: SVGs, logos, flags, icons, social widgets
+            if srcLower.contains(".svg") { return false }
+            let chromeWords = [
+                "logo", "flag", "icon", "badge", "spinner",
+                "facebook", "twitter", "instagram", "pinterest", "tiktok",
+                "furniture", "share", "follow"
+            ]
+            for word in chromeWords {
+                if imgId.contains(word) || alt.contains(word) || srcLower.contains(word) { return false }
+            }
+            // "avatar" in URLs usually means a user profile image (/avatar/, /avatars/)
+            // but not when it's part of article content (e.g. Avatar: The Last Airbender)
+            if srcLower.contains("/avatar/") || srcLower.contains("/avatars/")
+                || imgId.contains("avatar") { return false }
+            return true
+        }
+
+        // Step 1: Try scoped selectors (prefer images inside article content)
+        let scopedSelectors = [
             "article img[src]",
             "[itemprop=articleBody] img[src]",
             "main img[src]",
             "[role=main] img[src]",
-            "img[src]"
         ]
-        let heroImg: Element? = candidateSelectors.lazy.compactMap { selector in
-            try? preDoc.select(selector).first(where: { img in
-                guard let src = try? img.attr("src"), !src.isEmpty,
-                      !src.hasPrefix("data:") else { return false }
-                let srcLower = src.lowercased()
-                let imgId = (try? img.attr("id"))?.lowercased() ?? ""
-                let alt = (try? img.attr("alt"))?.lowercased() ?? ""
-                // Skip site chrome: SVGs, logos, flags, icons, social widgets
-                if srcLower.contains(".svg") { return false }
-                let chromeWords = [
-                    "logo", "flag", "icon", "badge", "avatar", "spinner",
-                    "facebook", "twitter", "instagram", "pinterest", "tiktok",
-                    "furniture", "share", "follow"
-                ]
-                for word in chromeWords {
-                    if imgId.contains(word) || alt.contains(word) || srcLower.contains(word) { return false }
-                }
-                return true
-            })
+        let scopedImg: Element? = scopedSelectors.lazy.compactMap { selector in
+            try? preDoc.select(selector).first(where: isHeroCandidate)
         }.first
 
-        if let firstImg = heroImg {
-            let src = (try? firstImg.attr("src")) ?? ""
-            heroImageURL = src
+        // Step 2: Determine the hero image
+        if let scoped = scopedImg {
+            let src = (try? scoped.attr("src")) ?? ""
             if !contentHTML.contains(src) {
-                let heroTag = (try? firstImg.outerHtml()) ?? ""
+                // Scoped hero was dropped by Readability — inject it
+                heroImageURL = src
+                let heroTag = (try? scoped.outerHtml()) ?? ""
                 if !heroTag.isEmpty {
                     contentHTML = heroTag + contentHTML
+                }
+            } else {
+                // Scoped hero is already in Readability content — nothing to inject.
+                heroImageURL = src
+            }
+        } else {
+            // No scoped image found — fall back to page-level search
+            if let pageFirst = try? preDoc.select("img[src]").first(where: isHeroCandidate) {
+                let src = (try? pageFirst.attr("src")) ?? ""
+                heroImageURL = src
+                if !contentHTML.contains(src) {
+                    let heroTag = (try? pageFirst.outerHtml()) ?? ""
+                    if !heroTag.isEmpty {
+                        contentHTML = heroTag + contentHTML
+                    }
                 }
             }
         }
@@ -318,13 +341,25 @@ actor PageCacheService {
             throw NSError(domain: "PageCacheService", code: 1, userInfo: nil)
         }
 
-        // Deduplicate images — exact src match
+        // Deduplicate images — exact src match, then base-URL match
+        // (strips query params so crop/size variants of the same image
+        // are recognised as duplicates, e.g. The Verge product cards).
         var seenSrcs = Set<String>()
+        var seenBasePaths = Set<String>()
         for img in try contentDoc.select("img[src]") {
             let src = try img.attr("src")
             guard !src.isEmpty, !src.hasPrefix("data:") else { continue }
             if !seenSrcs.insert(src).inserted {
                 try img.remove()
+                continue
+            }
+            // Also dedup by base path (scheme + host + path, ignoring query/fragment)
+            if let url = URL(string: src),
+               let scheme = url.scheme, let host = url.host {
+                let basePath = "\(scheme)://\(host)\(url.path)"
+                if !seenBasePaths.insert(basePath).inserted {
+                    try img.remove()
+                }
             }
         }
 

@@ -618,6 +618,16 @@
     "tags": []
   },
   {
+    "category": "United Kingdom",
+    "country": "United Kingdom",
+    "description": "MailOnline - get the latest breaking news, showbiz & celebrity photos, sport news & rumours, viral videos and top stories from MailOnline, Daily Mail and Mail on Sunday newspapers.",
+    "feedURL": "https://www.dailymail.co.uk/ushome/index.rss",
+    "id": "30de9d55-0854-5d4f-b6fa-24ccc0bd765a",
+    "name": "Daily Mail",
+    "siteURL": "https://www.dailymail.co.uk",
+    "tags": []
+  },
+  {
     "category": "South Africa",
     "country": "South Africa",
     "description": "Defend Truth",
@@ -838,15 +848,6 @@
     "id": "2ccba97d-94b1-1077-57b7-1d747858933b",
     "name": "Engadget",
     "siteURL": "https://www.engadget.com/",
-    "tags": []
-  },
-  {
-    "category": "Programming",
-    "description": "Information from Twitter's engineering team about our tools, technology and services.",
-    "feedURL": "https://blog.twitter.com/engineering/en_us/blog.rss",
-    "id": "e979f268-f3fb-9d58-d98c-3a7fc1f6760d",
-    "name": "English (US)",
-    "siteURL": "https://blog.x.com/engineering/en_us",
     "tags": []
   },
   {
@@ -1730,16 +1731,6 @@
     "id": "c88089bd-d5d4-1b88-b971-50a10d284b5d",
     "name": "Macworld.com",
     "siteURL": "https://www.macworld.com",
-    "tags": []
-  },
-  {
-    "category": "United Kingdom",
-    "country": "United Kingdom",
-    "description": "MailOnline - get the latest breaking news, showbiz & celebrity photos, sport news & rumours, viral videos and top stories from MailOnline, Daily Mail and Mail on Sunday newspapers.",
-    "feedURL": "https://www.dailymail.co.uk/ushome/index.rss",
-    "id": "30de9d55-0854-5d4f-b6fa-24ccc0bd765a",
-    "name": "Mail Online",
-    "siteURL": "https://www.dailymail.co.uk",
     "tags": []
   },
   {

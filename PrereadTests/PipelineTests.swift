@@ -109,7 +109,7 @@ struct StandardPipelineTests {
 
     // MARK: - Daily Mail
 
-    @Test("Daily Mail: logo not injected as hero, article images preserved")
+    @Test("Daily Mail: logo not injected as hero, sidebar thumbnails excluded, article images preserved")
     func dailymailArticle() async throws {
         let html = try loadFixture("dailymail_article")
         let result = try await PageCacheService.shared.runStandardPipeline(
@@ -121,6 +121,8 @@ struct StandardPipelineTests {
         #expect(result.contentHTML.contains("Beverly Hills"))
         #expect(!result.contentHTML.contains("DailyMail_Main.png"), "Site logo should not be injected as hero image")
         #expect(!result.contentHTML.contains("sitelogos"), "No site logo images should appear in content")
+        #expect(!result.contentHTML.contains("106972263-0-image"), "Sidebar puff thumbnails should not be injected")
+        #expect(!result.contentHTML.contains("106975501-0-image"), "Sidebar puff thumbnails should not be injected")
         #expect(result.imageCount >= 5, "Article photos should be preserved")
         #expect(!result.contentHTML.contains("<script"))
         #expect(!result.contentHTML.contains("<nav"))

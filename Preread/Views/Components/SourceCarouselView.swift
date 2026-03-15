@@ -1,7 +1,7 @@
 import SwiftUI
 import GRDB
 
-/// A horizontal carousel showing the latest 5 articles from a single source.
+/// A horizontal carousel showing the latest 25 articles from a single source.
 /// Reuses CarouselCardView from LatestCarouselView for visual consistency.
 struct SourceCarouselView: View {
     let sourceID: UUID
@@ -71,7 +71,7 @@ struct SourceCarouselView: View {
                 .filter(cachedStatuses.contains(Column("fetchStatus")))
                 .filter(Column("thumbnailURL") != nil)
                 .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
-                .limit(10)
+                .limit(25)
                 .fetchAll(db)
         }
         articleObservation = observation.start(
