@@ -324,10 +324,10 @@ struct SourcesListView: View {
         VStack(spacing: 20) {
             Spacer()
 
-            Image(systemName: "square.stack.3d.down.right.fill")
-                .font(.system(size: 80))
-                .foregroundStyle(Theme.accentGradient)
-                .symbolEffect(.pulse, options: .repeating, isActive: !Theme.reduceMotion)
+            Image("Logo")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(height: 100)
 
             Text("Your library is empty")
                 .font(Theme.scaledFont(size: 22, weight: .bold, relativeTo: .title2))
@@ -394,9 +394,11 @@ struct SourcesListView: View {
     // MARK: - Logomark
 
     private var logomark: some View {
-        Image(systemName: "square.stack.3d.down.right.fill")
-            .font(.system(size: 20))
-            .foregroundStyle(Theme.accentGradient)
+        Image("Logo")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(height: 24)
+            .padding(.leading, 3)
     }
 
     // MARK: - Home hero
