@@ -69,6 +69,9 @@ struct SourceHeroView: View {
                 .frame(height: 140)
                 .frame(maxWidth: .infinity)
                 .allowsHitTesting(false)
+                .visualEffect { content, proxy in
+                    content.offset(y: -max(0, proxy.frame(in: .scrollView(axis: .vertical)).minY))
+                }
         }
         .task(id: source.iconURL) {
             let sourceID = source.id
