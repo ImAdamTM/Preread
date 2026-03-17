@@ -286,10 +286,10 @@
   {
     "category" : "Android",
     "description" : "Android news, reviews, and how-tos",
-    "feedURL" : "https:\/\/feeds.androidcentral.com\/androidcentral",
+    "feedURL" : "https:\/\/www.androidcentral.com\/feed",
     "id" : "ee062d6a-d407-f75c-1bd3-e0a5e015df8a",
     "name" : "Android Central",
-    "siteURL" : "https:\/\/www.androidcentral.com\/feeds.xml",
+    "siteURL" : "https:\/\/www.androidcentral.com",
     "tags" : [
 
     ]
@@ -333,7 +333,7 @@
     "feedURL" : "https:\/\/www.apple.com\/newsroom\/rss-feed.rss",
     "id" : "7e621a3a-0d50-5d36-3115-fbbcba4c71d6",
     "name" : "Apple Newsroom",
-    "siteURL" : "https:\/\/www.apple.com\/newsroom\/2026\/03\/apple-hosts-50th-anniversary-celebrations-around-the-world\/",
+    "siteURL" : "https:\/\/www.apple.com\/newsroom\/",
     "tags" : [
 
     ]
@@ -344,7 +344,7 @@
     "feedURL" : "https:\/\/appleinsider.com\/rss\/news\/",
     "id" : "c6ac69fa-1341-2542-08f2-dbdd78c1a6af",
     "name" : "AppleInsider News",
-    "siteURL" : "https:\/\/appleinsider.com\/rss\/news",
+    "siteURL" : "https:\/\/appleinsider.com",
     "tags" : [
 
     ]
@@ -352,7 +352,7 @@
   {
     "category" : "Architecture",
     "description" : "ArchDaily, Broadcasting Architecture Worldwide: Architecture news, competitions and projects updated every hour for the",
-    "feedURL" : "https:\/\/www.archdaily.com\/feed",
+    "feedURL" : "https:\/\/www.archdaily.com\/rss.xml",
     "id" : "480378d2-1f4d-5276-a8ee-02fd50692cef",
     "name" : "ArchDaily",
     "siteURL" : "https:\/\/www.archdaily.com\/",
@@ -1306,18 +1306,6 @@
     ]
   },
   {
-    "category" : "Poland",
-    "country" : "Poland",
-    "description" : "Polskie wiadomości prawne, gospodarcze i polityczne",
-    "feedURL" : "https:\/\/rss.gazetaprawna.pl\/GazetaPrawna",
-    "id" : "8277b26e-7c16-4e40-5f9f-ca461631bd4f",
-    "name" : "GazetaPrawna.pl",
-    "siteURL" : "https:\/\/www.gazetaprawna.pl\/twoje-prawo\/swiadczenia\/artykuly\/11214354,zmiana-przepisow-o-swiadczeniu-wspierajacym-beda-nowe-zasady-punktac.html",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Programming",
     "description" : "Tutorials, product information, expert insights, and more from GitLab to help DevSecOps teams build, test, and deploy",
     "feedURL" : "https:\/\/about.gitlab.com\/atom.xml",
@@ -1761,7 +1749,7 @@
     "category" : "Philippines",
     "country" : "Philippines",
     "description" : "Philippine news for Filipinos",
-    "feedURL" : "https:\/\/www.inquirer.net\/fullfeed",
+    "feedURL" : "https:\/\/www.inquirer.net\/feed",
     "id" : "23fa3cb2-07a4-4935-2c19-c547e6941e3e",
     "name" : "INQUIRER.net",
     "siteURL" : "https:\/\/www.inquirer.net\/",
@@ -2913,17 +2901,6 @@
     ]
   },
   {
-    "category" : "Programming",
-    "description" : "Dave Winer's blog on technology, media, and the open web",
-    "feedURL" : "https:\/\/scripting.com\/rss.xml",
-    "id" : "2873e760-761a-a8f3-d4c1-54fd173005dc",
-    "name" : "Scripting News",
-    "siteURL" : "https:\/\/scripting.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Food",
     "description" : "Food, photography, and inspiration",
     "feedURL" : "https:\/\/www.shutterbean.com\/feed\/",
@@ -3003,21 +2980,10 @@
   {
     "category" : "Food",
     "description" : "Fearless cooking from a tiny NYC kitchen",
-    "feedURL" : "https:\/\/smittenkitchen.com\/feed\/",
+    "feedURL" : "https:\/\/smittenkitchen.com\/feeds\/feed\/",
     "id" : "65fbb327-953a-5d47-9be5-7b1a3745ef88",
     "name" : "smitten kitchen",
-    "siteURL" : "https:\/\/smittenkitchen.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Football",
-    "description" : "Daily soccer news from best leagues in the world. Also featuring match tips, betting, and bookmaker promotions",
-    "feedURL" : "https:\/\/www.soccernews.com\/feed",
-    "id" : "ae6a16f8-91ea-bd48-6442-658027c8da64",
-    "name" : "Soccer News",
-    "siteURL" : "https:\/\/www.soccernews.com\/",
+    "siteURL" : "https:\/\/smittenkitchen.com",
     "tags" : [
 
     ]
@@ -3036,10 +3002,10 @@
   {
     "category" : "Space",
     "description" : "Get the latest space exploration, innovation and astronomy news. Space.com celebrates humanity's ongoing expansion",
-    "feedURL" : "https:\/\/www.space.com\/feeds\/all",
+    "feedURL" : "https:\/\/www.space.com\/feeds.xml",
     "id" : "c2edd5eb-4423-abe3-82cb-a6f22ae12fac",
     "name" : "Space.com",
-    "siteURL" : "https:\/\/www.space.com\/feeds.xml",
+    "siteURL" : "https:\/\/www.space.com",
     "tags" : [
 
     ]
@@ -3726,18 +3692,6 @@
     "id" : "fbc3b80b-9968-8e64-f2fa-9dea7b453c20",
     "name" : "World & Nation",
     "siteURL" : "https:\/\/www.latimes.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "United States",
-    "country" : "United States",
-    "description" : "Yahoo World News coverage",
-    "feedURL" : "https:\/\/www.huffpost.com\/section\/world-news\/feed",
-    "id" : "c22ab88a-b4ad-1ead-9c20-f383b2c9be5c",
-    "name" : "World News",
-    "siteURL" : "https:\/\/www.huffpost.com\/news\/world-news",
     "tags" : [
 
     ]
