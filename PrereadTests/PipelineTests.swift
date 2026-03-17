@@ -178,6 +178,26 @@ struct StandardPipelineTests {
         #expect(!result.contentHTML.contains("<nav"))
         #expect(!result.contentHTML.contains("<style"))
     }
+
+    // MARK: - GQ
+
+    @Test("GQ: Cloudinary srcset URLs with commas parsed correctly, images extracted")
+    func gqArticle() async throws {
+        let html = try loadFixture("gq_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.gq.com/story/best-golf-clothing-brands")!
+        )
+
+        #expect(result.title.contains("Golf"))
+        #expect(result.contentHTML.contains("Polo"))
+        // GQ uses Cloudinary URLs with commas in the path (e.g. w_640,c_limit).
+        // The srcset parser must handle these without splitting the URL at the comma.
+        #expect(result.imageCount >= 10, "Product images from Cloudinary srcset should be preserved")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
 }
 
 // MARK: - Full-mode tests
@@ -369,6 +389,29 @@ struct FullPipelineTests {
         // Content should be preserved
         #expect(result.cleanedHTML.contains("Super Mario Run"))
         #expect(result.cleanedHTML.contains("Wonder Flower"))
+        #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
+    }
+
+    // MARK: - GQ
+
+    @Test("GQ: interactive elements stripped, article content preserved")
+    func gqArticle() async throws {
+        let html = try loadFixture("gq_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.gq.com/story/best-golf-clothing-brands")!
+        )
+
+        // Interactive elements should be stripped
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form"))
+
+        // Content should be preserved
+        #expect(result.cleanedHTML.contains("Golf"))
+        #expect(result.cleanedHTML.contains("Polo"))
         #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
     }
 }

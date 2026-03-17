@@ -1,0 +1,20 @@
+[
+  {
+    "category": "Science",
+    "description": "Science and environment news from BBC",
+    "feedURL": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
+    "id": "a6d026e5-9175-e6b8-dfdc-84c6ff0bb707",
+    "name": "BBC News: Science & Environment",
+    "siteURL": "https://www.bbc.co.uk/news/science_and_environment",
+    "tags": []
+  },
+  {
+    "category": "Science",
+    "description": "Science news and long reads from expert journalists, covering developments in science, technology, health and the environment",
+    "feedURL": "https://www.newscientist.com/feed/home/",
+    "id": "be84762c-0520-3043-9b68-550373bf9304",
+    "name": "New Scientist",
+    "siteURL": "https://www.newscientist.com/",
+    "tags": []
+  }
+]

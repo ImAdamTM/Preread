@@ -78,8 +78,12 @@ final class FeedDirectory: @unchecked Sendable {
             }
         }
 
+        // Deduplicate by feedURL — if the same feed appears in multiple categories,
+        // keep the highest-scoring occurrence.
+        var seenURLs = Set<String>()
         return scored
             .sorted { $0.score > $1.score }
+            .filter { seenURLs.insert($0.feed.feedURL).inserted }
             .prefix(limit)
             .map(\.feed)
     }
@@ -217,39 +221,44 @@ final class FeedDirectory: @unchecked Sendable {
     /// Curated display order for topic categories — broad appeal first, niche later.
     /// Categories not in this list appear at the end, sorted alphabetically.
     private static let categoryOrder: [String] = [
+        // Broad appeal — everyone wants news & tech
         "News",
         "Tech",
-        "Apple",
         "Science",
-        "Gaming",
-        "Sports",
         "Business & Economy",
-        "Startups",
+        "Sports",
+        // Lifestyle & culture
+        "Fashion",
+        "Beauty",
+        "Food",
+        "Travel",
+        "Music",
+        "Movies",
+        "Television",
+        "Books",
+        "Photography",
+        // Enthusiast
+        "Gaming",
+        "Apple",
+        "Cars",
+        "Space",
+        "Architecture",
+        "Interior design",
+        "DIY",
+        "Personal finance",
+        "Funny",
+        // Development
         "Programming",
         "iOS Development",
         "Android Development",
         "Web Development",
         "UI / UX",
-        "Food",
-        "Music",
-        "Movies",
-        "Television",
-        "Books",
-        "Travel",
-        "Space",
-        "Photography",
-        "Cars",
-        "Fashion",
-        "Beauty",
-        "Architecture",
-        "Interior design",
-        "DIY",
-        "Funny",
+        "Startups",
+        // Sports subcategories
         "Football",
         "Tennis",
         "Cricket",
         "Android",
-        "Personal finance",
         "History",
     ]
 

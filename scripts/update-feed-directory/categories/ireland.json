@@ -1,0 +1,62 @@
+[
+  {
+    "category": "Ireland",
+    "country": "Ireland",
+    "description": "Ireland's breaking news, sport, and weather",
+    "feedURL": "https://feeds.breakingnews.ie/bntopstories",
+    "id": "3f501a5c-93c6-b90e-a7ab-df0145cf779a",
+    "name": "All: BreakingNews.ie",
+    "siteURL": "https://www.breakingnews.ie/all/",
+    "tags": []
+  },
+  {
+    "category": "Ireland",
+    "country": "Ireland",
+    "description": "Irish Mirror, the latest Irish news, showbiz, football and sport. Plus the best from the Daily Mirror in world news",
+    "feedURL": "https://www.irishmirror.ie/?service=rss",
+    "id": "97d85498-c874-c36e-e2d2-f7ddbff5cb23",
+    "name": "Irish Mirror",
+    "siteURL": "https://www.irishmirror.ie",
+    "tags": []
+  },
+  {
+    "category": "Ireland",
+    "country": "Ireland",
+    "description": "Whether you are looking for Irish news, Irish entertainment, Irish sport, Irish culture or Irish celebrities",
+    "feedURL": "https://www.irishcentral.com/feeds/section-articles.atom",
+    "id": "41b06965-cfee-5f26-a116-a4f486542a22",
+    "name": "IrishCentral.com",
+    "siteURL": "https://www.irishcentral.com/",
+    "tags": []
+  },
+  {
+    "category": "Ireland",
+    "country": "Ireland",
+    "description": "Ireland's premier breaking news website providing up to the minute news and sports reports. With e-mail news releases",
+    "feedURL": "https://www.irishexaminer.com/feed/35-top_news.xml",
+    "id": "32dd30dd-7fa7-5d1e-acfe-c6e9c92d8d3a",
+    "name": "IrishExaminer.com",
+    "siteURL": "https://www.irishexaminer.com/",
+    "tags": []
+  },
+  {
+    "category": "Ireland",
+    "country": "Ireland",
+    "description": "The latest Irish and international sports news from The 42",
+    "feedURL": "https://www.the42.ie/feed/",
+    "id": "8e00d437-c128-a51c-0b81-6a6ad3e0e5cc",
+    "name": "The42",
+    "siteURL": "https://www.the42.ie/",
+    "tags": []
+  },
+  {
+    "category": "Ireland",
+    "country": "Ireland",
+    "description": "Read, share and shape the news on TheJournal.ie - Breaking Irish and International News",
+    "feedURL": "https://www.thejournal.ie/feed/",
+    "id": "b2cbf571-11fc-14cf-dd70-3eb496e889e3",
+    "name": "TheJournal.ie",
+    "siteURL": "https://www.thejournal.ie/",
+    "tags": []
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "category": "Tennis",
+    "description": "Tennis news, scores, and results from BBC Sport",
+    "feedURL": "https://feeds.bbci.co.uk/sport/tennis/rss.xml",
+    "id": "c8e79e6d-03a8-b82e-9afb-3455992921f6",
+    "name": "BBC Sport - Tennis",
+    "siteURL": "https://www.bbc.co.uk/sport/tennis",
+    "tags": []
+  },
+  {
+    "category": "Tennis",
+    "description": "Tennis news and analysis",
+    "feedURL": "https://www.perfect-tennis.com/feed/",
+    "id": "98a61753-9862-1e84-2ce5-b99446c9e645",
+    "name": "peRFect Tennis",
+    "siteURL": "https://www.perfect-tennis.com",
+    "tags": []
+  },
+  {
+    "category": "Tennis",
+    "description": "Featuring tennis live scores, results, stats, rankings, ATP player and tournament information, news, video highlights",
+    "feedURL": "https://www.atptour.com/en/media/rss-feed/xml-feed",
+    "id": "6dbfbb56-2565-88e1-e2f2-72bfd498cf73",
+    "name": "Tennis - ATP World Tour",
+    "siteURL": "https://www.atptour.com",
+    "tags": []
+  },
+  {
+    "category": "Tennis",
+    "description": "Visit ESPN for live scores, highlights and sports news. Stream exclusive games on ESPN and play fantasy sports",
+    "feedURL": "https://www.espn.com/espn/rss/tennis/news",
+    "id": "f85ac56d-78c4-bc29-18bf-14606bf67c27",
+    "name": "www.espn.com - TENNIS",
+    "siteURL": "https://www.espn.com",
+    "tags": []
+  }
+]

@@ -1,0 +1,56 @@
+[
+  {
+    "category": "Sports",
+    "description": "Original audio documentaries from the makers of the acclaimed 30 for 30 film series, featuring stories from the world",
+    "feedURL": "https://feeds.megaphone.fm/ESP5765452710",
+    "id": "f857ff91-c544-93ff-c834-df192e66de66",
+    "name": "30 For 30 Podcasts",
+    "siteURL": "https://espnradio.espn.com/espnradio/index",
+    "tags": []
+  },
+  {
+    "category": "Sports",
+    "description": "Sports news, scores, and analysis from BBC Sport",
+    "feedURL": "https://feeds.bbci.co.uk/sport/rss.xml",
+    "id": "4265059e-11db-47d9-f1ba-d588157f4988",
+    "name": "BBC Sport - Sport",
+    "siteURL": "https://www.bbc.co.uk/sport",
+    "tags": []
+  },
+  {
+    "category": "Sports",
+    "description": "Breaking news from the UK and around the world",
+    "feedURL": "https://feeds.skynews.com/feeds/rss/sports.xml",
+    "id": "06cb728c-d3a9-80fa-15eb-21784b34f65d",
+    "name": "Sky News",
+    "siteURL": "https://news.sky.com/sports",
+    "tags": []
+  },
+  {
+    "category": "Sports",
+    "description": "Sports news, scores, and fantasy games from Yahoo",
+    "feedURL": "https://sports.yahoo.com/rss/",
+    "id": "e4e0fd7b-8dcc-796d-9e62-29aef2fa81c2",
+    "name": "Sports",
+    "siteURL": "https://sports.yahoo.com",
+    "tags": []
+  },
+  {
+    "category": "Sports",
+    "description": "Follow Sportskeeda for in depth coverage of Sports, Gaming, Entertainment & more. Get news, videos, live scores",
+    "feedURL": "https://www.sportskeeda.com/feed",
+    "id": "6f0b8ddb-0986-023d-5bb1-d8adc0e99cbb",
+    "name": "Sportskeeda",
+    "siteURL": "https://www.sportskeeda.com",
+    "tags": []
+  },
+  {
+    "category": "Sports",
+    "description": "Visit ESPN for live scores, highlights and sports news. Stream exclusive games on ESPN and play fantasy sports",
+    "feedURL": "https://www.espn.com/espn/rss/news",
+    "id": "8bc0466d-a15a-8166-21f7-77e304c50859",
+    "name": "www.espn.com - TOP",
+    "siteURL": "https://www.espn.com",
+    "tags": []
+  }
+]

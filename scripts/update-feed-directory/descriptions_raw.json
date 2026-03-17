@@ -1,0 +1,2319 @@
+[
+  {
+    "name": "/Film",
+    "siteURL": "https://www.slashfilm.com/",
+    "current": "Movie News and Reviews This feed is for non commercial use. Content Copyright Slashfilm.com.",
+    "og": "The latest movie and television news, reviews, film trailers, exclusive interviews, and opinions - since 2005.",
+    "error": null
+  },
+  {
+    "name": "101 Cookbooks",
+    "siteURL": "https://www.101cookbooks.com/",
+    "current": "When you own over 100 cookbooks, it is time to stop buying, and start cooking. This site chronicles a cookbook collection, one recipe at a time.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "24 Horas",
+    "siteURL": "https://24-horas.mx/",
+    "current": "El Diario Sin Límites",
+    "og": "Noticias de México, CDMX, Negocios y el Mundo en tiempo real, sigue nuestra cobertura especial de AMLO, Estados Unidos y Coronavirus.",
+    "error": null
+  },
+  {
+    "name": "30 For 30 Podcasts",
+    "siteURL": "https://espnradio.espn.com/espnradio/index",
+    "current": "Original audio documentaries from the makers of the acclaimed 30 for 30 film series, featuring stories from the world of sports and beyond. 30 for 30 offers captivating storytelling for sports fans and general interest listeners alike, going beyond the field to explore how sports, competition, athleticism and adventure affect our lives and our world. Sports stories like you've never heard before.",
+    "og": null,
+    "error": "Cannot connect to host espnradio.espn.com:443 ssl:False [nodename nor servname provided, or not know"
+  },
+  {
+    "name": "500px",
+    "siteURL": "https://iso.500px.com",
+    "current": "",
+    "og": "500px",
+    "error": null
+  },
+  {
+    "name": "8 Columnas",
+    "siteURL": "https://8columnas.com.mx",
+    "current": "La nueva era del periodismo",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "9to5Mac",
+    "siteURL": "https://9to5mac.com/",
+    "current": "Apple News & Mac Rumors Breaking All Day",
+    "og": "Apple News & Mac Rumors Breaking All Day",
+    "error": null
+  },
+  {
+    "name": "A Beautiful Mess",
+    "siteURL": "https://abeautifulmess.com/",
+    "current": "Crafts, Home Décor, Recipes",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "A List Apart",
+    "siteURL": "https://alistapart.com",
+    "current": "Articles for people who make web sites.",
+    "og": "For people who make websites",
+    "error": null
+  },
+  {
+    "name": "A year of reading the world",
+    "siteURL": "https://ayearofreadingtheworld.com",
+    "current": "196 countries, countless stories...",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "ABC News",
+    "siteURL": "https://www.abc.net.au",
+    "current": "",
+    "og": "Follow the latest headlines from ABC News, Australia's most trusted media source, with live events, audio and on-demand video from the national broadcaster.",
+    "error": null
+  },
+  {
+    "name": "Accidental Tech Podcast",
+    "siteURL": "https://atp.fm/",
+    "current": "Three nerds discussing tech, Apple, programming, and loosely related matters.",
+    "og": "Three nerds discussing tech, Apple, programming, and loosely related matters.",
+    "error": null
+  },
+  {
+    "name": "Adnkronos - ultimoratop",
+    "siteURL": "https://www.adnkronos.com",
+    "current": "www.adnkronos.com mette a disposizione dei lettori le news pubblicate con il sistema Rss. Con Rss è possibile infatti ricevere in tempo reale sul proprio computer le notizie che vengono messe on line dal Gruppo Adnkronos.",
+    "og": "News dell'ultima ora dall'Italia e dal mondo. Notizie, video, rubriche e approfondimenti su Sport, Cronaca, Economia, Politica, Salute e tanto altro",
+    "error": null
+  },
+  {
+    "name": "Afford Anything",
+    "siteURL": "https://affordanything.com/",
+    "current": "You Can Afford Anything ... Just Not Everything. What's It Gonna Be?",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Ain't It Cool News Feed",
+    "siteURL": "https://www.aintitcool.com/",
+    "current": "The best in movie, TV, DVD and comic book news.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Aktuell - FAZ.NET",
+    "siteURL": "https://www.faz.net/aktuell/",
+    "current": "News, Nachrichten und aktuelle Meldungen aus allen Ressorts. Politik, Wirtschaft, Sport, Feuilleton und Finanzen im Überblick.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Alberto De Bortoli",
+    "siteURL": "https://albertodebortoli.com/",
+    "current": "Principal Software Engineer @ Just Eat Takeaway. Based in London, made in Italy.",
+    "og": "Principal Software Engineer @ Just Eat Takeaway, London.",
+    "error": null
+  },
+  {
+    "name": "All News",
+    "siteURL": "https://www.investing.com",
+    "current": "",
+    "og": "Real-time quotes, charts, news & tools from Investing.com. Get AI analysis & premium data with InvestingPro to uncover strategic market opportunities.",
+    "error": null
+  },
+  {
+    "name": "All: BreakingNews.ie",
+    "siteURL": "https://www.breakingnews.ie/all/",
+    "current": "Ireland's premier breaking news website providing up to the minute news and sports reports. With e-mail news releases following breaking stories throughout the day.",
+    "og": "BreakingNews.ie",
+    "error": null
+  },
+  {
+    "name": " Amar Ujala",
+    "siteURL": "https://www.amarujala.com",
+    "current": "Read breaking and latest breaking News in Hindi in India's No. 1 Leading Hindi Newspaper Amar Ujala covering breaking samachar in Hindi, election news, crime news, education news and more",
+    "og": "हिंदी में पाइए देश, विदेश, खेल, राजनीति, क्राइम, ऑटोमोबाइल और ज्योतिष से सम्बंधित सभी खबरें अमर उजाला पर",
+    "error": null
+  },
+  {
+    "name": "Analog(ue)",
+    "siteURL": "https://www.relay.fm/analogue",
+    "current": "So many podcasts are about our digital devices. Analog(ue) is a show about how these devices make us feel and how they change our lives for the better, but also for the worse. Hosted by Casey Liss and Myke Hurley.",
+    "og": "So many podcasts are about our digital devices. Analog(ue) is a show about how these devices make us feel and how they change our lives for the better, but also for the worse.",
+    "error": null
+  },
+  {
+    "name": "Android",
+    "siteURL": "https://blog.google/products-and-platforms/platforms/android/",
+    "current": "Android",
+    "og": "Read the latest news and updates about Android, the world's most popular mobile platform.",
+    "error": null
+  },
+  {
+    "name": "Android Authority",
+    "siteURL": "https://www.androidauthority.com/",
+    "current": "Android News, Reviews, How To",
+    "og": "Your source for the best phones, streaming, apps, headphones, deals, games, Chromebooks, smart home tech, and more.",
+    "error": null
+  },
+  {
+    "name": "Android Central",
+    "siteURL": "https://www.androidcentral.com/feeds.xml",
+    "current": "",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Android Developers Blog",
+    "siteURL": "https://android-developers.googleblog.com/",
+    "current": "An Open Handset Alliance Project.",
+    "og": "News and insights on the Android platform, developer tools, and events.",
+    "error": null
+  },
+  {
+    "name": "Android Police",
+    "siteURL": "https://www.androidpolice.com/",
+    "current": "Looking after everything Android",
+    "og": "All the latest mobile tech news, deals, reviews, guides, editorials, and more. Embracing the green bubble since 2009.",
+    "error": null
+  },
+  {
+    "name": "AndroidGuys",
+    "siteURL": "https://androidguys.com",
+    "current": "Android news and opinion",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Apple Newsroom",
+    "siteURL": "https://www.apple.com/newsroom/2026/03/apple-hosts-50th-anniversary-celebrations-around-the-world/",
+    "current": "",
+    "og": "Apple kicked off celebrations in New York for its 50th anniversary and will continue commemorating the milestone throughout the month.",
+    "error": null
+  },
+  {
+    "name": "AppleInsider News",
+    "siteURL": "https://appleinsider.com/rss/news",
+    "current": "AppleInsider News Feed",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "ArchDaily",
+    "siteURL": "https://www.archdaily.com/",
+    "current": "ArchDaily | Broadcasting Architecture Worldwide",
+    "og": "ArchDaily, Broadcasting Architecture Worldwide: Architecture news, competitions and projects updated every hour for the architecture professional",
+    "error": null
+  },
+  {
+    "name": "Archinect",
+    "siteURL": "https://archinect.com/",
+    "current": "",
+    "og": "The goal of Archinect is to make architecture more connected and open-minded, and bring together designers from around the world to introduce new ideas from all disciplines. Archinect was initially developed in 1997 and has since become the top online destination for progressive-design oriented architects, students, educators, and fans.",
+    "error": null
+  },
+  {
+    "name": "Architectural Digest",
+    "siteURL": "https://www.architecturaldigest.com",
+    "current": "The latest from www.architecturaldigest.com",
+    "og": "Architectural Digest is the international design authority, featuring the work of top architects and designers.",
+    "error": null
+  },
+  {
+    "name": "Ars Technica",
+    "siteURL": "https://arstechnica.com",
+    "current": "Serving the Technologist for more than a decade. IT news, reviews, and analysis.",
+    "og": "News and reviews, covering IT, AI, science, space, health, gaming, cybersecurity, tech policy, computers, mobile devices, and operating systems.",
+    "error": null
+  },
+  {
+    "name": "Autocar India",
+    "siteURL": "https://www.autocarindia.com",
+    "current": "Car and Bike news, reviews and videos.",
+    "og": "Autocar India brings you the latest car & bike news and the most comprehensive reviews, first! Watch the latest videos, pictures, podcasts of new and upcoming cars & bikes from the world's longest running auto magazine.",
+    "error": null
+  },
+  {
+    "name": "Autocar RSS Feed",
+    "siteURL": "https://www.autocar.co.uk/",
+    "current": "Welcome to nirvana for car enthusiasts. You have just entered the online home of the world's oldest car magazine, and the only place on the internet where you can find Autocar's unique mix of up-to-the-minute news, red hot car reviews, conclusive road test verdicts, and a lot more besides.",
+    "og": "Car news, reviews, opinion and features from Autocar - the world's oldest car publication bringing you everything automotive since 1895",
+    "error": null
+  },
+  {
+    "name": "Axios",
+    "siteURL": "https://www.axios.com/",
+    "current": "Axios",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "BBC News",
+    "siteURL": "https://www.bbc.co.uk/news/science_and_environment",
+    "current": "BBC News - Science & Environment",
+    "og": "Get all the latest news, live updates and content about Science & Environment from across the BBC.",
+    "error": null
+  },
+  {
+    "name": "BBC News - India",
+    "siteURL": "https://www.bbc.co.uk/news/world/asia/india",
+    "current": "BBC News - India",
+    "og": "Get all the latest news, live updates and content about India from across the BBC.",
+    "error": null
+  },
+  {
+    "name": "BBC News - World",
+    "siteURL": "https://www.bbc.co.uk/news/world",
+    "current": "BBC News - World",
+    "og": "Get all the latest news, live updates and content about the World from across the BBC.",
+    "error": null
+  },
+  {
+    "name": "BBC Sport - Cricket",
+    "siteURL": "https://www.bbc.co.uk/sport/cricket",
+    "current": "BBC Sport - Cricket",
+    "og": "The home of Cricket on BBC Sport online. Includes the latest news stories, results, fixtures, video and audio.",
+    "error": null
+  },
+  {
+    "name": "BBC Sport - Sport",
+    "siteURL": "https://www.bbc.co.uk/sport",
+    "current": "BBC Sport - Sport",
+    "og": "Sports news and live sports coverage including scores, results, video, audio and analysis on Football, F1, Cricket, Rugby Union and all other UK sports.",
+    "error": null
+  },
+  {
+    "name": "BBC Sport - Tennis",
+    "siteURL": "https://www.bbc.co.uk/sport/tennis",
+    "current": "BBC Sport - Tennis",
+    "og": "The home of Tennis on BBC Sport online. Includes the latest news stories, results, fixtures, video and audio.",
+    "error": null
+  },
+  {
+    "name": "BD24Live.com",
+    "siteURL": "https://www.bd24live.com/",
+    "current": "Bangla Online News Portal",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Bike EXIF",
+    "siteURL": "https://www.bikeexif.com/",
+    "current": "The world's most exciting custom motorcycles, from cafe racers to bobbers to scramblers and street trackers.",
+    "og": "The world's most exciting custom motorcycles, from cafe racers to bobbers to scramblers and street trackers.",
+    "error": null
+  },
+  {
+    "name": "BMW BLOG",
+    "siteURL": "https://www.bmwblog.com/",
+    "current": "BMW News, Reviews, Test Drives, Photos And Videos",
+    "og": "Stay ahead with the latest BMW news, reviews and exclusive insights. Watch stunning BMW reels, videos and photos! Your go-to source for all things BMW!",
+    "error": null
+  },
+  {
+    "name": "BOOK RIOT",
+    "siteURL": "https://bookriot.com/",
+    "current": "Book Recommendations and Reviews",
+    "og": "Book Riot celebrates all things books! Find the best books for your next read or book club, including new books in all genres. Get more books in your face.",
+    "error": null
+  },
+  {
+    "name": "Bring a Trailer",
+    "siteURL": "https://bringatrailer.com",
+    "current": "Barn finds, rally cars, and needles in the haystack.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Brisbane Times",
+    "siteURL": "https://www.brisbanetimes.com.au/rss/feed.xml",
+    "current": "The top News headlines from The Brisbane Times. For all the news, visit https://www.brisbanetimes.com.au/",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Business Line",
+    "siteURL": "https://www.thehindubusinessline.com/",
+    "current": "Default RSS Feed",
+    "og": "Business News Today: Read latest breaking headlines for Business news, Financial news, Stock/Share market & Indian Economy news & updates on Businessline.",
+    "error": null
+  },
+  {
+    "name": "Canberra Times",
+    "siteURL": "https://www.canberratimes.com.au/news/local-news/",
+    "current": "Latest Canberra news, sport, football and business news from The Canberra Times.",
+    "og": "Latest Canberra news, sport, football and business news from The Canberra Times.",
+    "error": null
+  },
+  {
+    "name": "Canon Rumors",
+    "siteURL": "https://www.canonrumors.com",
+    "current": "",
+    "og": "Stay updated with the latest Canon rumors, leaks & official announcements. Get trusted insights on new cameras, lenses & industry updates.",
+    "error": null
+  },
+  {
+    "name": "Car and Driver",
+    "siteURL": "https://www.caranddriver.com/",
+    "current": "",
+    "og": "Covering the auto industry since 1955 with reviews, analysis, and advice for car owners and buyers.",
+    "error": null
+  },
+  {
+    "name": "Car Body Design",
+    "siteURL": "https://www.carbodydesign.com",
+    "current": "Car Design Resources, News and Tutorials",
+    "og": "Car Design Resources, News and Tutorials",
+    "error": null
+  },
+  {
+    "name": "Carscoops",
+    "siteURL": "https://www.carscoops.com/",
+    "current": "Breaking Car News, Scoops & Reviews",
+    "og": "Breaking news coverage for car buyers and auto enthusiasts with spy shots, reviews, auto shows, offbeat stories and more at Carscoops.",
+    "error": null
+  },
+  {
+    "name": "CBC",
+    "siteURL": "https://www.cbc.ca/news/?cmp=rss",
+    "current": "FOR PERSONAL USE ONLY",
+    "og": "The latest news from across Canada and around the world.",
+    "error": null
+  },
+  {
+    "name": "Chocolate & Zucchini",
+    "siteURL": "https://cnz.to/",
+    "current": "Simple Recipes from my Paris Kitchen",
+    "og": "A French food blog written by a thirty-something Parisian, with a focus on fresh, colorful, seasonal recipes. Plus, Paris tips and recommendations!",
+    "error": null
+  },
+  {
+    "name": "CNET News",
+    "siteURL": "https://www.cnet.com/",
+    "current": "CNET news editors and reporters provide top technology news, with investigative reporting and in-depth coverage of tech issues and events.",
+    "og": "Get full-length product reviews, the latest news, tech coverage, daily deals, and category deep dives from CNET experts worldwide.",
+    "error": null
+  },
+  {
+    "name": "Code as Craft",
+    "siteURL": "https://www.etsy.com/codeascraft/rss",
+    "current": "The Engineering Blog from Etsy",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Code Wall",
+    "siteURL": "https://www.codewall.co.uk/",
+    "current": "Web Development & Programming",
+    "og": "Sweet Bonanza offers massive wins, free spins & crazy multipliers in a slot adventure you'll love. Play now & hit big.",
+    "error": null
+  },
+  {
+    "name": "Coding Horror",
+    "siteURL": "https://blog.codinghorror.com/",
+    "current": "programming and human factors",
+    "og": "programming and human factors",
+    "error": null
+  },
+  {
+    "name": "ComingSoon.net",
+    "siteURL": "https://www.comingsoon.net/",
+    "current": "New Movies, Movie Trailers, TV, Streaming, Anime & Video Game News",
+    "og": "ComingSoon.net features the latest movie trailers and news, TV updates, video game reviews, anime releases, and more.",
+    "error": null
+  },
+  {
+    "name": "Inhabitat",
+    "siteURL": "https://inhabitat.com",
+    "current": "Green design & innovation for a better world",
+    "og": "Inhabitat is a website dedicated to green design, innovation, and the future of clean technology, cataloging great ideas and emerging technologies which will change our world for the better.",
+    "error": null
+  },
+  {
+    "name": "Cracked: All Posts",
+    "siteURL": "https://www.cracked.com/",
+    "current": "Every post that goes up on Cracked.com",
+    "og": "A funny website filled with funny videos, pics, articles, and a whole bunch of other funny stuff. Cracked.com, celebrating 50 years of humor.",
+    "error": null
+  },
+  {
+    "name": "CSS-Tricks",
+    "siteURL": "https://css-tricks.com",
+    "current": "Tips, Tricks, and Techniques on using Cascading Style Sheets.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Cult of Mac",
+    "siteURL": "https://www.cultofmac.com/",
+    "current": "Tech and culture through an Apple lens",
+    "og": "Cult of Mac | Your source for the latest Apple news, rumors, analysis, reviews, how-tos and deals.",
+    "error": null
+  },
+  {
+    "name": "Current PH",
+    "siteURL": "https://currentph.com",
+    "current": "Latest Philippine Breaking News and Stories",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Daily Mail",
+    "siteURL": "https://www.dailymail.co.uk",
+    "current": "MailOnline - get the latest breaking news, showbiz & celebrity photos, sport news & rumours, viral videos and top stories from MailOnline, Daily Mail and Mail on Sunday newspapers.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Daily Maverick",
+    "siteURL": "https://www.dailymaverick.co.za",
+    "current": "Defend Truth",
+    "og": "Daily Maverick",
+    "error": null
+  },
+  {
+    "name": "Dan Lew Codes",
+    "siteURL": "https://blog.danlew.net/",
+    "current": "Thoughts on life, the universe and the mystery of it all; but actually mostly just code.",
+    "og": "Thoughts on life, the universe and the mystery of it all; but actually mostly just code.",
+    "error": null
+  },
+  {
+    "name": "Daring Fireball",
+    "siteURL": "https://daringfireball.net/",
+    "current": "By John Gruber",
+    "og": "Commentary on Apple, technology, design, politics, and more.",
+    "error": null
+  },
+  {
+    "name": "David Lebovitz",
+    "siteURL": "https://www.davidlebovitz.com/",
+    "current": "Baking and cooking recipes for everyone",
+    "og": "WelcomeI",
+    "error": null
+  },
+  {
+    "name": "David Walsh Blog",
+    "siteURL": "https://davidwalsh.name",
+    "current": "A blog featuring tutorials about JavaScript, HTML5, AJAX, PHP, CSS, WordPress, and everything else development.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Deadline",
+    "siteURL": "https://deadline.com",
+    "current": "Hollywood Entertainment Breaking News",
+    "og": "Deadline.com is always the first to break up-to-the-minute entertainment, Hollywood and media news, with an unfiltered, no-holds-barred analysis of events.",
+    "error": null
+  },
+  {
+    "name": "Deccan Chronicle",
+    "siteURL": "https://www.deccanchronicle.com",
+    "current": "Deccan Chronicle brings you the latest news, views, analysis and images from India and the world.",
+    "og": "News Headlines: Deccan Chronicle provides exclusive top stories of the day, today headlines from politics, current affairs entertainment, sports, business, technology, latest English news and much more.",
+    "error": null
+  },
+  {
+    "name": "Design Milk",
+    "siteURL": "https://design-milk.com/category/architecture/",
+    "current": "Dedicated to modern design",
+    "og": "Featuring architecture, architectural designs, and modern house designs from around the globe.",
+    "error": null
+  },
+  {
+    "name": "designboom",
+    "siteURL": "https://www.designboom.com/architecture/",
+    "current": "designboom magazine | your first source for architecture, design & art news",
+    "og": "architecture on designboom surveys the contemporary condition of the built environment, showcasing a range of innovative projects.",
+    "error": null
+  },
+  {
+    "name": "Deutsche Welle",
+    "siteURL": "https://www.dw.com/english/?maca=en-rss-en-all-1573-rdf",
+    "current": "Deutsche Welle",
+    "og": "News, off-beat stories and analysis of German and international affairs. Dive deeper with our features from Europe and beyond. Watch our 24/7 TV stream.",
+    "error": null
+  },
+  {
+    "name": "Dezeen",
+    "siteURL": "https://www.dezeen.com",
+    "current": "architecture and design magazine",
+    "og": "Dezeen is the world's most influential architecture, interiors and design magazine.",
+    "error": null
+  },
+  {
+    "name": "Digital Photography School",
+    "siteURL": "https://digital-photography-school.com/",
+    "current": "Digital Photography Tips and Tutorials",
+    "og": "Digital photography tips and tutorials for camera owners of all levels. Read by over 5 million people per month.",
+    "error": null
+  },
+  {
+    "name": "Doityourself.com",
+    "siteURL": "https://www.doityourself.com",
+    "current": "Do it yourself home improvement and diy repair at Doityourself.com. Includes home improvement projects, home repair, kitchen remodeling, plumbing, electrical, painting, real estate, and decorating.",
+    "og": "Do it yourself home improvement and diy repair at Doityourself.com. Includes home improvement projects, home repair, kitchen remodeling, plumbing, electrical, painting, real estate, and decorating.",
+    "error": null
+  },
+  {
+    "name": "Droid Life",
+    "siteURL": "https://www.droid-life.com/",
+    "current": "Opinionated Android news.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Duct Tape Marketing",
+    "siteURL": "https://www.ducttapemarketing.com/about/duct-tape-marketing-podcast/",
+    "current": "Interviews with authors, experts and thought leaders sharing business marketing tips, tactics and resources hosted by one America's leading small business marketing experts - John Jantsch",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Economic Times",
+    "siteURL": "https://economictimes.indiatimes.com",
+    "current": "The Economic Times: Latest business, finance, markets, stocks, company news from India.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "EDM.com",
+    "siteURL": "https://edm.com/blog/",
+    "current": "The world's foremost authority on EDM : free music downloads, artist interviews, industry news, curated playlists, trending charts, and more.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "El Financiero",
+    "siteURL": "https://www.elfinanciero.com.mx",
+    "current": "El Financiero News Feed",
+    "og": "EL FINANCIERO es el principal diario especializado en finanzas, economía, negocios y política de México con las noticias más importantes en tiempo real.",
+    "error": null
+  },
+  {
+    "name": "EL PAÍS: el periódico global",
+    "siteURL": "https://elpais.com",
+    "current": "Noticias de última hora sobre la actualidad en España y el mundo: política, economía, deportes, cultura, sociedad, tecnología, gente, opinión, viajes, moda, televisión, los blogs y las firmas de EL PAÍS. Además especiales, vídeos, fotos, audios, gráficos, entrevistas, promociones y todos los servicios de EL PAÍS.",
+    "og": "Noticias de última hora de Estados Unidos y la actualidad internacional: política, economía, deportes, cultura, sociedad, tecnología, gente, opinión, viajes, moda, televisión, los blogs y las firmas de EL PAÍS. Además especiales, vídeos, fotos, audios, gráficos, entrevistas y todos los servicios de EL PAÍS.",
+    "error": null
+  },
+  {
+    "name": "El Periódico - portada",
+    "siteURL": "https://www.elperiodico.com/es/",
+    "current": "El Periódico - Todas las noticias de la portada",
+    "og": "Noticias de última hora en torno a la actualidad de Catalunya y España, Barça, deportes, internacional, economía, cultura, sociedad y más",
+    "error": null
+  },
+  {
+    "name": "ElDiario.es - ElDiario.es",
+    "siteURL": "https://www.eldiario.es/",
+    "current": "ElDiario.es - ElDiario.es",
+    "og": "Diario digital de noticias de actualidad sobre política y economía, análisis y blogs de opinión. Dirigido por Ignacio Escolar. Periodismo riguroso, independiente y honesto.",
+    "error": null
+  },
+  {
+    "name": "ELLE",
+    "siteURL": "https://www.elle.com/beauty/",
+    "current": "",
+    "og": "Get each month",
+    "error": null
+  },
+  {
+    "name": "Engadget",
+    "siteURL": "https://www.engadget.com/",
+    "current": "The original home for technology news and reviews",
+    "og": "Find the latest technology news and expert tech product reviews. Learn about the latest gadgets and consumer tech products for entertainment, gaming, lifestyle and more.",
+    "error": null
+  },
+  {
+    "name": "Entrepreneur",
+    "siteURL": "https://www.entrepreneur.com/",
+    "current": "The latest stories from Entrepreneur.",
+    "og": "Your ultimate resource for small business news, entrepreneurship, business management, franchise opportunities, growth strategies and making money. Learn how to succeed.",
+    "error": null
+  },
+  {
+    "name": "Escapist Magazine",
+    "siteURL": "https://www.escapistmagazine.com/",
+    "current": "Everything fun",
+    "og": "The Escapist is an outlet dedicated to providing our readers and viewers with smart coverage of video games, casino games, movies, tv shows and everything geek culture.",
+    "error": null
+  },
+  {
+    "name": "España",
+    "siteURL": "",
+    "current": "España",
+    "og": null,
+    "error": "no siteURL"
+  },
+  {
+    "name": "Euro Weekly News Spain",
+    "siteURL": "https://euroweeklynews.com",
+    "current": "Spain News",
+    "og": "Euro Weekly News - The English paper for Spanish Living Your essential guide to local, expat and international news. Read now!",
+    "error": null
+  },
+  {
+    "name": "Eurogamer.net",
+    "siteURL": "https://www.eurogamer.net/feed",
+    "current": "Bad puns and video games since 1999.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Fabisevi.ch",
+    "siteURL": "https://fabisevi.ch",
+    "current": "iOS Developer [@Twitter](https://twitter.com/mergesort)",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Facebook Engineering",
+    "siteURL": "https://engineering.fb.com/",
+    "current": "Facebook Engineering Blog",
+    "og": "Engineering at Meta Blog",
+    "error": null
+  },
+  {
+    "name": "FAIL Blog",
+    "siteURL": "https://failblog.cheezburger.com/",
+    "current": "The internet has generated a huge amount of laughs from cats and FAILS. And we all out of cats.",
+    "og": "The internet has generated a huge amount of laughs from cats and FAILS. And we all out of cats.",
+    "error": null
+  },
+  {
+    "name": "Fanpage",
+    "siteURL": "https://www.fanpage.it",
+    "current": "Indipendente, sociale, partecipativo - segui i nostri live, reportage, inchieste, storie e video da Youmedia, partecipa con noi all'informazione.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "FashionBeans",
+    "siteURL": "https://www.fashionbeans.com",
+    "current": "A comprehensive guide to men's fashion and style, from the latest trends and hottest pieces to building a capsule wardrobe.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Fashionista",
+    "siteURL": "https://fashionista.com",
+    "current": "Beauty - Fashionista",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Feld Thoughts",
+    "siteURL": "https://feld.com/",
+    "current": "",
+    "og": "Brad Feld",
+    "error": null
+  },
+  {
+    "name": "Financial Post",
+    "siteURL": "https://financialpost.com",
+    "current": "Canada Business News | Financial Updates & Information",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "FirstShowing.net",
+    "siteURL": "https://www.firstshowing.net",
+    "current": "Connecting Hollywood with its Audience",
+    "og": "The latest movie trailers, release dates, film reviews, discussions, and updates on the cinematic experience from Hollywood and beyond.",
+    "error": null
+  },
+  {
+    "name": "Forbes",
+    "siteURL": "https://www.forbes.com/business/",
+    "current": "Forbes - Business",
+    "og": "Forbes is a leading source for reliable news and updated analysis on Business. Read the breaking Business coverage and top headlines on Forbes.com",
+    "error": null
+  },
+  {
+    "name": "Fortune",
+    "siteURL": "https://fortune.com",
+    "current": "Fortune 500 Daily & Breaking Business News",
+    "og": "Unrivaled access, premier storytelling, and the best of business since 1930.",
+    "error": null
+  },
+  {
+    "name": "FOX News",
+    "siteURL": "https://www.foxnews.com/",
+    "current": "FOXNews.com - Breaking news and video. Latest Current News: U.S., World, Entertainment, Health, Business, Technology, Politics, Sports.",
+    "og": "Breaking News, Latest News and Current News from FOXNews.com. Breaking news and video. Latest Current News: U.S., World, Entertainment, Health, Business, Technology, Politics, Sports.",
+    "error": null
+  },
+  {
+    "name": "Franceinfo - Les Titres",
+    "siteURL": "https://www.franceinfo.fr/titres/",
+    "current": "Franceinfo - Les Titres",
+    "og": "Pour savoir ce qui se passe maintenant - Toutes les infos livrées minute par minute par la rédaction de Franceinfo. Photos, vidéos, tweets et vos interventions",
+    "error": null
+  },
+  {
+    "name": "Free Press Journal",
+    "siteURL": "https://www.freepressjournal.in",
+    "current": "Free Press Journal brings the Latest News & Top Breaking headlines on Politics and Current Affairs in India & around the World, Sports, Business, Bollywood",
+    "og": "Free Press Journal provides top news stories from India and World. Read latest news on Business, Bollywood, Sports, Technology, Politics, Photos, Videos, Education, Festivals and Events.",
+    "error": null
+  },
+  {
+    "name": "Game Rant",
+    "siteURL": "https://gamerant.com",
+    "current": "Game Rant covers gaming news, reviews, features, and guides.",
+    "og": "GameRant delivers content written by gamers for gamers with an emphasis on news, reviews, unique features, and interviews.",
+    "error": null
+  },
+  {
+    "name": "GameSpot",
+    "siteURL": "https://www.gamespot.com/feeds/mashup/",
+    "current": "GameSpot's Everything Feed! All the latest from GameSpot",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "GazetaPrawna.pl",
+    "siteURL": "https://www.gazetaprawna.pl/twoje-prawo/swiadczenia/artykuly/11214354,zmiana-przepisow-o-swiadczeniu-wspierajacym-beda-nowe-zasady-punktac.html",
+    "current": "",
+    "og": "Świadczenie wspierające miało być przełomem dla osób z niepełnosprawnościami. Tymczasem tysiące wnioskodawców miesiącami czeka na decyzje. Ministerstwo Rodziny, Pracy i Polityki Społecznej przyznaje, że system wymaga zmian – planowane są korekty w punktacji oraz usprawnienie procedur.",
+    "error": null
+  },
+  {
+    "name": "GitLab",
+    "siteURL": "https://about.gitlab.com/blog",
+    "current": "",
+    "og": "Tutorials, product information, expert insights, and more from GitLab to help DevSecOps teams build, test, and deploy secure software faster.",
+    "error": null
+  },
+  {
+    "name": "Gizmodo",
+    "siteURL": "https://gizmodo.com/",
+    "current": "We come from the future",
+    "og": "Dive into cutting-edge tech, reviews and the latest trends with the expert team at Gizmodo. Your ultimate source for all things tech.",
+    "error": null
+  },
+  {
+    "name": "globalnews.ca",
+    "siteURL": "https://globalnews.ca",
+    "current": "",
+    "og": "Globalnews.ca – Watch and read Canada’s Breaking news plus Business, Health, Politics and World News",
+    "error": null
+  },
+  {
+    "name": "GMA News Online / News",
+    "siteURL": "https://www.gmanetwork.com/news/news/",
+    "current": "GMA News Online RSS Feed - News Section",
+    "og": "Your Trusted Online Source, The News Authority of the Filipino.",
+    "error": null
+  },
+  {
+    "name": "Google Developers Blog",
+    "siteURL": "https://developers.googleblog.com/",
+    "current": "Blog of our latest news, updates, and stories for developers",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Google News",
+    "siteURL": "https://news.google.com/?hl=en-US&gl=US&ceid=US:en",
+    "current": "Google News",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "GSMArena.com - Latest articles",
+    "siteURL": "https://www.gsmarena.com/",
+    "current": "GSMArena.com is the ultimate resource for GSM handset information. This feed contains the latest articles (news and reviews) in chronological order.",
+    "og": "GSMArena.com - The ultimate resource for GSM handset information",
+    "error": null
+  },
+  {
+    "name": " Gujarat Samachar",
+    "siteURL": "https://www.gujaratsamachar.com",
+    "current": "Top Stories News - Gujarat Samachar : World's Leading Gujarati Newspaper",
+    "og": "Gujarat Samachar News (ગુજરાતી ન્યૂઝ) - Stay updated with latest & breaking New from Gujarat, India, & the world. Get in-depth coverage on politics, business, sports, entertainment, daily rashifal and more at Gujarat Samachar.",
+    "error": null
+  },
+  {
+    "name": "Hackaday",
+    "siteURL": "https://hackaday.com",
+    "current": "Fresh hacks every day",
+    "og": "Fresh hacks every day",
+    "error": null
+  },
+  {
+    "name": "Hacker News",
+    "siteURL": "https://news.ycombinator.com/",
+    "current": "Links for the intellectually curious, ranked by readers.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Hacker News: Front Page",
+    "siteURL": "https://news.ycombinator.com/",
+    "current": "Hacker News RSS",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Hacking with Swift",
+    "siteURL": "https://www.hackingwithswift.com/articles/rss",
+    "current": "Learn Swift coding for iOS with free tutorials",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Hacks",
+    "siteURL": "https://hacks.mozilla.org/",
+    "current": "hacks.mozilla.org",
+    "og": "Mozilla Hacks is written for web developers, designers and everyone who builds for the Web. Hacks is produced by Mozilla",
+    "error": null
+  },
+  {
+    "name": "Handstand Sam",
+    "siteURL": "https://handstandsam.com",
+    "current": "Sam Edwards - Handstands, Travel, Android & Web",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Hanselminutes with Scott Hanselman",
+    "siteURL": "https://www.hanselminutes.com",
+    "current": "Hanselminutes is Fresh Air for Developers. A weekly commute-time podcast that promotes fresh technology and fresh voices. Talk and Tech for Developers, Life-long Learners, and Technologists.",
+    "og": "The Hanselminutes Technology Podcast by Scott Hanselman - Fresh Tech from Fresh Faces - Deep tech talk from an inclusive perspective",
+    "error": null
+  },
+  {
+    "name": "Home Page",
+    "siteURL": "https://www.business-standard.com",
+    "current": "Business News: Get latest stock share market news, financial news, economy news, company news, politics news, India news, breaking news, Indian economy news at Business Standard. Catch Nifty Sensex Live updates.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Hong Kong Free Press HKFP",
+    "siteURL": "https://hongkongfp.com/",
+    "current": "Hong Kong news - Independent &, non-profit",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "hongkongnews.net latest rss headlines",
+    "siteURL": "https://hongkongnews.net",
+    "current": "Provides the latest rss feeds for hongkongnews.net. For more headlines on Breaking, National, Business, Finance, Sports and World News, visit our home page",
+    "og": null,
+    "error": "Cannot connect to host www.hongkongnews.net:443 ssl:False [[SSL: TLSV1_ALERT_PROTOCOL_VERSION] tlsv1"
+  },
+  {
+    "name": "How Sweet Eats",
+    "siteURL": "https://www.howsweeteats.com/",
+    "current": "For people who, like, totally love food.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "How-To Geek",
+    "siteURL": "https://www.howtogeek.com",
+    "current": "We Explain Technology",
+    "og": "We explain technology. Learn more with our articles, reviews, tips, and the best answers to your most pressing tech questions.",
+    "error": null
+  },
+  {
+    "name": "https://www.rp.pl",
+    "siteURL": "https://www.rp.pl/",
+    "current": "",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "huffingtonpost.es",
+    "siteURL": "https://www.huffingtonpost.es/",
+    "current": "",
+    "og": "Últimas noticias y toda la actualidad en España y el mundo. Última hora, política, tendencias, vídeo, virales, opinión y más en El HuffPost.",
+    "error": null
+  },
+  {
+    "name": "I Can Has Cheezburger?",
+    "siteURL": "https://icanhas.cheezburger.com/",
+    "current": "World's largest collection of cat memes and other animals",
+    "og": "World's largest collection of cat memes and other animals",
+    "error": null
+  },
+  {
+    "name": "IGN",
+    "siteURL": "https://www.ign.com/articles",
+    "current": "The latest IGN news, reviews and videos about video games, movies, TV, tech and comics",
+    "og": "IGN is the leading site for the latest and trending news for video games, interviews, videos, and wikis",
+    "error": null
+  },
+  {
+    "name": "IKEA Hackers",
+    "siteURL": "https://ikeahackers.net",
+    "current": "Clever ideas and hacks for your IKEA",
+    "og": "The best IKEA hacks, creative DIY ideas, and smart IKEA furniture modifications are at IKEA Hackers. Inspiring projects to transform IKEA from basic to wow.",
+    "error": null
+  },
+  {
+    "name": "Il Mattino Web",
+    "siteURL": "https://www.ilmattino.it",
+    "current": "Gli articoli del Mattino",
+    "og": "Il Mattino",
+    "error": null
+  },
+  {
+    "name": "Inc.com",
+    "siteURL": "https://www.inc.com/",
+    "current": "Inc.com, the daily resource for entrepreneurs.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "India News",
+    "siteURL": "https://www.dnaindia.com/",
+    "current": "dnaindia.com delivers news and information on the latest top stories, sport, entertainment, business, technology, Mumbai, India, world and more.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "India Today",
+    "siteURL": "https://www.indiatoday.in/?utm_source=rss",
+    "current": "India Today",
+    "og": "Check out the latest news from India and around the world. Latest India news on Bollywood, Politics, Business, Cricket, Technology and Travel.",
+    "error": null
+  },
+  {
+    "name": "Indie Games Plus",
+    "siteURL": "https://mamnon-mannonphuongtrungii-hanoi.indiegamesplus.com/",
+    "current": "Creative, Personal, Passionate Digital Experiences",
+    "og": "Indie Games Plus - Creative, Personal, Passionate Digital Experiences",
+    "error": null
+  },
+  {
+    "name": "IndieWire",
+    "siteURL": "https://www.indiewire.com",
+    "current": "The Voice of Creative Independence",
+    "og": "IndieWire is an online publication covering film, TV, and digital news, reviews, and interviews for passionate fans and industry insiders.",
+    "error": null
+  },
+  {
+    "name": "inessential.com",
+    "siteURL": "https://inessential.com/",
+    "current": "Brent Simmons’s weblog.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "InfoQ",
+    "siteURL": "https://www.infoq.com",
+    "current": "InfoQ feed",
+    "og": "Helping dev teams adopt new technologies and practices. Written by software engineers. Read by over 1.5 million developers worldwide.",
+    "error": null
+  },
+  {
+    "name": "Informador",
+    "siteURL": "https://www.informador.mx",
+    "current": "RSS con las últimas noticias",
+    "og": "Las noticias más relevantes de Jalisco, México, Deportes, Entretenimiento & Tecnología",
+    "error": null
+  },
+  {
+    "name": "Information Nigeria",
+    "siteURL": "https://www.informationng.com/",
+    "current": "Nigeria's No.1 Information Portal",
+    "og": "Nigeria's Largest Information Portal. Find Nigerian News, Entertainment, Lifestyle, Sports, Music, Events, Jobs, SME Listings and much more.",
+    "error": null
+  },
+  {
+    "name": "INQUIRER.net",
+    "siteURL": "https://www.inquirer.net/",
+    "current": "Philippine News for Filipinos",
+    "og": "Philippine news for Filipinos",
+    "error": null
+  },
+  {
+    "name": "Inside Intercom",
+    "siteURL": "https://www.intercom.com/blog/",
+    "current": "Product, Marketing, and Customer Support Blog",
+    "og": "Articles and Podcasts on Customer Service, AI and Automation, Product, and more",
+    "error": null
+  },
+  {
+    "name": "Interaksyon",
+    "siteURL": "https://interaksyon.philstar.com",
+    "current": "Philippines news features and explanatory reports.",
+    "og": "Philippines news features and explanatory reports.",
+    "error": null
+  },
+  {
+    "name": "International: Top News And Analysis",
+    "siteURL": "https://www.cnbc.com/world-top-news/",
+    "current": "CNBC International is the world leader for news on business, technology, China, trade, oil prices, the Middle East and markets.",
+    "og": "CNBC International is the world leader for news on business, technology, China, trade, oil prices, the Middle East and markets.",
+    "error": null
+  },
+  {
+    "name": "Internazionale",
+    "siteURL": "https://www.internazionale.it/",
+    "current": "Ogni settimana il meglio dei giornali di tutto il mondo.",
+    "og": "Notizie, commenti, articoli, reportage, foto e video da tutto il mondo scelti dalla redazione di Internazionale.",
+    "error": null
+  },
+  {
+    "name": "IOL section feed for News",
+    "siteURL": "https://www.iol.co.za",
+    "current": "IOL Section Feed from Independent Media (South Africa).",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Irish Mirror",
+    "siteURL": "https://www.irishmirror.ie",
+    "current": "Rss feed from Irish Mirror",
+    "og": "Irish Mirror, the latest Irish news, showbiz, football and sport. Plus the best from the Daily Mirror in world news, showbiz and Premier League football",
+    "error": null
+  },
+  {
+    "name": "IrishCentral.com",
+    "siteURL": "https://www.irishcentral.com/",
+    "current": "Whether you are looking for Irish news, Irish entertainment, Irish sport, Irish culture or Irish celebrities - IrishCentral.com is the best daily source for everything Irish.",
+    "og": "Read and share the latest Irish news, including politics, community, business, travel, Irish roots, culture, and more.",
+    "error": null
+  },
+  {
+    "name": "IrishExaminer.com",
+    "siteURL": "https://www.irishexaminer.com/",
+    "current": "Ireland's premier breaking news website providing up to the minute news and sports reports. With e-mail news releases following breaking stories throughout the day.",
+    "og": "The latest breaking local and international news and sport stories as they happen, with up to the minute updates and analysis",
+    "error": null
+  },
+  {
+    "name": "Jake Wharton",
+    "siteURL": "https://jakewharton.com/",
+    "current": "",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Jalopnik",
+    "siteURL": "https://www.jalopnik.com/",
+    "current": "Kinja RSS",
+    "og": "From cars to motorcycles, Jalopnik is your go-to site covering everything with an engine—including automotive news, buying guides, and expert commentary from our staff.",
+    "error": null
+  },
+  {
+    "name": "Japan Today",
+    "siteURL": "https://japantoday.com/",
+    "current": "Japan News and Discussion",
+    "og": "Japan news and Japanese national, crime, entertainment, politics, business, technology, sports stories in English. Features and analysis. 国内、海外、犯罪、娯楽、政治、経済、テクノロジー、スポーツ等、日本のニュースを英語でお届け。英語の勉強にも最適！日本のニュースを英語で読んでみよう。",
+    "error": null
+  },
+  {
+    "name": "JetBrains Blog",
+    "siteURL": "https://blog.jetbrains.com",
+    "current": "Developer Tools for Professionals and Teams",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "JetBrains News | JetBrains Blog",
+    "siteURL": "https://blog.jetbrains.com",
+    "current": "Developer Tools for Professionals and Teams",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Joe Birch",
+    "siteURL": "https://joebirch.co",
+    "current": "Speaker, Educator and GDE for Android, Google Assistant & Flutter",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Jornal de Brasília",
+    "siteURL": "https://jornaldebrasilia.com.br",
+    "current": "Informação e Opinião",
+    "og": "Informação e Opinião",
+    "error": null
+  },
+  {
+    "name": "Journal",
+    "siteURL": "https://architizer.com/blog/",
+    "current": "Inspiration and Tools for Architects",
+    "og": "Inspiration and Tools for Architects",
+    "error": null
+  },
+  {
+    "name": "Joy the Baker",
+    "siteURL": "https://joythebaker.com/",
+    "current": "",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "JUST™ Creative",
+    "siteURL": "https://justcreative.com/",
+    "current": "Logo Designer, Graphic Designer, Graphic Design Portfolio, Logo Design, Logo, Graphic, Design, Graphic Design, Brand Strategy, Branding",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "kalerkantho Kantho",
+    "siteURL": "https://www.kalerkantho.com",
+    "current": "kalerkantho.com RSS Feed",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Kirkus Reviews",
+    "siteURL": "https://www.kirkusreviews.com/",
+    "current": "Latest book reviews from Kirkus Reviews.",
+    "og": "Book reviews, recommendations, and the latest literary news from the most trusted voice in book discovery, Kirkus Reviews",
+    "error": null
+  },
+  {
+    "name": "Kitchn",
+    "siteURL": "https://www.thekitchn.com",
+    "current": "Inspiring cooks, nourishing homes",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Kotaku",
+    "siteURL": "https://kotaku.com/",
+    "current": "Gaming Reviews, News, Tips and More.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Kt. Academy - Medium",
+    "siteURL": "https://blog.kotlin-academy.com?source=rss----e57b304801ef---4",
+    "current": "Blog with mission to simplify Kotlin learning - Medium",
+    "og": "Blog with mission to simplify Kotlin learning",
+    "error": null
+  },
+  {
+    "name": "L'essentiel",
+    "siteURL": "https://www.sudouest.fr/essentiel/",
+    "current": "Retrouvez l'actualité du Sud Ouest en direct et toutes les informations régionales : politique, économie, sport, photos et vidéos.",
+    "og": "Retrouvez l",
+    "error": null
+  },
+  {
+    "name": "LaPresse.ca - Actualités",
+    "siteURL": "https://www.lapresse.ca/actualites/",
+    "current": "",
+    "og": "Section Actualités de LaPresse.ca : Nouvelles régionales, provinciales, nationales et internationales",
+    "error": null
+  },
+  {
+    "name": "Latest Nigeria News",
+    "siteURL": "https://thenationonlineng.net",
+    "current": "A news breaking website. Truth in Defence of Freedom",
+    "og": "The Nation Newspaper - Nigerian News, Nigerian newspapers, Breaking News, Latest news, Entertainment, Sports, Business, Politics and more",
+    "error": null
+  },
+  {
+    "name": "Le Huffington Post",
+    "siteURL": "https://www.huffingtonpost.fr/rss/all_headline.xml",
+    "current": "Le Huffington Post",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "le monde",
+    "siteURL": "https://www.lemonde.fr/rss/une.xml",
+    "current": "Le Monde.fr - 1er site d’information. Les articles du journal et toute l’actualité en continu : International, France, Société, Economie, Culture, Environnement, Blogs ...",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Legit.ng",
+    "siteURL": "https://www.legit.ng",
+    "current": "Read now ➨ News in Nigeria Today & BREAKING NEWS Headlines. Check out the latest Naija news and stay informed with LEGIT.NG — your trustful news provider",
+    "og": "Legit.ng is a Nigerian Newspaper that provides Breaking News, Latest News, Politics, Sport, Business, Entertainment, Africa, US and International headlines (ex-Naij.com).",
+    "error": null
+  },
+  {
+    "name": "Libero Quotidiano",
+    "siteURL": "https://www.liberoquotidiano.it",
+    "current": "Libero Quotidiano contents",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Lifehacker",
+    "siteURL": "https://lifehacker.com/feed/rss",
+    "current": "Do everything better",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Light Stalking",
+    "siteURL": "https://www.lightstalking.com/",
+    "current": "Illuminating Your Passion",
+    "og": "Illuminating Your Passion",
+    "error": null
+  },
+  {
+    "name": "Lo último en Vanguardia MX",
+    "siteURL": "https://vanguardia.com.mx/rss.xml",
+    "current": "Vanguardia",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Love and Olive Oil",
+    "siteURL": "https://www.loveandoliveoil.com",
+    "current": "Eat to Live. Cook to Love.",
+    "og": "The culinary adventures of Lindsay and Taylor. Sharing delicious food and easy recipes for sweet desserts, easy dinners, creative canning, and more!",
+    "error": null
+  },
+  {
+    "name": "MacStories",
+    "siteURL": "https://www.macstories.net/",
+    "current": "Apple news, app reviews, and stories by Federico Viticci and friends.",
+    "og": "Apple news, app reviews, and stories by Federico Viticci and friends.",
+    "error": null
+  },
+  {
+    "name": "Macworld.com",
+    "siteURL": "https://www.macworld.com",
+    "current": "Macworld is your best source for all things Apple. We give you the scoop on what's new, what's best and how to make the most out of the products you love.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Makeup and Beauty Blog",
+    "siteURL": "https://makeupandbeautyblog.com/",
+    "current": "A beauty blog blooming with fresh makeup reviews, swatches and beauty tips from your friendly neighborhood beauty addict",
+    "og": "A beauty blog blooming with fresh makeup reviews, swatches and beauty tips from your friendly neighborhood beauty addict",
+    "error": null
+  },
+  {
+    "name": "Martin Fowler",
+    "siteURL": "https://martinfowler.com",
+    "current": "Master feed of news and updates from martinfowler.com",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Mashable",
+    "siteURL": "https://mashable.com",
+    "current": "Mashable is a leading source for news, information & resources for the Connected Generation. Mashable reports on the importance of digital innovation and how it empowers and inspires people around the world. Mashable's 25 million monthly unique visitors and 10 million social media followers have become one of the most engaged online news communities. Founded in 2005, Mashable is headquartered in New York City with an office in San Francisco.",
+    "og": "Mashable is a global, multi-platform media and entertainment company.",
+    "error": null
+  },
+  {
+    "name": "Mediapart",
+    "siteURL": "https://www.mediapart.fr/",
+    "current": "Mediapart",
+    "og": "Mediapart est un journal d’information numérique, participatif et indépendant, sans publicité ni subvention, et qui ne vit que du soutien de ses lecteurs et lectrices.",
+    "error": null
+  },
+  {
+    "name": "Medium",
+    "siteURL": "https://medium.com/androiddevelopers?source=rss----95b274b437c2---4",
+    "current": "The official Android Developers publication on Medium - Medium",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Metal Injection",
+    "siteURL": "https://metalinjection.net/",
+    "current": "Heavy metal news, metal music videos, tour dates, live footage, exclusive documentaries, funny clips and more.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Mexico News Daily",
+    "siteURL": "https://mexiconewsdaily.com/",
+    "current": "",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Michael West",
+    "siteURL": "https://michaelwest.com.au/",
+    "current": "Investigative Journalism",
+    "og": "Michael West Media - always independent. Dedicated to the public interest and investigations into big business and government abuse of power .",
+    "error": null
+  },
+  {
+    "name": "Milan News",
+    "siteURL": "https://www.milannews.it",
+    "current": "Milan News news",
+    "og": "testata giornalistica dedicata al Milan",
+    "error": null
+  },
+  {
+    "name": "Moneyweb",
+    "siteURL": "https://www.moneyweb.co.za",
+    "current": "Business, Financial and Investment news and tools",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Movies",
+    "siteURL": "https://bleedingcool.com",
+    "current": "Comics, Movies, TV, Games",
+    "og": "Comic Book, Film, TV, Games, Toys News and Rumors",
+    "error": null
+  },
+  {
+    "name": "MUO",
+    "siteURL": "https://www.makeuseof.com",
+    "current": "MUO is your guide in modern tech. Learn how to make use of tech and gadgets around you and discover cool stuff on the Internet.",
+    "og": "MUO is your guide to modern tech. Learn how to make use of the tech and gadgets around you, and discover cool stuff on the internet.",
+    "error": null
+  },
+  {
+    "name": "Music Business Worldwide",
+    "siteURL": "https://www.musicbusinessworldwide.com",
+    "current": "News, jobs and analysis for the global music industry",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Myanmar Gazette",
+    "siteURL": "https://myanmargazette.net",
+    "current": "Myanmar, newspaper, news media, Breaking news, Information, Multimedia, Journal, Magazine, Blog, Forums, Myanmar Online, News Portal",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "NASA Breaking News",
+    "siteURL": "https://www.nasa.gov",
+    "current": "A RSS news feed containing the latest NASA news articles and press releases.",
+    "og": "NASA.gov brings you the latest news, images and videos from America's space agency, pioneering the future in space exploration, scientific discovery and aeronautics research.",
+    "error": null
+  },
+  {
+    "name": "National Post",
+    "siteURL": "https://nationalpost.com",
+    "current": "Canadian News, World News and Breaking Headlines",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Netflix TechBlog",
+    "siteURL": "https://netflixtechblog.com?source=rss----2615bd06b42e---4",
+    "current": "Learn about Netflix’s world class engineering efforts, company culture, product developments and more. - Medium",
+    "og": "Learn about Netflix’s world class engineering efforts, company culture, product developments and more.",
+    "error": null
+  },
+  {
+    "name": "New Scientist",
+    "siteURL": "https://www.newscientist.com/",
+    "current": "New Scientist - Space",
+    "og": "Science news and long reads from expert journalists, covering developments in science, technology, health and the environment on the website and the magazine.",
+    "error": null
+  },
+  {
+    "name": "NewInBooks",
+    "siteURL": "https://www.newinbooks.com",
+    "current": "Answering the Age old question - What are you reading?",
+    "og": null,
+    "error": "Cannot connect to host www.newinbooks.com:443 ssl:False [[SSL: TLSV1_ALERT_PROTOCOL_VERSION] tlsv1 a"
+  },
+  {
+    "name": "News",
+    "siteURL": "https://www.yahoo.com/news",
+    "current": "The latest news and headlines from Yahoo! News. Get breaking news stories and in-depth coverage with videos and photos.",
+    "og": "The latest news and headlines from Yahoo News. Get breaking news stories and in-depth coverage with videos and photos.",
+    "error": null
+  },
+  {
+    "name": "News Blog",
+    "siteURL": "https://newsnblogs.com",
+    "current": "Latest News Technology, Travel, Sports, Health and Entertainment News from World",
+    "og": "Be informed with the latest news, technology, entertainment, lifestyle tips, and much more just at Newsnblogs",
+    "error": null
+  },
+  {
+    "name": "News24 Top Stories",
+    "siteURL": "https://www.news24.com/southafrica/crime-and-courts/suspect-arrested-in-murder-of-madlanga-commissions-witness-d-20260314-1088",
+    "current": "",
+    "og": "A suspect believed to be the gunman in the murder of Marius van der Merwe, known as Witness D who testified before the Madlanga Commission of Inquiry, has been arrested in Johannesburg.",
+    "error": null
+  },
+  {
+    "name": " Nigerian Bulletin",
+    "siteURL": "https://nigerianbulletin.com/forums/",
+    "current": "Find the best Nigeria News links to trending News and articles from Nigeria, Africa and across the world. Get on Nigerian Bulletin today for top news and more",
+    "og": "Discover what’s happening - and explore, experience, and exchange what it really means.",
+    "error": null
+  },
+  {
+    "name": "Nigerian News Latest",
+    "siteURL": "https://www.nigerianeye.com/",
+    "current": "Latest News in Nigeria - NigerianEye is a Nigerian Online NewsPaper and Breaking News Source. NIGERIA NEWS ★ TOP NIGERIAN Newspapers ★ Top news headlines from Nigeria.",
+    "og": "Responsive Blogger Template",
+    "error": null
+  },
+  {
+    "name": "Nintendo",
+    "siteURL": "https://www.nintendo.com/en-gb/?utm_source=rss_reader&utm_medium=rss&utm_campaign=rss_news",
+    "current": "Official Nintendo news, game announcements, and updates",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Nintendo Life",
+    "siteURL": "https://www.nintendolife.com/feeds/latest",
+    "current": "Nintendo news, reviews, and features",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "NME",
+    "siteURL": "https://www.nme.com",
+    "current": "NME covers the latest music news, reviews, features, and guides.",
+    "og": "NME brings you the latest music and pop culture news and reviews, along with videos and galleries, band features, concert tickets, magazine, radio and more.",
+    "error": null
+  },
+  {
+    "name": "NN/g latest articles and announcements",
+    "siteURL": "https://www.nngroup.com/feed/rss/",
+    "current": "The latest articles and announcements from Nielsen Norman Group",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Nomadic Matt's Travel Site",
+    "siteURL": "https://www.nomadicmatt.com/travel-blog/",
+    "current": "Travel Better, Cheaper, Longer",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "NPR News",
+    "siteURL": "https://www.npr.org/templates/story/story.php?storyId=1001",
+    "current": "NPR news, audio, and podcasts",
+    "og": "NPR news, audio, and podcasts. Coverage of breaking stories, national and world news, politics, business, science, technology, and extended coverage of major national and world events.",
+    "error": null
+  },
+  {
+    "name": "Ole Begemann",
+    "siteURL": "https://oleb.net/blog/",
+    "current": "",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "OpIndia",
+    "siteURL": "https://www.opindia.com/",
+    "current": "bringing the 'right' side of India",
+    "og": "Opindia.com - Latest India News & Live opinions on politics, sports, entertainment & more. Breaking India news in English. Bringing the 'right' side of India.",
+    "error": null
+  },
+  {
+    "name": "OS X Daily",
+    "siteURL": "https://osxdaily.com/",
+    "current": "News, tips, software, reviews, and more for Mac OS X, iPhone, iPad",
+    "og": "News, tips, software, reviews, and more for Mac OS X, iPhone, iPad",
+    "error": null
+  },
+  {
+    "name": "Ottawa Citizen",
+    "siteURL": "https://ottawacitizen.com",
+    "current": "Ottawa Latest News, Breaking Headlines & Sports",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Ouest-France",
+    "siteURL": "https://www.ouest-france.fr/rss/une",
+    "current": "Dernières minutes",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Overflow - Buffer Resources",
+    "siteURL": "https://buffer.com/resources/",
+    "current": "In-depth ideas and guides to social media & online marketing strategy, published by the team at Buffer",
+    "og": "Buffer’s social media marketing blog covers the latest social media tools, analytics, and strategies for X (Twitter), Facebook, and more.",
+    "error": null
+  },
+  {
+    "name": "Overreacted",
+    "siteURL": "https://overreacted.io/",
+    "current": "Personal blog by Dan Abramov. I explain with words and code.",
+    "og": "A blog by Dan Abramov",
+    "error": null
+  },
+  {
+    "name": "Panorama",
+    "siteURL": "https://www.panorama.it",
+    "current": "Panorama",
+    "og": "Panorama",
+    "error": null
+  },
+  {
+    "name": "Paris Star",
+    "siteURL": "https://www.parisstaronline.com",
+    "current": "",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "PC Gamer",
+    "siteURL": "https://www.pcgamer.com",
+    "current": "The global authority on PC gaming, hardware, and Half-Life 3.",
+    "og": "PC Gamer is your source for exclusive reviews, demos, updates and news on all your favorite PC gaming franchises.",
+    "error": null
+  },
+  {
+    "name": "Penny Arcade",
+    "siteURL": "https://www.penny-arcade.com/",
+    "current": "News Fucker 6000",
+    "og": "Videogaming-related online strip by Mike Krahulik and Jerry Holkins. Includes news and commentary.",
+    "error": null
+  },
+  {
+    "name": "peRFect Tennis",
+    "siteURL": "https://www.perfect-tennis.com",
+    "current": "UK Tennis Blog",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "PerthNow",
+    "siteURL": "https://www.perthnow.com.au/news",
+    "current": "PerthNow news",
+    "og": "The latest news at home and across the world featuring news on Western Australia, Australia, the world and other topics you are interested in.",
+    "error": null
+  },
+  {
+    "name": "PetaPixel",
+    "siteURL": "https://petapixel.com/",
+    "current": "Photography and Camera News, Reviews, and Inspiration",
+    "og": "PetaPixel is a photography news site that covers photo and camera news, reviews, inspiration, and education.",
+    "error": null
+  },
+  {
+    "name": "PhilNews.XYZ",
+    "siteURL": "https://www.philnews.xyz/",
+    "current": "Voice Against Biased Media",
+    "og": "Trusted news and guides on FinTech, Tourism, Sports & Entertainment. Clear Insights and practical updates that matter.",
+    "error": null
+  },
+  {
+    "name": "philstar.com - RSS Headlines",
+    "siteURL": "https://www.philstar.com/rss/headlines",
+    "current": "Philippine News for the Filipino Global Community",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Pitchfork",
+    "siteURL": "https://pitchfork.com",
+    "current": "The most trusted voice in music",
+    "og": "The Most Trusted Voice in Music.",
+    "error": null
+  },
+  {
+    "name": "Playbook",
+    "siteURL": "",
+    "current": "The unofficial guide to official Washington.",
+    "og": null,
+    "error": "no siteURL"
+  },
+  {
+    "name": "Polygon",
+    "siteURL": "https://www.polygon.com",
+    "current": "",
+    "og": "Your source for the latest in video games, sci-fi, fantasy, tabletop games, anime, horror, books, and comics.",
+    "error": null
+  },
+  {
+    "name": "POPSUGAR Fashion",
+    "siteURL": "https://www.popsugar.com/fashion/",
+    "current": "Top Fashion Stories",
+    "og": "PS makes wellness more accessible through real-life stories, first-person perspectives, and expert-backed information. Our staff of journalists and subject-matter experts research, report, and produce articles, videos, and social content that help people feel good about their well-being choices, no matter what they are. Via our core verticals — Health, Fitness, Beauty, Balance, Identity, and Shopping — we help our audience proceed with confidence.",
+    "error": null
+  },
+  {
+    "name": "Portada // expansion",
+    "siteURL": "https://www.expansion.com",
+    "current": "Portada // expansion",
+    "og": "Noticias econ�micas de �ltima hora, informaci�n de mercados, opini�n y mucho m�s, en el portal del diario l�der de informaci�n de mercados, econom�a y pol�tica en espa�ol",
+    "error": null
+  },
+  {
+    "name": "Portada, El Siglo de Torreón",
+    "siteURL": "https://www.elsiglodetorreon.com.mx/",
+    "current": "El Siglo de Torreón en Línea - Defensor de la Comunidad (Portada)",
+    "og": "Periódico Regional. Defensor de la Comunidad Lagunera, noticias de Coahuila y Durango. Miembro de la AEE",
+    "error": null
+  },
+  {
+    "name": "Premium Times Nigeria",
+    "siteURL": "https://premiumtimesng.com",
+    "current": "Premium Times - Nigeria's leading online newspaper, delivering breaking news and deep investigative reports from Nigeria",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Prezi Engineering - Medium",
+    "siteURL": "https://engineering.prezi.com?source=rss----911e72786e31---4",
+    "current": "The things we learn as we build our products - Medium",
+    "og": "The things we learn as we build our products",
+    "error": null
+  },
+  {
+    "name": "ProAndroidDev",
+    "siteURL": "https://proandroiddev.com?source=rss----c72404660798---4",
+    "current": "The latest posts from Android Professionals and Google Developer Experts. - Medium",
+    "og": "The latest posts from Android Professionals and Google Developer Experts.",
+    "error": null
+  },
+  {
+    "name": "Public Object",
+    "siteURL": "https://publicobject.com/",
+    "current": "Jesse Wilson on programming.",
+    "og": "Jesse Wilson on programming.",
+    "error": null
+  },
+  {
+    "name": "ReadWrite",
+    "siteURL": "https://readwrite.com/",
+    "current": "The Blog of Things",
+    "og": "ReadWrite delivers gambling news, expert reviews, and strategy guides for casino, betting, slots, and poker – your trusted guide to smarter play.",
+    "error": null
+  },
+  {
+    "name": "Republika Online RSS Feed",
+    "siteURL": "https://www.republika.co.id",
+    "current": "",
+    "og": "Republika Online - berita terkini, berita hari ini, membahas isu politik, Dunia Islam dan peristiwa terhangat indonesia",
+    "error": null
+  },
+  {
+    "name": "RMF24.pl",
+    "siteURL": "https://www.rmf24.pl/",
+    "current": "Radio numer 1 w Polsce! Największa i najpopularniejsza stacja muzyczno-informacyjna. Zawsze najlepsza muzyka i najświeższe fakty. Posłuchaj nas online.",
+    "og": "Najnowsze informacje z kraju i ze świata, najważniejsze wiadomości gospodarcze, sportowe i naukowe. Relacje na żywo. Podcasty Fakty RMF FM oraz Rozmowy naszych dziennikarzy...",
+    "error": null
+  },
+  {
+    "name": "Rock, Paper, Shotgun",
+    "siteURL": "https://www.rockpapershotgun.com/",
+    "current": "This is a feed of all the latest articles from Rock Paper Shotgun.",
+    "og": "PC gaming news, previews, reviews, opinion.",
+    "error": null
+  },
+  {
+    "name": "Rolling Stone",
+    "siteURL": "https://www.rollingstone.com",
+    "current": "Music, film, TV and political news coverage from Rolling Stone.",
+    "og": "Get the latest Rolling Stone news with exclusive stories and pictures from Rolling Stone.",
+    "error": null
+  },
+  {
+    "name": "RSS di - ANSA.it",
+    "siteURL": "https://www.ansa.it/sito/videogallery/short_video/2026/03/14/il-racconto-della-settimana-in-foto_b02787b1-d4a0-448a-9ed2-0a0f00be5932.html",
+    "current": "Updated every day - FOR PERSONAL USE ONLY",
+    "og": "Il video (ANSA)",
+    "error": null
+  },
+  {
+    "name": "RT",
+    "siteURL": "https://www.rt.com",
+    "current": "RT : Today",
+    "og": "RT is the first Russian 24/7 English-language news channel which brings the Russian view on global news.",
+    "error": null
+  },
+  {
+    "name": "Scott Hanselman's Blog",
+    "siteURL": "https://www.hanselman.com/blog/",
+    "current": "Scott Hanselman on Programming, User Experience, The Zen of Computers and Life in General",
+    "og": "Scott Hanselman is blogging about open source, .NET, and the cloud.",
+    "error": null
+  },
+  {
+    "name": "Scripting News",
+    "siteURL": "https://scripting.com/",
+    "current": "It's even worse than it appears.",
+    "og": null,
+    "error": ""
+  },
+  {
+    "name": "Shutterbean",
+    "siteURL": "https://www.shutterbean.com",
+    "current": "food, photography & inspiration",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Sink In",
+    "siteURL": "https://gosink.in/",
+    "current": "Sink In - Tech and Travel",
+    "og": "Sink In - Tech Learnings (Shah Code Exporters - FZCO)",
+    "error": null
+  },
+  {
+    "name": "Six Colors",
+    "siteURL": "https://sixcolors.com",
+    "current": "Apple news and commentary by Jason Snell",
+    "og": "Apple, technology, and other stuff",
+    "error": null
+  },
+  {
+    "name": "Skinnytaste",
+    "siteURL": "https://www.skinnytaste.com/",
+    "current": "Delicious Healthy Recipes Made with Real Food",
+    "og": "Healthy recipes made easy from NYTimes best selling author Gina Homolka. Get high-protein recipes, dinner ideas, air fryer recipes & more!",
+    "error": null
+  },
+  {
+    "name": "Sky & Telescope",
+    "siteURL": "https://skyandtelescope.org/",
+    "current": "The essential guide to astronomy",
+    "og": "Explore the universe with Sky & Telescope - your ultimate source for stargazing, celestial events, and the latest astronomy news",
+    "error": null
+  },
+  {
+    "name": "Sky News",
+    "siteURL": "https://news.sky.com/sports",
+    "current": "The best sports coverage from around the world, covering: Football, Cricket, Golf, Rugby, WWE, Boxing, Tennis and much more.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Smashing Magazine",
+    "siteURL": "https://www.smashingmagazine.com/",
+    "current": "Recent content in Articles on Smashing Magazine — For Web Designers And Developers",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "smitten kitchen",
+    "siteURL": "https://smittenkitchen.com/",
+    "current": "Fearless cooking from a tiny NYC kitchen.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Soccer News",
+    "siteURL": "https://www.soccernews.com/",
+    "current": "The Latest Soccer News from around the globe.",
+    "og": "Daily soccer news from best leagues in the world. Also featuring match tips, betting, and bookmaker promotions. Transfer news and list of completed transfers.",
+    "error": null
+  },
+  {
+    "name": "Software Engineering Daily",
+    "siteURL": "https://softwareengineeringdaily.com/category/all-episodes/exclusive-content/podcast/",
+    "current": "",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Space.com",
+    "siteURL": "https://www.space.com/feeds.xml",
+    "current": "Get the latest space exploration, innovation and astronomy news. Space.com celebrates humanity's ongoing expansion across the final frontier.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Sports",
+    "siteURL": "https://sports.yahoo.com",
+    "current": "Yahoo! Sports - Comprehensive news, scores, standings, fantasy games, rumors, and more",
+    "og": "Sports News, Scores, Fantasy Games",
+    "error": null
+  },
+  {
+    "name": "Sportskeeda",
+    "siteURL": "https://www.sportskeeda.com",
+    "current": "Sports Writers Unite",
+    "og": "Follow Sportskeeda for in depth coverage of Sports, Gaming, Entertainment & more. Get news, videos, live scores, schedules, and standings from WWE, NFL, NBA, MLB, Tennis, F1, MMA, Cricket, Football and all the other popular sports in the world",
+    "error": null
+  },
+  {
+    "name": "Steam RSS News Feed",
+    "siteURL": "https://www.steampowered.com/",
+    "current": "All Steam news, all the time!",
+    "og": "Steam is the ultimate destination for playing, discussing, and creating games.",
+    "error": null
+  },
+  {
+    "name": "Swarajya",
+    "siteURL": "https://swarajyamag.com",
+    "current": "",
+    "og": "A big tent for liberal right of centre discourse that reaches out to the new India",
+    "error": null
+  },
+  {
+    "name": "SwiftLee",
+    "siteURL": "https://www.avanderlee.com/",
+    "current": "A weekly blog about Swift, iOS, and Xcode tips and tricks",
+    "og": "A Swift blog including iOS, and Xcode development content to build better mobile apps. Learn all basics and advanced topics with weekly new blog posts.",
+    "error": null
+  },
+  {
+    "name": "SwiftRocks",
+    "siteURL": "https://swiftrocks.com",
+    "current": "SwiftRocks is a blog about how Swift works and general iOS tips and tricks.",
+    "og": "SwiftRocks is Bruno Rocha",
+    "error": null
+  },
+  {
+    "name": "Sydney Morning Herald",
+    "siteURL": "https://www.smh.com.au/rss/feed.xml",
+    "current": "The top News headlines from The Sydney Morning Herald. For all the news, visit https://www.smh.com.au",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "tagesschau.de",
+    "siteURL": "https://www.tagesschau.de/infoservices/alle-meldungen-100.html",
+    "current": "tagesschau.de",
+    "og": "tagesschau.de - Die Nachrichten der ARD",
+    "error": null
+  },
+  {
+    "name": "TalkAndroid",
+    "siteURL": "https://www.talkandroid.com/",
+    "current": "The latest in android news, rumours, and updates, including device news and apps!",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "TechCentral",
+    "siteURL": "https://techcentral.co.za/",
+    "current": "South Africa's best technology journalism",
+    "og": "TechCentral is South Africa's leading business-focused technology publication. Local and world news, analysis, opinion and podcasts.",
+    "error": null
+  },
+  {
+    "name": "TechCrunch",
+    "siteURL": "https://techcrunch.com/",
+    "current": "Startup and technology news",
+    "og": "TechCrunch | Reporting on the business of technology, startups, venture capital funding, and Silicon Valley",
+    "error": null
+  },
+  {
+    "name": "TechGenyz",
+    "siteURL": "https://techgenyz.com/",
+    "current": "News on Mobile, Gaming, AR, VR, Apps and Future Tech",
+    "og": "Techgenyz - Get the latest technology news, gaming news, and updates. Learn about the latest gadgets, apps, product reviews, and get device specifications.",
+    "error": null
+  },
+  {
+    "name": "TechPinas",
+    "siteURL": "https://www.techpinas.com/",
+    "current": "Sharing Specs and Beyond to Help Build a Tech-Informed, Tech-Empowered Nation. TechPinas is a Proudly-Filipino Technology Blog created and led by Mark Milan Macanas.",
+    "og": "The Philippines' Technology News Blog Website, Sharing Specs and Beyond to Help Build a Tech-Informed, Tech-Empowered Nation. Proudly Filipino.",
+    "error": null
+  },
+  {
+    "name": "Tennis - ATP World Tour",
+    "siteURL": "https://www.atptour.com",
+    "current": "Headline News - powered by FeedBurner",
+    "og": "Featuring tennis live scores, results, stats, rankings, ATP player and tournament information, news, video highlights &amp; more from men&#39;s professional tennis on the ATP Tour.",
+    "error": null
+  },
+  {
+    "name": "The A.V. Club",
+    "siteURL": "https://www.avclub.com",
+    "current": "Pop culture obsessives writing for the pop culture obsessed",
+    "og": "The A.V. Club digs deep into film, TV, music, games, books and more.",
+    "error": null
+  },
+  {
+    "name": "The Age",
+    "siteURL": "https://www.theage.com.au/rss/feed.xml",
+    "current": "The top News headlines from The Age. For all the news, visit https://www.theage.com.au/",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "The Ancient Gaming Noob",
+    "siteURL": "https://tagn.wordpress.com/",
+    "current": "Veni, Vidi, Scripsi",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "The Architect’s Newspaper",
+    "siteURL": "https://www.archpaper.com/",
+    "current": "The most authoritative voice on architecture and design in the United States.",
+    "og": "The most authoritative voice on architecture and design in the United States.",
+    "error": null
+  },
+  {
+    "name": "The Atlantic",
+    "siteURL": "https://www.theatlantic.com/",
+    "current": "News, politics, culture, technology, and more",
+    "og": "The Atlantic covers news, politics, culture, technology, health, and more, through its articles, podcasts, videos, and flagship magazine.",
+    "error": null
+  },
+  {
+    "name": "The Bloggess",
+    "siteURL": "https://thebloggess.com",
+    "current": "Like Mother Teresa, only better.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "The Citizen",
+    "siteURL": "https://www.citizen.co.za/",
+    "current": "More News Your Way",
+    "og": "Get the latest news from South Africa and around the world with The Citizen's online edition. From politics to sport and everything in between, The Citizen has it covered with more news, your way.",
+    "error": null
+  },
+  {
+    "name": "The Crazy Programmer",
+    "siteURL": "https://www.thecrazyprogrammer.com/category/programming",
+    "current": "Programming, Design and Development",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "The Daily WTF",
+    "siteURL": "https://thedailywtf.com/",
+    "current": "Curious Perversions in Information Technology",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "The Guardian",
+    "siteURL": "https://www.theguardian.com/fashion",
+    "current": "The latest fashion news, advice and comment from the Guardian",
+    "og": "The latest fashion news, advice and comment from the Guardian",
+    "error": null
+  },
+  {
+    "name": "The Hindu",
+    "siteURL": "https://www.thehindu.com/",
+    "current": "Default RSS Feed",
+    "og": "The Hindu Newspaper: Get latest News on Politics, Sports, Business, Arts, Entertainment and trending news Videos from The Hindu",
+    "error": null
+  },
+  {
+    "name": "The Independent",
+    "siteURL": "https://www.independent.co.uk/news/uk/rss",
+    "current": "Visit now for the latest news direct from The Independent and updated throughout the day",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "The Local",
+    "siteURL": "",
+    "current": "Europe's news in English",
+    "og": null,
+    "error": "no siteURL"
+  },
+  {
+    "name": "The Moscow Times",
+    "siteURL": "https://www.themoscowtimes.com/news",
+    "current": "The Moscow Times offers everything you need to know about Russia: Breaking news, top stories, business, analysis, opinion, multimedia, upcoming cultural events",
+    "og": "Independent news from Russia",
+    "error": null
+  },
+  {
+    "name": "The Nation",
+    "siteURL": "https://www.nation.com.pk/rss/top-stories",
+    "current": "",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "The News International - Pakistan",
+    "siteURL": "https://www.thenews.com.pk/",
+    "current": "The News International Pakistan's Leading English Language Newspaper.",
+    "og": "The News International – Stay updated with today’s latest celebrity and entertainment news, TV shows, royal family updates, lifestyle trends, plus sports and tech coverage.",
+    "error": null
+  },
+  {
+    "name": "The Next Web",
+    "siteURL": "https://thenextweb.com",
+    "current": "Original and proudly opinionated perspectives on technology news",
+    "og": "We inform, inspire, and connect people who love tech",
+    "error": null
+  },
+  {
+    "name": "The Onion",
+    "siteURL": "https://theonion.com/",
+    "current": "America's Finest News Source.",
+    "og": "America's Finest News Source",
+    "error": null
+  },
+  {
+    "name": "The Province",
+    "siteURL": "https://theprovince.com",
+    "current": "Vancouver, BC News, Sports & Breaking Headlines",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "The Register",
+    "siteURL": "https://www.theregister.com/",
+    "current": "Sci/Tech news for the world",
+    "og": "Enterprise technology news for IT decision-makers and professionals",
+    "error": null
+  },
+  {
+    "name": "The Rio Times",
+    "siteURL": "https://www.riotimesonline.com/",
+    "current": "News in Rio de Janeiro, Brazil",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "The South African",
+    "siteURL": "https://www.thesouthafrican.com/",
+    "current": "South Africa News",
+    "og": "The South African is an English-language South African online news publication and a leading source for news, sport, lifestyle, finance, opinion content in South Africa.",
+    "error": null
+  },
+  {
+    "name": "The Truth About Cars",
+    "siteURL": "https://www.thetruthaboutcars.com",
+    "current": "The Truth About Cars is dedicated to providing candid, unbiased automobile reviews and the latest in auto industry news.",
+    "og": "The Truth About Cars is dedicated to providing candid, unbiased automobile reviews and the latest in auto industry news.",
+    "error": null
+  },
+  {
+    "name": "The Verge",
+    "siteURL": "https://www.theverge.com",
+    "current": "Covering the intersection of technology, science, art, and culture",
+    "og": "The Verge is about technology and how it makes us feel. Founded in 2011, we offer our audience everything from breaking news to reviews to award-winning features and investigations, on our site, in video, and in podcasts.",
+    "error": null
+  },
+  {
+    "name": "The42",
+    "siteURL": "https://www.the42.ie/",
+    "current": "Ireland's Internet Newspaper",
+    "og": "The latest Irish and international sports news from The 42",
+    "error": null
+  },
+  {
+    "name": "TheJournal.ie",
+    "siteURL": "https://www.thejournal.ie/",
+    "current": "Ireland's Internet Newspaper",
+    "og": "Read, share and shape the news on TheJournal.ie - Breaking Irish and International News",
+    "error": null
+  },
+  {
+    "name": "Times of India",
+    "siteURL": "https://timesofindia.indiatimes.com/world",
+    "current": "World News: TOI brings the latest world news headlines, Current International breaking news world wide. In depth analysis and top news headlines world wide.",
+    "og": "World News Today: Read the latest world news headlines, Current International breaking news world wide. In depth analysis and top news headlines world wide.",
+    "error": null
+  },
+  {
+    "name": "Top Gear",
+    "siteURL": "https://www.topgear.com.ph",
+    "current": "The Philippines best online source of info on cars and the automotive industry.",
+    "og": "The Philippines",
+    "error": null
+  },
+  {
+    "name": "Top World News- News18.com",
+    "siteURL": "https://www.news18.com/world/",
+    "current": "Latest news from World Section",
+    "og": "Latest World News Today: Read the recent world news headlines, breaking Global news, and videos on politics, sports, lifestyle, technology, etc. News18 is the best source for world news.",
+    "error": null
+  },
+  {
+    "name": "Toronto Sun",
+    "siteURL": "https://torontosun.com/",
+    "current": "",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Tribunnews.com",
+    "siteURL": "https://www.tribunnews.com/",
+    "current": "Berita Terkini dari Tribunnews.com",
+    "og": "TribunNews.com menyajikan berita dan video terkini dari regional, nasional dan internasional dengan sudut pandang dan nilai-nilai lokal",
+    "error": null
+  },
+  {
+    "name": "TV Fanatic",
+    "siteURL": "https://www.tvfanatic.com/",
+    "current": "",
+    "og": "Your Home for TV Show Reviews, Opinions, Spoilers, and News!",
+    "error": null
+  },
+  {
+    "name": "TVLine",
+    "siteURL": "https://www.tvline.com/",
+    "current": "TV News, Previews, Spoilers, Casting Scoop, Interviews",
+    "og": "Stay up to date with the latest TV news, previews, spoilers, casting updates, interviews, and more from TVLine. Your go-to source for all things TV.",
+    "error": null
+  },
+  {
+    "name": "UNBOX PH",
+    "siteURL": "https://unbox.ph/",
+    "current": "Taking Awesome Out of the Box",
+    "og": "Get your daily dose of tech news, brand list, gadget reviews, and more essential information from Unbox PH.",
+    "error": null
+  },
+  {
+    "name": "Under the Radar",
+    "siteURL": "https://www.relay.fm/radar",
+    "current": "From development and design to marketing and support, Under the Radar is all about independent app development. It's never longer than 30 minutes. Hosted by Marco Arment and David Smith.",
+    "og": "From development and design to marketing and support, Under the Radar was all about independent app development. It was rarely longer than 30 minutes.",
+    "error": null
+  },
+  {
+    "name": "UOL",
+    "siteURL": "https://www.uol.com.br",
+    "current": "Home UOL",
+    "og": "UOL, a maior empresa brasileira de conteúdo, serviços digitais e tecnologia com vários canais de jornalismo e diversas soluções para você ou seu negócio.",
+    "error": null
+  },
+  {
+    "name": "US Top News and Analysis",
+    "siteURL": "https://www.cnbc.com/us-top-news-and-analysis/",
+    "current": "CNBC is the world leader in business news and real-time financial market coverage. Find fast, actionable information.",
+    "og": "CNBC is the world leader in business news and real-time financial market coverage. Find fast, actionable information.",
+    "error": null
+  },
+  {
+    "name": "Use Your Loaf",
+    "siteURL": "https://useyourloaf.com/blog/",
+    "current": "Recent content on Use Your Loaf - iOS Development News & Tips",
+    "og": "Latest Updates Read my latest articles. Browse the archives. Follow the RSS feed. Subscribe to the newsletter to get the latest posts direct to your inbox.",
+    "error": null
+  },
+  {
+    "name": "UX Collective - Medium",
+    "siteURL": "https://uxdesign.cc?source=rss----138adf9c44c---4",
+    "current": "We believe designers are thinkers as much as they are makers. Curated stories on UX, Visual & Product Design. - Medium",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Variety",
+    "siteURL": "https://variety.com",
+    "current": "",
+    "og": "Entertainment news, film reviews, awards, film festivals, box office, entertainment industry conferences",
+    "error": null
+  },
+  {
+    "name": "Vox",
+    "siteURL": "https://www.vox.com",
+    "current": "Understand the news",
+    "og": "Vox is a general interest news site for the 21st century. Its mission: to help everyone understand our complicated world, so that we can all help shape it. In text, video and audio, our reporters explain politics, policy, world affairs, technology, culture, science, the climate crisis, money, health and everything else that matters. Our goal is to ensure that everyone, regardless of income or status, can access accurate information that empowers them.",
+    "error": null
+  },
+  {
+    "name": "Who What Wear",
+    "siteURL": "https://www.whowhatwear.com/feeds.xml",
+    "current": "Who What Wear",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Wired",
+    "siteURL": "https://www.wired.com",
+    "current": "The latest in technology, science, culture, and business",
+    "og": "We bring you the future as it happens. From the latest in science and technology to the big stories in business and culture, we've got you covered.",
+    "error": null
+  },
+  {
+    "name": "World & Nation",
+    "siteURL": "https://www.latimes.com",
+    "current": "Nation and World articles from the Los Angeles Times.",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "World News",
+    "siteURL": "https://www.huffpost.com/news/world-news",
+    "current": "Catch up on the latest World News news, photos, videos, and opinion.",
+    "og": "Catch up on the latest World News news, photos, videos, and opinion.",
+    "error": null
+  },
+  {
+    "name": "www.espn.com - TENNIS",
+    "siteURL": "https://www.espn.com",
+    "current": "Latest TENNIS news from www.espn.com",
+    "og": "Visit ESPN for live scores, highlights and sports news. Stream exclusive games on ESPN and play fantasy sports.",
+    "error": null
+  },
+  {
+    "name": "www.espn.com - TOP",
+    "siteURL": "https://www.espn.com",
+    "current": "Latest TOP news from www.espn.com",
+    "og": "Visit ESPN for live scores, highlights and sports news. Stream exclusive games on ESPN and play fantasy sports.",
+    "error": null
+  },
+  {
+    "name": "www.wirtualnemedia.pl",
+    "siteURL": "https://www.wirtualnemedia.pl",
+    "current": "Newsy ze wszystkich działów",
+    "og": "Portal o mediach, reklamie, internecie, PR, telekomunikacji - nr 1 w Polsce - WirtualneMedia.pl - wiadomości z pierwszej ręki",
+    "error": null
+  },
+  {
+    "name": "Xbox's Major Nelson",
+    "siteURL": "https://news.xbox.com/en-us/",
+    "current": "Xbox news & facts direct from the source",
+    "og": null,
+    "error": null
+  },
+  {
+    "name": "Гордон - Самые популярные материалы",
+    "siteURL": "https://gordonua.com",
+    "current": "ГОРДОН",
+    "og": "ГОРДОН: Головні новини дня України та світу, ексклюзивні коментарі, аналітика. Фото, відео. Спецпроекти, ексклюзивні новини, інтерв",
+    "error": null
+  },
+  {
+    "name": "Еспресо",
+    "siteURL": "https://espreso.tv/",
+    "current": "Новини України та світу",
+    "og": "Читайте онлайн останні новини України і світу на сайті телеканалу Еспресо. ᐈ Найважливіші новини дня, свіжа інформація про війну з Росією, події на фронті. Новини політики та економіки. Відео, аналітика, коментарі експертів.",
+    "error": null
+  },
+  {
+    "name": "Информационное агентство УНИАН",
+    "siteURL": "https://www.unian.net",
+    "current": "Информационное агентство УНИАН :: Новости, Политика, Бизнес, Фотосервис, Регионы",
+    "og": "Новости Украины. УНИАН - последние новости Украина, новости дня онлайн. Новости политики, экономики, свежие новости спорта, новости Украины и мира 2026 круглосуточно на русском языке от УНИАН.",
+    "error": null
+  },
+  {
+    "name": "НВ",
+    "siteURL": "https://nv.ua/",
+    "current": "Главные новости Украины и мира, эксклюзивные комментарии, аналитика",
+    "og": "Останні новини України та світу онлайн. Свіжі українські та світові новини політики, бізнесу, фінансів, технологій, стилю, спорту та важливих подій.",
+    "error": null
+  },
+  {
+    "name": "देश | दैनिक भास्कर",
+    "siteURL": "https://www.bhaskar.com/national/",
+    "current": "News in Hindi(हिन्दी में समाचार), Hindi News(हिंदी समाचार): देश के सबसे विश्वसनीय अख़बार पर पढ़ें ताज़ा ख़बरें। पढ़ें देश, विदेश, बॉलीवुड, लाइफस्टाइल और राजनीती की ब्रेकिंग ख़बरें. Read Latest Hindi News, Breaking News at Dainik Bhaskar",
+    "og": "News in Hindi(हिन्दी में समाचार), Hindi News(हिंदी समाचार): देश के सबसे विश्वसनीय अख़बार पर पढ़ें ताज़ा ख़बरें। पढ़ें देश, विदेश, बॉलीवुड, लाइफस्टाइल और राजनीती की ब्रेकिंग ख़बरें. Read Latest Hindi News, Breaking News at Dainik Bhaskar",
+    "error": null
+  },
+  {
+    "name": "প্রথম আলো",
+    "siteURL": "https://www.prothomalo.com",
+    "current": "",
+    "og": "বাংলাদেশসহ বিশ্বের সর্বশেষ সংবাদ শিরোনাম, প্রতিবেদন, বিশ্লেষণ, খেলা, বিনোদন, চাকরি, রাজনীতি ও বাণিজ্যের বাংলা নিউজ পড়তে ভিজিট করুন।",
+    "error": null
+  },
+  {
+    "name": "ઈન્ડિયા | દિવ્ય ભાસ્કર",
+    "siteURL": "https://www.divyabhaskar.co.in/national/",
+    "current": "Latest National News Samachar - Find India\\'s latest Samachar and News Headlines today at India\\'s No. 1 gujarati news site www.divyabhaskar.co.in.",
+    "og": "Latest National News Samachar - Find India\\",
+    "error": null
+  },
+  {
+    "name": "香港新聞RSS - 香港經濟日報 hket.com",
+    "siteURL": "https://www.hket.com/",
+    "current": "訂閱新聞RSS，獲取最新香港新聞, 時事 - RSS - 香港經濟日報 hket.com",
+    "og": "香港財經新聞網站，提供即時新聞、財經新聞、兩岸新聞、國際新聞、地產、科技及時事資訊，助您掌握新聞資訊及做好分析。",
+    "error": null
+  }
+]

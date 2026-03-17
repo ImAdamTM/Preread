@@ -1,0 +1,83 @@
+[
+  {
+    "category": "Movies",
+    "description": "The latest movie and television news, reviews, film trailers, exclusive interviews, and opinions - since 2005",
+    "feedURL": "https://www.slashfilm.com/category/news/feed/",
+    "id": "76fac9c4-5b18-53d2-a523-3aaccd162538",
+    "name": "/Film",
+    "siteURL": "https://www.slashfilm.com/",
+    "tags": []
+  },
+  {
+    "category": "Movies",
+    "description": "Movie, TV, and comic book news and reviews",
+    "feedURL": "https://www.aintitcool.com/node/feed/",
+    "id": "6044df96-ff67-6032-8cde-c2dad97e1f2a",
+    "name": "Ain't It Cool News Feed",
+    "siteURL": "https://www.aintitcool.com/",
+    "tags": []
+  },
+  {
+    "category": "Movies",
+    "description": "ComingSoon.net features the latest movie trailers and news, TV updates, video game reviews, anime releases, and more",
+    "feedURL": "https://www.comingsoon.net/feed",
+    "id": "4d6fc1e4-151c-fb37-3c12-4cc7d5affbdb",
+    "name": "ComingSoon.net",
+    "siteURL": "https://www.comingsoon.net/",
+    "tags": []
+  },
+  {
+    "category": "Movies",
+    "description": "Deadline.com is always the first to break up-to-the-minute entertainment, Hollywood and media news, with an unfiltered",
+    "feedURL": "https://deadline.com/feed/",
+    "id": "a6faba43-a17a-e08c-e8c2-ca2957c887cc",
+    "name": "Deadline",
+    "siteURL": "https://deadline.com",
+    "tags": []
+  },
+  {
+    "category": "Movies",
+    "description": "The latest movie trailers, release dates, film reviews, discussions, and updates on the cinematic experience from",
+    "feedURL": "https://www.firstshowing.net/feed/",
+    "id": "ca85d6a4-33d9-abde-9695-36848f3dbbe2",
+    "name": "FirstShowing.net",
+    "siteURL": "https://www.firstshowing.net",
+    "tags": []
+  },
+  {
+    "category": "Movies",
+    "description": "IndieWire is an online publication covering film, TV, and digital news, reviews, and interviews for passionate fans and",
+    "feedURL": "https://www.indiewire.com/feed",
+    "id": "e4217dc6-df68-c3b8-818e-a29e5a31d093",
+    "name": "IndieWire",
+    "siteURL": "https://www.indiewire.com",
+    "tags": []
+  },
+  {
+    "category": "Movies",
+    "description": "Comic Book, Film, TV, Games, Toys News and Rumors",
+    "feedURL": "https://www.bleedingcool.com/movies/feed/",
+    "id": "37d17862-c86a-4935-858a-e346ba33a6cf",
+    "name": "Movies",
+    "siteURL": "https://bleedingcool.com",
+    "tags": []
+  },
+  {
+    "category": "Movies",
+    "description": "Pop culture obsessives writing for the pop culture obsessed",
+    "feedURL": "https://www.avclub.com/rss.xml",
+    "id": "b06e129a-2079-b2bb-30d7-6a4496e723e1",
+    "name": "The A.V. Club",
+    "siteURL": "https://www.avclub.com",
+    "tags": []
+  },
+  {
+    "category": "Movies",
+    "description": "Entertainment news, film reviews, awards, film festivals, box office, entertainment industry conferences",
+    "feedURL": "https://variety.com/feed/",
+    "id": "58b40d3c-f048-1a8f-f2c4-158e59ab0ee4",
+    "name": "Variety",
+    "siteURL": "https://variety.com",
+    "tags": []
+  }
+]

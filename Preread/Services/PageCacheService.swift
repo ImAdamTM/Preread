@@ -238,6 +238,8 @@ actor PageCacheService {
         try preDoc.select("textarea").remove()
         try preDoc.select("iframe").remove()
 
+        try stripLinkedThumbnailCards(in: preDoc, pageURL: pageURL)
+
         try preDoc.select("figure").unwrap()
         try flattenImageOnlyDivs(in: preDoc)
         flattenSingleChildDivs(in: preDoc)
@@ -408,6 +410,9 @@ actor PageCacheService {
         // Strip elements explicitly marked as hidden — these are popovers,
         // tooltips, and overlays that take up layout space without JS.
         try doc.select("[aria-hidden=true]").remove()
+
+        // Strip related-article card widgets (small linked thumbnails + headlines)
+        try stripLinkedThumbnailCards(in: doc, pageURL: pageURL)
 
         // Neutralise sticky/fixed positioning — site headers and toolbars
         // float over content and are non-functional in offline cached pages.
@@ -911,9 +916,19 @@ actor PageCacheService {
     private let srcsetTargetWidth = 1200
 
     /// Splits a srcset attribute value into individual entries, handling commas
-    /// that appear inside URL query parameters (e.g. `?resize=1200,800`).
-    /// Standard srcset entry separators are commas followed by whitespace and a URL,
-    /// while commas in query params are immediately followed by digits.
+    /// that appear inside URL paths or query parameters.
+    ///
+    /// Srcset entries are separated by commas, but commas also appear inside URLs:
+    /// - Query parameters: `?resize=1200,800`
+    /// - Cloudinary-style path transforms: `/w_640,c_limit/image.jpg`
+    ///
+    /// Two signals indicate a new entry after a comma:
+    /// 1. The current accumulated text already ends with a width/density
+    ///    descriptor (`300w`, `2x`), meaning the entry is complete.
+    /// 2. The next fragment starts with a URL-like prefix (`http(s)://`, `//`,
+    ///    `/`, `data:`).
+    ///
+    /// If neither condition holds, the comma is part of the URL itself.
     private func parseSrcsetEntries(_ srcset: String) -> [String] {
         let rawParts = srcset.components(separatedBy: ",")
         var entries: [String] = []
@@ -924,20 +939,25 @@ actor PageCacheService {
             if current.isEmpty {
                 current = trimmed
             } else {
-                // A new srcset entry starts with a URL-like token — check if
-                // this part's first non-whitespace looks like a URL (contains /
-                // or starts with http/data) or is a bare filename.
-                // If instead it starts with digits (e.g. "800 1200w"), it's a
-                // continuation of a comma-containing URL query param.
-                let firstChar = trimmed.unicodeScalars.first
-                let startsWithDigit = firstChar.map { CharacterSet.decimalDigits.contains($0) } ?? false
-                if startsWithDigit {
-                    // Part of the previous URL's query parameter (e.g. "800 1200w" from "?resize=1200,800 1200w")
-                    current += "," + trimmed
-                } else {
+                // Check if the accumulated text already forms a complete entry
+                // (ends with a descriptor like "300w" or "2x").
+                let currentTrimmed = current.trimmingCharacters(in: .whitespaces)
+                let lastToken = currentTrimmed.components(separatedBy: .whitespaces).last ?? ""
+                let hasDescriptor = lastToken.hasSuffix("w") || lastToken.hasSuffix("x")
+
+                // Check if this fragment starts a new URL.
+                let lc = trimmed.lowercased()
+                let isNewURL = lc.hasPrefix("http://") || lc.hasPrefix("https://")
+                    || lc.hasPrefix("//") || lc.hasPrefix("data:")
+                    || lc.hasPrefix("/")
+
+                if hasDescriptor || isNewURL {
                     // New srcset entry
                     entries.append(current)
                     current = trimmed
+                } else {
+                    // Continuation of previous URL (comma was inside the URL)
+                    current += "," + trimmed
                 }
             }
         }
@@ -1117,26 +1137,24 @@ actor PageCacheService {
     }
 
     private func downloadAsset(url: URL, to assetsDir: URL) async throws -> AssetMapping {
-        let filename = hashedFilename(for: url)
-        let filePath = assetsDir.appendingPathComponent(filename)
         let fm = FileManager.default
-
-        // Check shared pool first — if we already downloaded this asset for another article,
-        // hardlink it instead of re-downloading
         let sharedDir = sharedAssetsURL
         try fm.createDirectory(at: sharedDir, withIntermediateDirectories: true)
-        let sharedPath = sharedDir.appendingPathComponent(filename)
+
+        // Check shared pool first — if we already downloaded this asset for another article,
+        // hardlink it instead of re-downloading.
+        let preliminaryFilename = hashedFilename(for: url)
+        let sharedPath = sharedDir.appendingPathComponent(preliminaryFilename)
 
         if fm.fileExists(atPath: sharedPath.path) {
             let attrs = try fm.attributesOfItem(atPath: sharedPath.path)
             let size = (attrs[.size] as? Int) ?? 0
-            // Remove existing file at destination (e.g. from a previous cache)
-            // before hardlinking, since linkItem throws if destination exists
+            let filePath = assetsDir.appendingPathComponent(preliminaryFilename)
             try? fm.removeItem(at: filePath)
             try fm.linkItem(at: sharedPath, to: filePath)
             return AssetMapping(
                 originalURL: url.absoluteString,
-                filename: filename,
+                filename: preliminaryFilename,
                 size: size,
                 wasTruncated: false
             )
@@ -1159,8 +1177,9 @@ actor PageCacheService {
         }
 
         // Validate content type — reject HTML error pages saved as images
-        if let httpResponse = response as? HTTPURLResponse,
-           let contentType = httpResponse.value(forHTTPHeaderField: "Content-Type")?.lowercased() {
+        let responseContentType = (response as? HTTPURLResponse)?
+            .value(forHTTPHeaderField: "Content-Type")?.lowercased()
+        if let contentType = responseContentType {
             let validPrefixes = ["image/", "text/css", "font/", "application/font", "application/x-font",
                                  "image/svg+xml", "application/octet-stream"]
             let isValid = validPrefixes.contains { contentType.hasPrefix($0) }
@@ -1169,11 +1188,15 @@ actor PageCacheService {
             }
         }
 
+        // Compute final filename — use Content-Type to derive extension for extensionless URLs
+        let filename = hashedFilename(for: url, contentType: responseContentType)
+        let finalSharedPath = sharedDir.appendingPathComponent(filename)
+        let filePath = assetsDir.appendingPathComponent(filename)
+
         // Write to shared pool, then hardlink into article dir
-        try data.write(to: sharedPath)
-        // Remove existing file at destination before hardlinking
+        try data.write(to: finalSharedPath)
         try? fm.removeItem(at: filePath)
-        try fm.linkItem(at: sharedPath, to: filePath)
+        try fm.linkItem(at: finalSharedPath, to: filePath)
 
         return AssetMapping(
             originalURL: url.absoluteString,
@@ -1440,6 +1463,65 @@ actor PageCacheService {
             } else if let h = height, h > 0, h <= maxDimension {
                 try img.remove()
             }
+        }
+    }
+
+    // MARK: - Linked thumbnail card cleanup
+
+    /// Removes "related article" cards — containers that hold a small linked thumbnail alongside
+    /// a headline linking to a different page. These are sidebar/related-story widgets that
+    /// Readability sometimes absorbs into the article body.
+    ///
+    /// A card is identified generically: a container element (`div`, `li`, `article`) that
+    /// contains both (a) a small image (explicit width ≤ 240 or explicit height ≤ 160) and
+    /// (b) an anchor linking to a different path on the same site or an external site.
+    /// Only removes when the image is itself wrapped in an anchor to a different page.
+    private func stripLinkedThumbnailCards(in doc: Document, pageURL: URL) throws {
+        let pagePath = pageURL.path.lowercased()
+        let containers = try doc.select("div, li, article")
+
+        for container in containers.reversed() {
+            guard container.parent() != nil else { continue }
+
+            // Skip large containers — a related-article card is compact (thumbnail +
+            // headline + maybe a short blurb). If the container has substantial text
+            // content it is a structural wrapper, not a card widget.
+            let textLength = (try? container.text().count) ?? 0
+            guard textLength < 500 else { continue }
+
+            // Must have at least one small image (explicit dimensions)
+            let imgs = try container.select("img[width], img[height]")
+            guard !imgs.isEmpty() else { continue }
+
+            let hasSmallLinkedImage = try imgs.array().contains { img in
+                let w = Int(try img.attr("width")) ?? Int.max
+                let h = Int(try img.attr("height")) ?? Int.max
+                guard w <= 240 || h <= 160 else { return false }
+
+                // Walk up from image to find an enclosing <a> (within the container).
+                // The anchor may be several levels up (e.g. img → picture → div → a).
+                var node: Element? = img.parent()
+                var anchor: Element?
+                while let current = node {
+                    if current === container { break }
+                    if current.tagName() == "a" { anchor = current; break }
+                    node = current.parent()
+                }
+                guard let anchor else { return false }
+                let href = (try? anchor.attr("href"))?.lowercased() ?? ""
+                guard !href.isEmpty, href != "#" else { return false }
+
+                // Link must point to a different page
+                return !href.contains(pagePath) || pagePath.count < 2
+            }
+
+            guard hasSmallLinkedImage else { continue }
+
+            // Must also contain a headline linking elsewhere (h2-h6 with an anchor)
+            let headlines = try container.select("h2 a[href], h3 a[href], h4 a[href], h5 a[href], h6 a[href]")
+            guard !headlines.isEmpty() else { continue }
+
+            try container.remove()
         }
     }
 
@@ -1729,14 +1811,56 @@ actor PageCacheService {
 
     // MARK: - Helpers
 
-    /// SHA256 hash of URL string + original extension.
-    private func hashedFilename(for url: URL) -> String {
+    /// SHA256 hash of URL string + file extension.
+    /// When the URL has no extension, falls back to the MIME content type if provided,
+    /// otherwise defaults to "bin".
+    private func hashedFilename(for url: URL, contentType: String? = nil) -> String {
         let hash = SHA256.hash(data: Data(url.absoluteString.utf8))
         let hex = hash.compactMap { String(format: "%02x", $0) }.joined()
-        let ext = url.pathExtension.isEmpty ? "bin" : url.pathExtension
+
+        var ext = url.pathExtension
         // Strip query from extension if present
-        let cleanExt = ext.components(separatedBy: "?").first ?? ext
-        return "\(hex).\(cleanExt)"
+        if !ext.isEmpty {
+            ext = ext.components(separatedBy: "?").first ?? ext
+        }
+
+        // If URL has no extension, derive one from the Content-Type header
+        if ext.isEmpty, let mime = contentType?.lowercased() {
+            ext = Self.extensionFromMIME(mime)
+        }
+
+        if ext.isEmpty { ext = "bin" }
+        return "\(hex).\(ext)"
+    }
+
+    /// Maps common MIME types to file extensions.
+    private static func extensionFromMIME(_ mime: String) -> String {
+        let base = mime.components(separatedBy: ";").first?.trimmingCharacters(in: .whitespaces) ?? mime
+        switch base {
+        case "image/jpeg", "image/jpg":  return "jpg"
+        case "image/png":                return "png"
+        case "image/gif":                return "gif"
+        case "image/webp":               return "webp"
+        case "image/svg+xml":            return "svg"
+        case "image/avif":               return "avif"
+        case "image/heic":               return "heic"
+        case "image/heif":               return "heif"
+        case "image/tiff":               return "tiff"
+        case "image/bmp":                return "bmp"
+        case "image/ico",
+             "image/x-icon",
+             "image/vnd.microsoft.icon":  return "ico"
+        case "text/css":                 return "css"
+        case "application/font-woff",
+             "font/woff":                return "woff"
+        case "application/font-woff2",
+             "font/woff2":               return "woff2"
+        case "font/ttf",
+             "application/x-font-ttf":   return "ttf"
+        case "font/otf",
+             "application/x-font-otf":   return "otf"
+        default:                         return ""
+        }
     }
 
     private func updateArticle(_ article: inout Article) throws {

@@ -1,0 +1,74 @@
+[
+  {
+    "category": "Apple",
+    "description": "Apple News & Mac Rumors Breaking All Day",
+    "feedURL": "https://9to5mac.com/feed",
+    "id": "bbbfa707-e98d-8585-d980-aa73c1a6fc33",
+    "name": "9to5Mac",
+    "siteURL": "https://9to5mac.com/",
+    "tags": []
+  },
+  {
+    "category": "Apple",
+    "description": "Official Apple news and product announcements",
+    "feedURL": "https://www.apple.com/newsroom/rss-feed.rss",
+    "id": "7e621a3a-0d50-5d36-3115-fbbcba4c71d6",
+    "name": "Apple Newsroom",
+    "siteURL": "https://www.apple.com/newsroom/2026/03/apple-hosts-50th-anniversary-celebrations-around-the-world/",
+    "tags": []
+  },
+  {
+    "category": "Apple",
+    "description": "Apple news, rumors, reviews, and deals",
+    "feedURL": "https://appleinsider.com/rss/news/",
+    "id": "c6ac69fa-1341-2542-08f2-dbdd78c1a6af",
+    "name": "AppleInsider News",
+    "siteURL": "https://appleinsider.com/rss/news",
+    "tags": []
+  },
+  {
+    "category": "Apple",
+    "description": "Cult of Mac | Your source for the latest Apple news, rumors, analysis, reviews, how-tos and deals",
+    "feedURL": "https://www.cultofmac.com/feed",
+    "id": "8bb01143-4ffc-ef00-c314-c38abb7796c7",
+    "name": "Cult of Mac",
+    "siteURL": "https://www.cultofmac.com/",
+    "tags": []
+  },
+  {
+    "category": "Apple",
+    "description": "By John Gruber",
+    "feedURL": "https://daringfireball.net/feeds/main",
+    "id": "6eaf402c-6927-f9fb-eccb-7eec3476a8d0",
+    "name": "Daring Fireball",
+    "siteURL": "https://daringfireball.net/",
+    "tags": []
+  },
+  {
+    "category": "Apple",
+    "description": "Apple news, app reviews, and stories by Federico Viticci and friends",
+    "feedURL": "https://www.macstories.net/feed",
+    "id": "3316ff62-d02e-8b5c-d6e0-5c2a67db50b2",
+    "name": "MacStories",
+    "siteURL": "https://www.macstories.net/",
+    "tags": []
+  },
+  {
+    "category": "Apple",
+    "description": "Apple news, reviews, tips, and buying advice",
+    "feedURL": "https://www.macworld.com/index.rss",
+    "id": "c88089bd-d5d4-1b88-b971-50a10d284b5d",
+    "name": "Macworld.com",
+    "siteURL": "https://www.macworld.com",
+    "tags": []
+  },
+  {
+    "category": "Apple",
+    "description": "Apple news and commentary by Jason Snell",
+    "feedURL": "https://feedpress.me/sixcolors",
+    "id": "417a72d1-8940-9b7a-3233-d7bc8dc0de6f",
+    "name": "Six Colors",
+    "siteURL": "https://sixcolors.com",
+    "tags": []
+  }
+]

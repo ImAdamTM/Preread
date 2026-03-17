@@ -1,0 +1,47 @@
+[
+  {
+    "category": "Photography",
+    "description": "Photography community and inspiration",
+    "feedURL": "https://iso.500px.com/feed/",
+    "id": "102bee4a-02fb-8a2c-511c-1244764f72ec",
+    "name": "500px",
+    "siteURL": "https://iso.500px.com",
+    "tags": []
+  },
+  {
+    "category": "Photography",
+    "description": "Stay updated with the latest Canon rumors, leaks & official announcements. Get trusted insights on new cameras, lenses",
+    "feedURL": "https://www.canonrumors.com/feed/",
+    "id": "b6d88105-ffe6-cc14-e82a-1f665a9a0490",
+    "name": "Canon Rumors",
+    "siteURL": "https://www.canonrumors.com",
+    "tags": []
+  },
+  {
+    "category": "Photography",
+    "description": "Photography tips and tutorials for all skill levels",
+    "feedURL": "https://digital-photography-school.com/feed/",
+    "id": "247e7b48-fe84-5485-ba13-6e9b82ddc9a0",
+    "name": "Digital Photography School",
+    "siteURL": "https://digital-photography-school.com/",
+    "tags": []
+  },
+  {
+    "category": "Photography",
+    "description": "Photography tips and inspiration",
+    "feedURL": "https://www.lightstalking.com/feed/",
+    "id": "b07199a0-7a95-63b1-0c10-24cc9602f114",
+    "name": "Light Stalking",
+    "siteURL": "https://www.lightstalking.com/",
+    "tags": []
+  },
+  {
+    "category": "Photography",
+    "description": "PetaPixel is a photography news site that covers photo and camera news, reviews, inspiration, and education",
+    "feedURL": "https://petapixel.com/feed/",
+    "id": "fdbb004d-8556-8bda-e023-3cc3220c7d70",
+    "name": "PetaPixel",
+    "siteURL": "https://petapixel.com/",
+    "tags": []
+  }
+]

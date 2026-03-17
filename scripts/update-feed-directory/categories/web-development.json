@@ -1,0 +1,47 @@
+[
+  {
+    "category": "Web Development",
+    "description": "Articles for people who make websites",
+    "feedURL": "https://alistapart.com/main/feed/",
+    "id": "a7e7d078-5842-1de5-5674-1d9de663880f",
+    "name": "A List Apart",
+    "siteURL": "https://alistapart.com",
+    "tags": []
+  },
+  {
+    "category": "Web Development",
+    "description": "Tips, tricks, and techniques on CSS and web development",
+    "feedURL": "https://css-tricks.com/feed/",
+    "id": "3292e08c-98ab-0fd7-c5df-fd64984e9645",
+    "name": "CSS-Tricks",
+    "siteURL": "https://css-tricks.com",
+    "tags": []
+  },
+  {
+    "category": "Web Development",
+    "description": "Tutorials on JavaScript, HTML5, CSS, and web development",
+    "feedURL": "https://davidwalsh.name/feed",
+    "id": "dee356a0-2284-f2b7-d464-61c10914c2f0",
+    "name": "David Walsh Blog",
+    "siteURL": "https://davidwalsh.name",
+    "tags": []
+  },
+  {
+    "category": "Web Development",
+    "description": "Mozilla Hacks is written for web developers, designers and everyone who builds for the Web. Hacks is produced by Mozilla",
+    "feedURL": "https://hacks.mozilla.org/feed/",
+    "id": "394ba688-e40a-39f5-875e-6d5ee66d23af",
+    "name": "Hacks",
+    "siteURL": "https://hacks.mozilla.org/",
+    "tags": []
+  },
+  {
+    "category": "Web Development",
+    "description": "Tech and travel blog",
+    "feedURL": "https://gosink.in/rss/",
+    "id": "583e5a37-f678-6b06-ee8e-ea350fd1ae60",
+    "name": "Sink In",
+    "siteURL": "https://gosink.in/",
+    "tags": []
+  }
+]

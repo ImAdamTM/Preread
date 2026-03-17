@@ -1,0 +1,119 @@
+[
+  {
+    "category": "Fashion",
+    "description": "Fashion, beauty, celebrity style, and culture",
+    "feedURL": "https://coveteur.com/feed",
+    "id": "f1a2b3c4-1002-4a02-b002-fashion0cov2",
+    "name": "Coveteur",
+    "siteURL": "https://coveteur.com",
+    "tags": []
+  },
+  {
+    "category": "Fashion",
+    "description": "Fashion, beauty, and lifestyle for the modern woman",
+    "feedURL": "https://www.elle.com/rss/all.xml",
+    "id": "f1a2b3c4-1003-4a03-b003-fashion0elle",
+    "name": "ELLE",
+    "siteURL": "https://www.elle.com",
+    "tags": []
+  },
+  {
+    "category": "Fashion",
+    "description": "Men's fashion and style guide",
+    "feedURL": "https://www.fashionbeans.com/rss-feed/?category=fashion",
+    "id": "fc08e847-9480-6a1c-bdee-d581c317536b",
+    "name": "FashionBeans",
+    "siteURL": "https://www.fashionbeans.com",
+    "tags": []
+  },
+  {
+    "category": "Fashion",
+    "description": "Men's style, grooming, and fashion advice",
+    "feedURL": "https://www.gq.com/feed/rss",
+    "id": "f1a2b3c4-1004-4a04-b004-fashion00gq4",
+    "name": "GQ",
+    "siteURL": "https://www.gq.com",
+    "tags": []
+  },
+  {
+    "category": "Fashion",
+    "description": "Fashion trends, designer news, and celebrity style",
+    "feedURL": "https://www.harpersbazaar.com/rss/fashion.xml",
+    "id": "f1a2b3c4-1005-4a05-b005-fashionharp5",
+    "name": "Harper's Bazaar",
+    "siteURL": "https://www.harpersbazaar.com/fashion",
+    "tags": []
+  },
+  {
+    "category": "Fashion",
+    "description": "Streetwear, sneakers, and contemporary fashion",
+    "feedURL": "https://www.highsnobiety.com/feeds/rss",
+    "id": "f1a2b3c4-1006-4a06-b006-fashionhigh6",
+    "name": "Highsnobiety",
+    "siteURL": "https://www.highsnobiety.com",
+    "tags": []
+  },
+  {
+    "category": "Fashion",
+    "description": "Streetwear, sneakers, and fashion culture",
+    "feedURL": "https://hypebeast.com/fashion/feed",
+    "id": "f1a2b3c4-1007-4a07-b007-fashionhype7",
+    "name": "Hypebeast",
+    "siteURL": "https://hypebeast.com/fashion",
+    "tags": []
+  },
+  {
+    "category": "Fashion",
+    "description": "Fashion, beauty, and style trends",
+    "feedURL": "https://www.popsugar.com/fashion/feed",
+    "id": "1d06c732-fa07-8dff-9d5e-5004eae3590d",
+    "name": "POPSUGAR Fashion",
+    "siteURL": "https://www.popsugar.com/fashion/",
+    "tags": []
+  },
+  {
+    "category": "Fashion",
+    "description": "The latest news, comment, and analysis from The Guardian",
+    "feedURL": "https://www.theguardian.com/fashion/rss",
+    "id": "75940817-f17f-6454-ef14-a6aacb27c591",
+    "name": "The Guardian",
+    "siteURL": "https://www.theguardian.com/fashion",
+    "tags": []
+  },
+  {
+    "category": "Fashion",
+    "description": "The original fashion, beauty, and lifestyle authority",
+    "feedURL": "https://www.vogue.com/feed/rss",
+    "id": "f1a2b3c4-1008-4a08-b008-fashionvogu8",
+    "name": "Vogue",
+    "siteURL": "https://www.vogue.com",
+    "tags": []
+  },
+  {
+    "category": "Fashion",
+    "description": "Fashion, film, art, and entertainment converge",
+    "feedURL": "https://www.wmagazine.com/rss",
+    "id": "f1a2b3c4-1009-4a09-b009-fashionwmag9",
+    "name": "W Magazine",
+    "siteURL": "https://www.wmagazine.com",
+    "tags": []
+  },
+  {
+    "category": "Fashion",
+    "description": "Fashion trends, outfit ideas, and style inspiration",
+    "feedURL": "https://www.whowhatwear.com/rss",
+    "id": "6a06d6de-9a21-319d-8e48-8d90766292c4",
+    "name": "Who What Wear",
+    "siteURL": "https://www.whowhatwear.com/feeds.xml",
+    "tags": []
+  },
+  {
+    "category": "Fashion",
+    "description": "Breaking fashion news, designer collections, and industry coverage",
+    "feedURL": "https://wwd.com/fashion-news/feed",
+    "id": "f1a2b3c4-1010-4a10-b010-fashion0wwd0",
+    "name": "WWD",
+    "siteURL": "https://wwd.com/fashion-news",
+    "tags": []
+  }
+]

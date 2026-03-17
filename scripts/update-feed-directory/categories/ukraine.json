@@ -1,0 +1,42 @@
+[
+  {
+    "category": "Ukraine",
+    "country": "Ukraine",
+    "description": "ГОРДОН: Головні новини дня України та світу, ексклюзивні коментарі, аналітика. Фото, відео. Спецпроекти, ексклюзивні",
+    "feedURL": "https://gordonua.com/xml/rss_category/top.html",
+    "id": "14d68765-94f3-a0b3-c1c1-d7b519a9a25a",
+    "name": "Гордон - Самые популярные материалы",
+    "siteURL": "https://gordonua.com",
+    "tags": []
+  },
+  {
+    "category": "Ukraine",
+    "country": "Ukraine",
+    "description": "Читайте онлайн останні новини України і світу на сайті телеканалу Еспресо. ᐈ Найважливіші новини дня, свіжа інформація",
+    "feedURL": "https://espreso.tv/rss",
+    "id": "b72a647c-9b68-8869-3400-0b795b13bb71",
+    "name": "Еспресо",
+    "siteURL": "https://espreso.tv/",
+    "tags": []
+  },
+  {
+    "category": "Ukraine",
+    "country": "Ukraine",
+    "description": "Информационное агентство УНИАН :: Новости, Политика, Бизнес, Фотосервис, Регионы",
+    "feedURL": "https://rss.unian.net/site/news_rus.rss",
+    "id": "32c25369-b181-335e-3d97-897983fe7031",
+    "name": "Информационное агентство УНИАН",
+    "siteURL": "https://www.unian.net",
+    "tags": []
+  },
+  {
+    "category": "Ukraine",
+    "country": "Ukraine",
+    "description": "Останні новини України та світу онлайн. Свіжі українські та світові новини політики, бізнесу, фінансів, технологій",
+    "feedURL": "https://nv.ua/rss/all.xml",
+    "id": "42e89edb-998e-7f00-fa77-4328ae9bd4db",
+    "name": "НВ",
+    "siteURL": "https://nv.ua/",
+    "tags": []
+  }
+]

@@ -217,19 +217,76 @@ func makeSession(timeout: TimeInterval = 15) -> URLSession {
     }())
 }
 
+// MARK: - Category file loading
+
+/// Converts a category name to its filesystem slug (e.g. "Business & Economy" -> "business-economy").
+func slugifyCategory(_ name: String) -> String {
+    var s = name.lowercased()
+    s = s.unicodeScalars.filter { CharacterSet.alphanumerics.contains($0) || $0 == " " || $0 == "-" }
+        .map(String.init).joined()
+    s = s.split(separator: " ").joined(separator: "-")
+    while s.contains("--") { s = s.replacingOccurrences(of: "--", with: "-") }
+    return s
+}
+
+/// Loads all feeds from the categories/ directory by reading every .json file.
+func loadAllFeeds(from scriptDir: URL) throws -> [DiscoverFeedOutput] {
+    let categoriesDir = scriptDir.appendingPathComponent("categories")
+    let fm = FileManager.default
+
+    guard fm.fileExists(atPath: categoriesDir.path) else {
+        fatalError("categories/ directory not found at \(categoriesDir.path)")
+    }
+
+    let files = try fm.contentsOfDirectory(at: categoriesDir, includingPropertiesForKeys: nil)
+        .filter { $0.pathExtension == "json" }
+        .sorted { $0.lastPathComponent < $1.lastPathComponent }
+
+    var allFeeds: [DiscoverFeedOutput] = []
+    for file in files {
+        let data = try Data(contentsOf: file)
+        let feeds = try JSONDecoder().decode([DiscoverFeedOutput].self, from: data)
+        allFeeds.append(contentsOf: feeds)
+    }
+
+    return allFeeds
+}
+
+/// Writes feeds back to the categories/ directory, one file per category.
+func writeAllFeeds(_ feeds: [DiscoverFeedOutput], to scriptDir: URL) throws {
+    let categoriesDir = scriptDir.appendingPathComponent("categories")
+    try FileManager.default.createDirectory(at: categoriesDir, withIntermediateDirectories: true)
+
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+
+    let grouped = Dictionary(grouping: feeds, by: \.category)
+    for (category, categoryFeeds) in grouped.sorted(by: { $0.key < $1.key }) {
+        let sorted = categoryFeeds.sorted {
+            $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
+        }
+        let filename = slugifyCategory(category) + ".json"
+        let fileURL = categoriesDir.appendingPathComponent(filename)
+        let data = try encoder.encode(sorted)
+        try data.write(to: fileURL)
+    }
+}
+
 // MARK: - Audit Mode
 
-/// Reads the master feed list, validates each feed, removes broken/stale/thin entries,
+/// Reads feeds from the categories/ directory, validates each feed, removes broken/stale/thin entries,
 /// writes the clean result to the app bundle, and prints a report of what was removed.
 func runAudit() async throws {
     let scriptDir = URL(fileURLWithPath: #filePath)
         .deletingLastPathComponent()
         .deletingLastPathComponent()
 
-    let masterURL = scriptDir.appendingPathComponent("master_feeds.json")
-    let masterData = try Data(contentsOf: masterURL)
-    let masterFeeds = try JSONDecoder().decode([DiscoverFeedOutput].self, from: masterData)
-    print("📥 Loaded \(masterFeeds.count) feeds from master list")
+    let masterFeeds = try loadAllFeeds(from: scriptDir)
+    let categoryFileCount = try FileManager.default.contentsOfDirectory(
+        at: scriptDir.appendingPathComponent("categories"),
+        includingPropertiesForKeys: nil
+    ).filter { $0.pathExtension == "json" }.count
+    print("📥 Loaded \(masterFeeds.count) feeds from \(categoryFileCount) category files")
 
     let session = makeSession()
 
@@ -468,8 +525,8 @@ func runAudit() async throws {
             }
         }
         print("")
-        print("These feeds were excluded from the app output but remain in master_feeds.json.")
-        print("Remove them from master_feeds.json if they should be permanently excluded.")
+        print("These feeds were excluded from the app output but remain in their category files.")
+        print("Remove them from categories/ if they should be permanently excluded.")
     }
 
     let categoryCounts = Dictionary(grouping: outputFeeds, by: \.category)
@@ -574,12 +631,10 @@ func runDiscover() async throws {
     }
 
     // 5. Filter out feeds already in master list
-    let masterURL = scriptDir.appendingPathComponent("master_feeds.json")
     var masterNormalizedURLs = Set<String>()
-    if let data = try? Data(contentsOf: masterURL),
-       let masterFeeds = try? JSONDecoder().decode([DiscoverFeedOutput].self, from: data) {
+    if let masterFeeds = try? loadAllFeeds(from: scriptDir) {
         masterNormalizedURLs = Set(masterFeeds.map { normalizeFeedURL($0.feedURL) })
-        print("Master list has \(masterFeeds.count) feeds")
+        print("Master list has \(masterFeeds.count) feeds (from categories/)")
     }
 
     let beforeMasterFilter = uniqueFeeds.count
@@ -661,7 +716,7 @@ func runDiscover() async throws {
             print("")
         }
 
-        print("To add candidates to the master list, create entries in master_feeds.json with the format:")
+        print("To add candidates, create entries in the appropriate categories/<category>.json file:")
         print("  { \"id\": \"<generated>\", \"name\": \"...\", \"feedURL\": \"...\", \"siteURL\": \"...\", \"description\": \"...\", \"category\": \"...\", \"country\": null, \"tags\": [] }")
     }
 }

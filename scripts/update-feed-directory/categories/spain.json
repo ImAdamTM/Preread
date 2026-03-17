@@ -1,0 +1,71 @@
+[
+  {
+    "category": "Spain",
+    "country": "Spain",
+    "description": "Noticias de última hora sobre la actualidad en España y el mundo: política, economía, deportes, cultura, sociedad",
+    "feedURL": "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/portada",
+    "id": "1cb5f7ec-73e6-3009-2f16-a2441442b79b",
+    "name": "EL PAÍS: el periódico global",
+    "siteURL": "https://elpais.com",
+    "tags": []
+  },
+  {
+    "category": "Spain",
+    "country": "Spain",
+    "description": "Noticias de última hora en torno a la actualidad de Catalunya y España, Barça, deportes, internacional, economía",
+    "feedURL": "https://www.elperiodico.com/es/rss/rss_portada.xml",
+    "id": "6f9f272e-6918-8eb7-3c8f-89d0e872643b",
+    "name": "El Periódico - portada",
+    "siteURL": "https://www.elperiodico.com/es/",
+    "tags": []
+  },
+  {
+    "category": "Spain",
+    "country": "Spain",
+    "description": "Diario digital de noticias de actualidad sobre política y economía, análisis y blogs de opinión. Dirigido por Ignacio",
+    "feedURL": "https://www.eldiario.es/rss/",
+    "id": "177c7afd-aada-9473-dc21-568a8179b827",
+    "name": "ElDiario.es - ElDiario.es",
+    "siteURL": "https://www.eldiario.es/",
+    "tags": []
+  },
+  {
+    "category": "Spain",
+    "country": "Spain",
+    "description": "Noticias de España",
+    "feedURL": "https://rss.elconfidencial.com/espana/",
+    "id": "2a77e2e7-1bee-3493-b144-c09f82259251",
+    "name": "España",
+    "tags": []
+  },
+  {
+    "category": "Spain",
+    "country": "Spain",
+    "description": "Euro Weekly News - The English paper for Spanish Living Your essential guide to local, expat and international news",
+    "feedURL": "https://www.euroweeklynews.com/feed/",
+    "id": "46cb5e07-1a3c-c1dd-becc-67c2beb904a1",
+    "name": "Euro Weekly News Spain",
+    "siteURL": "https://euroweeklynews.com",
+    "tags": []
+  },
+  {
+    "category": "Spain",
+    "country": "Spain",
+    "description": "Últimas noticias y toda la actualidad en España y el mundo. Última hora, política, tendencias, vídeo, virales, opinión",
+    "feedURL": "https://www.huffingtonpost.es/feeds/index.xml",
+    "id": "d58b2517-70b6-b97e-72f1-886dc0a46518",
+    "name": "huffingtonpost.es",
+    "siteURL": "https://www.huffingtonpost.es/",
+    "tags": []
+  },
+  {
+    "category": "Spain",
+    "country": "Spain",
+    "description": "Noticias económicas, mercados y opinión de España",
+    "feedURL": "https://e00-expansion.uecdn.es/rss/portada.xml",
+    "id": "b37a9e61-e872-7115-7754-4b62bb116e98",
+    "name": "Portada // expansion",
+    "siteURL": "https://www.expansion.com",
+    "tags": []
+  }
+]

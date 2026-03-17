@@ -1,0 +1,92 @@
+[
+  {
+    "category": "Food",
+    "description": "When you own over 100 cookbooks, it is time to stop buying, and start cooking. This site chronicles a cookbook",
+    "feedURL": "https://www.101cookbooks.com/feed",
+    "id": "1c4ee91b-f96f-62fc-ddf9-eb44df7bfb70",
+    "name": "101 Cookbooks",
+    "siteURL": "https://www.101cookbooks.com/",
+    "tags": []
+  },
+  {
+    "category": "Food",
+    "description": "Simple Recipes from my Paris Kitchen",
+    "feedURL": "https://cnz.to/feed/",
+    "id": "a29f1ffb-63d7-a9ed-8cf9-484edb038a11",
+    "name": "Chocolate & Zucchini",
+    "siteURL": "https://cnz.to/",
+    "tags": []
+  },
+  {
+    "category": "Food",
+    "description": "Baking and cooking recipes for everyone",
+    "feedURL": "https://www.davidlebovitz.com/feed/",
+    "id": "6054f870-7812-001f-4304-c3a382ab1bb5",
+    "name": "David Lebovitz",
+    "siteURL": "https://www.davidlebovitz.com/",
+    "tags": []
+  },
+  {
+    "category": "Food",
+    "description": "Food blog with recipes for people who love to eat",
+    "feedURL": "https://www.howsweeteats.com/feed/",
+    "id": "1efccd52-df51-1ad6-7e3c-e90e572faec1",
+    "name": "How Sweet Eats",
+    "siteURL": "https://www.howsweeteats.com/",
+    "tags": []
+  },
+  {
+    "category": "Food",
+    "description": "Baking recipes and kitchen inspiration",
+    "feedURL": "https://joythebaker.com/feed/",
+    "id": "eb78344f-daf6-e685-8bc6-65695eafd2bd",
+    "name": "Joy the Baker",
+    "siteURL": "https://joythebaker.com/",
+    "tags": []
+  },
+  {
+    "category": "Food",
+    "description": "Inspiring cooks, nourishing homes",
+    "feedURL": "https://www.thekitchn.com/main.rss",
+    "id": "9902a554-83bd-0eee-768f-e26235955b6a",
+    "name": "Kitchn",
+    "siteURL": "https://www.thekitchn.com",
+    "tags": []
+  },
+  {
+    "category": "Food",
+    "description": "Eat to Live. Cook to Love",
+    "feedURL": "https://www.loveandoliveoil.com/feed",
+    "id": "79d00486-80c4-8fba-162b-53a91722e155",
+    "name": "Love and Olive Oil",
+    "siteURL": "https://www.loveandoliveoil.com",
+    "tags": []
+  },
+  {
+    "category": "Food",
+    "description": "Food, photography, and inspiration",
+    "feedURL": "https://www.shutterbean.com/feed/",
+    "id": "cf3a05e0-2bd0-6a84-bbd9-7a465ed9845c",
+    "name": "Shutterbean",
+    "siteURL": "https://www.shutterbean.com",
+    "tags": []
+  },
+  {
+    "category": "Food",
+    "description": "Delicious Healthy Recipes Made with Real Food",
+    "feedURL": "https://www.skinnytaste.com/feed/",
+    "id": "fd55fc60-ffce-5186-a8ca-7a8f74b42149",
+    "name": "Skinnytaste",
+    "siteURL": "https://www.skinnytaste.com/",
+    "tags": []
+  },
+  {
+    "category": "Food",
+    "description": "Fearless cooking from a tiny NYC kitchen",
+    "feedURL": "https://smittenkitchen.com/feed/",
+    "id": "65fbb327-953a-5d47-9be5-7b1a3745ef88",
+    "name": "smitten kitchen",
+    "siteURL": "https://smittenkitchen.com/",
+    "tags": []
+  }
+]

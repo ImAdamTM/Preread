@@ -324,10 +324,18 @@ struct SourcesListView: View {
         VStack(spacing: 20) {
             Spacer()
 
-            Image("Logo")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(height: 100)
+            LinearGradient(
+                colors: [Color("PrereadAccent"), Color("PrereadPurple")],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .mask(
+                Image("Logo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            )
+            .frame(height: 100)
+            .offset(x: 5)
 
             Text("Your library is empty")
                 .font(Theme.scaledFont(size: 22, weight: .bold, relativeTo: .title2))
@@ -397,7 +405,7 @@ struct SourcesListView: View {
         Image("Logo")
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .frame(height: 24)
+            .frame(height: 21)
             .padding(.leading, 3)
     }
 

@@ -1,0 +1,32 @@
+[
+  {
+    "category": "Brazil",
+    "country": "Brazil",
+    "description": "Informação e Opinião",
+    "feedURL": "https://jornaldebrasilia.com.br/feed/",
+    "id": "40657b35-a597-897c-1c57-830e6b1ac20f",
+    "name": "Jornal de Brasília",
+    "siteURL": "https://jornaldebrasilia.com.br",
+    "tags": []
+  },
+  {
+    "category": "Brazil",
+    "country": "Brazil",
+    "description": "News in Rio de Janeiro, Brazil",
+    "feedURL": "https://riotimesonline.com/feed/",
+    "id": "238937ad-3da5-9643-59a7-1374916affb2",
+    "name": "The Rio Times",
+    "siteURL": "https://www.riotimesonline.com/",
+    "tags": []
+  },
+  {
+    "category": "Brazil",
+    "country": "Brazil",
+    "description": "UOL, a maior empresa brasileira de conteúdo, serviços digitais e tecnologia com vários canais de jornalismo e diversas",
+    "feedURL": "https://rss.home.uol.com.br/index.xml",
+    "id": "57c73d61-d9ec-6b85-adef-6eeec9da4f69",
+    "name": "UOL",
+    "siteURL": "https://www.uol.com.br",
+    "tags": []
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "category": "Bangladesh",
+    "country": "Bangladesh",
+    "description": "বাংলাদেশের অনলাইন সংবাদ",
+    "feedURL": "https://www.bd24live.com/feed",
+    "id": "1212357f-b8e6-42bc-c803-94633ee81a59",
+    "name": "BD24Live.com",
+    "siteURL": "https://www.bd24live.com/",
+    "tags": []
+  },
+  {
+    "category": "Bangladesh",
+    "country": "Bangladesh",
+    "description": "বাংলাদেশের শীর্ষ অনলাইন সংবাদপত্র",
+    "feedURL": "https://www.kalerkantho.com/rss.xml",
+    "id": "59e0c6e4-f09a-ea39-1c32-5002ad79b946",
+    "name": "kalerkantho Kantho",
+    "siteURL": "https://www.kalerkantho.com",
+    "tags": []
+  },
+  {
+    "category": "Bangladesh",
+    "country": "Bangladesh",
+    "description": "বাংলাদেশসহ বিশ্বের সর্বশেষ সংবাদ শিরোনাম, প্রতিবেদন, বিশ্লেষণ, খেলা, বিনোদন, চাকরি, রাজনীতি ও বাণিজ্যের বাংলা নিউজ পড়তে",
+    "feedURL": "https://www.prothomalo.com/feed/",
+    "id": "de392138-71b8-f60c-b77f-bfd43514d6e8",
+    "name": "প্রথম আলো",
+    "siteURL": "https://www.prothomalo.com",
+    "tags": []
+  }
+]

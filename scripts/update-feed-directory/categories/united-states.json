@@ -1,0 +1,61 @@
+[
+  {
+    "category": "United States",
+    "country": "United States",
+    "description": "Breaking News, Latest News and Current News from FOXNews.com. Breaking news and video. Latest Current News: U.S",
+    "feedURL": "https://feeds.foxnews.com/foxnews/latest",
+    "id": "2643d6de-5410-3a6a-fdce-2316e9a040c6",
+    "name": "FOX News",
+    "siteURL": "https://www.foxnews.com/",
+    "tags": []
+  },
+  {
+    "category": "United States",
+    "country": "United States",
+    "description": "The latest news and headlines from Yahoo News. Get breaking news stories and in-depth coverage with videos and photos",
+    "feedURL": "https://news.yahoo.com/rss/mostviewed",
+    "id": "265fe870-a638-edc6-9e12-41513972397e",
+    "name": "News",
+    "siteURL": "https://www.yahoo.com/news",
+    "tags": []
+  },
+  {
+    "category": "United States",
+    "country": "United States",
+    "description": "The unofficial guide to official Washington",
+    "feedURL": "https://rss.politico.com/playbook.xml",
+    "id": "1018c501-6f82-8028-87ef-5c4977c84efb",
+    "name": "Playbook",
+    "tags": []
+  },
+  {
+    "category": "United States",
+    "country": "United States",
+    "description": "CNBC is the world leader in business news and real-time financial market coverage. Find fast, actionable information",
+    "feedURL": "https://www.cnbc.com/id/100003114/device/rss/rss.html",
+    "id": "a25f7373-5963-d64a-7434-05c665d1f9a7",
+    "name": "US Top News and Analysis",
+    "siteURL": "https://www.cnbc.com/us-top-news-and-analysis/",
+    "tags": []
+  },
+  {
+    "category": "United States",
+    "country": "United States",
+    "description": "Nation and world news from the Los Angeles Times",
+    "feedURL": "https://www.latimes.com/world-nation/rss2.0.xml",
+    "id": "fbc3b80b-9968-8e64-f2fa-9dea7b453c20",
+    "name": "World & Nation",
+    "siteURL": "https://www.latimes.com",
+    "tags": []
+  },
+  {
+    "category": "United States",
+    "country": "United States",
+    "description": "Yahoo World News coverage",
+    "feedURL": "https://www.huffpost.com/section/world-news/feed",
+    "id": "c22ab88a-b4ad-1ead-9c20-f383b2c9be5c",
+    "name": "World News",
+    "siteURL": "https://www.huffpost.com/news/world-news",
+    "tags": []
+  }
+]

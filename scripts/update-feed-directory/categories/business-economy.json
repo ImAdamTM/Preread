@@ -1,0 +1,56 @@
+[
+  {
+    "category": "Business & Economy",
+    "description": "Real-time quotes, charts, news & tools from Investing.com. Get AI analysis & premium data with InvestingPro to uncover",
+    "feedURL": "https://www.investing.com/rss/news.rss",
+    "id": "0501ace5-f09d-f1d9-77ab-c48d52a5338e",
+    "name": "All News",
+    "siteURL": "https://www.investing.com",
+    "tags": []
+  },
+  {
+    "category": "Business & Economy",
+    "description": "Small business marketing tips and strategies",
+    "feedURL": "https://ducttape.libsyn.com/rss",
+    "id": "d3242674-3285-be41-18b0-e9cf72c5d0bd",
+    "name": "Duct Tape Marketing",
+    "siteURL": "https://www.ducttapemarketing.com/about/duct-tape-marketing-podcast/",
+    "tags": []
+  },
+  {
+    "category": "Business & Economy",
+    "description": "The Economic Times: Latest business, finance, markets, stocks, company news from India",
+    "feedURL": "https://economictimes.indiatimes.com/rssfeedsdefault.cms",
+    "id": "244f9e96-12cc-f830-0c20-1888b38ba5cc",
+    "name": "Economic Times",
+    "siteURL": "https://economictimes.indiatimes.com",
+    "tags": []
+  },
+  {
+    "category": "Business & Economy",
+    "description": "Forbes is a leading source for reliable news and updated analysis on Business. Read the breaking Business coverage and",
+    "feedURL": "https://www.forbes.com/business/feed/",
+    "id": "086a17a7-4573-dec9-f100-6b70cab9fd1a",
+    "name": "Forbes",
+    "siteURL": "https://www.forbes.com/business/",
+    "tags": []
+  },
+  {
+    "category": "Business & Economy",
+    "description": "Unrivaled access, premier storytelling, and the best of business since 1930",
+    "feedURL": "https://fortune.com/feed",
+    "id": "8a8180b4-2f01-8964-70b0-1963050312a7",
+    "name": "Fortune",
+    "siteURL": "https://fortune.com",
+    "tags": []
+  },
+  {
+    "category": "Business & Economy",
+    "description": "Indian business, markets, and economic news",
+    "feedURL": "https://www.business-standard.com/rss/home_page_top_stories.rss",
+    "id": "70b72ac2-200e-8358-f55a-8fd0b93315c0",
+    "name": "Home Page",
+    "siteURL": "https://www.business-standard.com",
+    "tags": []
+  }
+]

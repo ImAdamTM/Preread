@@ -1,0 +1,72 @@
+[
+  {
+    "category": "Mexico",
+    "country": "Mexico",
+    "description": "Noticias de México, CDMX, Negocios y el Mundo en tiempo real, sigue nuestra cobertura especial de AMLO, Estados Unidos",
+    "feedURL": "https://www.24-horas.mx/feed/",
+    "id": "653da231-14be-2c4f-01db-c552009d6d98",
+    "name": "24 Horas",
+    "siteURL": "https://24-horas.mx/",
+    "tags": []
+  },
+  {
+    "category": "Mexico",
+    "country": "Mexico",
+    "description": "Periodismo digital de México",
+    "feedURL": "https://8columnas.com.mx/feed/",
+    "id": "b68be9b0-51b1-8a8b-5c61-ff3fe4e7c585",
+    "name": "8 Columnas",
+    "siteURL": "https://8columnas.com.mx",
+    "tags": []
+  },
+  {
+    "category": "Mexico",
+    "country": "Mexico",
+    "description": "EL FINANCIERO es el principal diario especializado en finanzas, economía, negocios y política de México con las",
+    "feedURL": "https://www.elfinanciero.com.mx/arc/outboundfeeds/rss/?outputType=xml",
+    "id": "a002d9e8-88bd-296e-4dcd-73690542ec0f",
+    "name": "El Financiero",
+    "siteURL": "https://www.elfinanciero.com.mx",
+    "tags": []
+  },
+  {
+    "category": "Mexico",
+    "country": "Mexico",
+    "description": "Las noticias más relevantes de Jalisco, México, Deportes, Entretenimiento & Tecnología",
+    "feedURL": "https://www.informador.mx/rss/ultimas-noticias.xml",
+    "id": "58a4bc3e-8fe4-7a1c-d926-689da76ff155",
+    "name": "Informador",
+    "siteURL": "https://www.informador.mx",
+    "tags": []
+  },
+  {
+    "category": "Mexico",
+    "country": "Mexico",
+    "description": "Noticias de Coahuila, México y el mundo",
+    "feedURL": "https://vanguardia.com.mx/rss.xml",
+    "id": "6a3f2bbe-d563-a5a6-78ee-328cf98b7404",
+    "name": "Lo último en Vanguardia MX",
+    "siteURL": "https://vanguardia.com.mx/rss.xml",
+    "tags": []
+  },
+  {
+    "category": "Mexico",
+    "country": "Mexico",
+    "description": "English-language news about Mexico",
+    "feedURL": "https://mexiconewsdaily.com/feed/",
+    "id": "ce5947d3-ac27-cc5b-c7d9-5ceea7097b21",
+    "name": "Mexico News Daily",
+    "siteURL": "https://mexiconewsdaily.com/",
+    "tags": []
+  },
+  {
+    "category": "Mexico",
+    "country": "Mexico",
+    "description": "Periódico Regional. Defensor de la Comunidad Lagunera, noticias de Coahuila y Durango. Miembro de la AEE",
+    "feedURL": "https://www.elsiglodetorreon.com.mx/index.xml",
+    "id": "0eaddfa8-accb-c846-12b7-8030902a326c",
+    "name": "Portada, El Siglo de Torreón",
+    "siteURL": "https://www.elsiglodetorreon.com.mx/",
+    "tags": []
+  }
+]

@@ -1,0 +1,56 @@
+[
+  {
+    "category": "Music",
+    "description": "Electronic dance music news, downloads, and artist interviews",
+    "feedURL": "https://edm.com/.rss/full/",
+    "id": "905f1e83-174c-8ba1-029b-217612e8b58c",
+    "name": "EDM.com",
+    "siteURL": "https://edm.com/blog/",
+    "tags": []
+  },
+  {
+    "category": "Music",
+    "description": "Heavy metal news, music, and videos",
+    "feedURL": "https://metalinjection.net/feed",
+    "id": "b010c1dc-826f-5279-924f-2530d7f916c2",
+    "name": "Metal Injection",
+    "siteURL": "https://metalinjection.net/",
+    "tags": []
+  },
+  {
+    "category": "Music",
+    "description": "News and analysis for the global music industry",
+    "feedURL": "https://www.musicbusinessworldwide.com/feed/",
+    "id": "2d0e3727-3898-6fb8-25de-0c6cb811d30f",
+    "name": "Music Business Worldwide",
+    "siteURL": "https://www.musicbusinessworldwide.com",
+    "tags": []
+  },
+  {
+    "category": "Music",
+    "description": "NME covers the latest music news, reviews, features, and guides",
+    "feedURL": "https://www.nme.com/feed",
+    "id": "94dbc533-f564-568d-b191-431faea608d2",
+    "name": "NME",
+    "siteURL": "https://www.nme.com",
+    "tags": []
+  },
+  {
+    "category": "Music",
+    "description": "The most trusted voice in music",
+    "feedURL": "https://pitchfork.com/feed/feed-news/rss",
+    "id": "aac3829f-c492-20d0-d0da-ab6b988da986",
+    "name": "Pitchfork",
+    "siteURL": "https://pitchfork.com",
+    "tags": []
+  },
+  {
+    "category": "Music",
+    "description": "Music, film, TV and political news coverage from Rolling Stone",
+    "feedURL": "https://www.rollingstone.com/feed/",
+    "id": "ee8393ff-a0f3-5757-ba63-fb12bf146972",
+    "name": "Rolling Stone",
+    "siteURL": "https://www.rollingstone.com",
+    "tags": []
+  }
+]

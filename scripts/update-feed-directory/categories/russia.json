@@ -1,0 +1,22 @@
+[
+  {
+    "category": "Russia",
+    "country": "Russia",
+    "description": "RT is the first Russian 24/7 English-language news channel which brings the Russian view on global news",
+    "feedURL": "https://www.rt.com/rss/",
+    "id": "4013c31a-b9b5-59f0-5fa4-d977847af3d8",
+    "name": "RT",
+    "siteURL": "https://www.rt.com",
+    "tags": []
+  },
+  {
+    "category": "Russia",
+    "country": "Russia",
+    "description": "Independent English-language news from Russia",
+    "feedURL": "https://www.themoscowtimes.com/rss/news",
+    "id": "cbfc036d-108c-ecf7-5aea-473ad5d1cbf5",
+    "name": "The Moscow Times",
+    "siteURL": "https://www.themoscowtimes.com/news",
+    "tags": []
+  }
+]

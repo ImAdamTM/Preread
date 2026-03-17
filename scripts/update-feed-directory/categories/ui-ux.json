@@ -1,0 +1,29 @@
+[
+  {
+    "category": "UI / UX",
+    "description": "UX research and design best practices from Nielsen Norman Group",
+    "feedURL": "https://www.nngroup.com/feed/rss/",
+    "id": "f74a54fc-b5d6-6235-3029-66a458c5becf",
+    "name": "NN/g latest articles and announcements",
+    "siteURL": "https://www.nngroup.com/feed/rss/",
+    "tags": []
+  },
+  {
+    "category": "UI / UX",
+    "description": "Articles and tutorials for web designers and developers",
+    "feedURL": "https://www.smashingmagazine.com/feed",
+    "id": "07c83d6d-0c0e-2a9e-8e6f-143d4ae9539b",
+    "name": "Smashing Magazine",
+    "siteURL": "https://www.smashingmagazine.com/",
+    "tags": []
+  },
+  {
+    "category": "UI / UX",
+    "description": "We believe designers are thinkers as much as they are makers. Curated stories on UX, Visual & Product Design",
+    "feedURL": "https://uxdesign.cc/feed",
+    "id": "efe18eb2-8037-4393-b598-d54a5e5745cb",
+    "name": "UX Collective - Medium",
+    "siteURL": "https://uxdesign.cc?source=rss----138adf9c44c---4",
+    "tags": []
+  }
+]

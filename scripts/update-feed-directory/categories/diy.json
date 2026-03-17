@@ -1,0 +1,29 @@
+[
+  {
+    "category": "DIY",
+    "description": "Crafts, home decor, and recipes",
+    "feedURL": "https://abeautifulmess.com/feed",
+    "id": "595182e2-a471-1b15-a43a-bfb8e8d26e33",
+    "name": "A Beautiful Mess",
+    "siteURL": "https://abeautifulmess.com/",
+    "tags": []
+  },
+  {
+    "category": "DIY",
+    "description": "DIY home improvement projects and repair guides",
+    "feedURL": "https://www.doityourself.com/feed",
+    "id": "e435f289-630d-b3de-8958-5fb900534aab",
+    "name": "Doityourself.com",
+    "siteURL": "https://www.doityourself.com",
+    "tags": []
+  },
+  {
+    "category": "DIY",
+    "description": "Clever ideas and hacks for your IKEA",
+    "feedURL": "https://www.ikeahackers.net/feed",
+    "id": "3acf9f94-b19e-2f64-803f-b719830935dc",
+    "name": "IKEA Hackers",
+    "siteURL": "https://ikeahackers.net",
+    "tags": []
+  }
+]

@@ -1,0 +1,83 @@
+[
+  {
+    "category": "Architecture",
+    "description": "ArchDaily, Broadcasting Architecture Worldwide: Architecture news, competitions and projects updated every hour for the",
+    "feedURL": "https://www.archdaily.com/feed",
+    "id": "480378d2-1f4d-5276-a8ee-02fd50692cef",
+    "name": "ArchDaily",
+    "siteURL": "https://www.archdaily.com/",
+    "tags": []
+  },
+  {
+    "category": "Architecture",
+    "description": "The goal of Archinect is to make architecture more connected and open-minded, and bring together designers from around",
+    "feedURL": "https://archinect.com/feed/1/news",
+    "id": "e659ec72-d023-d2de-df09-775e0d5fc10a",
+    "name": "Archinect",
+    "siteURL": "https://archinect.com/",
+    "tags": []
+  },
+  {
+    "category": "Architecture",
+    "description": "Architectural Digest is the international design authority, featuring the work of top architects and designers",
+    "feedURL": "https://www.architecturaldigest.com/feed/rss",
+    "id": "82f5275d-fd84-ecab-8459-93b8718429e7",
+    "name": "Architectural Digest",
+    "siteURL": "https://www.architecturaldigest.com",
+    "tags": []
+  },
+  {
+    "category": "Architecture",
+    "description": "Modern design across architecture, interiors, art, and technology",
+    "feedURL": "https://design-milk.com/category/architecture/feed/",
+    "id": "c7094ed5-f6fe-e526-774d-b3f97b1bd7bd",
+    "name": "Design Milk",
+    "siteURL": "https://design-milk.com/category/architecture/",
+    "tags": []
+  },
+  {
+    "category": "Architecture",
+    "description": "architecture on designboom surveys the contemporary condition of the built environment, showcasing a range of",
+    "feedURL": "https://www.designboom.com/architecture/feed/",
+    "id": "d66aa1f6-e6a0-0cc3-152d-665044c9c358",
+    "name": "designboom",
+    "siteURL": "https://www.designboom.com/architecture/",
+    "tags": []
+  },
+  {
+    "category": "Architecture",
+    "description": "Dezeen is the world's most influential architecture, interiors and design magazine",
+    "feedURL": "https://www.dezeen.com/architecture/feed/",
+    "id": "b6e0340f-b9ad-d166-0e35-0150e80ea7ff",
+    "name": "Dezeen",
+    "siteURL": "https://www.dezeen.com",
+    "tags": []
+  },
+  {
+    "category": "Architecture",
+    "description": "Green design, innovation, and clean technology",
+    "feedURL": "https://inhabitat.com/architecture/feed/",
+    "id": "7595ea33-c788-24e0-da9b-2f903a7906e1",
+    "name": "Inhabitat",
+    "siteURL": "https://inhabitat.com",
+    "tags": []
+  },
+  {
+    "category": "Architecture",
+    "description": "Inspiration and Tools for Architects",
+    "feedURL": "https://architizer.wpengine.com/feed/",
+    "id": "e9de49d7-013a-0a16-2399-07267a1ef6c6",
+    "name": "Journal",
+    "siteURL": "https://architizer.com/blog/",
+    "tags": []
+  },
+  {
+    "category": "Architecture",
+    "description": "The most authoritative voice on architecture and design in the United States",
+    "feedURL": "https://archpaper.com/feed",
+    "id": "ef19f15e-25b2-b36c-4336-69d34b23a2d1",
+    "name": "The Architect’s Newspaper",
+    "siteURL": "https://www.archpaper.com/",
+    "tags": []
+  }
+]

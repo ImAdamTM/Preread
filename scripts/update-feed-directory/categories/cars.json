@@ -1,0 +1,83 @@
+[
+  {
+    "category": "Cars",
+    "description": "Car and Bike news, reviews and videos",
+    "feedURL": "https://www.autocarindia.com/RSS/rss.ashx?type=all_bikes",
+    "id": "a3feefc3-fc55-e4ba-71f9-904788520c63",
+    "name": "Autocar India",
+    "siteURL": "https://www.autocarindia.com",
+    "tags": []
+  },
+  {
+    "category": "Cars",
+    "description": "Welcome to nirvana for car enthusiasts. You have just entered the online home of the world's oldest car magazine, and",
+    "feedURL": "https://www.autocar.co.uk/rss",
+    "id": "79904079-a84e-46a3-4b7c-fba493e62a52",
+    "name": "Autocar RSS Feed",
+    "siteURL": "https://www.autocar.co.uk/",
+    "tags": []
+  },
+  {
+    "category": "Cars",
+    "description": "Stay ahead with the latest BMW news, reviews and exclusive insights. Watch stunning BMW reels, videos and photos! Your",
+    "feedURL": "https://www.bmwblog.com/feed",
+    "id": "3f1602b6-59f7-58fb-b95d-48273778f683",
+    "name": "BMW BLOG",
+    "siteURL": "https://www.bmwblog.com/",
+    "tags": []
+  },
+  {
+    "category": "Cars",
+    "description": "Online auction platform for enthusiast vehicles",
+    "feedURL": "https://bringatrailer.com/feed/",
+    "id": "4cfb5617-635c-30bf-8209-a31cf5967d10",
+    "name": "Bring a Trailer",
+    "siteURL": "https://bringatrailer.com",
+    "tags": []
+  },
+  {
+    "category": "Cars",
+    "description": "Covering the auto industry since 1955 with reviews, analysis, and advice for car owners and buyers",
+    "feedURL": "https://www.caranddriver.com/rss/all.xml/",
+    "id": "30295614-6961-c08f-f1e7-7c1ad0b317ed",
+    "name": "Car and Driver",
+    "siteURL": "https://www.caranddriver.com/",
+    "tags": []
+  },
+  {
+    "category": "Cars",
+    "description": "Car Design Resources, News and Tutorials",
+    "feedURL": "https://www.carbodydesign.com/feed/",
+    "id": "c11d0b11-c883-89c4-6fdd-59e20bc2a3b4",
+    "name": "Car Body Design",
+    "siteURL": "https://www.carbodydesign.com",
+    "tags": []
+  },
+  {
+    "category": "Cars",
+    "description": "Breaking news coverage for car buyers and auto enthusiasts with spy shots, reviews, auto shows, offbeat stories and",
+    "feedURL": "https://www.carscoops.com/feed/",
+    "id": "e081bf72-d79e-e8a8-a5c0-0586e5ea2444",
+    "name": "Carscoops",
+    "siteURL": "https://www.carscoops.com/",
+    "tags": []
+  },
+  {
+    "category": "Cars",
+    "description": "From cars to motorcycles, Jalopnik is your go-to site covering everything with an engine—including automotive news",
+    "feedURL": "https://jalopnik.com/rss",
+    "id": "acedcf60-42c8-82bd-151a-ebe84e686727",
+    "name": "Jalopnik",
+    "siteURL": "https://www.jalopnik.com/",
+    "tags": []
+  },
+  {
+    "category": "Cars",
+    "description": "The Truth About Cars is dedicated to providing candid, unbiased automobile reviews and the latest in auto industry news",
+    "feedURL": "https://www.thetruthaboutcars.com/feed/",
+    "id": "36fb51a2-54bc-b7f7-c4e5-91933d876723",
+    "name": "The Truth About Cars",
+    "siteURL": "https://www.thetruthaboutcars.com",
+    "tags": []
+  }
+]

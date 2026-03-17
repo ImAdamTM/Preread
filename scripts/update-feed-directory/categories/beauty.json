@@ -1,0 +1,29 @@
+[
+  {
+    "category": "Beauty",
+    "description": "Fashion, beauty, celebrity, and culture",
+    "feedURL": "https://www.elle.com/rss/beauty.xml/",
+    "id": "c0fbe833-0187-edd3-a6a7-738435697d50",
+    "name": "ELLE",
+    "siteURL": "https://www.elle.com/beauty/",
+    "tags": []
+  },
+  {
+    "category": "Beauty",
+    "description": "Fashion industry news, beauty, and style",
+    "feedURL": "https://fashionista.com/.rss/excerpt/beauty",
+    "id": "08cadaef-3208-9352-ba93-3cc572080490",
+    "name": "Fashionista",
+    "siteURL": "https://fashionista.com",
+    "tags": []
+  },
+  {
+    "category": "Beauty",
+    "description": "A beauty blog blooming with fresh makeup reviews, swatches and beauty tips from your friendly neighborhood beauty addict",
+    "feedURL": "https://www.makeupandbeautyblog.com/feed/",
+    "id": "c0555b53-a076-df56-ccf7-b84b53e6cdb7",
+    "name": "Makeup and Beauty Blog",
+    "siteURL": "https://makeupandbeautyblog.com/",
+    "tags": []
+  }
+]

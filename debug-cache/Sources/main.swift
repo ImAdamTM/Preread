@@ -141,6 +141,51 @@ func stripTinyImages(in doc: Document, maxDimension: Int) {
     }
 }
 
+// MARK: - Helper: strip linked thumbnail cards
+
+func stripLinkedThumbnailCards(in doc: Document, pageURL: URL) {
+    let pagePath = pageURL.path.lowercased()
+    guard let containers = try? doc.select("div, li, article") else { return }
+
+    for container in containers.reversed() {
+        guard container.parent() != nil else { continue }
+
+        // Skip large containers — a related-article card is compact
+        let textLength = (try? container.text().count) ?? 0
+        guard textLength < 500 else { continue }
+
+        guard let imgs = try? container.select("img[width], img[height]"),
+              !imgs.isEmpty() else { continue }
+
+        let hasSmallLinkedImage = (try? imgs.array().contains { img in
+            let w = Int((try? img.attr("width")) ?? "") ?? Int.max
+            let h = Int((try? img.attr("height")) ?? "") ?? Int.max
+            guard w <= 240 || h <= 160 else { return false }
+
+            // Walk up from image to find an enclosing <a> (within the container)
+            var node: Element? = img.parent()
+            var anchor: Element?
+            while let current = node {
+                if current === container { break }
+                if current.tagName() == "a" { anchor = current; break }
+                node = current.parent()
+            }
+            guard let anchor else { return false }
+            let href = (try? anchor.attr("href"))?.lowercased() ?? ""
+            guard !href.isEmpty, href != "#" else { return false }
+
+            return !href.contains(pagePath) || pagePath.count < 2
+        }) ?? false
+
+        guard hasSmallLinkedImage else { continue }
+
+        guard let headlines = try? container.select("h2 a[href], h3 a[href], h4 a[href], h5 a[href], h6 a[href]"),
+              !headlines.isEmpty() else { continue }
+
+        try? container.remove()
+    }
+}
+
 // MARK: - Helper: strip badge clusters
 
 func stripBadgeClusters(in doc: Document) throws {
@@ -405,6 +450,8 @@ if isFullMode {
     try preDoc.select("select").remove()
     try preDoc.select("textarea").remove()
     try preDoc.select("iframe").remove()
+
+    stripLinkedThumbnailCards(in: preDoc, pageURL: pageURL)
 
     let cleanedHTML = try preDoc.html()
     saveStep("2_cleaned.html", html: cleanedHTML)

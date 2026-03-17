@@ -1,0 +1,82 @@
+[
+  {
+    "category": "Canada",
+    "country": "Canada",
+    "description": "The latest news from across Canada and around the world",
+    "feedURL": "https://www.cbc.ca/cmlink/rss-topstories",
+    "id": "655d1927-dcd4-21b6-3267-683fd032e7b9",
+    "name": "CBC",
+    "siteURL": "https://www.cbc.ca/news/?cmp=rss",
+    "tags": []
+  },
+  {
+    "category": "Canada",
+    "country": "Canada",
+    "description": "Canadian business, financial, and investment news",
+    "feedURL": "https://business.financialpost.com/feed/",
+    "id": "31e8049f-5537-92c8-c6cb-71dfdbf23f5e",
+    "name": "Financial Post",
+    "siteURL": "https://financialpost.com",
+    "tags": []
+  },
+  {
+    "category": "Canada",
+    "country": "Canada",
+    "description": "Globalnews.ca – Watch and read Canada’s Breaking news plus Business, Health, Politics and World News",
+    "feedURL": "https://globalnews.ca/feed/",
+    "id": "732454db-fe6f-8808-2be3-e39c52082d5d",
+    "name": "globalnews.ca",
+    "siteURL": "https://globalnews.ca",
+    "tags": []
+  },
+  {
+    "category": "Canada",
+    "country": "Canada",
+    "description": "Section Actualités de LaPresse.ca : Nouvelles régionales, provinciales, nationales et internationales",
+    "feedURL": "https://www.lapresse.ca/actualites/rss",
+    "id": "005ef754-31e7-39a4-c125-63a741717723",
+    "name": "LaPresse.ca - Actualités",
+    "siteURL": "https://www.lapresse.ca/actualites/",
+    "tags": []
+  },
+  {
+    "category": "Canada",
+    "country": "Canada",
+    "description": "Canadian news, politics, and opinion",
+    "feedURL": "https://nationalpost.com/feed/",
+    "id": "ead32bf6-6b1e-3ea0-d0f5-d684904365f3",
+    "name": "National Post",
+    "siteURL": "https://nationalpost.com",
+    "tags": []
+  },
+  {
+    "category": "Canada",
+    "country": "Canada",
+    "description": "Ottawa news, sports, and headlines",
+    "feedURL": "https://ottawacitizen.com/feed/",
+    "id": "53e1cf41-fe53-7512-ced1-d88689c95863",
+    "name": "Ottawa Citizen",
+    "siteURL": "https://ottawacitizen.com",
+    "tags": []
+  },
+  {
+    "category": "Canada",
+    "country": "Canada",
+    "description": "Vancouver and BC news, sports, and headlines",
+    "feedURL": "https://theprovince.com/feed/",
+    "id": "1693dac1-8eeb-9214-2904-42c6165ad428",
+    "name": "The Province",
+    "siteURL": "https://theprovince.com",
+    "tags": []
+  },
+  {
+    "category": "Canada",
+    "country": "Canada",
+    "description": "Toronto news, sports, and entertainment",
+    "feedURL": "https://torontosun.com/category/news/feed",
+    "id": "4a29860d-9b10-6e56-3c85-94f509ae9294",
+    "name": "Toronto Sun",
+    "siteURL": "https://torontosun.com/",
+    "tags": []
+  }
+]

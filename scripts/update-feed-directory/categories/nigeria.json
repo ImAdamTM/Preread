@@ -1,0 +1,62 @@
+[
+  {
+    "category": "Nigeria",
+    "country": "Nigeria",
+    "description": "Discover what’s happening - and explore, experience, and exchange what it really means",
+    "feedURL": "https://www.nigerianbulletin.com/forums/-/index.rss",
+    "id": "d69d8a9d-7219-be53-6206-24f7aad43962",
+    "name": " Nigerian Bulletin",
+    "siteURL": "https://nigerianbulletin.com/forums/",
+    "tags": []
+  },
+  {
+    "category": "Nigeria",
+    "country": "Nigeria",
+    "description": "Nigeria's Largest Information Portal. Find Nigerian News, Entertainment, Lifestyle, Sports, Music, Events, Jobs, SME",
+    "feedURL": "https://www.informationng.com/feed",
+    "id": "b71188c7-95c4-1667-32ce-1939510b2c67",
+    "name": "Information Nigeria",
+    "siteURL": "https://www.informationng.com/",
+    "tags": []
+  },
+  {
+    "category": "Nigeria",
+    "country": "Nigeria",
+    "description": "The Nation Newspaper - Nigerian News, Nigerian newspapers, Breaking News, Latest news, Entertainment, Sports, Business",
+    "feedURL": "https://thenationonlineng.net/feed/",
+    "id": "8898e8da-d27d-f400-adb2-278cc5f9a28e",
+    "name": "Latest Nigeria News",
+    "siteURL": "https://thenationonlineng.net",
+    "tags": []
+  },
+  {
+    "category": "Nigeria",
+    "country": "Nigeria",
+    "description": "Read now ➨ News in Nigeria Today & BREAKING NEWS Headlines. Check out the latest Naija news and stay informed with",
+    "feedURL": "https://www.legit.ng/rss/all.rss",
+    "id": "9e394540-4d68-7b37-3409-57f0de7e8258",
+    "name": "Legit.ng",
+    "siteURL": "https://www.legit.ng",
+    "tags": []
+  },
+  {
+    "category": "Nigeria",
+    "country": "Nigeria",
+    "description": "Latest news from Nigeria",
+    "feedURL": "https://www.nigerianeye.com/feeds/posts/default",
+    "id": "e702b101-5f30-5ffe-ba53-cd32c4be73e5",
+    "name": "Nigerian News Latest",
+    "siteURL": "https://www.nigerianeye.com/",
+    "tags": []
+  },
+  {
+    "category": "Nigeria",
+    "country": "Nigeria",
+    "description": "Nigeria's leading independent online newspaper",
+    "feedURL": "https://www.premiumtimesng.com/feed",
+    "id": "e3aba06d-313c-0fdb-21f6-ac71b9b762a3",
+    "name": "Premium Times Nigeria",
+    "siteURL": "https://premiumtimesng.com",
+    "tags": []
+  }
+]

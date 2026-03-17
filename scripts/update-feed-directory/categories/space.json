@@ -1,0 +1,38 @@
+[
+  {
+    "category": "Space",
+    "description": "NASA.gov brings you the latest news, images and videos from America's space agency, pioneering the future in space",
+    "feedURL": "https://www.nasa.gov/rss/dyn/breaking_news.rss",
+    "id": "d25c6c3a-6b63-b163-f419-a1f6236d627a",
+    "name": "NASA Breaking News",
+    "siteURL": "https://www.nasa.gov",
+    "tags": []
+  },
+  {
+    "category": "Space",
+    "description": "Science news and long reads from expert journalists, covering developments in science, technology, health and the",
+    "feedURL": "https://www.newscientist.com/subject/space/feed/",
+    "id": "7eb72c4e-5ff7-baa4-6d73-bffd45fcabd9",
+    "name": "New Scientist: Space",
+    "siteURL": "https://www.newscientist.com/",
+    "tags": []
+  },
+  {
+    "category": "Space",
+    "description": "Explore the universe with Sky & Telescope - your ultimate source for stargazing, celestial events, and the latest",
+    "feedURL": "https://www.skyandtelescope.com/feed/",
+    "id": "b698806d-226f-201b-c951-d5cc16272860",
+    "name": "Sky & Telescope",
+    "siteURL": "https://skyandtelescope.org/",
+    "tags": []
+  },
+  {
+    "category": "Space",
+    "description": "Get the latest space exploration, innovation and astronomy news. Space.com celebrates humanity's ongoing expansion",
+    "feedURL": "https://www.space.com/feeds/all",
+    "id": "c2edd5eb-4423-abe3-82cb-a6f22ae12fac",
+    "name": "Space.com",
+    "siteURL": "https://www.space.com/feeds.xml",
+    "tags": []
+  }
+]
