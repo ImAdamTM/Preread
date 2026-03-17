@@ -5,7 +5,6 @@ struct CachedPage: Identifiable, Codable, FetchableRecord, PersistableRecord {
     /// Uses articleID as the primary key (one cached page per article).
     var articleID: UUID
     var htmlPath: String
-    var darkHtmlPath: String?
     var assetManifest: [String]
     var cachedAt: Date
     var totalSizeBytes: Int

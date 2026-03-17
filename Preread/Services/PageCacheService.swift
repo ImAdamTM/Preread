@@ -656,9 +656,8 @@ actor PageCacheService {
             // fail to load. Strip them so the browser falls through to local src.
             try stripRemoteImageReferences(in: doc)
 
-            // Inline CSS stylesheets directly into the HTML.
-            // Dark Reader can't fetch() file:// URLs due to CORS, so it can't read
-            // external <link> stylesheets. Inlining lets it access rules via the DOM.
+            // Inline CSS stylesheets directly into the HTML so the page is
+            // fully self-contained for offline viewing.
             let cssLinks = try doc.select("link[rel=stylesheet][href]")
             for link in cssLinks {
                 let href = try link.attr("href")
@@ -802,17 +801,10 @@ actor PageCacheService {
         let indexPath = articleDir.appendingPathComponent("index.html")
         try htmlData.write(to: indexPath)
 
-        // Generate pre-darkened variant for full-page caches
-        var darkHtmlPath: String?
-        if cacheLevel == .full {
-            darkHtmlPath = await generateDarkVariant(articleDir: articleDir)
-        }
-
         // Upsert CachedPage
         let cachedPage = CachedPage(
             articleID: article.id,
             htmlPath: indexPath.path,
-            darkHtmlPath: darkHtmlPath,
             assetManifest: assetFilenames,
             cachedAt: Date(),
             totalSizeBytes: totalSize,
@@ -1909,14 +1901,6 @@ actor PageCacheService {
             .appendingPathComponent("index.html")
     }
 
-    /// Returns the current on-disk URL for an article's dark-mode HTML variant, if it exists.
-    func cachedDarkHTMLURL(for articleID: UUID) -> URL? {
-        let path = articlesBaseURL
-            .appendingPathComponent(articleID.uuidString, isDirectory: true)
-            .appendingPathComponent("index-dark.html")
-        return FileManager.default.fileExists(atPath: path.path) ? path : nil
-    }
-
     // MARK: - Favicon caching
 
     private var sourcesBaseURL: URL {
@@ -2154,189 +2138,5 @@ actor PageCacheService {
             .replacingOccurrences(of: "\"", with: "&quot;")
     }
 
-    // MARK: - Dark variant generation
-
-    /// Generates a pre-darkened version of a full-page cached article using Dark Reader
-    /// in a headless WKWebView. Saves the result as `index-dark.html` alongside the original.
-    /// Returns the file path on success, nil on failure.
-    func generateDarkVariant(articleDir: URL) async -> String? {
-        let indexURL = articleDir.appendingPathComponent("index.html")
-        guard FileManager.default.fileExists(atPath: indexURL.path) else { return nil }
-
-        guard let drURL = Bundle.main.url(forResource: "darkreader.min", withExtension: "js"),
-              let drSource = try? String(contentsOf: drURL, encoding: .utf8) else {
-            return nil
-        }
-
-        let darkURL = articleDir.appendingPathComponent("index-dark.html")
-
-        do {
-            let darkHTML = try await DarkVariantRenderer.render(
-                htmlFileURL: indexURL,
-                articleDirectory: articleDir,
-                darkReaderSource: drSource
-            )
-            try Data(darkHTML.utf8).write(to: darkURL)
-            return darkURL.path
-        } catch {
-            print("[PageCacheService] Dark variant generation failed: \(error)")
-            return nil
-        }
-    }
 }
 
-// MARK: - Headless Dark Reader renderer
-
-/// Runs Dark Reader in a headless WKWebView to produce pre-darkened HTML.
-/// Must be called from the main actor since WKWebView requires the main thread.
-@MainActor
-private final class DarkVariantRenderer: NSObject, WKNavigationDelegate {
-    private var webView: WKWebView?
-    private var continuation: CheckedContinuation<String, Error>?
-    private let darkReaderSource: String
-
-    private init(darkReaderSource: String) {
-        self.darkReaderSource = darkReaderSource
-        super.init()
-    }
-
-    static func render(
-        htmlFileURL: URL,
-        articleDirectory: URL,
-        darkReaderSource: String
-    ) async throws -> String {
-        let renderer = DarkVariantRenderer(darkReaderSource: darkReaderSource)
-        return try await renderer.process(htmlFileURL: htmlFileURL, articleDirectory: articleDirectory)
-    }
-
-    private func process(htmlFileURL: URL, articleDirectory: URL) async throws -> String {
-        return try await withThrowingTaskGroup(of: String.self) { group in
-            group.addTask { @MainActor in
-                try await withCheckedThrowingContinuation { continuation in
-                    self.continuation = continuation
-
-                    let config = WKWebViewConfiguration()
-                    config.defaultWebpagePreferences.allowsContentJavaScript = true
-
-                    let webView = WKWebView(frame: CGRect(x: 0, y: 0, width: 1024, height: 768), configuration: config)
-                    webView.navigationDelegate = self
-                    self.webView = webView
-
-                    webView.loadFileURL(htmlFileURL, allowingReadAccessTo: articleDirectory)
-                }
-            }
-
-            // Timeout task — 15 seconds is more than enough for Dark Reader
-            group.addTask { @MainActor in
-                try await Task.sleep(for: .seconds(15))
-                throw NSError(domain: "DarkVariantRenderer", code: 2,
-                    userInfo: [NSLocalizedDescriptionKey: "Dark variant generation timed out"])
-            }
-
-            // Return whichever finishes first; cancel the other
-            guard let result = try await group.next() else {
-                throw NSError(domain: "DarkVariantRenderer", code: 4,
-                    userInfo: [NSLocalizedDescriptionKey: "Task group completed without result"])
-            }
-            group.cancelAll()
-            return result
-        }
-    }
-
-    // MARK: - WKNavigationDelegate
-
-    nonisolated func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        Task { @MainActor in
-            await self.injectDarkReaderAndSnapshot(webView: webView)
-        }
-    }
-
-    nonisolated func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        Task { @MainActor in
-            self.finish(with: .failure(error))
-        }
-    }
-
-    nonisolated func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        Task { @MainActor in
-            self.finish(with: .failure(error))
-        }
-    }
-
-    nonisolated func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
-        Task { @MainActor in
-            self.finish(with: .failure(NSError(domain: "DarkVariantRenderer", code: 3,
-                userInfo: [NSLocalizedDescriptionKey: "WebContent process crashed during dark variant rendering"])))
-        }
-    }
-
-    // MARK: - Dark Reader injection
-
-    private func injectDarkReaderAndSnapshot(webView: WKWebView) async {
-        // Step 1: Cleanup — remove CSP, scripts, noscript, inline remaining stylesheets
-        let cleanupJS = """
-        (function() {
-            document.querySelectorAll('meta[http-equiv="Content-Security-Policy"]').forEach(function(el) { el.remove(); });
-            document.querySelectorAll('script').forEach(function(el) { el.remove(); });
-            document.querySelectorAll('noscript').forEach(function(el) { el.remove(); });
-            var remaining = document.querySelectorAll('link[rel="stylesheet"]');
-            remaining.forEach(function(link) {
-                try {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('GET', link.href, false);
-                    xhr.send();
-                    if (xhr.status === 200 || xhr.status === 0) {
-                        var style = document.createElement('style');
-                        style.textContent = xhr.responseText;
-                        link.parentNode.replaceChild(style, link);
-                    }
-                } catch(e) {}
-            });
-        })();
-        """
-
-        // Step 2: Inject Dark Reader and enable with same config as CachedWebView
-        let enableJS = cleanupJS + darkReaderSource + """
-        \nDarkReader.enable({
-            brightness: 100,
-            contrast: 95,
-            sepia: 0
-        }, {
-            css: 'html, body { background-color: #000000 !important; } a { color: #7B7BEE !important; } pre, code { background-color: #1C1C28 !important; }'
-        });
-        """
-
-        do {
-            try await webView.evaluateJavaScript(enableJS)
-        } catch {
-            finish(with: .failure(error))
-            return
-        }
-
-        // Step 3: Wait for Dark Reader's MutationObserver-based processing to finish
-        try? await Task.sleep(for: .seconds(2))
-
-        // Step 4: Snapshot the DOM
-        let snapshotJS = "document.documentElement.outerHTML;"
-        do {
-            let result = try await webView.evaluateJavaScript(snapshotJS)
-            if let html = result as? String {
-                let fullHTML = "<!DOCTYPE html>\n" + html
-                finish(with: .success(fullHTML))
-            } else {
-                finish(with: .failure(NSError(domain: "DarkVariantRenderer", code: 1,
-                    userInfo: [NSLocalizedDescriptionKey: "Failed to extract HTML from DOM"])))
-            }
-        } catch {
-            finish(with: .failure(error))
-        }
-    }
-
-    private func finish(with result: Result<String, Error>) {
-        guard let continuation else { return }
-        self.continuation = nil
-        self.webView?.navigationDelegate = nil
-        self.webView = nil
-        continuation.resume(with: result)
-    }
-}

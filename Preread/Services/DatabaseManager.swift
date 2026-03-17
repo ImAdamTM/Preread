@@ -75,6 +75,7 @@ final class DatabaseManager {
                 t.column("etag", .text)
                 t.column("lastModified", .text)
                 t.column("retryCount", .integer).notNull().defaults(to: 0)
+                t.column("readingMinutes", .integer)
             }
 
             // cachedPage table
@@ -87,11 +88,10 @@ final class DatabaseManager {
                 t.column("totalSizeBytes", .integer).notNull().defaults(to: 0)
                 t.column("isTruncated", .boolean).notNull().defaults(to: false)
                 t.column("cacheLevelUsed", .text).notNull()
-                t.column("darkHtmlPath", .text)
             }
 
             // Seed the hidden "Saved Pages" source
-            var savedPagesSource = Source(
+            let savedPagesSource = Source(
                 id: Source.savedPagesID,
                 title: "Saved Pages",
                 feedURL: "preread://saved-pages",
@@ -108,10 +108,5 @@ final class DatabaseManager {
             try savedPagesSource.save(db)
         }
 
-        migrator.registerMigration("v2-add-reading-minutes") { db in
-            try db.alter(table: "article") { t in
-                t.add(column: "readingMinutes", .integer)
-            }
-        }
     }
 }

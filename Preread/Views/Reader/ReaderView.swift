@@ -58,11 +58,7 @@ struct ReaderView: View {
             .appendingPathComponent("index.html")
     }
 
-    private var articleDarkHTMLURL: URL {
-        return ContainerPaths.articlesBaseURL
-            .appendingPathComponent(article.id.uuidString, isDirectory: true)
-            .appendingPathComponent("index-dark.html")
-    }
+
 
     var body: some View {
         ZStack {
@@ -188,18 +184,7 @@ struct ReaderView: View {
     private func readerContent(cachedPage: CachedPage) -> some View {
         let isReaderMode = cachedPage.cacheLevelUsed != .full
 
-        // For full-page caches in dark mode, use the pre-darkened variant if available
-        let usePreDarkened: Bool
-        let htmlURL: URL
-        if useDarkAppearance,
-           !isReaderMode,
-           FileManager.default.fileExists(atPath: articleDarkHTMLURL.path) {
-            htmlURL = articleDarkHTMLURL
-            usePreDarkened = true
-        } else {
-            htmlURL = articleHTMLURL
-            usePreDarkened = false
-        }
+        let htmlURL = articleHTMLURL
         let articleDir = htmlURL.deletingLastPathComponent()
 
         return ZStack {

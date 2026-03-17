@@ -79,10 +79,6 @@ final class ToastManager: ObservableObject {
         show("Can't reach your sources right now. Your saved articles are still here.", type: .error, duration: 4)
     }
 
-    func showDarkMode() {
-        show("Dark mode on — Dark Reader is restyling this page.", type: .info, duration: 2)
-    }
-
     func showShortcutAdded() {
         show("Added to Home Screen", type: .success, duration: 2)
     }

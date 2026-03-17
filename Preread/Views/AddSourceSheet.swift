@@ -674,15 +674,6 @@ struct AddSourceSheet: View {
                 }
             }
 
-            // Save quality
-            VStack(alignment: .leading, spacing: 6) {
-                Text("Save quality")
-                    .font(.system(size: 13, weight: .medium))
-                    .foregroundColor(Theme.textSecondary)
-
-                CacheFidelitySlider(selectedLevel: $selectedCacheLevel)
-            }
-
             // Preview articles
             if let items = detectedFeed?.items.prefix(3), !items.isEmpty {
                 VStack(alignment: .leading, spacing: 6) {
@@ -1173,7 +1164,7 @@ struct AddSourceSheet: View {
                     lastFetchedAt: nil,
                     fetchFrequency: selectedFrequency,
                     fetchStatus: .idle,
-                    cacheLevel: selectedCacheLevel,
+                    cacheLevel: .standard,
                     sortOrder: 0
                 )
 

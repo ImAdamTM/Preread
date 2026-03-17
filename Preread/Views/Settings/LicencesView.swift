@@ -3,10 +3,6 @@ import SafariServices
 
 struct LicencesView: View {
     private let libraries: [(name: String, copyright: String, url: String, license: String)] = [
-        ("Dark Reader",
-         "© 2014–2025 Alexander Shutau",
-         "https://github.com/darkreader/darkreader",
-         "MIT"),
         ("GRDB.swift",
          "© 2015–2024 Gwendal Roué",
          "https://github.com/groue/GRDB.swift",

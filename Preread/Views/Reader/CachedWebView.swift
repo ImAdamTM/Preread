@@ -171,7 +171,7 @@ struct CachedWebView: UIViewRepresentable {
                 : .white
         }
 
-        // If the HTML file changed (e.g. light ↔ dark variant swap), reload
+        // If the HTML file changed, reload
         if coordinator.currentHTMLFileURL != htmlFileURL {
             coordinator.currentHTMLFileURL = htmlFileURL
             coordinator.pageLoaded = false
@@ -350,7 +350,7 @@ struct CachedWebView: UIViewRepresentable {
             // Allow file:// URLs (local cached content)
             if url?.isFileURL == true {
                 // Block page-embedded JS for security.
-                // Our evaluateJavaScript calls (Dark Reader etc.) still run.
+                // Our evaluateJavaScript calls (text size, font, theme) still run.
                 preferences.allowsContentJavaScript = false
                 decisionHandler(.allow, preferences)
                 return
