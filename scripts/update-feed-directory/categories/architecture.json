@@ -2,7 +2,7 @@
   {
     "category": "Architecture",
     "description": "ArchDaily, Broadcasting Architecture Worldwide: Architecture news, competitions and projects updated every hour for the",
-    "feedURL": "https://www.archdaily.com/feed",
+    "feedURL": "https://www.archdaily.com/rss.xml",
     "id": "480378d2-1f4d-5276-a8ee-02fd50692cef",
     "name": "ArchDaily",
     "siteURL": "https://www.archdaily.com/",

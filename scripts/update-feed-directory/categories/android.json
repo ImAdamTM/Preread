@@ -20,10 +20,10 @@
   {
     "category": "Android",
     "description": "Android news, reviews, and how-tos",
-    "feedURL": "https://feeds.androidcentral.com/androidcentral",
+    "feedURL": "https://www.androidcentral.com/feed",
     "id": "ee062d6a-d407-f75c-1bd3-e0a5e015df8a",
     "name": "Android Central",
-    "siteURL": "https://www.androidcentral.com/feeds.xml",
+    "siteURL": "https://www.androidcentral.com",
     "tags": []
   },
   {

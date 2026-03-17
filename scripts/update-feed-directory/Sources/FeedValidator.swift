@@ -1,4 +1,5 @@
 import Foundation
+import SwiftSoup
 
 /// Validates feed URLs, extracts site URLs, and parses feed items for quality checks.
 enum FeedValidator {
@@ -9,14 +10,38 @@ enum FeedValidator {
         let isValid: Bool
         let newestItemDate: Date?   // Most recent item publish date (nil if no dates found)
         let articleURLs: [String]   // Up to 10 item URLs from the feed
+        let issue: Issue?           // Why the feed was invalid (nil if valid)
+
+        enum Issue: CustomStringConvertible {
+            case unreachable(String)        // Network error or non-2xx status
+            case notAFeed                   // Response doesn't look like XML/RSS/Atom
+            case redirectsToHTTP(String)    // Final URL is HTTP (ATS blocks on iOS)
+
+            var description: String {
+                switch self {
+                case .unreachable(let reason): return "unreachable: \(reason)"
+                case .notAFeed: return "response is not a feed"
+                case .redirectsToHTTP(let url): return "redirects to HTTP: \(url)"
+                }
+            }
+        }
     }
 
     /// Validates a feed URL by fetching it and checking for valid XML content.
     /// Also extracts the site URL, newest item date, and article URLs.
     static func validate(feedURL: String, session: URLSession) async -> ValidationResult {
+        await validate(feedURL: feedURL, session: session, checkATSRedirects: false)
+    }
+
+    /// Validates a feed URL with optional ATS redirect detection.
+    /// When `checkATSRedirects` is true, follows the redirect chain manually and rejects
+    /// feeds whose final URL is HTTP (since iOS ATS blocks plain HTTP requests).
+    static func validate(feedURL: String, session: URLSession,
+                         checkATSRedirects: Bool) async -> ValidationResult {
         guard let url = URL(string: feedURL) else {
             return ValidationResult(feedURL: feedURL, siteURL: nil, isValid: false,
-                                    newestItemDate: nil, articleURLs: [])
+                                    newestItemDate: nil, articleURLs: [],
+                                    issue: .unreachable("invalid URL"))
         }
 
         do {
@@ -27,8 +52,19 @@ enum FeedValidator {
 
             guard let httpResponse = response as? HTTPURLResponse,
                   (200...299).contains(httpResponse.statusCode) else {
+                let status = (response as? HTTPURLResponse)?.statusCode ?? 0
                 return ValidationResult(feedURL: feedURL, siteURL: nil, isValid: false,
-                                        newestItemDate: nil, articleURLs: [])
+                                        newestItemDate: nil, articleURLs: [],
+                                        issue: .unreachable("HTTP \(status)"))
+            }
+
+            // If ATS checking is on, verify the final URL is HTTPS
+            if checkATSRedirects,
+               let finalURL = httpResponse.url,
+               finalURL.scheme?.lowercased() == "http" {
+                return ValidationResult(feedURL: feedURL, siteURL: nil, isValid: false,
+                                        newestItemDate: nil, articleURLs: [],
+                                        issue: .redirectsToHTTP(finalURL.absoluteString))
             }
 
             // Check that the response looks like XML/RSS/Atom
@@ -40,7 +76,8 @@ enum FeedValidator {
 
             guard looksLikeFeed else {
                 return ValidationResult(feedURL: feedURL, siteURL: nil, isValid: false,
-                                        newestItemDate: nil, articleURLs: [])
+                                        newestItemDate: nil, articleURLs: [],
+                                        issue: .notAFeed)
             }
 
             // Extract site URL from feed content
@@ -54,12 +91,115 @@ enum FeedValidator {
                 siteURL: siteURL,
                 isValid: true,
                 newestItemDate: itemInfo.newestDate,
-                articleURLs: itemInfo.urls
+                articleURLs: itemInfo.urls,
+                issue: nil
             )
         } catch {
             return ValidationResult(feedURL: feedURL, siteURL: nil, isValid: false,
-                                    newestItemDate: nil, articleURLs: [])
+                                    newestItemDate: nil, articleURLs: [],
+                                    issue: .unreachable(error.localizedDescription))
         }
+    }
+
+    // MARK: - Feed Autodiscovery
+
+    /// Attempts to find a working feed URL for a site using multiple strategies:
+    /// 1. HTML `<link rel="alternate">` discovery on the site homepage
+    /// 2. Common feed path guessing (/feed, /rss, /rss.xml, etc.)
+    /// 3. Feeds subdomain fallback
+    ///
+    /// Returns the first valid feed URL found, or nil if none work.
+    static func discoverFeed(siteURL: String?, feedURL: String,
+                             session: URLSession) async -> String? {
+        // Determine the base site URL to probe
+        let baseURL: URL
+        if let site = siteURL, let url = URL(string: site) {
+            baseURL = url
+        } else if let url = URL(string: feedURL),
+                  let scheme = url.scheme, let host = url.host {
+            baseURL = URL(string: "\(scheme)://\(host)")!
+        } else {
+            return nil
+        }
+
+        // Strategy 1: HTML <link rel="alternate"> discovery
+        if let discovered = await discoverFromHTML(baseURL: baseURL, session: session) {
+            let result = await validate(feedURL: discovered, session: session,
+                                        checkATSRedirects: true)
+            if result.isValid { return discovered }
+        }
+
+        // Strategy 2: Common feed paths
+        let commonPaths = [
+            "/feed", "/rss", "/rss.xml", "/atom.xml", "/feed.xml",
+            "/index.xml", "/feeds/all", "/feeds/rss", "/feeds.xml",
+            "/news/rss.xml", "/news/feed", "/blog/feed", "/blog/rss.xml",
+        ]
+
+        guard let scheme = baseURL.scheme, let host = baseURL.host else { return nil }
+        let siteBase = "\(scheme)://\(host)"
+
+        for path in commonPaths {
+            let candidate = siteBase + path
+            // Skip if it's the same as the original broken feed URL
+            if candidate.lowercased() == feedURL.lowercased() { continue }
+
+            let result = await validate(feedURL: candidate, session: session,
+                                        checkATSRedirects: true)
+            if result.isValid { return candidate }
+        }
+
+        // Strategy 3: feeds. subdomain
+        let feedsHost = "feeds." + host.replacingOccurrences(of: "www.", with: "")
+        let feedsBase = "\(scheme)://\(feedsHost)"
+        let subdomainPaths = ["", "/rss.xml", "/news/rss.xml"]
+
+        for path in subdomainPaths {
+            let candidate = feedsBase + path
+            let result = await validate(feedURL: candidate, session: session,
+                                        checkATSRedirects: true)
+            if result.isValid { return candidate }
+        }
+
+        return nil
+    }
+
+    /// Fetches an HTML page and looks for <link rel="alternate" type="application/rss+xml">
+    /// or atom+xml tags.
+    private static func discoverFromHTML(baseURL: URL, session: URLSession) async -> String? {
+        do {
+            var request = URLRequest(url: baseURL, timeoutInterval: 15)
+            request.setValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+                           forHTTPHeaderField: "User-Agent")
+
+            let (data, response) = try await session.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else { return nil }
+
+            guard let html = String(data: data, encoding: .utf8) else { return nil }
+
+            let doc = try SwiftSoup.parse(html, baseURL.absoluteString)
+            let links = try doc.select("link[rel=alternate]")
+
+            for link in links {
+                let type = try link.attr("type").lowercased()
+                guard type.contains("rss") || type.contains("atom") else { continue }
+
+                let href = try link.attr("abs:href")
+                guard !href.isEmpty else { continue }
+
+                // Ensure it's HTTPS
+                var feedCandidate = href
+                if feedCandidate.lowercased().hasPrefix("http://") {
+                    feedCandidate = "https://" + feedCandidate.dropFirst("http://".count)
+                }
+
+                return feedCandidate
+            }
+        } catch {
+            // HTML fetch/parse failed — fall through to other strategies
+        }
+        return nil
     }
 
     /// Extracts the site/homepage URL from feed XML.
@@ -330,3 +470,4 @@ private final class FeedItemExtractor: NSObject, XMLParserDelegate {
         return nil
     }
 }
+

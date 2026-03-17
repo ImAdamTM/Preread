@@ -83,10 +83,10 @@
   {
     "category": "Food",
     "description": "Fearless cooking from a tiny NYC kitchen",
-    "feedURL": "https://smittenkitchen.com/feed/",
+    "feedURL": "https://smittenkitchen.com/feeds/feed/",
     "id": "65fbb327-953a-5d47-9be5-7b1a3745ef88",
     "name": "smitten kitchen",
-    "siteURL": "https://smittenkitchen.com/",
+    "siteURL": "https://smittenkitchen.com",
     "tags": []
   }
 ]

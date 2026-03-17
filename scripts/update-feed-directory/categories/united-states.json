@@ -47,15 +47,5 @@
     "name": "World & Nation",
     "siteURL": "https://www.latimes.com",
     "tags": []
-  },
-  {
-    "category": "United States",
-    "country": "United States",
-    "description": "Yahoo World News coverage",
-    "feedURL": "https://www.huffpost.com/section/world-news/feed",
-    "id": "c22ab88a-b4ad-1ead-9c20-f383b2c9be5c",
-    "name": "World News",
-    "siteURL": "https://www.huffpost.com/news/world-news",
-    "tags": []
   }
 ]

@@ -258,16 +258,47 @@ func writeAllFeeds(_ feeds: [DiscoverFeedOutput], to scriptDir: URL) throws {
     try FileManager.default.createDirectory(at: categoriesDir, withIntermediateDirectories: true)
 
     let encoder = JSONEncoder()
-    encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+    encoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
 
     let grouped = Dictionary(grouping: feeds, by: \.category)
+
+    // Remove category files for categories with no remaining feeds
+    let fm = FileManager.default
+    let existingFiles = try fm.contentsOfDirectory(at: categoriesDir, includingPropertiesForKeys: nil)
+        .filter { $0.pathExtension == "json" }
+    let activeFilenames = Set(grouped.keys.map { slugifyCategory($0) + ".json" })
+    for file in existingFiles {
+        if !activeFilenames.contains(file.lastPathComponent) {
+            try fm.removeItem(at: file)
+        }
+    }
+
     for (category, categoryFeeds) in grouped.sorted(by: { $0.key < $1.key }) {
         let sorted = categoryFeeds.sorted {
             $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
         }
         let filename = slugifyCategory(category) + ".json"
         let fileURL = categoriesDir.appendingPathComponent(filename)
-        let data = try encoder.encode(sorted)
+        var data = try encoder.encode(sorted)
+
+        // Fix formatting to match original style:
+        // - Remove space before colon: "key" : "value" -> "key": "value"
+        // - Compact empty arrays: "tags" : [\n\n    ] -> "tags": []
+        if var json = String(data: data, encoding: .utf8) {
+            // Fix key-value separator spacing
+            json = json.replacingOccurrences(
+                of: "\" : ",
+                with: "\": "
+            )
+            // Compact empty arrays
+            json = json.replacingOccurrences(
+                of: "\\[\\s*\\]",
+                with: "[]",
+                options: .regularExpression
+            )
+            data = Data(json.utf8)
+        }
+
         try data.write(to: fileURL)
     }
 }
@@ -325,7 +356,8 @@ func runAudit() async throws {
                 for feed in batch {
                     group.addTask {
                         let result = await FeedValidator.validate(
-                            feedURL: feed.feedURL, session: session
+                            feedURL: feed.feedURL, session: session,
+                            checkATSRedirects: true
                         )
                         return (feed, result)
                     }
@@ -341,7 +373,7 @@ func runAudit() async throws {
                 if result.isValid {
                     validatedFeeds.append(ValidatedFeed(
                         feed: feed,
-                        siteURL: result.siteURL ?? feed.siteURL,
+                        siteURL: feed.siteURL ?? result.siteURL,
                         newestItemDate: result.newestItemDate,
                         articleURLs: result.articleURLs
                     ))
@@ -721,11 +753,209 @@ func runDiscover() async throws {
     }
 }
 
+// MARK: - Verify Mode
+
+/// Loads all feeds from category files, validates each one with ATS-aware checks,
+/// attempts autodiscovery for broken feeds, updates category files with fixed URLs,
+/// and removes feeds that can't be fixed.
+func runVerify() async throws {
+    let scriptDir = URL(fileURLWithPath: #filePath)
+        .deletingLastPathComponent()
+        .deletingLastPathComponent()
+
+    var allFeeds = try loadAllFeeds(from: scriptDir)
+    let categoryFileCount = try FileManager.default.contentsOfDirectory(
+        at: scriptDir.appendingPathComponent("categories"),
+        includingPropertiesForKeys: nil
+    ).filter { $0.pathExtension == "json" }.count
+    print("Loaded \(allFeeds.count) feeds from \(categoryFileCount) category files")
+
+    let session = makeSession()
+
+    // Track results
+    var okCount = 0
+    var fixedFeeds: [(name: String, category: String, oldURL: String, newURL: String)] = []
+    var removedFeeds: [(name: String, category: String, feedURL: String, reason: String)] = []
+
+    // Validate all feeds with ATS-aware redirect checking
+    print("Verifying feeds (ATS-aware)...")
+
+    struct FeedCheckResult {
+        let feed: DiscoverFeedOutput
+        let validation: FeedValidator.ValidationResult
+    }
+
+    var failedFeeds: [FeedCheckResult] = []
+
+    let batchSize = 10
+    for batchStart in stride(from: 0, to: allFeeds.count, by: batchSize) {
+        let batchEnd = min(batchStart + batchSize, allFeeds.count)
+        let batch = Array(allFeeds[batchStart..<batchEnd])
+
+        let results = await withTaskGroup(of: FeedCheckResult.self) { group in
+            for feed in batch {
+                group.addTask {
+                    let result = await FeedValidator.validate(
+                        feedURL: feed.feedURL, session: session,
+                        checkATSRedirects: true
+                    )
+                    return FeedCheckResult(feed: feed, validation: result)
+                }
+            }
+            var collected: [FeedCheckResult] = []
+            for await result in group {
+                collected.append(result)
+            }
+            return collected
+        }
+
+        for result in results {
+            if result.validation.isValid {
+                okCount += 1
+                if verbose {
+                    print("  \u{2713} \(result.feed.name)")
+                }
+            } else {
+                failedFeeds.append(result)
+                let issue = result.validation.issue?.description ?? "unknown"
+                print("  \u{2717} \(result.feed.name) [\(result.feed.category)] — \(issue)")
+            }
+        }
+
+        let progress = min(batchEnd, allFeeds.count)
+        print("  Progress: \(progress)/\(allFeeds.count) (\(okCount) ok, \(failedFeeds.count) failed)")
+    }
+
+    if failedFeeds.isEmpty {
+        print("\nAll \(allFeeds.count) feeds are valid!")
+        return
+    }
+
+    // Retry failed feeds once before declaring them broken (handles intermittent timeouts)
+    print("\nRetrying \(failedFeeds.count) failed feeds...")
+    var confirmedFailed: [FeedCheckResult] = []
+    for failed in failedFeeds {
+        let retry = await FeedValidator.validate(
+            feedURL: failed.feed.feedURL, session: session, checkATSRedirects: true
+        )
+        if retry.isValid {
+            okCount += 1
+            print("  \u{2713} \(failed.feed.name) — passed on retry")
+        } else {
+            confirmedFailed.append(failed)
+            print("  \u{2717} \(failed.feed.name) — still failing")
+        }
+    }
+
+    if confirmedFailed.isEmpty {
+        print("\nAll feeds passed after retry!")
+        return
+    }
+
+    // Attempt autodiscovery for confirmed-failed feeds
+    print("\nAttempting autodiscovery for \(confirmedFailed.count) failed feeds...")
+
+    for (i, failed) in confirmedFailed.enumerated() {
+        let feed = failed.feed
+        print("  [\(i + 1)/\(confirmedFailed.count)] \(feed.name) (\(feed.category))...")
+
+        if let newURL = await FeedValidator.discoverFeed(
+            siteURL: feed.siteURL, feedURL: feed.feedURL, session: session
+        ) {
+            // Skip if autodiscovery found the same URL we already have
+            if normalizeFeedURL(newURL) == normalizeFeedURL(feed.feedURL) {
+                let reason = failed.validation.issue?.description ?? "unknown"
+                removedFeeds.append((
+                    name: feed.name,
+                    category: feed.category,
+                    feedURL: feed.feedURL,
+                    reason: reason
+                ))
+                print("    \u{2717} Autodiscovery returned same URL — removing")
+                allFeeds.removeAll { $0.id == feed.id }
+                continue
+            }
+
+            // Keep the original siteURL if it exists — the validator's siteURL comes from
+            // the feed XML's <link> tag which is sometimes wrong (e.g. pointing back to the
+            // feed URL instead of the homepage). Only use the validator's siteURL as a fallback.
+            let newResult = await FeedValidator.validate(
+                feedURL: newURL, session: session, checkATSRedirects: true
+            )
+            let newSiteURL = feed.siteURL ?? newResult.siteURL
+
+            fixedFeeds.append((
+                name: feed.name,
+                category: feed.category,
+                oldURL: feed.feedURL,
+                newURL: newURL
+            ))
+            print("    \u{2713} Found: \(newURL)")
+
+            // Update the feed in the allFeeds array
+            if let idx = allFeeds.firstIndex(where: { $0.id == feed.id }) {
+                allFeeds[idx] = DiscoverFeedOutput(
+                    id: feed.id,
+                    name: feed.name,
+                    feedURL: newURL,
+                    siteURL: newSiteURL,
+                    description: feed.description,
+                    category: feed.category,
+                    country: feed.country,
+                    tags: feed.tags
+                )
+            }
+        } else {
+            let reason = failed.validation.issue?.description ?? "unknown"
+            removedFeeds.append((
+                name: feed.name,
+                category: feed.category,
+                feedURL: feed.feedURL,
+                reason: reason
+            ))
+            print("    \u{2717} No valid feed found — removing")
+
+            // Remove the feed
+            allFeeds.removeAll { $0.id == feed.id }
+        }
+    }
+
+    // Write updated category files
+    if !fixedFeeds.isEmpty || !removedFeeds.isEmpty {
+        try writeAllFeeds(allFeeds, to: scriptDir)
+        print("\nCategory files updated.")
+    }
+
+    // Summary
+    print("\n--- Verification Summary ---")
+    print("Total feeds checked: \(okCount + failedFeeds.count)")
+    print("OK: \(okCount)")
+
+    if !fixedFeeds.isEmpty {
+        print("\nFixed (\(fixedFeeds.count)):")
+        for fix in fixedFeeds.sorted(by: { $0.category < $1.category }) {
+            print("  \(fix.name) [\(fix.category)]")
+            print("    old: \(fix.oldURL)")
+            print("    new: \(fix.newURL)")
+        }
+    }
+
+    if !removedFeeds.isEmpty {
+        print("\nRemoved (\(removedFeeds.count)):")
+        for removed in removedFeeds.sorted(by: { $0.category < $1.category }) {
+            print("  \(removed.name) [\(removed.category)] — \(removed.reason)")
+            print("    \(removed.feedURL)")
+        }
+    }
+}
+
 // MARK: - Entry point
 
 do {
     if CommandLine.arguments.contains("discover") {
         try await runDiscover()
+    } else if CommandLine.arguments.contains("verify") {
+        try await runVerify()
     } else {
         try await runAudit()
     }

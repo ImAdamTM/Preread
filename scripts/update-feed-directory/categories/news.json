@@ -1,7 +1,6 @@
 [
   {
     "category": "News",
-    "country": null,
     "description": "Smart, efficient news coverage of politics, business, and technology",
     "feedURL": "https://api.axios.com/feed/",
     "id": "f5e8ac85-4e40-4b1e-48c1-10f82ecca136",

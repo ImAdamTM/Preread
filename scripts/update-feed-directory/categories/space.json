@@ -29,10 +29,10 @@
   {
     "category": "Space",
     "description": "Get the latest space exploration, innovation and astronomy news. Space.com celebrates humanity's ongoing expansion",
-    "feedURL": "https://www.space.com/feeds/all",
+    "feedURL": "https://www.space.com/feeds.xml",
     "id": "c2edd5eb-4423-abe3-82cb-a6f22ae12fac",
     "name": "Space.com",
-    "siteURL": "https://www.space.com/feeds.xml",
+    "siteURL": "https://www.space.com",
     "tags": []
   }
 ]

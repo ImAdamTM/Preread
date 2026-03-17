@@ -127,15 +127,6 @@
   },
   {
     "category": "Programming",
-    "description": "Dave Winer's blog on technology, media, and the open web",
-    "feedURL": "https://scripting.com/rss.xml",
-    "id": "2873e760-761a-a8f3-d4c1-54fd173005dc",
-    "name": "Scripting News",
-    "siteURL": "https://scripting.com/",
-    "tags": []
-  },
-  {
-    "category": "Programming",
     "description": "Daily interviews about software engineering topics",
     "feedURL": "https://softwareengineeringdaily.com/category/podcast/feed",
     "id": "d3fc8e2e-c7ed-e1b7-c8f3-2bbe3bcbc7d3",
