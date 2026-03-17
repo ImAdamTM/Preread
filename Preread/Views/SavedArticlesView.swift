@@ -58,7 +58,7 @@ struct SavedArticlesView: View {
             ToolbarItem(placement: .principal) {
                 HStack(spacing: 8) {
                     Image(systemName: "bookmark.fill")
-                        .font(.system(size: 14, weight: .medium))
+                        .font(Theme.scaledFont(size: 14, weight: .medium))
                         .foregroundColor(Theme.teal)
                     Text("Saved Articles")
                         .font(Theme.scaledFont(size: 17, weight: .semibold))
@@ -72,7 +72,7 @@ struct SavedArticlesView: View {
                     SettingsView()
                 } label: {
                     Image(systemName: "gearshape")
-                        .font(.system(size: 17))
+                        .font(Theme.scaledFont(size: 17))
                         .foregroundColor(Theme.textPrimary)
                 }
             }
@@ -132,7 +132,7 @@ struct SavedArticlesView: View {
             .listRowBackground(Color.clear)
 
             Text("All articles")
-                .font(.system(size: 20, weight: .regular))
+                .font(Theme.scaledFont(size: 20, weight: .regular))
                 .foregroundColor(Theme.textPrimary)
                 .listRowInsets(EdgeInsets(top: 4, leading: 20, bottom: 8, trailing: 20))
                 .listRowSeparator(.hidden)
@@ -212,14 +212,14 @@ struct SavedArticlesView: View {
                     )
                     .frame(width: 38, height: 38)
                 Image(systemName: "bookmark.fill")
-                    .font(.system(size: 16, weight: .medium))
+                    .font(Theme.scaledFont(size: 16, weight: .medium))
                     .foregroundColor(.white)
             }
             .shadow(color: .black.opacity(0.2), radius: 8, y: 4)
 
             VStack(alignment: .leading, spacing: -2) {
                 Text("Saved Articles")
-                    .font(.system(size: 20, weight: .regular))
+                    .font(Theme.scaledFont(size: 20, weight: .regular))
                     .foregroundColor(Theme.textPrimary)
                     .modifier(HeroTitleScrollTracker { minY in
                         heroTitleMinY = minY
@@ -292,7 +292,7 @@ struct SavedArticlesView: View {
             Spacer()
 
             Image(systemName: "bookmark")
-                .font(.system(size: 48, weight: .light))
+                .font(Theme.scaledFont(size: 48, weight: .light))
                 .foregroundColor(Theme.textSecondary)
             Text("No saved articles")
                 .font(Theme.scaledFont(size: 17, weight: .semibold))

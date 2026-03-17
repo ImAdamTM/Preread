@@ -148,7 +148,7 @@ struct SourceSectionView: View {
 
             VStack(alignment: .leading, spacing: 0) {
                 Text(source.title)
-                    .font(.system(size: 18, weight: .medium))
+                    .font(Theme.scaledFont(size: 18, weight: .medium))
                     .foregroundColor(Theme.textPrimary)
                     .lineLimit(1)
 

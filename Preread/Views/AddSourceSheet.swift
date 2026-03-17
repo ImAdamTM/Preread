@@ -180,10 +180,10 @@ struct AddSourceSheet: View {
         VStack(alignment: .leading, spacing: 20) {
             VStack(alignment: .leading, spacing: 4) {
                 Text("Add a source")
-                    .font(.system(size: 28, weight: .regular))
+                    .font(Theme.scaledFont(size: 28, weight: .regular))
                     .foregroundColor(Theme.textPrimary)
                 Text("Search or paste a link")
-                    .font(.system(size: 15))
+                    .font(Theme.scaledFont(size: 15))
                     .foregroundColor(Theme.textSecondary)
             }
 
@@ -193,7 +193,7 @@ struct AddSourceSheet: View {
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
                     .keyboardType(.default)
-                    .font(.system(size: 16))
+                    .font(Theme.scaledFont(size: 16))
                     .foregroundColor(Theme.textPrimary)
                     .focused($isURLFieldFocused)
                     .submitLabel(.go)
@@ -204,7 +204,7 @@ struct AddSourceSheet: View {
                         urlText = ""
                     } label: {
                         Image(systemName: "xmark.circle.fill")
-                            .font(.system(size: 16))
+                            .font(Theme.scaledFont(size: 16))
                             .foregroundColor(Theme.textSecondary.opacity(0.6))
                     }
                 } else {
@@ -214,7 +214,7 @@ struct AddSourceSheet: View {
                         }
                     } label: {
                         Image(systemName: "doc.on.clipboard")
-                            .font(.system(size: 16))
+                            .font(Theme.scaledFont(size: 16))
                             .foregroundColor(Theme.textSecondary)
                     }
                 }
@@ -234,10 +234,10 @@ struct AddSourceSheet: View {
                 // Search mode with no results
                 VStack(spacing: 6) {
                     Text("No feeds found for \"\(urlText.trimmingCharacters(in: .whitespacesAndNewlines))\"")
-                        .font(.system(size: 14))
+                        .font(Theme.scaledFont(size: 14))
                         .foregroundColor(Theme.textSecondary)
                     Text("Try a different term or paste a feed URL")
-                        .font(.system(size: 12))
+                        .font(Theme.scaledFont(size: 12))
                         .foregroundColor(Theme.textSecondary.opacity(0.7))
                 }
                 .frame(maxWidth: .infinity)
@@ -249,7 +249,7 @@ struct AddSourceSheet: View {
                     // Primary CTA
                     Button(action: startDetection) {
                         Text("Find articles")
-                            .font(.system(size: 15, weight: .semibold))
+                            .font(Theme.scaledFont(size: 15, weight: .semibold))
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 16)
@@ -265,7 +265,7 @@ struct AddSourceSheet: View {
                     // Secondary CTA
                     Button(action: startSavePageFlow) {
                         Text("Save single page")
-                            .font(.system(size: 15, weight: .semibold))
+                            .font(Theme.scaledFont(size: 15, weight: .semibold))
                             .foregroundColor(isEmpty ? Theme.textSecondary.opacity(0.5) : Theme.textPrimary)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 16)
@@ -286,10 +286,10 @@ struct AddSourceSheet: View {
             } label: {
                 HStack(spacing: 4) {
                     Text("Discover feeds")
-                        .font(.system(size: 14, weight: .medium))
+                        .font(Theme.scaledFont(size: 14, weight: .medium))
                         .foregroundStyle(Theme.accentGradient)
                     Image(systemName: "arrow.right")
-                        .font(.system(size: 12, weight: .semibold))
+                        .font(Theme.scaledFont(size: 12, weight: .semibold))
                         .foregroundColor(Color("PrereadPurple"))
                 }
                 .frame(maxWidth: .infinity)
@@ -335,7 +335,7 @@ struct AddSourceSheet: View {
             VStack(alignment: .leading, spacing: 16) {
                 // Header
                 Text("Discover")
-                    .font(.system(size: 28, weight: .regular))
+                    .font(Theme.scaledFont(size: 28, weight: .regular))
                     .foregroundColor(Theme.textPrimary)
 
                 // Topic categories
@@ -350,18 +350,18 @@ struct AddSourceSheet: View {
                         } label: {
                             HStack(spacing: 10) {
                                 Image(systemName: category.icon)
-                                    .font(.system(size: 14))
+                                    .font(Theme.scaledFont(size: 14))
                                     .foregroundColor(Theme.textSecondary)
                                     .frame(width: 24)
                                 Text(category.name)
-                                    .font(.system(size: 15, weight: .medium))
+                                    .font(Theme.scaledFont(size: 15, weight: .medium))
                                     .foregroundColor(Theme.textPrimary)
                                 Spacer()
                                 Text("\(category.feedCount)")
-                                    .font(.system(size: 13))
+                                    .font(Theme.scaledFont(size: 13))
                                     .foregroundColor(Theme.textSecondary)
                                 Image(systemName: "chevron.right")
-                                    .font(.system(size: 12, weight: .semibold))
+                                    .font(Theme.scaledFont(size: 12, weight: .semibold))
                                     .foregroundColor(Theme.textSecondary.opacity(0.5))
                             }
                             .padding(.horizontal, 14)
@@ -381,15 +381,15 @@ struct AddSourceSheet: View {
                     } label: {
                         HStack(spacing: 10) {
                             Image(systemName: "globe")
-                                .font(.system(size: 14))
+                                .font(Theme.scaledFont(size: 14))
                                 .foregroundColor(Theme.textSecondary)
                                 .frame(width: 24)
                             Text("Countries")
-                                .font(.system(size: 15, weight: .medium))
+                                .font(Theme.scaledFont(size: 15, weight: .medium))
                                 .foregroundColor(Theme.textPrimary)
                             Spacer()
                             Image(systemName: "chevron.right")
-                                .font(.system(size: 12, weight: .semibold))
+                                .font(Theme.scaledFont(size: 12, weight: .semibold))
                                 .foregroundColor(Theme.textSecondary.opacity(0.5))
                         }
                         .padding(.horizontal, 14)
@@ -421,10 +421,10 @@ struct AddSourceSheet: View {
                 // Header
                 HStack(spacing: 8) {
                     Image(systemName: "globe")
-                        .font(.system(size: 20))
+                        .font(Theme.scaledFont(size: 20))
                         .foregroundColor(Theme.textSecondary)
                     Text("Countries")
-                        .font(.system(size: 28, weight: .regular))
+                        .font(Theme.scaledFont(size: 28, weight: .regular))
                         .foregroundColor(Theme.textPrimary)
                 }
 
@@ -440,18 +440,18 @@ struct AddSourceSheet: View {
                         } label: {
                             HStack(spacing: 10) {
                                 Image(systemName: country.icon)
-                                    .font(.system(size: 14))
+                                    .font(Theme.scaledFont(size: 14))
                                     .foregroundColor(Theme.textSecondary)
                                     .frame(width: 24)
                                 Text(country.name)
-                                    .font(.system(size: 15, weight: .medium))
+                                    .font(Theme.scaledFont(size: 15, weight: .medium))
                                     .foregroundColor(Theme.textPrimary)
                                 Spacer()
                                 Text("\(country.feedCount)")
-                                    .font(.system(size: 13))
+                                    .font(Theme.scaledFont(size: 13))
                                     .foregroundColor(Theme.textSecondary)
                                 Image(systemName: "chevron.right")
-                                    .font(.system(size: 12, weight: .semibold))
+                                    .font(Theme.scaledFont(size: 12, weight: .semibold))
                                     .foregroundColor(Theme.textSecondary.opacity(0.5))
                             }
                             .padding(.horizontal, 14)
@@ -493,15 +493,15 @@ struct AddSourceSheet: View {
                 // Category header
                 HStack(spacing: 8) {
                     Image(systemName: icon)
-                        .font(.system(size: 20))
+                        .font(Theme.scaledFont(size: 20))
                         .foregroundColor(Theme.textSecondary)
                     Text(category)
-                        .font(.system(size: 28, weight: .regular))
+                        .font(Theme.scaledFont(size: 28, weight: .regular))
                         .foregroundColor(Theme.textPrimary)
                 }
 
                 Text("\(feeds.count) feeds")
-                    .font(.system(size: 13))
+                    .font(Theme.scaledFont(size: 13))
                     .foregroundColor(Theme.textSecondary)
 
                 // Feed list
@@ -541,13 +541,13 @@ struct AddSourceSheet: View {
     private var detectingState: some View {
         VStack(alignment: .leading, spacing: 20) {
             Text("Add a source")
-                .font(.system(size: 28, weight: .regular))
+                .font(Theme.scaledFont(size: 28, weight: .regular))
                 .foregroundColor(Theme.textPrimary)
 
             // Locked URL field
             HStack {
                 Text(urlText)
-                    .font(.system(size: 16))
+                    .font(Theme.scaledFont(size: 16))
                     .foregroundColor(Theme.textSecondary)
                     .lineLimit(1)
 
@@ -565,7 +565,7 @@ struct AddSourceSheet: View {
 
                 ZStack {
                     Text(cyclingTexts[cyclingTextIndex])
-                        .font(.system(size: 15, weight: .medium))
+                        .font(Theme.scaledFont(size: 15, weight: .medium))
                         .foregroundColor(Theme.textSecondary)
                         .opacity(cyclingTextOpacity)
                         .offset(y: cyclingTextOffset)
@@ -581,7 +581,7 @@ struct AddSourceSheet: View {
             // Disabled placeholder buttons to maintain height
             HStack(spacing: 10) {
                 Text("Find articles")
-                    .font(.system(size: 15, weight: .semibold))
+                    .font(Theme.scaledFont(size: 15, weight: .semibold))
                     .foregroundColor(.white.opacity(0.5))
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 16)
@@ -589,7 +589,7 @@ struct AddSourceSheet: View {
                     .clipShape(RoundedRectangle(cornerRadius: 14))
 
                 Text("Save single page")
-                    .font(.system(size: 15, weight: .semibold))
+                    .font(Theme.scaledFont(size: 15, weight: .semibold))
                     .foregroundColor(Theme.textSecondary.opacity(0.3))
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 16)
@@ -608,7 +608,7 @@ struct AddSourceSheet: View {
     private var feedFoundState: some View {
         VStack(spacing: 16) {
             Text("Ready to Preread")
-                .font(.system(size: 28, weight: .regular))
+                .font(Theme.scaledFont(size: 28, weight: .regular))
                 .foregroundColor(Theme.textPrimary)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -635,7 +635,7 @@ struct AddSourceSheet: View {
                     // Article count pill
                     if let count = detectedFeed?.items.count, count > 0 {
                         Text("\(count) articles")
-                            .font(.system(size: 11, weight: .semibold))
+                            .font(Theme.scaledFont(size: 11, weight: .semibold))
                             .foregroundColor(.white)
                             .padding(.horizontal, 8)
                             .padding(.vertical, 3)
@@ -649,11 +649,11 @@ struct AddSourceSheet: View {
             // Editable name
             VStack(alignment: .leading, spacing: 6) {
                 Text("Name")
-                    .font(.system(size: 13, weight: .medium))
+                    .font(Theme.scaledFont(size: 13, weight: .medium))
                     .foregroundColor(Theme.textSecondary)
 
                 TextField("Source name", text: $editableName)
-                    .font(.system(size: 16))
+                    .font(Theme.scaledFont(size: 16))
                     .foregroundColor(Theme.textPrimary)
                     .padding(.horizontal, 14)
                     .padding(.vertical, 10)
@@ -664,7 +664,7 @@ struct AddSourceSheet: View {
             // Fetch frequency picker
             VStack(alignment: .leading, spacing: 6) {
                 Text("Check for new articles")
-                    .font(.system(size: 13, weight: .medium))
+                    .font(Theme.scaledFont(size: 13, weight: .medium))
                     .foregroundColor(Theme.textSecondary)
 
                 HStack(spacing: 8) {
@@ -678,7 +678,7 @@ struct AddSourceSheet: View {
             if let items = detectedFeed?.items.prefix(3), !items.isEmpty {
                 VStack(alignment: .leading, spacing: 6) {
                     Text("Recent articles")
-                        .font(.system(size: 13, weight: .medium))
+                        .font(Theme.scaledFont(size: 13, weight: .medium))
                         .foregroundColor(Theme.textSecondary)
 
                     ForEach(Array(items.enumerated()), id: \.offset) { _, item in
@@ -687,7 +687,7 @@ struct AddSourceSheet: View {
                                 .fill(Theme.accent)
                                 .frame(width: 5, height: 5)
                             Text(item.title)
-                                .font(.system(size: 13))
+                                .font(Theme.scaledFont(size: 13))
                                 .foregroundColor(Theme.textPrimary)
                                 .lineLimit(1)
                         }
@@ -706,18 +706,18 @@ struct AddSourceSheet: View {
             Button(action: addSource) {
                 ZStack {
                     Text("Add to Preread")
-                        .font(.system(size: 16, weight: .semibold))
+                        .font(Theme.scaledFont(size: 16, weight: .semibold))
                         .foregroundColor(.white)
 
                     // Shimmer highlight masked to the text shape
                     if !Theme.reduceMotion {
                         Text("Add to Preread")
-                            .font(.system(size: 16, weight: .semibold))
+                            .font(Theme.scaledFont(size: 16, weight: .semibold))
                             .foregroundColor(.clear)
                             .overlay(ctaShimmerOverlay)
                             .mask(
                                 Text("Add to Preread")
-                                    .font(.system(size: 16, weight: .semibold))
+                                    .font(Theme.scaledFont(size: 16, weight: .semibold))
                             )
                     }
                 }
@@ -737,7 +737,7 @@ struct AddSourceSheet: View {
                 resetToInput()
             } label: {
                 Text("Not this one")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(Theme.scaledFont(size: 14, weight: .medium))
                     .foregroundColor(Theme.textSecondary)
             }
         }
@@ -748,7 +748,7 @@ struct AddSourceSheet: View {
     private var savePageState: some View {
         VStack(spacing: 16) {
             Text("Ready to Preread")
-                .font(.system(size: 28, weight: .regular))
+                .font(Theme.scaledFont(size: 28, weight: .regular))
                 .foregroundColor(Theme.textPrimary)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -769,12 +769,12 @@ struct AddSourceSheet: View {
             // Editable name
             VStack(alignment: .leading, spacing: 6) {
                 Text("Name")
-                    .font(.system(size: 13, weight: .medium))
+                    .font(Theme.scaledFont(size: 13, weight: .medium))
                     .foregroundColor(Theme.textSecondary)
 
                 HStack {
                     TextField("Page name", text: $editableName)
-                        .font(.system(size: 16))
+                        .font(Theme.scaledFont(size: 16))
                         .foregroundColor(Theme.textPrimary)
 
                     if isLoadingPageTitle {
@@ -791,7 +791,7 @@ struct AddSourceSheet: View {
             // Save quality
             VStack(alignment: .leading, spacing: 6) {
                 Text("Save quality")
-                    .font(.system(size: 13, weight: .medium))
+                    .font(Theme.scaledFont(size: 13, weight: .medium))
                     .foregroundColor(Theme.textSecondary)
 
                 CacheFidelitySlider(selectedLevel: $selectedCacheLevel)
@@ -801,18 +801,18 @@ struct AddSourceSheet: View {
             Button(action: { Task { await savePage() } }) {
                 ZStack {
                     Text("Save to Preread")
-                        .font(.system(size: 16, weight: .semibold))
+                        .font(Theme.scaledFont(size: 16, weight: .semibold))
                         .foregroundColor(.white)
 
                     // Shimmer highlight masked to the text shape
                     if !Theme.reduceMotion {
                         Text("Save to Preread")
-                            .font(.system(size: 16, weight: .semibold))
+                            .font(Theme.scaledFont(size: 16, weight: .semibold))
                             .foregroundColor(.clear)
                             .overlay(ctaShimmerOverlay)
                             .mask(
                                 Text("Save to Preread")
-                                    .font(.system(size: 16, weight: .semibold))
+                                    .font(Theme.scaledFont(size: 16, weight: .semibold))
                             )
                     }
                 }
@@ -832,7 +832,7 @@ struct AddSourceSheet: View {
                 resetToInput()
             } label: {
                 Text("Not this one")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(Theme.scaledFont(size: 14, weight: .medium))
                     .foregroundColor(Theme.textSecondary)
             }
         }
@@ -845,16 +845,16 @@ struct AddSourceSheet: View {
             Spacer().frame(height: 20)
 
             Image(systemName: "magnifyingglass")
-                .font(.system(size: 48, weight: .light))
+                .font(Theme.scaledFont(size: 48, weight: .light))
                 .foregroundColor(Theme.textSecondary)
                 .offset(x: shakeOffset)
 
             Text("No feed found")
-                .font(.system(size: 22, weight: .bold))
+                .font(Theme.scaledFont(size: 22, weight: .bold))
                 .foregroundColor(Theme.textPrimary)
 
             Text("This site doesn't seem to have a public feed...")
-                .font(.system(size: 15))
+                .font(Theme.scaledFont(size: 15))
                 .foregroundColor(Theme.textSecondary)
                 .multilineTextAlignment(.center)
 
@@ -865,7 +865,7 @@ struct AddSourceSheet: View {
                 resetToInput()
             } label: {
                 Text("Try another URL")
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(Theme.scaledFont(size: 16, weight: .semibold))
                     .foregroundColor(Theme.textPrimary)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 16)
@@ -882,7 +882,7 @@ struct AddSourceSheet: View {
                 startSavePageFlow()
             } label: {
                 Text("Save it anyway")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(Theme.scaledFont(size: 14, weight: .medium))
                     .foregroundColor(Theme.accent)
             }
         }
@@ -895,7 +895,7 @@ struct AddSourceSheet: View {
             Spacer().frame(height: 20)
 
             Image(systemName: "checkmark.circle")
-                .font(.system(size: 56, weight: .light))
+                .font(Theme.scaledFont(size: 56, weight: .light))
                 .foregroundStyle(Theme.accentGradient)
                 .scaleEffect(checkmarkScale)
                 .onAppear {
@@ -909,12 +909,12 @@ struct AddSourceSheet: View {
                 }
 
             Text("Already in your library")
-                .font(.system(size: 22, weight: .bold))
+                .font(Theme.scaledFont(size: 22, weight: .bold))
                 .foregroundColor(Theme.textPrimary)
 
             if let name = existingSourceName {
                 Text("You're already subscribed to \(name).")
-                    .font(.system(size: 15))
+                    .font(Theme.scaledFont(size: 15))
                     .foregroundColor(Theme.textSecondary)
                     .multilineTextAlignment(.center)
             }
@@ -928,7 +928,7 @@ struct AddSourceSheet: View {
                 dismiss()
             } label: {
                 Text("Take me there")
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(Theme.scaledFont(size: 16, weight: .semibold))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 16)
@@ -947,10 +947,10 @@ struct AddSourceSheet: View {
         } label: {
             VStack(spacing: 2) {
                 Text(title)
-                    .font(.system(size: 14, weight: .semibold))
+                    .font(Theme.scaledFont(size: 14, weight: .semibold))
                     .foregroundColor(isSelected ? .white : Theme.textPrimary)
                 Text(subtitle)
-                    .font(.system(size: 11))
+                    .font(Theme.scaledFont(size: 11))
                     .foregroundColor(isSelected ? .white.opacity(0.7) : Theme.textSecondary)
             }
             .frame(maxWidth: .infinity)
@@ -1049,7 +1049,7 @@ struct AddSourceSheet: View {
                 .fill(Theme.avatarGradient(for: title))
                 .frame(width: size, height: size)
             Text(letter)
-                .font(.system(size: size * 0.45, weight: .bold))
+                .font(Theme.scaledFont(size: size * 0.45, weight: .bold))
                 .foregroundColor(.white)
         }
     }

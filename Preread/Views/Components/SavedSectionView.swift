@@ -79,13 +79,13 @@ struct SavedSectionView: View {
                     )
                     .frame(width: 38, height: 38)
                 Image(systemName: "bookmark.fill")
-                    .font(.system(size: 16, weight: .medium))
+                    .font(Theme.scaledFont(size: 16, weight: .medium))
                     .foregroundColor(.white)
             }
 
             VStack(alignment: .leading, spacing: -2) {
                 Text("Saved")
-                    .font(.system(size: 20, weight: .regular))
+                    .font(Theme.scaledFont(size: 20, weight: .regular))
                     .foregroundColor(Theme.textPrimary)
                     .lineLimit(1)
 

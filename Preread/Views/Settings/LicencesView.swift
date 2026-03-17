@@ -32,7 +32,7 @@ struct LicencesView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 Text("Preread is built on the shoulders of these excellent projects.")
-                    .font(.system(size: 14))
+                    .font(Theme.scaledFont(size: 14))
                     .foregroundColor(Theme.textSecondary)
                     .padding(.horizontal, 16)
 
@@ -59,13 +59,13 @@ struct LicencesView: View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Text(lib.name)
-                    .font(.system(size: 17, weight: .semibold))
+                    .font(Theme.scaledFont(size: 17, weight: .semibold))
                     .foregroundColor(Theme.textPrimary)
 
                 Spacer()
 
                 Text(lib.license)
-                    .font(.system(size: 11, weight: .bold))
+                    .font(Theme.scaledFont(size: 11, weight: .bold))
                     .foregroundColor(.white)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 4)
@@ -74,7 +74,7 @@ struct LicencesView: View {
             }
 
             Text(lib.copyright)
-                .font(.system(size: 13))
+                .font(Theme.scaledFont(size: 13))
                 .foregroundColor(Theme.textSecondary)
 
             Button {
@@ -83,9 +83,9 @@ struct LicencesView: View {
             } label: {
                 HStack(spacing: 4) {
                     Image(systemName: "arrow.up.right")
-                        .font(.system(size: 11, weight: .semibold))
+                        .font(Theme.scaledFont(size: 11, weight: .semibold))
                     Text("View on GitHub")
-                        .font(.system(size: 13, weight: .medium))
+                        .font(Theme.scaledFont(size: 13, weight: .medium))
                 }
                 .foregroundColor(Theme.teal)
             }

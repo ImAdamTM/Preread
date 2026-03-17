@@ -16,13 +16,13 @@ struct TextSizePopover: View {
                     .foregroundColor(Theme.textSecondary)
                 Spacer()
                 Text("\(Int(textSize))pt")
-                    .font(.system(size: 13, weight: .medium).monospacedDigit())
+                    .font(Theme.scaledFont(size: 13, weight: .medium).monospacedDigit())
                     .foregroundColor(Theme.textPrimary)
             }
 
             HStack(spacing: 8) {
                 Text("A")
-                    .font(.system(size: 12, weight: .medium))
+                    .font(Theme.scaledFont(size: 12, weight: .medium))
                     .foregroundColor(Theme.textSecondary)
 
                 GeometryReader { geo in
@@ -71,7 +71,7 @@ struct TextSizePopover: View {
                 .frame(height: 20)
 
                 Text("A")
-                    .font(.system(size: 18, weight: .medium))
+                    .font(Theme.scaledFont(size: 18, weight: .medium))
                     .foregroundColor(Theme.textSecondary)
             }
         }

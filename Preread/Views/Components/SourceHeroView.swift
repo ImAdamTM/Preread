@@ -42,7 +42,7 @@ struct SourceHeroView: View {
                 VStack(alignment: .leading, spacing: -1) {
                     // Source title — its Y position drives the nav bar title fade
                     Text(source.title)
-                        .font(.system(size: 18, weight: .medium))
+                        .font(Theme.scaledFont(size: 18, weight: .medium))
                         .foregroundColor(Theme.textPrimary)
                         .lineLimit(2)
                         .modifier(HeroTitleScrollTracker { minY in
@@ -224,7 +224,7 @@ struct SourceHeroView: View {
 
                 if let icon {
                     Image(systemName: icon)
-                        .font(.system(size: 14, weight: .medium))
+                        .font(Theme.scaledFont(size: 14, weight: .medium))
                         .foregroundStyle(isActive ? Theme.accent : .primary)
                 } else if isActive {
                     heroRefreshSpinner

@@ -30,7 +30,7 @@ struct CacheFidelitySlider: View {
         } label: {
             VStack(spacing: 6) {
                 Image(systemName: icon)
-                    .font(.system(size: 18))
+                    .font(Theme.scaledFont(size: 18))
                     .foregroundColor(isSelected ? .white : Theme.textPrimary)
                 VStack(spacing: 2) {
                     Text(title)

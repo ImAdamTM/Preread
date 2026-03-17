@@ -61,7 +61,7 @@ struct SourcesListView: View {
                             showAddSource = true
                         } label: {
                             Image(systemName: "plus")
-                                .font(.system(size: 17, weight: .semibold))
+                                .font(Theme.scaledFont(size: 17, weight: .semibold))
                                 .foregroundColor(Theme.textPrimary)
                         }
 
@@ -76,7 +76,7 @@ struct SourcesListView: View {
                             SettingsView()
                         } label: {
                             Image(systemName: "gearshape")
-                                .font(.system(size: 17))
+                                .font(Theme.scaledFont(size: 17))
                                 .foregroundColor(Theme.textPrimary)
                         }
                     }
@@ -290,7 +290,7 @@ struct SourcesListView: View {
                                     .fill(Theme.accentGradient)
                                     .frame(width: 36, height: 36)
                                 Image(systemName: "plus")
-                                    .font(.system(size: 16, weight: .semibold))
+                                    .font(Theme.scaledFont(size: 16, weight: .semibold))
                                     .foregroundColor(.white)
                             }
                             Text("Add a new source")
@@ -368,7 +368,7 @@ struct SourcesListView: View {
         let isRefreshing = coordinator.isFetching
         return ZStack {
             Image(systemName: "arrow.clockwise")
-                .font(.system(size: 15, weight: .medium))
+                .font(Theme.scaledFont(size: 15, weight: .medium))
                 .foregroundColor(Theme.textPrimary)
                 .opacity(isRefreshing ? 0 : 1)
                 .scaleEffect(isRefreshing ? 0.5 : 1)
@@ -414,7 +414,7 @@ struct SourcesListView: View {
     private var homeHeroRow: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("Preread for you")
-                .font(.system(size: 32, weight: .regular))
+                .font(Theme.scaledFont(size: 32, weight: .regular))
                 .foregroundColor(Theme.textPrimary)
 
             Text(ReadingTimeFormatter.formatted(minutes: totalReadingMinutes)

@@ -108,7 +108,7 @@ struct ReaderView: View {
                             }
                         } label: {
                             Image(systemName: "xmark")
-                                .font(.system(size: 14, weight: .semibold))
+                                .font(Theme.scaledFont(size: 14, weight: .semibold))
                                 .foregroundColor(Theme.textPrimary)
                         }
                     }
@@ -128,7 +128,7 @@ struct ReaderView: View {
                         showTextSize.toggle()
                     } label: {
                         Image(systemName: "textformat.size")
-                            .font(.system(size: 17))
+                            .font(Theme.scaledFont(size: 17))
                             .foregroundColor(Theme.textPrimary)
                     }
                     .popover(isPresented: $showTextSize) {
@@ -151,7 +151,7 @@ struct ReaderView: View {
                     ShareLink(item: URL(string: article.articleURL) ?? URL(string: "https://preread.app")!,
                               subject: Text(article.title)) {
                         Image(systemName: "square.and.arrow.up")
-                            .font(.system(size: 17))
+                            .font(Theme.scaledFont(size: 17))
                             .foregroundColor(Theme.textPrimary)
                     }
 
@@ -160,7 +160,7 @@ struct ReaderView: View {
                         Task { await toggleSave() }
                     } label: {
                         Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
-                            .font(.system(size: 17))
+                            .font(Theme.scaledFont(size: 17))
                             .foregroundColor(isSaved ? Theme.accent : Theme.textPrimary)
                     }
                 }
@@ -319,7 +319,7 @@ struct ReaderView: View {
 
             VStack(spacing: 16) {
                 Image(systemName: "exclamationmark.triangle")
-                    .font(.system(size: 40, weight: .light))
+                    .font(Theme.scaledFont(size: 40, weight: .light))
                     .foregroundColor(Theme.textSecondary)
 
                 Text("Content unavailable")

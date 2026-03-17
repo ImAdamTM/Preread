@@ -67,7 +67,7 @@ struct ArticleListView: View {
                     SettingsView()
                 } label: {
                     Image(systemName: "gearshape")
-                        .font(.system(size: 17))
+                        .font(Theme.scaledFont(size: 17))
                         .foregroundColor(Theme.textPrimary)
                 }
             }
@@ -256,7 +256,7 @@ struct ArticleListView: View {
     private var allArticlesHeader: some View {
         HStack(alignment: .center) {
             Text("All articles")
-                .font(.system(size: 18, weight: .medium))
+                .font(Theme.scaledFont(size: 18, weight: .medium))
                 .foregroundColor(Theme.textPrimary)
 
             Spacer(minLength: 4)
@@ -275,7 +275,7 @@ struct ArticleListView: View {
                     showSourceSettings = true
                 } label: {
                     Image(systemName: "slider.horizontal.3")
-                        .font(.system(size: 14, weight: .medium))
+                        .font(Theme.scaledFont(size: 14, weight: .medium))
                         .foregroundColor(Theme.textSecondary)
                         .frame(width: 36, height: 36)
                         .contentShape(Rectangle())
@@ -291,7 +291,7 @@ struct ArticleListView: View {
             inlineRefreshSpinner
         } else {
             Image(systemName: "arrow.clockwise")
-                .font(.system(size: 14, weight: .medium))
+                .font(Theme.scaledFont(size: 14, weight: .medium))
                 .foregroundColor(Theme.textSecondary)
         }
     }
@@ -408,7 +408,7 @@ struct ArticleListView: View {
     private var emptyStateContent: some View {
         VStack(spacing: 16) {
             Image(systemName: "doc.text.magnifyingglass")
-                .font(.system(size: 48, weight: .light))
+                .font(Theme.scaledFont(size: 48, weight: .light))
                 .foregroundColor(Theme.textSecondary)
             Text("Nothing here yet...")
                 .font(Theme.scaledFont(size: 17, weight: .semibold))
@@ -613,7 +613,7 @@ struct ArticleListView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 24) {
                         Text("Source Settings")
-                            .font(.system(size: 28, weight: .regular))
+                            .font(Theme.scaledFont(size: 28, weight: .regular))
                             .foregroundColor(Theme.textPrimary)
 
                         // Source name

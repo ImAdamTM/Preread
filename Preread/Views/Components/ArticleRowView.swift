@@ -380,7 +380,7 @@ struct ArticleRowView: View {
             RoundedRectangle(cornerRadius: 10)
                 .fill(Theme.avatarGradient(for: label))
             Text(letter)
-                .font(.system(size: 24, weight: .bold))
+                .font(Theme.scaledFont(size: 24, weight: .bold))
                 .foregroundColor(.white)
         }
         .frame(width: 70, height: 70)

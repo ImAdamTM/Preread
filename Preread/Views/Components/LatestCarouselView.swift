@@ -284,12 +284,12 @@ private struct CarouselCardView: View {
                                     .fill(Theme.avatarGradient(for: sourceName))
                                     .frame(width: 16, height: 16)
                                 Text(String(sourceName.prefix(1)).uppercased())
-                                    .font(.system(size: 9, weight: .bold))
+                                    .font(Theme.scaledFont(size: 9, weight: .bold))
                                     .foregroundStyle(.white)
                             }
                         }
                         Text(sourceName)
-                            .font(.system(size: 11, weight: .bold))
+                            .font(Theme.scaledFont(size: 11, weight: .bold))
                             .foregroundStyle(.white)
                     }
                     .padding(.leading, 5)
@@ -313,13 +313,13 @@ private struct CarouselCardView: View {
                 VStack(alignment: .leading, spacing: 3) {
                     if let minutes = article.readingMinutes {
                         Text(ReadingTimeFormatter.articleFormatted(minutes: minutes))
-                            .font(.system(size: 11))
+                            .font(Theme.scaledFont(size: 11))
                             .foregroundStyle(.white.opacity(0.6))
                             .shadow(color: .black.opacity(0.5), radius: 1, x: 0, y: 1)
                     }
 
                     Text(article.title)
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(Theme.scaledFont(size: 18, weight: .semibold))
                         .foregroundStyle(.white)
                         .lineLimit(3)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -337,7 +337,7 @@ private struct CarouselCardView: View {
                             .fontWeight(.medium)
                             .foregroundStyle(statusColor)
                     }
-                    .font(.system(size: 12))
+                    .font(Theme.scaledFont(size: 12))
                     .foregroundStyle(.white.opacity(0.7))
                     .shadow(color: .black.opacity(0.5), radius: 1, x: 0, y: 1)
                 }

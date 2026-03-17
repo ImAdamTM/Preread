@@ -23,7 +23,7 @@ struct ToastView: View {
     var body: some View {
         HStack(spacing: 10) {
             Image(systemName: iconName)
-                .font(.system(size: 13, weight: .semibold))
+                .font(Theme.scaledFont(size: 13, weight: .semibold))
                 .foregroundStyle(iconColor)
             Text(item.message)
                 .font(Theme.scaledFont(size: 14, weight: .medium))
@@ -59,7 +59,7 @@ struct SnackPillView: View {
     var body: some View {
         HStack(spacing: 6) {
             Image(systemName: item.icon)
-                .font(.system(size: 13, weight: .semibold))
+                .font(Theme.scaledFont(size: 13, weight: .semibold))
             Text(item.message)
                 .font(Theme.scaledFont(size: 14, weight: .medium))
         }

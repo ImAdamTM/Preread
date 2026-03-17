@@ -38,7 +38,7 @@ struct FailedArticleSheet: View {
                         dismiss()
                     } label: {
                         Image(systemName: "xmark.circle.fill")
-                            .font(.system(size: 20))
+                            .font(Theme.scaledFont(size: 20))
                             .foregroundColor(Theme.textSecondary)
                     }
                 }
@@ -54,15 +54,15 @@ struct FailedArticleSheet: View {
     private var genericContent: some View {
         VStack(spacing: 16) {
             Image(systemName: "exclamationmark.triangle")
-                .font(.system(size: 44, weight: .light))
+                .font(Theme.scaledFont(size: 44, weight: .light))
                 .foregroundColor(Theme.warning)
 
             Text("Couldn't save this article")
-                .font(.system(size: 20, weight: .bold))
+                .font(Theme.scaledFont(size: 20, weight: .bold))
                 .foregroundColor(Theme.textPrimary)
 
             Text("Something went wrong fetching this page.")
-                .font(.system(size: 15))
+                .font(Theme.scaledFont(size: 15))
                 .foregroundColor(Theme.textSecondary)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
@@ -72,7 +72,7 @@ struct FailedArticleSheet: View {
                 dismiss()
             } label: {
                 Text("Try again")
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(Theme.scaledFont(size: 16, weight: .semibold))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
@@ -91,7 +91,7 @@ struct FailedArticleSheet: View {
                 }
                 .padding(.top, 8)
             }
-            .font(.system(size: 14))
+            .font(Theme.scaledFont(size: 14))
             .foregroundColor(Theme.textSecondary)
         }
     }
@@ -101,16 +101,16 @@ struct FailedArticleSheet: View {
     private var notFoundContent: some View {
         VStack(spacing: 16) {
             Image(systemName: "link.badge.plus")
-                .font(.system(size: 44, weight: .light))
+                .font(Theme.scaledFont(size: 44, weight: .light))
                 .foregroundColor(Theme.danger)
                 .symbolRenderingMode(.palette)
 
             Text("This page is gone")
-                .font(.system(size: 20, weight: .bold))
+                .font(Theme.scaledFont(size: 20, weight: .bold))
                 .foregroundColor(Theme.textPrimary)
 
             Text("The link in this feed no longer exists...")
-                .font(.system(size: 15))
+                .font(Theme.scaledFont(size: 15))
                 .foregroundColor(Theme.textSecondary)
                 .multilineTextAlignment(.center)
 
@@ -119,7 +119,7 @@ struct FailedArticleSheet: View {
                 dismiss()
             } label: {
                 Text("Remove from list")
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(Theme.scaledFont(size: 16, weight: .semibold))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
@@ -131,7 +131,7 @@ struct FailedArticleSheet: View {
                 dismiss()
             } label: {
                 Text("Keep it anyway")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(Theme.scaledFont(size: 14, weight: .medium))
                     .foregroundColor(Theme.teal)
             }
         }
@@ -142,7 +142,7 @@ struct FailedArticleSheet: View {
     private func detailRow(_ label: String, value: String) -> some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(label)
-                .font(.system(size: 12, weight: .medium))
+                .font(Theme.scaledFont(size: 12, weight: .medium))
                 .foregroundColor(Theme.textSecondary)
             Text(value)
                 .font(.system(size: 12, design: .monospaced))

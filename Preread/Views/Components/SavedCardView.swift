@@ -20,7 +20,7 @@ struct SavedCardView: View {
                         )
                         .frame(width: 40, height: 40)
                     Image(systemName: "bookmark.fill")
-                        .font(.system(size: 18, weight: .medium))
+                        .font(Theme.scaledFont(size: 18, weight: .medium))
                         .foregroundColor(.white)
                 }
 

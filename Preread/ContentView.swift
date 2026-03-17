@@ -32,10 +32,10 @@ struct ContentView: View {
                     } else {
                         VStack(spacing: 12) {
                             Image(systemName: "doc.text")
-                                .font(.system(size: 48, weight: .light))
+                                .font(Theme.scaledFont(size: 48, weight: .light))
                                 .foregroundColor(Theme.textSecondary)
                             Text("Select an article")
-                                .font(.system(size: 17))
+                                .font(Theme.scaledFont(size: 17))
                                 .foregroundColor(Theme.textSecondary)
                         }
                     }

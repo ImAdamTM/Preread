@@ -47,7 +47,7 @@ struct SettingsView: View {
     var body: some View {
         List {
             Text("Settings")
-                .font(.system(size: 37, weight: .regular))
+                .font(Theme.scaledFont(size: 37, weight: .regular))
                 .foregroundColor(Theme.textPrimary)
                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
                 .listRowSeparator(.hidden)
@@ -141,7 +141,7 @@ struct SettingsView: View {
                 RoundedRectangle(cornerRadius: 6)
                     .fill(Theme.avatarGradient(for: source.title))
                 Text(letter)
-                    .font(.system(size: 13, weight: .bold))
+                    .font(Theme.scaledFont(size: 13, weight: .bold))
                     .foregroundColor(.white)
             }
             .frame(width: 28, height: 28)
@@ -192,7 +192,7 @@ struct SettingsView: View {
                             .font(Theme.scaledFont(size: 15, relativeTo: .subheadline))
                             .foregroundColor(Theme.textPrimary)
                         Image(systemName: "chevron.up.chevron.down")
-                            .font(.system(size: 10, weight: .semibold))
+                            .font(Theme.scaledFont(size: 10, weight: .semibold))
                             .foregroundColor(Theme.textSecondary)
                     }
                     .frame(minWidth: 120, alignment: .trailing)
@@ -206,13 +206,13 @@ struct SettingsView: View {
                     settingLabel("Text size")
                     Spacer()
                     Text("\(Int(textSize))pt")
-                        .font(.system(size: 14, weight: .medium).monospacedDigit())
+                        .font(Theme.scaledFont(size: 14, weight: .medium).monospacedDigit())
                         .foregroundColor(Theme.textSecondary)
                 }
 
                 HStack(spacing: 8) {
                     Text("A")
-                        .font(.system(size: 12, weight: .medium))
+                        .font(Theme.scaledFont(size: 12, weight: .medium))
                         .foregroundColor(Theme.textSecondary)
 
                     Slider(
@@ -232,7 +232,7 @@ struct SettingsView: View {
                     }
 
                     Text("A")
-                        .font(.system(size: 18, weight: .medium))
+                        .font(Theme.scaledFont(size: 18, weight: .medium))
                         .foregroundColor(Theme.textSecondary)
                 }
             }
@@ -343,7 +343,7 @@ struct SettingsView: View {
             if freeSpaceMB < 500 {
                 HStack(spacing: 10) {
                     Image(systemName: "exclamationmark.triangle.fill")
-                        .font(.system(size: 14))
+                        .font(Theme.scaledFont(size: 14))
                         .foregroundColor(Theme.warning)
 
                     Text("Your device is running low on storage. You can free up space in Settings.")
@@ -398,7 +398,7 @@ struct SettingsView: View {
                     settingLabel("Website")
                     Spacer()
                     Image(systemName: "arrow.up.right")
-                        .font(.system(size: 12, weight: .semibold))
+                        .font(Theme.scaledFont(size: 12, weight: .semibold))
                         .foregroundColor(Theme.textSecondary)
                 }
             }
@@ -409,7 +409,7 @@ struct SettingsView: View {
                     settingLabel("Privacy policy")
                     Spacer()
                     Image(systemName: "arrow.up.right")
-                        .font(.system(size: 12, weight: .semibold))
+                        .font(Theme.scaledFont(size: 12, weight: .semibold))
                         .foregroundColor(Theme.textSecondary)
                 }
             }

@@ -14,20 +14,20 @@ struct DiscoverFeedRow: View {
 
                 VStack(alignment: .leading, spacing: 3) {
                     Text(feed.name)
-                        .font(.system(size: 15, weight: .medium))
+                        .font(Theme.scaledFont(size: 15, weight: .medium))
                         .foregroundColor(Theme.textPrimary)
                         .lineLimit(1)
 
                     if !feed.description.isEmpty {
                         Text(feed.description)
-                            .font(.system(size: 12))
+                            .font(Theme.scaledFont(size: 12))
                             .foregroundColor(Theme.textSecondary)
                             .lineLimit(2)
                     }
 
                     // Category pill
                     Text(feed.category)
-                        .font(.system(size: 10, weight: .medium))
+                        .font(Theme.scaledFont(size: 10, weight: .medium))
                         .foregroundColor(Theme.textSecondary)
                         .padding(.horizontal, 6)
                         .padding(.vertical, 2)
@@ -39,11 +39,11 @@ struct DiscoverFeedRow: View {
 
                 if isSubscribed {
                     Image(systemName: "checkmark.circle.fill")
-                        .font(.system(size: 18))
+                        .font(Theme.scaledFont(size: 18))
                         .foregroundStyle(Theme.accentGradient)
                 } else {
                     Image(systemName: "plus.circle")
-                        .font(.system(size: 18))
+                        .font(Theme.scaledFont(size: 18))
                         .foregroundColor(Theme.textSecondary)
                 }
             }
@@ -73,7 +73,7 @@ struct DiscoverFeedRow: View {
                     .fill(Theme.avatarGradient(for: feed.name))
                     .frame(width: 34, height: 34)
                 Text(letter)
-                    .font(.system(size: 34 * 0.45, weight: .bold))
+                    .font(Theme.scaledFont(size: 34 * 0.45, weight: .bold))
                     .foregroundColor(.white)
             }
         }

@@ -214,13 +214,13 @@ private struct SourceCarouselCardView: View {
                 VStack(alignment: .leading, spacing: 3) {
                     if let minutes = article.readingMinutes {
                         Text(ReadingTimeFormatter.articleFormatted(minutes: minutes))
-                            .font(.system(size: 11))
+                            .font(Theme.scaledFont(size: 11))
                             .foregroundStyle(.white.opacity(0.6))
                             .shadow(color: .black.opacity(0.5), radius: 1, x: 0, y: 1)
                     }
 
                     Text(article.title)
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(Theme.scaledFont(size: 18, weight: .semibold))
                         .foregroundStyle(.white)
                         .lineLimit(3)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -242,7 +242,7 @@ private struct SourceCarouselCardView: View {
                             .fontWeight(.medium)
                             .foregroundStyle(statusColor)
                     }
-                    .font(.system(size: 12))
+                    .font(Theme.scaledFont(size: 12))
                     .foregroundStyle(.white.opacity(0.7))
                     .shadow(color: .black.opacity(0.5), radius: 1, x: 0, y: 1)
                 }
