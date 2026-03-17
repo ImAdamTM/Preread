@@ -435,8 +435,9 @@ struct SourceSectionView: View {
         if articleToCache.etag != nil || articleToCache.lastModified != nil {
             articleToCache.etag = nil
             articleToCache.lastModified = nil
+            let snapshot = articleToCache
             try? await DatabaseManager.shared.dbPool.write { db in
-                try articleToCache.update(db)
+                try snapshot.update(db)
             }
         }
 
@@ -510,12 +511,14 @@ struct SourceSectionView: View {
             }
         }
         let cacheLevel = source.cacheLevel ?? .standard
-        try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel, forceReprocess: true)
+        let articleToCache = article
+        try? await PageCacheService.shared.cacheArticle(articleToCache, cacheLevel: cacheLevel, forceReprocess: true)
         // Reconcile local state with DB so the spinner never stays stuck
-        if let index = articles.firstIndex(where: { $0.id == article.id }),
+        let articleID = article.id
+        if let index = articles.firstIndex(where: { $0.id == articleID }),
            articles[index].fetchStatus == .fetching,
            let fresh = try? await DatabaseManager.shared.dbPool.read({ db in
-               try Article.fetchOne(db, key: article.id)
+               try Article.fetchOne(db, key: articleID)
            }) {
             articles[index] = fresh
         }

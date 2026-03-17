@@ -574,9 +574,10 @@ struct SourcesListView: View {
     private func renameSource(_ source: Source, to newName: String) async {
         var updated = source
         updated.title = newName
+        let snapshot = updated
         do {
             try await DatabaseManager.shared.dbPool.write { db in
-                try updated.update(db)
+                try snapshot.update(db)
             }
             await loadSources()
         } catch {

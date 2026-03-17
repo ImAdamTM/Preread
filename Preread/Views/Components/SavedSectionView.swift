@@ -186,8 +186,9 @@ struct SavedSectionView: View {
         if articleToCache.etag != nil || articleToCache.lastModified != nil {
             articleToCache.etag = nil
             articleToCache.lastModified = nil
+            let snapshot = articleToCache
             try? await DatabaseManager.shared.dbPool.write { db in
-                try articleToCache.update(db)
+                try snapshot.update(db)
             }
         }
 
@@ -262,16 +263,17 @@ struct SavedSectionView: View {
             }
         }
 
+        let articleToCache = article
         let cacheLevel: CacheLevel
         if let source = try? await DatabaseManager.shared.dbPool.read({ db in
-            try Source.fetchOne(db, key: article.sourceID)
+            try Source.fetchOne(db, key: articleToCache.sourceID)
         }) {
             cacheLevel = source.cacheLevel ?? .standard
         } else {
             cacheLevel = .standard
         }
 
-        try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel, forceReprocess: true)
+        try? await PageCacheService.shared.cacheArticle(articleToCache, cacheLevel: cacheLevel, forceReprocess: true)
         await loadArticles()
     }
 

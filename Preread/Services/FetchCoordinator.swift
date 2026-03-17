@@ -345,11 +345,12 @@ final class FetchCoordinator: ObservableObject {
 
             let feedURLs = feedWindow.map(\.url.absoluteString)
             let feedTitles = feedWindow.map(\.title)
+            let sourceID = source.id
             let existingArticles = try await DatabaseManager.shared.dbPool.read { db in
                 // Match by URL or title so Google News redirect URL changes
                 // don't cause duplicate articles
                 try Article
-                    .filter(Column("sourceID") == source.id)
+                    .filter(Column("sourceID") == sourceID)
                     .filter(
                         feedURLs.contains(Column("articleURL")) ||
                         feedTitles.contains(Column("title"))
@@ -388,7 +389,7 @@ final class FetchCoordinator: ObservableObject {
                     continue
                 }
 
-                if var existing = existingByURL[urlString] ?? existingByTitle[item.title] {
+                if let existing = existingByURL[urlString] ?? existingByTitle[item.title] {
                     switch existing.fetchStatus {
                     case .pending, .failed:
                         // Skip articles that have already failed too many times
@@ -401,36 +402,42 @@ final class FetchCoordinator: ObservableObject {
                         // attempt (app killed, timeout, etc.). Reset it so this
                         // refresh can retry it.
                         if existing.retryCount < self.maxAutoRetries {
-                            existing.fetchStatus = .pending
+                            var updated = existing
+                            updated.fetchStatus = .pending
+                            let snapshot = updated
                             try? await DatabaseManager.shared.dbPool.write { db in
-                                try existing.update(db)
+                                try snapshot.update(db)
                             }
-                            needsCaching.append(existing)
+                            needsCaching.append(snapshot)
                         }
 
                     case .cached, .partial:
                         let hasContent = await PageCacheService.shared.hasCachedContent(for: existing)
                         if !hasContent {
                             try? await PageCacheService.shared.deleteCachedArticle(existing.id)
-                            existing.etag = nil
-                            existing.lastModified = nil
-                            existing.fetchStatus = .pending
+                            var updated = existing
+                            updated.etag = nil
+                            updated.lastModified = nil
+                            updated.fetchStatus = .pending
+                            let snapshot = updated
                             try await DatabaseManager.shared.dbPool.write { db in
-                                try existing.update(db)
+                                try snapshot.update(db)
                             }
-                            needsCaching.append(existing)
+                            needsCaching.append(snapshot)
                         } else {
                             let cachedPage = try await DatabaseManager.shared.dbPool.read { db in
                                 try CachedPage.fetchOne(db, key: existing.id)
                             }
                             if let cachedPage, cachedPage.cacheLevelUsed != currentCacheLevel {
-                                existing.etag = nil
-                                existing.lastModified = nil
-                                existing.fetchStatus = .pending
+                                var updated = existing
+                                updated.etag = nil
+                                updated.lastModified = nil
+                                updated.fetchStatus = .pending
+                                let snapshot = updated
                                 try await DatabaseManager.shared.dbPool.write { db in
-                                    try existing.update(db)
+                                    try snapshot.update(db)
                                 }
-                                needsCaching.append(existing)
+                                needsCaching.append(snapshot)
                             }
                         }
                     }
@@ -446,29 +453,32 @@ final class FetchCoordinator: ObservableObject {
                 } else {
                     // Resolve Google News redirect URLs to real article URLs
                     // before inserting, so we never store news.google.com URLs.
-                    var resolvedURLString = urlString
+                    let resolvedURLString: String
                     if let itemURL = URL(string: urlString),
                        PageCacheService.isGoogleNewsURL(itemURL) {
                         let resolved = await PageCacheService.shared.resolveGoogleNewsURL(itemURL)
                         if resolved != itemURL {
-                            resolvedURLString = resolved.absoluteString
-                            // Check if the resolved URL already exists (dedup)
+                            let resolvedURL = resolved.absoluteString
                             let alreadyExists = try? await DatabaseManager.shared.dbPool.read { db in
                                 try Article
-                                    .filter(Column("articleURL") == resolvedURLString)
+                                    .filter(Column("articleURL") == resolvedURL)
                                     .fetchCount(db) > 0
                             }
                             if alreadyExists == true { continue }
+                            resolvedURLString = resolvedURL
                         } else {
                             // Resolution failed — skip this article entirely
                             // rather than inserting a broken Google News URL
                             continue
                         }
+                    } else {
+                        resolvedURLString = urlString
                     }
 
+                    let sourceIDForInsert = source.id
                     let article = Article(
                         id: UUID(),
-                        sourceID: source.id,
+                        sourceID: sourceIDForInsert,
                         title: item.title,
                         articleURL: resolvedURLString,
                         publishedAt: item.publishedAt,
@@ -542,7 +552,7 @@ final class FetchCoordinator: ObservableObject {
 
         sourceStatuses[source.id] = .refreshing
 
-        for (index, var article) in articlesToRetry.enumerated() {
+        for (index, article) in articlesToRetry.enumerated() {
             // Skip non-article URLs (auth pages etc.) that slipped in
             // before filtering was added to the main refresh path.
             if let url = URL(string: article.articleURL), Self.isNonArticleURL(url) {
@@ -555,15 +565,17 @@ final class FetchCoordinator: ObservableObject {
 
             // Clear stale conditional headers so we always get a fresh
             // response (the cached files may be gone after a rebuild).
-            if article.etag != nil || article.lastModified != nil {
-                article.etag = nil
-                article.lastModified = nil
+            var articleToCache = article
+            if articleToCache.etag != nil || articleToCache.lastModified != nil {
+                articleToCache.etag = nil
+                articleToCache.lastModified = nil
+                let snapshot = articleToCache
                 try? await DatabaseManager.shared.dbPool.write { db in
-                    try article.update(db)
+                    try snapshot.update(db)
                 }
             }
 
-            try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel, forceReprocess: true)
+            try? await PageCacheService.shared.cacheArticle(articleToCache, cacheLevel: cacheLevel, forceReprocess: true)
 
             if index < articlesToRetry.count - 1 {
                 try? await Task.sleep(for: .milliseconds(200))
@@ -754,8 +766,9 @@ final class FetchCoordinator: ObservableObject {
     }
 
     private func saveSource(_ source: inout Source) async throws {
+        let snapshot = source
         try await DatabaseManager.shared.dbPool.write { db in
-            try source.update(db)
+            try snapshot.update(db)
         }
     }
 

@@ -13,6 +13,10 @@
       "idiom" : "universal"
     },
     {
+      "display-gamut" : "sRGB",
+      "idiom" : "universal"
+    },
+    {
       "color" : {
         "color-space" : "display-p3",
         "components" : {

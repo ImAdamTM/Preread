@@ -393,11 +393,12 @@ struct ReaderView: View {
             var mutable = article
             mutable.etag = nil
             mutable.lastModified = nil
+            let snapshot = mutable
             try await DatabaseManager.shared.dbPool.write { db in
-                try mutable.update(db)
+                try snapshot.update(db)
             }
 
-            try await PageCacheService.shared.cacheArticle(mutable, cacheLevel: cacheLevel)
+            try await PageCacheService.shared.cacheArticle(snapshot, cacheLevel: cacheLevel)
             await loadCachedPage()
 
             // If we now have content, the view will automatically show it

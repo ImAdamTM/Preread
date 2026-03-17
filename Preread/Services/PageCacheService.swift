@@ -831,7 +831,7 @@ actor PageCacheService {
         if fm.fileExists(atPath: articleDir.path) {
             try fm.removeItem(at: articleDir)
         }
-        try DatabaseManager.shared.dbPool.write { db in
+        _ = try DatabaseManager.shared.dbPool.write { db in
             try CachedPage.filter(Column("articleID") == articleID).deleteAll(db)
         }
     }

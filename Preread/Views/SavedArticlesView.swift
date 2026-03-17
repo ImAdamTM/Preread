@@ -506,11 +506,12 @@ struct SavedArticlesView: View {
                 articles[index].fetchStatus = .fetching
             }
         }
+        let articleToCache = article
         let source = try? await DatabaseManager.shared.dbPool.read { db in
-            try Source.fetchOne(db, key: article.sourceID)
+            try Source.fetchOne(db, key: articleToCache.sourceID)
         }
         let cacheLevel = source?.effectiveCacheLevel ?? .standard
-        try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel, forceReprocess: true)
+        try? await PageCacheService.shared.cacheArticle(articleToCache, cacheLevel: cacheLevel, forceReprocess: true)
         await loadArticles()
     }
 

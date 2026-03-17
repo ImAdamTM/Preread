@@ -358,7 +358,7 @@ struct ArticleRowView: View {
 
     /// Efficiently loads and downsamples an image using ImageIO without
     /// decoding the full bitmap into memory.
-    private static func downsampledImage(at url: URL, maxPixels: Int) -> UIImage? {
+    nonisolated private static func downsampledImage(at url: URL, maxPixels: Int) -> UIImage? {
         let sourceOptions: [CFString: Any] = [kCGImageSourceShouldCache: false]
         guard let source = CGImageSourceCreateWithURL(url as CFURL, sourceOptions as CFDictionary) else { return nil }
 

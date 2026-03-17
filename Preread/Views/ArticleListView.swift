@@ -498,8 +498,9 @@ struct ArticleListView: View {
         if articleToCache.etag != nil || articleToCache.lastModified != nil {
             articleToCache.etag = nil
             articleToCache.lastModified = nil
+            let snapshot = articleToCache
             try? await DatabaseManager.shared.dbPool.write { db in
-                try articleToCache.update(db)
+                try snapshot.update(db)
             }
         }
 
@@ -574,12 +575,14 @@ struct ArticleListView: View {
             }
         }
         let cacheLevel = currentCacheLevel
-        try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel, forceReprocess: true)
+        let articleToCache = article
+        try? await PageCacheService.shared.cacheArticle(articleToCache, cacheLevel: cacheLevel, forceReprocess: true)
         // Reconcile local state with DB so the spinner never stays stuck
-        if let index = articles.firstIndex(where: { $0.id == article.id }),
+        let articleID = article.id
+        if let index = articles.firstIndex(where: { $0.id == articleID }),
            articles[index].fetchStatus == .fetching,
            let fresh = try? await DatabaseManager.shared.dbPool.read({ db in
-               try Article.fetchOne(db, key: article.id)
+               try Article.fetchOne(db, key: articleID)
            }) {
             articles[index] = fresh
         }
@@ -723,24 +726,27 @@ struct ArticleListView: View {
     private func updateSourceName(_ name: String) async {
         var updated = currentSource
         updated.title = name
+        let snapshot = updated
         try? await DatabaseManager.shared.dbPool.write { db in
-            try updated.update(db)
+            try snapshot.update(db)
         }
     }
 
     private func updateSourceFetchFrequency(_ frequency: FetchFrequency) async {
         var updated = currentSource
         updated.fetchFrequency = frequency
+        let snapshot = updated
         try? await DatabaseManager.shared.dbPool.write { db in
-            try updated.update(db)
+            try snapshot.update(db)
         }
     }
 
     private func updateSourceCacheLevel(_ level: CacheLevel) async {
         var updated = currentSource
         updated.cacheLevel = level
+        let snapshot = updated
         try? await DatabaseManager.shared.dbPool.write { db in
-            try updated.update(db)
+            try snapshot.update(db)
         }
     }
 

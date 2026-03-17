@@ -65,11 +65,12 @@ enum IntegrityChecker {
                     article.fetchStatus = .pending
                     article.cachedAt = nil
                     article.cacheSizeBytes = nil
+                    let snapshot = article
                     try await DatabaseManager.shared.dbPool.write { db in
                         try CachedPage
-                            .filter(Column("articleID") == article.id)
+                            .filter(Column("articleID") == snapshot.id)
                             .deleteAll(db)
-                        try article.update(db)
+                        try snapshot.update(db)
                     }
                     resetCount += 1
                 }
