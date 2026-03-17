@@ -12,16 +12,6 @@
   {
     "category": "Spain",
     "country": "Spain",
-    "description": "Noticias de última hora en torno a la actualidad de Catalunya y España, Barça, deportes, internacional, economía",
-    "feedURL": "https://www.elperiodico.com/es/rss/rss_portada.xml",
-    "id": "6f9f272e-6918-8eb7-3c8f-89d0e872643b",
-    "name": "El Periódico - portada",
-    "siteURL": "https://www.elperiodico.com/es/",
-    "tags": []
-  },
-  {
-    "category": "Spain",
-    "country": "Spain",
     "description": "Diario digital de noticias de actualidad sobre política y economía, análisis y blogs de opinión. Dirigido por Ignacio",
     "feedURL": "https://www.eldiario.es/rss/",
     "id": "177c7afd-aada-9473-dc21-568a8179b827",

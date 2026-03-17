@@ -24,18 +24,6 @@
     ]
   },
   {
-    "category" : "Nigeria",
-    "country" : "Nigeria",
-    "description" : "Discover what’s happening - and explore, experience, and exchange what it really means",
-    "feedURL" : "https:\/\/www.nigerianbulletin.com\/forums\/-\/index.rss",
-    "id" : "d69d8a9d-7219-be53-6206-24f7aad43962",
-    "name" : " Nigerian Bulletin",
-    "siteURL" : "https:\/\/nigerianbulletin.com\/forums\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Movies",
     "description" : "The latest movie and television news, reviews, film trailers, exclusive interviews, and opinions - since 2005",
     "feedURL" : "https:\/\/www.slashfilm.com\/category\/news\/feed\/",
@@ -992,18 +980,6 @@
   {
     "category" : "Spain",
     "country" : "Spain",
-    "description" : "Noticias de última hora en torno a la actualidad de Catalunya y España, Barça, deportes, internacional, economía",
-    "feedURL" : "https:\/\/www.elperiodico.com\/es\/rss\/rss_portada.xml",
-    "id" : "6f9f272e-6918-8eb7-3c8f-89d0e872643b",
-    "name" : "El Periódico - portada",
-    "siteURL" : "https:\/\/www.elperiodico.com\/es\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Spain",
-    "country" : "Spain",
     "description" : "Diario digital de noticias de actualidad sobre política y economía, análisis y blogs de opinión. Dirigido por Ignacio",
     "feedURL" : "https:\/\/www.eldiario.es\/rss\/",
     "id" : "177c7afd-aada-9473-dc21-568a8179b827",
@@ -1105,10 +1081,10 @@
   {
     "category" : "Gaming",
     "description" : "Video game news, reviews, and features",
-    "feedURL" : "https:\/\/www.eurogamer.net\/?format=rss",
+    "feedURL" : "https:\/\/www.eurogamer.net\/feed",
     "id" : "d4585ded-96dd-d141-bf32-2b1556c124bc",
     "name" : "Eurogamer.net",
-    "siteURL" : "https:\/\/www.eurogamer.net\/feed",
+    "siteURL" : "https:\/\/www.eurogamer.net",
     "tags" : [
 
     ]
@@ -1735,17 +1711,6 @@
     ]
   },
   {
-    "category" : "Architecture",
-    "description" : "Green design, innovation, and clean technology",
-    "feedURL" : "https:\/\/inhabitat.com\/architecture\/feed\/",
-    "id" : "7595ea33-c788-24e0-da9b-2f903a7906e1",
-    "name" : "Inhabitat",
-    "siteURL" : "https:\/\/inhabitat.com",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Philippines",
     "country" : "Philippines",
     "description" : "Philippine news for Filipinos",
@@ -1925,18 +1890,6 @@
     "id" : "a5fc413d-bd0b-d1c6-443c-37dfd081c5fb",
     "name" : "Joe Birch",
     "siteURL" : "https:\/\/joebirch.co",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Brazil",
-    "country" : "Brazil",
-    "description" : "Informação e Opinião",
-    "feedURL" : "https:\/\/jornaldebrasilia.com.br\/feed\/",
-    "id" : "40657b35-a597-897c-1c57-830e6b1ac20f",
-    "name" : "Jornal de Brasília",
-    "siteURL" : "https:\/\/jornaldebrasilia.com.br",
     "tags" : [
 
     ]
@@ -2980,7 +2933,7 @@
   {
     "category" : "Food",
     "description" : "Fearless cooking from a tiny NYC kitchen",
-    "feedURL" : "https:\/\/smittenkitchen.com\/feeds\/feed\/",
+    "feedURL" : "https:\/\/smittenkitchen.com\/feed\/atom\/",
     "id" : "65fbb327-953a-5d47-9be5-7b1a3745ef88",
     "name" : "smitten kitchen",
     "siteURL" : "https:\/\/smittenkitchen.com",
@@ -3436,7 +3389,7 @@
   {
     "category" : "Cars",
     "description" : "The Truth About Cars is dedicated to providing candid, unbiased automobile reviews and the latest in auto industry news",
-    "feedURL" : "https:\/\/www.thetruthaboutcars.com\/feed\/",
+    "feedURL" : "https:\/\/www.thetruthaboutcars.com\/rss\/feed\/all",
     "id" : "36fb51a2-54bc-b7f7-c4e5-91933d876723",
     "name" : "The Truth About Cars",
     "siteURL" : "https:\/\/www.thetruthaboutcars.com",
@@ -3665,10 +3618,10 @@
   {
     "category" : "Fashion",
     "description" : "Fashion trends, outfit ideas, and style inspiration",
-    "feedURL" : "https:\/\/www.whowhatwear.com\/rss",
+    "feedURL" : "https:\/\/www.whowhatwear.com\/feeds.xml",
     "id" : "6a06d6de-9a21-319d-8e48-8d90766292c4",
     "name" : "Who What Wear",
-    "siteURL" : "https:\/\/www.whowhatwear.com\/feeds.xml",
+    "siteURL" : "https:\/\/www.whowhatwear.com",
     "tags" : [
 
     ]
@@ -3733,7 +3686,7 @@
     "category" : "Poland",
     "country" : "Poland",
     "description" : "Portal o mediach, reklamie, internecie, PR, telekomunikacji - nr 1 w Polsce - WirtualneMedia.pl - wiadomości z",
-    "feedURL" : "https:\/\/www.wirtualnemedia.pl\/rss\/wirtualnemedia_rss.xml",
+    "feedURL" : "https:\/\/www.wirtualnemedia.pl\/rss\/aktualnosci",
     "id" : "82d23c5c-ed36-fee4-5e03-ca7424859c89",
     "name" : "www.wirtualnemedia.pl",
     "siteURL" : "https:\/\/www.wirtualnemedia.pl",
@@ -3832,18 +3785,6 @@
     "id" : "9742bec5-08d3-4352-67bc-287482df86e4",
     "name" : "ઈન્ડિયા | દિવ્ય ભાસ્કર",
     "siteURL" : "https:\/\/www.divyabhaskar.co.in\/national\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Hong Kong",
-    "country" : "Hong Kong",
-    "description" : "香港財經新聞網站，提供即時新聞、財經新聞、兩岸新聞、國際新聞、地產、科技及時事資訊，助您掌握新聞資訊及做好分析。",
-    "feedURL" : "https:\/\/www.hket.com\/rss\/hongkong",
-    "id" : "d957c50c-2776-efc9-a9f3-a84080e65ec0",
-    "name" : "香港新聞RSS - 香港經濟日報 hket.com",
-    "siteURL" : "https:\/\/www.hket.com\/",
     "tags" : [
 
     ]

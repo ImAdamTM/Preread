@@ -278,6 +278,61 @@ struct DiscoverFeedFaviconTests {
     }
 }
 
+// MARK: - Live Feed Reachability (all discover feeds)
+
+/// Validates every discover feed URL using the same `FeedService.parseFeed`
+/// code path the app runs when a user taps a feed in the discover section.
+/// Each feed runs as its own parameterized test case so failures are isolated
+/// and easy to identify.
+@Suite("Discover Feed Reachability", .tags(.live))
+struct DiscoverFeedReachabilityTests {
+    let service = FeedService.shared
+
+    /// A lightweight wrapper so Swift Testing can display feed names in results.
+    struct FeedEntry: CustomTestStringConvertible, Sendable {
+        let name: String
+        let category: String
+        let feedURL: String
+        let siteURL: String?
+
+        var testDescription: String { "[\(category)] \(name)" }
+    }
+
+    static var allFeeds: [FeedEntry] {
+        guard let feeds = try? DiscoverFeedDirectoryTests.loadDiscoverFeeds() else {
+            return []
+        }
+        return feeds.map {
+            FeedEntry(name: $0.name, category: $0.category,
+                      feedURL: $0.feedURL, siteURL: $0.siteURL)
+        }
+    }
+
+    @Test("Feed URL is reachable and parseable", .timeLimit(.minutes(1)),
+          arguments: allFeeds)
+    func feedReachable(entry: FeedEntry) async throws {
+        guard let url = URL(string: entry.feedURL) else {
+            Issue.record("Invalid URL string: \(entry.feedURL)")
+            return
+        }
+        let siteURL = entry.siteURL.flatMap { URL(string: $0) }
+
+        let feed = try await service.parseFeed(from: url, siteURL: siteURL)
+        // Note: some feeds have empty channel <title> tags (server-side bug).
+        // The app uses the name from discover_feeds.json, so this is not
+        // user-facing. We only assert that items were returned.
+        #expect(!feed.items.isEmpty,
+                "\(entry.name): parsed feed returned zero items")
+    }
+}
+
+// MARK: - Tags
+
+extension Tag {
+    /// Tests that hit the network (live feed validation, favicon fetches, etc.)
+    @Tag static var live: Self
+}
+
 // MARK: - Helpers
 
 enum DiscoverFeedTestError: Error, CustomStringConvertible {

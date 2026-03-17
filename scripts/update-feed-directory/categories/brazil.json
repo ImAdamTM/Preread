@@ -2,16 +2,6 @@
   {
     "category": "Brazil",
     "country": "Brazil",
-    "description": "Informação e Opinião",
-    "feedURL": "https://jornaldebrasilia.com.br/feed/",
-    "id": "40657b35-a597-897c-1c57-830e6b1ac20f",
-    "name": "Jornal de Brasília",
-    "siteURL": "https://jornaldebrasilia.com.br",
-    "tags": []
-  },
-  {
-    "category": "Brazil",
-    "country": "Brazil",
     "description": "News in Rio de Janeiro, Brazil",
     "feedURL": "https://riotimesonline.com/feed/",
     "id": "238937ad-3da5-9643-59a7-1374916affb2",

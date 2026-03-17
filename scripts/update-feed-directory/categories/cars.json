@@ -74,7 +74,7 @@
   {
     "category": "Cars",
     "description": "The Truth About Cars is dedicated to providing candid, unbiased automobile reviews and the latest in auto industry news",
-    "feedURL": "https://www.thetruthaboutcars.com/feed/",
+    "feedURL": "https://www.thetruthaboutcars.com/rss/feed/all",
     "id": "36fb51a2-54bc-b7f7-c4e5-91933d876723",
     "name": "The Truth About Cars",
     "siteURL": "https://www.thetruthaboutcars.com",

@@ -11,10 +11,10 @@
   {
     "category": "Gaming",
     "description": "Video game news, reviews, and features",
-    "feedURL": "https://www.eurogamer.net/?format=rss",
+    "feedURL": "https://www.eurogamer.net/feed",
     "id": "d4585ded-96dd-d141-bf32-2b1556c124bc",
     "name": "Eurogamer.net",
-    "siteURL": "https://www.eurogamer.net/feed",
+    "siteURL": "https://www.eurogamer.net",
     "tags": []
   },
   {

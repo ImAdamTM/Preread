@@ -18,15 +18,5 @@
     "name": "hongkongnews.net latest rss headlines",
     "siteURL": "https://hongkongnews.net",
     "tags": []
-  },
-  {
-    "category": "Hong Kong",
-    "country": "Hong Kong",
-    "description": "香港財經新聞網站，提供即時新聞、財經新聞、兩岸新聞、國際新聞、地產、科技及時事資訊，助您掌握新聞資訊及做好分析。",
-    "feedURL": "https://www.hket.com/rss/hongkong",
-    "id": "d957c50c-2776-efc9-a9f3-a84080e65ec0",
-    "name": "香港新聞RSS - 香港經濟日報 hket.com",
-    "siteURL": "https://www.hket.com/",
-    "tags": []
   }
 ]

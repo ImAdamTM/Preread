@@ -291,6 +291,23 @@ actor PageCacheService {
             for word in chromeWords {
                 if imgId.contains(word) || alt.contains(word) || srcLower.contains(word) { return false }
             }
+            // Check up to 2 ancestor levels for chrome signals.
+            // Sites often wrap logos/avatars in containers like
+            // <span class="site-logo">, <div data-pw="disclosureLogo">,
+            // or <a aria-hidden="true"> where the image itself has no hint.
+            var ancestor: Element? = img.parent()
+            for _ in 0..<2 {
+                guard let el = ancestor else { break }
+                // aria-hidden="true" marks decorative elements (byline photos, etc.)
+                if (try? el.attr("aria-hidden")) == "true" { return false }
+                let attrs = el.getAttributes()?
+                    .asList().map { $0.getValue().lowercased() } ?? []
+                let attrText = attrs.joined(separator: " ")
+                for word in chromeWords {
+                    if attrText.contains(word) { return false }
+                }
+                ancestor = el.parent()
+            }
             // "avatar" in URLs usually means a user profile image (/avatar/, /avatars/)
             // but not when it's part of article content (e.g. Avatar: The Last Airbender)
             if srcLower.contains("/avatar/") || srcLower.contains("/avatars/")

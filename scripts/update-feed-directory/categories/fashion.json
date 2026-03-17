@@ -101,10 +101,10 @@
   {
     "category": "Fashion",
     "description": "Fashion trends, outfit ideas, and style inspiration",
-    "feedURL": "https://www.whowhatwear.com/rss",
+    "feedURL": "https://www.whowhatwear.com/feeds.xml",
     "id": "6a06d6de-9a21-319d-8e48-8d90766292c4",
     "name": "Who What Wear",
-    "siteURL": "https://www.whowhatwear.com/feeds.xml",
+    "siteURL": "https://www.whowhatwear.com",
     "tags": []
   },
   {
