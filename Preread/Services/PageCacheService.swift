@@ -240,6 +240,11 @@ actor PageCacheService {
         try stripBadgeClusters(in: preDoc)
         try stripImageLayoutStyles(in: preDoc)
 
+        // Strip comment sections — these contain user-generated comments
+        // that can outweigh article text and confuse Readability's scoring.
+        // Uses standard ID/class conventions (WordPress, Disqus, etc.).
+        try preDoc.select("#comments, .comments, #disqus_thread").remove()
+
         try preDoc.select("button").remove()
         try preDoc.select("dialog").remove()
         try preDoc.select("svg").remove()
@@ -427,6 +432,10 @@ actor PageCacheService {
         // Strip navigation — site nav links are non-functional offline
         // and take up significant space above article content.
         try doc.select("nav").remove()
+
+        // Strip comment sections — user-generated comments are non-functional
+        // offline and add unnecessary weight.
+        try doc.select("#comments, .comments, #disqus_thread").remove()
 
         // Strip interactive elements that rely on JS
         try doc.select("button").remove()

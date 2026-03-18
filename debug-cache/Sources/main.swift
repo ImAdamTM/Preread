@@ -394,6 +394,9 @@ if isFullMode {
     // Strip navigation
     try doc.select("nav").remove()
 
+    // Strip comment sections
+    try doc.select("#comments, .comments, #disqus_thread").remove()
+
     // Strip interactive elements that rely on JS
     try doc.select("button").remove()
     try doc.select("dialog").remove()
@@ -437,6 +440,10 @@ if isFullMode {
     try stripBadgeClusters(in: preDoc)
 
     try stripImageLayoutStyles(in: preDoc)
+
+    // Strip comment sections — user-generated comments can outweigh article
+    // text and confuse Readability's scoring.
+    try preDoc.select("#comments, .comments, #disqus_thread").remove()
 
     // Strip interactive/UI elements that serve no purpose in reader mode
     // and prevent image wrapper divs from being flattened.

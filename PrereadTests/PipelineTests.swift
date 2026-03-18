@@ -179,6 +179,28 @@ struct StandardPipelineTests {
         #expect(!result.contentHTML.contains("<style"))
     }
 
+    // MARK: - Nintendo Life
+
+    @Test("Nintendo Life: comment section stripped, article content extracted")
+    func nintendoLifeArticle() async throws {
+        let html = try loadFixture("nintendolife-boost-mode")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.nintendolife.com/features/community-which-switch-1-games-benefit-most-from-switch-2s-new-boost-mode")!
+        )
+
+        #expect(result.title.contains("Switch"))
+        #expect(result.title.contains("Boost Mode"))
+        // Article content should be extracted, not the comments section
+        #expect(result.contentHTML.contains("Handheld Boost Mode"), "Article body should be present")
+        #expect(!result.contentHTML.contains("avatar.jpg"), "User comment avatars should not be present")
+        #expect(!result.contentHTML.contains("data-author"), "Comment metadata should not be present")
+        #expect(result.imageCount >= 1, "Video thumbnail or article image should be present")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
     // MARK: - GQ
 
     @Test("GQ: Cloudinary srcset URLs with commas parsed correctly, images extracted")
@@ -389,6 +411,30 @@ struct FullPipelineTests {
         // Content should be preserved
         #expect(result.cleanedHTML.contains("Super Mario Run"))
         #expect(result.cleanedHTML.contains("Wonder Flower"))
+        #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
+    }
+
+    // MARK: - Nintendo Life
+
+    @Test("Nintendo Life: comment section stripped, article content preserved")
+    func nintendoLifeArticle() async throws {
+        let html = try loadFixture("nintendolife-boost-mode")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.nintendolife.com/features/community-which-switch-1-games-benefit-most-from-switch-2s-new-boost-mode")!
+        )
+
+        // Interactive and comment elements should be stripped
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form"))
+        #expect(!result.cleanedHTML.contains("data-author"), "Comment metadata should not be present")
+
+        // Content should be preserved
+        #expect(result.cleanedHTML.contains("Handheld Boost Mode"))
+        #expect(result.cleanedHTML.contains("Switch 2"))
         #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
     }
 
