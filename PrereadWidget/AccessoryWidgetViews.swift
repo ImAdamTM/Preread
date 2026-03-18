@@ -32,6 +32,7 @@ struct AccessoryRectangularView: View {
                 .lineLimit(1)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+            .widgetURL(article.deepLinkURL)
         } else {
             accessoryEmptyState
         }
@@ -60,6 +61,7 @@ struct AccessoryCircularView: View {
                 }
             }
         }
+        .widgetURL(entry.articles.first?.deepLinkURL)
     }
 }
 
@@ -72,6 +74,7 @@ struct AccessoryInlineView: View {
     var body: some View {
         if let article = entry.articles.first {
             Text("\(article.sourceName) — \(article.title)")
+                .widgetURL(article.deepLinkURL)
         } else {
             Text("No articles")
         }
