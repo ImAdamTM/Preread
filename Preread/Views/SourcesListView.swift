@@ -1,5 +1,6 @@
 import SwiftUI
 import GRDB
+import WidgetKit
 
 enum NavigationTarget: Hashable {
     case source(UUID)
@@ -17,6 +18,9 @@ struct SourcesListView: View {
     @State private var addSourceInitialURL: String?
     @State private var highlightedSourceID: UUID?
     @State private var navigationPath = NavigationPath()
+    /// Tracks the source ID currently at the top of the navigation stack,
+    /// so deep links can skip redundant pop-and-push when already viewing the target.
+    @State private var currentSourceID: UUID?
     @State private var renamingSource: Source?
     @State private var renameText = ""
     
@@ -84,6 +88,13 @@ struct SourcesListView: View {
             }
             .task {
                 await loadSources()
+                // On cold launch via deep link, the pending ID may already
+                // be set before this view appears. Consume it immediately
+                // so we navigate without flashing the home screen.
+                if let sourceID = deepLinkRouter.pendingSourceID {
+                    deepLinkRouter.pendingSourceID = nil
+                    navigateToSource(sourceID)
+                }
             }
             .onChange(of: navigationPath) { _, path in
                 // Refresh counts when navigating back (e.g. after reading articles)
@@ -169,6 +180,8 @@ struct SourcesListView: View {
                 case .source(let sourceID):
                     if let source = sources.first(where: { $0.id == sourceID }) {
                         ArticleListView(source: source)
+                            .onAppear { currentSourceID = sourceID }
+                            .onDisappear { currentSourceID = nil }
                     }
                 case .saved:
                     SavedArticlesView()
@@ -177,9 +190,7 @@ struct SourcesListView: View {
             .onChange(of: deepLinkRouter.pendingSourceID) { _, sourceID in
                 guard let sourceID else { return }
                 deepLinkRouter.pendingSourceID = nil
-                dismissAndNavigate {
-                    navigationPath.append(NavigationTarget.source(sourceID))
-                }
+                navigateToSource(sourceID)
             }
             .onChange(of: deepLinkRouter.pendingArticleID) { _, articleID in
                 guard let articleID else { return }
@@ -188,7 +199,12 @@ struct SourcesListView: View {
                     Task {
                         guard let article = try? await DatabaseManager.shared.dbPool.read({ db in
                             try Article.fetchOne(db, key: articleID)
-                        }) else { return }
+                        }) else {
+                            toastManager.show("This article is no longer available", type: .error)
+                            // Refresh widgets to clear stale entries
+                            WidgetCenter.shared.reloadAllTimelines()
+                            return
+                        }
                         transitionSourceID = nil
                         openArticleInReader(article)
                     }
@@ -480,6 +496,18 @@ struct SourcesListView: View {
 
     // MARK: - Deep link navigation
 
+    /// Navigates to a source, skipping the pop-and-push cycle when
+    /// the user is already viewing that source.
+    private func navigateToSource(_ sourceID: UUID) {
+        // Already viewing this feed — nothing to do.
+        if currentSourceID == sourceID && !showAddSource && readerSelection == nil {
+            return
+        }
+        dismissAndNavigate {
+            navigationPath.append(NavigationTarget.source(sourceID))
+        }
+    }
+
     /// Dismisses any open sheets and pops the nav stack to root,
     /// then runs the provided navigation action after a brief delay
     /// so that dismissals complete before the new navigation begins.
@@ -583,6 +611,8 @@ struct SourcesListView: View {
                 try snapshot.update(db)
             }
             await loadSources()
+            // Refresh widgets so they pick up the new source name
+            WidgetCenter.shared.reloadAllTimelines()
         } catch {
             toastManager.show("Couldn't rename source", type: .error)
         }

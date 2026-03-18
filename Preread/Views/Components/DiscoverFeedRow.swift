@@ -9,7 +9,7 @@ struct DiscoverFeedRow: View {
 
     var body: some View {
         Button(action: onTap) {
-            HStack(spacing: 12) {
+            HStack(alignment: .top, spacing: 12) {
                 faviconView
 
                 VStack(alignment: .leading, spacing: 3) {
