@@ -180,7 +180,18 @@ actor PageCacheService {
     ///   - forceReprocess: When true, skips conditional headers (ETag/If-Modified-Since)
     ///     so the server always returns fresh content. Use this when reprocessing logic
     ///     has changed and you need to regenerate the cached HTML from scratch.
-    func cacheArticle(_ article: Article, cacheLevel: CacheLevel, forceReprocess: Bool = false) async throws {
+    /// Result of a cacheArticle call, indicating whether content was actually updated.
+    enum CacheResult {
+        /// New content was fetched and written to disk.
+        case contentUpdated
+        /// Server returned 304 — content unchanged, only timestamp updated.
+        case notModified
+        /// Caching failed (network error, validation error, etc.).
+        case failed
+    }
+
+    @discardableResult
+    func cacheArticle(_ article: Article, cacheLevel: CacheLevel, forceReprocess: Bool = false) async throws -> CacheResult {
         var article = article
         let wasPreviouslyCached = article.fetchStatus == .cached
 
@@ -189,7 +200,8 @@ actor PageCacheService {
         try updateArticle(&article)
 
         do {
-            try await performCacheArticle(&article, cacheLevel: cacheLevel, wasPreviouslyCached: wasPreviouslyCached, forceReprocess: forceReprocess)
+            let result = try await performCacheArticle(&article, cacheLevel: cacheLevel, wasPreviouslyCached: wasPreviouslyCached, forceReprocess: forceReprocess)
+            return result
         } catch {
             // Ensure we never leave an article stuck at .fetching
             if article.fetchStatus == .fetching {
@@ -201,6 +213,7 @@ actor PageCacheService {
                 }
                 try? updateArticle(&article)
             }
+            return .failed
         }
     }
 
@@ -489,7 +502,7 @@ actor PageCacheService {
 
     // MARK: - Cache article
 
-    private func performCacheArticle(_ article: inout Article, cacheLevel: CacheLevel, wasPreviouslyCached: Bool, forceReprocess: Bool = false) async throws {
+    private func performCacheArticle(_ article: inout Article, cacheLevel: CacheLevel, wasPreviouslyCached: Bool, forceReprocess: Bool = false) async throws -> CacheResult {
         // Build conditional request
         guard var pageURL = URL(string: article.articleURL) else {
             if !wasPreviouslyCached {
@@ -497,7 +510,7 @@ actor PageCacheService {
                 article.retryCount += 1
                 try updateArticle(&article)
             }
-            return
+            return .failed
         }
 
         // Resolve Google News redirect URLs to real article URLs
@@ -513,7 +526,7 @@ actor PageCacheService {
                 article.fetchStatus = .failed
                 article.retryCount += 1
                 try updateArticle(&article)
-                return
+                return .failed
             }
         }
 
@@ -542,7 +555,7 @@ actor PageCacheService {
                 article.retryCount += 1
             }
             try updateArticle(&article)
-            return
+            return .failed
         }
 
         guard let httpResponse = response as? HTTPURLResponse else {
@@ -553,7 +566,7 @@ actor PageCacheService {
                 article.retryCount += 1
             }
             try updateArticle(&article)
-            return
+            return .failed
         }
 
         // 304 Not Modified — content unchanged, just update timestamp
@@ -575,7 +588,7 @@ actor PageCacheService {
                 article.retryCount += 1
                 try updateArticle(&article)
             }
-            return
+            return .notModified
         }
 
         // Store conditional request headers from response
@@ -600,7 +613,7 @@ actor PageCacheService {
                 article.retryCount += 1
             }
             try updateArticle(&article)
-            return
+            return .failed
         }
 
         // Parse HTML
@@ -615,7 +628,7 @@ actor PageCacheService {
                 article.retryCount += 1
             }
             try updateArticle(&article)
-            return
+            return .failed
         }
 
         // Set up article directory — wipe any previous cache so we don't
@@ -839,6 +852,7 @@ actor PageCacheService {
         article.fetchStatus = anyFailed ? .partial : .cached
         article.lastHTTPStatus = 200
         try updateArticle(&article)
+        return .contentUpdated
     }
 
     /// Removes all cached files for an article.

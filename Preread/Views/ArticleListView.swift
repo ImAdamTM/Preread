@@ -93,10 +93,12 @@ struct ArticleListView: View {
             // are inserted, updated, or deleted in the database.
             startArticleObservation()
 
-            // Retry any pending/failed articles in the background
+            // Retry any pending/failed articles, then backfill remaining
+            // uncached articles that were skipped during the foreground refresh.
             let retrySource = currentSource
             Task {
                 await coordinator.retryFailedArticles(for: retrySource)
+                await coordinator.backfillArticles(for: retrySource)
             }
         }
         .onAppear {
