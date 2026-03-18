@@ -7,5 +7,32 @@
     "name": "Afford Anything",
     "siteURL": "https://affordanything.com/",
     "tags": []
+  },
+  {
+    "category": "Personal finance",
+    "description": "Investing, real estate, and career strategies for financial independence",
+    "feedURL": "https://financialsamurai.com/feed",
+    "id": "9f1a2b1a-4490-5e1d-8e8b-7d2b1162340e",
+    "name": "Financial Samurai",
+    "siteURL": "https://financialsamurai.com",
+    "tags": []
+  },
+  {
+    "category": "Personal finance",
+    "description": "Saving money, paying off debt, and making smarter financial decisions",
+    "feedURL": "https://makingsenseofcents.com/feed",
+    "id": "9ae3fa68-a393-54b5-91d1-7a48879c8da4",
+    "name": "Making Sense Of Cents",
+    "siteURL": "https://makingsenseofcents.com",
+    "tags": []
+  },
+  {
+    "category": "Personal finance",
+    "description": "Practical tips to earn more, spend less, and grow your money",
+    "feedURL": "https://moneytalksnews.com/feed",
+    "id": "99c68bf8-9ccc-5b73-b88b-6b4a78c55b0f",
+    "name": "Money Talks News",
+    "siteURL": "https://moneytalksnews.com",
+    "tags": []
   }
 ]

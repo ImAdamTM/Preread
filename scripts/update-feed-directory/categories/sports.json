@@ -13,7 +13,7 @@
     "description": "Sports news, scores, and analysis from BBC Sport",
     "feedURL": "https://feeds.bbci.co.uk/sport/rss.xml",
     "id": "4265059e-11db-47d9-f1ba-d588157f4988",
-    "name": "BBC Sport - Sport",
+    "name": "BBC Sport",
     "siteURL": "https://www.bbc.co.uk/sport",
     "tags": []
   },
@@ -49,7 +49,7 @@
     "description": "Visit ESPN for live scores, highlights and sports news. Stream exclusive games on ESPN and play fantasy sports",
     "feedURL": "https://www.espn.com/espn/rss/news",
     "id": "8bc0466d-a15a-8166-21f7-77e304c50859",
-    "name": "www.espn.com - TOP",
+    "name": "ESPN",
     "siteURL": "https://www.espn.com",
     "tags": []
   }

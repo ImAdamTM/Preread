@@ -2,6 +2,16 @@
   {
     "category": "United Kingdom",
     "country": "United Kingdom",
+    "description": "UK news, politics, and stories from across Britain",
+    "feedURL": "https://feeds.bbci.co.uk/news/uk/rss.xml",
+    "id": "86a2eea6-a987-5810-8a40-42e6e4fd44c9",
+    "name": "BBC: UK",
+    "siteURL": "https://www.bbc.co.uk/news/uk",
+    "tags": []
+  },
+  {
+    "category": "United Kingdom",
+    "country": "United Kingdom",
     "description": "Breaking news, showbiz, sport, and entertainment from the UK",
     "feedURL": "https://www.dailymail.co.uk/ushome/index.rss",
     "id": "30de9d55-0854-5d4f-b6fa-24ccc0bd765a",

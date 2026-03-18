@@ -449,23 +449,23 @@
     ]
   },
   {
-    "category" : "Cricket",
-    "description" : "Cricket news, scores, and results from BBC Sport",
-    "feedURL" : "https:\/\/feeds.bbci.co.uk\/sport\/cricket\/rss.xml",
-    "id" : "73826047-a289-39cc-8393-5205ea59589e",
-    "name" : "BBC Sport - Cricket",
-    "siteURL" : "https:\/\/www.bbc.co.uk\/sport\/cricket",
+    "category" : "Sports",
+    "description" : "Sports news, scores, and analysis from BBC Sport",
+    "feedURL" : "https:\/\/feeds.bbci.co.uk\/sport\/rss.xml",
+    "id" : "4265059e-11db-47d9-f1ba-d588157f4988",
+    "name" : "BBC Sport",
+    "siteURL" : "https:\/\/www.bbc.co.uk\/sport",
     "tags" : [
 
     ]
   },
   {
-    "category" : "Sports",
-    "description" : "Sports news, scores, and analysis from BBC Sport",
-    "feedURL" : "https:\/\/feeds.bbci.co.uk\/sport\/rss.xml",
-    "id" : "4265059e-11db-47d9-f1ba-d588157f4988",
-    "name" : "BBC Sport - Sport",
-    "siteURL" : "https:\/\/www.bbc.co.uk\/sport",
+    "category" : "Cricket",
+    "description" : "Cricket news, scores, and results from BBC Sport",
+    "feedURL" : "https:\/\/feeds.bbci.co.uk\/sport\/cricket\/rss.xml",
+    "id" : "73826047-a289-39cc-8393-5205ea59589e",
+    "name" : "BBC Sport: Cricket",
+    "siteURL" : "https:\/\/www.bbc.co.uk\/sport\/cricket",
     "tags" : [
 
     ]
@@ -475,8 +475,20 @@
     "description" : "Tennis news, scores, and results from BBC Sport",
     "feedURL" : "https:\/\/feeds.bbci.co.uk\/sport\/tennis\/rss.xml",
     "id" : "c8e79e6d-03a8-b82e-9afb-3455992921f6",
-    "name" : "BBC Sport - Tennis",
+    "name" : "BBC Sport: Tennis",
     "siteURL" : "https:\/\/www.bbc.co.uk\/sport\/tennis",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "United Kingdom",
+    "country" : "United Kingdom",
+    "description" : "UK news, politics, and stories from across Britain",
+    "feedURL" : "https:\/\/feeds.bbci.co.uk\/news\/uk\/rss.xml",
+    "id" : "86a2eea6-a987-5810-8a40-42e6e4fd44c9",
+    "name" : "BBC: UK",
+    "siteURL" : "https:\/\/www.bbc.co.uk\/news\/uk",
     "tags" : [
 
     ]
@@ -1067,6 +1079,17 @@
     ]
   },
   {
+    "category" : "Sports",
+    "description" : "Visit ESPN for live scores, highlights and sports news. Stream exclusive games on ESPN and play fantasy sports",
+    "feedURL" : "https:\/\/www.espn.com\/espn\/rss\/news",
+    "id" : "8bc0466d-a15a-8166-21f7-77e304c50859",
+    "name" : "ESPN",
+    "siteURL" : "https:\/\/www.espn.com",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Spain",
     "country" : "Spain",
     "description" : "Euro Weekly News - The English paper for Spanish Living Your essential guide to local, expat and international news",
@@ -1186,6 +1209,17 @@
     "id" : "31e8049f-5537-92c8-c6cb-71dfdbf23f5e",
     "name" : "Financial Post",
     "siteURL" : "https:\/\/financialpost.com",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Personal finance",
+    "description" : "Investing, real estate, and career strategies for financial independence",
+    "feedURL" : "https:\/\/financialsamurai.com\/feed",
+    "id" : "9f1a2b1a-4490-5e1d-8e8b-7d2b1162340e",
+    "name" : "Financial Samurai",
+    "siteURL" : "https:\/\/financialsamurai.com",
     "tags" : [
 
     ]
@@ -1365,7 +1399,7 @@
     "description" : "GSMArena.com - The ultimate resource for GSM handset information",
     "feedURL" : "https:\/\/www.gsmarena.com\/rss-news-reviews.php3",
     "id" : "02f8490e-8334-73e7-335c-8af567c5eee3",
-    "name" : "GSMArena.com - Latest articles",
+    "name" : "GSMArena",
     "siteURL" : "https:\/\/www.gsmarena.com\/",
     "tags" : [
 
@@ -1951,6 +1985,17 @@
     ]
   },
   {
+    "category" : "Science",
+    "description" : "Accessible science journalism from Annual Reviews",
+    "feedURL" : "https:\/\/knowablemagazine.org\/rss",
+    "id" : "d49efeb3-738e-5c5d-a994-54a862ba8cb8",
+    "name" : "Knowable Magazine",
+    "siteURL" : "https:\/\/knowablemagazine.org",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Gaming",
     "description" : "Gaming news, reviews, and culture",
     "feedURL" : "https:\/\/kotaku.com\/rss",
@@ -2135,6 +2180,17 @@
     ]
   },
   {
+    "category" : "Personal finance",
+    "description" : "Saving money, paying off debt, and making smarter financial decisions",
+    "feedURL" : "https:\/\/makingsenseofcents.com\/feed",
+    "id" : "9ae3fa68-a393-54b5-91d1-7a48879c8da4",
+    "name" : "Making Sense Of Cents",
+    "siteURL" : "https:\/\/makingsenseofcents.com",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Programming",
     "description" : "Software architecture and development practices",
     "feedURL" : "https:\/\/martinfowler.com\/feed.atom",
@@ -2222,6 +2278,17 @@
     "id" : "b977dfe3-0c89-299b-7fd0-1933ed868648",
     "name" : "Milan News",
     "siteURL" : "https:\/\/www.milannews.it",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Personal finance",
+    "description" : "Practical tips to earn more, spend less, and grow your money",
+    "feedURL" : "https:\/\/moneytalksnews.com\/feed",
+    "id" : "99c68bf8-9ccc-5b73-b88b-6b4a78c55b0f",
+    "name" : "Money Talks News",
+    "siteURL" : "https:\/\/moneytalksnews.com",
     "tags" : [
 
     ]
@@ -2838,6 +2905,28 @@
     "id" : "4013c31a-b9b5-59f0-5fa4-d977847af3d8",
     "name" : "RT",
     "siteURL" : "https:\/\/www.rt.com",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Science",
+    "description" : "Breaking news from the world's leading journal of original scientific research",
+    "feedURL" : "https:\/\/www.science.org\/rss\/news_current.xml",
+    "id" : "edd2d7dd-c5a7-55b2-a407-644fc94eae0c",
+    "name" : "Science Magazine",
+    "siteURL" : "https:\/\/www.science.org\/news",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Science",
+    "description" : "Independent journalism covering all disciplines of science since 1921",
+    "feedURL" : "https:\/\/www.sciencenews.org\/feed",
+    "id" : "6cc0875b-fb4f-5a80-9677-a027b9695008",
+    "name" : "Science News",
+    "siteURL" : "https:\/\/www.sciencenews.org",
     "tags" : [
 
     ]
@@ -3666,17 +3755,6 @@
     "feedURL" : "https:\/\/www.espn.com\/espn\/rss\/tennis\/news",
     "id" : "f85ac56d-78c4-bc29-18bf-14606bf67c27",
     "name" : "www.espn.com - TENNIS",
-    "siteURL" : "https:\/\/www.espn.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Sports",
-    "description" : "Visit ESPN for live scores, highlights and sports news. Stream exclusive games on ESPN and play fantasy sports",
-    "feedURL" : "https:\/\/www.espn.com\/espn\/rss\/news",
-    "id" : "8bc0466d-a15a-8166-21f7-77e304c50859",
-    "name" : "www.espn.com - TOP",
     "siteURL" : "https:\/\/www.espn.com",
     "tags" : [
 
