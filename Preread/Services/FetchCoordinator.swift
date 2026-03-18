@@ -57,7 +57,7 @@ final class FetchCoordinator: ObservableObject {
             return
         }
 
-        await refreshSourcesWithPriority(sources)
+        await refreshSourcesWithPriority(sources, skipBackfill: true)
 
         isFetching = false
         notifyExtensions()
@@ -76,7 +76,7 @@ final class FetchCoordinator: ObservableObject {
                     .fetchAll(db)
             }
             guard !onOpenSources.isEmpty else { return }
-            await refreshSourcesWithPriority(onOpenSources)
+            await refreshSourcesWithPriority(onOpenSources, skipBackfill: true)
         } catch {
             // Non-critical
         }
@@ -117,12 +117,13 @@ final class FetchCoordinator: ObservableObject {
                 }
                 deferredStaleSources = deferred
                 if !active.isEmpty {
-                    await refreshSourcesWithPriority(active)
+                    // User is viewing this source — do a full refresh including backfill
+                    await refreshSourcesWithPriority(active, skipBackfill: false)
                 }
             } else {
                 // On home screen — refresh everything
                 deferredStaleSources = []
-                await refreshSourcesWithPriority(staleSources)
+                await refreshSourcesWithPriority(staleSources, skipBackfill: true)
             }
         } catch {
             // Non-critical
@@ -135,7 +136,7 @@ final class FetchCoordinator: ObservableObject {
         let deferred = deferredStaleSources
         deferredStaleSources = []
         guard !deferred.isEmpty else { return }
-        await refreshSourcesWithPriority(deferred)
+        await refreshSourcesWithPriority(deferred, skipBackfill: true)
     }
 
     // MARK: - Refresh single source (user-initiated, no guard)
@@ -157,8 +158,10 @@ final class FetchCoordinator: ObservableObject {
 
         // Cache priority articles first
         for (index, article) in priority.enumerated() {
-            try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
-            HapticManager.articleCached()
+            let result = try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+            if result == .contentUpdated {
+                HapticManager.articleCached()
+            }
             if index < priority.count - 1 {
                 try? await Task.sleep(for: .milliseconds(200))
             }
@@ -166,8 +169,10 @@ final class FetchCoordinator: ObservableObject {
 
         // Then backfill
         for (index, article) in backfill.enumerated() {
-            try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
-            HapticManager.articleCached()
+            let result = try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+            if result == .contentUpdated {
+                HapticManager.articleCached()
+            }
             if index < backfill.count - 1 {
                 try? await Task.sleep(for: .milliseconds(200))
             }
@@ -202,8 +207,12 @@ final class FetchCoordinator: ObservableObject {
     /// Three-phase refresh for multiple sources:
     /// 1. Parse all feeds concurrently and insert/update articles in DB
     /// 2. Round-robin cache the top N (visible) articles across all sources
-    /// 3. Round-robin cache remaining articles across all sources
-    private func refreshSourcesWithPriority(_ sources: [Source]) async {
+    /// 3. Round-robin cache remaining articles across all sources (skipped when `skipBackfill` is true)
+    ///
+    /// Foreground refreshes pass `skipBackfill: true` so only the 5 visible
+    /// articles per source are cached. Backfill happens when the user navigates
+    /// into a specific feed, or via background tasks.
+    private func refreshSourcesWithPriority(_ sources: [Source], skipBackfill: Bool = false) async {
         // Reset statuses
         for source in sources {
             sourceStatuses[source.id] = .refreshing
@@ -253,11 +262,15 @@ final class FetchCoordinator: ObservableObject {
         await roundRobinCache(queues: &priorityQueues)
 
         // ── Phase 3: Backfill remaining articles (round-robin) ──
-        var backfillQueues: [(source: Source, articles: [Article])] = parseResults.map { result in
-            (result.source, Array(result.needsCaching.dropFirst(visibleArticleCount)))
-        }
+        // Skipped for foreground refreshes — backfill happens when the user
+        // navigates into a specific feed (or via background tasks).
+        if !skipBackfill {
+            var backfillQueues: [(source: Source, articles: [Article])] = parseResults.map { result in
+                (result.source, Array(result.needsCaching.dropFirst(visibleArticleCount)))
+            }
 
-        await roundRobinCache(queues: &backfillQueues)
+            await roundRobinCache(queues: &backfillQueues)
+        }
 
         // ── Post-cache cleanup ──
         let hasAnyCaching = parseResults.contains { !$0.needsCaching.isEmpty }
@@ -276,8 +289,8 @@ final class FetchCoordinator: ObservableObject {
 
     /// Caches articles round-robin across sources: one article from each source
     /// in turn, repeating until all queues are exhausted.
-    /// Haptics only fire for articles in the currently-viewed source (or for all
-    /// articles when on the home screen).
+    /// Haptics only fire when content actually changed (not 304) and only for
+    /// articles in the currently-viewed source (or all when on the home screen).
     private func roundRobinCache(queues: inout [(source: Source, articles: [Article])]) async {
         var indices = Array(repeating: 0, count: queues.count)
         var remaining = true
@@ -294,10 +307,11 @@ final class FetchCoordinator: ObservableObject {
                 let cacheLevel = source.effectiveCacheLevel
                 indices[queueIndex] += 1
 
-                try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+                let result = try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
 
-                // Only fire haptic if on home screen or caching the viewed source
-                if activeSourceID == nil || activeSourceID == source.id {
+                // Only fire haptic if content actually changed and user can see it
+                if result == .contentUpdated,
+                   activeSourceID == nil || activeSourceID == source.id {
                     HapticManager.articleCached()
                 }
 
@@ -519,6 +533,52 @@ final class FetchCoordinator: ObservableObject {
             sourceStatuses[source.id] = .failed
             return nil
         }
+    }
+
+    // MARK: - Backfill articles for a viewed source
+
+    /// Caches uncached articles beyond the top 5 for a source.
+    /// Called when the user navigates into a specific feed, since foreground
+    /// refreshes only cache the 5 visible articles per source.
+    func backfillArticles(for source: Source) async {
+        let cacheLevel = source.effectiveCacheLevel
+        let articleLimit = cacheLevel == .full ? 10 : 20
+        let uncachedArticles: [Article]
+        do {
+            uncachedArticles = try await DatabaseManager.shared.dbPool.read { db in
+                try Article
+                    .filter(Column("sourceID") == source.id)
+                    .filter([ArticleFetchStatus.pending.rawValue,
+                             ArticleFetchStatus.fetching.rawValue]
+                        .contains(Column("fetchStatus")))
+                    .filter(Column("retryCount") < self.maxAutoRetries)
+                    .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
+                    .limit(articleLimit)
+                    .fetchAll(db)
+            }
+        } catch {
+            return
+        }
+
+        guard !uncachedArticles.isEmpty else { return }
+
+        for (index, article) in uncachedArticles.enumerated() {
+            if let url = URL(string: article.articleURL), Self.isNonArticleURL(url) {
+                continue
+            }
+
+            let result = try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
+            if result == .contentUpdated {
+                HapticManager.articleCached()
+            }
+
+            if index < uncachedArticles.count - 1 {
+                try? await Task.sleep(for: .milliseconds(200))
+            }
+        }
+
+        await pruneExcessArticles(for: source.id)
+        await pruneExcessPendingArticles(for: source.id)
     }
 
     // MARK: - Retry pending/failed articles
