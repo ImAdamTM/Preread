@@ -31,7 +31,7 @@
     "description": "CNBC International is the world leader for news on business, technology, China, trade, oil prices, the Middle East and",
     "feedURL": "https://www.cnbc.com/id/100727362/device/rss/rss.html",
     "id": "75e1d84f-ca2f-4528-2674-52a7c301d83d",
-    "name": "International: Top News And Analysis",
+    "name": "CNBC International",
     "siteURL": "https://www.cnbc.com/world-top-news/",
     "tags": []
   },
@@ -51,15 +51,6 @@
     "id": "72771e85-b141-6686-c704-7c5d452eddd6",
     "name": "The Atlantic",
     "siteURL": "https://www.theatlantic.com/",
-    "tags": []
-  },
-  {
-    "category": "World News",
-    "description": "World News: TOI brings the latest world news headlines, Current International breaking news world wide. In depth",
-    "feedURL": "https://timesofindia.indiatimes.com/rssfeeds/296589292.cms",
-    "id": "c59be43c-0f92-9ebb-4109-4ec1dd54f575",
-    "name": "Times of India",
-    "siteURL": "https://timesofindia.indiatimes.com/world",
     "tags": []
   },
   {

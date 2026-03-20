@@ -338,6 +338,17 @@
     ]
   },
   {
+    "category" : "Music",
+    "description" : "Interviews with songwriters about craft, process, and creation",
+    "feedURL" : "https:\/\/americansongwriter.com\/feed\/",
+    "id" : "8f76b681-38b9-9c6d-5c4f-6feae36323ff",
+    "name" : "American Songwriter",
+    "siteURL" : "https:\/\/americansongwriter.com",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "DIY",
     "description" : "Free furniture building plans and step-by-step woodworking project guides",
     "feedURL" : "https:\/\/www.ana-white.com\/feed",
@@ -581,6 +592,17 @@
     ]
   },
   {
+    "category" : "Music",
+    "description" : "Independent music discovery across every genre and corner of the world",
+    "feedURL" : "https:\/\/daily.bandcamp.com\/feed",
+    "id" : "a746840f-3f91-cd9e-3760-2f374afc68b2",
+    "name" : "Bandcamp Daily",
+    "siteURL" : "https:\/\/daily.bandcamp.com",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "India",
     "country" : "India",
     "description" : "India news from BBC",
@@ -694,6 +716,17 @@
     ]
   },
   {
+    "category" : "Music",
+    "description" : "Music charts, streaming data, and industry deal coverage",
+    "feedURL" : "https:\/\/www.billboard.com\/feed\/rss\/",
+    "id" : "22490334-0a24-bd18-27ee-0f1870ea88f3",
+    "name" : "Billboard",
+    "siteURL" : "https:\/\/www.billboard.com",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Film & TV",
     "description" : "Comic book, film, TV, games, and toy news and rumors from Bleeding Cool",
     "feedURL" : "https:\/\/www.bleedingcool.com\/movies\/feed\/",
@@ -772,6 +805,28 @@
     ]
   },
   {
+    "category" : "Music",
+    "description" : "Live music coverage and indie, punk, and metal news",
+    "feedURL" : "https:\/\/www.brooklynvegan.com\/feed",
+    "id" : "442217c9-5f5a-ec2a-9c51-08295787d5df",
+    "name" : "BrooklynVegan",
+    "siteURL" : "https:\/\/www.brooklynvegan.com",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Business & Finance",
+    "description" : "Business news with massive reach covering markets, careers, and corporate culture",
+    "feedURL" : "https:\/\/feeds.businessinsider.com\/custom\/all",
+    "id" : "5e8ad580-afd9-9bd6-aad4-eb4be29200d4",
+    "name" : "Business Insider",
+    "siteURL" : "https:\/\/www.businessinsider.com",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "India",
     "country" : "India",
     "description" : "Business News Today: Read latest breaking headlines for Business news, Financial news, Stock\/Share market & Indian",
@@ -784,7 +839,8 @@
     ]
   },
   {
-    "category" : "Business & Finance",
+    "category" : "India",
+    "country" : "India",
     "description" : "Indian business, markets, and economic news",
     "feedURL" : "https:\/\/www.business-standard.com\/rss\/home_page_top_stories.rss",
     "id" : "70b72ac2-200e-8358-f55a-8fd0b93315c0",
@@ -918,6 +974,28 @@
     ]
   },
   {
+    "category" : "Business & Finance",
+    "description" : "Business news covering markets, economy, corporate news, and earnings",
+    "feedURL" : "https:\/\/search.cnbc.com\/rs\/search\/combinedcms\/view.xml?partnerId=wrss01&id=10001147",
+    "id" : "87d0a449-0004-94b5-516f-75f826debcd0",
+    "name" : "CNBC",
+    "siteURL" : "https:\/\/www.cnbc.com",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "World News",
+    "description" : "CNBC International is the world leader for news on business, technology, China, trade, oil prices, the Middle East and",
+    "feedURL" : "https:\/\/www.cnbc.com\/id\/100727362\/device\/rss\/rss.html",
+    "id" : "75e1d84f-ca2f-4528-2674-52a7c301d83d",
+    "name" : "CNBC International",
+    "siteURL" : "https:\/\/www.cnbc.com\/world-top-news\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Tech",
     "description" : "Get full-length product reviews, the latest news, tech coverage, daily deals, and category deep dives from CNET experts",
     "feedURL" : "https:\/\/www.cnet.com\/rss\/news\/",
@@ -968,6 +1046,17 @@
     "id" : "33983496-aa07-c14b-cb6d-ffa884e27a9a",
     "name" : "Condé Nast Traveler",
     "siteURL" : "https:\/\/www.cntraveler.com",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Music",
+    "description" : "Music news, reviews, and festival coverage across all genres",
+    "feedURL" : "https:\/\/consequence.net\/feed",
+    "id" : "607a3270-0fe3-3652-8e58-7834461b5f7b",
+    "name" : "Consequence of Sound",
+    "siteURL" : "https:\/\/consequence.net",
     "tags" : [
 
     ]
@@ -1253,7 +1342,7 @@
     ]
   },
   {
-    "category" : "Business & Finance",
+    "category" : "Marketing",
     "description" : "Small business marketing tips and strategies",
     "feedURL" : "https:\/\/ducttape.libsyn.com\/rss",
     "id" : "d3242674-3285-be41-18b0-e9cf72c5d0bd",
@@ -1264,7 +1353,8 @@
     ]
   },
   {
-    "category" : "Business & Finance",
+    "category" : "India",
+    "country" : "India",
     "description" : "The Economic Times: Latest business, finance, markets, stocks, company news from India",
     "feedURL" : "https:\/\/economictimes.indiatimes.com\/rssfeedsdefault.cms",
     "id" : "244f9e96-12cc-f830-0c20-1888b38ba5cc",
@@ -1521,17 +1611,6 @@
     ]
   },
   {
-    "category" : "Humor & Satire",
-    "description" : "The internet has generated a huge amount of laughs from cats and FAILS. And we all out of cats",
-    "feedURL" : "https:\/\/failblog.cheezburger.com\/rss",
-    "id" : "66947e8e-8521-5444-8910-8517c5316120",
-    "name" : "FAIL Blog",
-    "siteURL" : "https:\/\/failblog.cheezburger.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "DIY",
     "description" : "Practical home repair, improvement tutorials, and tool reviews",
     "feedURL" : "https:\/\/www.familyhandyman.com\/feed",
@@ -1588,23 +1667,23 @@
     ]
   },
   {
+    "category" : "Business & Finance",
+    "description" : "Innovation, business design, and leadership with a forward-looking editorial voice",
+    "feedURL" : "https:\/\/www.fastcompany.com\/latest\/rss",
+    "id" : "241d8b7c-e9ae-1cc9-46da-4188d8b329d0",
+    "name" : "Fast Company",
+    "siteURL" : "https:\/\/www.fastcompany.com",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Mobile Development",
     "description" : "In-depth SwiftUI, SwiftData, and Core Data tutorials",
     "feedURL" : "https:\/\/fatbobman.com\/en\/rss.xml",
     "id" : "cc27cebf-5e08-56d1-9bad-d70aed334a74",
     "name" : "Fatbobman",
     "siteURL" : "https:\/\/fatbobman.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Business & Finance",
-    "description" : "Venture capital and startup insights",
-    "feedURL" : "https:\/\/feld.com\/feed",
-    "id" : "c181c424-6a5c-e334-08d6-2ec6b506fac7",
-    "name" : "Feld Thoughts",
-    "siteURL" : "https:\/\/feld.com\/",
     "tags" : [
 
     ]
@@ -1968,6 +2047,17 @@
     ]
   },
   {
+    "category" : "Music",
+    "description" : "Music history, culture, and industry analysis by Ted Gioia",
+    "feedURL" : "https:\/\/www.honest-broker.com\/feed",
+    "id" : "817b505e-3dd1-5f48-cdf1-d3e816774b32",
+    "name" : "Hearing Things",
+    "siteURL" : "https:\/\/www.honest-broker.com",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Fashion",
     "description" : "Streetwear, sneakers, and contemporary fashion",
     "feedURL" : "https:\/\/www.highsnobiety.com\/feeds\/rss",
@@ -2115,6 +2205,17 @@
     ]
   },
   {
+    "category" : "Music",
+    "description" : "Practical advice for independent musicians and small labels",
+    "feedURL" : "https:\/\/www.hypebot.com\/latest\/rss\/",
+    "id" : "a662e2ce-7d73-a8d0-28a2-9599f79767b8",
+    "name" : "Hypebot",
+    "siteURL" : "https:\/\/www.hypebot.com",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "History",
     "description" : "Art, culture, material history, and cultural heritage criticism",
     "feedURL" : "https:\/\/hyperallergic.com\/rss\/",
@@ -2126,12 +2227,12 @@
     ]
   },
   {
-    "category" : "Humor & Satire",
-    "description" : "World's largest collection of cat memes and other animals",
-    "feedURL" : "https:\/\/icanhas.cheezburger.com\/rss",
-    "id" : "d2fb02f2-93cb-5049-99d7-b30a6b111222",
-    "name" : "I Can Has Cheezburger?",
-    "siteURL" : "https:\/\/icanhas.cheezburger.com\/",
+    "category" : "Personal Finance",
+    "description" : "Budgeting, investing, and personal finance advice from Ramit Sethi",
+    "feedURL" : "https:\/\/www.iwillteachyoutoberich.com\/feed",
+    "id" : "672ab64d-10aa-3625-b804-84ee39801039",
+    "name" : "I Will Teach You To Be Rich",
+    "siteURL" : "https:\/\/www.iwillteachyoutoberich.com",
     "tags" : [
 
     ]
@@ -2308,8 +2409,8 @@
     ]
   },
   {
-    "category" : "Business & Finance",
-    "description" : "Articles and Podcasts on Customer Service, AI and Automation, Product, and more",
+    "category" : "Tech",
+    "description" : "Articles and podcasts on customer service, AI and automation, and product",
     "feedURL" : "https:\/\/www.intercom.com\/blog\/feed",
     "id" : "5c6fc043-91e7-d79f-3f9e-f50a630d56a2",
     "name" : "Inside Intercom",
@@ -2353,17 +2454,6 @@
     ]
   },
   {
-    "category" : "World News",
-    "description" : "CNBC International is the world leader for news on business, technology, China, trade, oil prices, the Middle East and",
-    "feedURL" : "https:\/\/www.cnbc.com\/id\/100727362\/device\/rss\/rss.html",
-    "id" : "75e1d84f-ca2f-4528-2674-52a7c301d83d",
-    "name" : "International: Top News And Analysis",
-    "siteURL" : "https:\/\/www.cnbc.com\/world-top-news\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Italy",
     "country" : "Italy",
     "description" : "Notizie, commenti, articoli, reportage, foto e video da tutto il mondo scelti dalla redazione di Internazionale",
@@ -2377,11 +2467,22 @@
   },
   {
     "category" : "Business & Finance",
-    "description" : "Real-time quotes, charts, news & tools from Investing.com. Get AI analysis & premium data with InvestingPro to uncover",
+    "description" : "Real-time quotes, charts, news & tools from Investing.com",
     "feedURL" : "https:\/\/www.investing.com\/rss\/news.rss",
     "id" : "0501ace5-f09d-f1d9-77ab-c48d52a5338e",
     "name" : "Investing.com",
     "siteURL" : "https:\/\/www.investing.com",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Business & Finance",
+    "description" : "Explainer and education content on markets, investing, and financial concepts",
+    "feedURL" : "https:\/\/feeds-api.dotdashmeredith.com\/v1\/rss\/google\/f8466ec3-5044-46bc-94b7-2df65f770eff",
+    "id" : "52569af2-03a8-1694-883d-09a0c3726bdb",
+    "name" : "Investopedia",
+    "siteURL" : "https:\/\/www.investopedia.com",
     "tags" : [
 
     ]
@@ -2475,6 +2576,17 @@
     "id" : "ac9ae333-5178-365e-42ae-469ec894e2e3",
     "name" : "Japan Today",
     "siteURL" : "https:\/\/japantoday.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Music",
+    "description" : "Jazz news, reviews, and features for a passionate audience",
+    "feedURL" : "https:\/\/www.jazztimes.com\/feed\/",
+    "id" : "bc2cd39c-74a4-47c6-1c09-953d12f92d7e",
+    "name" : "JazzTimes",
+    "siteURL" : "https:\/\/www.jazztimes.com",
     "tags" : [
 
     ]
@@ -2951,6 +3063,17 @@
     ]
   },
   {
+    "category" : "Business & Finance",
+    "description" : "Markets, personal investing, and economic news from Dow Jones",
+    "feedURL" : "https:\/\/feeds.marketwatch.com\/marketwatch\/topstories",
+    "id" : "9324cffe-90de-09b6-b8f4-9301d6170243",
+    "name" : "MarketWatch",
+    "siteURL" : "https:\/\/www.marketwatch.com",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "AI",
     "description" : "AI research news covering new papers and breakthroughs with a technical focus",
     "feedURL" : "https:\/\/www.marktechpost.com\/feed\/",
@@ -3206,6 +3329,17 @@
     "id" : "ead32bf6-6b1e-3ea0-d0f5-d684904365f3",
     "name" : "National Post",
     "siteURL" : "https:\/\/nationalpost.com",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Personal Finance",
+    "description" : "Side-by-side comparisons, reviews, and tools for credit cards, banking, and insurance",
+    "feedURL" : "https:\/\/www.nerdwallet.com\/blog\/feed",
+    "id" : "07144ef6-7ffd-4269-18cc-159243c67a72",
+    "name" : "NerdWallet",
+    "siteURL" : "https:\/\/www.nerdwallet.com",
     "tags" : [
 
     ]
@@ -3505,6 +3639,17 @@
     ]
   },
   {
+    "category" : "Music",
+    "description" : "Thoughtful, left-of-center music and culture criticism",
+    "feedURL" : "https:\/\/www.pastemagazine.com\/rss.xml",
+    "id" : "6f1605a8-6297-2782-cec5-2bb3be756de4",
+    "name" : "Paste Magazine",
+    "siteURL" : "https:\/\/www.pastemagazine.com",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Gaming",
     "description" : "The global authority on PC gaming, hardware, and Half-Life 3",
     "feedURL" : "https:\/\/www.pcgamer.com\/feeds.xml",
@@ -3775,6 +3920,17 @@
     ]
   },
   {
+    "category" : "Business & Finance",
+    "description" : "Global business journalism with a distinctive, accessible voice",
+    "feedURL" : "https:\/\/qz.com\/feed",
+    "id" : "848f6bb5-2e8f-f5b9-e48e-c6646f88407d",
+    "name" : "Quartz",
+    "siteURL" : "https:\/\/qz.com",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Books",
     "description" : "Science fiction and fantasy coverage — reviews, essays, and news",
     "feedURL" : "https:\/\/reactormag.com\/feed\/",
@@ -3792,6 +3948,17 @@
     "id" : "09bc5991-0369-545d-f6e1-5ac5d6e0716c",
     "name" : "ReadWrite",
     "siteURL" : "https:\/\/readwrite.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Humor & Satire",
+    "description" : "Women's satire site that skewers media, relationships, and lifestyle culture",
+    "feedURL" : "https:\/\/reductress.com\/feed",
+    "id" : "61b00002-b48e-a034-8ed9-46ffaca19df6",
+    "name" : "Reductress",
+    "siteURL" : "https:\/\/reductress.com",
     "tags" : [
 
     ]
@@ -3993,6 +4160,17 @@
     "id" : "37926489-2dda-135a-700c-5198dd45038e",
     "name" : "Search Engine Land",
     "siteURL" : "https:\/\/searchengineland.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Business & Finance",
+    "description" : "Crowdsourced investment analysis covering earnings, dividends, and stocks",
+    "feedURL" : "https:\/\/seekingalpha.com\/feed",
+    "id" : "877afef3-69e1-d5fa-c6d8-a00d1557e9d5",
+    "name" : "Seeking Alpha",
+    "siteURL" : "https:\/\/seekingalpha.com",
     "tags" : [
 
     ]
@@ -4251,6 +4429,17 @@
     ]
   },
   {
+    "category" : "Music",
+    "description" : "Indie and alternative album reviews, news, and features",
+    "feedURL" : "https:\/\/stereogum.com\/feed",
+    "id" : "2c763f98-fd9f-4316-7a1a-9e0aee0382e3",
+    "name" : "Stereogum",
+    "siteURL" : "https:\/\/www.stereogum.com",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "India",
     "country" : "India",
     "description" : "A big tent for liberal right of centre discourse that reaches out to the new India",
@@ -4479,6 +4668,17 @@
   },
   {
     "category" : "Humor & Satire",
+    "description" : "Conservative Christian news satire",
+    "feedURL" : "https:\/\/babylonbee.com\/feed",
+    "id" : "cc552eda-3d5b-d374-05eb-4b19c629fee6",
+    "name" : "The Babylon Bee",
+    "siteURL" : "https:\/\/babylonbee.com",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Humor & Satire",
     "description" : "Humor and personal essays by Jenny Lawson",
     "feedURL" : "https:\/\/thebloggess.com\/feed\/",
     "id" : "7d7bef99-cda8-227a-8f88-7b4ad5db8931",
@@ -4611,6 +4811,17 @@
     ]
   },
   {
+    "category" : "Humor & Satire",
+    "description" : "Punk and hardcore satire news from the underground music scene",
+    "feedURL" : "https:\/\/thehardtimes.net\/feed\/",
+    "id" : "c5b932f3-650a-831e-32cc-7a6d8265d131",
+    "name" : "The Hard Times",
+    "siteURL" : "https:\/\/thehardtimes.net",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "India",
     "country" : "India",
     "description" : "The Hindu Newspaper: Get latest News on Politics, Sports, Business, Arts, Entertainment and trending news Videos from",
@@ -4629,6 +4840,17 @@
     "id" : "839d7a74-16b9-6c55-c744-873d7f8af55a",
     "name" : "The Hollywood Reporter",
     "siteURL" : "https:\/\/www.hollywoodreporter.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Business & Finance",
+    "description" : "Daily business briefing with an accessible, slightly irreverent voice",
+    "feedURL" : "https:\/\/thehustle.co\/news\/rss.xml",
+    "id" : "24cd6274-6635-2c70-a035-caa181e44e37",
+    "name" : "The Hustle",
+    "siteURL" : "https:\/\/thehustle.co",
     "tags" : [
 
     ]
@@ -4675,6 +4897,17 @@
     "id" : "cbfc036d-108c-ecf7-5aea-473ad5d1cbf5",
     "name" : "The Moscow Times",
     "siteURL" : "https:\/\/www.themoscowtimes.com\/news",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Business & Finance",
+    "description" : "Free editorial content on investing and company analysis",
+    "feedURL" : "https:\/\/www.fool.com\/feeds\/index.aspx",
+    "id" : "5d312f5c-9836-2971-6c6b-c442e56b6ae0",
+    "name" : "The Motley Fool",
+    "siteURL" : "https:\/\/www.fool.com",
     "tags" : [
 
     ]
@@ -4755,6 +4988,17 @@
     "id" : "cc71e918-4e11-47d5-c431-c2ec61711575",
     "name" : "The Public Domain Review",
     "siteURL" : "https:\/\/publicdomainreview.org\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Music",
+    "description" : "Adventurous music writing beyond mainstream indie",
+    "feedURL" : "https:\/\/thequietus.com\/feed",
+    "id" : "3c6555d3-104b-2a6e-b1e3-197d148ef48e",
+    "name" : "The Quietus",
+    "siteURL" : "https:\/\/thequietus.com",
     "tags" : [
 
     ]
@@ -4874,12 +5118,13 @@
     ]
   },
   {
-    "category" : "World News",
-    "description" : "World News: TOI brings the latest world news headlines, Current International breaking news world wide. In depth",
+    "category" : "India",
+    "country" : "India",
+    "description" : "India's most widely read English newspaper, covering national and world news",
     "feedURL" : "https:\/\/timesofindia.indiatimes.com\/rssfeeds\/296589292.cms",
     "id" : "c59be43c-0f92-9ebb-4109-4ec1dd54f575",
     "name" : "Times of India",
-    "siteURL" : "https:\/\/timesofindia.indiatimes.com\/world",
+    "siteURL" : "https:\/\/timesofindia.indiatimes.com",
     "tags" : [
 
     ]
@@ -5112,6 +5357,17 @@
     ]
   },
   {
+    "category" : "Business & Finance",
+    "description" : "Data visualization focused business and markets content",
+    "feedURL" : "https:\/\/www.visualcapitalist.com\/feed\/",
+    "id" : "23e9208d-82a2-dea2-c33d-03439562654e",
+    "name" : "Visual Capitalist",
+    "siteURL" : "https:\/\/www.visualcapitalist.com",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Fashion",
     "description" : "The original fashion, beauty, and lifestyle authority",
     "feedURL" : "https:\/\/www.vogue.com\/feed\/rss",
@@ -5252,6 +5508,17 @@
     "id" : "80728d6e-c67a-7869-e601-cb1d7f831fb6",
     "name" : "Yachting World",
     "siteURL" : "https:\/\/www.yachtingworld.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Business & Finance",
+    "description" : "Market news, earnings coverage, and financial aggregation",
+    "feedURL" : "https:\/\/finance.yahoo.com\/news\/rss.xml",
+    "id" : "f502be6b-2f74-307d-7b99-9c2a029112f5",
+    "name" : "Yahoo Finance",
+    "siteURL" : "https:\/\/finance.yahoo.com",
     "tags" : [
 
     ]

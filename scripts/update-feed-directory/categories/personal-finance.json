@@ -19,6 +19,15 @@
   },
   {
     "category": "Personal Finance",
+    "description": "Budgeting, investing, and personal finance advice from Ramit Sethi",
+    "feedURL": "https://www.iwillteachyoutoberich.com/feed",
+    "id": "672ab64d-10aa-3625-b804-84ee39801039",
+    "name": "I Will Teach You To Be Rich",
+    "siteURL": "https://www.iwillteachyoutoberich.com",
+    "tags": []
+  },
+  {
+    "category": "Personal Finance",
     "description": "Saving money, paying off debt, and making smarter financial decisions",
     "feedURL": "https://makingsenseofcents.com/feed",
     "id": "9ae3fa68-a393-54b5-91d1-7a48879c8da4",
@@ -33,6 +42,15 @@
     "id": "99c68bf8-9ccc-5b73-b88b-6b4a78c55b0f",
     "name": "Money Talks News",
     "siteURL": "https://moneytalksnews.com",
+    "tags": []
+  },
+  {
+    "category": "Personal Finance",
+    "description": "Side-by-side comparisons, reviews, and tools for credit cards, banking, and insurance",
+    "feedURL": "https://www.nerdwallet.com/blog/feed",
+    "id": "07144ef6-7ffd-4269-18cc-159243c67a72",
+    "name": "NerdWallet",
+    "siteURL": "https://www.nerdwallet.com",
     "tags": []
   }
 ]

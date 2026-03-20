@@ -19,6 +19,15 @@
   },
   {
     "category": "Marketing",
+    "description": "Small business marketing tips and strategies",
+    "feedURL": "https://ducttape.libsyn.com/rss",
+    "id": "d3242674-3285-be41-18b0-e9cf72c5d0bd",
+    "name": "Duct Tape Marketing",
+    "siteURL": "https://www.ducttapemarketing.com/about/duct-tape-marketing-podcast/",
+    "tags": []
+  },
+  {
+    "category": "Marketing",
     "description": "Insider coverage of how digital marketing and media actually works",
     "feedURL": "https://digiday.com/feed/",
     "id": "a8ef91a3-6616-d9c1-2b5d-ef4d06829573",

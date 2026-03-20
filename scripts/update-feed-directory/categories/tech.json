@@ -100,6 +100,15 @@
   },
   {
     "category": "Tech",
+    "description": "Articles and podcasts on customer service, AI and automation, and product",
+    "feedURL": "https://www.intercom.com/blog/feed",
+    "id": "5c6fc043-91e7-d79f-3f9e-f50a630d56a2",
+    "name": "Inside Intercom",
+    "siteURL": "https://www.intercom.com/blog/",
+    "tags": []
+  },
+  {
+    "category": "Tech",
     "description": "Do everything better",
     "feedURL": "https://lifehacker.com/rss",
     "id": "2e0f8d1e-c5f5-630d-8ace-851c78ed2a4a",

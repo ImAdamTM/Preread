@@ -42,11 +42,31 @@
   {
     "category": "India",
     "country": "India",
+    "description": "Indian business, markets, and economic news",
+    "feedURL": "https://www.business-standard.com/rss/home_page_top_stories.rss",
+    "id": "70b72ac2-200e-8358-f55a-8fd0b93315c0",
+    "name": "Business Standard",
+    "siteURL": "https://www.business-standard.com",
+    "tags": []
+  },
+  {
+    "category": "India",
+    "country": "India",
     "description": "Deccan Chronicle brings you the latest news, views, analysis and images from India and the world",
     "feedURL": "https://www.deccanchronicle.com/rss_feed/",
     "id": "49d0299e-a7e9-e471-c594-4d6847d18c98",
     "name": "Deccan Chronicle",
     "siteURL": "https://www.deccanchronicle.com",
+    "tags": []
+  },
+  {
+    "category": "India",
+    "country": "India",
+    "description": "The Economic Times: Latest business, finance, markets, stocks, company news from India",
+    "feedURL": "https://economictimes.indiatimes.com/rssfeedsdefault.cms",
+    "id": "244f9e96-12cc-f830-0c20-1888b38ba5cc",
+    "name": "Economic Times",
+    "siteURL": "https://economictimes.indiatimes.com",
     "tags": []
   },
   {
@@ -107,6 +127,16 @@
     "id": "8444b0a6-6185-5c50-9876-93bf29ffb645",
     "name": "TechGenyz",
     "siteURL": "https://techgenyz.com/",
+    "tags": []
+  },
+  {
+    "category": "India",
+    "country": "India",
+    "description": "India's most widely read English newspaper, covering national and world news",
+    "feedURL": "https://timesofindia.indiatimes.com/rssfeeds/296589292.cms",
+    "id": "c59be43c-0f92-9ebb-4109-4ec1dd54f575",
+    "name": "Times of India",
+    "siteURL": "https://timesofindia.indiatimes.com",
     "tags": []
   },
   {

@@ -10,24 +10,6 @@
   },
   {
     "category": "Humor & Satire",
-    "description": "The internet has generated a huge amount of laughs from cats and FAILS. And we all out of cats",
-    "feedURL": "https://failblog.cheezburger.com/rss",
-    "id": "66947e8e-8521-5444-8910-8517c5316120",
-    "name": "FAIL Blog",
-    "siteURL": "https://failblog.cheezburger.com/",
-    "tags": []
-  },
-  {
-    "category": "Humor & Satire",
-    "description": "World's largest collection of cat memes and other animals",
-    "feedURL": "https://icanhas.cheezburger.com/rss",
-    "id": "d2fb02f2-93cb-5049-99d7-b30a6b111222",
-    "name": "I Can Has Cheezburger?",
-    "siteURL": "https://icanhas.cheezburger.com/",
-    "tags": []
-  },
-  {
-    "category": "Humor & Satire",
     "description": "Literary humor, satirical essays, and lists from one of the web's most distinctive comedy voices",
     "feedURL": "https://feeds.feedburner.com/mcsweeneys",
     "id": "275986ee-5926-132e-978a-7a1d8d081601",
@@ -37,11 +19,38 @@
   },
   {
     "category": "Humor & Satire",
+    "description": "Women's satire site that skewers media, relationships, and lifestyle culture",
+    "feedURL": "https://reductress.com/feed",
+    "id": "61b00002-b48e-a034-8ed9-46ffaca19df6",
+    "name": "Reductress",
+    "siteURL": "https://reductress.com",
+    "tags": []
+  },
+  {
+    "category": "Humor & Satire",
+    "description": "Conservative Christian news satire",
+    "feedURL": "https://babylonbee.com/feed",
+    "id": "cc552eda-3d5b-d374-05eb-4b19c629fee6",
+    "name": "The Babylon Bee",
+    "siteURL": "https://babylonbee.com",
+    "tags": []
+  },
+  {
+    "category": "Humor & Satire",
     "description": "Humor and personal essays by Jenny Lawson",
     "feedURL": "https://thebloggess.com/feed/",
     "id": "7d7bef99-cda8-227a-8f88-7b4ad5db8931",
     "name": "The Bloggess",
     "siteURL": "https://thebloggess.com",
+    "tags": []
+  },
+  {
+    "category": "Humor & Satire",
+    "description": "Punk and hardcore satire news from the underground music scene",
+    "feedURL": "https://thehardtimes.net/feed/",
+    "id": "c5b932f3-650a-831e-32cc-7a6d8265d131",
+    "name": "The Hard Times",
+    "siteURL": "https://thehardtimes.net",
     "tags": []
   },
   {

@@ -1,29 +1,20 @@
 [
   {
     "category": "Business & Finance",
-    "description": "Real-time quotes, charts, news & tools from Investing.com. Get AI analysis & premium data with InvestingPro to uncover",
-    "feedURL": "https://www.investing.com/rss/news.rss",
-    "id": "0501ace5-f09d-f1d9-77ab-c48d52a5338e",
-    "name": "Investing.com",
-    "siteURL": "https://www.investing.com",
+    "description": "Business news with massive reach covering markets, careers, and corporate culture",
+    "feedURL": "https://feeds.businessinsider.com/custom/all",
+    "id": "5e8ad580-afd9-9bd6-aad4-eb4be29200d4",
+    "name": "Business Insider",
+    "siteURL": "https://www.businessinsider.com",
     "tags": []
   },
   {
     "category": "Business & Finance",
-    "description": "Small business marketing tips and strategies",
-    "feedURL": "https://ducttape.libsyn.com/rss",
-    "id": "d3242674-3285-be41-18b0-e9cf72c5d0bd",
-    "name": "Duct Tape Marketing",
-    "siteURL": "https://www.ducttapemarketing.com/about/duct-tape-marketing-podcast/",
-    "tags": []
-  },
-  {
-    "category": "Business & Finance",
-    "description": "The Economic Times: Latest business, finance, markets, stocks, company news from India",
-    "feedURL": "https://economictimes.indiatimes.com/rssfeedsdefault.cms",
-    "id": "244f9e96-12cc-f830-0c20-1888b38ba5cc",
-    "name": "Economic Times",
-    "siteURL": "https://economictimes.indiatimes.com",
+    "description": "Business news covering markets, economy, corporate news, and earnings",
+    "feedURL": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10001147",
+    "id": "87d0a449-0004-94b5-516f-75f826debcd0",
+    "name": "CNBC",
+    "siteURL": "https://www.cnbc.com",
     "tags": []
   },
   {
@@ -37,11 +28,11 @@
   },
   {
     "category": "Business & Finance",
-    "description": "Venture capital and startup insights",
-    "feedURL": "https://feld.com/feed",
-    "id": "c181c424-6a5c-e334-08d6-2ec6b506fac7",
-    "name": "Feld Thoughts",
-    "siteURL": "https://feld.com/",
+    "description": "Innovation, business design, and leadership with a forward-looking editorial voice",
+    "feedURL": "https://www.fastcompany.com/latest/rss",
+    "id": "241d8b7c-e9ae-1cc9-46da-4188d8b329d0",
+    "name": "Fast Company",
+    "siteURL": "https://www.fastcompany.com",
     "tags": []
   },
   {
@@ -64,15 +55,6 @@
   },
   {
     "category": "Business & Finance",
-    "description": "Indian business, markets, and economic news",
-    "feedURL": "https://www.business-standard.com/rss/home_page_top_stories.rss",
-    "id": "70b72ac2-200e-8358-f55a-8fd0b93315c0",
-    "name": "Business Standard",
-    "siteURL": "https://www.business-standard.com",
-    "tags": []
-  },
-  {
-    "category": "Business & Finance",
     "description": "Resources and advice for entrepreneurs and business leaders",
     "feedURL": "https://www.inc.com/rss/",
     "id": "84556dcb-442c-abe8-d233-e23509f37339",
@@ -82,11 +64,83 @@
   },
   {
     "category": "Business & Finance",
-    "description": "Articles and Podcasts on Customer Service, AI and Automation, Product, and more",
-    "feedURL": "https://www.intercom.com/blog/feed",
-    "id": "5c6fc043-91e7-d79f-3f9e-f50a630d56a2",
-    "name": "Inside Intercom",
-    "siteURL": "https://www.intercom.com/blog/",
+    "description": "Explainer and education content on markets, investing, and financial concepts",
+    "feedURL": "https://feeds-api.dotdashmeredith.com/v1/rss/google/f8466ec3-5044-46bc-94b7-2df65f770eff",
+    "id": "52569af2-03a8-1694-883d-09a0c3726bdb",
+    "name": "Investopedia",
+    "siteURL": "https://www.investopedia.com",
+    "tags": []
+  },
+  {
+    "category": "Business & Finance",
+    "description": "Real-time quotes, charts, news & tools from Investing.com",
+    "feedURL": "https://www.investing.com/rss/news.rss",
+    "id": "0501ace5-f09d-f1d9-77ab-c48d52a5338e",
+    "name": "Investing.com",
+    "siteURL": "https://www.investing.com",
+    "tags": []
+  },
+  {
+    "category": "Business & Finance",
+    "description": "Markets, personal investing, and economic news from Dow Jones",
+    "feedURL": "https://feeds.marketwatch.com/marketwatch/topstories",
+    "id": "9324cffe-90de-09b6-b8f4-9301d6170243",
+    "name": "MarketWatch",
+    "siteURL": "https://www.marketwatch.com",
+    "tags": []
+  },
+  {
+    "category": "Business & Finance",
+    "description": "Global business journalism with a distinctive, accessible voice",
+    "feedURL": "https://qz.com/feed",
+    "id": "848f6bb5-2e8f-f5b9-e48e-c6646f88407d",
+    "name": "Quartz",
+    "siteURL": "https://qz.com",
+    "tags": []
+  },
+  {
+    "category": "Business & Finance",
+    "description": "Crowdsourced investment analysis covering earnings, dividends, and stocks",
+    "feedURL": "https://seekingalpha.com/feed",
+    "id": "877afef3-69e1-d5fa-c6d8-a00d1557e9d5",
+    "name": "Seeking Alpha",
+    "siteURL": "https://seekingalpha.com",
+    "tags": []
+  },
+  {
+    "category": "Business & Finance",
+    "description": "Daily business briefing with an accessible, slightly irreverent voice",
+    "feedURL": "https://thehustle.co/news/rss.xml",
+    "id": "24cd6274-6635-2c70-a035-caa181e44e37",
+    "name": "The Hustle",
+    "siteURL": "https://thehustle.co",
+    "tags": []
+  },
+  {
+    "category": "Business & Finance",
+    "description": "Free editorial content on investing and company analysis",
+    "feedURL": "https://www.fool.com/feeds/index.aspx",
+    "id": "5d312f5c-9836-2971-6c6b-c442e56b6ae0",
+    "name": "The Motley Fool",
+    "siteURL": "https://www.fool.com",
+    "tags": []
+  },
+  {
+    "category": "Business & Finance",
+    "description": "Data visualization focused business and markets content",
+    "feedURL": "https://www.visualcapitalist.com/feed/",
+    "id": "23e9208d-82a2-dea2-c33d-03439562654e",
+    "name": "Visual Capitalist",
+    "siteURL": "https://www.visualcapitalist.com",
+    "tags": []
+  },
+  {
+    "category": "Business & Finance",
+    "description": "Market news, earnings coverage, and financial aggregation",
+    "feedURL": "https://finance.yahoo.com/news/rss.xml",
+    "id": "f502be6b-2f74-307d-7b99-9c2a029112f5",
+    "name": "Yahoo Finance",
+    "siteURL": "https://finance.yahoo.com",
     "tags": []
   }
 ]
