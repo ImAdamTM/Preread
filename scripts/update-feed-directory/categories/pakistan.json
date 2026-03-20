@@ -7,7 +7,13 @@
     "id": "86d6b6aa-91c4-0c35-4cbe-689c6b997f88",
     "name": "News Blog",
     "siteURL": "https://newsnblogs.com",
-    "tags": []
+    "tags": [
+      "pakistani",
+      "karachi",
+      "tech",
+      "sports",
+      "health"
+    ]
   },
   {
     "category": "Pakistan",
@@ -17,7 +23,13 @@
     "id": "b95d42ad-0d90-0c1c-d159-f4fb8f71794c",
     "name": "The Nation",
     "siteURL": "https://www.nation.com.pk/rss/top-stories",
-    "tags": []
+    "tags": [
+      "pakistani",
+      "lahore",
+      "politics",
+      "opinion",
+      "urdu"
+    ]
   },
   {
     "category": "Pakistan",
@@ -27,6 +39,12 @@
     "id": "37cd9fdd-5163-e1d2-21df-a953bcc3a372",
     "name": "The News International - Pakistan",
     "siteURL": "https://www.thenews.com.pk/",
-    "tags": []
+    "tags": [
+      "pakistani",
+      "english",
+      "politics",
+      "cricket",
+      "economy"
+    ]
   }
 ]

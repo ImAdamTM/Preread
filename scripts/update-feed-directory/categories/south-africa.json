@@ -7,7 +7,13 @@
     "id": "70910589-a310-4b1d-17f2-292257d6ab67",
     "name": "Daily Maverick",
     "siteURL": "https://www.dailymaverick.co.za",
-    "tags": []
+    "tags": [
+      "investigations",
+      "politics",
+      "corruption",
+      "opinion",
+      "johannesburg"
+    ]
   },
   {
     "category": "South Africa",
@@ -17,7 +23,13 @@
     "id": "f48866ff-9680-7746-8349-6598c6f5f105",
     "name": "IOL section feed for News",
     "siteURL": "https://www.iol.co.za",
-    "tags": []
+    "tags": [
+      "south african",
+      "cape town",
+      "durban",
+      "national",
+      "crime"
+    ]
   },
   {
     "category": "South Africa",
@@ -27,7 +39,13 @@
     "id": "03deadca-0e8b-fa59-8456-d114b729a75c",
     "name": "Moneyweb",
     "siteURL": "https://www.moneyweb.co.za",
-    "tags": []
+    "tags": [
+      "jse",
+      "rand",
+      "investments",
+      "economy",
+      "tax"
+    ]
   },
   {
     "category": "South Africa",
@@ -37,7 +55,13 @@
     "id": "b5b16cb5-36be-4f67-350b-75550911066c",
     "name": "News24 Top Stories",
     "siteURL": "https://www.news24.com/southafrica/crime-and-courts/suspect-arrested-in-murder-of-madlanga-commissions-witness-d-20260314-1088",
-    "tags": []
+    "tags": [
+      "south african",
+      "breaking",
+      "crime",
+      "politics",
+      "sport"
+    ]
   },
   {
     "category": "South Africa",
@@ -47,7 +71,13 @@
     "id": "34252c0f-b9b1-654c-df02-7bd528b5ee8d",
     "name": "TechCentral",
     "siteURL": "https://techcentral.co.za/",
-    "tags": []
+    "tags": [
+      "south african",
+      "telecoms",
+      "it",
+      "startups",
+      "broadband"
+    ]
   },
   {
     "category": "South Africa",
@@ -57,7 +87,13 @@
     "id": "58dfc499-5a7f-faec-6698-156dd95e94c3",
     "name": "The Citizen",
     "siteURL": "https://www.citizen.co.za/",
-    "tags": []
+    "tags": [
+      "south african",
+      "politics",
+      "crime",
+      "sport",
+      "lifestyle"
+    ]
   },
   {
     "category": "South Africa",
@@ -67,6 +103,12 @@
     "id": "3842b774-2c61-8043-93c2-3be51f64ba7e",
     "name": "The South African",
     "siteURL": "https://www.thesouthafrican.com/",
-    "tags": []
+    "tags": [
+      "south african",
+      "expat",
+      "sport",
+      "rugby",
+      "loadshedding"
+    ]
   }
 ]

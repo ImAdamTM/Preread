@@ -7,7 +7,13 @@
     "id": "2643d6de-5410-3a6a-fdce-2316e9a040c6",
     "name": "FOX News",
     "siteURL": "https://www.foxnews.com/",
-    "tags": []
+    "tags": [
+      "conservative",
+      "politics",
+      "opinion",
+      "washington",
+      "breaking"
+    ]
   },
   {
     "category": "United States",
@@ -17,7 +23,13 @@
     "id": "265fe870-a638-edc6-9e12-41513972397e",
     "name": "Yahoo News",
     "siteURL": "https://www.yahoo.com/news",
-    "tags": []
+    "tags": [
+      "aggregation",
+      "politics",
+      "breaking",
+      "viral",
+      "video"
+    ]
   },
   {
     "category": "United States",
@@ -26,7 +38,13 @@
     "feedURL": "https://rss.politico.com/playbook.xml",
     "id": "1018c501-6f82-8028-87ef-5c4977c84efb",
     "name": "Playbook",
-    "tags": []
+    "tags": [
+      "politico",
+      "washington",
+      "congress",
+      "white house",
+      "insiders"
+    ]
   },
   {
     "category": "United States",
@@ -36,7 +54,13 @@
     "id": "a25f7373-5963-d64a-7434-05c665d1f9a7",
     "name": "US Top News and Analysis",
     "siteURL": "https://www.cnbc.com/us-top-news-and-analysis/",
-    "tags": []
+    "tags": [
+      "markets",
+      "economy",
+      "wall street",
+      "breaking",
+      "cnbc"
+    ]
   },
   {
     "category": "United States",
@@ -46,6 +70,12 @@
     "id": "fbc3b80b-9968-8e64-f2fa-9dea7b453c20",
     "name": "World & Nation",
     "siteURL": "https://www.latimes.com",
-    "tags": []
+    "tags": [
+      "la times",
+      "california",
+      "politics",
+      "immigration",
+      "national"
+    ]
   }
 ]

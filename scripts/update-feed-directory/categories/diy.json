@@ -6,7 +6,13 @@
     "id": "595182e2-a471-1b15-a43a-bfb8e8d26e33",
     "name": "A Beautiful Mess",
     "siteURL": "https://abeautifulmess.com/",
-    "tags": []
+    "tags": [
+      "crafts",
+      "home decor",
+      "recipes",
+      "lifestyle",
+      "creative"
+    ]
   },
   {
     "category": "DIY",
@@ -15,7 +21,13 @@
     "id": "ef183625-1e24-1fac-3552-e1a02bd61675",
     "name": "Adafruit",
     "siteURL": "https://blog.adafruit.com/",
-    "tags": []
+    "tags": [
+      "electronics",
+      "arduino",
+      "raspberry pi",
+      "maker",
+      "circuits"
+    ]
   },
   {
     "category": "DIY",
@@ -24,7 +36,13 @@
     "id": "07c03631-b2d5-f679-a3de-d7ae00cf7516",
     "name": "Ana White",
     "siteURL": "https://www.ana-white.com/",
-    "tags": []
+    "tags": [
+      "woodworking",
+      "furniture",
+      "plans",
+      "beginner",
+      "building"
+    ]
   },
   {
     "category": "DIY",
@@ -33,7 +51,13 @@
     "id": "a1e31c51-909b-d34c-7e51-82efb043ff40",
     "name": "Bob Vila",
     "siteURL": "https://www.bobvila.com/",
-    "tags": []
+    "tags": [
+      "home repair",
+      "renovation",
+      "tools",
+      "plumbing",
+      "electrical"
+    ]
   },
   {
     "category": "DIY",
@@ -42,7 +66,13 @@
     "id": "bfb0c1d2-09cc-0bc0-6f45-be2da9b71841",
     "name": "Brit + Co",
     "siteURL": "https://www.brit.co/",
-    "tags": []
+    "tags": [
+      "crafts",
+      "creative",
+      "lifestyle",
+      "parties",
+      "home decor"
+    ]
   },
   {
     "category": "DIY",
@@ -51,7 +81,13 @@
     "id": "e435f289-630d-b3de-8958-5fb900534aab",
     "name": "Doityourself.com",
     "siteURL": "https://www.doityourself.com",
-    "tags": []
+    "tags": [
+      "home repair",
+      "plumbing",
+      "electrical",
+      "painting",
+      "flooring"
+    ]
   },
   {
     "category": "DIY",
@@ -60,7 +96,13 @@
     "id": "7f09718c-dd82-7890-a2fb-19f15807fc73",
     "name": "Family Handyman",
     "siteURL": "https://www.familyhandyman.com/",
-    "tags": []
+    "tags": [
+      "home repair",
+      "tools",
+      "plumbing",
+      "woodworking",
+      "garage"
+    ]
   },
   {
     "category": "DIY",
@@ -69,7 +111,13 @@
     "id": "53032e89-a902-fb6a-aa91-3d4634af8cb7",
     "name": "Fine Woodworking",
     "siteURL": "https://www.finewoodworking.com/",
-    "tags": []
+    "tags": [
+      "joinery",
+      "hand tools",
+      "furniture",
+      "techniques",
+      "lumber"
+    ]
   },
   {
     "category": "DIY",
@@ -78,7 +126,13 @@
     "id": "baabfa3b-b514-98f2-9f5d-ee32fd604f9c",
     "name": "Hackaday",
     "siteURL": "https://hackaday.com/",
-    "tags": []
+    "tags": [
+      "hacking",
+      "electronics",
+      "maker",
+      "teardowns",
+      "circuits"
+    ]
   },
   {
     "category": "DIY",
@@ -87,7 +141,13 @@
     "id": "5cb6f1e1-def0-aa67-cc4c-09ec459e7d7d",
     "name": "Hackster.io",
     "siteURL": "https://www.hackster.io/",
-    "tags": []
+    "tags": [
+      "iot",
+      "arduino",
+      "tutorials",
+      "sensors",
+      "embedded"
+    ]
   },
   {
     "category": "DIY",
@@ -96,7 +156,13 @@
     "id": "3acf9f94-b19e-2f64-803f-b719830935dc",
     "name": "IKEA Hackers",
     "siteURL": "https://ikeahackers.net",
-    "tags": []
+    "tags": [
+      "ikea",
+      "furniture hacks",
+      "budget",
+      "storage",
+      "upcycling"
+    ]
   },
   {
     "category": "DIY",
@@ -105,7 +171,13 @@
     "id": "718b436c-3825-bb28-9d4e-baf45bf263d6",
     "name": "Lia Griffith",
     "siteURL": "https://liagriffith.com/",
-    "tags": []
+    "tags": [
+      "paper crafts",
+      "svg",
+      "cricut",
+      "templates",
+      "handmade"
+    ]
   },
   {
     "category": "DIY",
@@ -114,7 +186,13 @@
     "id": "5d249141-cfe5-4690-c3c3-01d76c3365e7",
     "name": "Make: Magazine",
     "siteURL": "https://makezine.com/",
-    "tags": []
+    "tags": [
+      "maker",
+      "3d printing",
+      "robotics",
+      "electronics",
+      "projects"
+    ]
   },
   {
     "category": "DIY",
@@ -123,7 +201,13 @@
     "id": "d76d61ff-6b82-ab68-f24b-89ff53123718",
     "name": "The Spruce",
     "siteURL": "https://www.thespruce.com/",
-    "tags": []
+    "tags": [
+      "home decor",
+      "gardening",
+      "cleaning",
+      "organizing",
+      "pets"
+    ]
   },
   {
     "category": "DIY",
@@ -132,6 +216,12 @@
     "id": "40b7231d-e791-a6a5-327b-f33a2f2d96f0",
     "name": "The Wood Whisperer",
     "siteURL": "https://thewoodwhisperer.com/",
-    "tags": []
+    "tags": [
+      "woodworking",
+      "video",
+      "furniture",
+      "finishing",
+      "tools"
+    ]
   }
 ]

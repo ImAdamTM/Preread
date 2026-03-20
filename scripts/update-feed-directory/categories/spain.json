@@ -7,7 +7,13 @@
     "id": "1cb5f7ec-73e6-3009-2f16-a2441442b79b",
     "name": "EL PAÍS: el periódico global",
     "siteURL": "https://elpais.com",
-    "tags": []
+    "tags": [
+      "spanish",
+      "politica",
+      "economia",
+      "cultura",
+      "madrid"
+    ]
   },
   {
     "category": "Spain",
@@ -17,7 +23,13 @@
     "id": "177c7afd-aada-9473-dc21-568a8179b827",
     "name": "ElDiario.es - ElDiario.es",
     "siteURL": "https://www.eldiario.es/",
-    "tags": []
+    "tags": [
+      "spanish",
+      "progresista",
+      "investigacion",
+      "politica",
+      "opinion"
+    ]
   },
   {
     "category": "Spain",
@@ -26,7 +38,13 @@
     "feedURL": "https://rss.elconfidencial.com/espana/",
     "id": "2a77e2e7-1bee-3493-b144-c09f82259251",
     "name": "España",
-    "tags": []
+    "tags": [
+      "spanish",
+      "nacional",
+      "politica",
+      "madrid",
+      "comunidades"
+    ]
   },
   {
     "category": "Spain",
@@ -36,7 +54,13 @@
     "id": "46cb5e07-1a3c-c1dd-becc-67c2beb904a1",
     "name": "Euro Weekly News Spain",
     "siteURL": "https://euroweeklynews.com",
-    "tags": []
+    "tags": [
+      "english",
+      "expat",
+      "costa del sol",
+      "british",
+      "lifestyle"
+    ]
   },
   {
     "category": "Spain",
@@ -46,7 +70,13 @@
     "id": "d58b2517-70b6-b97e-72f1-886dc0a46518",
     "name": "huffingtonpost.es",
     "siteURL": "https://www.huffingtonpost.es/",
-    "tags": []
+    "tags": [
+      "spanish",
+      "tendencias",
+      "virales",
+      "politica",
+      "opinion"
+    ]
   },
   {
     "category": "Spain",
@@ -56,6 +86,12 @@
     "id": "b37a9e61-e872-7115-7754-4b62bb116e98",
     "name": "Portada // expansion",
     "siteURL": "https://www.expansion.com",
-    "tags": []
+    "tags": [
+      "spanish",
+      "economia",
+      "bolsa",
+      "empresas",
+      "mercados"
+    ]
   }
 ]

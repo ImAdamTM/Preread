@@ -6,7 +6,13 @@
     "id": "a6d026e5-9175-e6b8-dfdc-84c6ff0bb707",
     "name": "BBC News: Science & Environment",
     "siteURL": "https://www.bbc.co.uk/news/science_and_environment",
-    "tags": []
+    "tags": [
+      "british",
+      "climate",
+      "nature",
+      "discoveries",
+      "space"
+    ]
   },
   {
     "category": "Science",
@@ -15,7 +21,13 @@
     "id": "d49efeb3-738e-5c5d-a994-54a862ba8cb8",
     "name": "Knowable Magazine",
     "siteURL": "https://knowablemagazine.org",
-    "tags": []
+    "tags": [
+      "explainers",
+      "reviews",
+      "journals",
+      "accessible",
+      "research"
+    ]
   },
   {
     "category": "Science",
@@ -24,7 +36,13 @@
     "id": "6511ef25-8e6c-0b7b-3413-f87e408e93d5",
     "name": "Live Science",
     "siteURL": "https://www.livescience.com/",
-    "tags": []
+    "tags": [
+      "nature",
+      "health",
+      "space",
+      "dinosaurs",
+      "weird"
+    ]
   },
   {
     "category": "Science",
@@ -33,7 +51,13 @@
     "id": "be84762c-0520-3043-9b68-550373bf9304",
     "name": "New Scientist",
     "siteURL": "https://www.newscientist.com/",
-    "tags": []
+    "tags": [
+      "longform",
+      "physics",
+      "biology",
+      "health",
+      "climate"
+    ]
   },
   {
     "category": "Science",
@@ -42,7 +66,13 @@
     "id": "b157f7a1-fae2-4ec4-fb61-0b4f386a9d8e",
     "name": "Phys.org",
     "siteURL": "https://phys.org/",
-    "tags": []
+    "tags": [
+      "press releases",
+      "physics",
+      "biology",
+      "earth",
+      "nanotech"
+    ]
   },
   {
     "category": "Science",
@@ -51,7 +81,13 @@
     "id": "741b88dd-6ee3-ad6b-4cb7-0bfbfb96dc5c",
     "name": "Popular Science",
     "siteURL": "https://www.popsci.com/",
-    "tags": []
+    "tags": [
+      "gadgets",
+      "reviews",
+      "diy",
+      "space",
+      "health"
+    ]
   },
   {
     "category": "Science",
@@ -60,7 +96,13 @@
     "id": "edd2d7dd-c5a7-55b2-a407-644fc94eae0c",
     "name": "Science Magazine",
     "siteURL": "https://www.science.org/news",
-    "tags": []
+    "tags": [
+      "peer-reviewed",
+      "papers",
+      "aaas",
+      "journals",
+      "breakthroughs"
+    ]
   },
   {
     "category": "Science",
@@ -69,7 +111,13 @@
     "id": "7d633c68-0359-bb8e-d8d1-95115aec5bd0",
     "name": "ScienceAlert",
     "siteURL": "https://www.sciencealert.com/",
-    "tags": []
+    "tags": [
+      "viral",
+      "discoveries",
+      "space",
+      "health",
+      "nature"
+    ]
   },
   {
     "category": "Science",
@@ -78,7 +126,13 @@
     "id": "6cc0875b-fb4f-5a80-9677-a027b9695008",
     "name": "Science News",
     "siteURL": "https://www.sciencenews.org",
-    "tags": []
+    "tags": [
+      "weekly",
+      "physics",
+      "biology",
+      "archaeology",
+      "health"
+    ]
   },
   {
     "category": "Science",
@@ -87,7 +141,13 @@
     "id": "cbc0fc8a-6abb-b7f8-b399-82ef08dfd2e4",
     "name": "Scientific American",
     "siteURL": "https://www.scientificamerican.com/",
-    "tags": []
+    "tags": [
+      "longform",
+      "opinion",
+      "physics",
+      "health",
+      "climate"
+    ]
   },
   {
     "category": "Science",
@@ -96,6 +156,12 @@
     "id": "dd45cb48-628f-81be-013e-64c0f2d3e878",
     "name": "The Conversation",
     "siteURL": "https://theconversation.com/",
-    "tags": []
+    "tags": [
+      "academics",
+      "experts",
+      "evidence",
+      "research",
+      "essays"
+    ]
   }
 ]

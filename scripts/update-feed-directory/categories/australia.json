@@ -7,7 +7,13 @@
     "id": "55bddf50-93ea-cbbf-376a-d6303341b019",
     "name": "ABC News",
     "siteURL": "https://www.abc.net.au",
-    "tags": []
+    "tags": [
+      "australian",
+      "politics",
+      "rural",
+      "indigenous",
+      "national"
+    ]
   },
   {
     "category": "Australia",
@@ -17,7 +23,13 @@
     "id": "b61baf9b-762f-441e-fd39-2ad9f2f57a2a",
     "name": "Brisbane Times",
     "siteURL": "https://www.brisbanetimes.com.au/rss/feed.xml",
-    "tags": []
+    "tags": [
+      "queensland",
+      "brisbane",
+      "local",
+      "politics",
+      "property"
+    ]
   },
   {
     "category": "Australia",
@@ -27,7 +39,13 @@
     "id": "42730adb-107e-19bf-0c5d-725a7b79106c",
     "name": "Canberra Times",
     "siteURL": "https://www.canberratimes.com.au/news/local-news/",
-    "tags": []
+    "tags": [
+      "canberra",
+      "act",
+      "politics",
+      "local",
+      "public service"
+    ]
   },
   {
     "category": "Australia",
@@ -37,7 +55,13 @@
     "id": "5b88464a-5583-3468-4e21-c6c40c7f4d23",
     "name": "Michael West",
     "siteURL": "https://michaelwest.com.au/",
-    "tags": []
+    "tags": [
+      "investigations",
+      "corporate",
+      "tax",
+      "accountability",
+      "independent"
+    ]
   },
   {
     "category": "Australia",
@@ -47,7 +71,13 @@
     "id": "47b5d2cb-3126-8076-2cc9-d197ac546d19",
     "name": "PerthNow",
     "siteURL": "https://www.perthnow.com.au/news",
-    "tags": []
+    "tags": [
+      "perth",
+      "western australia",
+      "local",
+      "sport",
+      "lifestyle"
+    ]
   },
   {
     "category": "Australia",
@@ -57,7 +87,13 @@
     "id": "240012d4-58e5-38f9-5845-31adf4b884a1",
     "name": "Sydney Morning Herald",
     "siteURL": "https://www.smh.com.au/rss/feed.xml",
-    "tags": []
+    "tags": [
+      "sydney",
+      "nsw",
+      "politics",
+      "property",
+      "national"
+    ]
   },
   {
     "category": "Australia",
@@ -67,6 +103,12 @@
     "id": "abccb225-fcff-6c5e-7515-6e8ac99d9f35",
     "name": "The Age",
     "siteURL": "https://www.theage.com.au/rss/feed.xml",
-    "tags": []
+    "tags": [
+      "melbourne",
+      "victoria",
+      "politics",
+      "culture",
+      "national"
+    ]
   }
 ]

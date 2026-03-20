@@ -6,7 +6,13 @@
     "id": "d7f8f797-814d-0653-56f1-04da31923af7",
     "name": "Accidental Tech Podcast",
     "siteURL": "https://atp.fm/",
-    "tags": []
+    "tags": [
+      "podcast",
+      "apple",
+      "programming",
+      "nerdy",
+      "discussion"
+    ]
   },
   {
     "category": "Tech",
@@ -15,7 +21,13 @@
     "id": "48a818c7-0b11-002f-62ba-05932ee47a52",
     "name": "Analog(ue)",
     "siteURL": "https://www.relay.fm/analogue",
-    "tags": []
+    "tags": [
+      "podcast",
+      "feelings",
+      "humanity",
+      "lifestyle",
+      "reflection"
+    ]
   },
   {
     "category": "Tech",
@@ -24,7 +36,13 @@
     "id": "7170fc47-3d11-956d-2f13-fb12ed675078",
     "name": "Ars Technica",
     "siteURL": "https://arstechnica.com",
-    "tags": []
+    "tags": [
+      "gadgets",
+      "reviews",
+      "cybersecurity",
+      "hardware",
+      "software"
+    ]
   },
   {
     "category": "Tech",
@@ -33,7 +51,13 @@
     "id": "f5e6f52c-79a4-e098-9786-3116727a6536",
     "name": "CNET News",
     "siteURL": "https://www.cnet.com/",
-    "tags": []
+    "tags": [
+      "reviews",
+      "deals",
+      "how-to",
+      "buying guides",
+      "gadgets"
+    ]
   },
   {
     "category": "Tech",
@@ -42,7 +66,13 @@
     "id": "2ccba97d-94b1-1077-57b7-1d747858933b",
     "name": "Engadget",
     "siteURL": "https://www.engadget.com/",
-    "tags": []
+    "tags": [
+      "reviews",
+      "gadgets",
+      "deals",
+      "streaming",
+      "hands-on"
+    ]
   },
   {
     "category": "Tech",
@@ -51,7 +81,13 @@
     "id": "341a14d8-1345-6824-ea75-b022bda9dfdf",
     "name": "Gizmodo",
     "siteURL": "https://gizmodo.com/",
-    "tags": []
+    "tags": [
+      "gadgets",
+      "reviews",
+      "science",
+      "culture",
+      "privacy"
+    ]
   },
   {
     "category": "Tech",
@@ -60,7 +96,13 @@
     "id": "02f8490e-8334-73e7-335c-8af567c5eee3",
     "name": "GSMArena",
     "siteURL": "https://www.gsmarena.com/",
-    "tags": []
+    "tags": [
+      "phones",
+      "specs",
+      "comparisons",
+      "benchmarks",
+      "camera"
+    ]
   },
   {
     "category": "Tech",
@@ -69,7 +111,13 @@
     "id": "f0b14a3a-449f-446f-a9a4-4600929e337d",
     "name": "Hackaday",
     "siteURL": "https://hackaday.com",
-    "tags": []
+    "tags": [
+      "hacking",
+      "electronics",
+      "maker",
+      "teardowns",
+      "circuits"
+    ]
   },
   {
     "category": "Tech",
@@ -78,7 +126,13 @@
     "id": "7198d80d-0366-f20d-90e9-e30aab12bc67",
     "name": "Hacker News",
     "siteURL": "https://news.ycombinator.com/",
-    "tags": []
+    "tags": [
+      "startups",
+      "programming",
+      "discussion",
+      "vc",
+      "open source"
+    ]
   },
   {
     "category": "Tech",
@@ -87,7 +141,13 @@
     "id": "6a418c53-13a0-9d59-e396-e43ba0b88292",
     "name": "Hacker News: Front Page",
     "siteURL": "https://news.ycombinator.com/",
-    "tags": []
+    "tags": [
+      "startups",
+      "programming",
+      "trending",
+      "vc",
+      "discussion"
+    ]
   },
   {
     "category": "Tech",
@@ -96,7 +156,13 @@
     "id": "2d89e672-da68-a2ff-4d81-13133a3348af",
     "name": "How-To Geek",
     "siteURL": "https://www.howtogeek.com",
-    "tags": []
+    "tags": [
+      "tutorials",
+      "windows",
+      "linux",
+      "tips",
+      "explainers"
+    ]
   },
   {
     "category": "Tech",
@@ -105,7 +171,13 @@
     "id": "5c6fc043-91e7-d79f-3f9e-f50a630d56a2",
     "name": "Inside Intercom",
     "siteURL": "https://www.intercom.com/blog/",
-    "tags": []
+    "tags": [
+      "saas",
+      "customer support",
+      "chatbots",
+      "product",
+      "automation"
+    ]
   },
   {
     "category": "Tech",
@@ -114,7 +186,13 @@
     "id": "2e0f8d1e-c5f5-630d-8ace-851c78ed2a4a",
     "name": "Lifehacker",
     "siteURL": "https://lifehacker.com/feed/rss",
-    "tags": []
+    "tags": [
+      "tips",
+      "productivity",
+      "hacks",
+      "money",
+      "how-to"
+    ]
   },
   {
     "category": "Tech",
@@ -123,7 +201,13 @@
     "id": "acfbeb04-2d35-f049-1ffc-ab98186ce477",
     "name": "Mashable",
     "siteURL": "https://mashable.com",
-    "tags": []
+    "tags": [
+      "social media",
+      "viral",
+      "culture",
+      "streaming",
+      "deals"
+    ]
   },
   {
     "category": "Tech",
@@ -132,7 +216,13 @@
     "id": "9e6ac84d-2b50-a5e9-af40-70515b8bf63b",
     "name": "MUO",
     "siteURL": "https://www.makeuseof.com",
-    "tags": []
+    "tags": [
+      "how-to",
+      "tutorials",
+      "windows",
+      "linux",
+      "productivity"
+    ]
   },
   {
     "category": "Tech",
@@ -141,7 +231,13 @@
     "id": "09bc5991-0369-545d-f6e1-5ac5d6e0716c",
     "name": "ReadWrite",
     "siteURL": "https://readwrite.com/",
-    "tags": []
+    "tags": [
+      "iot",
+      "startups",
+      "trends",
+      "cloud",
+      "analysis"
+    ]
   },
   {
     "category": "Tech",
@@ -150,7 +246,13 @@
     "id": "f84187f7-c52e-f9b3-4619-8263cd46c96b",
     "name": "TechCrunch",
     "siteURL": "https://techcrunch.com/",
-    "tags": []
+    "tags": [
+      "startups",
+      "funding",
+      "vc",
+      "silicon valley",
+      "launches"
+    ]
   },
   {
     "category": "Tech",
@@ -159,7 +261,13 @@
     "id": "18382aea-9526-6bd8-0f84-d1e75e10b4a1",
     "name": "The Next Web",
     "siteURL": "https://thenextweb.com",
-    "tags": []
+    "tags": [
+      "startups",
+      "europe",
+      "web",
+      "apps",
+      "events"
+    ]
   },
   {
     "category": "Tech",
@@ -168,7 +276,13 @@
     "id": "d0abe968-c6ff-2432-edcc-b77ce1318011",
     "name": "The Register",
     "siteURL": "https://www.theregister.com/",
-    "tags": []
+    "tags": [
+      "enterprise",
+      "sysadmin",
+      "security",
+      "cloud",
+      "snarky"
+    ]
   },
   {
     "category": "Tech",
@@ -177,7 +291,13 @@
     "id": "8c3d9d5d-77bb-3a83-07bb-80e9c74bc27f",
     "name": "The Verge",
     "siteURL": "https://www.theverge.com",
-    "tags": []
+    "tags": [
+      "gadgets",
+      "reviews",
+      "culture",
+      "streaming",
+      "social media"
+    ]
   },
   {
     "category": "Tech",
@@ -186,6 +306,12 @@
     "id": "c01c14fc-345f-6361-c734-74db2e096195",
     "name": "Wired",
     "siteURL": "https://www.wired.com",
-    "tags": []
+    "tags": [
+      "culture",
+      "longform",
+      "security",
+      "science",
+      "gear"
+    ]
   }
 ]

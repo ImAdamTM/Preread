@@ -6,7 +6,13 @@
     "id": "fa080031-bb9f-0725-b354-d2657f84d5bc",
     "name": "Al Jazeera English",
     "siteURL": "https://www.aljazeera.com",
-    "tags": []
+    "tags": [
+      "middle east",
+      "global south",
+      "conflicts",
+      "investigations",
+      "documentary"
+    ]
   },
   {
     "category": "World News",
@@ -15,7 +21,13 @@
     "id": "f5e8ac85-4e40-4b1e-48c1-10f82ecca136",
     "name": "Axios",
     "siteURL": "https://www.axios.com/",
-    "tags": []
+    "tags": [
+      "newsletters",
+      "brevity",
+      "politics",
+      "charts",
+      "bullet points"
+    ]
   },
   {
     "category": "World News",
@@ -24,7 +36,13 @@
     "id": "1796df62-c4a2-87cc-aef6-70b248b7f98c",
     "name": "BBC News: World",
     "siteURL": "https://www.bbc.co.uk/news/world",
-    "tags": []
+    "tags": [
+      "breaking news",
+      "global",
+      "international",
+      "headlines",
+      "impartial"
+    ]
   },
   {
     "category": "World News",
@@ -33,7 +51,13 @@
     "id": "fe39472a-3338-f318-54e9-e1fb64c6227a",
     "name": "Google News",
     "siteURL": "https://news.google.com/?hl=en-US&gl=US&ceid=US:en",
-    "tags": []
+    "tags": [
+      "aggregation",
+      "trending",
+      "headlines",
+      "personalized",
+      "global"
+    ]
   },
   {
     "category": "World News",
@@ -42,7 +66,13 @@
     "id": "75e1d84f-ca2f-4528-2674-52a7c301d83d",
     "name": "CNBC International",
     "siteURL": "https://www.cnbc.com/world-top-news/",
-    "tags": []
+    "tags": [
+      "markets",
+      "trade",
+      "asia",
+      "europe",
+      "economy"
+    ]
   },
   {
     "category": "World News",
@@ -51,7 +81,13 @@
     "id": "04a13555-2494-b3db-f354-1c5fbc37af83",
     "name": "NPR News",
     "siteURL": "https://www.npr.org/templates/story/story.php?storyId=1001",
-    "tags": []
+    "tags": [
+      "public radio",
+      "podcasts",
+      "politics",
+      "culture",
+      "investigations"
+    ]
   },
   {
     "category": "World News",
@@ -60,7 +96,13 @@
     "id": "72771e85-b141-6686-c704-7c5d452eddd6",
     "name": "The Atlantic",
     "siteURL": "https://www.theatlantic.com/",
-    "tags": []
+    "tags": [
+      "longform",
+      "essays",
+      "democracy",
+      "culture",
+      "opinion"
+    ]
   },
   {
     "category": "World News",
@@ -69,7 +111,13 @@
     "id": "d64709a6-05cb-acc0-04d9-8965ab19a65f",
     "name": "The Guardian: World",
     "siteURL": "https://www.theguardian.com/world",
-    "tags": []
+    "tags": [
+      "global",
+      "investigations",
+      "progressive",
+      "opinion",
+      "climate"
+    ]
   },
   {
     "category": "World News",
@@ -78,6 +126,12 @@
     "id": "4aa317de-1aa3-aa76-6dda-8229ef4c63c2",
     "name": "Vox",
     "siteURL": "https://www.vox.com",
-    "tags": []
+    "tags": [
+      "explainers",
+      "policy",
+      "data",
+      "charts",
+      "progressive"
+    ]
   }
 ]

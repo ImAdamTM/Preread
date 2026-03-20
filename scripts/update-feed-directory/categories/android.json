@@ -6,7 +6,13 @@
     "id": "1621b8c2-c5e3-4b04-bdfd-0b757c4e9f6f",
     "name": "Android",
     "siteURL": "https://blog.google/products-and-platforms/platforms/android/",
-    "tags": []
+    "tags": [
+      "pixel",
+      "google",
+      "updates",
+      "apps",
+      "features"
+    ]
   },
   {
     "category": "Android",
@@ -15,7 +21,13 @@
     "id": "397d546f-627b-76d4-63ea-7cd4c96eab6d",
     "name": "Android Authority",
     "siteURL": "https://www.androidauthority.com/",
-    "tags": []
+    "tags": [
+      "reviews",
+      "phones",
+      "deals",
+      "chromebook",
+      "wearables"
+    ]
   },
   {
     "category": "Android",
@@ -24,7 +36,13 @@
     "id": "ee062d6a-d407-f75c-1bd3-e0a5e015df8a",
     "name": "Android Central",
     "siteURL": "https://www.androidcentral.com",
-    "tags": []
+    "tags": [
+      "pixel",
+      "samsung",
+      "reviews",
+      "apps",
+      "how-to"
+    ]
   },
   {
     "category": "Android",
@@ -33,7 +51,13 @@
     "id": "499003ad-7d71-5bea-8685-42ddb84e4a33",
     "name": "Android Police",
     "siteURL": "https://www.androidpolice.com/",
-    "tags": []
+    "tags": [
+      "apps",
+      "reviews",
+      "deals",
+      "updates",
+      "guides"
+    ]
   },
   {
     "category": "Android",
@@ -42,7 +66,13 @@
     "id": "bd824acc-c204-6945-7ea2-380963fd1f65",
     "name": "AndroidGuys",
     "siteURL": "https://androidguys.com",
-    "tags": []
+    "tags": [
+      "phones",
+      "tablets",
+      "apps",
+      "opinion",
+      "reviews"
+    ]
   },
   {
     "category": "Android",
@@ -51,7 +81,13 @@
     "id": "ba2803a0-bf41-0ea2-93bc-537f53661c24",
     "name": "Droid Life",
     "siteURL": "https://www.droid-life.com/",
-    "tags": []
+    "tags": [
+      "pixel",
+      "samsung",
+      "reviews",
+      "opinion",
+      "deals"
+    ]
   },
   {
     "category": "Android",
@@ -60,6 +96,12 @@
     "id": "89a20e62-06ef-508a-bd02-34cc97c14f76",
     "name": "TalkAndroid",
     "siteURL": "https://www.talkandroid.com/",
-    "tags": []
+    "tags": [
+      "rumors",
+      "phones",
+      "apps",
+      "updates",
+      "devices"
+    ]
   }
 ]

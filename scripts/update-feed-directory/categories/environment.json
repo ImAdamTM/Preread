@@ -6,7 +6,13 @@
     "id": "bd9f86f9-53b4-a5cb-1321-6d0d212f4886",
     "name": "Canary Media",
     "siteURL": "https://www.canarymedia.com/",
-    "tags": []
+    "tags": [
+      "clean energy",
+      "solar",
+      "wind",
+      "grid",
+      "transition"
+    ]
   },
   {
     "category": "Environment",
@@ -15,7 +21,13 @@
     "id": "5945e50d-6a0f-38ed-83a6-beeb75f4fb1a",
     "name": "Carbon Brief",
     "siteURL": "https://www.carbonbrief.org/",
-    "tags": []
+    "tags": [
+      "climate data",
+      "emissions",
+      "ipcc",
+      "policy",
+      "charts"
+    ]
   },
   {
     "category": "Environment",
@@ -24,7 +36,13 @@
     "id": "befffecf-3054-cb1e-48d5-0af34c2f5ef1",
     "name": "CleanTechnica",
     "siteURL": "https://cleantechnica.com/",
-    "tags": []
+    "tags": [
+      "solar",
+      "evs",
+      "wind",
+      "batteries",
+      "grid"
+    ]
   },
   {
     "category": "Environment",
@@ -33,7 +51,13 @@
     "id": "5c676ee9-116d-fc48-8eb8-36c0776114dc",
     "name": "Electrek",
     "siteURL": "https://electrek.co/",
-    "tags": []
+    "tags": [
+      "tesla",
+      "solar",
+      "evs",
+      "charging",
+      "green energy"
+    ]
   },
   {
     "category": "Environment",
@@ -42,7 +66,13 @@
     "id": "0eb34085-cf07-1aec-b367-1c3a51417508",
     "name": "Grist",
     "siteURL": "https://grist.org/",
-    "tags": []
+    "tags": [
+      "climate justice",
+      "equity",
+      "solutions",
+      "communities",
+      "policy"
+    ]
   },
   {
     "category": "Environment",
@@ -51,7 +81,13 @@
     "id": "1e088771-ed91-1a74-2227-06545a458458",
     "name": "Hakai Magazine",
     "siteURL": "https://hakaimagazine.com/",
-    "tags": []
+    "tags": [
+      "oceans",
+      "marine",
+      "coastal",
+      "coral reefs",
+      "ecology"
+    ]
   },
   {
     "category": "Environment",
@@ -60,7 +96,13 @@
     "id": "2f04e2ed-f907-4f62-4910-40d25035e36d",
     "name": "Inside Climate News",
     "siteURL": "https://insideclimatenews.org/",
-    "tags": []
+    "tags": [
+      "fossil fuels",
+      "investigations",
+      "emissions",
+      "policy",
+      "energy"
+    ]
   },
   {
     "category": "Environment",
@@ -69,7 +111,13 @@
     "id": "ad0047a1-c4cd-01dd-fe3c-e1b5ed42b66e",
     "name": "Mongabay",
     "siteURL": "https://news.mongabay.com/",
-    "tags": []
+    "tags": [
+      "rainforest",
+      "biodiversity",
+      "wildlife",
+      "deforestation",
+      "conservation"
+    ]
   },
   {
     "category": "Environment",
@@ -78,7 +126,13 @@
     "id": "a7ae2203-0f63-8a74-acc1-d099a159604a",
     "name": "The Revelator",
     "siteURL": "https://therevelator.org/",
-    "tags": []
+    "tags": [
+      "endangered species",
+      "extinction",
+      "wildlife",
+      "habitat",
+      "policy"
+    ]
   },
   {
     "category": "Environment",
@@ -87,7 +141,13 @@
     "id": "f0fb325a-fe07-ff21-bf30-7014d5d5e16c",
     "name": "Utility Dive",
     "siteURL": "https://www.utilitydive.com/",
-    "tags": []
+    "tags": [
+      "grid",
+      "utilities",
+      "regulation",
+      "rates",
+      "infrastructure"
+    ]
   },
   {
     "category": "Environment",
@@ -96,6 +156,12 @@
     "id": "31a4342e-71bd-2ea5-100d-e544d199e17a",
     "name": "Yale Environment 360",
     "siteURL": "https://e360.yale.edu/",
-    "tags": []
+    "tags": [
+      "essays",
+      "longform",
+      "ecology",
+      "pollution",
+      "research"
+    ]
   }
 ]

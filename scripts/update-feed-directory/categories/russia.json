@@ -7,7 +7,13 @@
     "id": "4013c31a-b9b5-59f0-5fa4-d977847af3d8",
     "name": "RT",
     "siteURL": "https://www.rt.com",
-    "tags": []
+    "tags": [
+      "russian",
+      "geopolitics",
+      "kremlin",
+      "state media",
+      "english"
+    ]
   },
   {
     "category": "Russia",
@@ -17,6 +23,12 @@
     "id": "cbfc036d-108c-ecf7-5aea-473ad5d1cbf5",
     "name": "The Moscow Times",
     "siteURL": "https://www.themoscowtimes.com/news",
-    "tags": []
+    "tags": [
+      "russian",
+      "english",
+      "independent",
+      "moscow",
+      "politics"
+    ]
   }
 ]

@@ -6,7 +6,13 @@
     "id": "c2978591-9eb8-8137-eb5b-ed472c4394ba",
     "name": "Everyday Astronaut",
     "siteURL": "https://everydayastronaut.com/",
-    "tags": []
+    "tags": [
+      "rockets",
+      "engines",
+      "explainers",
+      "spacex",
+      "starship"
+    ]
   },
   {
     "category": "Space",
@@ -15,7 +21,13 @@
     "id": "d25c6c3a-6b63-b163-f419-a1f6236d627a",
     "name": "NASA Breaking News",
     "siteURL": "https://www.nasa.gov",
-    "tags": []
+    "tags": [
+      "nasa",
+      "missions",
+      "astronauts",
+      "iss",
+      "artemis"
+    ]
   },
   {
     "category": "Space",
@@ -24,7 +36,13 @@
     "id": "072b25a6-26ee-18ab-b841-89ac5ec67014",
     "name": "NASASpaceFlight.com",
     "siteURL": "https://www.nasaspaceflight.com/",
-    "tags": []
+    "tags": [
+      "spacex",
+      "launches",
+      "starship",
+      "technical",
+      "rockets"
+    ]
   },
   {
     "category": "Space",
@@ -33,7 +51,13 @@
     "id": "7eb72c4e-5ff7-baa4-6d73-bffd45fcabd9",
     "name": "New Scientist: Space",
     "siteURL": "https://www.newscientist.com/",
-    "tags": []
+    "tags": [
+      "planets",
+      "cosmology",
+      "missions",
+      "astronomy",
+      "physics"
+    ]
   },
   {
     "category": "Space",
@@ -42,7 +66,13 @@
     "id": "b698806d-226f-201b-c951-d5cc16272860",
     "name": "Sky & Telescope",
     "siteURL": "https://skyandtelescope.org/",
-    "tags": []
+    "tags": [
+      "stargazing",
+      "planets",
+      "telescopes",
+      "eclipses",
+      "celestial"
+    ]
   },
   {
     "category": "Space",
@@ -51,7 +81,13 @@
     "id": "c2edd5eb-4423-abe3-82cb-a6f22ae12fac",
     "name": "Space.com",
     "siteURL": "https://www.space.com",
-    "tags": []
+    "tags": [
+      "missions",
+      "planets",
+      "rockets",
+      "astronomy",
+      "stargazing"
+    ]
   },
   {
     "category": "Space",
@@ -60,7 +96,13 @@
     "id": "3f9c29b2-e32f-7cbc-4a20-9b8bba2bb907",
     "name": "Spaceflight Now",
     "siteURL": "https://spaceflightnow.com/",
-    "tags": []
+    "tags": [
+      "launches",
+      "countdowns",
+      "missions",
+      "rockets",
+      "updates"
+    ]
   },
   {
     "category": "Space",
@@ -69,7 +111,13 @@
     "id": "a84245b2-6be0-3a0d-8ac8-cd754c641446",
     "name": "SpaceNews",
     "siteURL": "https://spacenews.com/",
-    "tags": []
+    "tags": [
+      "policy",
+      "contracts",
+      "defense",
+      "commercial",
+      "satellites"
+    ]
   },
   {
     "category": "Space",
@@ -78,7 +126,13 @@
     "id": "19edb0d5-1382-b7f7-3300-e4cdedfd9ccc",
     "name": "SpacePolicyOnline",
     "siteURL": "https://spacepolicyonline.com/",
-    "tags": []
+    "tags": [
+      "budgets",
+      "congress",
+      "nasa",
+      "policy",
+      "regulation"
+    ]
   },
   {
     "category": "Space",
@@ -87,6 +141,12 @@
     "id": "e3f9cbf3-e3b6-0160-96da-b766f9e20988",
     "name": "Universe Today",
     "siteURL": "https://www.universetoday.com/",
-    "tags": []
+    "tags": [
+      "planets",
+      "missions",
+      "explainers",
+      "astronomy",
+      "solar system"
+    ]
   }
 ]

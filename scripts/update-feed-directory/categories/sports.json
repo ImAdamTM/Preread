@@ -6,7 +6,13 @@
     "id": "f857ff91-c544-93ff-c834-df192e66de66",
     "name": "30 For 30 Podcasts",
     "siteURL": "https://espnradio.espn.com/espnradio/index",
-    "tags": []
+    "tags": [
+      "documentaries",
+      "storytelling",
+      "espn",
+      "history",
+      "longform"
+    ]
   },
   {
     "category": "Sports",
@@ -15,7 +21,13 @@
     "id": "80ab96ab-aa8d-6f66-53d1-77a997aa56c2",
     "name": "Action Network",
     "siteURL": "https://www.actionnetwork.com/",
-    "tags": []
+    "tags": [
+      "betting",
+      "odds",
+      "picks",
+      "spreads",
+      "handicapping"
+    ]
   },
   {
     "category": "Sports",
@@ -24,7 +36,13 @@
     "id": "4265059e-11db-47d9-f1ba-d588157f4988",
     "name": "BBC Sport",
     "siteURL": "https://www.bbc.co.uk/sport",
-    "tags": []
+    "tags": [
+      "football",
+      "cricket",
+      "rugby",
+      "f1",
+      "scores"
+    ]
   },
   {
     "category": "Sports",
@@ -33,7 +51,13 @@
     "id": "73826047-a289-39cc-8393-5205ea59589e",
     "name": "BBC Sport: Cricket",
     "siteURL": "https://www.bbc.co.uk/sport/cricket",
-    "tags": []
+    "tags": [
+      "cricket",
+      "test matches",
+      "odi",
+      "ashes",
+      "t20"
+    ]
   },
   {
     "category": "Sports",
@@ -42,7 +66,13 @@
     "id": "c8e79e6d-03a8-b82e-9afb-3455992921f6",
     "name": "BBC Sport: Tennis",
     "siteURL": "https://www.bbc.co.uk/sport/tennis",
-    "tags": []
+    "tags": [
+      "tennis",
+      "wimbledon",
+      "grand slams",
+      "atp",
+      "wta"
+    ]
   },
   {
     "category": "Sports",
@@ -51,7 +81,13 @@
     "id": "7cf504ef-5bdb-2086-24c4-f2244396649b",
     "name": "Defector",
     "siteURL": "https://defector.com/",
-    "tags": []
+    "tags": [
+      "independent",
+      "humor",
+      "essays",
+      "culture",
+      "worker-owned"
+    ]
   },
   {
     "category": "Sports",
@@ -60,7 +96,13 @@
     "id": "8bc0466d-a15a-8166-21f7-77e304c50859",
     "name": "ESPN",
     "siteURL": "https://www.espn.com",
-    "tags": []
+    "tags": [
+      "scores",
+      "highlights",
+      "nfl",
+      "nba",
+      "fantasy"
+    ]
   },
   {
     "category": "Sports",
@@ -69,7 +111,13 @@
     "id": "f85ac56d-78c4-bc29-18bf-14606bf67c27",
     "name": "ESPN Tennis",
     "siteURL": "https://www.espn.com",
-    "tags": []
+    "tags": [
+      "atp",
+      "wta",
+      "grand slams",
+      "rankings",
+      "matches"
+    ]
   },
   {
     "category": "Sports",
@@ -78,7 +126,13 @@
     "id": "bed5578e-6d37-3bad-2b97-cb69e9bc74b6",
     "name": "FanGraphs",
     "siteURL": "https://www.fangraphs.com/",
-    "tags": []
+    "tags": [
+      "sabermetrics",
+      "baseball",
+      "war",
+      "analytics",
+      "mlb"
+    ]
   },
   {
     "category": "Sports",
@@ -87,7 +141,13 @@
     "id": "98a61753-9862-1e84-2ce5-b99446c9e645",
     "name": "peRFect Tennis",
     "siteURL": "https://www.perfect-tennis.com",
-    "tags": []
+    "tags": [
+      "tennis",
+      "federer",
+      "atp",
+      "grand slams",
+      "matches"
+    ]
   },
   {
     "category": "Sports",
@@ -96,7 +156,13 @@
     "id": "7a0f483d-609e-821c-8dd8-757810e6ae26",
     "name": "SB Nation",
     "siteURL": "https://www.sbnation.com/",
-    "tags": []
+    "tags": [
+      "fan blogs",
+      "team sites",
+      "nfl",
+      "nba",
+      "college"
+    ]
   },
   {
     "category": "Sports",
@@ -105,7 +171,13 @@
     "id": "06cb728c-d3a9-80fa-15eb-21784b34f65d",
     "name": "Sky News Sport",
     "siteURL": "https://news.sky.com/sports",
-    "tags": []
+    "tags": [
+      "football",
+      "premier league",
+      "cricket",
+      "f1",
+      "boxing"
+    ]
   },
   {
     "category": "Sports",
@@ -114,7 +186,13 @@
     "id": "90e5c588-ff3e-f1a0-e94b-31656572b24a",
     "name": "Sportico",
     "siteURL": "https://www.sportico.com/",
-    "tags": []
+    "tags": [
+      "valuations",
+      "media rights",
+      "ownership",
+      "deals",
+      "revenue"
+    ]
   },
   {
     "category": "Sports",
@@ -123,7 +201,13 @@
     "id": "e4e0fd7b-8dcc-796d-9e62-29aef2fa81c2",
     "name": "Sports - Yahoo",
     "siteURL": "https://sports.yahoo.com",
-    "tags": []
+    "tags": [
+      "scores",
+      "fantasy",
+      "nfl",
+      "nba",
+      "mlb"
+    ]
   },
   {
     "category": "Sports",
@@ -132,7 +216,13 @@
     "id": "6f0b8ddb-0986-023d-5bb1-d8adc0e99cbb",
     "name": "Sportskeeda",
     "siteURL": "https://www.sportskeeda.com",
-    "tags": []
+    "tags": [
+      "cricket",
+      "wwe",
+      "football",
+      "live scores",
+      "fantasy"
+    ]
   },
   {
     "category": "Sports",
@@ -141,7 +231,13 @@
     "id": "6dbfbb56-2565-88e1-e2f2-72bfd498cf73",
     "name": "Tennis - ATP World Tour",
     "siteURL": "https://www.atptour.com",
-    "tags": []
+    "tags": [
+      "atp",
+      "rankings",
+      "draws",
+      "results",
+      "tour"
+    ]
   },
   {
     "category": "Sports",
@@ -150,7 +246,13 @@
     "id": "0325815a-f773-6df0-48b1-eb8b8ba885ef",
     "name": "The Athletic",
     "siteURL": "https://www.nytimes.com/athletic/",
-    "tags": []
+    "tags": [
+      "beat writers",
+      "analysis",
+      "nfl",
+      "nba",
+      "soccer"
+    ]
   },
   {
     "category": "Sports",
@@ -159,7 +261,13 @@
     "id": "42059b28-2b4a-290c-7223-5cecb5158ad0",
     "name": "The Guardian Sport",
     "siteURL": "https://www.theguardian.com/us/sport",
-    "tags": []
+    "tags": [
+      "football",
+      "cricket",
+      "rugby",
+      "tennis",
+      "opinion"
+    ]
   },
   {
     "category": "Sports",
@@ -168,6 +276,12 @@
     "id": "6eb7229a-d92e-92e1-ef6c-b890bf12d196",
     "name": "The Guardian Football",
     "siteURL": "https://www.theguardian.com/football",
-    "tags": []
+    "tags": [
+      "premier league",
+      "transfers",
+      "tactics",
+      "champions league",
+      "la liga"
+    ]
   }
 ]

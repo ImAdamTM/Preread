@@ -7,7 +7,13 @@
     "id": "653da231-14be-2c4f-01db-c552009d6d98",
     "name": "24 Horas",
     "siteURL": "https://24-horas.mx/",
-    "tags": []
+    "tags": [
+      "spanish",
+      "cdmx",
+      "politica",
+      "nacional",
+      "seguridad"
+    ]
   },
   {
     "category": "Mexico",
@@ -17,7 +23,13 @@
     "id": "b68be9b0-51b1-8a8b-5c61-ff3fe4e7c585",
     "name": "8 Columnas",
     "siteURL": "https://8columnas.com.mx",
-    "tags": []
+    "tags": [
+      "spanish",
+      "digital",
+      "nacional",
+      "regional",
+      "politica"
+    ]
   },
   {
     "category": "Mexico",
@@ -27,7 +39,13 @@
     "id": "a002d9e8-88bd-296e-4dcd-73690542ec0f",
     "name": "El Financiero",
     "siteURL": "https://www.elfinanciero.com.mx",
-    "tags": []
+    "tags": [
+      "spanish",
+      "finanzas",
+      "economia",
+      "bolsa",
+      "negocios"
+    ]
   },
   {
     "category": "Mexico",
@@ -37,7 +55,13 @@
     "id": "58a4bc3e-8fe4-7a1c-d926-689da76ff155",
     "name": "Informador",
     "siteURL": "https://www.informador.mx",
-    "tags": []
+    "tags": [
+      "guadalajara",
+      "jalisco",
+      "spanish",
+      "regional",
+      "deportes"
+    ]
   },
   {
     "category": "Mexico",
@@ -47,7 +71,13 @@
     "id": "6a3f2bbe-d563-a5a6-78ee-328cf98b7404",
     "name": "Lo último en Vanguardia MX",
     "siteURL": "https://vanguardia.com.mx/rss.xml",
-    "tags": []
+    "tags": [
+      "coahuila",
+      "saltillo",
+      "spanish",
+      "regional",
+      "nacional"
+    ]
   },
   {
     "category": "Mexico",
@@ -57,7 +87,13 @@
     "id": "ce5947d3-ac27-cc5b-c7d9-5ceea7097b21",
     "name": "Mexico News Daily",
     "siteURL": "https://mexiconewsdaily.com/",
-    "tags": []
+    "tags": [
+      "english",
+      "expat",
+      "tourism",
+      "culture",
+      "safety"
+    ]
   },
   {
     "category": "Mexico",
@@ -67,6 +103,12 @@
     "id": "0eaddfa8-accb-c846-12b7-8030902a326c",
     "name": "Portada, El Siglo de Torreón",
     "siteURL": "https://www.elsiglodetorreon.com.mx/",
-    "tags": []
+    "tags": [
+      "torreon",
+      "laguna",
+      "coahuila",
+      "durango",
+      "regional"
+    ]
   }
 ]

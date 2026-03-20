@@ -6,7 +6,13 @@
     "id": "102bee4a-02fb-8a2c-511c-1244764f72ec",
     "name": "500px",
     "siteURL": "https://iso.500px.com",
-    "tags": []
+    "tags": [
+      "community",
+      "portfolios",
+      "inspiration",
+      "contests",
+      "sharing"
+    ]
   },
   {
     "category": "Photography",
@@ -15,7 +21,13 @@
     "id": "b6d88105-ffe6-cc14-e82a-1f665a9a0490",
     "name": "Canon Rumors",
     "siteURL": "https://www.canonrumors.com",
-    "tags": []
+    "tags": [
+      "canon",
+      "lenses",
+      "rumors",
+      "leaks",
+      "mirrorless"
+    ]
   },
   {
     "category": "Photography",
@@ -24,7 +36,13 @@
     "id": "247e7b48-fe84-5485-ba13-6e9b82ddc9a0",
     "name": "Digital Photography School",
     "siteURL": "https://digital-photography-school.com/",
-    "tags": []
+    "tags": [
+      "tutorials",
+      "beginners",
+      "tips",
+      "composition",
+      "lighting"
+    ]
   },
   {
     "category": "Photography",
@@ -33,7 +51,13 @@
     "id": "57ba417d-d305-1ec3-a95f-33669039b7d3",
     "name": "DPReview",
     "siteURL": "https://www.dpreview.com",
-    "tags": []
+    "tags": [
+      "reviews",
+      "comparisons",
+      "sensors",
+      "mirrorless",
+      "samples"
+    ]
   },
   {
     "category": "Photography",
@@ -42,7 +66,13 @@
     "id": "67c7e38d-bae0-8ccd-32bf-1d335e97342f",
     "name": "Fstoppers",
     "siteURL": "https://fstoppers.com",
-    "tags": []
+    "tags": [
+      "tutorials",
+      "business",
+      "lighting",
+      "retouching",
+      "bts"
+    ]
   },
   {
     "category": "Photography",
@@ -51,7 +81,13 @@
     "id": "378de96c-07ef-2759-ada8-631bb8d7ced2",
     "name": "LensCulture",
     "siteURL": "https://www.lensculture.com",
-    "tags": []
+    "tags": [
+      "fine art",
+      "exhibitions",
+      "emerging",
+      "portfolios",
+      "contemporary"
+    ]
   },
   {
     "category": "Photography",
@@ -60,7 +96,13 @@
     "id": "b07199a0-7a95-63b1-0c10-24cc9602f114",
     "name": "Light Stalking",
     "siteURL": "https://www.lightstalking.com/",
-    "tags": []
+    "tags": [
+      "tips",
+      "inspiration",
+      "tutorials",
+      "beginner",
+      "creative"
+    ]
   },
   {
     "category": "Photography",
@@ -69,6 +111,12 @@
     "id": "fdbb004d-8556-8bda-e023-3cc3220c7d70",
     "name": "PetaPixel",
     "siteURL": "https://petapixel.com/",
-    "tags": []
+    "tags": [
+      "cameras",
+      "lenses",
+      "editing",
+      "lightroom",
+      "portraits"
+    ]
   }
 ]

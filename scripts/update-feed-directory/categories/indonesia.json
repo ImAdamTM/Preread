@@ -7,7 +7,13 @@
     "id": "18a17456-e1a3-0bad-24ca-8fdd7dab4491",
     "name": "Republika Online",
     "siteURL": "https://www.republika.co.id",
-    "tags": []
+    "tags": [
+      "indonesian",
+      "islam",
+      "politik",
+      "jakarta",
+      "nasional"
+    ]
   },
   {
     "category": "Indonesia",
@@ -17,6 +23,12 @@
     "id": "89efa977-3216-34ab-9dc1-ba1a2dfaeee3",
     "name": "Tribunnews.com",
     "siteURL": "https://www.tribunnews.com/",
-    "tags": []
+    "tags": [
+      "indonesian",
+      "regional",
+      "nasional",
+      "jakarta",
+      "breaking"
+    ]
   }
 ]

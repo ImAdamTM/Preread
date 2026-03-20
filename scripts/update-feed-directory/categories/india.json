@@ -7,7 +7,13 @@
     "id": "0237d29b-0086-d28b-f571-10c1e5710cf9",
     "name": " Amar Ujala",
     "siteURL": "https://www.amarujala.com",
-    "tags": []
+    "tags": [
+      "hindi",
+      "national",
+      "politics",
+      "crime",
+      "regional"
+    ]
   },
   {
     "category": "India",
@@ -17,7 +23,13 @@
     "id": "75b9ad1e-123d-2e25-3673-ce7b6ae01c7b",
     "name": " Gujarat Samachar",
     "siteURL": "https://www.gujaratsamachar.com",
-    "tags": []
+    "tags": [
+      "gujarati",
+      "ahmedabad",
+      "regional",
+      "politics",
+      "local"
+    ]
   },
   {
     "category": "India",
@@ -27,7 +39,13 @@
     "id": "0cc67d0b-5f42-2968-bfda-e37a1f3075b2",
     "name": "BBC News: India",
     "siteURL": "https://www.bbc.co.uk/news/world/asia/india",
-    "tags": []
+    "tags": [
+      "english",
+      "impartial",
+      "politics",
+      "economy",
+      "society"
+    ]
   },
   {
     "category": "India",
@@ -37,7 +55,13 @@
     "id": "d754cfa2-2720-8c23-352a-ccbdbcebb568",
     "name": "Business Line",
     "siteURL": "https://www.thehindubusinessline.com/",
-    "tags": []
+    "tags": [
+      "markets",
+      "economy",
+      "stocks",
+      "bse",
+      "nse"
+    ]
   },
   {
     "category": "India",
@@ -47,7 +71,13 @@
     "id": "70b72ac2-200e-8358-f55a-8fd0b93315c0",
     "name": "Business Standard",
     "siteURL": "https://www.business-standard.com",
-    "tags": []
+    "tags": [
+      "markets",
+      "economy",
+      "corporate",
+      "sensex",
+      "policy"
+    ]
   },
   {
     "category": "India",
@@ -57,7 +87,13 @@
     "id": "49d0299e-a7e9-e471-c594-4d6847d18c98",
     "name": "Deccan Chronicle",
     "siteURL": "https://www.deccanchronicle.com",
-    "tags": []
+    "tags": [
+      "hyderabad",
+      "telangana",
+      "south india",
+      "politics",
+      "english"
+    ]
   },
   {
     "category": "India",
@@ -67,7 +103,13 @@
     "id": "244f9e96-12cc-f830-0c20-1888b38ba5cc",
     "name": "Economic Times",
     "siteURL": "https://economictimes.indiatimes.com",
-    "tags": []
+    "tags": [
+      "markets",
+      "sensex",
+      "corporate",
+      "startups",
+      "economy"
+    ]
   },
   {
     "category": "India",
@@ -77,7 +119,13 @@
     "id": "567e098e-4174-df54-6620-f502695f42d4",
     "name": "Free Press Journal",
     "siteURL": "https://www.freepressjournal.in",
-    "tags": []
+    "tags": [
+      "mumbai",
+      "maharashtra",
+      "politics",
+      "english",
+      "breaking"
+    ]
   },
   {
     "category": "India",
@@ -87,7 +135,13 @@
     "id": "65ccd619-aaa1-1eab-8e3a-339bfdbf5ad7",
     "name": "India News",
     "siteURL": "https://www.dnaindia.com/",
-    "tags": []
+    "tags": [
+      "breaking",
+      "bollywood",
+      "cricket",
+      "politics",
+      "entertainment"
+    ]
   },
   {
     "category": "India",
@@ -97,7 +151,13 @@
     "id": "ba404cd1-18a7-4b67-fde5-3b0477d9a264",
     "name": "India Today",
     "siteURL": "https://www.indiatoday.in/",
-    "tags": []
+    "tags": [
+      "politics",
+      "bollywood",
+      "cricket",
+      "investigations",
+      "national"
+    ]
   },
   {
     "category": "India",
@@ -107,7 +167,13 @@
     "id": "f394826a-b08a-541b-9c4d-3806b2274579",
     "name": "OpIndia",
     "siteURL": "https://www.opindia.com/",
-    "tags": []
+    "tags": [
+      "right-wing",
+      "opinion",
+      "politics",
+      "hindu",
+      "media criticism"
+    ]
   },
   {
     "category": "India",
@@ -117,7 +183,13 @@
     "id": "bd843d5b-d28a-ff1f-0b6a-1b3396340404",
     "name": "Swarajya",
     "siteURL": "https://swarajyamag.com",
-    "tags": []
+    "tags": [
+      "opinion",
+      "policy",
+      "hindu",
+      "economics",
+      "culture"
+    ]
   },
   {
     "category": "India",
@@ -127,7 +199,13 @@
     "id": "8444b0a6-6185-5c50-9876-93bf29ffb645",
     "name": "TechGenyz",
     "siteURL": "https://techgenyz.com/",
-    "tags": []
+    "tags": [
+      "gadgets",
+      "apps",
+      "startups",
+      "smartphones",
+      "reviews"
+    ]
   },
   {
     "category": "India",
@@ -137,7 +215,13 @@
     "id": "c59be43c-0f92-9ebb-4109-4ec1dd54f575",
     "name": "Times of India",
     "siteURL": "https://timesofindia.indiatimes.com",
-    "tags": []
+    "tags": [
+      "national",
+      "cricket",
+      "bollywood",
+      "english",
+      "cities"
+    ]
   },
   {
     "category": "India",
@@ -147,7 +231,13 @@
     "id": "659d18e3-aa3a-552c-8056-3a42a315bce3",
     "name": "The Hindu",
     "siteURL": "https://www.thehindu.com/",
-    "tags": []
+    "tags": [
+      "editorial",
+      "analysis",
+      "politics",
+      "south india",
+      "english"
+    ]
   },
   {
     "category": "India",
@@ -157,7 +247,13 @@
     "id": "04c09938-7d15-91c9-db54-a00065ef1616",
     "name": "Top World News- News18.com",
     "siteURL": "https://www.news18.com/world/",
-    "tags": []
+    "tags": [
+      "breaking",
+      "national",
+      "politics",
+      "crime",
+      "entertainment"
+    ]
   },
   {
     "category": "India",
@@ -167,7 +263,13 @@
     "id": "859921ef-b273-c9d9-c47d-c4865c8143b3",
     "name": "देश | दैनिक भास्कर",
     "siteURL": "https://www.bhaskar.com/national/",
-    "tags": []
+    "tags": [
+      "hindi",
+      "national",
+      "politics",
+      "crime",
+      "bhopal"
+    ]
   },
   {
     "category": "India",
@@ -177,6 +279,12 @@
     "id": "9742bec5-08d3-4352-67bc-287482df86e4",
     "name": "ઈન્ડિયા | દિવ્ય ભાસ્કર",
     "siteURL": "https://www.divyabhaskar.co.in/national/",
-    "tags": []
+    "tags": [
+      "gujarati",
+      "national",
+      "politics",
+      "ahmedabad",
+      "regional"
+    ]
   }
 ]

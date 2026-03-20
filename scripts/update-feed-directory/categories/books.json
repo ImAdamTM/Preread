@@ -6,7 +6,13 @@
     "id": "9b271eb8-e1f4-173a-ca17-68ad87f7f1d6",
     "name": "A year of reading the world",
     "siteURL": "https://ayearofreadingtheworld.com",
-    "tags": []
+    "tags": [
+      "global",
+      "diversity",
+      "world literature",
+      "countries",
+      "challenges"
+    ]
   },
   {
     "category": "Books",
@@ -15,7 +21,13 @@
     "id": "38c7dbeb-620c-fd3b-458e-9b59d1716210",
     "name": "Book Riot",
     "siteURL": "https://bookriot.com/",
-    "tags": []
+    "tags": [
+      "recommendations",
+      "inclusive",
+      "genre fiction",
+      "tbr",
+      "bookish"
+    ]
   },
   {
     "category": "Books",
@@ -24,7 +36,13 @@
     "id": "83fbbe30-9df7-96fc-6f97-33d3d95fb700",
     "name": "Jane Friedman",
     "siteURL": "https://janefriedman.com/",
-    "tags": []
+    "tags": [
+      "publishing",
+      "self-publishing",
+      "agents",
+      "querying",
+      "authors"
+    ]
   },
   {
     "category": "Books",
@@ -33,7 +51,13 @@
     "id": "b6d143ba-e9aa-5428-bdf7-a5f224e40572",
     "name": "Kirkus Reviews",
     "siteURL": "https://www.kirkusreviews.com/",
-    "tags": []
+    "tags": [
+      "reviews",
+      "new releases",
+      "fiction",
+      "nonfiction",
+      "starred"
+    ]
   },
   {
     "category": "Books",
@@ -42,7 +66,13 @@
     "id": "859012ff-07e7-29b6-ae97-5e7a3dc12093",
     "name": "Literary Hub",
     "siteURL": "https://lithub.com/",
-    "tags": []
+    "tags": [
+      "essays",
+      "excerpts",
+      "interviews",
+      "criticism",
+      "literary fiction"
+    ]
   },
   {
     "category": "Books",
@@ -51,7 +81,13 @@
     "id": "a20cdea1-e2e2-0f22-1cbe-8482a9ca1bf0",
     "name": "NewInBooks",
     "siteURL": "https://www.newinbooks.com",
-    "tags": []
+    "tags": [
+      "new releases",
+      "recommendations",
+      "fiction",
+      "nonfiction",
+      "reading"
+    ]
   },
   {
     "category": "Books",
@@ -60,7 +96,13 @@
     "id": "9689be36-e334-3ac6-85fd-e140972c65a1",
     "name": "Reactor",
     "siteURL": "https://reactormag.com/",
-    "tags": []
+    "tags": [
+      "sci-fi",
+      "fantasy",
+      "speculative",
+      "novellas",
+      "series"
+    ]
   },
   {
     "category": "Books",
@@ -69,6 +111,12 @@
     "id": "9946666d-a1c2-bf2b-7719-41846e17c04a",
     "name": "The Millions",
     "siteURL": "https://themillions.com/",
-    "tags": []
+    "tags": [
+      "essays",
+      "lists",
+      "literary fiction",
+      "criticism",
+      "reading"
+    ]
   }
 ]

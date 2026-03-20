@@ -8,7 +8,11 @@
     "name" : " Amar Ujala",
     "siteURL" : "https:\/\/www.amarujala.com",
     "tags" : [
-
+      "hindi",
+      "national",
+      "politics",
+      "crime",
+      "regional"
     ]
   },
   {
@@ -20,7 +24,11 @@
     "name" : " Gujarat Samachar",
     "siteURL" : "https:\/\/www.gujaratsamachar.com",
     "tags" : [
-
+      "gujarati",
+      "ahmedabad",
+      "regional",
+      "politics",
+      "local"
     ]
   },
   {
@@ -31,7 +39,11 @@
     "name" : "\/Film",
     "siteURL" : "https:\/\/www.slashfilm.com\/",
     "tags" : [
-
+      "reviews",
+      "trailers",
+      "interviews",
+      "streaming",
+      "box office"
     ]
   },
   {
@@ -42,7 +54,11 @@
     "name" : "101 Cookbooks",
     "siteURL" : "https:\/\/www.101cookbooks.com\/",
     "tags" : [
-
+      "vegetarian",
+      "whole foods",
+      "cookbooks",
+      "healthy",
+      "seasonal"
     ]
   },
   {
@@ -54,7 +70,11 @@
     "name" : "24 Horas",
     "siteURL" : "https:\/\/24-horas.mx\/",
     "tags" : [
-
+      "spanish",
+      "cdmx",
+      "politica",
+      "nacional",
+      "seguridad"
     ]
   },
   {
@@ -65,7 +85,11 @@
     "name" : "30 For 30 Podcasts",
     "siteURL" : "https:\/\/espnradio.espn.com\/espnradio\/index",
     "tags" : [
-
+      "documentaries",
+      "storytelling",
+      "espn",
+      "history",
+      "longform"
     ]
   },
   {
@@ -76,7 +100,11 @@
     "name" : "500px",
     "siteURL" : "https:\/\/iso.500px.com",
     "tags" : [
-
+      "community",
+      "portfolios",
+      "inspiration",
+      "contests",
+      "sharing"
     ]
   },
   {
@@ -88,7 +116,11 @@
     "name" : "8 Columnas",
     "siteURL" : "https:\/\/8columnas.com.mx",
     "tags" : [
-
+      "spanish",
+      "digital",
+      "nacional",
+      "regional",
+      "politica"
     ]
   },
   {
@@ -99,7 +131,11 @@
     "name" : "9to5Mac",
     "siteURL" : "https:\/\/9to5mac.com\/",
     "tags" : [
-
+      "iphone",
+      "mac",
+      "rumors",
+      "deals",
+      "ios"
     ]
   },
   {
@@ -110,7 +146,11 @@
     "name" : "A Beautiful Mess",
     "siteURL" : "https:\/\/abeautifulmess.com\/",
     "tags" : [
-
+      "crafts",
+      "home decor",
+      "recipes",
+      "lifestyle",
+      "creative"
     ]
   },
   {
@@ -121,7 +161,11 @@
     "name" : "A List Apart",
     "siteURL" : "https:\/\/alistapart.com",
     "tags" : [
-
+      "standards",
+      "accessibility",
+      "responsive",
+      "semantic",
+      "best practices"
     ]
   },
   {
@@ -132,7 +176,11 @@
     "name" : "A year of reading the world",
     "siteURL" : "https:\/\/ayearofreadingtheworld.com",
     "tags" : [
-
+      "global",
+      "diversity",
+      "world literature",
+      "countries",
+      "challenges"
     ]
   },
   {
@@ -144,7 +192,11 @@
     "name" : "ABC News",
     "siteURL" : "https:\/\/www.abc.net.au",
     "tags" : [
-
+      "australian",
+      "politics",
+      "rural",
+      "indigenous",
+      "national"
     ]
   },
   {
@@ -155,7 +207,11 @@
     "name" : "Accidental Tech Podcast",
     "siteURL" : "https:\/\/atp.fm\/",
     "tags" : [
-
+      "podcast",
+      "apple",
+      "programming",
+      "nerdy",
+      "discussion"
     ]
   },
   {
@@ -166,7 +222,11 @@
     "name" : "Action Network",
     "siteURL" : "https:\/\/www.actionnetwork.com\/",
     "tags" : [
-
+      "betting",
+      "odds",
+      "picks",
+      "spreads",
+      "handicapping"
     ]
   },
   {
@@ -177,7 +237,11 @@
     "name" : "Adafruit",
     "siteURL" : "https:\/\/blog.adafruit.com\/",
     "tags" : [
-
+      "electronics",
+      "arduino",
+      "raspberry pi",
+      "maker",
+      "circuits"
     ]
   },
   {
@@ -189,7 +253,11 @@
     "name" : "Adnkronos - ultimoratop",
     "siteURL" : "https:\/\/www.adnkronos.com",
     "tags" : [
-
+      "italian",
+      "roma",
+      "cronaca",
+      "politica",
+      "agenzia"
     ]
   },
   {
@@ -200,7 +268,11 @@
     "name" : "ADVRider",
     "siteURL" : "https:\/\/www.advrider.com\/",
     "tags" : [
-
+      "adventure",
+      "dual sport",
+      "ride reports",
+      "off-road",
+      "travel"
     ]
   },
   {
@@ -211,7 +283,11 @@
     "name" : "Adweek",
     "siteURL" : "https:\/\/www.adweek.com\/",
     "tags" : [
-
+      "advertising",
+      "campaigns",
+      "creative",
+      "brands",
+      "agencies"
     ]
   },
   {
@@ -222,7 +298,11 @@
     "name" : "Aeon",
     "siteURL" : "https:\/\/aeon.co\/",
     "tags" : [
-
+      "philosophy",
+      "essays",
+      "ideas",
+      "science",
+      "culture"
     ]
   },
   {
@@ -233,7 +313,11 @@
     "name" : "AFAR",
     "siteURL" : "https:\/\/www.afar.com\/",
     "tags" : [
-
+      "experiential",
+      "destinations",
+      "culture",
+      "itineraries",
+      "responsible"
     ]
   },
   {
@@ -244,7 +328,11 @@
     "name" : "Afford Anything",
     "siteURL" : "https:\/\/affordanything.com\/",
     "tags" : [
-
+      "fire",
+      "real estate",
+      "freedom",
+      "investing",
+      "lifestyle"
     ]
   },
   {
@@ -255,7 +343,11 @@
     "name" : "Age of Revolutions",
     "siteURL" : "https:\/\/ageofrevolutions.com\/",
     "tags" : [
-
+      "18th century",
+      "revolution",
+      "academic",
+      "enlightenment",
+      "colonial"
     ]
   },
   {
@@ -266,7 +358,11 @@
     "name" : "Ahead of AI",
     "siteURL" : "https:\/\/magazine.sebastianraschka.com\/",
     "tags" : [
-
+      "deep learning",
+      "transformers",
+      "nlp",
+      "papers",
+      "neural networks"
     ]
   },
   {
@@ -277,7 +373,11 @@
     "name" : "AI News",
     "siteURL" : "https:\/\/www.artificialintelligence-news.com\/",
     "tags" : [
-
+      "chatbots",
+      "generative",
+      "startups",
+      "automation",
+      "models"
     ]
   },
   {
@@ -288,7 +388,11 @@
     "name" : "Ain't It Cool News",
     "siteURL" : "https:\/\/www.aintitcool.com\/",
     "tags" : [
-
+      "geek",
+      "reviews",
+      "comic book",
+      "sci-fi",
+      "horror"
     ]
   },
   {
@@ -300,7 +404,11 @@
     "name" : "Aktuell - FAZ.NET",
     "siteURL" : "https:\/\/www.faz.net\/aktuell\/",
     "tags" : [
-
+      "german",
+      "politik",
+      "wirtschaft",
+      "frankfurt",
+      "feuilleton"
     ]
   },
   {
@@ -311,7 +419,11 @@
     "name" : "Al Jazeera English",
     "siteURL" : "https:\/\/www.aljazeera.com",
     "tags" : [
-
+      "middle east",
+      "global south",
+      "conflicts",
+      "investigations",
+      "documentary"
     ]
   },
   {
@@ -322,7 +434,11 @@
     "name" : "Alberto De Bortoli",
     "siteURL" : "https:\/\/albertodebortoli.com\/",
     "tags" : [
-
+      "ios",
+      "architecture",
+      "engineering",
+      "swift",
+      "career"
     ]
   },
   {
@@ -334,7 +450,11 @@
     "name" : "All: BreakingNews.ie",
     "siteURL" : "https:\/\/www.breakingnews.ie\/all\/",
     "tags" : [
-
+      "irish",
+      "breaking",
+      "weather",
+      "sport",
+      "cork"
     ]
   },
   {
@@ -345,7 +465,11 @@
     "name" : "Allure",
     "siteURL" : "https:\/\/www.allure.com\/",
     "tags" : [
-
+      "skincare",
+      "makeup",
+      "awards",
+      "drugstore",
+      "trends"
     ]
   },
   {
@@ -356,7 +480,11 @@
     "name" : "American Songwriter",
     "siteURL" : "https:\/\/americansongwriter.com",
     "tags" : [
-
+      "songwriting",
+      "craft",
+      "interviews",
+      "lyrics",
+      "acoustic"
     ]
   },
   {
@@ -367,7 +495,11 @@
     "name" : "Ana White",
     "siteURL" : "https:\/\/www.ana-white.com\/",
     "tags" : [
-
+      "woodworking",
+      "furniture",
+      "plans",
+      "beginner",
+      "building"
     ]
   },
   {
@@ -378,7 +510,11 @@
     "name" : "Analog(ue)",
     "siteURL" : "https:\/\/www.relay.fm\/analogue",
     "tags" : [
-
+      "podcast",
+      "feelings",
+      "humanity",
+      "lifestyle",
+      "reflection"
     ]
   },
   {
@@ -389,7 +525,11 @@
     "name" : "Android",
     "siteURL" : "https:\/\/blog.google\/products-and-platforms\/platforms\/android\/",
     "tags" : [
-
+      "pixel",
+      "google",
+      "updates",
+      "apps",
+      "features"
     ]
   },
   {
@@ -400,7 +540,11 @@
     "name" : "Android Authority",
     "siteURL" : "https:\/\/www.androidauthority.com\/",
     "tags" : [
-
+      "reviews",
+      "phones",
+      "deals",
+      "chromebook",
+      "wearables"
     ]
   },
   {
@@ -411,7 +555,11 @@
     "name" : "Android Central",
     "siteURL" : "https:\/\/www.androidcentral.com",
     "tags" : [
-
+      "pixel",
+      "samsung",
+      "reviews",
+      "apps",
+      "how-to"
     ]
   },
   {
@@ -422,7 +570,11 @@
     "name" : "Android Developers Blog",
     "siteURL" : "https:\/\/android-developers.googleblog.com\/",
     "tags" : [
-
+      "android sdk",
+      "kotlin",
+      "jetpack",
+      "compose",
+      "google"
     ]
   },
   {
@@ -433,7 +585,11 @@
     "name" : "Android Developers Blog (Medium)",
     "siteURL" : "https:\/\/medium.com\/androiddevelopers",
     "tags" : [
-
+      "android",
+      "jetpack",
+      "compose",
+      "material",
+      "kotlin"
     ]
   },
   {
@@ -444,7 +600,11 @@
     "name" : "Android Police",
     "siteURL" : "https:\/\/www.androidpolice.com\/",
     "tags" : [
-
+      "apps",
+      "reviews",
+      "deals",
+      "updates",
+      "guides"
     ]
   },
   {
@@ -455,7 +615,11 @@
     "name" : "AndroidGuys",
     "siteURL" : "https:\/\/androidguys.com",
     "tags" : [
-
+      "phones",
+      "tablets",
+      "apps",
+      "opinion",
+      "reviews"
     ]
   },
   {
@@ -467,7 +631,11 @@
     "name" : "ANSA",
     "siteURL" : "https:\/\/www.ansa.it\/sito\/videogallery\/short_video\/2026\/03\/14\/il-racconto-della-settimana-in-foto_b02787b1-d4a0-448a-9ed2-0a0f00be5932.html",
     "tags" : [
-
+      "italian",
+      "agenzia",
+      "breaking",
+      "roma",
+      "cronaca"
     ]
   },
   {
@@ -478,7 +646,11 @@
     "name" : "Apple Newsroom",
     "siteURL" : "https:\/\/www.apple.com\/newsroom\/",
     "tags" : [
-
+      "press release",
+      "iphone",
+      "mac",
+      "wwdc",
+      "launches"
     ]
   },
   {
@@ -489,7 +661,11 @@
     "name" : "AppleInsider News",
     "siteURL" : "https:\/\/appleinsider.com",
     "tags" : [
-
+      "rumors",
+      "iphone",
+      "mac",
+      "reviews",
+      "deals"
     ]
   },
   {
@@ -500,7 +676,11 @@
     "name" : "Archaeology Magazine",
     "siteURL" : "https:\/\/www.archaeology.org\/",
     "tags" : [
-
+      "digs",
+      "discoveries",
+      "ancient",
+      "artifacts",
+      "excavations"
     ]
   },
   {
@@ -511,7 +691,11 @@
     "name" : "ArchDaily",
     "siteURL" : "https:\/\/www.archdaily.com\/",
     "tags" : [
-
+      "buildings",
+      "projects",
+      "competitions",
+      "urban",
+      "residential"
     ]
   },
   {
@@ -522,7 +706,11 @@
     "name" : "Archinect",
     "siteURL" : "https:\/\/archinect.com\/",
     "tags" : [
-
+      "community",
+      "jobs",
+      "competitions",
+      "urban",
+      "studios"
     ]
   },
   {
@@ -533,7 +721,11 @@
     "name" : "Architectural Digest",
     "siteURL" : "https:\/\/www.architecturaldigest.com",
     "tags" : [
-
+      "interiors",
+      "luxury",
+      "celebrity homes",
+      "decor",
+      "renovation"
     ]
   },
   {
@@ -544,7 +736,11 @@
     "name" : "Ars Technica",
     "siteURL" : "https:\/\/arstechnica.com",
     "tags" : [
-
+      "gadgets",
+      "reviews",
+      "cybersecurity",
+      "hardware",
+      "software"
     ]
   },
   {
@@ -555,7 +751,11 @@
     "name" : "Atlas Obscura",
     "siteURL" : "https:\/\/www.atlasobscura.com\/",
     "tags" : [
-
+      "hidden places",
+      "curiosities",
+      "wonders",
+      "offbeat",
+      "gastro"
     ]
   },
   {
@@ -566,7 +766,11 @@
     "name" : "Auto Express",
     "siteURL" : "https:\/\/www.autoexpress.co.uk\/",
     "tags" : [
-
+      "uk",
+      "buying advice",
+      "reviews",
+      "deals",
+      "electric"
     ]
   },
   {
@@ -577,7 +781,11 @@
     "name" : "Autocar",
     "siteURL" : "https:\/\/www.autocar.co.uk\/",
     "tags" : [
-
+      "road tests",
+      "british",
+      "reviews",
+      "supercars",
+      "classic"
     ]
   },
   {
@@ -588,7 +796,11 @@
     "name" : "Autocar India",
     "siteURL" : "https:\/\/www.autocarindia.com",
     "tags" : [
-
+      "indian market",
+      "bikes",
+      "reviews",
+      "comparisons",
+      "prices"
     ]
   },
   {
@@ -599,7 +811,11 @@
     "name" : "Axios",
     "siteURL" : "https:\/\/www.axios.com\/",
     "tags" : [
-
+      "newsletters",
+      "brevity",
+      "politics",
+      "charts",
+      "bullet points"
     ]
   },
   {
@@ -610,7 +826,11 @@
     "name" : "Bandcamp Daily",
     "siteURL" : "https:\/\/daily.bandcamp.com",
     "tags" : [
-
+      "indie",
+      "underground",
+      "discovery",
+      "vinyl",
+      "global"
     ]
   },
   {
@@ -622,7 +842,11 @@
     "name" : "BBC News: India",
     "siteURL" : "https:\/\/www.bbc.co.uk\/news\/world\/asia\/india",
     "tags" : [
-
+      "english",
+      "impartial",
+      "politics",
+      "economy",
+      "society"
     ]
   },
   {
@@ -633,7 +857,11 @@
     "name" : "BBC News: Science & Environment",
     "siteURL" : "https:\/\/www.bbc.co.uk\/news\/science_and_environment",
     "tags" : [
-
+      "british",
+      "climate",
+      "nature",
+      "discoveries",
+      "space"
     ]
   },
   {
@@ -644,7 +872,11 @@
     "name" : "BBC News: World",
     "siteURL" : "https:\/\/www.bbc.co.uk\/news\/world",
     "tags" : [
-
+      "breaking news",
+      "global",
+      "international",
+      "headlines",
+      "impartial"
     ]
   },
   {
@@ -655,7 +887,11 @@
     "name" : "BBC Sport",
     "siteURL" : "https:\/\/www.bbc.co.uk\/sport",
     "tags" : [
-
+      "football",
+      "cricket",
+      "rugby",
+      "f1",
+      "scores"
     ]
   },
   {
@@ -666,7 +902,11 @@
     "name" : "BBC Sport: Cricket",
     "siteURL" : "https:\/\/www.bbc.co.uk\/sport\/cricket",
     "tags" : [
-
+      "cricket",
+      "test matches",
+      "odi",
+      "ashes",
+      "t20"
     ]
   },
   {
@@ -677,7 +917,11 @@
     "name" : "BBC Sport: Tennis",
     "siteURL" : "https:\/\/www.bbc.co.uk\/sport\/tennis",
     "tags" : [
-
+      "tennis",
+      "wimbledon",
+      "grand slams",
+      "atp",
+      "wta"
     ]
   },
   {
@@ -689,7 +933,11 @@
     "name" : "BBC: UK",
     "siteURL" : "https:\/\/www.bbc.co.uk\/news\/uk",
     "tags" : [
-
+      "british",
+      "london",
+      "parliament",
+      "nhs",
+      "politics"
     ]
   },
   {
@@ -701,7 +949,11 @@
     "name" : "BD24Live.com",
     "siteURL" : "https:\/\/www.bd24live.com\/",
     "tags" : [
-
+      "bangla",
+      "dhaka",
+      "politics",
+      "national",
+      "breaking"
     ]
   },
   {
@@ -712,7 +964,11 @@
     "name" : "Beauty Independent",
     "siteURL" : "https:\/\/www.beautyindependent.com\/",
     "tags" : [
-
+      "indie brands",
+      "retail",
+      "funding",
+      "startups",
+      "trade"
     ]
   },
   {
@@ -723,7 +979,11 @@
     "name" : "Bike EXIF",
     "siteURL" : "https:\/\/www.bikeexif.com\/",
     "tags" : [
-
+      "custom",
+      "cafe racer",
+      "builds",
+      "photography",
+      "design"
     ]
   },
   {
@@ -734,7 +994,11 @@
     "name" : "Billboard",
     "siteURL" : "https:\/\/www.billboard.com",
     "tags" : [
-
+      "charts",
+      "top 40",
+      "pop",
+      "hip hop",
+      "streaming"
     ]
   },
   {
@@ -745,7 +1009,11 @@
     "name" : "Bleeding Cool",
     "siteURL" : "https:\/\/bleedingcool.com",
     "tags" : [
-
+      "comics",
+      "collectibles",
+      "rumors",
+      "conventions",
+      "merchandise"
     ]
   },
   {
@@ -756,7 +1024,11 @@
     "name" : "BMW BLOG",
     "siteURL" : "https:\/\/www.bmwblog.com\/",
     "tags" : [
-
+      "bmw",
+      "m series",
+      "electric",
+      "reviews",
+      "spy shots"
     ]
   },
   {
@@ -767,7 +1039,11 @@
     "name" : "Bob Vila",
     "siteURL" : "https:\/\/www.bobvila.com\/",
     "tags" : [
-
+      "home repair",
+      "renovation",
+      "tools",
+      "plumbing",
+      "electrical"
     ]
   },
   {
@@ -778,7 +1054,11 @@
     "name" : "Book Riot",
     "siteURL" : "https:\/\/bookriot.com\/",
     "tags" : [
-
+      "recommendations",
+      "inclusive",
+      "genre fiction",
+      "tbr",
+      "bookish"
     ]
   },
   {
@@ -789,7 +1069,11 @@
     "name" : "Bring a Trailer",
     "siteURL" : "https:\/\/bringatrailer.com",
     "tags" : [
-
+      "auctions",
+      "classic cars",
+      "enthusiast",
+      "bidding",
+      "collectible"
     ]
   },
   {
@@ -801,7 +1085,11 @@
     "name" : "Brisbane Times",
     "siteURL" : "https:\/\/www.brisbanetimes.com.au\/rss\/feed.xml",
     "tags" : [
-
+      "queensland",
+      "brisbane",
+      "local",
+      "politics",
+      "property"
     ]
   },
   {
@@ -812,7 +1100,11 @@
     "name" : "Brit + Co",
     "siteURL" : "https:\/\/www.brit.co\/",
     "tags" : [
-
+      "crafts",
+      "creative",
+      "lifestyle",
+      "parties",
+      "home decor"
     ]
   },
   {
@@ -823,7 +1115,11 @@
     "name" : "BrooklynVegan",
     "siteURL" : "https:\/\/www.brooklynvegan.com",
     "tags" : [
-
+      "live shows",
+      "concerts",
+      "indie",
+      "punk",
+      "metal"
     ]
   },
   {
@@ -834,7 +1130,11 @@
     "name" : "Business Insider",
     "siteURL" : "https:\/\/www.businessinsider.com",
     "tags" : [
-
+      "careers",
+      "corporate",
+      "markets",
+      "startups",
+      "wall street"
     ]
   },
   {
@@ -846,7 +1146,11 @@
     "name" : "Business Line",
     "siteURL" : "https:\/\/www.thehindubusinessline.com\/",
     "tags" : [
-
+      "markets",
+      "economy",
+      "stocks",
+      "bse",
+      "nse"
     ]
   },
   {
@@ -858,7 +1162,11 @@
     "name" : "Business Standard",
     "siteURL" : "https:\/\/www.business-standard.com",
     "tags" : [
-
+      "markets",
+      "economy",
+      "corporate",
+      "sensex",
+      "policy"
     ]
   },
   {
@@ -869,7 +1177,11 @@
     "name" : "Byrdie",
     "siteURL" : "https:\/\/www.byrdie.com\/",
     "tags" : [
-
+      "skincare",
+      "hair",
+      "nails",
+      "routines",
+      "tutorials"
     ]
   },
   {
@@ -880,7 +1192,11 @@
     "name" : "Canary Media",
     "siteURL" : "https:\/\/www.canarymedia.com\/",
     "tags" : [
-
+      "clean energy",
+      "solar",
+      "wind",
+      "grid",
+      "transition"
     ]
   },
   {
@@ -892,7 +1208,11 @@
     "name" : "Canberra Times",
     "siteURL" : "https:\/\/www.canberratimes.com.au\/news\/local-news\/",
     "tags" : [
-
+      "canberra",
+      "act",
+      "politics",
+      "local",
+      "public service"
     ]
   },
   {
@@ -903,7 +1223,11 @@
     "name" : "Canon Rumors",
     "siteURL" : "https:\/\/www.canonrumors.com",
     "tags" : [
-
+      "canon",
+      "lenses",
+      "rumors",
+      "leaks",
+      "mirrorless"
     ]
   },
   {
@@ -914,7 +1238,11 @@
     "name" : "Car and Driver",
     "siteURL" : "https:\/\/www.caranddriver.com\/",
     "tags" : [
-
+      "road tests",
+      "comparisons",
+      "performance",
+      "reviews",
+      "rankings"
     ]
   },
   {
@@ -925,7 +1253,11 @@
     "name" : "Car Body Design",
     "siteURL" : "https:\/\/www.carbodydesign.com",
     "tags" : [
-
+      "sketches",
+      "rendering",
+      "automotive design",
+      "concept",
+      "clay models"
     ]
   },
   {
@@ -936,7 +1268,11 @@
     "name" : "Carbon Brief",
     "siteURL" : "https:\/\/www.carbonbrief.org\/",
     "tags" : [
-
+      "climate data",
+      "emissions",
+      "ipcc",
+      "policy",
+      "charts"
     ]
   },
   {
@@ -947,7 +1283,11 @@
     "name" : "Carscoops",
     "siteURL" : "https:\/\/www.carscoops.com\/",
     "tags" : [
-
+      "spy shots",
+      "scoops",
+      "reveals",
+      "concepts",
+      "global"
     ]
   },
   {
@@ -959,7 +1299,11 @@
     "name" : "CBC",
     "siteURL" : "https:\/\/www.cbc.ca\/news\/",
     "tags" : [
-
+      "canadian",
+      "toronto",
+      "politics",
+      "indigenous",
+      "national"
     ]
   },
   {
@@ -970,7 +1314,11 @@
     "name" : "Chocolate & Zucchini",
     "siteURL" : "https:\/\/cnz.to\/",
     "tags" : [
-
+      "french",
+      "paris",
+      "baking",
+      "seasonal",
+      "simple"
     ]
   },
   {
@@ -981,7 +1329,11 @@
     "name" : "CleanTechnica",
     "siteURL" : "https:\/\/cleantechnica.com\/",
     "tags" : [
-
+      "solar",
+      "evs",
+      "wind",
+      "batteries",
+      "grid"
     ]
   },
   {
@@ -992,7 +1344,11 @@
     "name" : "CNBC",
     "siteURL" : "https:\/\/www.cnbc.com",
     "tags" : [
-
+      "markets",
+      "earnings",
+      "economy",
+      "stocks",
+      "fed"
     ]
   },
   {
@@ -1003,7 +1359,11 @@
     "name" : "CNBC International",
     "siteURL" : "https:\/\/www.cnbc.com\/world-top-news\/",
     "tags" : [
-
+      "markets",
+      "trade",
+      "asia",
+      "europe",
+      "economy"
     ]
   },
   {
@@ -1014,7 +1374,11 @@
     "name" : "CNET News",
     "siteURL" : "https:\/\/www.cnet.com\/",
     "tags" : [
-
+      "reviews",
+      "deals",
+      "how-to",
+      "buying guides",
+      "gadgets"
     ]
   },
   {
@@ -1025,7 +1389,11 @@
     "name" : "Code as Craft",
     "siteURL" : "https:\/\/www.etsy.com\/codeascraft\/rss",
     "tags" : [
-
+      "engineering blog",
+      "etsy",
+      "devops",
+      "architecture",
+      "culture"
     ]
   },
   {
@@ -1036,7 +1404,11 @@
     "name" : "Coding Horror",
     "siteURL" : "https:\/\/blog.codinghorror.com\/",
     "tags" : [
-
+      "opinion",
+      "best practices",
+      "stack overflow",
+      "career",
+      "essays"
     ]
   },
   {
@@ -1047,7 +1419,11 @@
     "name" : "ComingSoon.net",
     "siteURL" : "https:\/\/www.comingsoon.net\/",
     "tags" : [
-
+      "trailers",
+      "release dates",
+      "streaming",
+      "casting",
+      "sequels"
     ]
   },
   {
@@ -1058,7 +1434,11 @@
     "name" : "Condé Nast Traveler",
     "siteURL" : "https:\/\/www.cntraveler.com",
     "tags" : [
-
+      "luxury",
+      "hotels",
+      "resorts",
+      "lists",
+      "destinations"
     ]
   },
   {
@@ -1069,7 +1449,11 @@
     "name" : "Consequence of Sound",
     "siteURL" : "https:\/\/consequence.net",
     "tags" : [
-
+      "festivals",
+      "reviews",
+      "tours",
+      "setlists",
+      "albums"
     ]
   },
   {
@@ -1080,7 +1464,11 @@
     "name" : "Content Marketing Institute",
     "siteURL" : "https:\/\/contentmarketinginstitute.com\/",
     "tags" : [
-
+      "content strategy",
+      "blogging",
+      "b2b",
+      "roi",
+      "frameworks"
     ]
   },
   {
@@ -1091,7 +1479,11 @@
     "name" : "Coveteur",
     "siteURL" : "https:\/\/coveteur.com",
     "tags" : [
-
+      "celebrity style",
+      "closets",
+      "luxury",
+      "wellness",
+      "shopping"
     ]
   },
   {
@@ -1102,7 +1494,11 @@
     "name" : "Cracked: All Posts",
     "siteURL" : "https:\/\/www.cracked.com\/",
     "tags" : [
-
+      "comedy",
+      "lists",
+      "pop culture",
+      "absurd",
+      "nostalgia"
     ]
   },
   {
@@ -1113,7 +1509,11 @@
     "name" : "Cruising World",
     "siteURL" : "https:\/\/www.cruisingworld.com\/",
     "tags" : [
-
+      "bluewater",
+      "sailing",
+      "anchoring",
+      "passages",
+      "liveaboard"
     ]
   },
   {
@@ -1124,7 +1524,11 @@
     "name" : "CSS-Tricks",
     "siteURL" : "https:\/\/css-tricks.com",
     "tags" : [
-
+      "css",
+      "flexbox",
+      "grid",
+      "snippets",
+      "frontend"
     ]
   },
   {
@@ -1135,7 +1539,11 @@
     "name" : "Cult of Mac",
     "siteURL" : "https:\/\/www.cultofmac.com\/",
     "tags" : [
-
+      "iphone",
+      "mac",
+      "tips",
+      "how-to",
+      "culture"
     ]
   },
   {
@@ -1147,7 +1555,11 @@
     "name" : "Current PH",
     "siteURL" : "https:\/\/currentph.com",
     "tags" : [
-
+      "filipino",
+      "manila",
+      "breaking",
+      "politics",
+      "national"
     ]
   },
   {
@@ -1159,7 +1571,11 @@
     "name" : "Daily Mail",
     "siteURL" : "https:\/\/www.dailymail.co.uk",
     "tags" : [
-
+      "tabloid",
+      "showbiz",
+      "royal family",
+      "health",
+      "crime"
     ]
   },
   {
@@ -1171,7 +1587,11 @@
     "name" : "Daily Maverick",
     "siteURL" : "https:\/\/www.dailymaverick.co.za",
     "tags" : [
-
+      "investigations",
+      "politics",
+      "corruption",
+      "opinion",
+      "johannesburg"
     ]
   },
   {
@@ -1182,7 +1602,11 @@
     "name" : "Dan Lew Codes",
     "siteURL" : "https:\/\/blog.danlew.net\/",
     "tags" : [
-
+      "android",
+      "kotlin",
+      "rxjava",
+      "tips",
+      "debugging"
     ]
   },
   {
@@ -1193,7 +1617,11 @@
     "name" : "Daring Fireball",
     "siteURL" : "https:\/\/daringfireball.net\/",
     "tags" : [
-
+      "opinion",
+      "commentary",
+      "iphone",
+      "mac",
+      "gruber"
     ]
   },
   {
@@ -1204,7 +1632,11 @@
     "name" : "David Lebovitz",
     "siteURL" : "https:\/\/www.davidlebovitz.com\/",
     "tags" : [
-
+      "baking",
+      "paris",
+      "desserts",
+      "pastry",
+      "french"
     ]
   },
   {
@@ -1215,7 +1647,11 @@
     "name" : "David Walsh Blog",
     "siteURL" : "https:\/\/davidwalsh.name",
     "tags" : [
-
+      "javascript",
+      "html5",
+      "tutorials",
+      "frontend",
+      "performance"
     ]
   },
   {
@@ -1226,7 +1662,11 @@
     "name" : "Deadline",
     "siteURL" : "https:\/\/deadline.com",
     "tags" : [
-
+      "hollywood",
+      "box office",
+      "deals",
+      "casting",
+      "streaming"
     ]
   },
   {
@@ -1238,7 +1678,11 @@
     "name" : "Deccan Chronicle",
     "siteURL" : "https:\/\/www.deccanchronicle.com",
     "tags" : [
-
+      "hyderabad",
+      "telangana",
+      "south india",
+      "politics",
+      "english"
     ]
   },
   {
@@ -1249,7 +1693,11 @@
     "name" : "Defector",
     "siteURL" : "https:\/\/defector.com\/",
     "tags" : [
-
+      "independent",
+      "humor",
+      "essays",
+      "culture",
+      "worker-owned"
     ]
   },
   {
@@ -1260,7 +1708,11 @@
     "name" : "Design Milk",
     "siteURL" : "https:\/\/design-milk.com\/category\/architecture\/",
     "tags" : [
-
+      "modern",
+      "interiors",
+      "furniture",
+      "art",
+      "minimalist"
     ]
   },
   {
@@ -1271,7 +1723,11 @@
     "name" : "designboom",
     "siteURL" : "https:\/\/www.designboom.com\/architecture\/",
     "tags" : [
-
+      "installations",
+      "exhibitions",
+      "contemporary",
+      "urban",
+      "projects"
     ]
   },
   {
@@ -1283,7 +1739,11 @@
     "name" : "Deutsche Welle",
     "siteURL" : "https:\/\/www.dw.com\/english\/",
     "tags" : [
-
+      "german",
+      "english",
+      "international",
+      "europe",
+      "analysis"
     ]
   },
   {
@@ -1294,7 +1754,11 @@
     "name" : "Dezeen",
     "siteURL" : "https:\/\/www.dezeen.com",
     "tags" : [
-
+      "interiors",
+      "furniture",
+      "urban",
+      "sustainability",
+      "projects"
     ]
   },
   {
@@ -1305,7 +1769,11 @@
     "name" : "Digiday",
     "siteURL" : "https:\/\/digiday.com\/",
     "tags" : [
-
+      "ad tech",
+      "publishers",
+      "programmatic",
+      "platforms",
+      "media buying"
     ]
   },
   {
@@ -1316,7 +1784,11 @@
     "name" : "Digital Photography School",
     "siteURL" : "https:\/\/digital-photography-school.com\/",
     "tags" : [
-
+      "tutorials",
+      "beginners",
+      "tips",
+      "composition",
+      "lighting"
     ]
   },
   {
@@ -1327,7 +1799,11 @@
     "name" : "Doityourself.com",
     "siteURL" : "https:\/\/www.doityourself.com",
     "tags" : [
-
+      "home repair",
+      "plumbing",
+      "electrical",
+      "painting",
+      "flooring"
     ]
   },
   {
@@ -1338,7 +1814,11 @@
     "name" : "Donny Wals",
     "siteURL" : "https:\/\/www.donnywals.com",
     "tags" : [
-
+      "swift",
+      "ios",
+      "combine",
+      "swiftui",
+      "tutorials"
     ]
   },
   {
@@ -1349,7 +1829,11 @@
     "name" : "DPReview",
     "siteURL" : "https:\/\/www.dpreview.com",
     "tags" : [
-
+      "reviews",
+      "comparisons",
+      "sensors",
+      "mirrorless",
+      "samples"
     ]
   },
   {
@@ -1360,7 +1844,11 @@
     "name" : "Droid Life",
     "siteURL" : "https:\/\/www.droid-life.com\/",
     "tags" : [
-
+      "pixel",
+      "samsung",
+      "reviews",
+      "opinion",
+      "deals"
     ]
   },
   {
@@ -1371,7 +1859,11 @@
     "name" : "Duct Tape Marketing",
     "siteURL" : "https:\/\/www.ducttapemarketing.com\/about\/duct-tape-marketing-podcast\/",
     "tags" : [
-
+      "small business",
+      "local",
+      "referrals",
+      "strategy",
+      "consulting"
     ]
   },
   {
@@ -1383,7 +1875,11 @@
     "name" : "Economic Times",
     "siteURL" : "https:\/\/economictimes.indiatimes.com",
     "tags" : [
-
+      "markets",
+      "sensex",
+      "corporate",
+      "startups",
+      "economy"
     ]
   },
   {
@@ -1394,7 +1890,11 @@
     "name" : "EDM.com",
     "siteURL" : "https:\/\/edm.com\/blog\/",
     "tags" : [
-
+      "electronic",
+      "dj",
+      "festivals",
+      "house",
+      "techno"
     ]
   },
   {
@@ -1406,7 +1906,11 @@
     "name" : "El Financiero",
     "siteURL" : "https:\/\/www.elfinanciero.com.mx",
     "tags" : [
-
+      "spanish",
+      "finanzas",
+      "economia",
+      "bolsa",
+      "negocios"
     ]
   },
   {
@@ -1418,7 +1922,11 @@
     "name" : "EL PAÍS: el periódico global",
     "siteURL" : "https:\/\/elpais.com",
     "tags" : [
-
+      "spanish",
+      "politica",
+      "economia",
+      "cultura",
+      "madrid"
     ]
   },
   {
@@ -1430,7 +1938,11 @@
     "name" : "ElDiario.es - ElDiario.es",
     "siteURL" : "https:\/\/www.eldiario.es\/",
     "tags" : [
-
+      "spanish",
+      "progresista",
+      "investigacion",
+      "politica",
+      "opinion"
     ]
   },
   {
@@ -1441,7 +1953,11 @@
     "name" : "Electrek",
     "siteURL" : "https:\/\/electrek.co\/",
     "tags" : [
-
+      "tesla",
+      "solar",
+      "evs",
+      "charging",
+      "green energy"
     ]
   },
   {
@@ -1452,7 +1968,11 @@
     "name" : "ELLE",
     "siteURL" : "https:\/\/www.elle.com\/beauty\/",
     "tags" : [
-
+      "runway",
+      "celebrity",
+      "trends",
+      "designer",
+      "couture"
     ]
   },
   {
@@ -1463,7 +1983,11 @@
     "name" : "ELLE",
     "siteURL" : "https:\/\/www.elle.com",
     "tags" : [
-
+      "runway",
+      "celebrity",
+      "trends",
+      "designer",
+      "couture"
     ]
   },
   {
@@ -1474,7 +1998,11 @@
     "name" : "Emerge Tools",
     "siteURL" : "https:\/\/www.emergetools.com\/blog",
     "tags" : [
-
+      "app size",
+      "performance",
+      "build times",
+      "profiling",
+      "optimization"
     ]
   },
   {
@@ -1485,7 +2013,11 @@
     "name" : "Engadget",
     "siteURL" : "https:\/\/www.engadget.com\/",
     "tags" : [
-
+      "reviews",
+      "gadgets",
+      "deals",
+      "streaming",
+      "hands-on"
     ]
   },
   {
@@ -1496,7 +2028,11 @@
     "name" : "Entrepreneur",
     "siteURL" : "https:\/\/www.entrepreneur.com\/",
     "tags" : [
-
+      "startups",
+      "small business",
+      "franchises",
+      "founders",
+      "growth"
     ]
   },
   {
@@ -1507,7 +2043,11 @@
     "name" : "Escapist Magazine",
     "siteURL" : "https:\/\/www.escapistmagazine.com\/",
     "tags" : [
-
+      "reviews",
+      "opinion",
+      "culture",
+      "indie",
+      "retro"
     ]
   },
   {
@@ -1518,7 +2058,11 @@
     "id" : "2a77e2e7-1bee-3493-b144-c09f82259251",
     "name" : "España",
     "tags" : [
-
+      "spanish",
+      "nacional",
+      "politica",
+      "madrid",
+      "comunidades"
     ]
   },
   {
@@ -1529,7 +2073,11 @@
     "name" : "ESPN",
     "siteURL" : "https:\/\/www.espn.com",
     "tags" : [
-
+      "scores",
+      "highlights",
+      "nfl",
+      "nba",
+      "fantasy"
     ]
   },
   {
@@ -1540,7 +2088,11 @@
     "name" : "ESPN Tennis",
     "siteURL" : "https:\/\/www.espn.com",
     "tags" : [
-
+      "atp",
+      "wta",
+      "grand slams",
+      "rankings",
+      "matches"
     ]
   },
   {
@@ -1551,7 +2103,11 @@
     "name" : "Essence",
     "siteURL" : "https:\/\/www.essence.com\/",
     "tags" : [
-
+      "black beauty",
+      "hair care",
+      "melanin",
+      "culture",
+      "natural hair"
     ]
   },
   {
@@ -1563,7 +2119,11 @@
     "name" : "Euro Weekly News Spain",
     "siteURL" : "https:\/\/euroweeklynews.com",
     "tags" : [
-
+      "english",
+      "expat",
+      "costa del sol",
+      "british",
+      "lifestyle"
     ]
   },
   {
@@ -1574,7 +2134,11 @@
     "name" : "Eurogamer.net",
     "siteURL" : "https:\/\/www.eurogamer.net",
     "tags" : [
-
+      "reviews",
+      "features",
+      "digital foundry",
+      "indie",
+      "analysis"
     ]
   },
   {
@@ -1585,7 +2149,11 @@
     "name" : "Everyday Astronaut",
     "siteURL" : "https:\/\/everydayastronaut.com\/",
     "tags" : [
-
+      "rockets",
+      "engines",
+      "explainers",
+      "spacex",
+      "starship"
     ]
   },
   {
@@ -1596,7 +2164,11 @@
     "name" : "Everyday Health",
     "siteURL" : "https:\/\/www.everydayhealth.com\/",
     "tags" : [
-
+      "conditions",
+      "symptoms",
+      "treatments",
+      "chronic",
+      "guides"
     ]
   },
   {
@@ -1607,7 +2179,11 @@
     "name" : "Evo",
     "siteURL" : "https:\/\/www.evo.co.uk\/",
     "tags" : [
-
+      "performance",
+      "supercars",
+      "track",
+      "driving",
+      "sports cars"
     ]
   },
   {
@@ -1618,7 +2194,11 @@
     "name" : "Fabisevi.ch",
     "siteURL" : "https:\/\/fabisevi.ch",
     "tags" : [
-
+      "ios",
+      "swift",
+      "xcode",
+      "tips",
+      "uikit"
     ]
   },
   {
@@ -1629,7 +2209,11 @@
     "name" : "Facebook Engineering",
     "siteURL" : "https:\/\/engineering.fb.com\/",
     "tags" : [
-
+      "meta",
+      "infrastructure",
+      "scale",
+      "react",
+      "open source"
     ]
   },
   {
@@ -1640,7 +2224,11 @@
     "name" : "Family Handyman",
     "siteURL" : "https:\/\/www.familyhandyman.com\/",
     "tags" : [
-
+      "home repair",
+      "tools",
+      "plumbing",
+      "woodworking",
+      "garage"
     ]
   },
   {
@@ -1651,7 +2239,11 @@
     "name" : "FanGraphs",
     "siteURL" : "https:\/\/www.fangraphs.com\/",
     "tags" : [
-
+      "sabermetrics",
+      "baseball",
+      "war",
+      "analytics",
+      "mlb"
     ]
   },
   {
@@ -1663,7 +2255,11 @@
     "name" : "Fanpage",
     "siteURL" : "https:\/\/www.fanpage.it",
     "tags" : [
-
+      "italian",
+      "napoli",
+      "cronaca",
+      "social",
+      "inchieste"
     ]
   },
   {
@@ -1674,7 +2270,11 @@
     "name" : "FashionBeans",
     "siteURL" : "https:\/\/www.fashionbeans.com",
     "tags" : [
-
+      "menswear",
+      "grooming",
+      "outfits",
+      "casual",
+      "streetwear"
     ]
   },
   {
@@ -1685,7 +2285,11 @@
     "name" : "Fashionista",
     "siteURL" : "https:\/\/fashionista.com",
     "tags" : [
-
+      "trends",
+      "industry",
+      "celebrity",
+      "runway",
+      "style"
     ]
   },
   {
@@ -1696,7 +2300,11 @@
     "name" : "Fast Company",
     "siteURL" : "https:\/\/www.fastcompany.com",
     "tags" : [
-
+      "innovation",
+      "design",
+      "leadership",
+      "creativity",
+      "startups"
     ]
   },
   {
@@ -1707,7 +2315,11 @@
     "name" : "Fatbobman",
     "siteURL" : "https:\/\/fatbobman.com",
     "tags" : [
-
+      "swiftui",
+      "swiftdata",
+      "core data",
+      "chinese",
+      "tutorials"
     ]
   },
   {
@@ -1719,7 +2331,11 @@
     "name" : "Financial Post",
     "siteURL" : "https:\/\/financialpost.com",
     "tags" : [
-
+      "canadian business",
+      "markets",
+      "oil",
+      "banking",
+      "tsx"
     ]
   },
   {
@@ -1730,7 +2346,11 @@
     "name" : "Financial Samurai",
     "siteURL" : "https:\/\/financialsamurai.com",
     "tags" : [
-
+      "fire",
+      "real estate",
+      "bay area",
+      "early retirement",
+      "wealth"
     ]
   },
   {
@@ -1741,7 +2361,11 @@
     "name" : "Fine Woodworking",
     "siteURL" : "https:\/\/www.finewoodworking.com\/",
     "tags" : [
-
+      "joinery",
+      "hand tools",
+      "furniture",
+      "techniques",
+      "lumber"
     ]
   },
   {
@@ -1752,7 +2376,11 @@
     "name" : "FirstShowing.net",
     "siteURL" : "https:\/\/www.firstshowing.net",
     "tags" : [
-
+      "trailers",
+      "release dates",
+      "reviews",
+      "indie",
+      "festivals"
     ]
   },
   {
@@ -1763,7 +2391,11 @@
     "name" : "Forbes",
     "siteURL" : "https:\/\/www.forbes.com\/business\/",
     "tags" : [
-
+      "billionaires",
+      "leadership",
+      "startups",
+      "wealth",
+      "ceo"
     ]
   },
   {
@@ -1774,7 +2406,11 @@
     "name" : "Fortune",
     "siteURL" : "https:\/\/fortune.com",
     "tags" : [
-
+      "fortune 500",
+      "ceo",
+      "corporate",
+      "leadership",
+      "rankings"
     ]
   },
   {
@@ -1786,7 +2422,11 @@
     "name" : "FOX News",
     "siteURL" : "https:\/\/www.foxnews.com\/",
     "tags" : [
-
+      "conservative",
+      "politics",
+      "opinion",
+      "washington",
+      "breaking"
     ]
   },
   {
@@ -1798,7 +2438,11 @@
     "name" : "Franceinfo - Les Titres",
     "siteURL" : "https:\/\/www.franceinfo.fr\/titres\/",
     "tags" : [
-
+      "french",
+      "actualites",
+      "politique",
+      "breaking",
+      "national"
     ]
   },
   {
@@ -1810,7 +2454,11 @@
     "name" : "Free Press Journal",
     "siteURL" : "https:\/\/www.freepressjournal.in",
     "tags" : [
-
+      "mumbai",
+      "maharashtra",
+      "politics",
+      "english",
+      "breaking"
     ]
   },
   {
@@ -1821,7 +2469,11 @@
     "name" : "Fstoppers",
     "siteURL" : "https:\/\/fstoppers.com",
     "tags" : [
-
+      "tutorials",
+      "business",
+      "lighting",
+      "retouching",
+      "bts"
     ]
   },
   {
@@ -1832,7 +2484,11 @@
     "name" : "Game Rant",
     "siteURL" : "https:\/\/gamerant.com",
     "tags" : [
-
+      "news",
+      "guides",
+      "walkthroughs",
+      "rumors",
+      "reviews"
     ]
   },
   {
@@ -1843,7 +2499,11 @@
     "name" : "GameSpot",
     "siteURL" : "https:\/\/www.gamespot.com\/feeds\/mashup\/",
     "tags" : [
-
+      "reviews",
+      "trailers",
+      "walkthroughs",
+      "deals",
+      "previews"
     ]
   },
   {
@@ -1854,7 +2514,11 @@
     "name" : "GitLab",
     "siteURL" : "https:\/\/about.gitlab.com\/blog",
     "tags" : [
-
+      "devops",
+      "ci\/cd",
+      "git",
+      "pipelines",
+      "devsecops"
     ]
   },
   {
@@ -1865,7 +2529,11 @@
     "name" : "Gizmodo",
     "siteURL" : "https:\/\/gizmodo.com\/",
     "tags" : [
-
+      "gadgets",
+      "reviews",
+      "science",
+      "culture",
+      "privacy"
     ]
   },
   {
@@ -1877,7 +2545,11 @@
     "name" : "globalnews.ca",
     "siteURL" : "https:\/\/globalnews.ca",
     "tags" : [
-
+      "canadian",
+      "breaking",
+      "politics",
+      "crime",
+      "weather"
     ]
   },
   {
@@ -1889,7 +2561,11 @@
     "name" : "GMA News Online \/ News",
     "siteURL" : "https:\/\/www.gmanetwork.com\/news\/news\/",
     "tags" : [
-
+      "filipino",
+      "manila",
+      "television",
+      "politics",
+      "entertainment"
     ]
   },
   {
@@ -1900,7 +2576,11 @@
     "name" : "Google Developers Blog",
     "siteURL" : "https:\/\/developers.googleblog.com\/",
     "tags" : [
-
+      "android",
+      "cloud",
+      "web",
+      "apis",
+      "chrome"
     ]
   },
   {
@@ -1911,7 +2591,11 @@
     "name" : "Google News",
     "siteURL" : "https:\/\/news.google.com\/?hl=en-US&gl=US&ceid=US:en",
     "tags" : [
-
+      "aggregation",
+      "trending",
+      "headlines",
+      "personalized",
+      "global"
     ]
   },
   {
@@ -1922,7 +2606,11 @@
     "name" : "GQ",
     "siteURL" : "https:\/\/www.gq.com",
     "tags" : [
-
+      "menswear",
+      "grooming",
+      "suits",
+      "watches",
+      "lifestyle"
     ]
   },
   {
@@ -1933,7 +2621,11 @@
     "name" : "Grist",
     "siteURL" : "https:\/\/grist.org\/",
     "tags" : [
-
+      "climate justice",
+      "equity",
+      "solutions",
+      "communities",
+      "policy"
     ]
   },
   {
@@ -1944,7 +2636,11 @@
     "name" : "GSMArena",
     "siteURL" : "https:\/\/www.gsmarena.com\/",
     "tags" : [
-
+      "phones",
+      "specs",
+      "comparisons",
+      "benchmarks",
+      "camera"
     ]
   },
   {
@@ -1955,7 +2651,11 @@
     "name" : "Hackaday",
     "siteURL" : "https:\/\/hackaday.com\/",
     "tags" : [
-
+      "hacking",
+      "electronics",
+      "maker",
+      "teardowns",
+      "circuits"
     ]
   },
   {
@@ -1966,7 +2666,11 @@
     "name" : "Hackaday",
     "siteURL" : "https:\/\/hackaday.com",
     "tags" : [
-
+      "hacking",
+      "electronics",
+      "maker",
+      "teardowns",
+      "circuits"
     ]
   },
   {
@@ -1977,7 +2681,11 @@
     "name" : "Hacker News",
     "siteURL" : "https:\/\/news.ycombinator.com\/",
     "tags" : [
-
+      "startups",
+      "programming",
+      "discussion",
+      "vc",
+      "open source"
     ]
   },
   {
@@ -1988,7 +2696,11 @@
     "name" : "Hacker News: Front Page",
     "siteURL" : "https:\/\/news.ycombinator.com\/",
     "tags" : [
-
+      "startups",
+      "programming",
+      "trending",
+      "vc",
+      "discussion"
     ]
   },
   {
@@ -1999,7 +2711,11 @@
     "name" : "Hacking with Swift",
     "siteURL" : "https:\/\/www.hackingwithswift.com\/articles\/rss",
     "tags" : [
-
+      "swift",
+      "swiftui",
+      "tutorials",
+      "100 days",
+      "projects"
     ]
   },
   {
@@ -2010,7 +2726,11 @@
     "name" : "Hackster.io",
     "siteURL" : "https:\/\/www.hackster.io\/",
     "tags" : [
-
+      "iot",
+      "arduino",
+      "tutorials",
+      "sensors",
+      "embedded"
     ]
   },
   {
@@ -2021,7 +2741,11 @@
     "name" : "Hagerty",
     "siteURL" : "https:\/\/www.hagerty.com\/media\/",
     "tags" : [
-
+      "classic cars",
+      "valuation",
+      "culture",
+      "auctions",
+      "nostalgia"
     ]
   },
   {
@@ -2032,7 +2756,11 @@
     "name" : "Hakai Magazine",
     "siteURL" : "https:\/\/hakaimagazine.com\/",
     "tags" : [
-
+      "oceans",
+      "marine",
+      "coastal",
+      "coral reefs",
+      "ecology"
     ]
   },
   {
@@ -2043,7 +2771,11 @@
     "name" : "Handstand Sam",
     "siteURL" : "https:\/\/handstandsam.com",
     "tags" : [
-
+      "android",
+      "web",
+      "kotlin",
+      "javascript",
+      "tutorials"
     ]
   },
   {
@@ -2054,7 +2786,11 @@
     "name" : "Hanselminutes with Scott Hanselman",
     "siteURL" : "https:\/\/www.hanselminutes.com",
     "tags" : [
-
+      "podcast",
+      "dotnet",
+      "interviews",
+      "career",
+      "diversity"
     ]
   },
   {
@@ -2065,7 +2801,11 @@
     "name" : "Harper's Bazaar",
     "siteURL" : "https:\/\/www.harpersbazaar.com\/fashion",
     "tags" : [
-
+      "designer",
+      "couture",
+      "runway",
+      "celebrity",
+      "luxury"
     ]
   },
   {
@@ -2076,7 +2816,11 @@
     "name" : "Healthline",
     "siteURL" : "https:\/\/www.healthline.com\/",
     "tags" : [
-
+      "symptoms",
+      "treatments",
+      "conditions",
+      "nutrition",
+      "fitness"
     ]
   },
   {
@@ -2087,7 +2831,11 @@
     "name" : "Hearing Things",
     "siteURL" : "https:\/\/www.honest-broker.com",
     "tags" : [
-
+      "history",
+      "jazz",
+      "culture",
+      "essays",
+      "analysis"
     ]
   },
   {
@@ -2098,7 +2846,11 @@
     "name" : "Highsnobiety",
     "siteURL" : "https:\/\/www.highsnobiety.com",
     "tags" : [
-
+      "streetwear",
+      "sneakers",
+      "drops",
+      "hype",
+      "collaborations"
     ]
   },
   {
@@ -2109,7 +2861,11 @@
     "name" : "History Extra",
     "siteURL" : "https:\/\/www.historyextra.com\/",
     "tags" : [
-
+      "bbc",
+      "podcasts",
+      "british",
+      "wars",
+      "monarchs"
     ]
   },
   {
@@ -2120,7 +2876,11 @@
     "name" : "History Today",
     "siteURL" : "https:\/\/www.historytoday.com\/",
     "tags" : [
-
+      "essays",
+      "longform",
+      "british",
+      "european",
+      "analysis"
     ]
   },
   {
@@ -2131,7 +2891,11 @@
     "name" : "HistoryNet",
     "siteURL" : "https:\/\/www.historynet.com\/",
     "tags" : [
-
+      "military",
+      "civil war",
+      "world war",
+      "battles",
+      "generals"
     ]
   },
   {
@@ -2143,7 +2907,11 @@
     "name" : "Hong Kong Free Press HKFP",
     "siteURL" : "https:\/\/hongkongfp.com\/",
     "tags" : [
-
+      "cantonese",
+      "democracy",
+      "independent",
+      "politics",
+      "civil rights"
     ]
   },
   {
@@ -2155,7 +2923,11 @@
     "name" : "hongkongnews.net latest rss headlines",
     "siteURL" : "https:\/\/hongkongnews.net",
     "tags" : [
-
+      "cantonese",
+      "local",
+      "headlines",
+      "breaking",
+      "daily"
     ]
   },
   {
@@ -2166,7 +2938,11 @@
     "name" : "How Sweet Eats",
     "siteURL" : "https:\/\/www.howsweeteats.com\/",
     "tags" : [
-
+      "comfort food",
+      "seasonal",
+      "weeknight",
+      "desserts",
+      "easy"
     ]
   },
   {
@@ -2177,7 +2953,11 @@
     "name" : "How-To Geek",
     "siteURL" : "https:\/\/www.howtogeek.com",
     "tags" : [
-
+      "tutorials",
+      "windows",
+      "linux",
+      "tips",
+      "explainers"
     ]
   },
   {
@@ -2189,7 +2969,11 @@
     "name" : "https:\/\/www.rp.pl",
     "siteURL" : "https:\/\/www.rp.pl\/",
     "tags" : [
-
+      "polish",
+      "prawo",
+      "ekonomia",
+      "warszawa",
+      "publicystyka"
     ]
   },
   {
@@ -2200,7 +2984,11 @@
     "name" : "HubSpot Blog",
     "siteURL" : "https:\/\/blog.hubspot.com\/",
     "tags" : [
-
+      "inbound",
+      "email",
+      "crm",
+      "templates",
+      "seo"
     ]
   },
   {
@@ -2212,7 +3000,11 @@
     "name" : "huffingtonpost.es",
     "siteURL" : "https:\/\/www.huffingtonpost.es\/",
     "tags" : [
-
+      "spanish",
+      "tendencias",
+      "virales",
+      "politica",
+      "opinion"
     ]
   },
   {
@@ -2223,7 +3015,11 @@
     "name" : "Hugging Face Blog",
     "siteURL" : "https:\/\/huggingface.co\/blog\/",
     "tags" : [
-
+      "open source",
+      "transformers",
+      "datasets",
+      "nlp",
+      "fine-tuning"
     ]
   },
   {
@@ -2234,7 +3030,11 @@
     "name" : "Hypebeast",
     "siteURL" : "https:\/\/hypebeast.com\/fashion",
     "tags" : [
-
+      "streetwear",
+      "sneakers",
+      "drops",
+      "collaborations",
+      "culture"
     ]
   },
   {
@@ -2245,7 +3045,11 @@
     "name" : "Hypebot",
     "siteURL" : "https:\/\/www.hypebot.com",
     "tags" : [
-
+      "indie artists",
+      "distribution",
+      "royalties",
+      "marketing",
+      "labels"
     ]
   },
   {
@@ -2256,7 +3060,11 @@
     "name" : "Hyperallergic",
     "siteURL" : "https:\/\/hyperallergic.com\/",
     "tags" : [
-
+      "art criticism",
+      "museums",
+      "exhibitions",
+      "culture",
+      "visual art"
     ]
   },
   {
@@ -2267,7 +3075,11 @@
     "name" : "I Will Teach You To Be Rich",
     "siteURL" : "https:\/\/www.iwillteachyoutoberich.com",
     "tags" : [
-
+      "budgeting",
+      "automation",
+      "negotiation",
+      "earning",
+      "spending"
     ]
   },
   {
@@ -2278,7 +3090,11 @@
     "name" : "IGN",
     "siteURL" : "https:\/\/www.ign.com\/articles",
     "tags" : [
-
+      "reviews",
+      "trailers",
+      "wikis",
+      "guides",
+      "deals"
     ]
   },
   {
@@ -2289,7 +3105,11 @@
     "name" : "IKEA Hackers",
     "siteURL" : "https:\/\/ikeahackers.net",
     "tags" : [
-
+      "ikea",
+      "furniture hacks",
+      "budget",
+      "storage",
+      "upcycling"
     ]
   },
   {
@@ -2301,7 +3121,11 @@
     "name" : "Il Mattino Web",
     "siteURL" : "https:\/\/www.ilmattino.it",
     "tags" : [
-
+      "napoli",
+      "italian",
+      "cronaca",
+      "calcio",
+      "campania"
     ]
   },
   {
@@ -2312,7 +3136,11 @@
     "name" : "Import AI",
     "siteURL" : "https:\/\/importai.substack.com\/",
     "tags" : [
-
+      "policy",
+      "governance",
+      "papers",
+      "geopolitics",
+      "safety"
     ]
   },
   {
@@ -2323,7 +3151,11 @@
     "name" : "Inc.com",
     "siteURL" : "https:\/\/www.inc.com\/",
     "tags" : [
-
+      "startups",
+      "founders",
+      "leadership",
+      "small business",
+      "growth"
     ]
   },
   {
@@ -2335,7 +3167,11 @@
     "name" : "India News",
     "siteURL" : "https:\/\/www.dnaindia.com\/",
     "tags" : [
-
+      "breaking",
+      "bollywood",
+      "cricket",
+      "politics",
+      "entertainment"
     ]
   },
   {
@@ -2347,7 +3183,11 @@
     "name" : "India Today",
     "siteURL" : "https:\/\/www.indiatoday.in\/",
     "tags" : [
-
+      "politics",
+      "bollywood",
+      "cricket",
+      "investigations",
+      "national"
     ]
   },
   {
@@ -2358,7 +3198,11 @@
     "name" : "Indie Games Plus",
     "siteURL" : "https:\/\/mamnon-mannonphuongtrungii-hanoi.indiegamesplus.com\/",
     "tags" : [
-
+      "indie",
+      "experimental",
+      "creative",
+      "pixel art",
+      "narrative"
     ]
   },
   {
@@ -2369,7 +3213,11 @@
     "name" : "IndieWire",
     "siteURL" : "https:\/\/www.indiewire.com",
     "tags" : [
-
+      "indie",
+      "festivals",
+      "awards",
+      "oscars",
+      "critics"
     ]
   },
   {
@@ -2380,7 +3228,11 @@
     "name" : "inessential.com",
     "siteURL" : "https:\/\/inessential.com\/",
     "tags" : [
-
+      "mac",
+      "ios",
+      "indie dev",
+      "netnewswire",
+      "objective-c"
     ]
   },
   {
@@ -2391,7 +3243,11 @@
     "name" : "InfoQ",
     "siteURL" : "https:\/\/www.infoq.com",
     "tags" : [
-
+      "architecture",
+      "microservices",
+      "devops",
+      "conferences",
+      "interviews"
     ]
   },
   {
@@ -2403,7 +3259,11 @@
     "name" : "Informador",
     "siteURL" : "https:\/\/www.informador.mx",
     "tags" : [
-
+      "guadalajara",
+      "jalisco",
+      "spanish",
+      "regional",
+      "deportes"
     ]
   },
   {
@@ -2415,7 +3275,11 @@
     "name" : "Information Nigeria",
     "siteURL" : "https:\/\/www.informationng.com\/",
     "tags" : [
-
+      "lagos",
+      "entertainment",
+      "nollywood",
+      "politics",
+      "naija"
     ]
   },
   {
@@ -2427,7 +3291,11 @@
     "name" : "INQUIRER.net",
     "siteURL" : "https:\/\/www.inquirer.net\/",
     "tags" : [
-
+      "filipino",
+      "manila",
+      "politics",
+      "entertainment",
+      "ofw"
     ]
   },
   {
@@ -2438,7 +3306,11 @@
     "name" : "Inside Climate News",
     "siteURL" : "https:\/\/insideclimatenews.org\/",
     "tags" : [
-
+      "fossil fuels",
+      "investigations",
+      "emissions",
+      "policy",
+      "energy"
     ]
   },
   {
@@ -2449,7 +3321,11 @@
     "name" : "Inside Intercom",
     "siteURL" : "https:\/\/www.intercom.com\/blog\/",
     "tags" : [
-
+      "saas",
+      "customer support",
+      "chatbots",
+      "product",
+      "automation"
     ]
   },
   {
@@ -2460,7 +3336,11 @@
     "name" : "InsideEVs",
     "siteURL" : "https:\/\/insideevs.com\/",
     "tags" : [
-
+      "electric cars",
+      "charging",
+      "tesla",
+      "battery",
+      "range"
     ]
   },
   {
@@ -2472,7 +3352,11 @@
     "name" : "Interaksyon",
     "siteURL" : "https:\/\/interaksyon.philstar.com",
     "tags" : [
-
+      "filipino",
+      "explainers",
+      "features",
+      "politics",
+      "data"
     ]
   },
   {
@@ -2483,7 +3367,11 @@
     "name" : "Interconnects",
     "siteURL" : "https:\/\/www.interconnects.ai\/",
     "tags" : [
-
+      "alignment",
+      "safety",
+      "rlhf",
+      "fine-tuning",
+      "models"
     ]
   },
   {
@@ -2495,7 +3383,11 @@
     "name" : "Internazionale",
     "siteURL" : "https:\/\/www.internazionale.it\/",
     "tags" : [
-
+      "italian",
+      "reportage",
+      "traduzione",
+      "global",
+      "longform"
     ]
   },
   {
@@ -2506,7 +3398,11 @@
     "name" : "Investing.com",
     "siteURL" : "https:\/\/www.investing.com",
     "tags" : [
-
+      "charts",
+      "forex",
+      "commodities",
+      "crypto",
+      "real-time"
     ]
   },
   {
@@ -2517,7 +3413,11 @@
     "name" : "Investopedia",
     "siteURL" : "https:\/\/www.investopedia.com",
     "tags" : [
-
+      "education",
+      "definitions",
+      "tutorials",
+      "concepts",
+      "beginners"
     ]
   },
   {
@@ -2529,7 +3429,11 @@
     "name" : "IOL section feed for News",
     "siteURL" : "https:\/\/www.iol.co.za",
     "tags" : [
-
+      "south african",
+      "cape town",
+      "durban",
+      "national",
+      "crime"
     ]
   },
   {
@@ -2541,7 +3445,11 @@
     "name" : "Irish Mirror",
     "siteURL" : "https:\/\/www.irishmirror.ie",
     "tags" : [
-
+      "irish",
+      "showbiz",
+      "gaa",
+      "celebrity",
+      "dublin"
     ]
   },
   {
@@ -2553,7 +3461,11 @@
     "name" : "IrishCentral.com",
     "siteURL" : "https:\/\/www.irishcentral.com\/",
     "tags" : [
-
+      "diaspora",
+      "irish american",
+      "heritage",
+      "culture",
+      "genealogy"
     ]
   },
   {
@@ -2565,7 +3477,11 @@
     "name" : "IrishExaminer.com",
     "siteURL" : "https:\/\/www.irishexaminer.com\/",
     "tags" : [
-
+      "irish",
+      "cork",
+      "munster",
+      "politics",
+      "farming"
     ]
   },
   {
@@ -2576,7 +3492,11 @@
     "name" : "Jake Wharton",
     "siteURL" : "https:\/\/jakewharton.com\/",
     "tags" : [
-
+      "android",
+      "kotlin",
+      "open source",
+      "square",
+      "libraries"
     ]
   },
   {
@@ -2587,7 +3507,11 @@
     "name" : "Jalopnik",
     "siteURL" : "https:\/\/www.jalopnik.com\/",
     "tags" : [
-
+      "culture",
+      "opinion",
+      "quirky",
+      "wrenching",
+      "enthusiast"
     ]
   },
   {
@@ -2598,7 +3522,11 @@
     "name" : "Jane Friedman",
     "siteURL" : "https:\/\/janefriedman.com\/",
     "tags" : [
-
+      "publishing",
+      "self-publishing",
+      "agents",
+      "querying",
+      "authors"
     ]
   },
   {
@@ -2610,7 +3538,11 @@
     "name" : "Japan Today",
     "siteURL" : "https:\/\/japantoday.com\/",
     "tags" : [
-
+      "tokyo",
+      "english",
+      "expat",
+      "culture",
+      "society"
     ]
   },
   {
@@ -2621,7 +3553,11 @@
     "name" : "JazzTimes",
     "siteURL" : "https:\/\/www.jazztimes.com",
     "tags" : [
-
+      "jazz",
+      "improvisation",
+      "festivals",
+      "albums",
+      "legends"
     ]
   },
   {
@@ -2632,7 +3568,11 @@
     "name" : "Jesse Squires",
     "siteURL" : "https:\/\/www.jessesquires.com",
     "tags" : [
-
+      "swift",
+      "open source",
+      "ios",
+      "community",
+      "evolution"
     ]
   },
   {
@@ -2643,7 +3583,11 @@
     "name" : "Jessica DeFino",
     "siteURL" : "https:\/\/jessicadefino.substack.com\/",
     "tags" : [
-
+      "criticism",
+      "clean beauty",
+      "industry",
+      "wellness",
+      "culture"
     ]
   },
   {
@@ -2654,7 +3598,11 @@
     "name" : "JetBrains Blog",
     "siteURL" : "https:\/\/blog.jetbrains.com",
     "tags" : [
-
+      "ide",
+      "intellij",
+      "kotlin",
+      "debugging",
+      "productivity"
     ]
   },
   {
@@ -2665,7 +3613,11 @@
     "name" : "JetBrains News | JetBrains Blog",
     "siteURL" : "https:\/\/blog.jetbrains.com",
     "tags" : [
-
+      "ide",
+      "releases",
+      "updates",
+      "tooling",
+      "kotlin"
     ]
   },
   {
@@ -2676,7 +3628,11 @@
     "name" : "Joe Birch",
     "siteURL" : "https:\/\/joebirch.co",
     "tags" : [
-
+      "flutter",
+      "compose",
+      "android",
+      "google",
+      "multiplatform"
     ]
   },
   {
@@ -2687,7 +3643,11 @@
     "name" : "Journal",
     "siteURL" : "https:\/\/architizer.com\/blog\/",
     "tags" : [
-
+      "tools",
+      "inspiration",
+      "rendering",
+      "cad",
+      "visualization"
     ]
   },
   {
@@ -2698,7 +3658,11 @@
     "name" : "Joy the Baker",
     "siteURL" : "https:\/\/joythebaker.com\/",
     "tags" : [
-
+      "baking",
+      "desserts",
+      "bread",
+      "comfort",
+      "homemade"
     ]
   },
   {
@@ -2709,7 +3673,11 @@
     "name" : "JSTOR Daily",
     "siteURL" : "https:\/\/daily.jstor.org\/",
     "tags" : [
-
+      "academic",
+      "research",
+      "essays",
+      "archives",
+      "analysis"
     ]
   },
   {
@@ -2721,7 +3689,11 @@
     "name" : "kalerkantho Kantho",
     "siteURL" : "https:\/\/www.kalerkantho.com",
     "tags" : [
-
+      "bangla",
+      "dhaka",
+      "national",
+      "politics",
+      "daily"
     ]
   },
   {
@@ -2732,7 +3704,11 @@
     "name" : "Kayak Angler",
     "siteURL" : "https:\/\/www.kayakanglermag.com\/",
     "tags" : [
-
+      "kayak fishing",
+      "bass",
+      "tournaments",
+      "tackle",
+      "rigging"
     ]
   },
   {
@@ -2743,7 +3719,11 @@
     "name" : "KFF Health News",
     "siteURL" : "https:\/\/kffhealthnews.org\/",
     "tags" : [
-
+      "policy",
+      "insurance",
+      "public health",
+      "medicare",
+      "costs"
     ]
   },
   {
@@ -2754,7 +3734,11 @@
     "name" : "Kirkus Reviews",
     "siteURL" : "https:\/\/www.kirkusreviews.com\/",
     "tags" : [
-
+      "reviews",
+      "new releases",
+      "fiction",
+      "nonfiction",
+      "starred"
     ]
   },
   {
@@ -2765,7 +3749,11 @@
     "name" : "Kitchn",
     "siteURL" : "https:\/\/www.thekitchn.com",
     "tags" : [
-
+      "cooking tips",
+      "meal prep",
+      "kitchen",
+      "weeknight",
+      "pantry"
     ]
   },
   {
@@ -2776,7 +3764,11 @@
     "name" : "Knowable Magazine",
     "siteURL" : "https:\/\/knowablemagazine.org",
     "tags" : [
-
+      "explainers",
+      "reviews",
+      "journals",
+      "accessible",
+      "research"
     ]
   },
   {
@@ -2787,7 +3779,11 @@
     "name" : "Kotaku",
     "siteURL" : "https:\/\/kotaku.com\/",
     "tags" : [
-
+      "culture",
+      "opinion",
+      "reviews",
+      "industry",
+      "anime"
     ]
   },
   {
@@ -2798,7 +3794,11 @@
     "name" : "Kt. Academy",
     "siteURL" : "https:\/\/blog.kotlin-academy.com",
     "tags" : [
-
+      "kotlin",
+      "coroutines",
+      "courses",
+      "best practices",
+      "android"
     ]
   },
   {
@@ -2810,7 +3810,11 @@
     "name" : "L'essentiel",
     "siteURL" : "https:\/\/www.sudouest.fr\/essentiel\/",
     "tags" : [
-
+      "luxembourg",
+      "french",
+      "grande region",
+      "actualites",
+      "frontaliers"
     ]
   },
   {
@@ -2821,7 +3825,11 @@
     "name" : "Lab Muffin Beauty Science",
     "siteURL" : "https:\/\/labmuffin.com\/",
     "tags" : [
-
+      "ingredients",
+      "spf",
+      "retinol",
+      "chemistry",
+      "debunking"
     ]
   },
   {
@@ -2832,7 +3840,11 @@
     "name" : "Lapham's Quarterly",
     "siteURL" : "https:\/\/www.laphamsquarterly.org\/",
     "tags" : [
-
+      "primary sources",
+      "literary",
+      "essays",
+      "thematic",
+      "anthologies"
     ]
   },
   {
@@ -2844,7 +3856,11 @@
     "name" : "LaPresse.ca - Actualités",
     "siteURL" : "https:\/\/www.lapresse.ca\/actualites\/",
     "tags" : [
-
+      "french",
+      "quebec",
+      "montreal",
+      "politique",
+      "francophone"
     ]
   },
   {
@@ -2855,7 +3871,11 @@
     "name" : "Last Week in AI",
     "siteURL" : "https:\/\/lastweekin.ai\/",
     "tags" : [
-
+      "weekly",
+      "roundup",
+      "digest",
+      "headlines",
+      "breakthroughs"
     ]
   },
   {
@@ -2867,7 +3887,11 @@
     "name" : "Latest Nigeria News",
     "siteURL" : "https:\/\/thenationonlineng.net",
     "tags" : [
-
+      "politics",
+      "economy",
+      "naira",
+      "lagos",
+      "national"
     ]
   },
   {
@@ -2878,7 +3902,11 @@
     "name" : "Latitude 38",
     "siteURL" : "https:\/\/www.latitude38.com\/",
     "tags" : [
-
+      "bay area",
+      "racing",
+      "sailing",
+      "west coast",
+      "regattas"
     ]
   },
   {
@@ -2890,7 +3918,11 @@
     "name" : "Le Huffington Post",
     "siteURL" : "https:\/\/www.huffingtonpost.fr\/rss\/all_headline.xml",
     "tags" : [
-
+      "french",
+      "opinion",
+      "politique",
+      "societe",
+      "tendances"
     ]
   },
   {
@@ -2902,7 +3934,11 @@
     "name" : "le monde",
     "siteURL" : "https:\/\/www.lemonde.fr\/rss\/une.xml",
     "tags" : [
-
+      "french",
+      "politique",
+      "international",
+      "analyse",
+      "enquete"
     ]
   },
   {
@@ -2914,7 +3950,11 @@
     "name" : "Legit.ng",
     "siteURL" : "https:\/\/www.legit.ng",
     "tags" : [
-
+      "naija",
+      "entertainment",
+      "celebrities",
+      "gossip",
+      "lagos"
     ]
   },
   {
@@ -2925,7 +3965,11 @@
     "name" : "Lenny's Newsletter",
     "siteURL" : "https:\/\/www.lennysnewsletter.com\/",
     "tags" : [
-
+      "product",
+      "growth",
+      "retention",
+      "metrics",
+      "saas"
     ]
   },
   {
@@ -2936,7 +3980,11 @@
     "name" : "LensCulture",
     "siteURL" : "https:\/\/www.lensculture.com",
     "tags" : [
-
+      "fine art",
+      "exhibitions",
+      "emerging",
+      "portfolios",
+      "contemporary"
     ]
   },
   {
@@ -2947,7 +3995,11 @@
     "name" : "Lia Griffith",
     "siteURL" : "https:\/\/liagriffith.com\/",
     "tags" : [
-
+      "paper crafts",
+      "svg",
+      "cricut",
+      "templates",
+      "handmade"
     ]
   },
   {
@@ -2959,7 +4011,11 @@
     "name" : "Libero Quotidiano",
     "siteURL" : "https:\/\/www.liberoquotidiano.it",
     "tags" : [
-
+      "italian",
+      "opinione",
+      "politica",
+      "destra",
+      "roma"
     ]
   },
   {
@@ -2970,7 +4026,11 @@
     "name" : "Lifehacker",
     "siteURL" : "https:\/\/lifehacker.com\/feed\/rss",
     "tags" : [
-
+      "tips",
+      "productivity",
+      "hacks",
+      "money",
+      "how-to"
     ]
   },
   {
@@ -2981,7 +4041,11 @@
     "name" : "Light Stalking",
     "siteURL" : "https:\/\/www.lightstalking.com\/",
     "tags" : [
-
+      "tips",
+      "inspiration",
+      "tutorials",
+      "beginner",
+      "creative"
     ]
   },
   {
@@ -2992,7 +4056,11 @@
     "name" : "Literary Hub",
     "siteURL" : "https:\/\/lithub.com\/",
     "tags" : [
-
+      "essays",
+      "excerpts",
+      "interviews",
+      "criticism",
+      "literary fiction"
     ]
   },
   {
@@ -3003,7 +4071,11 @@
     "name" : "Live Science",
     "siteURL" : "https:\/\/www.livescience.com\/",
     "tags" : [
-
+      "nature",
+      "health",
+      "space",
+      "dinosaurs",
+      "weird"
     ]
   },
   {
@@ -3015,7 +4087,11 @@
     "name" : "Lo último en Vanguardia MX",
     "siteURL" : "https:\/\/vanguardia.com.mx\/rss.xml",
     "tags" : [
-
+      "coahuila",
+      "saltillo",
+      "spanish",
+      "regional",
+      "nacional"
     ]
   },
   {
@@ -3026,7 +4102,11 @@
     "name" : "Love and Olive Oil",
     "siteURL" : "https:\/\/www.loveandoliveoil.com",
     "tags" : [
-
+      "baking",
+      "cooking",
+      "desserts",
+      "seasonal",
+      "homemade"
     ]
   },
   {
@@ -3037,7 +4117,11 @@
     "name" : "MacStories",
     "siteURL" : "https:\/\/www.macstories.net\/",
     "tags" : [
-
+      "ipad",
+      "shortcuts",
+      "workflows",
+      "apps",
+      "reviews"
     ]
   },
   {
@@ -3048,7 +4132,11 @@
     "name" : "Macworld.com",
     "siteURL" : "https:\/\/www.macworld.com",
     "tags" : [
-
+      "buying guides",
+      "reviews",
+      "iphone",
+      "mac",
+      "tips"
     ]
   },
   {
@@ -3059,7 +4147,11 @@
     "name" : "Make: Magazine",
     "siteURL" : "https:\/\/makezine.com\/",
     "tags" : [
-
+      "maker",
+      "3d printing",
+      "robotics",
+      "electronics",
+      "projects"
     ]
   },
   {
@@ -3070,7 +4162,11 @@
     "name" : "Makeup and Beauty Blog",
     "siteURL" : "https:\/\/makeupandbeautyblog.com\/",
     "tags" : [
-
+      "swatches",
+      "drugstore",
+      "tutorials",
+      "lipstick",
+      "palettes"
     ]
   },
   {
@@ -3081,7 +4177,11 @@
     "name" : "Making Sense Of Cents",
     "siteURL" : "https:\/\/makingsenseofcents.com",
     "tags" : [
-
+      "debt payoff",
+      "saving",
+      "frugal",
+      "side hustles",
+      "budgeting"
     ]
   },
   {
@@ -3092,7 +4192,11 @@
     "name" : "Marketing Brew",
     "siteURL" : "https:\/\/www.marketingbrew.com\/",
     "tags" : [
-
+      "newsletter",
+      "briefing",
+      "campaigns",
+      "brands",
+      "trends"
     ]
   },
   {
@@ -3103,7 +4207,11 @@
     "name" : "Marketing Dive",
     "siteURL" : "https:\/\/www.marketingdive.com\/",
     "tags" : [
-
+      "campaigns",
+      "brands",
+      "retail",
+      "digital",
+      "social media"
     ]
   },
   {
@@ -3114,7 +4222,11 @@
     "name" : "MarketWatch",
     "siteURL" : "https:\/\/www.marketwatch.com",
     "tags" : [
-
+      "stocks",
+      "bonds",
+      "economy",
+      "retirement",
+      "dow jones"
     ]
   },
   {
@@ -3125,7 +4237,11 @@
     "name" : "MarkTechPost",
     "siteURL" : "https:\/\/www.marktechpost.com\/",
     "tags" : [
-
+      "papers",
+      "deep learning",
+      "neural networks",
+      "arxiv",
+      "breakthroughs"
     ]
   },
   {
@@ -3136,7 +4252,11 @@
     "name" : "Martin Fowler",
     "siteURL" : "https:\/\/martinfowler.com",
     "tags" : [
-
+      "architecture",
+      "refactoring",
+      "patterns",
+      "agile",
+      "design"
     ]
   },
   {
@@ -3147,7 +4267,11 @@
     "name" : "Mashable",
     "siteURL" : "https:\/\/mashable.com",
     "tags" : [
-
+      "social media",
+      "viral",
+      "culture",
+      "streaming",
+      "deals"
     ]
   },
   {
@@ -3158,7 +4282,11 @@
     "name" : "McSweeney's Internet Tendency",
     "siteURL" : "https:\/\/www.mcsweeneys.net\/",
     "tags" : [
-
+      "literary humor",
+      "lists",
+      "essays",
+      "absurdist",
+      "clever"
     ]
   },
   {
@@ -3170,7 +4298,11 @@
     "name" : "Mediapart",
     "siteURL" : "https:\/\/www.mediapart.fr\/",
     "tags" : [
-
+      "investigations",
+      "french",
+      "independant",
+      "politique",
+      "enquete"
     ]
   },
   {
@@ -3181,7 +4313,11 @@
     "name" : "Medievalists.net",
     "siteURL" : "https:\/\/www.medievalists.net\/",
     "tags" : [
-
+      "medieval",
+      "middle ages",
+      "castles",
+      "knights",
+      "manuscripts"
     ]
   },
   {
@@ -3192,7 +4328,11 @@
     "name" : "Metal Injection",
     "siteURL" : "https:\/\/metalinjection.net\/",
     "tags" : [
-
+      "heavy metal",
+      "thrash",
+      "death metal",
+      "tours",
+      "albums"
     ]
   },
   {
@@ -3204,7 +4344,11 @@
     "name" : "Mexico News Daily",
     "siteURL" : "https:\/\/mexiconewsdaily.com\/",
     "tags" : [
-
+      "english",
+      "expat",
+      "tourism",
+      "culture",
+      "safety"
     ]
   },
   {
@@ -3216,7 +4360,11 @@
     "name" : "Michael West",
     "siteURL" : "https:\/\/michaelwest.com.au\/",
     "tags" : [
-
+      "investigations",
+      "corporate",
+      "tax",
+      "accountability",
+      "independent"
     ]
   },
   {
@@ -3228,7 +4376,11 @@
     "name" : "Milan News",
     "siteURL" : "https:\/\/www.milannews.it",
     "tags" : [
-
+      "milan",
+      "serie a",
+      "calcio",
+      "transfers",
+      "rossoneri"
     ]
   },
   {
@@ -3239,7 +4391,11 @@
     "name" : "Mindful",
     "siteURL" : "https:\/\/www.mindful.org\/",
     "tags" : [
-
+      "meditation",
+      "mindfulness",
+      "stress",
+      "breathing",
+      "yoga"
     ]
   },
   {
@@ -3250,7 +4406,11 @@
     "name" : "MIT Technology Review",
     "siteURL" : "https:\/\/www.technologyreview.com\/",
     "tags" : [
-
+      "ethics",
+      "innovation",
+      "emerging tech",
+      "longform",
+      "society"
     ]
   },
   {
@@ -3261,7 +4421,11 @@
     "name" : "Money Talks News",
     "siteURL" : "https:\/\/moneytalksnews.com",
     "tags" : [
-
+      "saving",
+      "coupons",
+      "frugal",
+      "tips",
+      "retirement"
     ]
   },
   {
@@ -3273,7 +4437,11 @@
     "name" : "Moneyweb",
     "siteURL" : "https:\/\/www.moneyweb.co.za",
     "tags" : [
-
+      "jse",
+      "rand",
+      "investments",
+      "economy",
+      "tax"
     ]
   },
   {
@@ -3284,7 +4452,11 @@
     "name" : "Mongabay",
     "siteURL" : "https:\/\/news.mongabay.com\/",
     "tags" : [
-
+      "rainforest",
+      "biodiversity",
+      "wildlife",
+      "deforestation",
+      "conservation"
     ]
   },
   {
@@ -3295,7 +4467,11 @@
     "name" : "Motor1",
     "siteURL" : "https:\/\/www.motor1.com\/",
     "tags" : [
-
+      "global",
+      "reveals",
+      "reviews",
+      "spy shots",
+      "comparisons"
     ]
   },
   {
@@ -3306,7 +4482,11 @@
     "name" : "Mozilla Hacks",
     "siteURL" : "https:\/\/hacks.mozilla.org\/",
     "tags" : [
-
+      "firefox",
+      "webassembly",
+      "standards",
+      "pwa",
+      "apis"
     ]
   },
   {
@@ -3317,7 +4497,11 @@
     "name" : "MUO",
     "siteURL" : "https:\/\/www.makeuseof.com",
     "tags" : [
-
+      "how-to",
+      "tutorials",
+      "windows",
+      "linux",
+      "productivity"
     ]
   },
   {
@@ -3328,7 +4512,11 @@
     "name" : "Music Business Worldwide",
     "siteURL" : "https:\/\/www.musicbusinessworldwide.com",
     "tags" : [
-
+      "labels",
+      "deals",
+      "royalties",
+      "streaming",
+      "executives"
     ]
   },
   {
@@ -3340,7 +4528,11 @@
     "name" : "Myanmar Gazette",
     "siteURL" : "https:\/\/myanmargazette.net",
     "tags" : [
-
+      "burmese",
+      "yangon",
+      "politics",
+      "military",
+      "southeast asia"
     ]
   },
   {
@@ -3351,7 +4543,11 @@
     "name" : "NASA Breaking News",
     "siteURL" : "https:\/\/www.nasa.gov",
     "tags" : [
-
+      "nasa",
+      "missions",
+      "astronauts",
+      "iss",
+      "artemis"
     ]
   },
   {
@@ -3362,7 +4558,11 @@
     "name" : "NASASpaceFlight.com",
     "siteURL" : "https:\/\/www.nasaspaceflight.com\/",
     "tags" : [
-
+      "spacex",
+      "launches",
+      "starship",
+      "technical",
+      "rockets"
     ]
   },
   {
@@ -3374,7 +4574,11 @@
     "name" : "National Post",
     "siteURL" : "https:\/\/nationalpost.com",
     "tags" : [
-
+      "canadian",
+      "conservative",
+      "opinion",
+      "politics",
+      "national"
     ]
   },
   {
@@ -3385,7 +4589,11 @@
     "name" : "NerdWallet",
     "siteURL" : "https:\/\/www.nerdwallet.com",
     "tags" : [
-
+      "credit cards",
+      "banking",
+      "loans",
+      "insurance",
+      "comparisons"
     ]
   },
   {
@@ -3396,7 +4604,11 @@
     "name" : "Netflix TechBlog",
     "siteURL" : "https:\/\/netflixtechblog.com",
     "tags" : [
-
+      "microservices",
+      "streaming",
+      "scale",
+      "java",
+      "resilience"
     ]
   },
   {
@@ -3407,7 +4619,11 @@
     "name" : "New Scientist",
     "siteURL" : "https:\/\/www.newscientist.com\/",
     "tags" : [
-
+      "longform",
+      "physics",
+      "biology",
+      "health",
+      "climate"
     ]
   },
   {
@@ -3418,7 +4634,11 @@
     "name" : "New Scientist: Space",
     "siteURL" : "https:\/\/www.newscientist.com\/",
     "tags" : [
-
+      "planets",
+      "cosmology",
+      "missions",
+      "astronomy",
+      "physics"
     ]
   },
   {
@@ -3429,7 +4649,11 @@
     "name" : "NewInBooks",
     "siteURL" : "https:\/\/www.newinbooks.com",
     "tags" : [
-
+      "new releases",
+      "recommendations",
+      "fiction",
+      "nonfiction",
+      "reading"
     ]
   },
   {
@@ -3441,7 +4665,11 @@
     "name" : "News Blog",
     "siteURL" : "https:\/\/newsnblogs.com",
     "tags" : [
-
+      "pakistani",
+      "karachi",
+      "tech",
+      "sports",
+      "health"
     ]
   },
   {
@@ -3453,7 +4681,11 @@
     "name" : "News24 Top Stories",
     "siteURL" : "https:\/\/www.news24.com\/southafrica\/crime-and-courts\/suspect-arrested-in-murder-of-madlanga-commissions-witness-d-20260314-1088",
     "tags" : [
-
+      "south african",
+      "breaking",
+      "crime",
+      "politics",
+      "sport"
     ]
   },
   {
@@ -3464,7 +4696,11 @@
     "name" : "Nielsen Norman Group",
     "siteURL" : "https:\/\/www.nngroup.com\/feed\/rss\/",
     "tags" : [
-
+      "usability",
+      "research",
+      "heuristics",
+      "testing",
+      "patterns"
     ]
   },
   {
@@ -3476,7 +4712,11 @@
     "name" : "Nigerian News Latest",
     "siteURL" : "https:\/\/www.nigerianeye.com\/",
     "tags" : [
-
+      "breaking",
+      "national",
+      "politics",
+      "economy",
+      "abuja"
     ]
   },
   {
@@ -3487,7 +4727,11 @@
     "name" : "Nintendo",
     "siteURL" : "https:\/\/www.nintendo.com\/en-gb\/",
     "tags" : [
-
+      "switch",
+      "zelda",
+      "mario",
+      "pokemon",
+      "direct"
     ]
   },
   {
@@ -3498,7 +4742,11 @@
     "name" : "Nintendo Life",
     "siteURL" : "https:\/\/www.nintendolife.com\/feeds\/latest",
     "tags" : [
-
+      "switch",
+      "retro",
+      "indie",
+      "reviews",
+      "eshop"
     ]
   },
   {
@@ -3509,7 +4757,11 @@
     "name" : "NME",
     "siteURL" : "https:\/\/www.nme.com",
     "tags" : [
-
+      "british",
+      "indie",
+      "festivals",
+      "albums",
+      "gigs"
     ]
   },
   {
@@ -3520,7 +4772,11 @@
     "name" : "Nomadic Matt's Travel Site",
     "siteURL" : "https:\/\/www.nomadicmatt.com\/travel-blog\/",
     "tags" : [
-
+      "budget",
+      "backpacking",
+      "hostels",
+      "guides",
+      "tips"
     ]
   },
   {
@@ -3531,7 +4787,11 @@
     "name" : "NPR News",
     "siteURL" : "https:\/\/www.npr.org\/templates\/story\/story.php?storyId=1001",
     "tags" : [
-
+      "public radio",
+      "podcasts",
+      "politics",
+      "culture",
+      "investigations"
     ]
   },
   {
@@ -3542,7 +4802,11 @@
     "name" : "NutritionFacts.org",
     "siteURL" : "https:\/\/nutritionfacts.org\/",
     "tags" : [
-
+      "plant-based",
+      "diet",
+      "vitamins",
+      "research",
+      "vegan"
     ]
   },
   {
@@ -3553,7 +4817,11 @@
     "name" : "Ole Begemann",
     "siteURL" : "https:\/\/oleb.net\/blog\/",
     "tags" : [
-
+      "swift",
+      "ios",
+      "foundation",
+      "concurrency",
+      "deep dives"
     ]
   },
   {
@@ -3564,7 +4832,11 @@
     "name" : "One Useful Thing",
     "siteURL" : "https:\/\/www.oneusefulthing.org\/",
     "tags" : [
-
+      "productivity",
+      "education",
+      "chatgpt",
+      "workflows",
+      "prompts"
     ]
   },
   {
@@ -3576,7 +4848,11 @@
     "name" : "OpIndia",
     "siteURL" : "https:\/\/www.opindia.com\/",
     "tags" : [
-
+      "right-wing",
+      "opinion",
+      "politics",
+      "hindu",
+      "media criticism"
     ]
   },
   {
@@ -3588,7 +4864,11 @@
     "name" : "Ottawa Citizen",
     "siteURL" : "https:\/\/ottawacitizen.com",
     "tags" : [
-
+      "ottawa",
+      "ontario",
+      "parliament",
+      "local",
+      "politics"
     ]
   },
   {
@@ -3600,7 +4880,11 @@
     "name" : "Ouest-France",
     "siteURL" : "https:\/\/www.ouest-france.fr\/rss\/une",
     "tags" : [
-
+      "regional",
+      "bretagne",
+      "french",
+      "normandie",
+      "local"
     ]
   },
   {
@@ -3611,7 +4895,11 @@
     "name" : "Outside Online",
     "siteURL" : "https:\/\/www.outsideonline.com\/",
     "tags" : [
-
+      "fitness",
+      "running",
+      "hiking",
+      "adventure",
+      "gear"
     ]
   },
   {
@@ -3622,7 +4910,11 @@
     "name" : "Overflow - Buffer Resources",
     "siteURL" : "https:\/\/buffer.com\/resources\/",
     "tags" : [
-
+      "social media",
+      "scheduling",
+      "analytics",
+      "engagement",
+      "instagram"
     ]
   },
   {
@@ -3633,7 +4925,11 @@
     "name" : "Overreacted",
     "siteURL" : "https:\/\/overreacted.io\/",
     "tags" : [
-
+      "react",
+      "javascript",
+      "hooks",
+      "mental models",
+      "frontend"
     ]
   },
   {
@@ -3644,7 +4940,11 @@
     "name" : "Paddling Magazine",
     "siteURL" : "https:\/\/www.paddlingmag.com\/",
     "tags" : [
-
+      "kayaking",
+      "canoeing",
+      "sup",
+      "whitewater",
+      "gear"
     ]
   },
   {
@@ -3655,7 +4955,11 @@
     "name" : "Panbo",
     "siteURL" : "https:\/\/panbo.com\/",
     "tags" : [
-
+      "marine electronics",
+      "gps",
+      "radar",
+      "chartplotter",
+      "nmea"
     ]
   },
   {
@@ -3667,7 +4971,11 @@
     "name" : "Panorama",
     "siteURL" : "https:\/\/www.panorama.it",
     "tags" : [
-
+      "italian",
+      "attualita",
+      "politica",
+      "cultura",
+      "settimanale"
     ]
   },
   {
@@ -3679,7 +4987,11 @@
     "name" : "Paris Star",
     "siteURL" : "https:\/\/www.parisstaronline.com",
     "tags" : [
-
+      "paris",
+      "culture",
+      "english",
+      "expat",
+      "events"
     ]
   },
   {
@@ -3690,7 +5002,11 @@
     "name" : "Paste Magazine",
     "siteURL" : "https:\/\/www.pastemagazine.com",
     "tags" : [
-
+      "folk",
+      "indie rock",
+      "culture",
+      "longform",
+      "albums"
     ]
   },
   {
@@ -3701,7 +5017,11 @@
     "name" : "PC Gamer",
     "siteURL" : "https:\/\/www.pcgamer.com",
     "tags" : [
-
+      "pc",
+      "steam",
+      "hardware",
+      "mods",
+      "strategy"
     ]
   },
   {
@@ -3712,7 +5032,11 @@
     "name" : "Penny Arcade",
     "siteURL" : "https:\/\/www.penny-arcade.com\/",
     "tags" : [
-
+      "webcomic",
+      "pax",
+      "humor",
+      "culture",
+      "commentary"
     ]
   },
   {
@@ -3723,7 +5047,11 @@
     "name" : "peRFect Tennis",
     "siteURL" : "https:\/\/www.perfect-tennis.com",
     "tags" : [
-
+      "tennis",
+      "federer",
+      "atp",
+      "grand slams",
+      "matches"
     ]
   },
   {
@@ -3735,7 +5063,11 @@
     "name" : "PerthNow",
     "siteURL" : "https:\/\/www.perthnow.com.au\/news",
     "tags" : [
-
+      "perth",
+      "western australia",
+      "local",
+      "sport",
+      "lifestyle"
     ]
   },
   {
@@ -3746,7 +5078,11 @@
     "name" : "PetaPixel",
     "siteURL" : "https:\/\/petapixel.com\/",
     "tags" : [
-
+      "cameras",
+      "lenses",
+      "editing",
+      "lightroom",
+      "portraits"
     ]
   },
   {
@@ -3758,7 +5094,11 @@
     "name" : "PhilNews.XYZ",
     "siteURL" : "https:\/\/www.philnews.xyz\/",
     "tags" : [
-
+      "filipino",
+      "fintech",
+      "tourism",
+      "guides",
+      "practical"
     ]
   },
   {
@@ -3770,7 +5110,11 @@
     "name" : "PhilStar",
     "siteURL" : "https:\/\/www.philstar.com\/rss\/headlines",
     "tags" : [
-
+      "filipino",
+      "manila",
+      "politics",
+      "business",
+      "global"
     ]
   },
   {
@@ -3781,7 +5125,11 @@
     "name" : "Phys.org",
     "siteURL" : "https:\/\/phys.org\/",
     "tags" : [
-
+      "press releases",
+      "physics",
+      "biology",
+      "earth",
+      "nanotech"
     ]
   },
   {
@@ -3792,7 +5140,11 @@
     "name" : "Pitchfork",
     "siteURL" : "https:\/\/pitchfork.com",
     "tags" : [
-
+      "reviews",
+      "ratings",
+      "indie",
+      "albums",
+      "best new music"
     ]
   },
   {
@@ -3803,7 +5155,11 @@
     "id" : "1018c501-6f82-8028-87ef-5c4977c84efb",
     "name" : "Playbook",
     "tags" : [
-
+      "politico",
+      "washington",
+      "congress",
+      "white house",
+      "insiders"
     ]
   },
   {
@@ -3814,7 +5170,11 @@
     "name" : "Point-Free",
     "siteURL" : "https:\/\/www.pointfree.co\/blog",
     "tags" : [
-
+      "functional",
+      "composable",
+      "tca",
+      "swift",
+      "architecture"
     ]
   },
   {
@@ -3825,7 +5185,11 @@
     "name" : "Polygon",
     "siteURL" : "https:\/\/www.polygon.com",
     "tags" : [
-
+      "culture",
+      "tabletop",
+      "longform",
+      "streaming",
+      "guides"
     ]
   },
   {
@@ -3836,7 +5200,11 @@
     "name" : "POPSUGAR Fashion",
     "siteURL" : "https:\/\/www.popsugar.com\/fashion\/",
     "tags" : [
-
+      "trends",
+      "affordable",
+      "outfits",
+      "celebrity",
+      "shopping"
     ]
   },
   {
@@ -3847,7 +5215,11 @@
     "name" : "Popular Science",
     "siteURL" : "https:\/\/www.popsci.com\/",
     "tags" : [
-
+      "gadgets",
+      "reviews",
+      "diy",
+      "space",
+      "health"
     ]
   },
   {
@@ -3859,7 +5231,11 @@
     "name" : "Portada \/\/ expansion",
     "siteURL" : "https:\/\/www.expansion.com",
     "tags" : [
-
+      "spanish",
+      "economia",
+      "bolsa",
+      "empresas",
+      "mercados"
     ]
   },
   {
@@ -3871,7 +5247,11 @@
     "name" : "Portada, El Siglo de Torreón",
     "siteURL" : "https:\/\/www.elsiglodetorreon.com.mx\/",
     "tags" : [
-
+      "torreon",
+      "laguna",
+      "coahuila",
+      "durango",
+      "regional"
     ]
   },
   {
@@ -3882,7 +5262,11 @@
     "name" : "Power & Motoryacht",
     "siteURL" : "https:\/\/www.powerandmotoryacht.com\/",
     "tags" : [
-
+      "powerboats",
+      "cruising",
+      "luxury",
+      "yachts",
+      "trawlers"
     ]
   },
   {
@@ -3893,7 +5277,11 @@
     "name" : "Practical Sailor",
     "siteURL" : "https:\/\/www.practical-sailor.com\/",
     "tags" : [
-
+      "gear tests",
+      "rigging",
+      "anchors",
+      "sails",
+      "maintenance"
     ]
   },
   {
@@ -3904,7 +5292,11 @@
     "name" : "Precision Nutrition",
     "siteURL" : "https:\/\/www.precisionnutrition.com\/",
     "tags" : [
-
+      "coaching",
+      "diet",
+      "macros",
+      "habits",
+      "supplements"
     ]
   },
   {
@@ -3916,7 +5308,11 @@
     "name" : "Premium Times Nigeria",
     "siteURL" : "https:\/\/premiumtimesng.com",
     "tags" : [
-
+      "investigations",
+      "politics",
+      "independent",
+      "corruption",
+      "governance"
     ]
   },
   {
@@ -3927,7 +5323,11 @@
     "name" : "Prezi Engineering",
     "siteURL" : "https:\/\/engineering.prezi.com",
     "tags" : [
-
+      "frontend",
+      "scale",
+      "web",
+      "architecture",
+      "collaboration"
     ]
   },
   {
@@ -3938,7 +5338,11 @@
     "name" : "ProAndroidDev",
     "siteURL" : "https:\/\/proandroiddev.com",
     "tags" : [
-
+      "android",
+      "kotlin",
+      "architecture",
+      "compose",
+      "community"
     ]
   },
   {
@@ -3949,7 +5353,11 @@
     "name" : "Psychology Today",
     "siteURL" : "https:\/\/www.psychologytoday.com\/",
     "tags" : [
-
+      "therapy",
+      "anxiety",
+      "depression",
+      "relationships",
+      "self-help"
     ]
   },
   {
@@ -3960,7 +5368,11 @@
     "name" : "Public Object",
     "siteURL" : "https:\/\/publicobject.com\/",
     "tags" : [
-
+      "kotlin",
+      "okhttp",
+      "java",
+      "open source",
+      "networking"
     ]
   },
   {
@@ -3971,7 +5383,11 @@
     "name" : "Quartz",
     "siteURL" : "https:\/\/qz.com",
     "tags" : [
-
+      "global economy",
+      "innovation",
+      "data",
+      "charts",
+      "emerging markets"
     ]
   },
   {
@@ -3982,7 +5398,11 @@
     "name" : "Reactor",
     "siteURL" : "https:\/\/reactormag.com\/",
     "tags" : [
-
+      "sci-fi",
+      "fantasy",
+      "speculative",
+      "novellas",
+      "series"
     ]
   },
   {
@@ -3993,7 +5413,11 @@
     "name" : "ReadWrite",
     "siteURL" : "https:\/\/readwrite.com\/",
     "tags" : [
-
+      "iot",
+      "startups",
+      "trends",
+      "cloud",
+      "analysis"
     ]
   },
   {
@@ -4004,7 +5428,11 @@
     "name" : "Reductress",
     "siteURL" : "https:\/\/reductress.com",
     "tags" : [
-
+      "feminism",
+      "parody",
+      "headlines",
+      "women",
+      "media satire"
     ]
   },
   {
@@ -4016,7 +5444,11 @@
     "name" : "Republika Online",
     "siteURL" : "https:\/\/www.republika.co.id",
     "tags" : [
-
+      "indonesian",
+      "islam",
+      "politik",
+      "jakarta",
+      "nasional"
     ]
   },
   {
@@ -4027,7 +5459,11 @@
     "name" : "RideApart",
     "siteURL" : "https:\/\/www.rideapart.com\/",
     "tags" : [
-
+      "reviews",
+      "news",
+      "beginner",
+      "gear",
+      "electric"
     ]
   },
   {
@@ -4039,7 +5475,11 @@
     "name" : "RMF24.pl",
     "siteURL" : "https:\/\/www.rmf24.pl\/",
     "tags" : [
-
+      "polish",
+      "wiadomosci",
+      "sport",
+      "nauka",
+      "breaking"
     ]
   },
   {
@@ -4050,7 +5490,11 @@
     "name" : "Road & Track",
     "siteURL" : "https:\/\/www.roadandtrack.com\/",
     "tags" : [
-
+      "culture",
+      "longform",
+      "driving",
+      "motorsport",
+      "enthusiast"
     ]
   },
   {
@@ -4061,7 +5505,11 @@
     "name" : "Rock, Paper, Shotgun",
     "siteURL" : "https:\/\/www.rockpapershotgun.com\/",
     "tags" : [
-
+      "pc",
+      "indie",
+      "reviews",
+      "steam",
+      "strategy"
     ]
   },
   {
@@ -4072,7 +5520,11 @@
     "name" : "Rolling Stone",
     "siteURL" : "https:\/\/www.rollingstone.com",
     "tags" : [
-
+      "rock",
+      "interviews",
+      "culture",
+      "politics",
+      "lists"
     ]
   },
   {
@@ -4084,7 +5536,11 @@
     "name" : "RT",
     "siteURL" : "https:\/\/www.rt.com",
     "tags" : [
-
+      "russian",
+      "geopolitics",
+      "kremlin",
+      "state media",
+      "english"
     ]
   },
   {
@@ -4095,7 +5551,11 @@
     "name" : "SAIL Magazine",
     "siteURL" : "https:\/\/www.sailmagazine.com\/",
     "tags" : [
-
+      "racing",
+      "cruising",
+      "gear",
+      "navigation",
+      "seamanship"
     ]
   },
   {
@@ -4106,7 +5566,11 @@
     "name" : "Sailing Anarchy",
     "siteURL" : "https:\/\/sailinganarchy.com\/",
     "tags" : [
-
+      "racing",
+      "forums",
+      "regattas",
+      "opinion",
+      "foiling"
     ]
   },
   {
@@ -4117,7 +5581,11 @@
     "name" : "Sailing World",
     "siteURL" : "https:\/\/www.sailingworld.com\/",
     "tags" : [
-
+      "regattas",
+      "one-design",
+      "tactics",
+      "racing",
+      "dinghy"
     ]
   },
   {
@@ -4128,7 +5596,11 @@
     "name" : "Salt Water Sportsman",
     "siteURL" : "https:\/\/www.saltwatersportsman.com\/",
     "tags" : [
-
+      "offshore",
+      "fishing",
+      "tackle",
+      "marlin",
+      "tuna"
     ]
   },
   {
@@ -4139,7 +5611,11 @@
     "name" : "SB Nation",
     "siteURL" : "https:\/\/www.sbnation.com\/",
     "tags" : [
-
+      "fan blogs",
+      "team sites",
+      "nfl",
+      "nba",
+      "college"
     ]
   },
   {
@@ -4150,7 +5626,11 @@
     "name" : "Science Magazine",
     "siteURL" : "https:\/\/www.science.org\/news",
     "tags" : [
-
+      "peer-reviewed",
+      "papers",
+      "aaas",
+      "journals",
+      "breakthroughs"
     ]
   },
   {
@@ -4161,7 +5641,11 @@
     "name" : "Science News",
     "siteURL" : "https:\/\/www.sciencenews.org",
     "tags" : [
-
+      "weekly",
+      "physics",
+      "biology",
+      "archaeology",
+      "health"
     ]
   },
   {
@@ -4172,7 +5656,11 @@
     "name" : "ScienceAlert",
     "siteURL" : "https:\/\/www.sciencealert.com\/",
     "tags" : [
-
+      "viral",
+      "discoveries",
+      "space",
+      "health",
+      "nature"
     ]
   },
   {
@@ -4183,7 +5671,11 @@
     "name" : "Scientific American",
     "siteURL" : "https:\/\/www.scientificamerican.com\/",
     "tags" : [
-
+      "longform",
+      "opinion",
+      "physics",
+      "health",
+      "climate"
     ]
   },
   {
@@ -4194,7 +5686,11 @@
     "name" : "Scott Hanselman's Blog",
     "siteURL" : "https:\/\/www.hanselman.com\/blog\/",
     "tags" : [
-
+      "dotnet",
+      "open source",
+      "productivity",
+      "tools",
+      "career"
     ]
   },
   {
@@ -4205,7 +5701,11 @@
     "name" : "Search Engine Land",
     "siteURL" : "https:\/\/searchengineland.com\/",
     "tags" : [
-
+      "seo",
+      "google",
+      "sem",
+      "ppc",
+      "algorithms"
     ]
   },
   {
@@ -4216,7 +5716,11 @@
     "name" : "Secret Flying",
     "siteURL" : "https:\/\/www.secretflying.com",
     "tags" : [
-
+      "mistake fares",
+      "cheap flights",
+      "error fares",
+      "deals",
+      "alerts"
     ]
   },
   {
@@ -4227,7 +5731,11 @@
     "name" : "Seeking Alpha",
     "siteURL" : "https:\/\/seekingalpha.com",
     "tags" : [
-
+      "dividends",
+      "earnings",
+      "stocks",
+      "analysis",
+      "portfolio"
     ]
   },
   {
@@ -4238,7 +5746,11 @@
     "name" : "Shutterbean",
     "siteURL" : "https:\/\/www.shutterbean.com",
     "tags" : [
-
+      "meal prep",
+      "snacks",
+      "photography",
+      "seasonal",
+      "lists"
     ]
   },
   {
@@ -4249,7 +5761,11 @@
     "name" : "Simon Willison's Weblog",
     "siteURL" : "https:\/\/simonwillison.net\/",
     "tags" : [
-
+      "llms",
+      "python",
+      "sqlite",
+      "open source",
+      "prompts"
     ]
   },
   {
@@ -4260,7 +5776,11 @@
     "name" : "Sink In",
     "siteURL" : "https:\/\/gosink.in\/",
     "tags" : [
-
+      "travel",
+      "personal",
+      "web",
+      "reflections",
+      "design"
     ]
   },
   {
@@ -4271,7 +5791,11 @@
     "name" : "Six Colors",
     "siteURL" : "https:\/\/sixcolors.com",
     "tags" : [
-
+      "commentary",
+      "podcasts",
+      "iphone",
+      "mac",
+      "opinion"
     ]
   },
   {
@@ -4282,7 +5806,11 @@
     "name" : "Skift",
     "siteURL" : "https:\/\/skift.com\/",
     "tags" : [
-
+      "hospitality",
+      "airlines",
+      "hotels",
+      "tourism",
+      "industry"
     ]
   },
   {
@@ -4293,7 +5821,11 @@
     "name" : "Skinnytaste",
     "siteURL" : "https:\/\/www.skinnytaste.com\/",
     "tags" : [
-
+      "healthy",
+      "low calorie",
+      "meal prep",
+      "weight loss",
+      "light"
     ]
   },
   {
@@ -4304,7 +5836,11 @@
     "name" : "Sky & Telescope",
     "siteURL" : "https:\/\/skyandtelescope.org\/",
     "tags" : [
-
+      "stargazing",
+      "planets",
+      "telescopes",
+      "eclipses",
+      "celestial"
     ]
   },
   {
@@ -4315,7 +5851,11 @@
     "name" : "Sky News Sport",
     "siteURL" : "https:\/\/news.sky.com\/sports",
     "tags" : [
-
+      "football",
+      "premier league",
+      "cricket",
+      "f1",
+      "boxing"
     ]
   },
   {
@@ -4326,7 +5866,11 @@
     "name" : "Smashing Magazine",
     "siteURL" : "https:\/\/www.smashingmagazine.com\/",
     "tags" : [
-
+      "responsive",
+      "accessibility",
+      "performance",
+      "css",
+      "javascript"
     ]
   },
   {
@@ -4337,7 +5881,11 @@
     "name" : "Smithsonian Magazine",
     "siteURL" : "https:\/\/www.smithsonianmag.com\/",
     "tags" : [
-
+      "museums",
+      "american",
+      "artifacts",
+      "photography",
+      "culture"
     ]
   },
   {
@@ -4348,7 +5896,11 @@
     "name" : "smitten kitchen",
     "siteURL" : "https:\/\/smittenkitchen.com",
     "tags" : [
-
+      "baking",
+      "new york",
+      "weeknight",
+      "comfort food",
+      "seasonal"
     ]
   },
   {
@@ -4359,7 +5911,11 @@
     "name" : "Software Engineering Daily",
     "siteURL" : "https:\/\/softwareengineeringdaily.com\/category\/all-episodes\/exclusive-content\/podcast\/",
     "tags" : [
-
+      "podcast",
+      "interviews",
+      "infrastructure",
+      "cloud",
+      "startups"
     ]
   },
   {
@@ -4370,7 +5926,11 @@
     "name" : "Space.com",
     "siteURL" : "https:\/\/www.space.com",
     "tags" : [
-
+      "missions",
+      "planets",
+      "rockets",
+      "astronomy",
+      "stargazing"
     ]
   },
   {
@@ -4381,7 +5941,11 @@
     "name" : "Spaceflight Now",
     "siteURL" : "https:\/\/spaceflightnow.com\/",
     "tags" : [
-
+      "launches",
+      "countdowns",
+      "missions",
+      "rockets",
+      "updates"
     ]
   },
   {
@@ -4392,7 +5956,11 @@
     "name" : "SpaceNews",
     "siteURL" : "https:\/\/spacenews.com\/",
     "tags" : [
-
+      "policy",
+      "contracts",
+      "defense",
+      "commercial",
+      "satellites"
     ]
   },
   {
@@ -4403,7 +5971,11 @@
     "name" : "SpacePolicyOnline",
     "siteURL" : "https:\/\/spacepolicyonline.com\/",
     "tags" : [
-
+      "budgets",
+      "congress",
+      "nasa",
+      "policy",
+      "regulation"
     ]
   },
   {
@@ -4414,7 +5986,11 @@
     "name" : "SparkToro Blog",
     "siteURL" : "https:\/\/sparktoro.com\/blog\/",
     "tags" : [
-
+      "audience",
+      "data",
+      "seo",
+      "contrarian",
+      "research"
     ]
   },
   {
@@ -4425,7 +6001,11 @@
     "name" : "Sport Fishing",
     "siteURL" : "https:\/\/www.sportfishingmag.com\/",
     "tags" : [
-
+      "tournaments",
+      "offshore",
+      "tackle",
+      "rods",
+      "charter"
     ]
   },
   {
@@ -4436,7 +6016,11 @@
     "name" : "Sportico",
     "siteURL" : "https:\/\/www.sportico.com\/",
     "tags" : [
-
+      "valuations",
+      "media rights",
+      "ownership",
+      "deals",
+      "revenue"
     ]
   },
   {
@@ -4447,7 +6031,11 @@
     "name" : "Sports - Yahoo",
     "siteURL" : "https:\/\/sports.yahoo.com",
     "tags" : [
-
+      "scores",
+      "fantasy",
+      "nfl",
+      "nba",
+      "mlb"
     ]
   },
   {
@@ -4458,7 +6046,11 @@
     "name" : "Sportskeeda",
     "siteURL" : "https:\/\/www.sportskeeda.com",
     "tags" : [
-
+      "cricket",
+      "wwe",
+      "football",
+      "live scores",
+      "fantasy"
     ]
   },
   {
@@ -4469,7 +6061,11 @@
     "name" : "STAT News",
     "siteURL" : "https:\/\/www.statnews.com\/",
     "tags" : [
-
+      "pharma",
+      "biotech",
+      "clinical trials",
+      "fda",
+      "hospitals"
     ]
   },
   {
@@ -4480,7 +6076,11 @@
     "name" : "Steam News",
     "siteURL" : "https:\/\/www.steampowered.com\/",
     "tags" : [
-
+      "pc",
+      "sales",
+      "updates",
+      "workshop",
+      "early access"
     ]
   },
   {
@@ -4491,7 +6091,11 @@
     "name" : "Stereogum",
     "siteURL" : "https:\/\/www.stereogum.com",
     "tags" : [
-
+      "indie",
+      "alternative",
+      "albums",
+      "premieres",
+      "reviews"
     ]
   },
   {
@@ -4503,7 +6107,11 @@
     "name" : "Swarajya",
     "siteURL" : "https:\/\/swarajyamag.com",
     "tags" : [
-
+      "opinion",
+      "policy",
+      "hindu",
+      "economics",
+      "culture"
     ]
   },
   {
@@ -4514,7 +6122,11 @@
     "name" : "Swift by Sundell",
     "siteURL" : "https:\/\/www.swiftbysundell.com",
     "tags" : [
-
+      "swift",
+      "swiftui",
+      "podcasts",
+      "tips",
+      "patterns"
     ]
   },
   {
@@ -4525,7 +6137,11 @@
     "name" : "SwiftLee",
     "siteURL" : "https:\/\/www.avanderlee.com\/",
     "tags" : [
-
+      "xcode",
+      "swift",
+      "ci\/cd",
+      "debugging",
+      "performance"
     ]
   },
   {
@@ -4536,7 +6152,11 @@
     "name" : "SwiftRocks",
     "siteURL" : "https:\/\/swiftrocks.com",
     "tags" : [
-
+      "internals",
+      "compiler",
+      "runtime",
+      "swift",
+      "advanced"
     ]
   },
   {
@@ -4548,7 +6168,11 @@
     "name" : "Sydney Morning Herald",
     "siteURL" : "https:\/\/www.smh.com.au\/rss\/feed.xml",
     "tags" : [
-
+      "sydney",
+      "nsw",
+      "politics",
+      "property",
+      "national"
     ]
   },
   {
@@ -4560,7 +6184,11 @@
     "name" : "tagesschau.de",
     "siteURL" : "https:\/\/www.tagesschau.de\/infoservices\/alle-meldungen-100.html",
     "tags" : [
-
+      "german",
+      "nachrichten",
+      "politik",
+      "national",
+      "ard"
     ]
   },
   {
@@ -4571,7 +6199,11 @@
     "name" : "TalkAndroid",
     "siteURL" : "https:\/\/www.talkandroid.com\/",
     "tags" : [
-
+      "rumors",
+      "phones",
+      "apps",
+      "updates",
+      "devices"
     ]
   },
   {
@@ -4583,7 +6215,11 @@
     "name" : "TechCentral",
     "siteURL" : "https:\/\/techcentral.co.za\/",
     "tags" : [
-
+      "south african",
+      "telecoms",
+      "it",
+      "startups",
+      "broadband"
     ]
   },
   {
@@ -4594,7 +6230,11 @@
     "name" : "TechCrunch",
     "siteURL" : "https:\/\/techcrunch.com\/",
     "tags" : [
-
+      "startups",
+      "funding",
+      "vc",
+      "silicon valley",
+      "launches"
     ]
   },
   {
@@ -4606,7 +6246,11 @@
     "name" : "TechGenyz",
     "siteURL" : "https:\/\/techgenyz.com\/",
     "tags" : [
-
+      "gadgets",
+      "apps",
+      "startups",
+      "smartphones",
+      "reviews"
     ]
   },
   {
@@ -4618,7 +6262,11 @@
     "name" : "TechPinas",
     "siteURL" : "https:\/\/www.techpinas.com\/",
     "tags" : [
-
+      "filipino",
+      "smartphones",
+      "gadgets",
+      "specs",
+      "reviews"
     ]
   },
   {
@@ -4629,7 +6277,11 @@
     "name" : "Tennis - ATP World Tour",
     "siteURL" : "https:\/\/www.atptour.com",
     "tags" : [
-
+      "atp",
+      "rankings",
+      "draws",
+      "results",
+      "tour"
     ]
   },
   {
@@ -4640,7 +6292,11 @@
     "name" : "The A.V. Club",
     "siteURL" : "https:\/\/www.avclub.com",
     "tags" : [
-
+      "pop culture",
+      "reviews",
+      "streaming",
+      "comedy",
+      "nostalgia"
     ]
   },
   {
@@ -4652,7 +6308,11 @@
     "name" : "The Age",
     "siteURL" : "https:\/\/www.theage.com.au\/rss\/feed.xml",
     "tags" : [
-
+      "melbourne",
+      "victoria",
+      "politics",
+      "culture",
+      "national"
     ]
   },
   {
@@ -4663,7 +6323,11 @@
     "name" : "The Algorithmic Bridge",
     "siteURL" : "https:\/\/www.thealgorithmicbridge.com\/",
     "tags" : [
-
+      "philosophy",
+      "ethics",
+      "society",
+      "alignment",
+      "consciousness"
     ]
   },
   {
@@ -4674,7 +6338,11 @@
     "name" : "The Ancient Gaming Noob",
     "siteURL" : "https:\/\/tagn.wordpress.com\/",
     "tags" : [
-
+      "mmo",
+      "mmorpg",
+      "eve online",
+      "nostalgia",
+      "chronicles"
     ]
   },
   {
@@ -4685,7 +6353,11 @@
     "name" : "The Architect’s Newspaper",
     "siteURL" : "https:\/\/www.archpaper.com\/",
     "tags" : [
-
+      "urban",
+      "criticism",
+      "projects",
+      "planning",
+      "exhibitions"
     ]
   },
   {
@@ -4696,7 +6368,11 @@
     "name" : "The Athletic",
     "siteURL" : "https:\/\/www.nytimes.com\/athletic\/",
     "tags" : [
-
+      "beat writers",
+      "analysis",
+      "nfl",
+      "nba",
+      "soccer"
     ]
   },
   {
@@ -4707,7 +6383,11 @@
     "name" : "The Atlantic",
     "siteURL" : "https:\/\/www.theatlantic.com\/",
     "tags" : [
-
+      "longform",
+      "essays",
+      "democracy",
+      "culture",
+      "opinion"
     ]
   },
   {
@@ -4718,7 +6398,11 @@
     "name" : "The Autopian",
     "siteURL" : "https:\/\/www.theautopian.com\/",
     "tags" : [
-
+      "quirky",
+      "engineering",
+      "culture",
+      "wrenching",
+      "humor"
     ]
   },
   {
@@ -4729,7 +6413,11 @@
     "name" : "The Babylon Bee",
     "siteURL" : "https:\/\/babylonbee.com",
     "tags" : [
-
+      "christian",
+      "conservative",
+      "parody",
+      "politics",
+      "headlines"
     ]
   },
   {
@@ -4740,7 +6428,11 @@
     "name" : "The Bloggess",
     "siteURL" : "https:\/\/thebloggess.com",
     "tags" : [
-
+      "personal essays",
+      "mental health",
+      "memoir",
+      "quirky",
+      "cats"
     ]
   },
   {
@@ -4752,7 +6444,11 @@
     "name" : "The Citizen",
     "siteURL" : "https:\/\/www.citizen.co.za\/",
     "tags" : [
-
+      "south african",
+      "politics",
+      "crime",
+      "sport",
+      "lifestyle"
     ]
   },
   {
@@ -4763,7 +6459,11 @@
     "name" : "The Conversation",
     "siteURL" : "https:\/\/theconversation.com\/",
     "tags" : [
-
+      "academics",
+      "experts",
+      "evidence",
+      "research",
+      "essays"
     ]
   },
   {
@@ -4774,7 +6474,11 @@
     "name" : "The Conversation: Health",
     "siteURL" : "https:\/\/theconversation.com\/us\/health",
     "tags" : [
-
+      "research",
+      "public health",
+      "evidence",
+      "academics",
+      "studies"
     ]
   },
   {
@@ -4785,7 +6489,11 @@
     "name" : "The Crazy Programmer",
     "siteURL" : "https:\/\/www.thecrazyprogrammer.com\/category\/programming",
     "tags" : [
-
+      "tutorials",
+      "algorithms",
+      "data structures",
+      "beginner",
+      "python"
     ]
   },
   {
@@ -4796,7 +6504,11 @@
     "name" : "The Daily WTF",
     "siteURL" : "https:\/\/thedailywtf.com\/",
     "tags" : [
-
+      "humor",
+      "bugs",
+      "fails",
+      "legacy code",
+      "stories"
     ]
   },
   {
@@ -4807,7 +6519,11 @@
     "name" : "The Decoder",
     "siteURL" : "https:\/\/the-decoder.com\/",
     "tags" : [
-
+      "chatgpt",
+      "models",
+      "releases",
+      "explainers",
+      "generative"
     ]
   },
   {
@@ -4818,7 +6534,11 @@
     "name" : "The Drive",
     "siteURL" : "https:\/\/www.thedrive.com\/",
     "tags" : [
-
+      "trucks",
+      "military",
+      "off-road",
+      "tech",
+      "culture"
     ]
   },
   {
@@ -4829,7 +6549,11 @@
     "name" : "The Gradient",
     "siteURL" : "https:\/\/thegradient.pub\/",
     "tags" : [
-
+      "interviews",
+      "essays",
+      "papers",
+      "nonprofit",
+      "longform"
     ]
   },
   {
@@ -4840,7 +6564,11 @@
     "name" : "The Guardian",
     "siteURL" : "https:\/\/www.theguardian.com\/fashion",
     "tags" : [
-
+      "sustainable",
+      "industry",
+      "criticism",
+      "culture",
+      "trends"
     ]
   },
   {
@@ -4851,7 +6579,11 @@
     "name" : "The Guardian Football",
     "siteURL" : "https:\/\/www.theguardian.com\/football",
     "tags" : [
-
+      "premier league",
+      "transfers",
+      "tactics",
+      "champions league",
+      "la liga"
     ]
   },
   {
@@ -4862,7 +6594,11 @@
     "name" : "The Guardian Sport",
     "siteURL" : "https:\/\/www.theguardian.com\/us\/sport",
     "tags" : [
-
+      "football",
+      "cricket",
+      "rugby",
+      "tennis",
+      "opinion"
     ]
   },
   {
@@ -4873,7 +6609,11 @@
     "name" : "The Guardian: World",
     "siteURL" : "https:\/\/www.theguardian.com\/world",
     "tags" : [
-
+      "global",
+      "investigations",
+      "progressive",
+      "opinion",
+      "climate"
     ]
   },
   {
@@ -4884,7 +6624,11 @@
     "name" : "The Hard Times",
     "siteURL" : "https:\/\/thehardtimes.net",
     "tags" : [
-
+      "punk",
+      "hardcore",
+      "music satire",
+      "subculture",
+      "diy"
     ]
   },
   {
@@ -4896,7 +6640,11 @@
     "name" : "The Hindu",
     "siteURL" : "https:\/\/www.thehindu.com\/",
     "tags" : [
-
+      "editorial",
+      "analysis",
+      "politics",
+      "south india",
+      "english"
     ]
   },
   {
@@ -4907,7 +6655,11 @@
     "name" : "The Hollywood Reporter",
     "siteURL" : "https:\/\/www.hollywoodreporter.com\/",
     "tags" : [
-
+      "awards",
+      "box office",
+      "casting",
+      "oscars",
+      "emmys"
     ]
   },
   {
@@ -4918,7 +6670,11 @@
     "name" : "The Hustle",
     "siteURL" : "https:\/\/thehustle.co",
     "tags" : [
-
+      "briefing",
+      "newsletter",
+      "trends",
+      "startups",
+      "data"
     ]
   },
   {
@@ -4930,7 +6686,11 @@
     "name" : "The Independent",
     "siteURL" : "https:\/\/www.independent.co.uk\/news\/uk\/rss",
     "tags" : [
-
+      "liberal",
+      "opinion",
+      "politics",
+      "world",
+      "culture"
     ]
   },
   {
@@ -4941,7 +6701,11 @@
     "id" : "be7a0fea-4d37-b491-b4ef-f89139abd6c4",
     "name" : "The Local",
     "tags" : [
-
+      "english",
+      "expat",
+      "europe",
+      "living abroad",
+      "immigration"
     ]
   },
   {
@@ -4952,7 +6716,11 @@
     "name" : "The Millions",
     "siteURL" : "https:\/\/themillions.com\/",
     "tags" : [
-
+      "essays",
+      "lists",
+      "literary fiction",
+      "criticism",
+      "reading"
     ]
   },
   {
@@ -4964,7 +6732,11 @@
     "name" : "The Moscow Times",
     "siteURL" : "https:\/\/www.themoscowtimes.com\/news",
     "tags" : [
-
+      "russian",
+      "english",
+      "independent",
+      "moscow",
+      "politics"
     ]
   },
   {
@@ -4975,7 +6747,11 @@
     "name" : "The Motley Fool",
     "siteURL" : "https:\/\/www.fool.com",
     "tags" : [
-
+      "stocks",
+      "investing",
+      "etfs",
+      "portfolio",
+      "dividends"
     ]
   },
   {
@@ -4987,7 +6763,11 @@
     "name" : "The Nation",
     "siteURL" : "https:\/\/www.nation.com.pk\/rss\/top-stories",
     "tags" : [
-
+      "pakistani",
+      "lahore",
+      "politics",
+      "opinion",
+      "urdu"
     ]
   },
   {
@@ -4999,7 +6779,11 @@
     "name" : "The News International - Pakistan",
     "siteURL" : "https:\/\/www.thenews.com.pk\/",
     "tags" : [
-
+      "pakistani",
+      "english",
+      "politics",
+      "cricket",
+      "economy"
     ]
   },
   {
@@ -5010,7 +6794,11 @@
     "name" : "The Next Web",
     "siteURL" : "https:\/\/thenextweb.com",
     "tags" : [
-
+      "startups",
+      "europe",
+      "web",
+      "apps",
+      "events"
     ]
   },
   {
@@ -5021,7 +6809,11 @@
     "name" : "The Onion",
     "siteURL" : "https:\/\/theonion.com\/",
     "tags" : [
-
+      "parody",
+      "satire",
+      "comedy",
+      "fake news",
+      "headlines"
     ]
   },
   {
@@ -5032,7 +6824,11 @@
     "name" : "The Points Guy",
     "siteURL" : "https:\/\/thepointsguy.com\/",
     "tags" : [
-
+      "miles",
+      "credit cards",
+      "rewards",
+      "lounges",
+      "flights"
     ]
   },
   {
@@ -5044,7 +6840,11 @@
     "name" : "The Province",
     "siteURL" : "https:\/\/theprovince.com",
     "tags" : [
-
+      "vancouver",
+      "bc",
+      "local",
+      "hockey",
+      "real estate"
     ]
   },
   {
@@ -5055,7 +6855,11 @@
     "name" : "The Public Domain Review",
     "siteURL" : "https:\/\/publicdomainreview.org\/",
     "tags" : [
-
+      "archives",
+      "illustrations",
+      "copyright free",
+      "curated",
+      "rare"
     ]
   },
   {
@@ -5066,7 +6870,11 @@
     "name" : "The Quietus",
     "siteURL" : "https:\/\/thequietus.com",
     "tags" : [
-
+      "experimental",
+      "noise",
+      "avant-garde",
+      "essays",
+      "uk"
     ]
   },
   {
@@ -5077,7 +6885,11 @@
     "name" : "The Register",
     "siteURL" : "https:\/\/www.theregister.com\/",
     "tags" : [
-
+      "enterprise",
+      "sysadmin",
+      "security",
+      "cloud",
+      "snarky"
     ]
   },
   {
@@ -5088,7 +6900,11 @@
     "name" : "The Revelator",
     "siteURL" : "https:\/\/therevelator.org\/",
     "tags" : [
-
+      "endangered species",
+      "extinction",
+      "wildlife",
+      "habitat",
+      "policy"
     ]
   },
   {
@@ -5100,7 +6916,11 @@
     "name" : "The Rio Times",
     "siteURL" : "https:\/\/www.riotimesonline.com\/",
     "tags" : [
-
+      "rio",
+      "english",
+      "expat",
+      "business",
+      "culture"
     ]
   },
   {
@@ -5112,7 +6932,11 @@
     "name" : "The South African",
     "siteURL" : "https:\/\/www.thesouthafrican.com\/",
     "tags" : [
-
+      "south african",
+      "expat",
+      "sport",
+      "rugby",
+      "loadshedding"
     ]
   },
   {
@@ -5123,7 +6947,11 @@
     "name" : "The Spruce",
     "siteURL" : "https:\/\/www.thespruce.com\/",
     "tags" : [
-
+      "home decor",
+      "gardening",
+      "cleaning",
+      "organizing",
+      "pets"
     ]
   },
   {
@@ -5134,7 +6962,11 @@
     "name" : "The Truth About Cars",
     "siteURL" : "https:\/\/www.thetruthaboutcars.com",
     "tags" : [
-
+      "reviews",
+      "opinion",
+      "industry",
+      "unbiased",
+      "editorial"
     ]
   },
   {
@@ -5145,7 +6977,11 @@
     "name" : "The Verge",
     "siteURL" : "https:\/\/www.theverge.com",
     "tags" : [
-
+      "gadgets",
+      "reviews",
+      "culture",
+      "streaming",
+      "social media"
     ]
   },
   {
@@ -5156,7 +6992,11 @@
     "name" : "The Wood Whisperer",
     "siteURL" : "https:\/\/thewoodwhisperer.com\/",
     "tags" : [
-
+      "woodworking",
+      "video",
+      "furniture",
+      "finishing",
+      "tools"
     ]
   },
   {
@@ -5168,7 +7008,11 @@
     "name" : "The42",
     "siteURL" : "https:\/\/www.the42.ie\/",
     "tags" : [
-
+      "gaa",
+      "rugby",
+      "soccer",
+      "irish sport",
+      "results"
     ]
   },
   {
@@ -5180,7 +7024,11 @@
     "name" : "TheJournal.ie",
     "siteURL" : "https:\/\/www.thejournal.ie\/",
     "tags" : [
-
+      "irish",
+      "politics",
+      "dublin",
+      "social issues",
+      "breaking"
     ]
   },
   {
@@ -5192,7 +7040,11 @@
     "name" : "Times of India",
     "siteURL" : "https:\/\/timesofindia.indiatimes.com",
     "tags" : [
-
+      "national",
+      "cricket",
+      "bollywood",
+      "english",
+      "cities"
     ]
   },
   {
@@ -5204,7 +7056,11 @@
     "name" : "Top Gear",
     "siteURL" : "https:\/\/www.topgear.com.ph",
     "tags" : [
-
+      "filipino",
+      "cars",
+      "motoring",
+      "traffic",
+      "reviews"
     ]
   },
   {
@@ -5216,7 +7072,11 @@
     "name" : "Top World News- News18.com",
     "siteURL" : "https:\/\/www.news18.com\/world\/",
     "tags" : [
-
+      "breaking",
+      "national",
+      "politics",
+      "crime",
+      "entertainment"
     ]
   },
   {
@@ -5228,7 +7088,11 @@
     "name" : "Toronto Sun",
     "siteURL" : "https:\/\/torontosun.com\/",
     "tags" : [
-
+      "toronto",
+      "ontario",
+      "sports",
+      "crime",
+      "entertainment"
     ]
   },
   {
@@ -5239,7 +7103,11 @@
     "name" : "Travel + Leisure",
     "siteURL" : "https:\/\/www.travelandleisure.com\/",
     "tags" : [
-
+      "hotels",
+      "destinations",
+      "cruises",
+      "resorts",
+      "guides"
     ]
   },
   {
@@ -5251,7 +7119,11 @@
     "name" : "Tribunnews.com",
     "siteURL" : "https:\/\/www.tribunnews.com\/",
     "tags" : [
-
+      "indonesian",
+      "regional",
+      "nasional",
+      "jakarta",
+      "breaking"
     ]
   },
   {
@@ -5262,7 +7134,11 @@
     "name" : "TV Fanatic",
     "siteURL" : "https:\/\/www.tvfanatic.com\/",
     "tags" : [
-
+      "recaps",
+      "spoilers",
+      "reviews",
+      "drama",
+      "sitcoms"
     ]
   },
   {
@@ -5273,7 +7149,11 @@
     "name" : "TVLine",
     "siteURL" : "https:\/\/www.tvline.com\/",
     "tags" : [
-
+      "spoilers",
+      "casting",
+      "renewals",
+      "cancellations",
+      "previews"
     ]
   },
   {
@@ -5284,7 +7164,11 @@
     "name" : "Ultimate Motorcycling",
     "siteURL" : "https:\/\/ultimatemotorcycling.com\/",
     "tags" : [
-
+      "touring",
+      "reviews",
+      "racing",
+      "cruisers",
+      "sportbikes"
     ]
   },
   {
@@ -5296,7 +7180,11 @@
     "name" : "UNBOX PH",
     "siteURL" : "https:\/\/unbox.ph\/",
     "tags" : [
-
+      "filipino",
+      "gadgets",
+      "smartphones",
+      "unboxing",
+      "specs"
     ]
   },
   {
@@ -5307,7 +7195,11 @@
     "name" : "Universe Today",
     "siteURL" : "https:\/\/www.universetoday.com\/",
     "tags" : [
-
+      "planets",
+      "missions",
+      "explainers",
+      "astronomy",
+      "solar system"
     ]
   },
   {
@@ -5319,7 +7211,11 @@
     "name" : "UOL",
     "siteURL" : "https:\/\/www.uol.com.br",
     "tags" : [
-
+      "portuguese",
+      "sao paulo",
+      "entertainment",
+      "sports",
+      "economia"
     ]
   },
   {
@@ -5331,7 +7227,11 @@
     "name" : "US Top News and Analysis",
     "siteURL" : "https:\/\/www.cnbc.com\/us-top-news-and-analysis\/",
     "tags" : [
-
+      "markets",
+      "economy",
+      "wall street",
+      "breaking",
+      "cnbc"
     ]
   },
   {
@@ -5342,7 +7242,11 @@
     "name" : "Use Your Loaf",
     "siteURL" : "https:\/\/useyourloaf.com\/blog\/",
     "tags" : [
-
+      "auto layout",
+      "uikit",
+      "swift",
+      "accessibility",
+      "tips"
     ]
   },
   {
@@ -5353,7 +7257,11 @@
     "name" : "Utility Dive",
     "siteURL" : "https:\/\/www.utilitydive.com\/",
     "tags" : [
-
+      "grid",
+      "utilities",
+      "regulation",
+      "rates",
+      "infrastructure"
     ]
   },
   {
@@ -5364,7 +7272,11 @@
     "name" : "UX Collective",
     "siteURL" : "https:\/\/uxdesign.cc",
     "tags" : [
-
+      "product design",
+      "research",
+      "wireframes",
+      "prototyping",
+      "case studies"
     ]
   },
   {
@@ -5375,7 +7287,11 @@
     "name" : "Variety",
     "siteURL" : "https:\/\/variety.com",
     "tags" : [
-
+      "awards",
+      "box office",
+      "festivals",
+      "deals",
+      "emmys"
     ]
   },
   {
@@ -5386,7 +7302,11 @@
     "name" : "VentureBeat",
     "siteURL" : "https:\/\/venturebeat.com\/",
     "tags" : [
-
+      "enterprise",
+      "startups",
+      "funding",
+      "corporate",
+      "saas"
     ]
   },
   {
@@ -5397,7 +7317,11 @@
     "name" : "Verywell Health",
     "siteURL" : "https:\/\/www.verywellhealth.com\/",
     "tags" : [
-
+      "conditions",
+      "symptoms",
+      "doctors",
+      "treatments",
+      "diagnosis"
     ]
   },
   {
@@ -5408,7 +7332,11 @@
     "name" : "Verywell Mind",
     "siteURL" : "https:\/\/www.verywellmind.com\/",
     "tags" : [
-
+      "anxiety",
+      "depression",
+      "therapy",
+      "coping",
+      "self-care"
     ]
   },
   {
@@ -5419,7 +7347,11 @@
     "name" : "Visordown",
     "siteURL" : "https:\/\/www.visordown.com\/",
     "tags" : [
-
+      "uk",
+      "reviews",
+      "buying advice",
+      "insurance",
+      "gear"
     ]
   },
   {
@@ -5430,7 +7362,11 @@
     "name" : "Visual Capitalist",
     "siteURL" : "https:\/\/www.visualcapitalist.com",
     "tags" : [
-
+      "infographics",
+      "data",
+      "charts",
+      "maps",
+      "trends"
     ]
   },
   {
@@ -5441,7 +7377,11 @@
     "name" : "Vogue",
     "siteURL" : "https:\/\/www.vogue.com",
     "tags" : [
-
+      "runway",
+      "couture",
+      "met gala",
+      "celebrity",
+      "designers"
     ]
   },
   {
@@ -5452,7 +7392,11 @@
     "name" : "Vox",
     "siteURL" : "https:\/\/www.vox.com",
     "tags" : [
-
+      "explainers",
+      "policy",
+      "data",
+      "charts",
+      "progressive"
     ]
   },
   {
@@ -5463,7 +7407,11 @@
     "name" : "W Magazine",
     "siteURL" : "https:\/\/www.wmagazine.com",
     "tags" : [
-
+      "art",
+      "film",
+      "editorial",
+      "avant-garde",
+      "photography"
     ]
   },
   {
@@ -5474,7 +7422,11 @@
     "name" : "Who What Wear",
     "siteURL" : "https:\/\/www.whowhatwear.com",
     "tags" : [
-
+      "outfits",
+      "trends",
+      "shopping",
+      "capsule",
+      "affordable"
     ]
   },
   {
@@ -5485,7 +7437,11 @@
     "name" : "Wired",
     "siteURL" : "https:\/\/www.wired.com",
     "tags" : [
-
+      "culture",
+      "longform",
+      "security",
+      "science",
+      "gear"
     ]
   },
   {
@@ -5496,7 +7452,11 @@
     "name" : "WoodenBoat",
     "siteURL" : "https:\/\/www.woodenboat.com\/",
     "tags" : [
-
+      "restoration",
+      "craftsmanship",
+      "building",
+      "classic",
+      "traditional"
     ]
   },
   {
@@ -5508,7 +7468,11 @@
     "name" : "World & Nation",
     "siteURL" : "https:\/\/www.latimes.com",
     "tags" : [
-
+      "la times",
+      "california",
+      "politics",
+      "immigration",
+      "national"
     ]
   },
   {
@@ -5519,7 +7483,11 @@
     "name" : "World History Encyclopedia",
     "siteURL" : "https:\/\/www.worldhistory.org\/",
     "tags" : [
-
+      "civilizations",
+      "ancient",
+      "free",
+      "peer-reviewed",
+      "timelines"
     ]
   },
   {
@@ -5530,7 +7498,11 @@
     "name" : "WWD",
     "siteURL" : "https:\/\/wwd.com\/fashion-news",
     "tags" : [
-
+      "industry",
+      "retail",
+      "business",
+      "runway",
+      "trade"
     ]
   },
   {
@@ -5542,7 +7514,11 @@
     "name" : "www.wirtualnemedia.pl",
     "siteURL" : "https:\/\/www.wirtualnemedia.pl",
     "tags" : [
-
+      "polish",
+      "media",
+      "reklama",
+      "telewizja",
+      "internet"
     ]
   },
   {
@@ -5553,7 +7529,11 @@
     "name" : "Xbox's Major Nelson",
     "siteURL" : "https:\/\/news.xbox.com\/en-us\/",
     "tags" : [
-
+      "xbox",
+      "game pass",
+      "microsoft",
+      "deals",
+      "updates"
     ]
   },
   {
@@ -5564,7 +7544,11 @@
     "name" : "Yachting Monthly",
     "siteURL" : "https:\/\/www.yachtingmonthly.com\/",
     "tags" : [
-
+      "seamanship",
+      "boat tests",
+      "cruising",
+      "uk sailing",
+      "navigation"
     ]
   },
   {
@@ -5575,7 +7559,11 @@
     "name" : "Yachting World",
     "siteURL" : "https:\/\/www.yachtingworld.com\/",
     "tags" : [
-
+      "superyachts",
+      "regattas",
+      "racing",
+      "sailing",
+      "circumnavigation"
     ]
   },
   {
@@ -5586,7 +7574,11 @@
     "name" : "Yahoo Finance",
     "siteURL" : "https:\/\/finance.yahoo.com",
     "tags" : [
-
+      "stocks",
+      "portfolio",
+      "wall street",
+      "markets",
+      "investing"
     ]
   },
   {
@@ -5598,7 +7590,11 @@
     "name" : "Yahoo News",
     "siteURL" : "https:\/\/www.yahoo.com\/news",
     "tags" : [
-
+      "aggregation",
+      "politics",
+      "breaking",
+      "viral",
+      "video"
     ]
   },
   {
@@ -5609,7 +7605,11 @@
     "name" : "Yale Environment 360",
     "siteURL" : "https:\/\/e360.yale.edu\/",
     "tags" : [
-
+      "essays",
+      "longform",
+      "ecology",
+      "pollution",
+      "research"
     ]
   },
   {
@@ -5621,7 +7621,11 @@
     "name" : "Гордон - Самые популярные материалы",
     "siteURL" : "https:\/\/gordonua.com",
     "tags" : [
-
+      "ukrainian",
+      "kyiv",
+      "war",
+      "politics",
+      "analysis"
     ]
   },
   {
@@ -5633,7 +7637,11 @@
     "name" : "Еспресо",
     "siteURL" : "https:\/\/espreso.tv\/",
     "tags" : [
-
+      "ukrainian",
+      "kyiv",
+      "tv",
+      "politics",
+      "breaking"
     ]
   },
   {
@@ -5645,7 +7653,11 @@
     "name" : "Информационное агентство УНИАН",
     "siteURL" : "https:\/\/www.unian.net",
     "tags" : [
-
+      "ukrainian",
+      "agency",
+      "politics",
+      "war",
+      "national"
     ]
   },
   {
@@ -5657,7 +7669,11 @@
     "name" : "НВ",
     "siteURL" : "https:\/\/nv.ua\/",
     "tags" : [
-
+      "ukrainian",
+      "kyiv",
+      "business",
+      "politics",
+      "culture"
     ]
   },
   {
@@ -5669,7 +7685,11 @@
     "name" : "देश | दैनिक भास्कर",
     "siteURL" : "https:\/\/www.bhaskar.com\/national\/",
     "tags" : [
-
+      "hindi",
+      "national",
+      "politics",
+      "crime",
+      "bhopal"
     ]
   },
   {
@@ -5681,7 +7701,11 @@
     "name" : "প্রথম আলো",
     "siteURL" : "https:\/\/www.prothomalo.com",
     "tags" : [
-
+      "bangla",
+      "dhaka",
+      "politics",
+      "cricket",
+      "national"
     ]
   },
   {
@@ -5693,7 +7717,11 @@
     "name" : "ઈન્ડિયા | દિવ્ય ભાસ્કર",
     "siteURL" : "https:\/\/www.divyabhaskar.co.in\/national\/",
     "tags" : [
-
+      "gujarati",
+      "national",
+      "politics",
+      "ahmedabad",
+      "regional"
     ]
   }
 ]

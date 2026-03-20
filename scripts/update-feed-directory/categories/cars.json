@@ -6,7 +6,13 @@
     "id": "0b8e4e5c-1503-c933-72f4-38daef7d4d74",
     "name": "Auto Express",
     "siteURL": "https://www.autoexpress.co.uk/",
-    "tags": []
+    "tags": [
+      "uk",
+      "buying advice",
+      "reviews",
+      "deals",
+      "electric"
+    ]
   },
   {
     "category": "Cars",
@@ -15,7 +21,13 @@
     "id": "79904079-a84e-46a3-4b7c-fba493e62a52",
     "name": "Autocar",
     "siteURL": "https://www.autocar.co.uk/",
-    "tags": []
+    "tags": [
+      "road tests",
+      "british",
+      "reviews",
+      "supercars",
+      "classic"
+    ]
   },
   {
     "category": "Cars",
@@ -24,7 +36,13 @@
     "id": "a3feefc3-fc55-e4ba-71f9-904788520c63",
     "name": "Autocar India",
     "siteURL": "https://www.autocarindia.com",
-    "tags": []
+    "tags": [
+      "indian market",
+      "bikes",
+      "reviews",
+      "comparisons",
+      "prices"
+    ]
   },
   {
     "category": "Cars",
@@ -33,7 +51,13 @@
     "id": "3f1602b6-59f7-58fb-b95d-48273778f683",
     "name": "BMW BLOG",
     "siteURL": "https://www.bmwblog.com/",
-    "tags": []
+    "tags": [
+      "bmw",
+      "m series",
+      "electric",
+      "reviews",
+      "spy shots"
+    ]
   },
   {
     "category": "Cars",
@@ -42,7 +66,13 @@
     "id": "4cfb5617-635c-30bf-8209-a31cf5967d10",
     "name": "Bring a Trailer",
     "siteURL": "https://bringatrailer.com",
-    "tags": []
+    "tags": [
+      "auctions",
+      "classic cars",
+      "enthusiast",
+      "bidding",
+      "collectible"
+    ]
   },
   {
     "category": "Cars",
@@ -51,7 +81,13 @@
     "id": "30295614-6961-c08f-f1e7-7c1ad0b317ed",
     "name": "Car and Driver",
     "siteURL": "https://www.caranddriver.com/",
-    "tags": []
+    "tags": [
+      "road tests",
+      "comparisons",
+      "performance",
+      "reviews",
+      "rankings"
+    ]
   },
   {
     "category": "Cars",
@@ -60,7 +96,13 @@
     "id": "c11d0b11-c883-89c4-6fdd-59e20bc2a3b4",
     "name": "Car Body Design",
     "siteURL": "https://www.carbodydesign.com",
-    "tags": []
+    "tags": [
+      "sketches",
+      "rendering",
+      "automotive design",
+      "concept",
+      "clay models"
+    ]
   },
   {
     "category": "Cars",
@@ -69,7 +111,13 @@
     "id": "e081bf72-d79e-e8a8-a5c0-0586e5ea2444",
     "name": "Carscoops",
     "siteURL": "https://www.carscoops.com/",
-    "tags": []
+    "tags": [
+      "spy shots",
+      "scoops",
+      "reveals",
+      "concepts",
+      "global"
+    ]
   },
   {
     "category": "Cars",
@@ -78,7 +126,13 @@
     "id": "2168ad3e-c419-7d41-bfcf-e7630637a8d1",
     "name": "Evo",
     "siteURL": "https://www.evo.co.uk/",
-    "tags": []
+    "tags": [
+      "performance",
+      "supercars",
+      "track",
+      "driving",
+      "sports cars"
+    ]
   },
   {
     "category": "Cars",
@@ -87,7 +141,13 @@
     "id": "aa16b1db-c6c6-c7ac-3094-78026a788dc9",
     "name": "Hagerty",
     "siteURL": "https://www.hagerty.com/media/",
-    "tags": []
+    "tags": [
+      "classic cars",
+      "valuation",
+      "culture",
+      "auctions",
+      "nostalgia"
+    ]
   },
   {
     "category": "Cars",
@@ -96,7 +156,13 @@
     "id": "6f392042-5b98-572e-0576-448cfe492c42",
     "name": "InsideEVs",
     "siteURL": "https://insideevs.com/",
-    "tags": []
+    "tags": [
+      "electric cars",
+      "charging",
+      "tesla",
+      "battery",
+      "range"
+    ]
   },
   {
     "category": "Cars",
@@ -105,7 +171,13 @@
     "id": "acedcf60-42c8-82bd-151a-ebe84e686727",
     "name": "Jalopnik",
     "siteURL": "https://www.jalopnik.com/",
-    "tags": []
+    "tags": [
+      "culture",
+      "opinion",
+      "quirky",
+      "wrenching",
+      "enthusiast"
+    ]
   },
   {
     "category": "Cars",
@@ -114,7 +186,13 @@
     "id": "8691f84e-7ed3-9afe-4e7c-b1e33f7a682a",
     "name": "Motor1",
     "siteURL": "https://www.motor1.com/",
-    "tags": []
+    "tags": [
+      "global",
+      "reveals",
+      "reviews",
+      "spy shots",
+      "comparisons"
+    ]
   },
   {
     "category": "Cars",
@@ -123,7 +201,13 @@
     "id": "8e6e2141-8565-b769-7f2f-376ba2d28558",
     "name": "Road & Track",
     "siteURL": "https://www.roadandtrack.com/",
-    "tags": []
+    "tags": [
+      "culture",
+      "longform",
+      "driving",
+      "motorsport",
+      "enthusiast"
+    ]
   },
   {
     "category": "Cars",
@@ -132,7 +216,13 @@
     "id": "74315cd3-112d-c65b-d7b7-cb72f79f42e5",
     "name": "The Autopian",
     "siteURL": "https://www.theautopian.com/",
-    "tags": []
+    "tags": [
+      "quirky",
+      "engineering",
+      "culture",
+      "wrenching",
+      "humor"
+    ]
   },
   {
     "category": "Cars",
@@ -141,7 +231,13 @@
     "id": "22f45195-776b-f74d-4599-a5dd394b7cfa",
     "name": "The Drive",
     "siteURL": "https://www.thedrive.com/",
-    "tags": []
+    "tags": [
+      "trucks",
+      "military",
+      "off-road",
+      "tech",
+      "culture"
+    ]
   },
   {
     "category": "Cars",
@@ -150,6 +246,12 @@
     "id": "36fb51a2-54bc-b7f7-c4e5-91933d876723",
     "name": "The Truth About Cars",
     "siteURL": "https://www.thetruthaboutcars.com",
-    "tags": []
+    "tags": [
+      "reviews",
+      "opinion",
+      "industry",
+      "unbiased",
+      "editorial"
+    ]
   }
 ]

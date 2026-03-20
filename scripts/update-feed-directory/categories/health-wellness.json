@@ -6,7 +6,13 @@
     "id": "390f49e9-d04c-87ea-3faf-f60a2cbb11a6",
     "name": "Everyday Health",
     "siteURL": "https://www.everydayhealth.com/",
-    "tags": []
+    "tags": [
+      "conditions",
+      "symptoms",
+      "treatments",
+      "chronic",
+      "guides"
+    ]
   },
   {
     "category": "Health & Wellness",
@@ -15,7 +21,13 @@
     "id": "7856bbb3-2f1b-f5fc-797a-a82a5cd7704c",
     "name": "Healthline",
     "siteURL": "https://www.healthline.com/",
-    "tags": []
+    "tags": [
+      "symptoms",
+      "treatments",
+      "conditions",
+      "nutrition",
+      "fitness"
+    ]
   },
   {
     "category": "Health & Wellness",
@@ -24,7 +36,13 @@
     "id": "bf3b93c1-e1d0-9343-f674-c61a06240cb2",
     "name": "KFF Health News",
     "siteURL": "https://kffhealthnews.org/",
-    "tags": []
+    "tags": [
+      "policy",
+      "insurance",
+      "public health",
+      "medicare",
+      "costs"
+    ]
   },
   {
     "category": "Health & Wellness",
@@ -33,7 +51,13 @@
     "id": "91071b32-8655-fb66-430a-75dd95d554cc",
     "name": "Mindful",
     "siteURL": "https://www.mindful.org/",
-    "tags": []
+    "tags": [
+      "meditation",
+      "mindfulness",
+      "stress",
+      "breathing",
+      "yoga"
+    ]
   },
   {
     "category": "Health & Wellness",
@@ -42,7 +66,13 @@
     "id": "2db79578-8193-f201-6f1e-c57ae2dc71ea",
     "name": "NutritionFacts.org",
     "siteURL": "https://nutritionfacts.org/",
-    "tags": []
+    "tags": [
+      "plant-based",
+      "diet",
+      "vitamins",
+      "research",
+      "vegan"
+    ]
   },
   {
     "category": "Health & Wellness",
@@ -51,7 +81,13 @@
     "id": "ae5a1480-a2f9-bc42-6190-c39382804211",
     "name": "Outside Online",
     "siteURL": "https://www.outsideonline.com/",
-    "tags": []
+    "tags": [
+      "fitness",
+      "running",
+      "hiking",
+      "adventure",
+      "gear"
+    ]
   },
   {
     "category": "Health & Wellness",
@@ -60,7 +96,13 @@
     "id": "bb7e70c6-128b-7b40-c26a-5df2a8a110d5",
     "name": "Precision Nutrition",
     "siteURL": "https://www.precisionnutrition.com/",
-    "tags": []
+    "tags": [
+      "coaching",
+      "diet",
+      "macros",
+      "habits",
+      "supplements"
+    ]
   },
   {
     "category": "Health & Wellness",
@@ -69,7 +111,13 @@
     "id": "3791c315-57cd-6cef-4542-7a936e998f8f",
     "name": "Psychology Today",
     "siteURL": "https://www.psychologytoday.com/",
-    "tags": []
+    "tags": [
+      "therapy",
+      "anxiety",
+      "depression",
+      "relationships",
+      "self-help"
+    ]
   },
   {
     "category": "Health & Wellness",
@@ -78,7 +126,13 @@
     "id": "91f73778-3386-1e82-9e7b-f3cb12ab6c23",
     "name": "STAT News",
     "siteURL": "https://www.statnews.com/",
-    "tags": []
+    "tags": [
+      "pharma",
+      "biotech",
+      "clinical trials",
+      "fda",
+      "hospitals"
+    ]
   },
   {
     "category": "Health & Wellness",
@@ -87,7 +141,13 @@
     "id": "0bb0e085-7f98-daa7-0ab2-34d3934b380f",
     "name": "The Conversation: Health",
     "siteURL": "https://theconversation.com/us/health",
-    "tags": []
+    "tags": [
+      "research",
+      "public health",
+      "evidence",
+      "academics",
+      "studies"
+    ]
   },
   {
     "category": "Health & Wellness",
@@ -96,7 +156,13 @@
     "id": "86f60d12-06a7-7d28-3cde-c9246558cf1d",
     "name": "Verywell Health",
     "siteURL": "https://www.verywellhealth.com/",
-    "tags": []
+    "tags": [
+      "conditions",
+      "symptoms",
+      "doctors",
+      "treatments",
+      "diagnosis"
+    ]
   },
   {
     "category": "Health & Wellness",
@@ -105,6 +171,12 @@
     "id": "a90eb757-96ba-f59a-b78f-727cf903b6a8",
     "name": "Verywell Mind",
     "siteURL": "https://www.verywellmind.com/",
-    "tags": []
+    "tags": [
+      "anxiety",
+      "depression",
+      "therapy",
+      "coping",
+      "self-care"
+    ]
   }
 ]

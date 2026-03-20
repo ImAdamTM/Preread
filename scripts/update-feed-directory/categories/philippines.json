@@ -7,7 +7,13 @@
     "id": "146c0273-78b0-3212-dcc9-ad8967904e05",
     "name": "Current PH",
     "siteURL": "https://currentph.com",
-    "tags": []
+    "tags": [
+      "filipino",
+      "manila",
+      "breaking",
+      "politics",
+      "national"
+    ]
   },
   {
     "category": "Philippines",
@@ -17,7 +23,13 @@
     "id": "b65539a6-c853-76b7-b958-d7454caaa6b6",
     "name": "GMA News Online / News",
     "siteURL": "https://www.gmanetwork.com/news/news/",
-    "tags": []
+    "tags": [
+      "filipino",
+      "manila",
+      "television",
+      "politics",
+      "entertainment"
+    ]
   },
   {
     "category": "Philippines",
@@ -27,7 +39,13 @@
     "id": "23fa3cb2-07a4-4935-2c19-c547e6941e3e",
     "name": "INQUIRER.net",
     "siteURL": "https://www.inquirer.net/",
-    "tags": []
+    "tags": [
+      "filipino",
+      "manila",
+      "politics",
+      "entertainment",
+      "ofw"
+    ]
   },
   {
     "category": "Philippines",
@@ -37,7 +55,13 @@
     "id": "201a4a0d-5481-b3fa-72ba-34e55572df18",
     "name": "Interaksyon",
     "siteURL": "https://interaksyon.philstar.com",
-    "tags": []
+    "tags": [
+      "filipino",
+      "explainers",
+      "features",
+      "politics",
+      "data"
+    ]
   },
   {
     "category": "Philippines",
@@ -47,7 +71,13 @@
     "id": "bfd2d9a8-50ed-365a-81c6-57affcdda61b",
     "name": "PhilNews.XYZ",
     "siteURL": "https://www.philnews.xyz/",
-    "tags": []
+    "tags": [
+      "filipino",
+      "fintech",
+      "tourism",
+      "guides",
+      "practical"
+    ]
   },
   {
     "category": "Philippines",
@@ -57,7 +87,13 @@
     "id": "0d2d178f-7eb3-a3e3-df07-305f629dd7fe",
     "name": "PhilStar",
     "siteURL": "https://www.philstar.com/rss/headlines",
-    "tags": []
+    "tags": [
+      "filipino",
+      "manila",
+      "politics",
+      "business",
+      "global"
+    ]
   },
   {
     "category": "Philippines",
@@ -67,7 +103,13 @@
     "id": "6fc3105c-264f-51df-a84e-76328639331e",
     "name": "TechPinas",
     "siteURL": "https://www.techpinas.com/",
-    "tags": []
+    "tags": [
+      "filipino",
+      "smartphones",
+      "gadgets",
+      "specs",
+      "reviews"
+    ]
   },
   {
     "category": "Philippines",
@@ -77,7 +119,13 @@
     "id": "9c296a28-f16d-7dd5-94af-78c5796a1648",
     "name": "Top Gear",
     "siteURL": "https://www.topgear.com.ph",
-    "tags": []
+    "tags": [
+      "filipino",
+      "cars",
+      "motoring",
+      "traffic",
+      "reviews"
+    ]
   },
   {
     "category": "Philippines",
@@ -87,6 +135,12 @@
     "id": "27b386c5-7d4a-5059-35a6-83e434db0d90",
     "name": "UNBOX PH",
     "siteURL": "https://unbox.ph/",
-    "tags": []
+    "tags": [
+      "filipino",
+      "gadgets",
+      "smartphones",
+      "unboxing",
+      "specs"
+    ]
   }
 ]

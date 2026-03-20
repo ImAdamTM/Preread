@@ -6,7 +6,13 @@
     "id": "78b02b33-4d32-bd35-c4a9-d85bc90785a2",
     "name": "Alberto De Bortoli",
     "siteURL": "https://albertodebortoli.com/",
-    "tags": []
+    "tags": [
+      "ios",
+      "architecture",
+      "engineering",
+      "swift",
+      "career"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -15,7 +21,13 @@
     "id": "4b3aeebc-e9fe-5be4-8d3c-c87b30e82379",
     "name": "Android Developers Blog",
     "siteURL": "https://android-developers.googleblog.com/",
-    "tags": []
+    "tags": [
+      "android sdk",
+      "kotlin",
+      "jetpack",
+      "compose",
+      "google"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -24,7 +36,13 @@
     "id": "ca0b64ea-7f58-4fe1-ccd9-d0d3b9b422d4",
     "name": "Dan Lew Codes",
     "siteURL": "https://blog.danlew.net/",
-    "tags": []
+    "tags": [
+      "android",
+      "kotlin",
+      "rxjava",
+      "tips",
+      "debugging"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -33,7 +51,13 @@
     "id": "8cc83c87-41bb-58f5-98e7-a1f4f32bb4b5",
     "name": "Donny Wals",
     "siteURL": "https://www.donnywals.com",
-    "tags": []
+    "tags": [
+      "swift",
+      "ios",
+      "combine",
+      "swiftui",
+      "tutorials"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -42,7 +66,13 @@
     "id": "b3725457-67ba-5825-9594-25673f097d7d",
     "name": "Emerge Tools",
     "siteURL": "https://www.emergetools.com/blog",
-    "tags": []
+    "tags": [
+      "app size",
+      "performance",
+      "build times",
+      "profiling",
+      "optimization"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -51,7 +81,13 @@
     "id": "b2572bcc-423d-1381-bb63-23cc20f93bc3",
     "name": "Fabisevi.ch",
     "siteURL": "https://fabisevi.ch",
-    "tags": []
+    "tags": [
+      "ios",
+      "swift",
+      "xcode",
+      "tips",
+      "uikit"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -60,7 +96,13 @@
     "id": "cc27cebf-5e08-56d1-9bad-d70aed334a74",
     "name": "Fatbobman",
     "siteURL": "https://fatbobman.com",
-    "tags": []
+    "tags": [
+      "swiftui",
+      "swiftdata",
+      "core data",
+      "chinese",
+      "tutorials"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -69,7 +111,13 @@
     "id": "b506698e-0987-5ca3-d0d7-34e4b9243af2",
     "name": "Hacking with Swift",
     "siteURL": "https://www.hackingwithswift.com/articles/rss",
-    "tags": []
+    "tags": [
+      "swift",
+      "swiftui",
+      "tutorials",
+      "100 days",
+      "projects"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -78,7 +126,13 @@
     "id": "903aac8f-84b6-1d74-df10-9cafb0efed8b",
     "name": "Handstand Sam",
     "siteURL": "https://handstandsam.com",
-    "tags": []
+    "tags": [
+      "android",
+      "web",
+      "kotlin",
+      "javascript",
+      "tutorials"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -87,7 +141,13 @@
     "id": "c86eb5db-7fe1-6adf-dfd6-8b0fa7c13870",
     "name": "inessential.com",
     "siteURL": "https://inessential.com/",
-    "tags": []
+    "tags": [
+      "mac",
+      "ios",
+      "indie dev",
+      "netnewswire",
+      "objective-c"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -96,7 +156,13 @@
     "id": "a33fc95b-48c6-e3ea-f0a0-be95ee187bb4",
     "name": "Jake Wharton",
     "siteURL": "https://jakewharton.com/",
-    "tags": []
+    "tags": [
+      "android",
+      "kotlin",
+      "open source",
+      "square",
+      "libraries"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -105,7 +171,13 @@
     "id": "170b6316-68dd-56a8-b258-c3a40d8c4253",
     "name": "Jesse Squires",
     "siteURL": "https://www.jessesquires.com",
-    "tags": []
+    "tags": [
+      "swift",
+      "open source",
+      "ios",
+      "community",
+      "evolution"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -114,7 +186,13 @@
     "id": "a5fc413d-bd0b-d1c6-443c-37dfd081c5fb",
     "name": "Joe Birch",
     "siteURL": "https://joebirch.co",
-    "tags": []
+    "tags": [
+      "flutter",
+      "compose",
+      "android",
+      "google",
+      "multiplatform"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -123,7 +201,13 @@
     "id": "d82be0c7-5b8c-a091-faec-8abedc848351",
     "name": "Kt. Academy",
     "siteURL": "https://blog.kotlin-academy.com",
-    "tags": []
+    "tags": [
+      "kotlin",
+      "coroutines",
+      "courses",
+      "best practices",
+      "android"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -132,7 +216,13 @@
     "id": "e2ca2e09-bb18-922e-c44b-6add4fdd0268",
     "name": "Android Developers Blog (Medium)",
     "siteURL": "https://medium.com/androiddevelopers",
-    "tags": []
+    "tags": [
+      "android",
+      "jetpack",
+      "compose",
+      "material",
+      "kotlin"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -141,7 +231,13 @@
     "id": "2c124350-95c6-5735-c007-3aaf87fd5d6c",
     "name": "Ole Begemann",
     "siteURL": "https://oleb.net/blog/",
-    "tags": []
+    "tags": [
+      "swift",
+      "ios",
+      "foundation",
+      "concurrency",
+      "deep dives"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -150,7 +246,13 @@
     "id": "1bf66f60-ab53-5f9c-b7c7-a2b2acdf394a",
     "name": "Point-Free",
     "siteURL": "https://www.pointfree.co/blog",
-    "tags": []
+    "tags": [
+      "functional",
+      "composable",
+      "tca",
+      "swift",
+      "architecture"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -159,7 +261,13 @@
     "id": "bd8a169e-adcb-548f-ebe4-b90492db6024",
     "name": "ProAndroidDev",
     "siteURL": "https://proandroiddev.com",
-    "tags": []
+    "tags": [
+      "android",
+      "kotlin",
+      "architecture",
+      "compose",
+      "community"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -168,7 +276,13 @@
     "id": "2c5b75c9-c8e6-d550-c211-31bffb0d1f4e",
     "name": "Public Object",
     "siteURL": "https://publicobject.com/",
-    "tags": []
+    "tags": [
+      "kotlin",
+      "okhttp",
+      "java",
+      "open source",
+      "networking"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -177,7 +291,13 @@
     "id": "526432df-f7e6-580b-95f9-bea06f974520",
     "name": "Swift by Sundell",
     "siteURL": "https://www.swiftbysundell.com",
-    "tags": []
+    "tags": [
+      "swift",
+      "swiftui",
+      "podcasts",
+      "tips",
+      "patterns"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -186,7 +306,13 @@
     "id": "f2f8c800-e3a1-0b14-ed9a-93ebb7e3e3c5",
     "name": "SwiftLee",
     "siteURL": "https://www.avanderlee.com/",
-    "tags": []
+    "tags": [
+      "xcode",
+      "swift",
+      "ci/cd",
+      "debugging",
+      "performance"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -195,7 +321,13 @@
     "id": "37654122-9a02-7e3f-df67-bf6958a99b45",
     "name": "SwiftRocks",
     "siteURL": "https://swiftrocks.com",
-    "tags": []
+    "tags": [
+      "internals",
+      "compiler",
+      "runtime",
+      "swift",
+      "advanced"
+    ]
   },
   {
     "category": "Mobile Development",
@@ -204,6 +336,12 @@
     "id": "c09ad679-7f58-7792-da17-905087e04ed0",
     "name": "Use Your Loaf",
     "siteURL": "https://useyourloaf.com/blog/",
-    "tags": []
+    "tags": [
+      "auto layout",
+      "uikit",
+      "swift",
+      "accessibility",
+      "tips"
+    ]
   }
 ]

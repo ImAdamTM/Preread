@@ -6,7 +6,13 @@
     "id": "61945604-835a-4626-525c-15e0f3c3b512",
     "name": "Escapist Magazine",
     "siteURL": "https://www.escapistmagazine.com/",
-    "tags": []
+    "tags": [
+      "reviews",
+      "opinion",
+      "culture",
+      "indie",
+      "retro"
+    ]
   },
   {
     "category": "Gaming",
@@ -15,7 +21,13 @@
     "id": "d4585ded-96dd-d141-bf32-2b1556c124bc",
     "name": "Eurogamer.net",
     "siteURL": "https://www.eurogamer.net",
-    "tags": []
+    "tags": [
+      "reviews",
+      "features",
+      "digital foundry",
+      "indie",
+      "analysis"
+    ]
   },
   {
     "category": "Gaming",
@@ -24,7 +36,13 @@
     "id": "726da67b-5295-5d27-80a0-3a852485a2b5",
     "name": "Game Rant",
     "siteURL": "https://gamerant.com",
-    "tags": []
+    "tags": [
+      "news",
+      "guides",
+      "walkthroughs",
+      "rumors",
+      "reviews"
+    ]
   },
   {
     "category": "Gaming",
@@ -33,7 +51,13 @@
     "id": "117cbf36-c825-0db5-8452-da83aad5fcba",
     "name": "GameSpot",
     "siteURL": "https://www.gamespot.com/feeds/mashup/",
-    "tags": []
+    "tags": [
+      "reviews",
+      "trailers",
+      "walkthroughs",
+      "deals",
+      "previews"
+    ]
   },
   {
     "category": "Gaming",
@@ -42,7 +66,13 @@
     "id": "8399d10a-87ae-0c14-75f9-386c51c4c967",
     "name": "IGN",
     "siteURL": "https://www.ign.com/articles",
-    "tags": []
+    "tags": [
+      "reviews",
+      "trailers",
+      "wikis",
+      "guides",
+      "deals"
+    ]
   },
   {
     "category": "Gaming",
@@ -51,7 +81,13 @@
     "id": "380d5765-8f64-bee4-ec40-db037eade28a",
     "name": "Indie Games Plus",
     "siteURL": "https://mamnon-mannonphuongtrungii-hanoi.indiegamesplus.com/",
-    "tags": []
+    "tags": [
+      "indie",
+      "experimental",
+      "creative",
+      "pixel art",
+      "narrative"
+    ]
   },
   {
     "category": "Gaming",
@@ -60,7 +96,13 @@
     "id": "a0840ab3-b453-998d-e7a7-90c1b5cb106f",
     "name": "Kotaku",
     "siteURL": "https://kotaku.com/",
-    "tags": []
+    "tags": [
+      "culture",
+      "opinion",
+      "reviews",
+      "industry",
+      "anime"
+    ]
   },
   {
     "category": "Gaming",
@@ -69,7 +111,13 @@
     "id": "feb036c6-8a6e-8bc6-2aa7-6d73783810f0",
     "name": "Nintendo",
     "siteURL": "https://www.nintendo.com/en-gb/",
-    "tags": []
+    "tags": [
+      "switch",
+      "zelda",
+      "mario",
+      "pokemon",
+      "direct"
+    ]
   },
   {
     "category": "Gaming",
@@ -78,7 +126,13 @@
     "id": "ab3b8722-2f1d-5919-5aca-ee182649601d",
     "name": "Nintendo Life",
     "siteURL": "https://www.nintendolife.com/feeds/latest",
-    "tags": []
+    "tags": [
+      "switch",
+      "retro",
+      "indie",
+      "reviews",
+      "eshop"
+    ]
   },
   {
     "category": "Gaming",
@@ -87,7 +141,13 @@
     "id": "6b60d46d-6400-5009-81b9-7e15b4aeed41",
     "name": "PC Gamer",
     "siteURL": "https://www.pcgamer.com",
-    "tags": []
+    "tags": [
+      "pc",
+      "steam",
+      "hardware",
+      "mods",
+      "strategy"
+    ]
   },
   {
     "category": "Gaming",
@@ -96,7 +156,13 @@
     "id": "b7821720-d59e-648d-b481-c669d69a6071",
     "name": "Penny Arcade",
     "siteURL": "https://www.penny-arcade.com/",
-    "tags": []
+    "tags": [
+      "webcomic",
+      "pax",
+      "humor",
+      "culture",
+      "commentary"
+    ]
   },
   {
     "category": "Gaming",
@@ -105,7 +171,13 @@
     "id": "5af5d7a6-56af-04cd-43ef-8151ee0249af",
     "name": "Polygon",
     "siteURL": "https://www.polygon.com",
-    "tags": []
+    "tags": [
+      "culture",
+      "tabletop",
+      "longform",
+      "streaming",
+      "guides"
+    ]
   },
   {
     "category": "Gaming",
@@ -114,7 +186,13 @@
     "id": "02219160-1f0e-5ddf-a9b9-9b63dec2a3be",
     "name": "Rock, Paper, Shotgun",
     "siteURL": "https://www.rockpapershotgun.com/",
-    "tags": []
+    "tags": [
+      "pc",
+      "indie",
+      "reviews",
+      "steam",
+      "strategy"
+    ]
   },
   {
     "category": "Gaming",
@@ -123,7 +201,13 @@
     "id": "b3a5a1c1-829b-6b2f-e4e4-2081acb973f8",
     "name": "Steam News",
     "siteURL": "https://www.steampowered.com/",
-    "tags": []
+    "tags": [
+      "pc",
+      "sales",
+      "updates",
+      "workshop",
+      "early access"
+    ]
   },
   {
     "category": "Gaming",
@@ -132,7 +216,13 @@
     "id": "4068228a-0822-5c39-b5b2-14e65484a8cd",
     "name": "The Ancient Gaming Noob",
     "siteURL": "https://tagn.wordpress.com/",
-    "tags": []
+    "tags": [
+      "mmo",
+      "mmorpg",
+      "eve online",
+      "nostalgia",
+      "chronicles"
+    ]
   },
   {
     "category": "Gaming",
@@ -141,6 +231,12 @@
     "id": "77980663-12ae-f6cf-2ef9-ee6b0f7382d9",
     "name": "Xbox's Major Nelson",
     "siteURL": "https://news.xbox.com/en-us/",
-    "tags": []
+    "tags": [
+      "xbox",
+      "game pass",
+      "microsoft",
+      "deals",
+      "updates"
+    ]
   }
 ]

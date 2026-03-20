@@ -6,7 +6,13 @@
     "id": "f1a2b3c4-1002-4a02-b002-fashion0cov2",
     "name": "Coveteur",
     "siteURL": "https://coveteur.com",
-    "tags": []
+    "tags": [
+      "celebrity style",
+      "closets",
+      "luxury",
+      "wellness",
+      "shopping"
+    ]
   },
   {
     "category": "Fashion",
@@ -15,7 +21,13 @@
     "id": "f1a2b3c4-1003-4a03-b003-fashion0elle",
     "name": "ELLE",
     "siteURL": "https://www.elle.com",
-    "tags": []
+    "tags": [
+      "runway",
+      "celebrity",
+      "trends",
+      "designer",
+      "couture"
+    ]
   },
   {
     "category": "Fashion",
@@ -24,7 +36,13 @@
     "id": "fc08e847-9480-6a1c-bdee-d581c317536b",
     "name": "FashionBeans",
     "siteURL": "https://www.fashionbeans.com",
-    "tags": []
+    "tags": [
+      "menswear",
+      "grooming",
+      "outfits",
+      "casual",
+      "streetwear"
+    ]
   },
   {
     "category": "Fashion",
@@ -33,7 +51,13 @@
     "id": "f1a2b3c4-1004-4a04-b004-fashion00gq4",
     "name": "GQ",
     "siteURL": "https://www.gq.com",
-    "tags": []
+    "tags": [
+      "menswear",
+      "grooming",
+      "suits",
+      "watches",
+      "lifestyle"
+    ]
   },
   {
     "category": "Fashion",
@@ -42,7 +66,13 @@
     "id": "f1a2b3c4-1005-4a05-b005-fashionharp5",
     "name": "Harper's Bazaar",
     "siteURL": "https://www.harpersbazaar.com/fashion",
-    "tags": []
+    "tags": [
+      "designer",
+      "couture",
+      "runway",
+      "celebrity",
+      "luxury"
+    ]
   },
   {
     "category": "Fashion",
@@ -51,7 +81,13 @@
     "id": "f1a2b3c4-1006-4a06-b006-fashionhigh6",
     "name": "Highsnobiety",
     "siteURL": "https://www.highsnobiety.com",
-    "tags": []
+    "tags": [
+      "streetwear",
+      "sneakers",
+      "drops",
+      "hype",
+      "collaborations"
+    ]
   },
   {
     "category": "Fashion",
@@ -60,7 +96,13 @@
     "id": "f1a2b3c4-1007-4a07-b007-fashionhype7",
     "name": "Hypebeast",
     "siteURL": "https://hypebeast.com/fashion",
-    "tags": []
+    "tags": [
+      "streetwear",
+      "sneakers",
+      "drops",
+      "collaborations",
+      "culture"
+    ]
   },
   {
     "category": "Fashion",
@@ -69,7 +111,13 @@
     "id": "1d06c732-fa07-8dff-9d5e-5004eae3590d",
     "name": "POPSUGAR Fashion",
     "siteURL": "https://www.popsugar.com/fashion/",
-    "tags": []
+    "tags": [
+      "trends",
+      "affordable",
+      "outfits",
+      "celebrity",
+      "shopping"
+    ]
   },
   {
     "category": "Fashion",
@@ -78,7 +126,13 @@
     "id": "75940817-f17f-6454-ef14-a6aacb27c591",
     "name": "The Guardian",
     "siteURL": "https://www.theguardian.com/fashion",
-    "tags": []
+    "tags": [
+      "sustainable",
+      "industry",
+      "criticism",
+      "culture",
+      "trends"
+    ]
   },
   {
     "category": "Fashion",
@@ -87,7 +141,13 @@
     "id": "f1a2b3c4-1008-4a08-b008-fashionvogu8",
     "name": "Vogue",
     "siteURL": "https://www.vogue.com",
-    "tags": []
+    "tags": [
+      "runway",
+      "couture",
+      "met gala",
+      "celebrity",
+      "designers"
+    ]
   },
   {
     "category": "Fashion",
@@ -96,7 +156,13 @@
     "id": "f1a2b3c4-1009-4a09-b009-fashionwmag9",
     "name": "W Magazine",
     "siteURL": "https://www.wmagazine.com",
-    "tags": []
+    "tags": [
+      "art",
+      "film",
+      "editorial",
+      "avant-garde",
+      "photography"
+    ]
   },
   {
     "category": "Fashion",
@@ -105,7 +171,13 @@
     "id": "6a06d6de-9a21-319d-8e48-8d90766292c4",
     "name": "Who What Wear",
     "siteURL": "https://www.whowhatwear.com",
-    "tags": []
+    "tags": [
+      "outfits",
+      "trends",
+      "shopping",
+      "capsule",
+      "affordable"
+    ]
   },
   {
     "category": "Fashion",
@@ -114,6 +186,12 @@
     "id": "f1a2b3c4-1010-4a10-b010-fashion0wwd0",
     "name": "WWD",
     "siteURL": "https://wwd.com/fashion-news",
-    "tags": []
+    "tags": [
+      "industry",
+      "retail",
+      "business",
+      "runway",
+      "trade"
+    ]
   }
 ]

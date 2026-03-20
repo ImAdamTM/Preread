@@ -6,7 +6,13 @@
     "id": "15b4058d-8011-36ad-058f-4f0d1cb63fd0",
     "name": "Aeon",
     "siteURL": "https://aeon.co/",
-    "tags": []
+    "tags": [
+      "philosophy",
+      "essays",
+      "ideas",
+      "science",
+      "culture"
+    ]
   },
   {
     "category": "History",
@@ -15,7 +21,13 @@
     "id": "b7014e7d-6b3c-3f3b-5cef-875fc31476aa",
     "name": "Age of Revolutions",
     "siteURL": "https://ageofrevolutions.com/",
-    "tags": []
+    "tags": [
+      "18th century",
+      "revolution",
+      "academic",
+      "enlightenment",
+      "colonial"
+    ]
   },
   {
     "category": "History",
@@ -24,7 +36,13 @@
     "id": "cd24d802-f8d6-cd90-d4a2-74df440fcf01",
     "name": "Archaeology Magazine",
     "siteURL": "https://www.archaeology.org/",
-    "tags": []
+    "tags": [
+      "digs",
+      "discoveries",
+      "ancient",
+      "artifacts",
+      "excavations"
+    ]
   },
   {
     "category": "History",
@@ -33,7 +51,13 @@
     "id": "1e0b2d40-6f98-5530-3b31-21181c43fc6a",
     "name": "Atlas Obscura",
     "siteURL": "https://www.atlasobscura.com/",
-    "tags": []
+    "tags": [
+      "hidden places",
+      "curiosities",
+      "wonders",
+      "offbeat",
+      "gastro"
+    ]
   },
   {
     "category": "History",
@@ -42,7 +66,13 @@
     "id": "b8bb4416-ba7a-d54b-4241-4ca60cfbe2cb",
     "name": "History Extra",
     "siteURL": "https://www.historyextra.com/",
-    "tags": []
+    "tags": [
+      "bbc",
+      "podcasts",
+      "british",
+      "wars",
+      "monarchs"
+    ]
   },
   {
     "category": "History",
@@ -51,7 +81,13 @@
     "id": "d547d6e4-8951-7109-ab95-526203a75038",
     "name": "History Today",
     "siteURL": "https://www.historytoday.com/",
-    "tags": []
+    "tags": [
+      "essays",
+      "longform",
+      "british",
+      "european",
+      "analysis"
+    ]
   },
   {
     "category": "History",
@@ -60,7 +96,13 @@
     "id": "4123a374-68b4-422f-4382-3318857e15bc",
     "name": "HistoryNet",
     "siteURL": "https://www.historynet.com/",
-    "tags": []
+    "tags": [
+      "military",
+      "civil war",
+      "world war",
+      "battles",
+      "generals"
+    ]
   },
   {
     "category": "History",
@@ -69,7 +111,13 @@
     "id": "31b3c59b-822b-db9e-afcf-df18f8a0cab7",
     "name": "Hyperallergic",
     "siteURL": "https://hyperallergic.com/",
-    "tags": []
+    "tags": [
+      "art criticism",
+      "museums",
+      "exhibitions",
+      "culture",
+      "visual art"
+    ]
   },
   {
     "category": "History",
@@ -78,7 +126,13 @@
     "id": "b2e49b9b-bfa0-73b5-269f-b657a4914148",
     "name": "JSTOR Daily",
     "siteURL": "https://daily.jstor.org/",
-    "tags": []
+    "tags": [
+      "academic",
+      "research",
+      "essays",
+      "archives",
+      "analysis"
+    ]
   },
   {
     "category": "History",
@@ -87,7 +141,13 @@
     "id": "61f41685-9cd5-53ce-c68b-d8e48ddce903",
     "name": "Lapham's Quarterly",
     "siteURL": "https://www.laphamsquarterly.org/",
-    "tags": []
+    "tags": [
+      "primary sources",
+      "literary",
+      "essays",
+      "thematic",
+      "anthologies"
+    ]
   },
   {
     "category": "History",
@@ -96,7 +156,13 @@
     "id": "ed36e2ad-d003-f619-1c1e-6c4142d5becb",
     "name": "Medievalists.net",
     "siteURL": "https://www.medievalists.net/",
-    "tags": []
+    "tags": [
+      "medieval",
+      "middle ages",
+      "castles",
+      "knights",
+      "manuscripts"
+    ]
   },
   {
     "category": "History",
@@ -105,7 +171,13 @@
     "id": "f5ae99cd-d499-da98-4b85-302d4a5009d4",
     "name": "Smithsonian Magazine",
     "siteURL": "https://www.smithsonianmag.com/",
-    "tags": []
+    "tags": [
+      "museums",
+      "american",
+      "artifacts",
+      "photography",
+      "culture"
+    ]
   },
   {
     "category": "History",
@@ -114,7 +186,13 @@
     "id": "cc71e918-4e11-47d5-c431-c2ec61711575",
     "name": "The Public Domain Review",
     "siteURL": "https://publicdomainreview.org/",
-    "tags": []
+    "tags": [
+      "archives",
+      "illustrations",
+      "copyright free",
+      "curated",
+      "rare"
+    ]
   },
   {
     "category": "History",
@@ -123,6 +201,12 @@
     "id": "9897e9c7-c74f-c735-5fc2-9deb09c5471c",
     "name": "World History Encyclopedia",
     "siteURL": "https://www.worldhistory.org/",
-    "tags": []
+    "tags": [
+      "civilizations",
+      "ancient",
+      "free",
+      "peer-reviewed",
+      "timelines"
+    ]
   }
 ]

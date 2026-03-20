@@ -7,7 +7,13 @@
     "id": "6bc22729-98cc-02f7-c428-43d9e6a19c23",
     "name": "Hong Kong Free Press HKFP",
     "siteURL": "https://hongkongfp.com/",
-    "tags": []
+    "tags": [
+      "cantonese",
+      "democracy",
+      "independent",
+      "politics",
+      "civil rights"
+    ]
   },
   {
     "category": "Hong Kong",
@@ -17,6 +23,12 @@
     "id": "6f5b7ee1-6f48-dd9a-ff22-ec76bc51732d",
     "name": "hongkongnews.net latest rss headlines",
     "siteURL": "https://hongkongnews.net",
-    "tags": []
+    "tags": [
+      "cantonese",
+      "local",
+      "headlines",
+      "breaking",
+      "daily"
+    ]
   }
 ]

@@ -6,7 +6,13 @@
     "id": "9c373315-aef9-247a-b31c-1570da421980",
     "name": "Adweek",
     "siteURL": "https://www.adweek.com/",
-    "tags": []
+    "tags": [
+      "advertising",
+      "campaigns",
+      "creative",
+      "brands",
+      "agencies"
+    ]
   },
   {
     "category": "Marketing",
@@ -15,7 +21,13 @@
     "id": "aac7759a-3d4d-022f-efee-38914e15e5c1",
     "name": "Content Marketing Institute",
     "siteURL": "https://contentmarketinginstitute.com/",
-    "tags": []
+    "tags": [
+      "content strategy",
+      "blogging",
+      "b2b",
+      "roi",
+      "frameworks"
+    ]
   },
   {
     "category": "Marketing",
@@ -24,7 +36,13 @@
     "id": "d3242674-3285-be41-18b0-e9cf72c5d0bd",
     "name": "Duct Tape Marketing",
     "siteURL": "https://www.ducttapemarketing.com/about/duct-tape-marketing-podcast/",
-    "tags": []
+    "tags": [
+      "small business",
+      "local",
+      "referrals",
+      "strategy",
+      "consulting"
+    ]
   },
   {
     "category": "Marketing",
@@ -33,7 +51,13 @@
     "id": "a8ef91a3-6616-d9c1-2b5d-ef4d06829573",
     "name": "Digiday",
     "siteURL": "https://digiday.com/",
-    "tags": []
+    "tags": [
+      "ad tech",
+      "publishers",
+      "programmatic",
+      "platforms",
+      "media buying"
+    ]
   },
   {
     "category": "Marketing",
@@ -42,7 +66,13 @@
     "id": "d2ef1348-c6b4-5963-f1c0-e8f1375972cd",
     "name": "HubSpot Blog",
     "siteURL": "https://blog.hubspot.com/",
-    "tags": []
+    "tags": [
+      "inbound",
+      "email",
+      "crm",
+      "templates",
+      "seo"
+    ]
   },
   {
     "category": "Marketing",
@@ -51,7 +81,13 @@
     "id": "1ec8fb3c-0807-430c-f198-5fb4e9550327",
     "name": "Lenny's Newsletter",
     "siteURL": "https://www.lennysnewsletter.com/",
-    "tags": []
+    "tags": [
+      "product",
+      "growth",
+      "retention",
+      "metrics",
+      "saas"
+    ]
   },
   {
     "category": "Marketing",
@@ -60,7 +96,13 @@
     "id": "e3301663-fe12-2527-298d-779232b32783",
     "name": "Marketing Brew",
     "siteURL": "https://www.marketingbrew.com/",
-    "tags": []
+    "tags": [
+      "newsletter",
+      "briefing",
+      "campaigns",
+      "brands",
+      "trends"
+    ]
   },
   {
     "category": "Marketing",
@@ -69,7 +111,13 @@
     "id": "8d96a2c4-56b6-de0a-5e4a-d36f0654130d",
     "name": "Marketing Dive",
     "siteURL": "https://www.marketingdive.com/",
-    "tags": []
+    "tags": [
+      "campaigns",
+      "brands",
+      "retail",
+      "digital",
+      "social media"
+    ]
   },
   {
     "category": "Marketing",
@@ -78,7 +126,13 @@
     "id": "572d391d-7a59-565e-f5a7-a660fa393d43",
     "name": "Overflow - Buffer Resources",
     "siteURL": "https://buffer.com/resources/",
-    "tags": []
+    "tags": [
+      "social media",
+      "scheduling",
+      "analytics",
+      "engagement",
+      "instagram"
+    ]
   },
   {
     "category": "Marketing",
@@ -87,7 +141,13 @@
     "id": "37926489-2dda-135a-700c-5198dd45038e",
     "name": "Search Engine Land",
     "siteURL": "https://searchengineland.com/",
-    "tags": []
+    "tags": [
+      "seo",
+      "google",
+      "sem",
+      "ppc",
+      "algorithms"
+    ]
   },
   {
     "category": "Marketing",
@@ -96,6 +156,12 @@
     "id": "7cf1988a-a294-26af-0a10-bc72aa24eca2",
     "name": "SparkToro Blog",
     "siteURL": "https://sparktoro.com/blog/",
-    "tags": []
+    "tags": [
+      "audience",
+      "data",
+      "seo",
+      "contrarian",
+      "research"
+    ]
   }
 ]

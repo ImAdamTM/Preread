@@ -6,7 +6,13 @@
     "id": "a88d421e-a1bf-7866-62f4-d72738d17390",
     "name": "ADVRider",
     "siteURL": "https://www.advrider.com/",
-    "tags": []
+    "tags": [
+      "adventure",
+      "dual sport",
+      "ride reports",
+      "off-road",
+      "travel"
+    ]
   },
   {
     "category": "Motorcycles",
@@ -15,7 +21,13 @@
     "id": "4dc57b3a-f801-f8c1-1b53-a4866a090602",
     "name": "Bike EXIF",
     "siteURL": "https://www.bikeexif.com/",
-    "tags": []
+    "tags": [
+      "custom",
+      "cafe racer",
+      "builds",
+      "photography",
+      "design"
+    ]
   },
   {
     "category": "Motorcycles",
@@ -24,7 +36,13 @@
     "id": "9212d037-8027-6930-7864-edfafe2cce56",
     "name": "RideApart",
     "siteURL": "https://www.rideapart.com/",
-    "tags": []
+    "tags": [
+      "reviews",
+      "news",
+      "beginner",
+      "gear",
+      "electric"
+    ]
   },
   {
     "category": "Motorcycles",
@@ -33,7 +51,13 @@
     "id": "31840fe4-3a9f-55d1-8a17-dcc2eaff7d5f",
     "name": "Ultimate Motorcycling",
     "siteURL": "https://ultimatemotorcycling.com/",
-    "tags": []
+    "tags": [
+      "touring",
+      "reviews",
+      "racing",
+      "cruisers",
+      "sportbikes"
+    ]
   },
   {
     "category": "Motorcycles",
@@ -42,6 +66,12 @@
     "id": "dd880014-4494-1bf7-ecef-9c3c04680747",
     "name": "Visordown",
     "siteURL": "https://www.visordown.com/",
-    "tags": []
+    "tags": [
+      "uk",
+      "reviews",
+      "buying advice",
+      "insurance",
+      "gear"
+    ]
   }
 ]

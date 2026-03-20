@@ -6,7 +6,13 @@
     "id": "5b155090-4533-19ae-c53b-2e70e43c390b",
     "name": "Cruising World",
     "siteURL": "https://www.cruisingworld.com/",
-    "tags": []
+    "tags": [
+      "bluewater",
+      "sailing",
+      "anchoring",
+      "passages",
+      "liveaboard"
+    ]
   },
   {
     "category": "Boating",
@@ -15,7 +21,13 @@
     "id": "59f163ba-aa07-9fba-8a26-2bef478d8f7d",
     "name": "Kayak Angler",
     "siteURL": "https://www.kayakanglermag.com/",
-    "tags": []
+    "tags": [
+      "kayak fishing",
+      "bass",
+      "tournaments",
+      "tackle",
+      "rigging"
+    ]
   },
   {
     "category": "Boating",
@@ -24,7 +36,13 @@
     "id": "f0fe5b2e-a0d6-36bf-4d7d-2723f2c7fdf3",
     "name": "Latitude 38",
     "siteURL": "https://www.latitude38.com/",
-    "tags": []
+    "tags": [
+      "bay area",
+      "racing",
+      "sailing",
+      "west coast",
+      "regattas"
+    ]
   },
   {
     "category": "Boating",
@@ -33,7 +51,13 @@
     "id": "88faccd3-df76-e291-db33-809a79921d8e",
     "name": "Paddling Magazine",
     "siteURL": "https://www.paddlingmag.com/",
-    "tags": []
+    "tags": [
+      "kayaking",
+      "canoeing",
+      "sup",
+      "whitewater",
+      "gear"
+    ]
   },
   {
     "category": "Boating",
@@ -42,7 +66,13 @@
     "id": "8730e1ed-8543-f4b8-b437-af211d8ce09c",
     "name": "Panbo",
     "siteURL": "https://panbo.com/",
-    "tags": []
+    "tags": [
+      "marine electronics",
+      "gps",
+      "radar",
+      "chartplotter",
+      "nmea"
+    ]
   },
   {
     "category": "Boating",
@@ -51,7 +81,13 @@
     "id": "fa5be679-03b9-47be-edc5-be06de37d280",
     "name": "Power & Motoryacht",
     "siteURL": "https://www.powerandmotoryacht.com/",
-    "tags": []
+    "tags": [
+      "powerboats",
+      "cruising",
+      "luxury",
+      "yachts",
+      "trawlers"
+    ]
   },
   {
     "category": "Boating",
@@ -60,7 +96,13 @@
     "id": "481aa30c-bcf1-d463-5f5c-c18c9a2e0e7a",
     "name": "Practical Sailor",
     "siteURL": "https://www.practical-sailor.com/",
-    "tags": []
+    "tags": [
+      "gear tests",
+      "rigging",
+      "anchors",
+      "sails",
+      "maintenance"
+    ]
   },
   {
     "category": "Boating",
@@ -69,7 +111,13 @@
     "id": "14bbcc46-156d-344d-6610-5e2374eb99eb",
     "name": "SAIL Magazine",
     "siteURL": "https://www.sailmagazine.com/",
-    "tags": []
+    "tags": [
+      "racing",
+      "cruising",
+      "gear",
+      "navigation",
+      "seamanship"
+    ]
   },
   {
     "category": "Boating",
@@ -78,7 +126,13 @@
     "id": "c3d3cded-867a-ebf0-1f5c-cf375d5fc97a",
     "name": "Sailing Anarchy",
     "siteURL": "https://sailinganarchy.com/",
-    "tags": []
+    "tags": [
+      "racing",
+      "forums",
+      "regattas",
+      "opinion",
+      "foiling"
+    ]
   },
   {
     "category": "Boating",
@@ -87,7 +141,13 @@
     "id": "7e43338b-6109-eeb5-0300-5befb6fbcbc4",
     "name": "Sailing World",
     "siteURL": "https://www.sailingworld.com/",
-    "tags": []
+    "tags": [
+      "regattas",
+      "one-design",
+      "tactics",
+      "racing",
+      "dinghy"
+    ]
   },
   {
     "category": "Boating",
@@ -96,7 +156,13 @@
     "id": "5cab5c32-b2a6-8a81-fce0-88a09ff048b6",
     "name": "Salt Water Sportsman",
     "siteURL": "https://www.saltwatersportsman.com/",
-    "tags": []
+    "tags": [
+      "offshore",
+      "fishing",
+      "tackle",
+      "marlin",
+      "tuna"
+    ]
   },
   {
     "category": "Boating",
@@ -105,7 +171,13 @@
     "id": "80d12397-0182-9bc2-f5ed-45517359beed",
     "name": "Sport Fishing",
     "siteURL": "https://www.sportfishingmag.com/",
-    "tags": []
+    "tags": [
+      "tournaments",
+      "offshore",
+      "tackle",
+      "rods",
+      "charter"
+    ]
   },
   {
     "category": "Boating",
@@ -114,7 +186,13 @@
     "id": "7b4438af-69d5-25b0-8590-d96a3b4e6d5e",
     "name": "WoodenBoat",
     "siteURL": "https://www.woodenboat.com/",
-    "tags": []
+    "tags": [
+      "restoration",
+      "craftsmanship",
+      "building",
+      "classic",
+      "traditional"
+    ]
   },
   {
     "category": "Boating",
@@ -123,7 +201,13 @@
     "id": "9aa66d10-2105-7ac2-a76c-02705f51fcfb",
     "name": "Yachting Monthly",
     "siteURL": "https://www.yachtingmonthly.com/",
-    "tags": []
+    "tags": [
+      "seamanship",
+      "boat tests",
+      "cruising",
+      "uk sailing",
+      "navigation"
+    ]
   },
   {
     "category": "Boating",
@@ -132,6 +216,12 @@
     "id": "80728d6e-c67a-7869-e601-cb1d7f831fb6",
     "name": "Yachting World",
     "siteURL": "https://www.yachtingworld.com/",
-    "tags": []
+    "tags": [
+      "superyachts",
+      "regattas",
+      "racing",
+      "sailing",
+      "circumnavigation"
+    ]
   }
 ]

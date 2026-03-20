@@ -7,7 +7,13 @@
     "id": "7abaf032-6729-b328-a45f-2a67a9dd0568",
     "name": "Adnkronos - ultimoratop",
     "siteURL": "https://www.adnkronos.com",
-    "tags": []
+    "tags": [
+      "italian",
+      "roma",
+      "cronaca",
+      "politica",
+      "agenzia"
+    ]
   },
   {
     "category": "Italy",
@@ -17,7 +23,13 @@
     "id": "1e9b6f38-12a9-abba-fa9d-6a660a700902",
     "name": "Fanpage",
     "siteURL": "https://www.fanpage.it",
-    "tags": []
+    "tags": [
+      "italian",
+      "napoli",
+      "cronaca",
+      "social",
+      "inchieste"
+    ]
   },
   {
     "category": "Italy",
@@ -27,7 +39,13 @@
     "id": "5a62e5db-e4f3-34c7-f2fc-7914d43c698b",
     "name": "Il Mattino Web",
     "siteURL": "https://www.ilmattino.it",
-    "tags": []
+    "tags": [
+      "napoli",
+      "italian",
+      "cronaca",
+      "calcio",
+      "campania"
+    ]
   },
   {
     "category": "Italy",
@@ -37,7 +55,13 @@
     "id": "9cd17b59-e051-7cca-54f0-d60dbf694c29",
     "name": "Internazionale",
     "siteURL": "https://www.internazionale.it/",
-    "tags": []
+    "tags": [
+      "italian",
+      "reportage",
+      "traduzione",
+      "global",
+      "longform"
+    ]
   },
   {
     "category": "Italy",
@@ -47,7 +71,13 @@
     "id": "8f65a59c-2cb1-56ca-b45d-d20950d93c3a",
     "name": "Libero Quotidiano",
     "siteURL": "https://www.liberoquotidiano.it",
-    "tags": []
+    "tags": [
+      "italian",
+      "opinione",
+      "politica",
+      "destra",
+      "roma"
+    ]
   },
   {
     "category": "Italy",
@@ -57,7 +87,13 @@
     "id": "b977dfe3-0c89-299b-7fd0-1933ed868648",
     "name": "Milan News",
     "siteURL": "https://www.milannews.it",
-    "tags": []
+    "tags": [
+      "milan",
+      "serie a",
+      "calcio",
+      "transfers",
+      "rossoneri"
+    ]
   },
   {
     "category": "Italy",
@@ -67,7 +103,13 @@
     "id": "a02b857f-fd87-b1cc-b3ac-fd69c7446360",
     "name": "Panorama",
     "siteURL": "https://www.panorama.it",
-    "tags": []
+    "tags": [
+      "italian",
+      "attualita",
+      "politica",
+      "cultura",
+      "settimanale"
+    ]
   },
   {
     "category": "Italy",
@@ -77,7 +119,13 @@
     "id": "f3afd903-e63c-53e0-1560-18ab65d76359",
     "name": "ANSA",
     "siteURL": "https://www.ansa.it/sito/videogallery/short_video/2026/03/14/il-racconto-della-settimana-in-foto_b02787b1-d4a0-448a-9ed2-0a0f00be5932.html",
-    "tags": []
+    "tags": [
+      "italian",
+      "agenzia",
+      "breaking",
+      "roma",
+      "cronaca"
+    ]
   },
   {
     "category": "Italy",
@@ -86,6 +134,12 @@
     "feedURL": "https://feeds.thelocal.com/rss/it",
     "id": "be7a0fea-4d37-b491-b4ef-f89139abd6c4",
     "name": "The Local",
-    "tags": []
+    "tags": [
+      "english",
+      "expat",
+      "europe",
+      "living abroad",
+      "immigration"
+    ]
   }
 ]

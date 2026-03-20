@@ -6,7 +6,13 @@
     "id": "76fac9c4-5b18-53d2-a523-3aaccd162538",
     "name": "/Film",
     "siteURL": "https://www.slashfilm.com/",
-    "tags": []
+    "tags": [
+      "reviews",
+      "trailers",
+      "interviews",
+      "streaming",
+      "box office"
+    ]
   },
   {
     "category": "Film & TV",
@@ -15,7 +21,13 @@
     "id": "6044df96-ff67-6032-8cde-c2dad97e1f2a",
     "name": "Ain't It Cool News",
     "siteURL": "https://www.aintitcool.com/",
-    "tags": []
+    "tags": [
+      "geek",
+      "reviews",
+      "comic book",
+      "sci-fi",
+      "horror"
+    ]
   },
   {
     "category": "Film & TV",
@@ -24,7 +36,13 @@
     "id": "4d6fc1e4-151c-fb37-3c12-4cc7d5affbdb",
     "name": "ComingSoon.net",
     "siteURL": "https://www.comingsoon.net/",
-    "tags": []
+    "tags": [
+      "trailers",
+      "release dates",
+      "streaming",
+      "casting",
+      "sequels"
+    ]
   },
   {
     "category": "Film & TV",
@@ -33,7 +51,13 @@
     "id": "a6faba43-a17a-e08c-e8c2-ca2957c887cc",
     "name": "Deadline",
     "siteURL": "https://deadline.com",
-    "tags": []
+    "tags": [
+      "hollywood",
+      "box office",
+      "deals",
+      "casting",
+      "streaming"
+    ]
   },
   {
     "category": "Film & TV",
@@ -42,7 +66,13 @@
     "id": "ca85d6a4-33d9-abde-9695-36848f3dbbe2",
     "name": "FirstShowing.net",
     "siteURL": "https://www.firstshowing.net",
-    "tags": []
+    "tags": [
+      "trailers",
+      "release dates",
+      "reviews",
+      "indie",
+      "festivals"
+    ]
   },
   {
     "category": "Film & TV",
@@ -51,7 +81,13 @@
     "id": "e4217dc6-df68-c3b8-818e-a29e5a31d093",
     "name": "IndieWire",
     "siteURL": "https://www.indiewire.com",
-    "tags": []
+    "tags": [
+      "indie",
+      "festivals",
+      "awards",
+      "oscars",
+      "critics"
+    ]
   },
   {
     "category": "Film & TV",
@@ -60,7 +96,13 @@
     "id": "37d17862-c86a-4935-858a-e346ba33a6cf",
     "name": "Bleeding Cool",
     "siteURL": "https://bleedingcool.com",
-    "tags": []
+    "tags": [
+      "comics",
+      "collectibles",
+      "rumors",
+      "conventions",
+      "merchandise"
+    ]
   },
   {
     "category": "Film & TV",
@@ -69,7 +111,13 @@
     "id": "b06e129a-2079-b2bb-30d7-6a4496e723e1",
     "name": "The A.V. Club",
     "siteURL": "https://www.avclub.com",
-    "tags": []
+    "tags": [
+      "pop culture",
+      "reviews",
+      "streaming",
+      "comedy",
+      "nostalgia"
+    ]
   },
   {
     "category": "Film & TV",
@@ -78,7 +126,13 @@
     "id": "839d7a74-16b9-6c55-c744-873d7f8af55a",
     "name": "The Hollywood Reporter",
     "siteURL": "https://www.hollywoodreporter.com/",
-    "tags": []
+    "tags": [
+      "awards",
+      "box office",
+      "casting",
+      "oscars",
+      "emmys"
+    ]
   },
   {
     "category": "Film & TV",
@@ -87,7 +141,13 @@
     "id": "0f672e8f-7a4c-54ed-91ba-bbd955a9ec00",
     "name": "TV Fanatic",
     "siteURL": "https://www.tvfanatic.com/",
-    "tags": []
+    "tags": [
+      "recaps",
+      "spoilers",
+      "reviews",
+      "drama",
+      "sitcoms"
+    ]
   },
   {
     "category": "Film & TV",
@@ -96,7 +156,13 @@
     "id": "ed625c11-bff0-31ab-de41-1163a4d0c8f1",
     "name": "TVLine",
     "siteURL": "https://www.tvline.com/",
-    "tags": []
+    "tags": [
+      "spoilers",
+      "casting",
+      "renewals",
+      "cancellations",
+      "previews"
+    ]
   },
   {
     "category": "Film & TV",
@@ -105,6 +171,12 @@
     "id": "58b40d3c-f048-1a8f-f2c4-158e59ab0ee4",
     "name": "Variety",
     "siteURL": "https://variety.com",
-    "tags": []
+    "tags": [
+      "awards",
+      "box office",
+      "festivals",
+      "deals",
+      "emmys"
+    ]
   }
 ]

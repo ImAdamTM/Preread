@@ -6,7 +6,13 @@
     "id": "8249346b-6d16-594c-12b4-4b68fd2fe622",
     "name": "Ahead of AI",
     "siteURL": "https://magazine.sebastianraschka.com/",
-    "tags": []
+    "tags": [
+      "deep learning",
+      "transformers",
+      "nlp",
+      "papers",
+      "neural networks"
+    ]
   },
   {
     "category": "AI",
@@ -15,7 +21,13 @@
     "id": "31fd665b-fa89-c686-675a-cb4c5e6d38e8",
     "name": "AI News",
     "siteURL": "https://www.artificialintelligence-news.com/",
-    "tags": []
+    "tags": [
+      "chatbots",
+      "generative",
+      "startups",
+      "automation",
+      "models"
+    ]
   },
   {
     "category": "AI",
@@ -24,7 +36,13 @@
     "id": "61d3148b-c057-2cab-03be-2891aea9f44f",
     "name": "Hugging Face Blog",
     "siteURL": "https://huggingface.co/blog/",
-    "tags": []
+    "tags": [
+      "open source",
+      "transformers",
+      "datasets",
+      "nlp",
+      "fine-tuning"
+    ]
   },
   {
     "category": "AI",
@@ -33,7 +51,13 @@
     "id": "0f90c142-536d-f254-4caf-ca35ed835837",
     "name": "Import AI",
     "siteURL": "https://importai.substack.com/",
-    "tags": []
+    "tags": [
+      "policy",
+      "governance",
+      "papers",
+      "geopolitics",
+      "safety"
+    ]
   },
   {
     "category": "AI",
@@ -42,7 +66,13 @@
     "id": "633e5ebc-b836-2611-e9ac-8d8f1bfd72c5",
     "name": "Interconnects",
     "siteURL": "https://www.interconnects.ai/",
-    "tags": []
+    "tags": [
+      "alignment",
+      "safety",
+      "rlhf",
+      "fine-tuning",
+      "models"
+    ]
   },
   {
     "category": "AI",
@@ -51,7 +81,13 @@
     "id": "5135495e-dde6-3868-1019-abdefcf6222f",
     "name": "Last Week in AI",
     "siteURL": "https://lastweekin.ai/",
-    "tags": []
+    "tags": [
+      "weekly",
+      "roundup",
+      "digest",
+      "headlines",
+      "breakthroughs"
+    ]
   },
   {
     "category": "AI",
@@ -60,7 +96,13 @@
     "id": "ef3ff28c-60b4-cdf1-84d7-20bf3fbd5564",
     "name": "MarkTechPost",
     "siteURL": "https://www.marktechpost.com/",
-    "tags": []
+    "tags": [
+      "papers",
+      "deep learning",
+      "neural networks",
+      "arxiv",
+      "breakthroughs"
+    ]
   },
   {
     "category": "AI",
@@ -69,7 +111,13 @@
     "id": "795a5369-f7ce-f7f2-08f8-2869bf1ddbc7",
     "name": "MIT Technology Review",
     "siteURL": "https://www.technologyreview.com/",
-    "tags": []
+    "tags": [
+      "ethics",
+      "innovation",
+      "emerging tech",
+      "longform",
+      "society"
+    ]
   },
   {
     "category": "AI",
@@ -78,7 +126,13 @@
     "id": "59f6b090-81d6-23bf-3a49-feb841c9f9d4",
     "name": "One Useful Thing",
     "siteURL": "https://www.oneusefulthing.org/",
-    "tags": []
+    "tags": [
+      "productivity",
+      "education",
+      "chatgpt",
+      "workflows",
+      "prompts"
+    ]
   },
   {
     "category": "AI",
@@ -87,7 +141,13 @@
     "id": "05243453-1db8-37d6-32eb-c483d8f33550",
     "name": "Simon Willison's Weblog",
     "siteURL": "https://simonwillison.net/",
-    "tags": []
+    "tags": [
+      "llms",
+      "python",
+      "sqlite",
+      "open source",
+      "prompts"
+    ]
   },
   {
     "category": "AI",
@@ -96,7 +156,13 @@
     "id": "06197e19-b436-1b87-67ef-9b9edd6b325d",
     "name": "The Algorithmic Bridge",
     "siteURL": "https://www.thealgorithmicbridge.com/",
-    "tags": []
+    "tags": [
+      "philosophy",
+      "ethics",
+      "society",
+      "alignment",
+      "consciousness"
+    ]
   },
   {
     "category": "AI",
@@ -105,7 +171,13 @@
     "id": "40e60d3c-b89b-c601-c7c8-0ceb38a8579b",
     "name": "The Decoder",
     "siteURL": "https://the-decoder.com/",
-    "tags": []
+    "tags": [
+      "chatgpt",
+      "models",
+      "releases",
+      "explainers",
+      "generative"
+    ]
   },
   {
     "category": "AI",
@@ -114,7 +186,13 @@
     "id": "4f833f98-5ed1-2add-27e1-cbef2b3c7510",
     "name": "The Gradient",
     "siteURL": "https://thegradient.pub/",
-    "tags": []
+    "tags": [
+      "interviews",
+      "essays",
+      "papers",
+      "nonprofit",
+      "longform"
+    ]
   },
   {
     "category": "AI",
@@ -123,6 +201,12 @@
     "id": "1a71342d-965c-d9f7-fc4a-06e807a5c67b",
     "name": "VentureBeat",
     "siteURL": "https://venturebeat.com/",
-    "tags": []
+    "tags": [
+      "enterprise",
+      "startups",
+      "funding",
+      "corporate",
+      "saas"
+    ]
   }
 ]

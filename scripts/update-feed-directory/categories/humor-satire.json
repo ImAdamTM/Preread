@@ -6,7 +6,13 @@
     "id": "205e047b-47d4-581c-99b8-a76c41b053c6",
     "name": "Cracked: All Posts",
     "siteURL": "https://www.cracked.com/",
-    "tags": []
+    "tags": [
+      "comedy",
+      "lists",
+      "pop culture",
+      "absurd",
+      "nostalgia"
+    ]
   },
   {
     "category": "Humor & Satire",
@@ -15,7 +21,13 @@
     "id": "275986ee-5926-132e-978a-7a1d8d081601",
     "name": "McSweeney's Internet Tendency",
     "siteURL": "https://www.mcsweeneys.net/",
-    "tags": []
+    "tags": [
+      "literary humor",
+      "lists",
+      "essays",
+      "absurdist",
+      "clever"
+    ]
   },
   {
     "category": "Humor & Satire",
@@ -24,7 +36,13 @@
     "id": "61b00002-b48e-a034-8ed9-46ffaca19df6",
     "name": "Reductress",
     "siteURL": "https://reductress.com",
-    "tags": []
+    "tags": [
+      "feminism",
+      "parody",
+      "headlines",
+      "women",
+      "media satire"
+    ]
   },
   {
     "category": "Humor & Satire",
@@ -33,7 +51,13 @@
     "id": "cc552eda-3d5b-d374-05eb-4b19c629fee6",
     "name": "The Babylon Bee",
     "siteURL": "https://babylonbee.com",
-    "tags": []
+    "tags": [
+      "christian",
+      "conservative",
+      "parody",
+      "politics",
+      "headlines"
+    ]
   },
   {
     "category": "Humor & Satire",
@@ -42,7 +66,13 @@
     "id": "7d7bef99-cda8-227a-8f88-7b4ad5db8931",
     "name": "The Bloggess",
     "siteURL": "https://thebloggess.com",
-    "tags": []
+    "tags": [
+      "personal essays",
+      "mental health",
+      "memoir",
+      "quirky",
+      "cats"
+    ]
   },
   {
     "category": "Humor & Satire",
@@ -51,7 +81,13 @@
     "id": "c5b932f3-650a-831e-32cc-7a6d8265d131",
     "name": "The Hard Times",
     "siteURL": "https://thehardtimes.net",
-    "tags": []
+    "tags": [
+      "punk",
+      "hardcore",
+      "music satire",
+      "subculture",
+      "diy"
+    ]
   },
   {
     "category": "Humor & Satire",
@@ -60,6 +96,12 @@
     "id": "613b5a03-7a84-ccea-643c-3684d89a017e",
     "name": "The Onion",
     "siteURL": "https://theonion.com/",
-    "tags": []
+    "tags": [
+      "parody",
+      "satire",
+      "comedy",
+      "fake news",
+      "headlines"
+    ]
   }
 ]

@@ -7,7 +7,13 @@
     "id": "e1c83501-ce8c-f059-771d-37acd0b8cd36",
     "name": "Aktuell - FAZ.NET",
     "siteURL": "https://www.faz.net/aktuell/",
-    "tags": []
+    "tags": [
+      "german",
+      "politik",
+      "wirtschaft",
+      "frankfurt",
+      "feuilleton"
+    ]
   },
   {
     "category": "Germany",
@@ -17,7 +23,13 @@
     "id": "14dda539-770f-94e3-25d6-e6242ab2c164",
     "name": "Deutsche Welle",
     "siteURL": "https://www.dw.com/english/",
-    "tags": []
+    "tags": [
+      "german",
+      "english",
+      "international",
+      "europe",
+      "analysis"
+    ]
   },
   {
     "category": "Germany",
@@ -27,6 +39,12 @@
     "id": "d6a6caba-7f52-b33a-cc8e-313e41eda58b",
     "name": "tagesschau.de",
     "siteURL": "https://www.tagesschau.de/infoservices/alle-meldungen-100.html",
-    "tags": []
+    "tags": [
+      "german",
+      "nachrichten",
+      "politik",
+      "national",
+      "ard"
+    ]
   }
 ]

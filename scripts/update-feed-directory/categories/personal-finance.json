@@ -6,7 +6,13 @@
     "id": "649a18d8-2c48-7ea1-88d6-3b3348c9a544",
     "name": "Afford Anything",
     "siteURL": "https://affordanything.com/",
-    "tags": []
+    "tags": [
+      "fire",
+      "real estate",
+      "freedom",
+      "investing",
+      "lifestyle"
+    ]
   },
   {
     "category": "Personal Finance",
@@ -15,7 +21,13 @@
     "id": "9f1a2b1a-4490-5e1d-8e8b-7d2b1162340e",
     "name": "Financial Samurai",
     "siteURL": "https://financialsamurai.com",
-    "tags": []
+    "tags": [
+      "fire",
+      "real estate",
+      "bay area",
+      "early retirement",
+      "wealth"
+    ]
   },
   {
     "category": "Personal Finance",
@@ -24,7 +36,13 @@
     "id": "672ab64d-10aa-3625-b804-84ee39801039",
     "name": "I Will Teach You To Be Rich",
     "siteURL": "https://www.iwillteachyoutoberich.com",
-    "tags": []
+    "tags": [
+      "budgeting",
+      "automation",
+      "negotiation",
+      "earning",
+      "spending"
+    ]
   },
   {
     "category": "Personal Finance",
@@ -33,7 +51,13 @@
     "id": "9ae3fa68-a393-54b5-91d1-7a48879c8da4",
     "name": "Making Sense Of Cents",
     "siteURL": "https://makingsenseofcents.com",
-    "tags": []
+    "tags": [
+      "debt payoff",
+      "saving",
+      "frugal",
+      "side hustles",
+      "budgeting"
+    ]
   },
   {
     "category": "Personal Finance",
@@ -42,7 +66,13 @@
     "id": "99c68bf8-9ccc-5b73-b88b-6b4a78c55b0f",
     "name": "Money Talks News",
     "siteURL": "https://moneytalksnews.com",
-    "tags": []
+    "tags": [
+      "saving",
+      "coupons",
+      "frugal",
+      "tips",
+      "retirement"
+    ]
   },
   {
     "category": "Personal Finance",
@@ -51,6 +81,12 @@
     "id": "07144ef6-7ffd-4269-18cc-159243c67a72",
     "name": "NerdWallet",
     "siteURL": "https://www.nerdwallet.com",
-    "tags": []
+    "tags": [
+      "credit cards",
+      "banking",
+      "loans",
+      "insurance",
+      "comparisons"
+    ]
   }
 ]

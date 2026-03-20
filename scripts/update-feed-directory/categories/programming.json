@@ -6,7 +6,13 @@
     "id": "89679d7f-463c-cd13-0c1e-47dc389548ae",
     "name": "Code as Craft",
     "siteURL": "https://www.etsy.com/codeascraft/rss",
-    "tags": []
+    "tags": [
+      "engineering blog",
+      "etsy",
+      "devops",
+      "architecture",
+      "culture"
+    ]
   },
   {
     "category": "Programming",
@@ -15,7 +21,13 @@
     "id": "b1ea32ce-2f3e-5611-8703-b89ca8de5289",
     "name": "Coding Horror",
     "siteURL": "https://blog.codinghorror.com/",
-    "tags": []
+    "tags": [
+      "opinion",
+      "best practices",
+      "stack overflow",
+      "career",
+      "essays"
+    ]
   },
   {
     "category": "Programming",
@@ -24,7 +36,13 @@
     "id": "6a89e91e-e8f8-89bc-6c04-645d38fed75b",
     "name": "Facebook Engineering",
     "siteURL": "https://engineering.fb.com/",
-    "tags": []
+    "tags": [
+      "meta",
+      "infrastructure",
+      "scale",
+      "react",
+      "open source"
+    ]
   },
   {
     "category": "Programming",
@@ -33,7 +51,13 @@
     "id": "49eb4e5a-a146-f3bd-7efb-64ffdf2408d2",
     "name": "GitLab",
     "siteURL": "https://about.gitlab.com/blog",
-    "tags": []
+    "tags": [
+      "devops",
+      "ci/cd",
+      "git",
+      "pipelines",
+      "devsecops"
+    ]
   },
   {
     "category": "Programming",
@@ -42,7 +66,13 @@
     "id": "3ac5da35-06d9-58ea-90de-553b5202348a",
     "name": "Google Developers Blog",
     "siteURL": "https://developers.googleblog.com/",
-    "tags": []
+    "tags": [
+      "android",
+      "cloud",
+      "web",
+      "apis",
+      "chrome"
+    ]
   },
   {
     "category": "Programming",
@@ -51,7 +81,13 @@
     "id": "f5a82056-f7b9-51e8-4a6c-026447d7ad88",
     "name": "Hanselminutes with Scott Hanselman",
     "siteURL": "https://www.hanselminutes.com",
-    "tags": []
+    "tags": [
+      "podcast",
+      "dotnet",
+      "interviews",
+      "career",
+      "diversity"
+    ]
   },
   {
     "category": "Programming",
@@ -60,7 +96,13 @@
     "id": "151808e9-ea0f-0daa-3d15-d3f25b77d7fa",
     "name": "InfoQ",
     "siteURL": "https://www.infoq.com",
-    "tags": []
+    "tags": [
+      "architecture",
+      "microservices",
+      "devops",
+      "conferences",
+      "interviews"
+    ]
   },
   {
     "category": "Programming",
@@ -69,7 +111,13 @@
     "id": "ed85ad12-3a96-da65-6373-d2a0cbe86cb4",
     "name": "JetBrains Blog",
     "siteURL": "https://blog.jetbrains.com",
-    "tags": []
+    "tags": [
+      "ide",
+      "intellij",
+      "kotlin",
+      "debugging",
+      "productivity"
+    ]
   },
   {
     "category": "Programming",
@@ -78,7 +126,13 @@
     "id": "62a13c7d-59fb-8dae-1c56-a2f57a710f6c",
     "name": "JetBrains News | JetBrains Blog",
     "siteURL": "https://blog.jetbrains.com",
-    "tags": []
+    "tags": [
+      "ide",
+      "releases",
+      "updates",
+      "tooling",
+      "kotlin"
+    ]
   },
   {
     "category": "Programming",
@@ -87,7 +141,13 @@
     "id": "fd864915-7d54-9877-e25b-60df5c104c53",
     "name": "Martin Fowler",
     "siteURL": "https://martinfowler.com",
-    "tags": []
+    "tags": [
+      "architecture",
+      "refactoring",
+      "patterns",
+      "agile",
+      "design"
+    ]
   },
   {
     "category": "Programming",
@@ -96,7 +156,13 @@
     "id": "cde22301-ccca-2028-bc13-1c440bce03a6",
     "name": "Netflix TechBlog",
     "siteURL": "https://netflixtechblog.com",
-    "tags": []
+    "tags": [
+      "microservices",
+      "streaming",
+      "scale",
+      "java",
+      "resilience"
+    ]
   },
   {
     "category": "Programming",
@@ -105,7 +171,13 @@
     "id": "449cde1f-f77e-04f2-cf5c-ee22e9f1f8e4",
     "name": "Overreacted",
     "siteURL": "https://overreacted.io/",
-    "tags": []
+    "tags": [
+      "react",
+      "javascript",
+      "hooks",
+      "mental models",
+      "frontend"
+    ]
   },
   {
     "category": "Programming",
@@ -114,7 +186,13 @@
     "id": "a4a249f1-8b5d-ff47-36fe-6834337ae2ad",
     "name": "Prezi Engineering",
     "siteURL": "https://engineering.prezi.com",
-    "tags": []
+    "tags": [
+      "frontend",
+      "scale",
+      "web",
+      "architecture",
+      "collaboration"
+    ]
   },
   {
     "category": "Programming",
@@ -123,7 +201,13 @@
     "id": "bbb7636b-680e-b0f6-8bb0-3c6557f42fe5",
     "name": "Scott Hanselman's Blog",
     "siteURL": "https://www.hanselman.com/blog/",
-    "tags": []
+    "tags": [
+      "dotnet",
+      "open source",
+      "productivity",
+      "tools",
+      "career"
+    ]
   },
   {
     "category": "Programming",
@@ -132,7 +216,13 @@
     "id": "d3fc8e2e-c7ed-e1b7-c8f3-2bbe3bcbc7d3",
     "name": "Software Engineering Daily",
     "siteURL": "https://softwareengineeringdaily.com/category/all-episodes/exclusive-content/podcast/",
-    "tags": []
+    "tags": [
+      "podcast",
+      "interviews",
+      "infrastructure",
+      "cloud",
+      "startups"
+    ]
   },
   {
     "category": "Programming",
@@ -141,7 +231,13 @@
     "id": "0a922e3f-96c2-1e11-2197-1059aa2e0121",
     "name": "The Crazy Programmer",
     "siteURL": "https://www.thecrazyprogrammer.com/category/programming",
-    "tags": []
+    "tags": [
+      "tutorials",
+      "algorithms",
+      "data structures",
+      "beginner",
+      "python"
+    ]
   },
   {
     "category": "Programming",
@@ -150,6 +246,12 @@
     "id": "6044f0ac-dd64-9f51-ee07-adc16f7ec7ae",
     "name": "The Daily WTF",
     "siteURL": "https://thedailywtf.com/",
-    "tags": []
+    "tags": [
+      "humor",
+      "bugs",
+      "fails",
+      "legacy code",
+      "stories"
+    ]
   }
 ]

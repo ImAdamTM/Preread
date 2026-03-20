@@ -6,7 +6,13 @@
     "id": "a7e7d078-5842-1de5-5674-1d9de663880f",
     "name": "A List Apart",
     "siteURL": "https://alistapart.com",
-    "tags": []
+    "tags": [
+      "standards",
+      "accessibility",
+      "responsive",
+      "semantic",
+      "best practices"
+    ]
   },
   {
     "category": "Web Design & UX",
@@ -15,7 +21,13 @@
     "id": "3292e08c-98ab-0fd7-c5df-fd64984e9645",
     "name": "CSS-Tricks",
     "siteURL": "https://css-tricks.com",
-    "tags": []
+    "tags": [
+      "css",
+      "flexbox",
+      "grid",
+      "snippets",
+      "frontend"
+    ]
   },
   {
     "category": "Web Design & UX",
@@ -24,7 +36,13 @@
     "id": "dee356a0-2284-f2b7-d464-61c10914c2f0",
     "name": "David Walsh Blog",
     "siteURL": "https://davidwalsh.name",
-    "tags": []
+    "tags": [
+      "javascript",
+      "html5",
+      "tutorials",
+      "frontend",
+      "performance"
+    ]
   },
   {
     "category": "Web Design & UX",
@@ -33,7 +51,13 @@
     "id": "394ba688-e40a-39f5-875e-6d5ee66d23af",
     "name": "Mozilla Hacks",
     "siteURL": "https://hacks.mozilla.org/",
-    "tags": []
+    "tags": [
+      "firefox",
+      "webassembly",
+      "standards",
+      "pwa",
+      "apis"
+    ]
   },
   {
     "category": "Web Design & UX",
@@ -42,7 +66,13 @@
     "id": "f74a54fc-b5d6-6235-3029-66a458c5becf",
     "name": "Nielsen Norman Group",
     "siteURL": "https://www.nngroup.com/feed/rss/",
-    "tags": []
+    "tags": [
+      "usability",
+      "research",
+      "heuristics",
+      "testing",
+      "patterns"
+    ]
   },
   {
     "category": "Web Design & UX",
@@ -51,7 +81,13 @@
     "id": "583e5a37-f678-6b06-ee8e-ea350fd1ae60",
     "name": "Sink In",
     "siteURL": "https://gosink.in/",
-    "tags": []
+    "tags": [
+      "travel",
+      "personal",
+      "web",
+      "reflections",
+      "design"
+    ]
   },
   {
     "category": "Web Design & UX",
@@ -60,7 +96,13 @@
     "id": "07c83d6d-0c0e-2a9e-8e6f-143d4ae9539b",
     "name": "Smashing Magazine",
     "siteURL": "https://www.smashingmagazine.com/",
-    "tags": []
+    "tags": [
+      "responsive",
+      "accessibility",
+      "performance",
+      "css",
+      "javascript"
+    ]
   },
   {
     "category": "Web Design & UX",
@@ -69,6 +111,12 @@
     "id": "efe18eb2-8037-4393-b598-d54a5e5745cb",
     "name": "UX Collective",
     "siteURL": "https://uxdesign.cc",
-    "tags": []
+    "tags": [
+      "product design",
+      "research",
+      "wireframes",
+      "prototyping",
+      "case studies"
+    ]
   }
 ]

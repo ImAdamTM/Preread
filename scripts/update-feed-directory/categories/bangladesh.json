@@ -7,7 +7,13 @@
     "id": "1212357f-b8e6-42bc-c803-94633ee81a59",
     "name": "BD24Live.com",
     "siteURL": "https://www.bd24live.com/",
-    "tags": []
+    "tags": [
+      "bangla",
+      "dhaka",
+      "politics",
+      "national",
+      "breaking"
+    ]
   },
   {
     "category": "Bangladesh",
@@ -17,7 +23,13 @@
     "id": "59e0c6e4-f09a-ea39-1c32-5002ad79b946",
     "name": "kalerkantho Kantho",
     "siteURL": "https://www.kalerkantho.com",
-    "tags": []
+    "tags": [
+      "bangla",
+      "dhaka",
+      "national",
+      "politics",
+      "daily"
+    ]
   },
   {
     "category": "Bangladesh",
@@ -27,6 +39,12 @@
     "id": "de392138-71b8-f60c-b77f-bfd43514d6e8",
     "name": "প্রথম আলো",
     "siteURL": "https://www.prothomalo.com",
-    "tags": []
+    "tags": [
+      "bangla",
+      "dhaka",
+      "politics",
+      "cricket",
+      "national"
+    ]
   }
 ]

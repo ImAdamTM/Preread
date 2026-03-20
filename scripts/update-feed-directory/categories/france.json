@@ -7,7 +7,13 @@
     "id": "8f5afce2-37c0-4a40-e15a-25ef74c4de81",
     "name": "Franceinfo - Les Titres",
     "siteURL": "https://www.franceinfo.fr/titres/",
-    "tags": []
+    "tags": [
+      "french",
+      "actualites",
+      "politique",
+      "breaking",
+      "national"
+    ]
   },
   {
     "category": "France",
@@ -17,7 +23,13 @@
     "id": "8df4f934-099d-d0d9-c183-4660b7044ecd",
     "name": "L'essentiel",
     "siteURL": "https://www.sudouest.fr/essentiel/",
-    "tags": []
+    "tags": [
+      "luxembourg",
+      "french",
+      "grande region",
+      "actualites",
+      "frontaliers"
+    ]
   },
   {
     "category": "France",
@@ -27,7 +39,13 @@
     "id": "5b35faf0-85fb-5d58-2c1e-7df40ce75699",
     "name": "Le Huffington Post",
     "siteURL": "https://www.huffingtonpost.fr/rss/all_headline.xml",
-    "tags": []
+    "tags": [
+      "french",
+      "opinion",
+      "politique",
+      "societe",
+      "tendances"
+    ]
   },
   {
     "category": "France",
@@ -37,7 +55,13 @@
     "id": "25c31057-212a-ad17-15fb-42fae31f01ef",
     "name": "le monde",
     "siteURL": "https://www.lemonde.fr/rss/une.xml",
-    "tags": []
+    "tags": [
+      "french",
+      "politique",
+      "international",
+      "analyse",
+      "enquete"
+    ]
   },
   {
     "category": "France",
@@ -47,7 +71,13 @@
     "id": "330db775-e754-6d53-ca37-d2955550c79c",
     "name": "Mediapart",
     "siteURL": "https://www.mediapart.fr/",
-    "tags": []
+    "tags": [
+      "investigations",
+      "french",
+      "independant",
+      "politique",
+      "enquete"
+    ]
   },
   {
     "category": "France",
@@ -57,7 +87,13 @@
     "id": "43c04ef8-ccec-e231-991f-46507b22973a",
     "name": "Ouest-France",
     "siteURL": "https://www.ouest-france.fr/rss/une",
-    "tags": []
+    "tags": [
+      "regional",
+      "bretagne",
+      "french",
+      "normandie",
+      "local"
+    ]
   },
   {
     "category": "France",
@@ -67,6 +103,12 @@
     "id": "46dec854-9500-62f6-5406-9d0c0de591fb",
     "name": "Paris Star",
     "siteURL": "https://www.parisstaronline.com",
-    "tags": []
+    "tags": [
+      "paris",
+      "culture",
+      "english",
+      "expat",
+      "events"
+    ]
   }
 ]

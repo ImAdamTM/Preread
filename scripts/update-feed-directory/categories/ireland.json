@@ -7,7 +7,13 @@
     "id": "3f501a5c-93c6-b90e-a7ab-df0145cf779a",
     "name": "All: BreakingNews.ie",
     "siteURL": "https://www.breakingnews.ie/all/",
-    "tags": []
+    "tags": [
+      "irish",
+      "breaking",
+      "weather",
+      "sport",
+      "cork"
+    ]
   },
   {
     "category": "Ireland",
@@ -17,7 +23,13 @@
     "id": "97d85498-c874-c36e-e2d2-f7ddbff5cb23",
     "name": "Irish Mirror",
     "siteURL": "https://www.irishmirror.ie",
-    "tags": []
+    "tags": [
+      "irish",
+      "showbiz",
+      "gaa",
+      "celebrity",
+      "dublin"
+    ]
   },
   {
     "category": "Ireland",
@@ -27,7 +39,13 @@
     "id": "41b06965-cfee-5f26-a116-a4f486542a22",
     "name": "IrishCentral.com",
     "siteURL": "https://www.irishcentral.com/",
-    "tags": []
+    "tags": [
+      "diaspora",
+      "irish american",
+      "heritage",
+      "culture",
+      "genealogy"
+    ]
   },
   {
     "category": "Ireland",
@@ -37,7 +55,13 @@
     "id": "32dd30dd-7fa7-5d1e-acfe-c6e9c92d8d3a",
     "name": "IrishExaminer.com",
     "siteURL": "https://www.irishexaminer.com/",
-    "tags": []
+    "tags": [
+      "irish",
+      "cork",
+      "munster",
+      "politics",
+      "farming"
+    ]
   },
   {
     "category": "Ireland",
@@ -47,7 +71,13 @@
     "id": "8e00d437-c128-a51c-0b81-6a6ad3e0e5cc",
     "name": "The42",
     "siteURL": "https://www.the42.ie/",
-    "tags": []
+    "tags": [
+      "gaa",
+      "rugby",
+      "soccer",
+      "irish sport",
+      "results"
+    ]
   },
   {
     "category": "Ireland",
@@ -57,6 +87,12 @@
     "id": "b2cbf571-11fc-14cf-dd70-3eb496e889e3",
     "name": "TheJournal.ie",
     "siteURL": "https://www.thejournal.ie/",
-    "tags": []
+    "tags": [
+      "irish",
+      "politics",
+      "dublin",
+      "social issues",
+      "breaking"
+    ]
   }
 ]

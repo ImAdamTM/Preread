@@ -7,7 +7,13 @@
     "id": "b71188c7-95c4-1667-32ce-1939510b2c67",
     "name": "Information Nigeria",
     "siteURL": "https://www.informationng.com/",
-    "tags": []
+    "tags": [
+      "lagos",
+      "entertainment",
+      "nollywood",
+      "politics",
+      "naija"
+    ]
   },
   {
     "category": "Nigeria",
@@ -17,7 +23,13 @@
     "id": "8898e8da-d27d-f400-adb2-278cc5f9a28e",
     "name": "Latest Nigeria News",
     "siteURL": "https://thenationonlineng.net",
-    "tags": []
+    "tags": [
+      "politics",
+      "economy",
+      "naira",
+      "lagos",
+      "national"
+    ]
   },
   {
     "category": "Nigeria",
@@ -27,7 +39,13 @@
     "id": "9e394540-4d68-7b37-3409-57f0de7e8258",
     "name": "Legit.ng",
     "siteURL": "https://www.legit.ng",
-    "tags": []
+    "tags": [
+      "naija",
+      "entertainment",
+      "celebrities",
+      "gossip",
+      "lagos"
+    ]
   },
   {
     "category": "Nigeria",
@@ -37,7 +55,13 @@
     "id": "e702b101-5f30-5ffe-ba53-cd32c4be73e5",
     "name": "Nigerian News Latest",
     "siteURL": "https://www.nigerianeye.com/",
-    "tags": []
+    "tags": [
+      "breaking",
+      "national",
+      "politics",
+      "economy",
+      "abuja"
+    ]
   },
   {
     "category": "Nigeria",
@@ -47,6 +71,12 @@
     "id": "e3aba06d-313c-0fdb-21f6-ac71b9b762a3",
     "name": "Premium Times Nigeria",
     "siteURL": "https://premiumtimesng.com",
-    "tags": []
+    "tags": [
+      "investigations",
+      "politics",
+      "independent",
+      "corruption",
+      "governance"
+    ]
   }
 ]

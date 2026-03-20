@@ -6,7 +6,13 @@
     "id": "8f76b681-38b9-9c6d-5c4f-6feae36323ff",
     "name": "American Songwriter",
     "siteURL": "https://americansongwriter.com",
-    "tags": []
+    "tags": [
+      "songwriting",
+      "craft",
+      "interviews",
+      "lyrics",
+      "acoustic"
+    ]
   },
   {
     "category": "Music",
@@ -15,7 +21,13 @@
     "id": "a746840f-3f91-cd9e-3760-2f374afc68b2",
     "name": "Bandcamp Daily",
     "siteURL": "https://daily.bandcamp.com",
-    "tags": []
+    "tags": [
+      "indie",
+      "underground",
+      "discovery",
+      "vinyl",
+      "global"
+    ]
   },
   {
     "category": "Music",
@@ -24,7 +36,13 @@
     "id": "22490334-0a24-bd18-27ee-0f1870ea88f3",
     "name": "Billboard",
     "siteURL": "https://www.billboard.com",
-    "tags": []
+    "tags": [
+      "charts",
+      "top 40",
+      "pop",
+      "hip hop",
+      "streaming"
+    ]
   },
   {
     "category": "Music",
@@ -33,7 +51,13 @@
     "id": "442217c9-5f5a-ec2a-9c51-08295787d5df",
     "name": "BrooklynVegan",
     "siteURL": "https://www.brooklynvegan.com",
-    "tags": []
+    "tags": [
+      "live shows",
+      "concerts",
+      "indie",
+      "punk",
+      "metal"
+    ]
   },
   {
     "category": "Music",
@@ -42,7 +66,13 @@
     "id": "607a3270-0fe3-3652-8e58-7834461b5f7b",
     "name": "Consequence of Sound",
     "siteURL": "https://consequence.net",
-    "tags": []
+    "tags": [
+      "festivals",
+      "reviews",
+      "tours",
+      "setlists",
+      "albums"
+    ]
   },
   {
     "category": "Music",
@@ -51,7 +81,13 @@
     "id": "905f1e83-174c-8ba1-029b-217612e8b58c",
     "name": "EDM.com",
     "siteURL": "https://edm.com/blog/",
-    "tags": []
+    "tags": [
+      "electronic",
+      "dj",
+      "festivals",
+      "house",
+      "techno"
+    ]
   },
   {
     "category": "Music",
@@ -60,7 +96,13 @@
     "id": "817b505e-3dd1-5f48-cdf1-d3e816774b32",
     "name": "Hearing Things",
     "siteURL": "https://www.honest-broker.com",
-    "tags": []
+    "tags": [
+      "history",
+      "jazz",
+      "culture",
+      "essays",
+      "analysis"
+    ]
   },
   {
     "category": "Music",
@@ -69,7 +111,13 @@
     "id": "a662e2ce-7d73-a8d0-28a2-9599f79767b8",
     "name": "Hypebot",
     "siteURL": "https://www.hypebot.com",
-    "tags": []
+    "tags": [
+      "indie artists",
+      "distribution",
+      "royalties",
+      "marketing",
+      "labels"
+    ]
   },
   {
     "category": "Music",
@@ -78,7 +126,13 @@
     "id": "bc2cd39c-74a4-47c6-1c09-953d12f92d7e",
     "name": "JazzTimes",
     "siteURL": "https://www.jazztimes.com",
-    "tags": []
+    "tags": [
+      "jazz",
+      "improvisation",
+      "festivals",
+      "albums",
+      "legends"
+    ]
   },
   {
     "category": "Music",
@@ -87,7 +141,13 @@
     "id": "b010c1dc-826f-5279-924f-2530d7f916c2",
     "name": "Metal Injection",
     "siteURL": "https://metalinjection.net/",
-    "tags": []
+    "tags": [
+      "heavy metal",
+      "thrash",
+      "death metal",
+      "tours",
+      "albums"
+    ]
   },
   {
     "category": "Music",
@@ -96,7 +156,13 @@
     "id": "2d0e3727-3898-6fb8-25de-0c6cb811d30f",
     "name": "Music Business Worldwide",
     "siteURL": "https://www.musicbusinessworldwide.com",
-    "tags": []
+    "tags": [
+      "labels",
+      "deals",
+      "royalties",
+      "streaming",
+      "executives"
+    ]
   },
   {
     "category": "Music",
@@ -105,7 +171,13 @@
     "id": "94dbc533-f564-568d-b191-431faea608d2",
     "name": "NME",
     "siteURL": "https://www.nme.com",
-    "tags": []
+    "tags": [
+      "british",
+      "indie",
+      "festivals",
+      "albums",
+      "gigs"
+    ]
   },
   {
     "category": "Music",
@@ -114,7 +186,13 @@
     "id": "6f1605a8-6297-2782-cec5-2bb3be756de4",
     "name": "Paste Magazine",
     "siteURL": "https://www.pastemagazine.com",
-    "tags": []
+    "tags": [
+      "folk",
+      "indie rock",
+      "culture",
+      "longform",
+      "albums"
+    ]
   },
   {
     "category": "Music",
@@ -123,7 +201,13 @@
     "id": "aac3829f-c492-20d0-d0da-ab6b988da986",
     "name": "Pitchfork",
     "siteURL": "https://pitchfork.com",
-    "tags": []
+    "tags": [
+      "reviews",
+      "ratings",
+      "indie",
+      "albums",
+      "best new music"
+    ]
   },
   {
     "category": "Music",
@@ -132,7 +216,13 @@
     "id": "ee8393ff-a0f3-5757-ba63-fb12bf146972",
     "name": "Rolling Stone",
     "siteURL": "https://www.rollingstone.com",
-    "tags": []
+    "tags": [
+      "rock",
+      "interviews",
+      "culture",
+      "politics",
+      "lists"
+    ]
   },
   {
     "category": "Music",
@@ -141,7 +231,13 @@
     "id": "2c763f98-fd9f-4316-7a1a-9e0aee0382e3",
     "name": "Stereogum",
     "siteURL": "https://www.stereogum.com",
-    "tags": []
+    "tags": [
+      "indie",
+      "alternative",
+      "albums",
+      "premieres",
+      "reviews"
+    ]
   },
   {
     "category": "Music",
@@ -150,6 +246,12 @@
     "id": "3c6555d3-104b-2a6e-b1e3-197d148ef48e",
     "name": "The Quietus",
     "siteURL": "https://thequietus.com",
-    "tags": []
+    "tags": [
+      "experimental",
+      "noise",
+      "avant-garde",
+      "essays",
+      "uk"
+    ]
   }
 ]

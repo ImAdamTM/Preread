@@ -6,7 +6,13 @@
     "id": "74d3c1fa-61f3-7ee5-9233-1bc92b1d326a",
     "name": "Allure",
     "siteURL": "https://www.allure.com/",
-    "tags": []
+    "tags": [
+      "skincare",
+      "makeup",
+      "awards",
+      "drugstore",
+      "trends"
+    ]
   },
   {
     "category": "Beauty",
@@ -15,7 +21,13 @@
     "id": "8a51560a-09b4-4137-145f-96d3f52678f1",
     "name": "Beauty Independent",
     "siteURL": "https://www.beautyindependent.com/",
-    "tags": []
+    "tags": [
+      "indie brands",
+      "retail",
+      "funding",
+      "startups",
+      "trade"
+    ]
   },
   {
     "category": "Beauty",
@@ -24,7 +36,13 @@
     "id": "7a1c9831-b811-5f49-b438-c2f2ca0e2ef3",
     "name": "Byrdie",
     "siteURL": "https://www.byrdie.com/",
-    "tags": []
+    "tags": [
+      "skincare",
+      "hair",
+      "nails",
+      "routines",
+      "tutorials"
+    ]
   },
   {
     "category": "Beauty",
@@ -33,7 +51,13 @@
     "id": "c0fbe833-0187-edd3-a6a7-738435697d50",
     "name": "ELLE",
     "siteURL": "https://www.elle.com/beauty/",
-    "tags": []
+    "tags": [
+      "runway",
+      "celebrity",
+      "trends",
+      "designer",
+      "couture"
+    ]
   },
   {
     "category": "Beauty",
@@ -42,7 +66,13 @@
     "id": "eacb7be9-a723-24db-61e6-3016c80b4818",
     "name": "Essence",
     "siteURL": "https://www.essence.com/",
-    "tags": []
+    "tags": [
+      "black beauty",
+      "hair care",
+      "melanin",
+      "culture",
+      "natural hair"
+    ]
   },
   {
     "category": "Beauty",
@@ -51,7 +81,13 @@
     "id": "08cadaef-3208-9352-ba93-3cc572080490",
     "name": "Fashionista",
     "siteURL": "https://fashionista.com",
-    "tags": []
+    "tags": [
+      "trends",
+      "industry",
+      "celebrity",
+      "runway",
+      "style"
+    ]
   },
   {
     "category": "Beauty",
@@ -60,7 +96,13 @@
     "id": "894ff557-38f8-1d97-f38e-971ee6ab4f6a",
     "name": "Jessica DeFino",
     "siteURL": "https://jessicadefino.substack.com/",
-    "tags": []
+    "tags": [
+      "criticism",
+      "clean beauty",
+      "industry",
+      "wellness",
+      "culture"
+    ]
   },
   {
     "category": "Beauty",
@@ -69,7 +111,13 @@
     "id": "5ec5085a-be2d-910a-93fb-3ed3bfbfa96f",
     "name": "Lab Muffin Beauty Science",
     "siteURL": "https://labmuffin.com/",
-    "tags": []
+    "tags": [
+      "ingredients",
+      "spf",
+      "retinol",
+      "chemistry",
+      "debunking"
+    ]
   },
   {
     "category": "Beauty",
@@ -78,6 +126,12 @@
     "id": "c0555b53-a076-df56-ccf7-b84b53e6cdb7",
     "name": "Makeup and Beauty Blog",
     "siteURL": "https://makeupandbeautyblog.com/",
-    "tags": []
+    "tags": [
+      "swatches",
+      "drugstore",
+      "tutorials",
+      "lipstick",
+      "palettes"
+    ]
   }
 ]

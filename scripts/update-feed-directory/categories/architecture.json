@@ -6,7 +6,13 @@
     "id": "480378d2-1f4d-5276-a8ee-02fd50692cef",
     "name": "ArchDaily",
     "siteURL": "https://www.archdaily.com/",
-    "tags": []
+    "tags": [
+      "buildings",
+      "projects",
+      "competitions",
+      "urban",
+      "residential"
+    ]
   },
   {
     "category": "Architecture",
@@ -15,7 +21,13 @@
     "id": "e659ec72-d023-d2de-df09-775e0d5fc10a",
     "name": "Archinect",
     "siteURL": "https://archinect.com/",
-    "tags": []
+    "tags": [
+      "community",
+      "jobs",
+      "competitions",
+      "urban",
+      "studios"
+    ]
   },
   {
     "category": "Architecture",
@@ -24,7 +36,13 @@
     "id": "82f5275d-fd84-ecab-8459-93b8718429e7",
     "name": "Architectural Digest",
     "siteURL": "https://www.architecturaldigest.com",
-    "tags": []
+    "tags": [
+      "interiors",
+      "luxury",
+      "celebrity homes",
+      "decor",
+      "renovation"
+    ]
   },
   {
     "category": "Architecture",
@@ -33,7 +51,13 @@
     "id": "c7094ed5-f6fe-e526-774d-b3f97b1bd7bd",
     "name": "Design Milk",
     "siteURL": "https://design-milk.com/category/architecture/",
-    "tags": []
+    "tags": [
+      "modern",
+      "interiors",
+      "furniture",
+      "art",
+      "minimalist"
+    ]
   },
   {
     "category": "Architecture",
@@ -42,7 +66,13 @@
     "id": "d66aa1f6-e6a0-0cc3-152d-665044c9c358",
     "name": "designboom",
     "siteURL": "https://www.designboom.com/architecture/",
-    "tags": []
+    "tags": [
+      "installations",
+      "exhibitions",
+      "contemporary",
+      "urban",
+      "projects"
+    ]
   },
   {
     "category": "Architecture",
@@ -51,7 +81,13 @@
     "id": "b6e0340f-b9ad-d166-0e35-0150e80ea7ff",
     "name": "Dezeen",
     "siteURL": "https://www.dezeen.com",
-    "tags": []
+    "tags": [
+      "interiors",
+      "furniture",
+      "urban",
+      "sustainability",
+      "projects"
+    ]
   },
   {
     "category": "Architecture",
@@ -60,7 +96,13 @@
     "id": "e9de49d7-013a-0a16-2399-07267a1ef6c6",
     "name": "Journal",
     "siteURL": "https://architizer.com/blog/",
-    "tags": []
+    "tags": [
+      "tools",
+      "inspiration",
+      "rendering",
+      "cad",
+      "visualization"
+    ]
   },
   {
     "category": "Architecture",
@@ -69,6 +111,12 @@
     "id": "ef19f15e-25b2-b36c-4336-69d34b23a2d1",
     "name": "The Architect’s Newspaper",
     "siteURL": "https://www.archpaper.com/",
-    "tags": []
+    "tags": [
+      "urban",
+      "criticism",
+      "projects",
+      "planning",
+      "exhibitions"
+    ]
   }
 ]
