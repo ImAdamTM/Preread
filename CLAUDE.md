@@ -98,6 +98,33 @@ Before introducing any of the following patterns, **flag the performance implica
 
 The general principle: **if something runs repeatedly, ask whether it needs to**. One-shot or reactive approaches are always preferred over polling or continuous loops.
 
+## Feed directory
+
+The feed directory lives at `scripts/update-feed-directory/`. Feeds are organised as per-category JSON files in `scripts/update-feed-directory/categories/*.json`.
+
+### Generated files — never edit by hand
+
+`Preread/Resources/discover_feeds.json` is a **generated output**. It is produced by the feed directory tool and must never be edited manually. All feed changes go through the category files, then the tool regenerates the output.
+
+### Workflow for adding or changing feeds
+
+1. Edit (or create) the relevant `categories/<slug>.json` file.
+2. Run the tool **with validation** to verify all feeds:
+   ```bash
+   cd /Users/adamhartwig/gitrepos/Preread/scripts/update-feed-directory && swift run UpdateFeedDirectory
+   ```
+   This validates every feed (reachable, not stale, not thin content) and writes `discover_feeds.json`.
+3. If feeds fail validation, either fix the feed URL or remove the entry.
+4. For new categories, also update `FeedDirectory.swift`:
+   - Add the category to `categoryOrder` at the correct position.
+   - Add an SF Symbol icon to `categoryIcons`.
+
+The `--skip-validation` and `--skip-quality` flags exist for development speed but must **not** be used as the final step when adding new feeds. New feeds must pass the full validation pipeline before being considered done.
+
+Other tool modes:
+- `verify` — checks all existing feeds, auto-discovers replacement URLs for broken ones, and updates category files.
+- `discover` — finds new candidate feeds from upstream OPML sources.
+
 ## Problem-solving approach
 
 When a fix attempt fails, **do not guess at another fix**. Instead:

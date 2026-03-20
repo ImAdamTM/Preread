@@ -1,0 +1,287 @@
+[
+  {
+    "category": "Fitness",
+    "description": "Strength sports coverage including powerlifting, weightlifting, strongman, and CrossFit",
+    "feedURL": "https://barbend.com/feed/",
+    "id": "61d06b77-ea1a-4406-b2f5-f771b4abdb38",
+    "name": "BarBend",
+    "siteURL": "https://barbend.com",
+    "tags": [
+      "powerlifting",
+      "weightlifting",
+      "strongman",
+      "crossfit",
+      "training"
+    ]
+  },
+  {
+    "category": "Fitness",
+    "description": "The anchor cycling fitness publication covering gear, training, and rides",
+    "feedURL": "https://www.bicycling.com/rss/all.xml",
+    "id": "b06f0da2-2656-4e23-8675-eed7e011bbe1",
+    "name": "Bicycling",
+    "siteURL": "https://www.bicycling.com",
+    "tags": [
+      "cycling",
+      "gear",
+      "training plans",
+      "rides",
+      "nutrition"
+    ]
+  },
+  {
+    "category": "Fitness",
+    "description": "Accessible training content across multiple styles for beginners and experienced lifters",
+    "feedURL": "https://breakingmuscle.com/feed/",
+    "id": "739b4c9e-feaf-4b40-9dcf-5e4add073aa7",
+    "name": "Breaking Muscle",
+    "siteURL": "https://breakingmuscle.com",
+    "tags": [
+      "training",
+      "mobility",
+      "kettlebells",
+      "bodyweight",
+      "coaching"
+    ]
+  },
+  {
+    "category": "Fitness",
+    "description": "The best editorial voice in road cycling journalism with race coverage and gear deep-dives",
+    "feedURL": "https://cyclingtips.com/feed/",
+    "id": "7577fe8c-9b6c-4277-9855-52352b143f7b",
+    "name": "CyclingTips",
+    "siteURL": "https://cyclingtips.com",
+    "tags": [
+      "road cycling",
+      "racing",
+      "gear",
+      "training",
+      "tours"
+    ]
+  },
+  {
+    "category": "Fitness",
+    "description": "Fitness and outdoor gear reviews and adventure content",
+    "feedURL": "https://gearjunkie.com/feed",
+    "id": "924cae4b-04f1-4e55-8624-22124f5eb999",
+    "name": "GearJunkie",
+    "siteURL": "https://gearjunkie.com",
+    "tags": [
+      "gear reviews",
+      "outdoor",
+      "adventure",
+      "camping",
+      "running"
+    ]
+  },
+  {
+    "category": "Fitness",
+    "description": "The biggest mainstream fitness publication with workouts, nutrition, and lifestyle",
+    "feedURL": "https://www.menshealth.com/rss/all.xml",
+    "id": "8b60a955-2fe7-48f3-9908-bc1073ff8d94",
+    "name": "Men's Health",
+    "siteURL": "https://www.menshealth.com",
+    "tags": [
+      "workouts",
+      "nutrition",
+      "lifestyle",
+      "muscle building",
+      "weight loss"
+    ]
+  },
+  {
+    "category": "Fitness",
+    "description": "Daily CrossFit community news, Games coverage, and affiliate stories",
+    "feedURL": "https://morningchalkup.com/feed/",
+    "id": "582bf49d-1447-4b04-befc-9c1955da7d73",
+    "name": "Morning Chalk Up",
+    "siteURL": "https://morningchalkup.com",
+    "tags": [
+      "crossfit",
+      "games",
+      "affiliates",
+      "athletes",
+      "wods"
+    ]
+  },
+  {
+    "category": "Fitness",
+    "description": "Legacy bodybuilding and gym culture publication with workouts and physique training",
+    "feedURL": "https://www.muscleandfitness.com/feed/",
+    "id": "97b06005-f5ab-4a86-8bb9-70e3f804f465",
+    "name": "Muscle & Fitness",
+    "siteURL": "https://www.muscleandfitness.com",
+    "tags": [
+      "bodybuilding",
+      "workouts",
+      "supplements",
+      "physique",
+      "gym"
+    ]
+  },
+  {
+    "category": "Fitness",
+    "description": "The mountain biking community hub with race coverage, gear reviews, and trail content",
+    "feedURL": "https://www.pinkbike.com/rss/",
+    "id": "6a45acfb-cf79-456b-9798-cfa1f32ade96",
+    "name": "Pinkbike",
+    "siteURL": "https://www.pinkbike.com",
+    "tags": [
+      "mountain biking",
+      "trails",
+      "gear",
+      "racing",
+      "enduro"
+    ]
+  },
+  {
+    "category": "Fitness",
+    "description": "The undisputed authority for runners with training plans, gear reviews, and injury prevention",
+    "feedURL": "https://www.runnersworld.com/rss/all.xml",
+    "id": "3c7601b8-791a-44ac-813b-fea0180e4d54",
+    "name": "Runner's World",
+    "siteURL": "https://www.runnersworld.com",
+    "tags": [
+      "running",
+      "training plans",
+      "gear",
+      "marathons",
+      "injury prevention"
+    ]
+  },
+  {
+    "category": "Fitness",
+    "description": "Strong fitness content with an inclusive, body-positive editorial voice",
+    "feedURL": "https://www.self.com/feed/rss",
+    "id": "41ab912f-a76a-4183-9fea-0b962ee8a2aa",
+    "name": "Self",
+    "siteURL": "https://www.self.com",
+    "tags": [
+      "workouts",
+      "wellness",
+      "body positive",
+      "nutrition",
+      "mental health"
+    ]
+  },
+  {
+    "category": "Fitness",
+    "description": "Evidence-based training and nutrition analysis bridging research and practice",
+    "feedURL": "https://www.strongerbyscience.com/feed/",
+    "id": "16bc4dbc-fbab-4829-8206-5350586f184e",
+    "name": "Stronger By Science",
+    "siteURL": "https://www.strongerbyscience.com",
+    "tags": [
+      "evidence-based",
+      "research",
+      "programming",
+      "nutrition",
+      "strength"
+    ]
+  },
+  {
+    "category": "Fitness",
+    "description": "No-BS strength training articles from coaches and athletes",
+    "feedURL": "https://t-nation.com/posts.rss",
+    "id": "5380b3e9-8404-4bde-9efb-e5912dd34ec3",
+    "name": "T Nation",
+    "siteURL": "https://www.t-nation.com",
+    "tags": [
+      "strength",
+      "coaching",
+      "bodybuilding",
+      "nutrition",
+      "performance"
+    ]
+  },
+  {
+    "category": "Fitness",
+    "description": "Trail and ultra running coverage with race reports and training advice",
+    "feedURL": "https://www.trailrunnermag.com/feed/",
+    "id": "68f4ad72-26ce-4d21-80ba-0540dbaec49b",
+    "name": "Trail Runner Magazine",
+    "siteURL": "https://www.trailrunnermag.com",
+    "tags": [
+      "trail running",
+      "ultramarathons",
+      "races",
+      "training",
+      "gear"
+    ]
+  },
+  {
+    "category": "Fitness",
+    "description": "Triathlon training, racing, and swim-bike-run programming",
+    "feedURL": "https://www.triathlete.com/feed/",
+    "id": "4c19e5a0-a24b-4af6-baf3-fcc6dd209191",
+    "name": "Triathlete",
+    "siteURL": "https://www.triathlete.com",
+    "tags": [
+      "triathlon",
+      "swimming",
+      "cycling",
+      "running",
+      "ironman"
+    ]
+  },
+  {
+    "category": "Fitness",
+    "description": "Road cycling racing and performance training with strong event coverage",
+    "feedURL": "https://www.velonews.com/feed/",
+    "id": "0ade4ee8-7638-4b2f-b6f0-ead057765730",
+    "name": "VeloNews",
+    "siteURL": "https://www.velonews.com",
+    "tags": [
+      "road cycling",
+      "racing",
+      "tour de france",
+      "performance",
+      "training"
+    ]
+  },
+  {
+    "category": "Fitness",
+    "description": "Training plans, nutrition, and wellness content for women",
+    "feedURL": "https://www.womenshealth.com/rss/all.xml",
+    "id": "cdc50977-25dd-4231-9357-fc8b2f297e99",
+    "name": "Women's Health",
+    "siteURL": "https://www.womenshealth.com",
+    "tags": [
+      "workouts",
+      "nutrition",
+      "wellness",
+      "weight loss",
+      "strength"
+    ]
+  },
+  {
+    "category": "Fitness",
+    "description": "Yoga poses, sequences, philosophy, and teacher content",
+    "feedURL": "https://www.yogajournal.com/feed/",
+    "id": "2c4e1410-1e05-4a99-a449-af9fd6b8a689",
+    "name": "Yoga Journal",
+    "siteURL": "https://www.yogajournal.com",
+    "tags": [
+      "yoga",
+      "poses",
+      "meditation",
+      "flexibility",
+      "mindfulness"
+    ]
+  },
+  {
+    "category": "Fitness",
+    "description": "The authority on ultra and trail running with race coverage and athlete interviews",
+    "feedURL": "https://www.irunfar.com/feed",
+    "id": "d8468e22-f3ac-49cb-a96b-d216f79168e8",
+    "name": "iRunFar",
+    "siteURL": "https://www.irunfar.com",
+    "tags": [
+      "ultrarunning",
+      "trail running",
+      "races",
+      "interviews",
+      "gear"
+    ]
+  }
+]

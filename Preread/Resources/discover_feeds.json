@@ -154,21 +154,6 @@
     ]
   },
   {
-    "category" : "Web Design & UX",
-    "description" : "Articles for people who make websites",
-    "feedURL" : "https:\/\/alistapart.com\/main\/feed\/",
-    "id" : "a7e7d078-5842-1de5-5674-1d9de663880f",
-    "name" : "A List Apart",
-    "siteURL" : "https:\/\/alistapart.com",
-    "tags" : [
-      "standards",
-      "accessibility",
-      "responsive",
-      "semantic",
-      "best practices"
-    ]
-  },
-  {
     "category" : "Books",
     "description" : "196 countries, countless stories",
     "feedURL" : "https:\/\/ayearofreadingtheworld.com\/feed\/",
@@ -273,21 +258,6 @@
       "ride reports",
       "off-road",
       "travel"
-    ]
-  },
-  {
-    "category" : "Marketing",
-    "description" : "Advertising news with a creative and cultural lens",
-    "feedURL" : "https:\/\/www.adweek.com\/feed",
-    "id" : "9c373315-aef9-247a-b31c-1570da421980",
-    "name" : "Adweek",
-    "siteURL" : "https:\/\/www.adweek.com\/",
-    "tags" : [
-      "advertising",
-      "campaigns",
-      "creative",
-      "brands",
-      "agencies"
     ]
   },
   {
@@ -412,21 +382,6 @@
     ]
   },
   {
-    "category" : "World News",
-    "description" : "Independent journalism from the Middle East and beyond",
-    "feedURL" : "https:\/\/www.aljazeera.com\/xml\/rss\/all.xml",
-    "id" : "fa080031-bb9f-0725-b354-d2657f84d5bc",
-    "name" : "Al Jazeera English",
-    "siteURL" : "https:\/\/www.aljazeera.com",
-    "tags" : [
-      "middle east",
-      "global south",
-      "conflicts",
-      "investigations",
-      "documentary"
-    ]
-  },
-  {
     "category" : "Mobile Development",
     "description" : "Principal Software Engineer @ Just Eat Takeaway. Based in London, made in Italy",
     "feedURL" : "https:\/\/albertodebortoli.com\/rss\/",
@@ -439,6 +394,21 @@
       "engineering",
       "swift",
       "career"
+    ]
+  },
+  {
+    "category" : "Anime",
+    "description" : "UK anime distributor blog with interviews, behind-the-scenes features, and release coverage",
+    "feedURL" : "https:\/\/blog.alltheanime.com\/feed\/",
+    "id" : "eb7ce656-3307-4206-9ebc-7bca59e10630",
+    "name" : "All the Anime Blog",
+    "siteURL" : "https:\/\/blog.alltheanime.com",
+    "tags" : [
+      "uk",
+      "interviews",
+      "behind the scenes",
+      "releases",
+      "blu-ray"
     ]
   },
   {
@@ -500,21 +470,6 @@
       "plans",
       "beginner",
       "building"
-    ]
-  },
-  {
-    "category" : "Tech",
-    "description" : "So many podcasts are about our digital devices. Analog(ue) is a show about how these devices make us feel and how they",
-    "feedURL" : "https:\/\/www.relay.fm\/analogue\/feed",
-    "id" : "48a818c7-0b11-002f-62ba-05932ee47a52",
-    "name" : "Analog(ue)",
-    "siteURL" : "https:\/\/www.relay.fm\/analogue",
-    "tags" : [
-      "podcast",
-      "feelings",
-      "humanity",
-      "lifestyle",
-      "reflection"
     ]
   },
   {
@@ -623,6 +578,81 @@
     ]
   },
   {
+    "category" : "Anime",
+    "description" : "Community-driven anime news, seasonal polls, and episode rankings",
+    "feedURL" : "https:\/\/animecorner.me\/feed\/",
+    "id" : "d45b6a3b-0936-404e-b0de-071f4da26feb",
+    "name" : "Anime Corner",
+    "siteURL" : "https:\/\/animecorner.me",
+    "tags" : [
+      "rankings",
+      "community",
+      "seasonal",
+      "polls",
+      "news"
+    ]
+  },
+  {
+    "category" : "Anime",
+    "description" : "Seasonal guides and critical writing on anime from a feminist perspective",
+    "feedURL" : "https:\/\/animefeminist.com\/feed\/",
+    "id" : "fdc7a18b-196d-416b-b49b-906397d9d5d1",
+    "name" : "Anime Feminist",
+    "siteURL" : "https:\/\/animefeminist.com",
+    "tags" : [
+      "criticism",
+      "seasonal guides",
+      "feminism",
+      "reviews",
+      "essays"
+    ]
+  },
+  {
+    "category" : "Anime",
+    "description" : "Independent anime news site covering conventions, industry news, and reviews",
+    "feedURL" : "https:\/\/www.animeherald.com\/feed\/",
+    "id" : "d249aaae-cbe8-46f6-b6ca-a550ae04ea13",
+    "name" : "Anime Herald",
+    "siteURL" : "https:\/\/www.animeherald.com",
+    "tags" : [
+      "conventions",
+      "industry",
+      "reviews",
+      "news",
+      "independent"
+    ]
+  },
+  {
+    "category" : "Anime",
+    "description" : "The most comprehensive English-language anime news, reviews, and encyclopedic database",
+    "feedURL" : "https:\/\/www.animenewsnetwork.com\/all\/rss.xml",
+    "id" : "e36aa3dd-3baa-48a2-be53-c53a4738e4ab",
+    "name" : "Anime News Network",
+    "siteURL" : "https:\/\/www.animenewsnetwork.com",
+    "tags" : [
+      "news",
+      "reviews",
+      "encyclopedia",
+      "industry",
+      "simulcast"
+    ]
+  },
+  {
+    "category" : "Anime",
+    "description" : "Anime and manga blog covering UK releases, events, and reviews with a European perspective",
+    "feedURL" : "https:\/\/animeuknews.net\/feed\/",
+    "id" : "7cb151dd-befe-4827-b6dd-e2f030af8085",
+    "name" : "Anime UK News",
+    "siteURL" : "https:\/\/animeuknews.net",
+    "tags" : [
+      "uk",
+      "releases",
+      "reviews",
+      "events",
+      "manga"
+    ]
+  },
+  {
     "category" : "Italy",
     "country" : "Italy",
     "description" : "Agenzia di stampa italiana con notizie dall'Italia e dal mondo",
@@ -696,21 +726,6 @@
       "competitions",
       "urban",
       "residential"
-    ]
-  },
-  {
-    "category" : "Architecture",
-    "description" : "The goal of Archinect is to make architecture more connected and open-minded, and bring together designers from around",
-    "feedURL" : "https:\/\/archinect.com\/feed\/1\/news",
-    "id" : "e659ec72-d023-d2de-df09-775e0d5fc10a",
-    "name" : "Archinect",
-    "siteURL" : "https:\/\/archinect.com\/",
-    "tags" : [
-      "community",
-      "jobs",
-      "competitions",
-      "urban",
-      "studios"
     ]
   },
   {
@@ -804,21 +819,6 @@
     ]
   },
   {
-    "category" : "World News",
-    "description" : "Smart, efficient news coverage of politics, business, and technology",
-    "feedURL" : "https:\/\/api.axios.com\/feed\/",
-    "id" : "f5e8ac85-4e40-4b1e-48c1-10f82ecca136",
-    "name" : "Axios",
-    "siteURL" : "https:\/\/www.axios.com\/",
-    "tags" : [
-      "newsletters",
-      "brevity",
-      "politics",
-      "charts",
-      "bullet points"
-    ]
-  },
-  {
     "category" : "Music",
     "description" : "Independent music discovery across every genre and corner of the world",
     "feedURL" : "https:\/\/daily.bandcamp.com\/feed",
@@ -896,21 +896,6 @@
   },
   {
     "category" : "Sports",
-    "description" : "Cricket news, scores, and results from BBC Sport",
-    "feedURL" : "https:\/\/feeds.bbci.co.uk\/sport\/cricket\/rss.xml",
-    "id" : "73826047-a289-39cc-8393-5205ea59589e",
-    "name" : "BBC Sport: Cricket",
-    "siteURL" : "https:\/\/www.bbc.co.uk\/sport\/cricket",
-    "tags" : [
-      "cricket",
-      "test matches",
-      "odi",
-      "ashes",
-      "t20"
-    ]
-  },
-  {
-    "category" : "Sports",
     "description" : "Tennis news, scores, and results from BBC Sport",
     "feedURL" : "https:\/\/feeds.bbci.co.uk\/sport\/tennis\/rss.xml",
     "id" : "c8e79e6d-03a8-b82e-9afb-3455992921f6",
@@ -969,6 +954,21 @@
       "funding",
       "startups",
       "trade"
+    ]
+  },
+  {
+    "category" : "Fitness",
+    "description" : "The anchor cycling fitness publication covering gear, training, and rides",
+    "feedURL" : "https:\/\/www.bicycling.com\/rss\/all.xml",
+    "id" : "b06f0da2-2656-4e23-8675-eed7e011bbe1",
+    "name" : "Bicycling",
+    "siteURL" : "https:\/\/www.bicycling.com",
+    "tags" : [
+      "cycling",
+      "gear",
+      "training plans",
+      "rides",
+      "nutrition"
     ]
   },
   {
@@ -1382,21 +1382,6 @@
     ]
   },
   {
-    "category" : "World News",
-    "description" : "CNBC International is the world leader for news on business, technology, China, trade, oil prices, the Middle East and",
-    "feedURL" : "https:\/\/www.cnbc.com\/id\/100727362\/device\/rss\/rss.html",
-    "id" : "75e1d84f-ca2f-4528-2674-52a7c301d83d",
-    "name" : "CNBC International",
-    "siteURL" : "https:\/\/www.cnbc.com\/world-top-news\/",
-    "tags" : [
-      "markets",
-      "trade",
-      "asia",
-      "europe",
-      "economy"
-    ]
-  },
-  {
     "category" : "Tech",
     "description" : "Get full-length product reviews, the latest news, tech coverage, daily deals, and category deep dives from CNET experts",
     "feedURL" : "https:\/\/www.cnet.com\/rss\/news\/",
@@ -1439,6 +1424,21 @@
       "stack overflow",
       "career",
       "essays"
+    ]
+  },
+  {
+    "category" : "Anime",
+    "description" : "Manga and anime publishing industry coverage from a business and sales perspective",
+    "feedURL" : "https:\/\/www.comicsbeat.com\/category\/manga\/feed\/",
+    "id" : "ab98126f-fc3b-4c26-b9e9-fe8a29758bd8",
+    "name" : "Comics Beat: Manga",
+    "siteURL" : "https:\/\/www.comicsbeat.com\/category\/manga\/",
+    "tags" : [
+      "manga",
+      "publishing",
+      "sales",
+      "industry",
+      "graphic novels"
     ]
   },
   {
@@ -1577,18 +1577,18 @@
     ]
   },
   {
-    "category" : "Web Design & UX",
-    "description" : "Tips, tricks, and techniques on CSS and web development",
-    "feedURL" : "https:\/\/css-tricks.com\/feed\/",
-    "id" : "3292e08c-98ab-0fd7-c5df-fd64984e9645",
-    "name" : "CSS-Tricks",
-    "siteURL" : "https:\/\/css-tricks.com",
+    "category" : "Anime",
+    "description" : "Anime news, simulcast schedules, and new series announcements from the streaming giant",
+    "feedURL" : "https:\/\/cr-news-api-service.prd.crunchyrollsvc.com\/v1\/en-US\/rss",
+    "id" : "1e0a06cc-bc1e-4c9d-9520-0249dd7f0cc6",
+    "name" : "Crunchyroll News",
+    "siteURL" : "https:\/\/www.crunchyroll.com\/news",
     "tags" : [
-      "css",
-      "flexbox",
-      "grid",
-      "snippets",
-      "frontend"
+      "streaming",
+      "simulcast",
+      "announcements",
+      "new series",
+      "schedules"
     ]
   },
   {
@@ -1620,6 +1620,21 @@
       "breaking",
       "politics",
       "national"
+    ]
+  },
+  {
+    "category" : "Fitness",
+    "description" : "The best editorial voice in road cycling journalism with race coverage and gear deep-dives",
+    "feedURL" : "https:\/\/cyclingtips.com\/feed\/",
+    "id" : "7577fe8c-9b6c-4277-9855-52352b143f7b",
+    "name" : "CyclingTips",
+    "siteURL" : "https:\/\/cyclingtips.com",
+    "tags" : [
+      "road cycling",
+      "racing",
+      "gear",
+      "training",
+      "tours"
     ]
   },
   {
@@ -1867,21 +1882,6 @@
     ]
   },
   {
-    "category" : "Celebrity & Pop Culture",
-    "description" : "Snarky celebrity gossip from one of the last great independent gossip blogs",
-    "feedURL" : "https:\/\/dlisted.com\/feed\/",
-    "id" : "77c87aa8-8830-7df8-fc03-447f2d5a339e",
-    "name" : "Dlisted",
-    "siteURL" : "https:\/\/dlisted.com",
-    "tags" : [
-      "gossip",
-      "snarky",
-      "independent",
-      "humor",
-      "commentary"
-    ]
-  },
-  {
     "category" : "DIY",
     "description" : "DIY home improvement projects and repair guides",
     "feedURL" : "https:\/\/www.doityourself.com\/feed",
@@ -1942,18 +1942,18 @@
     ]
   },
   {
-    "category" : "Marketing",
-    "description" : "Small business marketing tips and strategies",
-    "feedURL" : "https:\/\/ducttape.libsyn.com\/rss",
-    "id" : "d3242674-3285-be41-18b0-e9cf72c5d0bd",
-    "name" : "Duct Tape Marketing",
-    "siteURL" : "https:\/\/www.ducttapemarketing.com\/about\/duct-tape-marketing-podcast\/",
+    "category" : "Anime",
+    "description" : "Gaming site with growing anime coverage, especially game adaptations and cross-media franchises",
+    "feedURL" : "https:\/\/www.dualshockers.com\/feed\/",
+    "id" : "51c1e65d-4cac-48c4-84f4-ec3c87d372e0",
+    "name" : "DualShockers",
+    "siteURL" : "https:\/\/www.dualshockers.com",
     "tags" : [
-      "small business",
-      "local",
-      "referrals",
-      "strategy",
-      "consulting"
+      "gaming",
+      "adaptations",
+      "cross-media",
+      "jrpgs",
+      "news"
     ]
   },
   {
@@ -1985,21 +1985,6 @@
       "corporate",
       "startups",
       "economy"
-    ]
-  },
-  {
-    "category" : "Music",
-    "description" : "Electronic dance music news, downloads, and artist interviews",
-    "feedURL" : "https:\/\/edm.com\/.rss\/full\/",
-    "id" : "905f1e83-174c-8ba1-029b-217612e8b58c",
-    "name" : "EDM.com",
-    "siteURL" : "https:\/\/edm.com\/blog\/",
-    "tags" : [
-      "electronic",
-      "dj",
-      "festivals",
-      "house",
-      "techno"
     ]
   },
   {
@@ -2096,21 +2081,6 @@
     ]
   },
   {
-    "category" : "Mobile Development",
-    "description" : "iOS app size optimization, performance, and build tooling",
-    "feedURL" : "https:\/\/www.emergetools.com\/rss.xml",
-    "id" : "b3725457-67ba-5825-9594-25673f097d7d",
-    "name" : "Emerge Tools",
-    "siteURL" : "https:\/\/www.emergetools.com\/blog",
-    "tags" : [
-      "app size",
-      "performance",
-      "build times",
-      "profiling",
-      "optimization"
-    ]
-  },
-  {
     "category" : "Tech",
     "description" : "Find the latest technology news and expert tech product reviews. Learn about the latest gadgets and consumer tech",
     "feedURL" : "https:\/\/www.engadget.com\/rss.xml",
@@ -2177,6 +2147,7 @@
     "feedURL" : "https:\/\/rss.elconfidencial.com\/espana\/",
     "id" : "2a77e2e7-1bee-3493-b144-c09f82259251",
     "name" : "España",
+    "siteURL" : "https:\/\/rss.elconfidencial.com\/espana\/",
     "tags" : [
       "spanish",
       "nacional",
@@ -2198,21 +2169,6 @@
       "nfl",
       "nba",
       "fantasy"
-    ]
-  },
-  {
-    "category" : "Sports",
-    "description" : "Tennis news, live scores, highlights, and analysis from ESPN",
-    "feedURL" : "https:\/\/www.espn.com\/espn\/rss\/tennis\/news",
-    "id" : "f85ac56d-78c4-bc29-18bf-14606bf67c27",
-    "name" : "ESPN Tennis",
-    "siteURL" : "https:\/\/www.espn.com",
-    "tags" : [
-      "atp",
-      "wta",
-      "grand slams",
-      "rankings",
-      "matches"
     ]
   },
   {
@@ -2259,21 +2215,6 @@
       "digital foundry",
       "indie",
       "analysis"
-    ]
-  },
-  {
-    "category" : "Space",
-    "description" : "Deep-dive explainers on rocket engines, launch systems, and spaceflight",
-    "feedURL" : "https:\/\/everydayastronaut.com\/feed\/",
-    "id" : "c2978591-9eb8-8137-eb5b-ed472c4394ba",
-    "name" : "Everyday Astronaut",
-    "siteURL" : "https:\/\/everydayastronaut.com\/",
-    "tags" : [
-      "rockets",
-      "engines",
-      "explainers",
-      "spacex",
-      "starship"
     ]
   },
   {
@@ -2534,22 +2475,6 @@
     ]
   },
   {
-    "category" : "United States",
-    "country" : "United States",
-    "description" : "Breaking News, Latest News and Current News from FOXNews.com. Breaking news and video. Latest Current News: U.S",
-    "feedURL" : "https:\/\/feeds.foxnews.com\/foxnews\/latest",
-    "id" : "2643d6de-5410-3a6a-fdce-2316e9a040c6",
-    "name" : "FOX News",
-    "siteURL" : "https:\/\/www.foxnews.com\/",
-    "tags" : [
-      "conservative",
-      "politics",
-      "opinion",
-      "washington",
-      "breaking"
-    ]
-  },
-  {
     "category" : "France",
     "country" : "France",
     "description" : "Pour savoir ce qui se passe maintenant - Toutes les infos livrées minute par minute par la rédaction de Franceinfo",
@@ -2624,6 +2549,21 @@
       "walkthroughs",
       "deals",
       "previews"
+    ]
+  },
+  {
+    "category" : "Fitness",
+    "description" : "Fitness and outdoor gear reviews and adventure content",
+    "feedURL" : "https:\/\/gearjunkie.com\/feed",
+    "id" : "924cae4b-04f1-4e55-8624-22124f5eb999",
+    "name" : "GearJunkie",
+    "siteURL" : "https:\/\/gearjunkie.com",
+    "tags" : [
+      "gear reviews",
+      "outdoor",
+      "adventure",
+      "camping",
+      "running"
     ]
   },
   {
@@ -2716,21 +2656,6 @@
       "web",
       "apis",
       "chrome"
-    ]
-  },
-  {
-    "category" : "World News",
-    "description" : "Comprehensive news aggregation from Google",
-    "feedURL" : "https:\/\/news.google.com\/rss",
-    "id" : "fe39472a-3338-f318-54e9-e1fb64c6227a",
-    "name" : "Google News",
-    "siteURL" : "https:\/\/news.google.com\/?hl=en-US&gl=US&ceid=US:en",
-    "tags" : [
-      "aggregation",
-      "trending",
-      "headlines",
-      "personalized",
-      "global"
     ]
   },
   {
@@ -2884,21 +2809,6 @@
     ]
   },
   {
-    "category" : "Environment",
-    "description" : "Coastal and ocean science and culture",
-    "feedURL" : "https:\/\/hakaimagazine.com\/feed\/",
-    "id" : "1e088771-ed91-1a74-2227-06545a458458",
-    "name" : "Hakai Magazine",
-    "siteURL" : "https:\/\/hakaimagazine.com\/",
-    "tags" : [
-      "oceans",
-      "marine",
-      "coastal",
-      "coral reefs",
-      "ecology"
-    ]
-  },
-  {
     "category" : "Mobile Development",
     "description" : "Android and web development",
     "feedURL" : "https:\/\/handstandsam.com\/feed\/",
@@ -3016,21 +2926,6 @@
       "british",
       "european",
       "analysis"
-    ]
-  },
-  {
-    "category" : "History",
-    "description" : "Military history, Civil War, World War II, and more from a network of history magazines",
-    "feedURL" : "https:\/\/historynet.com\/feed\/",
-    "id" : "4123a374-68b4-422f-4382-3318857e15bc",
-    "name" : "HistoryNet",
-    "siteURL" : "https:\/\/www.historynet.com\/",
-    "tags" : [
-      "military",
-      "civil war",
-      "world war",
-      "battles",
-      "generals"
     ]
   },
   {
@@ -3635,6 +3530,21 @@
     ]
   },
   {
+    "category" : "Fitness",
+    "description" : "The authority on ultra and trail running with race coverage and athlete interviews",
+    "feedURL" : "https:\/\/www.irunfar.com\/feed",
+    "id" : "d8468e22-f3ac-49cb-a96b-d216f79168e8",
+    "name" : "iRunFar",
+    "siteURL" : "https:\/\/www.irunfar.com",
+    "tags" : [
+      "ultrarunning",
+      "trail running",
+      "races",
+      "interviews",
+      "gear"
+    ]
+  },
+  {
     "category" : "Mobile Development",
     "description" : "Android and Kotlin development",
     "feedURL" : "https:\/\/jakewharton.com\/atom.xml",
@@ -3907,21 +3817,6 @@
     ]
   },
   {
-    "category" : "Books",
-    "description" : "Latest book reviews from Kirkus Reviews",
-    "feedURL" : "https:\/\/www.kirkusreviews.com\/feeds\/rss\/",
-    "id" : "b6d143ba-e9aa-5428-bdf7-a5f224e40572",
-    "name" : "Kirkus Reviews",
-    "siteURL" : "https:\/\/www.kirkusreviews.com\/",
-    "tags" : [
-      "reviews",
-      "new releases",
-      "fiction",
-      "nonfiction",
-      "starred"
-    ]
-  },
-  {
     "category" : "Food",
     "description" : "Inspiring cooks, nourishing homes",
     "feedURL" : "https:\/\/www.thekitchn.com\/main.rss",
@@ -3937,18 +3832,18 @@
     ]
   },
   {
-    "category" : "Science",
-    "description" : "Accessible science journalism from Annual Reviews",
-    "feedURL" : "https:\/\/knowablemagazine.org\/rss",
-    "id" : "d49efeb3-738e-5c5d-a994-54a862ba8cb8",
-    "name" : "Knowable Magazine",
-    "siteURL" : "https:\/\/knowablemagazine.org",
+    "category" : "Anime",
+    "description" : "Video games, anime, and Japanese culture coverage",
+    "feedURL" : "https:\/\/kotaku.com\/rss",
+    "id" : "b859d1ea-4455-45d6-8d5e-27247e6d224e",
+    "name" : "Kotaku",
+    "siteURL" : "https:\/\/kotaku.com",
     "tags" : [
-      "explainers",
+      "gaming",
+      "culture",
+      "anime",
       "reviews",
-      "journals",
-      "accessible",
-      "research"
+      "features"
     ]
   },
   {
@@ -4071,22 +3966,6 @@
       "digest",
       "headlines",
       "breakthroughs"
-    ]
-  },
-  {
-    "category" : "Nigeria",
-    "country" : "Nigeria",
-    "description" : "The Nation Newspaper - Nigerian News, Nigerian newspapers, Breaking News, Latest news, Entertainment, Sports, Business",
-    "feedURL" : "https:\/\/thenationonlineng.net\/feed\/",
-    "id" : "8898e8da-d27d-f400-adb2-278cc5f9a28e",
-    "name" : "Latest Nigeria News",
-    "siteURL" : "https:\/\/thenationonlineng.net",
-    "tags" : [
-      "politics",
-      "economy",
-      "naira",
-      "lagos",
-      "national"
     ]
   },
   {
@@ -4516,6 +4395,21 @@
     ]
   },
   {
+    "category" : "Fitness",
+    "description" : "The biggest mainstream fitness publication with workouts, nutrition, and lifestyle",
+    "feedURL" : "https:\/\/www.menshealth.com\/rss\/all.xml",
+    "id" : "8b60a955-2fe7-48f3-9908-bc1073ff8d94",
+    "name" : "Men's Health",
+    "siteURL" : "https:\/\/www.menshealth.com",
+    "tags" : [
+      "workouts",
+      "nutrition",
+      "lifestyle",
+      "muscle building",
+      "weight loss"
+    ]
+  },
+  {
     "category" : "Music",
     "description" : "Heavy metal news, music, and videos",
     "feedURL" : "https:\/\/metalinjection.net\/feed",
@@ -4655,6 +4549,21 @@
     ]
   },
   {
+    "category" : "Fitness",
+    "description" : "Daily CrossFit community news, Games coverage, and affiliate stories",
+    "feedURL" : "https:\/\/morningchalkup.com\/feed\/",
+    "id" : "582bf49d-1447-4b04-befc-9c1955da7d73",
+    "name" : "Morning Chalk Up",
+    "siteURL" : "https:\/\/morningchalkup.com",
+    "tags" : [
+      "crossfit",
+      "games",
+      "affiliates",
+      "athletes",
+      "wods"
+    ]
+  },
+  {
     "category" : "Cars",
     "description" : "International car news with strong global and regional coverage",
     "feedURL" : "https:\/\/www.motor1.com\/rss\/news\/all\/",
@@ -4667,21 +4576,6 @@
       "reviews",
       "spy shots",
       "comparisons"
-    ]
-  },
-  {
-    "category" : "Web Design & UX",
-    "description" : "Mozilla Hacks is written for web developers, designers and everyone who builds for the Web. Hacks is produced by Mozilla",
-    "feedURL" : "https:\/\/hacks.mozilla.org\/feed\/",
-    "id" : "394ba688-e40a-39f5-875e-6d5ee66d23af",
-    "name" : "Mozilla Hacks",
-    "siteURL" : "https:\/\/hacks.mozilla.org\/",
-    "tags" : [
-      "firefox",
-      "webassembly",
-      "standards",
-      "pwa",
-      "apis"
     ]
   },
   {
@@ -4700,6 +4594,21 @@
     ]
   },
   {
+    "category" : "Fitness",
+    "description" : "Legacy bodybuilding and gym culture publication with workouts and physique training",
+    "feedURL" : "https:\/\/www.muscleandfitness.com\/feed\/",
+    "id" : "97b06005-f5ab-4a86-8bb9-70e3f804f465",
+    "name" : "Muscle & Fitness",
+    "siteURL" : "https:\/\/www.muscleandfitness.com",
+    "tags" : [
+      "bodybuilding",
+      "workouts",
+      "supplements",
+      "physique",
+      "gym"
+    ]
+  },
+  {
     "category" : "Music",
     "description" : "News and analysis for the global music industry",
     "feedURL" : "https:\/\/www.musicbusinessworldwide.com\/feed\/",
@@ -4712,6 +4621,21 @@
       "royalties",
       "streaming",
       "executives"
+    ]
+  },
+  {
+    "category" : "Anime",
+    "description" : "Community anime and manga news, reviews, and seasonal previews",
+    "feedURL" : "https:\/\/myanimelist.net\/rss\/news.xml",
+    "id" : "a36d08a7-5f4e-4f21-a970-f3fe1c8138ab",
+    "name" : "MyAnimeList News",
+    "siteURL" : "https:\/\/myanimelist.net",
+    "tags" : [
+      "community",
+      "database",
+      "seasonal",
+      "rankings",
+      "announcements"
     ]
   },
   {
@@ -4884,21 +4808,6 @@
     ]
   },
   {
-    "category" : "Web Design & UX",
-    "description" : "UX research and design best practices from Nielsen Norman Group",
-    "feedURL" : "https:\/\/www.nngroup.com\/feed\/rss\/",
-    "id" : "f74a54fc-b5d6-6235-3029-66a458c5becf",
-    "name" : "Nielsen Norman Group",
-    "siteURL" : "https:\/\/www.nngroup.com\/feed\/rss\/",
-    "tags" : [
-      "usability",
-      "research",
-      "heuristics",
-      "testing",
-      "patterns"
-    ]
-  },
-  {
     "category" : "Nigeria",
     "country" : "Nigeria",
     "description" : "Latest news from Nigeria",
@@ -4972,21 +4881,6 @@
       "hostels",
       "guides",
       "tips"
-    ]
-  },
-  {
-    "category" : "World News",
-    "description" : "NPR news, audio, and podcasts. Coverage of breaking stories, national and world news, politics, business, science",
-    "feedURL" : "https:\/\/feeds.npr.org\/1001\/rss.xml",
-    "id" : "04a13555-2494-b3db-f354-1c5fbc37af83",
-    "name" : "NPR News",
-    "siteURL" : "https:\/\/www.npr.org\/templates\/story\/story.php?storyId=1001",
-    "tags" : [
-      "public radio",
-      "podcasts",
-      "politics",
-      "culture",
-      "investigations"
     ]
   },
   {
@@ -5079,22 +4973,6 @@
       "parliament",
       "local",
       "politics"
-    ]
-  },
-  {
-    "category" : "France",
-    "country" : "France",
-    "description" : "Premier quotidien français d'information régionale et nationale",
-    "feedURL" : "https:\/\/www.ouest-france.fr\/rss-en-continu.xml",
-    "id" : "43c04ef8-ccec-e231-991f-46507b22973a",
-    "name" : "Ouest-France",
-    "siteURL" : "https:\/\/www.ouest-france.fr\/rss\/une",
-    "tags" : [
-      "regional",
-      "bretagne",
-      "french",
-      "normandie",
-      "local"
     ]
   },
   {
@@ -5409,27 +5287,13 @@
     "feedURL" : "https:\/\/rss.politico.com\/playbook.xml",
     "id" : "1018c501-6f82-8028-87ef-5c4977c84efb",
     "name" : "Playbook",
+    "siteURL" : "https:\/\/rss.politico.com\/playbook.xml",
     "tags" : [
       "politico",
       "washington",
       "congress",
       "white house",
       "insiders"
-    ]
-  },
-  {
-    "category" : "Mobile Development",
-    "description" : "Functional programming in Swift and composable architecture",
-    "feedURL" : "https:\/\/www.pointfree.co\/blog\/feed\/atom.xml",
-    "id" : "1bf66f60-ab53-5f9c-b7c7-a2b2acdf394a",
-    "name" : "Point-Free",
-    "siteURL" : "https:\/\/www.pointfree.co\/blog",
-    "tags" : [
-      "functional",
-      "composable",
-      "tca",
-      "swift",
-      "architecture"
     ]
   },
   {
@@ -5552,21 +5416,6 @@
       "anchors",
       "sails",
       "maintenance"
-    ]
-  },
-  {
-    "category" : "Health & Wellness",
-    "description" : "Evidence-based nutrition and coaching content bridging science and practical application",
-    "feedURL" : "https:\/\/www.precisionnutrition.com\/feed",
-    "id" : "bb7e70c6-128b-7b40-c26a-5df2a8a110d5",
-    "name" : "Precision Nutrition",
-    "siteURL" : "https:\/\/www.precisionnutrition.com\/",
-    "tags" : [
-      "coaching",
-      "diet",
-      "macros",
-      "habits",
-      "supplements"
     ]
   },
   {
@@ -5829,6 +5678,21 @@
     ]
   },
   {
+    "category" : "Fitness",
+    "description" : "The undisputed authority for runners with training plans, gear reviews, and injury prevention",
+    "feedURL" : "https:\/\/www.runnersworld.com\/rss\/all.xml",
+    "id" : "3c7601b8-791a-44ac-813b-fea0180e4d54",
+    "name" : "Runner's World",
+    "siteURL" : "https:\/\/www.runnersworld.com",
+    "tags" : [
+      "running",
+      "training plans",
+      "gear",
+      "marathons",
+      "injury prevention"
+    ]
+  },
+  {
     "category" : "Boating",
     "description" : "Sailing news, racing coverage, boat reviews, and cruising advice",
     "feedURL" : "https:\/\/sailmagazine.com\/feed\/",
@@ -5874,6 +5738,21 @@
     ]
   },
   {
+    "category" : "Anime",
+    "description" : "The authority on anime production quality, animation craft, and sakuga analysis",
+    "feedURL" : "https:\/\/blog.sakugabooru.com\/feed\/",
+    "id" : "22a3db45-261c-4a6f-93b6-5216a604698b",
+    "name" : "Sakuga Blog",
+    "siteURL" : "https:\/\/blog.sakugabooru.com",
+    "tags" : [
+      "animation",
+      "production",
+      "sakuga",
+      "craft",
+      "studios"
+    ]
+  },
+  {
     "category" : "Boating",
     "description" : "Saltwater fishing tips, tackle reviews, and offshore fishing destinations",
     "feedURL" : "https:\/\/www.saltwatersportsman.com\/feed\/",
@@ -5916,21 +5795,6 @@
       "aaas",
       "journals",
       "breakthroughs"
-    ]
-  },
-  {
-    "category" : "Science",
-    "description" : "Independent journalism covering all disciplines of science since 1921",
-    "feedURL" : "https:\/\/www.sciencenews.org\/feed",
-    "id" : "6cc0875b-fb4f-5a80-9677-a027b9695008",
-    "name" : "Science News",
-    "siteURL" : "https:\/\/www.sciencenews.org",
-    "tags" : [
-      "weekly",
-      "physics",
-      "biology",
-      "archaeology",
-      "health"
     ]
   },
   {
@@ -5994,21 +5858,6 @@
     ]
   },
   {
-    "category" : "Travel",
-    "description" : "Mistake fares, error fares, and cheap flight deals from around the world",
-    "feedURL" : "https:\/\/www.secretflying.com\/feed\/",
-    "id" : "ae9b83c3-5148-8920-41c7-a258fe743d92",
-    "name" : "Secret Flying",
-    "siteURL" : "https:\/\/www.secretflying.com",
-    "tags" : [
-      "mistake fares",
-      "cheap flights",
-      "error fares",
-      "deals",
-      "alerts"
-    ]
-  },
-  {
     "category" : "Business & Finance",
     "description" : "Crowdsourced investment analysis covering earnings, dividends, and stocks",
     "feedURL" : "https:\/\/seekingalpha.com\/feed",
@@ -6021,6 +5870,21 @@
       "stocks",
       "analysis",
       "portfolio"
+    ]
+  },
+  {
+    "category" : "Fitness",
+    "description" : "Strong fitness content with an inclusive, body-positive editorial voice",
+    "feedURL" : "https:\/\/www.self.com\/feed\/rss",
+    "id" : "41ab912f-a76a-4183-9fea-0b962ee8a2aa",
+    "name" : "Self",
+    "siteURL" : "https:\/\/www.self.com",
+    "tags" : [
+      "workouts",
+      "wellness",
+      "body positive",
+      "nutrition",
+      "mental health"
     ]
   },
   {
@@ -6039,6 +5903,21 @@
     ]
   },
   {
+    "category" : "Anime",
+    "description" : "Japanese games and anime crossover news, adaptations, and character reveals",
+    "feedURL" : "https:\/\/www.siliconera.com\/feed\/",
+    "id" : "1900ae5e-1167-4cfb-a856-c83530ea72db",
+    "name" : "Siliconera",
+    "siteURL" : "https:\/\/www.siliconera.com",
+    "tags" : [
+      "jrpgs",
+      "adaptations",
+      "characters",
+      "news",
+      "games"
+    ]
+  },
+  {
     "category" : "AI",
     "description" : "Prolific and trusted voice on practical AI tooling, LLMs, and developer workflows",
     "feedURL" : "https:\/\/simonwillison.net\/atom\/everything\/",
@@ -6054,21 +5933,6 @@
     ]
   },
   {
-    "category" : "Web Design & UX",
-    "description" : "Tech and travel blog",
-    "feedURL" : "https:\/\/gosink.in\/rss\/",
-    "id" : "583e5a37-f678-6b06-ee8e-ea350fd1ae60",
-    "name" : "Sink In",
-    "siteURL" : "https:\/\/gosink.in\/",
-    "tags" : [
-      "travel",
-      "personal",
-      "web",
-      "reflections",
-      "design"
-    ]
-  },
-  {
     "category" : "Apple",
     "description" : "Apple news and commentary by Jason Snell",
     "feedURL" : "https:\/\/feedpress.me\/sixcolors",
@@ -6081,21 +5945,6 @@
       "iphone",
       "mac",
       "opinion"
-    ]
-  },
-  {
-    "category" : "Travel",
-    "description" : "Travel industry news, analysis, and data for hospitality and tourism professionals",
-    "feedURL" : "https:\/\/skift.com\/feed\/",
-    "id" : "3a34d533-cce9-62ef-92d3-31edae0e98b7",
-    "name" : "Skift",
-    "siteURL" : "https:\/\/skift.com\/",
-    "tags" : [
-      "hospitality",
-      "airlines",
-      "hotels",
-      "tourism",
-      "industry"
     ]
   },
   {
@@ -6141,21 +5990,6 @@
       "cricket",
       "f1",
       "boxing"
-    ]
-  },
-  {
-    "category" : "Web Design & UX",
-    "description" : "Articles and tutorials for web designers and developers",
-    "feedURL" : "https:\/\/www.smashingmagazine.com\/feed",
-    "id" : "07c83d6d-0c0e-2a9e-8e6f-143d4ae9539b",
-    "name" : "Smashing Magazine",
-    "siteURL" : "https:\/\/www.smashingmagazine.com\/",
-    "tags" : [
-      "responsive",
-      "accessibility",
-      "performance",
-      "css",
-      "javascript"
     ]
   },
   {
@@ -6384,6 +6218,21 @@
     ]
   },
   {
+    "category" : "Fitness",
+    "description" : "Evidence-based training and nutrition analysis bridging research and practice",
+    "feedURL" : "https:\/\/www.strongerbyscience.com\/feed\/",
+    "id" : "16bc4dbc-fbab-4829-8206-5350586f184e",
+    "name" : "Stronger By Science",
+    "siteURL" : "https:\/\/www.strongerbyscience.com",
+    "tags" : [
+      "evidence-based",
+      "research",
+      "programming",
+      "nutrition",
+      "strength"
+    ]
+  },
+  {
     "category" : "India",
     "country" : "India",
     "description" : "A big tent for liberal right of centre discourse that reaches out to the new India",
@@ -6397,21 +6246,6 @@
       "hindu",
       "economics",
       "culture"
-    ]
-  },
-  {
-    "category" : "Mobile Development",
-    "description" : "Weekly Swift articles, podcasts, and tips by John Sundell",
-    "feedURL" : "https:\/\/www.swiftbysundell.com\/feed.rss",
-    "id" : "526432df-f7e6-580b-95f9-bea06f974520",
-    "name" : "Swift by Sundell",
-    "siteURL" : "https:\/\/www.swiftbysundell.com",
-    "tags" : [
-      "swift",
-      "swiftui",
-      "podcasts",
-      "tips",
-      "patterns"
     ]
   },
   {
@@ -6458,6 +6292,21 @@
       "politics",
       "property",
       "national"
+    ]
+  },
+  {
+    "category" : "Fitness",
+    "description" : "No-BS strength training articles from coaches and athletes",
+    "feedURL" : "https:\/\/t-nation.com\/posts.rss",
+    "id" : "5380b3e9-8404-4bde-9efb-e5912dd34ec3",
+    "name" : "T Nation",
+    "siteURL" : "https:\/\/www.t-nation.com",
+    "tags" : [
+      "strength",
+      "coaching",
+      "bodybuilding",
+      "nutrition",
+      "performance"
     ]
   },
   {
@@ -6661,21 +6510,6 @@
     ]
   },
   {
-    "category" : "World News",
-    "description" : "News, politics, culture, technology, and more",
-    "feedURL" : "https:\/\/www.theatlantic.com\/feed\/all\/",
-    "id" : "72771e85-b141-6686-c704-7c5d452eddd6",
-    "name" : "The Atlantic",
-    "siteURL" : "https:\/\/www.theatlantic.com\/",
-    "tags" : [
-      "longform",
-      "essays",
-      "democracy",
-      "culture",
-      "opinion"
-    ]
-  },
-  {
     "category" : "Cars",
     "description" : "The most fun, passionate, and genuinely weird car writing on the internet",
     "feedURL" : "https:\/\/www.theautopian.com\/feed",
@@ -6718,6 +6552,21 @@
       "memoir",
       "quirky",
       "cats"
+    ]
+  },
+  {
+    "category" : "Anime",
+    "description" : "One of the longest-running anime blogs with seasonal previews and rankings",
+    "feedURL" : "https:\/\/thecartdriver.com\/feed\/",
+    "id" : "b6a0f62c-d2b8-4a37-8f84-5fef155714e7",
+    "name" : "The Cart Driver",
+    "siteURL" : "https:\/\/thecartdriver.com",
+    "tags" : [
+      "seasonal",
+      "previews",
+      "rankings",
+      "reviews",
+      "blog"
     ]
   },
   {
@@ -6963,37 +6812,6 @@
     ]
   },
   {
-    "category" : "United Kingdom",
-    "country" : "United Kingdom",
-    "description" : "UK and world news, politics, and opinion",
-    "feedURL" : "https:\/\/www.independent.co.uk\/news\/uk\/rss",
-    "id" : "c1b3bc9d-4e2a-9305-b577-7f76797e6828",
-    "name" : "The Independent",
-    "siteURL" : "https:\/\/www.independent.co.uk\/news\/uk\/rss",
-    "tags" : [
-      "liberal",
-      "opinion",
-      "politics",
-      "world",
-      "culture"
-    ]
-  },
-  {
-    "category" : "Italy",
-    "country" : "Italy",
-    "description" : "Europe's news in English",
-    "feedURL" : "https:\/\/feeds.thelocal.com\/rss\/it",
-    "id" : "be7a0fea-4d37-b491-b4ef-f89139abd6c4",
-    "name" : "The Local",
-    "tags" : [
-      "english",
-      "expat",
-      "europe",
-      "living abroad",
-      "immigration"
-    ]
-  },
-  {
     "category" : "Books",
     "description" : "Smart literary essays, most-anticipated lists, and year-in-reading features",
     "feedURL" : "https:\/\/themillions.com\/feed",
@@ -7099,21 +6917,6 @@
       "comedy",
       "fake news",
       "headlines"
-    ]
-  },
-  {
-    "category" : "Travel",
-    "description" : "Credit card points, airline miles, and travel rewards strategies and deals",
-    "feedURL" : "https:\/\/thepointsguy.com\/feed\/",
-    "id" : "2e8c7bce-8186-f06d-d572-f7fe764298d1",
-    "name" : "The Points Guy",
-    "siteURL" : "https:\/\/thepointsguy.com\/",
-    "tags" : [
-      "miles",
-      "credit cards",
-      "rewards",
-      "lounges",
-      "flights"
     ]
   },
   {
@@ -7363,6 +7166,21 @@
     ]
   },
   {
+    "category" : "Anime",
+    "description" : "Japanese pop culture news covering anime, figures, fashion, and events",
+    "feedURL" : "https:\/\/otakumode.com\/news\/feed",
+    "id" : "0bb555e5-b520-4f1e-a2e0-8a1310d08816",
+    "name" : "Tokyo Otaku Mode",
+    "siteURL" : "https:\/\/otakumode.com",
+    "tags" : [
+      "figures",
+      "merchandise",
+      "fashion",
+      "events",
+      "news"
+    ]
+  },
+  {
     "category" : "Philippines",
     "country" : "Philippines",
     "description" : "The Philippines' best online source for cars and the automotive industry",
@@ -7423,6 +7241,21 @@
       "cruises",
       "resorts",
       "guides"
+    ]
+  },
+  {
+    "category" : "Fitness",
+    "description" : "Triathlon training, racing, and swim-bike-run programming",
+    "feedURL" : "https:\/\/www.triathlete.com\/feed\/",
+    "id" : "4c19e5a0-a24b-4af6-baf3-fcc6dd209191",
+    "name" : "Triathlete",
+    "siteURL" : "https:\/\/www.triathlete.com",
+    "tags" : [
+      "triathlon",
+      "swimming",
+      "cycling",
+      "running",
+      "ironman"
     ]
   },
   {
@@ -7534,22 +7367,6 @@
     ]
   },
   {
-    "category" : "United States",
-    "country" : "United States",
-    "description" : "CNBC is the world leader in business news and real-time financial market coverage. Find fast, actionable information",
-    "feedURL" : "https:\/\/www.cnbc.com\/id\/100003114\/device\/rss\/rss.html",
-    "id" : "a25f7373-5963-d64a-7434-05c665d1f9a7",
-    "name" : "US Top News and Analysis",
-    "siteURL" : "https:\/\/www.cnbc.com\/us-top-news-and-analysis\/",
-    "tags" : [
-      "markets",
-      "economy",
-      "wall street",
-      "breaking",
-      "cnbc"
-    ]
-  },
-  {
     "category" : "Celebrity & Pop Culture",
     "description" : "Celebrity news, style, and the classic 'Stars — They're Just Like Us' format",
     "feedURL" : "https:\/\/www.usmagazine.com\/feed\/",
@@ -7595,21 +7412,6 @@
     ]
   },
   {
-    "category" : "Web Design & UX",
-    "description" : "We believe designers are thinkers as much as they are makers. Curated stories on UX, Visual & Product Design",
-    "feedURL" : "https:\/\/uxdesign.cc\/feed",
-    "id" : "efe18eb2-8037-4393-b598-d54a5e5745cb",
-    "name" : "UX Collective",
-    "siteURL" : "https:\/\/uxdesign.cc",
-    "tags" : [
-      "product design",
-      "research",
-      "wireframes",
-      "prototyping",
-      "case studies"
-    ]
-  },
-  {
     "category" : "Celebrity & Pop Culture",
     "description" : "Best-in-class celebrity profiles and Hollywood long-form from Condé Nast",
     "feedURL" : "https:\/\/www.vanityfair.com\/feed\/rss",
@@ -7637,6 +7439,21 @@
       "festivals",
       "deals",
       "emmys"
+    ]
+  },
+  {
+    "category" : "Fitness",
+    "description" : "Road cycling racing and performance training with strong event coverage",
+    "feedURL" : "https:\/\/www.velonews.com\/feed\/",
+    "id" : "0ade4ee8-7638-4b2f-b6f0-ead057765730",
+    "name" : "VeloNews",
+    "siteURL" : "https:\/\/www.velonews.com",
+    "tags" : [
+      "road cycling",
+      "racing",
+      "tour de france",
+      "performance",
+      "training"
     ]
   },
   {
@@ -7730,21 +7547,6 @@
     ]
   },
   {
-    "category" : "World News",
-    "description" : "Vox is a general interest news site for the 21st century. Its mission: to help everyone understand our complicated",
-    "feedURL" : "https:\/\/www.vox.com\/rss\/index.xml",
-    "id" : "4aa317de-1aa3-aa76-6dda-8229ef4c63c2",
-    "name" : "Vox",
-    "siteURL" : "https:\/\/www.vox.com",
-    "tags" : [
-      "explainers",
-      "policy",
-      "data",
-      "charts",
-      "progressive"
-    ]
-  },
-  {
     "category" : "Fashion",
     "description" : "Fashion, film, art, and entertainment converge",
     "feedURL" : "https:\/\/www.wmagazine.com\/rss",
@@ -7805,37 +7607,6 @@
     ]
   },
   {
-    "category" : "Boating",
-    "description" : "Traditional wooden boat building, restoration, and craftsmanship",
-    "feedURL" : "https:\/\/www.woodenboat.com\/rss.xml",
-    "id" : "7b4438af-69d5-25b0-8590-d96a3b4e6d5e",
-    "name" : "WoodenBoat",
-    "siteURL" : "https:\/\/www.woodenboat.com\/",
-    "tags" : [
-      "restoration",
-      "craftsmanship",
-      "building",
-      "classic",
-      "traditional"
-    ]
-  },
-  {
-    "category" : "United States",
-    "country" : "United States",
-    "description" : "Nation and world news from the Los Angeles Times",
-    "feedURL" : "https:\/\/www.latimes.com\/world-nation\/rss2.0.xml",
-    "id" : "fbc3b80b-9968-8e64-f2fa-9dea7b453c20",
-    "name" : "World & Nation",
-    "siteURL" : "https:\/\/www.latimes.com",
-    "tags" : [
-      "la times",
-      "california",
-      "politics",
-      "immigration",
-      "national"
-    ]
-  },
-  {
     "category" : "History",
     "description" : "Free, peer-reviewed articles covering civilizations and historical topics worldwide",
     "feedURL" : "https:\/\/www.worldhistory.org\/rss2\/?lang=en",
@@ -7848,6 +7619,21 @@
       "free",
       "peer-reviewed",
       "timelines"
+    ]
+  },
+  {
+    "category" : "Anime",
+    "description" : "Thoughtful essay-style anime criticism and in-depth episode analysis",
+    "feedURL" : "https:\/\/wrongeverytime.com\/feed\/",
+    "id" : "6a2d73c5-f609-463e-b065-fdd8898f6793",
+    "name" : "Wrong Every Time",
+    "siteURL" : "https:\/\/wrongeverytime.com",
+    "tags" : [
+      "essays",
+      "episode analysis",
+      "criticism",
+      "reviews",
+      "blog"
     ]
   },
   {
@@ -7942,22 +7728,6 @@
     ]
   },
   {
-    "category" : "United States",
-    "country" : "United States",
-    "description" : "The latest news and headlines from Yahoo News. Get breaking news stories and in-depth coverage with videos and photos",
-    "feedURL" : "https:\/\/news.yahoo.com\/rss\/mostviewed",
-    "id" : "265fe870-a638-edc6-9e12-41513972397e",
-    "name" : "Yahoo News",
-    "siteURL" : "https:\/\/www.yahoo.com\/news",
-    "tags" : [
-      "aggregation",
-      "politics",
-      "breaking",
-      "viral",
-      "video"
-    ]
-  },
-  {
     "category" : "Environment",
     "description" : "Long-form environmental reporting and essays from Yale School of the Environment",
     "feedURL" : "https:\/\/e360.yale.edu\/feed.xml",
@@ -7973,67 +7743,33 @@
     ]
   },
   {
-    "category" : "Ukraine",
-    "country" : "Ukraine",
-    "description" : "ГОРДОН: Головні новини дня України та світу, ексклюзивні коментарі, аналітика. Фото, відео. Спецпроекти, ексклюзивні",
-    "feedURL" : "https:\/\/gordonua.com\/xml\/rss_category\/top.html",
-    "id" : "14d68765-94f3-a0b3-c1c1-d7b519a9a25a",
-    "name" : "Гордон - Самые популярные материалы",
-    "siteURL" : "https:\/\/gordonua.com",
+    "category" : "Fitness",
+    "description" : "Yoga poses, sequences, philosophy, and teacher content",
+    "feedURL" : "https:\/\/www.yogajournal.com\/feed\/",
+    "id" : "2c4e1410-1e05-4a99-a449-af9fd6b8a689",
+    "name" : "Yoga Journal",
+    "siteURL" : "https:\/\/www.yogajournal.com",
     "tags" : [
-      "ukrainian",
-      "kyiv",
-      "war",
-      "politics",
-      "analysis"
+      "yoga",
+      "poses",
+      "meditation",
+      "flexibility",
+      "mindfulness"
     ]
   },
   {
-    "category" : "Ukraine",
-    "country" : "Ukraine",
-    "description" : "Читайте онлайн останні новини України і світу на сайті телеканалу Еспресо. ᐈ Найважливіші новини дня, свіжа інформація",
-    "feedURL" : "https:\/\/espreso.tv\/rss",
-    "id" : "b72a647c-9b68-8869-3400-0b795b13bb71",
-    "name" : "Еспресо",
-    "siteURL" : "https:\/\/espreso.tv\/",
+    "category" : "Anime",
+    "description" : "Japanese hobby culture, retro anime, model kits, and vintage collectibles",
+    "feedURL" : "https:\/\/www.zimmerit.moe\/feed\/",
+    "id" : "b9139131-58f2-459e-96f0-bc17c6cf8957",
+    "name" : "Zimmerit",
+    "siteURL" : "https:\/\/www.zimmerit.moe",
     "tags" : [
-      "ukrainian",
-      "kyiv",
-      "tv",
-      "politics",
-      "breaking"
-    ]
-  },
-  {
-    "category" : "Ukraine",
-    "country" : "Ukraine",
-    "description" : "Информационное агентство УНИАН :: Новости, Политика, Бизнес, Фотосервис, Регионы",
-    "feedURL" : "https:\/\/rss.unian.net\/site\/news_rus.rss",
-    "id" : "32c25369-b181-335e-3d97-897983fe7031",
-    "name" : "Информационное агентство УНИАН",
-    "siteURL" : "https:\/\/www.unian.net",
-    "tags" : [
-      "ukrainian",
-      "agency",
-      "politics",
-      "war",
-      "national"
-    ]
-  },
-  {
-    "category" : "Ukraine",
-    "country" : "Ukraine",
-    "description" : "Останні новини України та світу онлайн. Свіжі українські та світові новини політики, бізнесу, фінансів, технологій",
-    "feedURL" : "https:\/\/nv.ua\/rss\/all.xml",
-    "id" : "42e89edb-998e-7f00-fa77-4328ae9bd4db",
-    "name" : "НВ",
-    "siteURL" : "https:\/\/nv.ua\/",
-    "tags" : [
-      "ukrainian",
-      "kyiv",
-      "business",
-      "politics",
-      "culture"
+      "retro",
+      "model kits",
+      "vintage",
+      "hobby",
+      "collectibles"
     ]
   },
   {

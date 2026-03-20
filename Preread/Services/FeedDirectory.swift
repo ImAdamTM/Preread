@@ -231,9 +231,11 @@ final class FeedDirectory: @unchecked Sendable {
         "Sports",
         // Lifestyle & entertainment
         "Health & Wellness",
+        "Fitness",
         "Film & TV",
         "Music",
         "Gaming",
+        "Anime",
         "Celebrity & Pop Culture",
         "Food",
         "Travel",
@@ -263,6 +265,7 @@ final class FeedDirectory: @unchecked Sendable {
     private static let categoryIcons: [String: String] = [
         "AI": "brain",
         "Android": "apps.iphone",
+        "Anime": "sparkles.tv",
         "Apple": "apple.logo",
         "Architecture": "building.2",
         "Beauty": "sparkle",
@@ -275,6 +278,7 @@ final class FeedDirectory: @unchecked Sendable {
         "Environment": "leaf",
         "Fashion": "tshirt",
         "Film & TV": "film",
+        "Fitness": "figure.run",
         "Food": "fork.knife",
         "Gaming": "gamecontroller",
         "Health & Wellness": "heart",
