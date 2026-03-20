@@ -304,6 +304,17 @@
     ]
   },
   {
+    "category" : "World News",
+    "description" : "Independent journalism from the Middle East and beyond",
+    "feedURL" : "https:\/\/www.aljazeera.com\/xml\/rss\/all.xml",
+    "id" : "fa080031-bb9f-0725-b354-d2657f84d5bc",
+    "name" : "Al Jazeera English",
+    "siteURL" : "https:\/\/www.aljazeera.com",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Mobile Development",
     "description" : "Principal Software Engineer @ Just Eat Takeaway. Based in London, made in Italy",
     "feedURL" : "https:\/\/albertodebortoli.com\/rss\/",
@@ -1331,6 +1342,17 @@
     ]
   },
   {
+    "category" : "Photography",
+    "description" : "Camera and lens news and reviews, revived by Gear Patrol after Amazon shutdown",
+    "feedURL" : "https:\/\/www.dpreview.com\/feeds\/news.xml",
+    "id" : "57ba417d-d305-1ec3-a95f-33669039b7d3",
+    "name" : "DPReview",
+    "siteURL" : "https:\/\/www.dpreview.com",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Android",
     "description" : "Opinionated Android news and reviews",
     "feedURL" : "https:\/\/www.droid-life.com\/feed",
@@ -1787,6 +1809,17 @@
     "id" : "567e098e-4174-df54-6620-f502695f42d4",
     "name" : "Free Press Journal",
     "siteURL" : "https:\/\/www.freepressjournal.in",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Photography",
+    "description" : "Photography news, tutorials, and gear reviews for working professionals",
+    "feedURL" : "https:\/\/fstoppers.com\/feed",
+    "id" : "67c7e38d-bae0-8ccd-32bf-1d335e97342f",
+    "name" : "Fstoppers",
+    "siteURL" : "https:\/\/fstoppers.com",
     "tags" : [
 
     ]
@@ -2891,6 +2924,17 @@
     "id" : "1ec8fb3c-0807-430c-f198-5fb4e9550327",
     "name" : "Lenny's Newsletter",
     "siteURL" : "https:\/\/www.lennysnewsletter.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Photography",
+    "description" : "Contemporary photography from around the world — emerging and established artists",
+    "feedURL" : "https:\/\/www.lensculture.com\/feeds\/flipboard.rss",
+    "id" : "378de96c-07ef-2759-ada8-631bb8d7ced2",
+    "name" : "LensCulture",
+    "siteURL" : "https:\/\/www.lensculture.com",
     "tags" : [
 
     ]
@@ -4165,6 +4209,17 @@
     ]
   },
   {
+    "category" : "Travel",
+    "description" : "Mistake fares, error fares, and cheap flight deals from around the world",
+    "feedURL" : "https:\/\/www.secretflying.com\/feed\/",
+    "id" : "ae9b83c3-5148-8920-41c7-a258fe743d92",
+    "name" : "Secret Flying",
+    "siteURL" : "https:\/\/www.secretflying.com",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Business & Finance",
     "description" : "Crowdsourced investment analysis covering earnings, dividends, and stocks",
     "feedURL" : "https:\/\/seekingalpha.com\/feed",
@@ -4806,6 +4861,17 @@
     "id" : "42059b28-2b4a-290c-7223-5cecb5158ad0",
     "name" : "The Guardian Sport",
     "siteURL" : "https:\/\/www.theguardian.com\/us\/sport",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "World News",
+    "description" : "World news, comment, and analysis from The Guardian",
+    "feedURL" : "https:\/\/www.theguardian.com\/world\/rss",
+    "id" : "d64709a6-05cb-acc0-04d9-8965ab19a65f",
+    "name" : "The Guardian: World",
+    "siteURL" : "https:\/\/www.theguardian.com\/world",
     "tags" : [
 
     ]

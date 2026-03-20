@@ -1,6 +1,15 @@
 [
   {
     "category": "World News",
+    "description": "Independent journalism from the Middle East and beyond",
+    "feedURL": "https://www.aljazeera.com/xml/rss/all.xml",
+    "id": "fa080031-bb9f-0725-b354-d2657f84d5bc",
+    "name": "Al Jazeera English",
+    "siteURL": "https://www.aljazeera.com",
+    "tags": []
+  },
+  {
+    "category": "World News",
     "description": "Smart, efficient news coverage of politics, business, and technology",
     "feedURL": "https://api.axios.com/feed/",
     "id": "f5e8ac85-4e40-4b1e-48c1-10f82ecca136",
@@ -51,6 +60,15 @@
     "id": "72771e85-b141-6686-c704-7c5d452eddd6",
     "name": "The Atlantic",
     "siteURL": "https://www.theatlantic.com/",
+    "tags": []
+  },
+  {
+    "category": "World News",
+    "description": "World news, comment, and analysis from The Guardian",
+    "feedURL": "https://www.theguardian.com/world/rss",
+    "id": "d64709a6-05cb-acc0-04d9-8965ab19a65f",
+    "name": "The Guardian: World",
+    "siteURL": "https://www.theguardian.com/world",
     "tags": []
   },
   {

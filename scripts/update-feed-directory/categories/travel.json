@@ -46,6 +46,15 @@
   },
   {
     "category": "Travel",
+    "description": "Mistake fares, error fares, and cheap flight deals from around the world",
+    "feedURL": "https://www.secretflying.com/feed/",
+    "id": "ae9b83c3-5148-8920-41c7-a258fe743d92",
+    "name": "Secret Flying",
+    "siteURL": "https://www.secretflying.com",
+    "tags": []
+  },
+  {
+    "category": "Travel",
     "description": "Destination guides, hotel reviews, and travel tips from the editors of Travel + Leisure",
     "feedURL": "https://feeds-api.dotdashmeredith.com/v1/rss/google/90b927aa-066f-4f66-9162-a018ad8ea366",
     "id": "553569d6-57cf-71bd-9be0-36773df42711",

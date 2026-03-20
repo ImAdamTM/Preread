@@ -28,6 +28,33 @@
   },
   {
     "category": "Photography",
+    "description": "Camera and lens news and reviews, revived by Gear Patrol after Amazon shutdown",
+    "feedURL": "https://www.dpreview.com/feeds/news.xml",
+    "id": "57ba417d-d305-1ec3-a95f-33669039b7d3",
+    "name": "DPReview",
+    "siteURL": "https://www.dpreview.com",
+    "tags": []
+  },
+  {
+    "category": "Photography",
+    "description": "Photography news, tutorials, and gear reviews for working professionals",
+    "feedURL": "https://fstoppers.com/feed",
+    "id": "67c7e38d-bae0-8ccd-32bf-1d335e97342f",
+    "name": "Fstoppers",
+    "siteURL": "https://fstoppers.com",
+    "tags": []
+  },
+  {
+    "category": "Photography",
+    "description": "Contemporary photography from around the world — emerging and established artists",
+    "feedURL": "https://www.lensculture.com/feeds/flipboard.rss",
+    "id": "378de96c-07ef-2759-ada8-631bb8d7ced2",
+    "name": "LensCulture",
+    "siteURL": "https://www.lensculture.com",
+    "tags": []
+  },
+  {
+    "category": "Photography",
     "description": "Photography tips and inspiration",
     "feedURL": "https://www.lightstalking.com/feed/",
     "id": "b07199a0-7a95-63b1-0c10-24cc9602f114",
