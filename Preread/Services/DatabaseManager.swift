@@ -50,6 +50,8 @@ final class DatabaseManager {
                 t.column("fetchStatus", .text).notNull().defaults(to: "idle")
                 t.column("cacheLevel", .text)
                 t.column("appearanceMode", .text)
+                t.column("layout", .text)
+                t.column("homeLayout", .text)
                 t.column("sortOrder", .integer).notNull().defaults(to: 0)
             }
 
@@ -103,9 +105,20 @@ final class DatabaseManager {
                 fetchStatus: .idle,
                 cacheLevel: nil,
                 appearanceMode: nil,
+                layout: nil,
+                homeLayout: nil,
                 sortOrder: -1
             )
             try savedPagesSource.save(db)
+        }
+
+        migrator.registerMigration("v2-add-layout-columns") { db in
+            if try !db.columns(in: "source").contains(where: { $0.name == "layout" }) {
+                try db.alter(table: "source") { t in
+                    t.add(column: "layout", .text)
+                    t.add(column: "homeLayout", .text)
+                }
+            }
         }
 
     }

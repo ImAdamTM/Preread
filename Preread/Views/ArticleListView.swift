@@ -19,7 +19,6 @@ struct ArticleListView: View {
     @State private var transitionSourceID: String?
     @State private var showSourceSettings = false
     @State private var currentCacheLevel: CacheLevel = .standard
-    @State private var currentFetchFrequency: FetchFrequency = .automatic
     @State private var currentSourceName: String = ""
     @State private var hasInitializedSettings = false
     @State private var heroTitleMinY: CGFloat = 200
@@ -77,7 +76,6 @@ struct ArticleListView: View {
 
             if !hasInitializedSettings {
                 currentCacheLevel = source.cacheLevel ?? .standard
-                currentFetchFrequency = source.fetchFrequency
                 currentSourceName = source.title
                 lastFetchedAt = source.lastFetchedAt
                 hasInitializedSettings = true
@@ -95,7 +93,7 @@ struct ArticleListView: View {
 
             // Retry any pending/failed articles, then backfill remaining
             // uncached articles that were skipped during the foreground refresh.
-            let retrySource = currentSource
+            let retrySource = source
             Task {
                 await coordinator.retryFailedArticles(for: retrySource)
                 await coordinator.backfillArticles(for: retrySource)
@@ -265,7 +263,7 @@ struct ArticleListView: View {
 
             HStack(spacing: 4) {
                 Button {
-                    Task { await FetchCoordinator.shared.refreshSingleSource(currentSource) }
+                    Task { await FetchCoordinator.shared.refreshSingleSource(source) }
                 } label: {
                     allArticlesRefreshIcon
                         .frame(width: 36, height: 36)
@@ -644,28 +642,6 @@ struct ArticleListView: View {
                                 }
                         }
 
-                        // Check for new articles
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("CHECK FOR NEW ARTICLES")
-                                .font(Theme.scaledFont(size: 12, weight: .semibold, relativeTo: .caption))
-                                .foregroundColor(Theme.textSecondary)
-
-                            HStack(spacing: 8) {
-                                frequencyOption(.automatic, title: "Auto", subtitle: "Periodically")
-                                frequencyOption(.onOpen, title: "On open", subtitle: "When you launch")
-                                frequencyOption(.manual, title: "Manual", subtitle: "Only when asked")
-                            }
-                        }
-
-                        // Save quality
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("SAVE QUALITY")
-                                .font(Theme.scaledFont(size: 12, weight: .semibold, relativeTo: .caption))
-                                .foregroundColor(Theme.textSecondary)
-
-                            CacheFidelitySlider(selectedLevel: $currentCacheLevel)
-                        }
-
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 20)
@@ -681,72 +657,15 @@ struct ArticleListView: View {
                 }
             }
         }
-        .presentationDetents([.fraction(0.55)])
+        .presentationDetents([.fraction(0.35)])
         .presentationDragIndicator(.visible)
         .presentationBackground(Theme.sheetBackground)
-        .onChange(of: currentCacheLevel) { _, newLevel in
-            Task { await updateSourceCacheLevel(newLevel) }
-        }
-        .onChange(of: currentFetchFrequency) { _, newFrequency in
-            Task { await updateSourceFetchFrequency(newFrequency) }
-        }
-    }
-
-    private func frequencyOption(_ frequency: FetchFrequency, title: String, subtitle: String) -> some View {
-        let isSelected = currentFetchFrequency == frequency
-        return Button {
-            currentFetchFrequency = frequency
-        } label: {
-            VStack(spacing: 2) {
-                Text(title)
-                    .font(Theme.scaledFont(size: 14, weight: .semibold, relativeTo: .subheadline))
-                    .foregroundColor(isSelected ? .white : Theme.textPrimary)
-                Text(subtitle)
-                    .font(Theme.scaledFont(size: 11, relativeTo: .caption))
-                    .foregroundColor(isSelected ? .white.opacity(0.7) : Theme.textSecondary)
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 12)
-            .background(isSelected ? AnyShapeStyle(Theme.accentGradient) : AnyShapeStyle(Theme.surfaceRaised))
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(isSelected ? Color.clear : Theme.border, lineWidth: 1)
-            )
-        }
-    }
-
-    /// Builds a source with all current local state applied, so updates don't overwrite each other.
-    private var currentSource: Source {
-        var s = source
-        s.title = currentSourceName.trimmingCharacters(in: .whitespaces).isEmpty ? source.title : currentSourceName
-        s.fetchFrequency = currentFetchFrequency
-        s.cacheLevel = currentCacheLevel
-        return s
     }
 
     private func updateSourceName(_ name: String) async {
-        var updated = currentSource
-        updated.title = name
-        let snapshot = updated
-        try? await DatabaseManager.shared.dbPool.write { db in
-            try snapshot.update(db)
-        }
-    }
-
-    private func updateSourceFetchFrequency(_ frequency: FetchFrequency) async {
-        var updated = currentSource
-        updated.fetchFrequency = frequency
-        let snapshot = updated
-        try? await DatabaseManager.shared.dbPool.write { db in
-            try snapshot.update(db)
-        }
-    }
-
-    private func updateSourceCacheLevel(_ level: CacheLevel) async {
-        var updated = currentSource
-        updated.cacheLevel = level
-        let snapshot = updated
+        var s = source
+        s.title = name
+        let snapshot = s
         try? await DatabaseManager.shared.dbPool.write { db in
             try snapshot.update(db)
         }
@@ -783,7 +702,6 @@ struct ArticleListView: View {
         }) else { return }
         currentSourceName = fresh.title
         currentCacheLevel = fresh.cacheLevel ?? .standard
-        currentFetchFrequency = fresh.fetchFrequency
         lastFetchedAt = fresh.lastFetchedAt
     }
 

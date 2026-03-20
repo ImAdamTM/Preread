@@ -16,6 +16,7 @@ struct SettingsView: View {
 
     @AppStorage("wifiOnly") private var wifiOnly = false
     @AppStorage("backgroundRefreshEnabled") private var backgroundRefreshEnabled = true
+    @AppStorage("fetchFrequency") private var fetchFrequency: String = FetchFrequency.automatic.rawValue
 
     // MARK: - Storage
 
@@ -247,6 +248,18 @@ struct SettingsView: View {
 
     private var syncingSection: some View {
         Section {
+            // Check for new articles
+            VStack(alignment: .leading, spacing: 8) {
+                settingLabel("Check for new articles")
+
+                HStack(spacing: 8) {
+                    syncFrequencyOption(.automatic, title: "Auto", subtitle: "Periodically")
+                    syncFrequencyOption(.onOpen, title: "On open", subtitle: "When you launch")
+                    syncFrequencyOption(.manual, title: "Manual", subtitle: "Only when asked")
+                }
+            }
+            .settingsRow()
+
             Toggle(isOn: $wifiOnly) {
                 VStack(alignment: .leading, spacing: 2) {
                     settingLabel("WiFi only")
@@ -272,6 +285,30 @@ struct SettingsView: View {
             sectionHeader("SYNCING")
         }
         .listRowBackground(Theme.card)
+    }
+
+    private func syncFrequencyOption(_ frequency: FetchFrequency, title: String, subtitle: String) -> some View {
+        let isSelected = fetchFrequency == frequency.rawValue
+        return Button {
+            fetchFrequency = frequency.rawValue
+        } label: {
+            VStack(spacing: 2) {
+                Text(title)
+                    .font(Theme.scaledFont(size: 14, weight: .semibold, relativeTo: .subheadline))
+                    .foregroundColor(isSelected ? .white : Theme.textPrimary)
+                Text(subtitle)
+                    .font(Theme.scaledFont(size: 11, relativeTo: .caption))
+                    .foregroundColor(isSelected ? .white.opacity(0.7) : Theme.textSecondary)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 12)
+            .background(isSelected ? AnyShapeStyle(Theme.accentGradient) : AnyShapeStyle(Theme.surfaceRaised))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(isSelected ? Color.clear : Theme.border, lineWidth: 1)
+            )
+        }
     }
 
     // MARK: - Storage section

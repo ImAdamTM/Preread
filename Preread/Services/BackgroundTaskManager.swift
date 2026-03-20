@@ -94,6 +94,11 @@ enum BackgroundTaskManager {
     /// work can complete within the ~30-second BGAppRefreshTask budget.
     /// The heavier processing task handles the actual caching afterwards.
     private static func refreshFeeds() async {
+        let globalFrequency = FetchFrequency(rawValue: UserDefaults.standard.string(forKey: "fetchFrequency") ?? "") ?? .automatic
+        guard globalFrequency == .automatic else {
+            logger.info("Skipping background refresh — global frequency is \(globalFrequency.rawValue)")
+            return
+        }
         guard !NetworkMonitor.shouldSkipForWiFiOnly else {
             logger.info("Skipping refresh — WiFi-only mode and not on WiFi")
             return
@@ -102,11 +107,10 @@ enum BackgroundTaskManager {
             let sources = try await DatabaseManager.shared.dbPool.read { db in
                 try Source
                     .filter(Column("id") != Source.savedPagesID)
-                    .filter(Column("fetchFrequency") == FetchFrequency.automatic.rawValue)
                     .fetchAll(db)
             }
 
-            logger.info("Refreshing \(sources.count) automatic sources")
+            logger.info("Refreshing \(sources.count) sources")
 
             // Phase 1: Parse all feeds (fast) and collect new items per source.
             // Re-attach any saved articles that were detached.

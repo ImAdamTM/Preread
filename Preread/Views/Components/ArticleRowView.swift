@@ -60,7 +60,7 @@ struct ArticleRowView: View {
                                     .foregroundColor(Theme.textSecondary.opacity(0.7))
                             }
                             Text(status.text)
-                                .font(Theme.scaledFont(size: 13, weight: .medium, relativeTo: .footnote))
+                                .font(Theme.scaledFont(size: 13, weight: status.weight, relativeTo: .footnote))
                                 .foregroundColor(status.color)
                         }
                     }
@@ -388,19 +388,19 @@ struct ArticleRowView: View {
 
     // MARK: - Status label
 
-    private var statusLabel: (text: String, color: Color)? {
+    private var statusLabel: (text: String, color: Color, weight: Font.Weight)? {
         switch article.fetchStatus {
         case .cached, .partial:
             if let minutes = article.readingMinutes {
-                return (ReadingTimeFormatter.articleFormatted(minutes: minutes), Theme.textSecondary.opacity(0.7))
+                return (ReadingTimeFormatter.articleFormatted(minutes: minutes), Theme.textSecondary.opacity(0.7), .regular)
             }
             return nil
         case .fetching:
-            return ("Saving", Theme.textSecondary.opacity(0.7))
+            return ("Saving", Theme.textSecondary.opacity(0.7), .medium)
         case .pending:
-            return ("Pending", Theme.warning.opacity(0.5))
+            return ("Pending", Theme.warning.opacity(0.5), .medium)
         case .failed:
-            return ("Failed", Theme.danger.opacity(0.5))
+            return ("Failed", Theme.danger.opacity(0.5), .medium)
         }
     }
 

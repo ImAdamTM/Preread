@@ -26,6 +26,12 @@ enum AppearanceMode: String, Codable, CaseIterable, DatabaseValueConvertible {
     case dark
 }
 
+enum SourceLayout: String, Codable, CaseIterable, DatabaseValueConvertible {
+    case list
+    case cards
+    case carousel
+}
+
 // MARK: - Source
 
 struct Source: Identifiable, Codable, FetchableRecord, PersistableRecord {
@@ -44,6 +50,8 @@ struct Source: Identifiable, Codable, FetchableRecord, PersistableRecord {
     var fetchStatus: SourceFetchStatus
     var cacheLevel: CacheLevel?
     var appearanceMode: AppearanceMode?
+    var layout: SourceLayout?
+    var homeLayout: SourceLayout?
     var sortOrder: Int
 
     /// Returns the per-source cache level, defaulting to .standard.
@@ -54,6 +62,16 @@ struct Source: Identifiable, Codable, FetchableRecord, PersistableRecord {
     /// Returns the per-source appearance mode, defaulting to .system.
     var effectiveAppearanceMode: AppearanceMode {
         appearanceMode ?? .system
+    }
+
+    /// Returns the per-source layout, defaulting to .list.
+    var effectiveLayout: SourceLayout {
+        layout ?? .list
+    }
+
+    /// Returns the per-source home layout, defaulting to .list.
+    var effectiveHomeLayout: SourceLayout {
+        homeLayout ?? .list
     }
 
     /// Whether this source is hidden from the main sources list (e.g. the "Saved Pages" source).

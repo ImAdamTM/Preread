@@ -10,7 +10,7 @@ private func makeSource() throws -> Source {
     let source = Source(
         id: UUID(),
         title: "Test Source",
-        feedURL: "https://example.com/feed",
+        feedURL: "https://example.com/feed/\(UUID().uuidString)",
         siteURL: "https://example.com",
         iconURL: nil,
         addedAt: Date(),

@@ -21,7 +21,6 @@ struct AddSourceSheet: View {
     @State private var sheetState: SheetState = .input
     @State private var detectedFeed: DiscoveredFeed?
     @State private var editableName = ""
-    @State private var selectedFrequency: FetchFrequency = .automatic
     @State private var selectedCacheLevel: CacheLevel = .standard
     @State private var existingSourceName: String?
     @State private var existingSourceID: UUID?
@@ -667,19 +666,6 @@ struct AddSourceSheet: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
             }
 
-            // Fetch frequency picker
-            VStack(alignment: .leading, spacing: 6) {
-                Text("Check for new articles")
-                    .font(Theme.scaledFont(size: 13, weight: .medium))
-                    .foregroundColor(Theme.textSecondary)
-
-                HStack(spacing: 8) {
-                    frequencyCard(.automatic, title: "Auto", subtitle: "Periodically")
-                    frequencyCard(.onOpen, title: "On open", subtitle: "When you launch")
-                    frequencyCard(.manual, title: "Manual", subtitle: "Only when asked")
-                }
-            }
-
             // Preview articles
             if let items = detectedFeed?.items.prefix(3), !items.isEmpty {
                 VStack(alignment: .leading, spacing: 6) {
@@ -946,30 +932,6 @@ struct AddSourceSheet: View {
 
     // MARK: - Frequency picker card
 
-    private func frequencyCard(_ frequency: FetchFrequency, title: String, subtitle: String) -> some View {
-        let isSelected = selectedFrequency == frequency
-        return Button {
-            selectedFrequency = frequency
-        } label: {
-            VStack(spacing: 2) {
-                Text(title)
-                    .font(Theme.scaledFont(size: 14, weight: .semibold))
-                    .foregroundColor(isSelected ? .white : Theme.textPrimary)
-                Text(subtitle)
-                    .font(Theme.scaledFont(size: 11))
-                    .foregroundColor(isSelected ? .white.opacity(0.7) : Theme.textSecondary)
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 12)
-            .background(isSelected ? AnyShapeStyle(Theme.accentGradient) : AnyShapeStyle(Theme.surfaceRaised))
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(isSelected ? Color.clear : Theme.border, lineWidth: 1)
-            )
-        }
-    }
-
     // MARK: - CTA shimmer
 
     private var ctaShimmerOverlay: some View {
@@ -1175,9 +1137,12 @@ struct AddSourceSheet: View {
                     iconURL: nil,
                     addedAt: Date(),
                     lastFetchedAt: nil,
-                    fetchFrequency: selectedFrequency,
+                    fetchFrequency: .automatic,
                     fetchStatus: .idle,
                     cacheLevel: .standard,
+                    appearanceMode: nil,
+                    layout: nil,
+                    homeLayout: nil,
                     sortOrder: 0
                 )
 
@@ -1232,7 +1197,6 @@ struct AddSourceSheet: View {
         guard let url = URL(string: normalized) else { return }
 
         isURLFieldFocused = false
-        selectedFrequency = .manual
         selectedCacheLevel = .standard
 
         // Pre-fill with domain, improve with <title> in background

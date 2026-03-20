@@ -64,27 +64,31 @@ final class FetchCoordinator: ObservableObject {
         HapticManager.allRefreshComplete()
     }
 
-    // MARK: - Refresh .onOpen sources (called at app launch)
+    // MARK: - Refresh sources on app open (called at app launch)
 
-    /// Refreshes only sources whose fetchFrequency is .onOpen.
+    /// Refreshes all non-hidden sources when the global fetch frequency is .onOpen.
     func refreshOnOpenSources() async {
+        let globalFrequency = FetchFrequency(rawValue: UserDefaults.standard.string(forKey: "fetchFrequency") ?? "") ?? .automatic
+        guard globalFrequency == .onOpen else { return }
         guard !NetworkMonitor.shouldSkipForWiFiOnly else { return }
         do {
-            let onOpenSources = try await DatabaseManager.shared.dbPool.read { db in
+            let sources = try await DatabaseManager.shared.dbPool.read { db in
                 try Source
-                    .filter(Column("fetchFrequency") == FetchFrequency.onOpen.rawValue)
+                    .filter(Column("id") != Source.savedPagesID)
+                    .order(Column("sortOrder"))
                     .fetchAll(db)
             }
-            guard !onOpenSources.isEmpty else { return }
-            await refreshSourcesWithPriority(onOpenSources, skipBackfill: true)
+            guard !sources.isEmpty else { return }
+            await refreshSourcesWithPriority(sources, skipBackfill: true)
         } catch {
             // Non-critical
         }
     }
 
-    // MARK: - Refresh stale .automatic sources (called on foreground resume)
+    // MARK: - Refresh stale sources (called on foreground resume)
 
-    /// Refreshes .automatic sources that haven't been checked recently.
+    /// Refreshes sources that haven't been checked recently when the global
+    /// fetch frequency is .automatic.
     /// Uses a 1-hour staleness threshold — if background tasks ran on time,
     /// this is a no-op. Acts as a safety net when background execution is delayed.
     ///
@@ -93,12 +97,15 @@ final class FetchCoordinator: ObservableObject {
     /// are deferred until `refreshDeferredStaleSources()` is called (typically
     /// when navigating back to the home screen).
     func refreshStaleAutoSources() async {
+        let globalFrequency = FetchFrequency(rawValue: UserDefaults.standard.string(forKey: "fetchFrequency") ?? "") ?? .automatic
+        guard globalFrequency == .automatic else { return }
         guard !NetworkMonitor.shouldSkipForWiFiOnly else { return }
         let staleThreshold: TimeInterval = 60 * 60 // 1 hour
         do {
             let staleSources = try await DatabaseManager.shared.dbPool.read { db in
                 try Source
-                    .filter(Column("fetchFrequency") == FetchFrequency.automatic.rawValue)
+                    .filter(Column("id") != Source.savedPagesID)
+                    .order(Column("sortOrder"))
                     .fetchAll(db)
             }.filter { source in
                 guard let lastFetched = source.lastFetchedAt else { return true }
