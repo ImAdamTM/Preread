@@ -196,8 +196,14 @@ struct AddSourceSheet: View {
                     .font(Theme.scaledFont(size: 16))
                     .foregroundColor(Theme.textPrimary)
                     .focused($isURLFieldFocused)
-                    .submitLabel(.go)
-                    .onSubmit { startDetection() }
+                    .submitLabel(looksLikeURL(urlText) ? .go : .done)
+                    .onSubmit {
+                        if looksLikeURL(urlText) {
+                            startDetection()
+                        } else {
+                            isURLFieldFocused = false
+                        }
+                    }
 
                 if !urlText.isEmpty {
                     Button {
@@ -1052,6 +1058,13 @@ struct AddSourceSheet: View {
                 .font(Theme.scaledFont(size: size * 0.45, weight: .bold))
                 .foregroundColor(.white)
         }
+    }
+
+    // MARK: - Helpers
+
+    private func looksLikeURL(_ text: String) -> Bool {
+        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.contains(".") && !trimmed.contains(" ")
     }
 
     // MARK: - Actions
