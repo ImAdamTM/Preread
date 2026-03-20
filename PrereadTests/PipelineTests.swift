@@ -220,6 +220,52 @@ struct StandardPipelineTests {
         #expect(!result.contentHTML.contains("<nav"))
         #expect(!result.contentHTML.contains("<style"))
     }
+
+    // MARK: - TMZ
+
+    @Test("TMZ: hero bar promo images skipped, correct article image used")
+    func tmzArticle() async throws {
+        let html = try loadFixture("tmz_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.tmz.com/2026/03/19/jessi-draper-jordan-ngatikaura-files-divorce/")!
+        )
+
+        #expect(result.title.contains("Ngatikaura"))
+        #expect(result.contentHTML.contains("divorce"))
+        #expect(result.imageCount >= 2, "Article images should be preserved")
+        // The hero bar contains thumbnails for other articles (e.g. Taylor Frankie Paul).
+        // These should NOT be re-injected as the hero image.
+        #expect(!result.contentHTML.contains("49e7759df340449dac6c9472319fe480"),
+                "Hero bar promo thumbnail from different article should not be injected")
+        // The correct article image should be present
+        #expect(result.contentHTML.contains("364fd81b76d04acc88216bf49fd45b4c"),
+                "Actual article hero image should be present")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+    }
+
+    // MARK: - Perez Hilton
+
+    @Test("Perez Hilton: theme decoration image not injected as hero, article image preserved")
+    func perezHiltonArticle() async throws {
+        let html = try loadFixture("perezhilton_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://perezhilton.com/taylor-frankie-paul-dropped-by-meta-facebook-instagram-after-the-bachelorette-domestic-violence/")!
+        )
+
+        #expect(result.title.contains("Taylor Frankie Paul"))
+        #expect(result.contentHTML.contains("domestic violence"))
+        // The site theme decoration (St. Patrick's Day background) should NOT be the hero
+        #expect(!result.contentHTML.contains("feature-st-patrick"),
+                "Theme decoration image should not be injected as hero")
+        // The actual article image should be present
+        #expect(result.contentHTML.contains("taylor-frankie-paul-dropped-by-meta-the-bachelorette"),
+                "Actual article hero image should be present")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+    }
 }
 
 // MARK: - Full-mode tests
@@ -459,5 +505,59 @@ struct FullPipelineTests {
         #expect(result.cleanedHTML.contains("Golf"))
         #expect(result.cleanedHTML.contains("Polo"))
         #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
+    }
+
+    // MARK: - TMZ
+
+    @Test("TMZ: hero bar promo images skipped in thumbnail selection")
+    func tmzArticle() async throws {
+        let html = try loadFixture("tmz_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.tmz.com/2026/03/19/jessi-draper-jordan-ngatikaura-files-divorce/")!
+        )
+
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form"))
+
+        // Content should be preserved
+        #expect(result.cleanedHTML.contains("divorce"))
+        #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
+
+        // Hero image should be the article's own image, not a hero bar promo
+        if let hero = result.heroImageURL {
+            #expect(!hero.contains("49e7759df340449dac6c9472319fe480"),
+                    "Hero bar promo thumbnail should not be selected as hero image")
+        }
+    }
+
+    // MARK: - Perez Hilton
+
+    @Test("Perez Hilton: theme decoration stripped, article content preserved")
+    func perezHiltonArticle() async throws {
+        let html = try loadFixture("perezhilton_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://perezhilton.com/taylor-frankie-paul-dropped-by-meta-facebook-instagram-after-the-bachelorette-domestic-violence/")!
+        )
+
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form"))
+
+        // Content should be preserved
+        #expect(result.cleanedHTML.contains("domestic violence"))
+        #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
+
+        // Theme decoration should not be the hero image
+        if let hero = result.heroImageURL {
+            #expect(!hero.contains("feature-st-patrick"),
+                    "Theme decoration image should not be selected as hero image")
+        }
     }
 }

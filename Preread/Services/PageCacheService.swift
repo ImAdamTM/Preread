@@ -301,6 +301,8 @@ actor PageCacheService {
             let alt = (try? img.attr("alt"))?.lowercased() ?? ""
             // Skip site chrome: SVGs, logos, flags, icons, social widgets
             if srcLower.contains(".svg") { return false }
+            // WordPress theme assets are always site-wide decoration, never article content
+            if srcLower.contains("/wp-content/themes/") { return false }
             let chromeWords = [
                 "logo", "flag", "icon", "badge", "spinner",
                 "facebook", "twitter", "instagram", "pinterest", "tiktok",
@@ -320,16 +322,40 @@ actor PageCacheService {
                 if (try? el.attr("aria-hidden")) == "true" { return false }
                 let attrs = el.getAttributes()?
                     .asList().map { $0.getValue().lowercased() } ?? []
-                let attrText = attrs.joined(separator: " ")
+                // Split attribute values into individual hyphen-delimited tokens
+                // so "category-facebook" yields ["category", "facebook"] and
+                // compound class names like that don't false-positive on "facebook".
+                // We only match chrome words that appear as leading segments:
+                // "facebook-share" → matches "facebook", but "category-facebook" → doesn't.
+                let tokens = Set(attrs.flatMap { $0.split(separator: " ").map(String.init) })
                 for word in chromeWords {
-                    if attrText.contains(word) { return false }
+                    for token in tokens {
+                        if token == word || token.hasPrefix(word + "-") { return false }
+                    }
                 }
                 ancestor = el.parent()
             }
-            // "avatar" in URLs usually means a user profile image (/avatar/, /avatars/)
-            // but not when it's part of article content (e.g. Avatar: The Last Airbender)
+            // "avatar" in URLs usually means a user profile image (/avatar/, /avatars/,
+            // avatar.jpg) but not when it's part of article content (e.g. Avatar: The Last Airbender)
             if srcLower.contains("/avatar/") || srcLower.contains("/avatars/")
+                || srcLower.contains("avatar.jpg") || srcLower.contains("avatar.png")
                 || imgId.contains("avatar") { return false }
+            // Skip images inside <a> links that navigate to a different page.
+            // These are navigation/promo thumbnails (e.g. hero bars, related
+            // article cards) not the article's own hero image.
+            var walk: Element? = img.parent()
+            for _ in 0..<5 {
+                guard let el = walk else { break }
+                if el.tagName() == "a",
+                   let href = try? el.attr("href"), !href.isEmpty,
+                   let linkURL = URL(string: href, relativeTo: pageURL) {
+                    let linkPath = linkURL.path.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+                    let pagePath = pageURL.path.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+                    if !linkPath.isEmpty && linkPath != pagePath { return false }
+                    break
+                }
+                walk = el.parent()
+            }
             return true
         }
 
@@ -489,6 +515,20 @@ actor PageCacheService {
                 ]
                 for word in chromeWords {
                     if imgId.contains(word) || alt.contains(word) || srcLower.contains(word) { return false }
+                }
+                // Skip images inside <a> links to different pages (navigation/promo thumbnails)
+                var walk: Element? = img.parent()
+                for _ in 0..<5 {
+                    guard let el = walk else { break }
+                    if el.tagName() == "a",
+                       let href = try? el.attr("href"), !href.isEmpty,
+                       let linkURL = URL(string: href, relativeTo: pageURL) {
+                        let linkPath = linkURL.path.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+                        let pagePath = pageURL.path.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+                        if !linkPath.isEmpty && linkPath != pagePath { return false }
+                        break
+                    }
+                    walk = el.parent()
                 }
                 return true
             })

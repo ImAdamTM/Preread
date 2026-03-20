@@ -489,6 +489,8 @@ if isFullMode {
             let imgId = (try? img.attr("id"))?.lowercased() ?? ""
             let alt = (try? img.attr("alt"))?.lowercased() ?? ""
             if srcLower.contains(".svg") { return false }
+            // WordPress theme assets are always site-wide decoration, never article content
+            if srcLower.contains("/wp-content/themes/") { return false }
             let chromeWords = [
                 "logo", "flag", "icon", "badge", "spinner",
                 "facebook", "twitter", "instagram", "pinterest", "tiktok",
@@ -508,9 +510,16 @@ if isFullMode {
                 if (try? el.attr("aria-hidden")) == "true" { return false }
                 let attrs = el.getAttributes()?
                     .asList().map { $0.getValue().lowercased() } ?? []
-                let attrText = attrs.joined(separator: " ")
+                // Split attribute values into individual hyphen-delimited tokens
+                // so "category-facebook" yields ["category", "facebook"] and
+                // compound class names like that don't false-positive on "facebook".
+                // We only match chrome words that appear as leading segments:
+                // "facebook-share" → matches "facebook", but "category-facebook" → doesn't.
+                let tokens = Set(attrs.flatMap { $0.split(separator: " ").map(String.init) })
                 for word in chromeWords {
-                    if attrText.contains(word) { return false }
+                    for token in tokens {
+                        if token == word || token.hasPrefix(word + "-") { return false }
+                    }
                 }
                 ancestor = el.parent()
             }

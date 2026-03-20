@@ -1,0 +1,362 @@
+[
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "Celebrity news, quizzes, lists, and viral pop culture content",
+    "feedURL": "https://www.buzzfeed.com/index.xml",
+    "id": "a8766304-3def-fa08-7935-19517522a22e",
+    "name": "BuzzFeed",
+    "siteURL": "https://www.buzzfeed.com",
+    "tags": [
+      "quizzes",
+      "viral",
+      "lists",
+      "trending",
+      "memes"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "Celebrity gossip and commentary with an opinionated editorial voice",
+    "feedURL": "https://www.celebitchy.com/feed/",
+    "id": "adcac71d-ab72-f158-73dd-a27c776049fd",
+    "name": "Celebitchy",
+    "siteURL": "https://www.celebitchy.com",
+    "tags": [
+      "gossip",
+      "royals",
+      "red carpet",
+      "opinion",
+      "fashion"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "Hip-hop, streetwear, and pop culture crossover coverage",
+    "feedURL": "https://www.complex.com/index.xml",
+    "id": "e032ca8a-dad5-4606-7c1a-1270dda767e3",
+    "name": "Complex",
+    "siteURL": "https://www.complex.com",
+    "tags": [
+      "hip hop",
+      "sneakers",
+      "streetwear",
+      "rap",
+      "interviews"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "Celebrity news, relationships, and pop culture alongside beauty and lifestyle",
+    "feedURL": "https://www.cosmopolitan.com/rss/all.xml/",
+    "id": "c9cf16dc-2205-2aef-253e-8ee4bf4cd368",
+    "name": "Cosmopolitan",
+    "siteURL": "https://www.cosmopolitan.com",
+    "tags": [
+      "relationships",
+      "dating",
+      "beauty",
+      "wellness",
+      "lifestyle"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "High-volume celebrity photos, news, and the infamous sidebar of shame",
+    "feedURL": "https://www.dailymail.co.uk/tvshowbiz/index.rss",
+    "id": "a64cc9ff-42ee-8c1f-8704-b659407632ea",
+    "name": "Daily Mail Celebrity",
+    "siteURL": "https://www.dailymail.co.uk/tvshowbiz/",
+    "tags": [
+      "paparazzi",
+      "photos",
+      "british",
+      "tabloid",
+      "sidebar of shame"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "Snarky celebrity gossip from one of the last great independent gossip blogs",
+    "feedURL": "https://dlisted.com/feed/",
+    "id": "77c87aa8-8830-7df8-fc03-447f2d5a339e",
+    "name": "Dlisted",
+    "siteURL": "https://dlisted.com",
+    "tags": [
+      "gossip",
+      "snarky",
+      "independent",
+      "humor",
+      "commentary"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "Red carpet, celebrity relationships, and reality TV coverage from NBCUniversal",
+    "feedURL": "https://www.eonline.com/syndication/feeds/rssfeeds/topstories.xml",
+    "id": "b269fba3-5035-a7e7-8d35-b82757bbff5c",
+    "name": "E! News",
+    "siteURL": "https://www.eonline.com",
+    "tags": [
+      "red carpet",
+      "reality tv",
+      "kardashians",
+      "awards",
+      "interviews"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "Pop culture, celebrity interviews, and entertainment news",
+    "feedURL": "https://feeds-api.dotdashmeredith.com/v1/rss/google/06e092d0-4dff-468a-93db-8d6a995730b4",
+    "id": "631a947b-43c3-cd02-7e6e-e46d0b815242",
+    "name": "Entertainment Weekly",
+    "siteURL": "https://ew.com",
+    "tags": [
+      "interviews",
+      "recaps",
+      "previews",
+      "awards",
+      "fandom"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "Celebrity interviews, pop culture, and lifestyle from Condé Nast",
+    "feedURL": "https://www.glamour.com/feed/rss",
+    "id": "b5bcc9b1-0c1f-2870-4a9a-32d925895e7b",
+    "name": "Glamour",
+    "siteURL": "https://www.glamour.com",
+    "tags": [
+      "women",
+      "beauty",
+      "fashion",
+      "wellness",
+      "interviews"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "Celebrity news, TV spoilers, and high-volume entertainment coverage",
+    "feedURL": "https://hollywoodlife.com/feed/",
+    "id": "0026c2c3-f584-bec8-2e63-d5ac138de993",
+    "name": "Hollywood Life",
+    "siteURL": "https://hollywoodlife.com",
+    "tags": [
+      "spoilers",
+      "tv",
+      "breaking",
+      "couples",
+      "red carpet"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "Celebrity and culture coverage with a feminist lens",
+    "feedURL": "https://jezebel.com/rss",
+    "id": "e75247f5-de43-f885-1349-7dc5475d0911",
+    "name": "Jezebel",
+    "siteURL": "https://jezebel.com",
+    "tags": [
+      "feminism",
+      "culture",
+      "politics",
+      "opinion",
+      "women"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "Fast celebrity photos, sightings, and entertainment news",
+    "feedURL": "https://www.justjared.com/feed/",
+    "id": "2625c61b-e0e9-0c84-3043-941c7f0151cd",
+    "name": "Just Jared",
+    "siteURL": "https://www.justjared.com",
+    "tags": [
+      "photos",
+      "paparazzi",
+      "sightings",
+      "outfits",
+      "breaking"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "Analytical celebrity commentary that breaks down PR strategy behind celebrity moves",
+    "feedURL": "https://www.laineygossip.com/feed",
+    "id": "aea14506-ff31-b2ae-1017-d1949e0ef018",
+    "name": "Lainey Gossip",
+    "siteURL": "https://www.laineygossip.com",
+    "tags": [
+      "pr strategy",
+      "analysis",
+      "royals",
+      "canadian",
+      "smart gossip"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "Music, celebrity, and youth culture with an indie sensibility",
+    "feedURL": "https://www.nylon.com/rss",
+    "id": "66b79f9a-daf0-719e-92a4-cd7c5c97cb98",
+    "name": "Nylon",
+    "siteURL": "https://www.nylon.com",
+    "tags": [
+      "gen z",
+      "music",
+      "indie",
+      "style",
+      "emerging"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "New York Post's gossip column — the most plugged-in celebrity source with industry connections",
+    "feedURL": "https://pagesix.com/feed/",
+    "id": "89264ac1-3cd2-328c-322c-e00ddb2e550e",
+    "name": "Page Six",
+    "siteURL": "https://pagesix.com",
+    "tags": [
+      "gossip",
+      "new york",
+      "scoops",
+      "nightlife",
+      "divorces"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "The dominant celebrity news brand covering relationships, style, and human interest",
+    "feedURL": "https://feeds-api.dotdashmeredith.com/v1/rss/google/6bb3396f-8157-4dc5-8fcf-c1bd9d415be8",
+    "id": "7dfeccf0-2b94-a0be-99f7-f1e3b1745300",
+    "name": "People",
+    "siteURL": "https://people.com",
+    "tags": [
+      "exclusives",
+      "weddings",
+      "babies",
+      "royals",
+      "human interest"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "The OG celebrity gossip blogger — high volume commentary and scoops",
+    "feedURL": "https://perezhilton.com/feed/",
+    "id": "a5818fc8-189c-ecf5-f0f6-4a05255ffa8e",
+    "name": "Perez Hilton",
+    "siteURL": "https://perezhilton.com",
+    "tags": [
+      "gossip",
+      "blogger",
+      "commentary",
+      "drama",
+      "scoops"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "Celebrity, entertainment, fashion, and lifestyle for millennial women",
+    "feedURL": "https://www.popsugar.com/feed",
+    "id": "590ddb95-c89c-05e6-4b7f-d02b35ed63ae",
+    "name": "PopSugar",
+    "siteURL": "https://www.popsugar.com",
+    "tags": [
+      "lifestyle",
+      "fashion",
+      "fitness",
+      "entertainment",
+      "shopping"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "Celebrity and pop culture alongside fashion and beauty for a younger audience",
+    "feedURL": "https://www.refinery29.com/rss.xml",
+    "id": "b6e1adbe-35d3-7dad-f3bb-6b5c0e5b68f2",
+    "name": "Refinery29",
+    "siteURL": "https://www.refinery29.com",
+    "tags": [
+      "millennial",
+      "fashion",
+      "beauty",
+      "wellness",
+      "identity"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "Major Black celebrity and pop culture news brand with enormous social reach",
+    "feedURL": "https://theshaderoom.com/feed/",
+    "id": "75f3b63f-7312-079a-5abb-7c510b092804",
+    "name": "The Shade Room",
+    "siteURL": "https://theshaderoom.com",
+    "tags": [
+      "black culture",
+      "hip hop",
+      "instagram",
+      "viral",
+      "drama"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "The breaking celebrity news machine — breaks stories before anyone else",
+    "feedURL": "https://www.tmz.com/rss.xml",
+    "id": "6240c290-bff3-74a2-7027-518cd58a4147",
+    "name": "TMZ",
+    "siteURL": "https://www.tmz.com",
+    "tags": [
+      "breaking",
+      "scoops",
+      "paparazzi",
+      "legal",
+      "scandals"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "Celebrity news, style, and the classic 'Stars — They're Just Like Us' format",
+    "feedURL": "https://www.usmagazine.com/feed/",
+    "id": "55cb5b4c-f67a-3f56-7cfd-996cde6453b9",
+    "name": "Us Weekly",
+    "siteURL": "https://www.usmagazine.com",
+    "tags": [
+      "style",
+      "couples",
+      "weddings",
+      "reality tv",
+      "exclusives"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "Best-in-class celebrity profiles and Hollywood long-form from Condé Nast",
+    "feedURL": "https://www.vanityfair.com/feed/rss",
+    "id": "05b6a7b7-ac10-7ec3-0b5a-e856f3d7d38e",
+    "name": "Vanity Fair",
+    "siteURL": "https://www.vanityfair.com",
+    "tags": [
+      "profiles",
+      "hollywood",
+      "longform",
+      "power lists",
+      "scandals"
+    ]
+  },
+  {
+    "category": "Celebrity & Pop Culture",
+    "description": "The Australian People equivalent — celebrity news with local and international coverage",
+    "feedURL": "https://www.who.com.au/feed",
+    "id": "1b0d6adb-27a7-ad81-5319-2bb40110bc5a",
+    "name": "Who Magazine",
+    "siteURL": "https://www.who.com.au",
+    "tags": [
+      "australian",
+      "royals",
+      "weddings",
+      "interviews",
+      "local"
+    ]
+  }
+]
