@@ -1,6 +1,6 @@
 [
   {
-    "category": "iOS Development",
+    "category": "Mobile Development",
     "description": "Principal Software Engineer @ Just Eat Takeaway. Based in London, made in Italy",
     "feedURL": "https://albertodebortoli.com/rss/",
     "id": "78b02b33-4d32-bd35-c4a9-d85bc90785a2",
@@ -9,7 +9,25 @@
     "tags": []
   },
   {
-    "category": "iOS Development",
+    "category": "Mobile Development",
+    "description": "News and insights on the Android platform, developer tools, and events",
+    "feedURL": "https://android-developers.googleblog.com/feeds/posts/default",
+    "id": "4b3aeebc-e9fe-5be4-8d3c-c87b30e82379",
+    "name": "Android Developers Blog",
+    "siteURL": "https://android-developers.googleblog.com/",
+    "tags": []
+  },
+  {
+    "category": "Mobile Development",
+    "description": "Android development tips and insights",
+    "feedURL": "https://blog.danlew.net/rss/",
+    "id": "ca0b64ea-7f58-4fe1-ccd9-d0d3b9b422d4",
+    "name": "Dan Lew Codes",
+    "siteURL": "https://blog.danlew.net/",
+    "tags": []
+  },
+  {
+    "category": "Mobile Development",
     "description": "Practical Swift and iOS development tutorials and workshops",
     "feedURL": "https://donnywals.com/feed",
     "id": "8cc83c87-41bb-58f5-98e7-a1f4f32bb4b5",
@@ -18,7 +36,7 @@
     "tags": []
   },
   {
-    "category": "iOS Development",
+    "category": "Mobile Development",
     "description": "iOS app size optimization, performance, and build tooling",
     "feedURL": "https://www.emergetools.com/rss.xml",
     "id": "b3725457-67ba-5825-9594-25673f097d7d",
@@ -27,7 +45,7 @@
     "tags": []
   },
   {
-    "category": "iOS Development",
+    "category": "Mobile Development",
     "description": "iOS development blog",
     "feedURL": "https://www.fabisevi.ch/feed.xml",
     "id": "b2572bcc-423d-1381-bb63-23cc20f93bc3",
@@ -36,7 +54,7 @@
     "tags": []
   },
   {
-    "category": "iOS Development",
+    "category": "Mobile Development",
     "description": "In-depth SwiftUI, SwiftData, and Core Data tutorials",
     "feedURL": "https://fatbobman.com/en/rss.xml",
     "id": "cc27cebf-5e08-56d1-9bad-d70aed334a74",
@@ -45,7 +63,7 @@
     "tags": []
   },
   {
-    "category": "iOS Development",
+    "category": "Mobile Development",
     "description": "Free Swift tutorials for iOS development",
     "feedURL": "https://www.hackingwithswift.com/articles/rss",
     "id": "b506698e-0987-5ca3-d0d7-34e4b9243af2",
@@ -54,7 +72,16 @@
     "tags": []
   },
   {
-    "category": "iOS Development",
+    "category": "Mobile Development",
+    "description": "Android and web development",
+    "feedURL": "https://handstandsam.com/feed/",
+    "id": "903aac8f-84b6-1d74-df10-9cafb0efed8b",
+    "name": "Handstand Sam",
+    "siteURL": "https://handstandsam.com",
+    "tags": []
+  },
+  {
+    "category": "Mobile Development",
     "description": "Brent Simmons's weblog on Mac and iOS development",
     "feedURL": "https://inessential.com/xml/rss.xml",
     "id": "c86eb5db-7fe1-6adf-dfd6-8b0fa7c13870",
@@ -63,7 +90,16 @@
     "tags": []
   },
   {
-    "category": "iOS Development",
+    "category": "Mobile Development",
+    "description": "Android and Kotlin development",
+    "feedURL": "https://jakewharton.com/atom.xml",
+    "id": "a33fc95b-48c6-e3ea-f0a0-be95ee187bb4",
+    "name": "Jake Wharton",
+    "siteURL": "https://jakewharton.com/",
+    "tags": []
+  },
+  {
+    "category": "Mobile Development",
     "description": "Swift, open source, and Apple platform development",
     "feedURL": "https://www.jessesquires.com/feed.xml",
     "id": "170b6316-68dd-56a8-b258-c3a40d8c4253",
@@ -72,7 +108,34 @@
     "tags": []
   },
   {
-    "category": "iOS Development",
+    "category": "Mobile Development",
+    "description": "Android, Flutter, and Google Assistant development",
+    "feedURL": "https://joebirch.co/feed",
+    "id": "a5fc413d-bd0b-d1c6-443c-37dfd081c5fb",
+    "name": "Joe Birch",
+    "siteURL": "https://joebirch.co",
+    "tags": []
+  },
+  {
+    "category": "Mobile Development",
+    "description": "Blog with mission to simplify Kotlin learning",
+    "feedURL": "https://blog.kotlin-academy.com/feed",
+    "id": "d82be0c7-5b8c-a091-faec-8abedc848351",
+    "name": "Kt. Academy - Medium",
+    "siteURL": "https://blog.kotlin-academy.com?source=rss----e57b304801ef---4",
+    "tags": []
+  },
+  {
+    "category": "Mobile Development",
+    "description": "The official Android Developers publication on Medium",
+    "feedURL": "https://medium.com/feed/androiddevelopers",
+    "id": "e2ca2e09-bb18-922e-c44b-6add4fdd0268",
+    "name": "Medium",
+    "siteURL": "https://medium.com/androiddevelopers?source=rss----95b274b437c2---4",
+    "tags": []
+  },
+  {
+    "category": "Mobile Development",
     "description": "iOS and Swift development blog",
     "feedURL": "https://oleb.net/blog/atom.xml",
     "id": "2c124350-95c6-5735-c007-3aaf87fd5d6c",
@@ -81,7 +144,7 @@
     "tags": []
   },
   {
-    "category": "iOS Development",
+    "category": "Mobile Development",
     "description": "Functional programming in Swift and composable architecture",
     "feedURL": "https://www.pointfree.co/blog/feed/atom.xml",
     "id": "1bf66f60-ab53-5f9c-b7c7-a2b2acdf394a",
@@ -90,7 +153,25 @@
     "tags": []
   },
   {
-    "category": "iOS Development",
+    "category": "Mobile Development",
+    "description": "The latest posts from Android Professionals and Google Developer Experts",
+    "feedURL": "https://proandroiddev.com/feed",
+    "id": "bd8a169e-adcb-548f-ebe4-b90492db6024",
+    "name": "ProAndroidDev",
+    "siteURL": "https://proandroiddev.com?source=rss----c72404660798---4",
+    "tags": []
+  },
+  {
+    "category": "Mobile Development",
+    "description": "Jesse Wilson on programming",
+    "feedURL": "https://publicobject.com/rss/",
+    "id": "2c5b75c9-c8e6-d550-c211-31bffb0d1f4e",
+    "name": "Public Object",
+    "siteURL": "https://publicobject.com/",
+    "tags": []
+  },
+  {
+    "category": "Mobile Development",
     "description": "Weekly Swift articles, podcasts, and tips by John Sundell",
     "feedURL": "https://www.swiftbysundell.com/feed.rss",
     "id": "526432df-f7e6-580b-95f9-bea06f974520",
@@ -99,7 +180,7 @@
     "tags": []
   },
   {
-    "category": "iOS Development",
+    "category": "Mobile Development",
     "description": "A weekly blog about Swift, iOS, and Xcode tips and tricks",
     "feedURL": "https://www.avanderlee.com/feed/",
     "id": "f2f8c800-e3a1-0b14-ed9a-93ebb7e3e3c5",
@@ -108,7 +189,7 @@
     "tags": []
   },
   {
-    "category": "iOS Development",
+    "category": "Mobile Development",
     "description": "How Swift works under the hood, plus iOS tips and tricks",
     "feedURL": "https://swiftrocks.com/rss.xml",
     "id": "37654122-9a02-7e3f-df67-bf6958a99b45",
@@ -117,7 +198,7 @@
     "tags": []
   },
   {
-    "category": "iOS Development",
+    "category": "Mobile Development",
     "description": "iOS development news and tips",
     "feedURL": "https://useyourloaf.com/blog/rss.xml",
     "id": "c09ad679-7f58-7792-da17-905087e04ed0",

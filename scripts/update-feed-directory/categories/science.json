@@ -19,11 +19,38 @@
   },
   {
     "category": "Science",
-    "description": "Science news and long reads from expert journalists, covering developments in science, technology, health and the environment",
+    "description": "Accessible, high-traffic science news covering all disciplines",
+    "feedURL": "https://www.livescience.com/feeds.xml",
+    "id": "6511ef25-8e6c-0b7b-3413-f87e408e93d5",
+    "name": "Live Science",
+    "siteURL": "https://www.livescience.com/",
+    "tags": []
+  },
+  {
+    "category": "Science",
+    "description": "Science news and long reads covering developments in science, technology, health, and the environment",
     "feedURL": "https://www.newscientist.com/feed/home/",
     "id": "be84762c-0520-3043-9b68-550373bf9304",
     "name": "New Scientist",
     "siteURL": "https://www.newscientist.com/",
+    "tags": []
+  },
+  {
+    "category": "Science",
+    "description": "Research news across all sciences aggregated from press releases and journals",
+    "feedURL": "https://phys.org/rss-feed/",
+    "id": "b157f7a1-fae2-4ec4-fb61-0b4f386a9d8e",
+    "name": "Phys.org",
+    "siteURL": "https://phys.org/",
+    "tags": []
+  },
+  {
+    "category": "Science",
+    "description": "Science and technology news, reviews, and product recommendations",
+    "feedURL": "https://www.popsci.com/feed/",
+    "id": "741b88dd-6ee3-ad6b-4cb7-0bfbfb96dc5c",
+    "name": "Popular Science",
+    "siteURL": "https://www.popsci.com/",
     "tags": []
   },
   {
@@ -37,11 +64,38 @@
   },
   {
     "category": "Science",
+    "description": "Accessible science news with a large social media following",
+    "feedURL": "https://www.sciencealert.com/feed/gn/",
+    "id": "7d633c68-0359-bb8e-d8d1-95115aec5bd0",
+    "name": "ScienceAlert",
+    "siteURL": "https://www.sciencealert.com/",
+    "tags": []
+  },
+  {
+    "category": "Science",
     "description": "Independent journalism covering all disciplines of science since 1921",
     "feedURL": "https://www.sciencenews.org/feed",
     "id": "6cc0875b-fb4f-5a80-9677-a027b9695008",
     "name": "Science News",
     "siteURL": "https://www.sciencenews.org",
+    "tags": []
+  },
+  {
+    "category": "Science",
+    "description": "Science journalism since 1845, covering everything from physics to public health",
+    "feedURL": "https://www.scientificamerican.com/platform/syndication/rss/",
+    "id": "cbc0fc8a-6abb-b7f8-b399-82ef08dfd2e4",
+    "name": "Scientific American",
+    "siteURL": "https://www.scientificamerican.com/",
+    "tags": []
+  },
+  {
+    "category": "Science",
+    "description": "Academics writing directly for public audiences across all research disciplines",
+    "feedURL": "https://theconversation.com/articles.atom",
+    "id": "dd45cb48-628f-81be-013e-64c0f2d3e878",
+    "name": "The Conversation",
+    "siteURL": "https://theconversation.com/",
     "tags": []
   }
 ]

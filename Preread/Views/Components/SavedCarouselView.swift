@@ -302,10 +302,14 @@ private struct SavedCarouselCardView: View {
 
     private var statusText: String {
         switch article.fetchStatus {
-        case .cached, .partial: "Saved"
-        case .fetching: "Saving"
-        case .pending: "Pending"
-        case .failed: "Failed"
+        case .cached, .partial:
+            if let minutes = article.readingMinutes {
+                return ReadingTimeFormatter.articleFormatted(minutes: minutes)
+            }
+            return ""
+        case .fetching: return "Saving"
+        case .pending: return "Pending"
+        case .failed: return "Failed"
         }
     }
 

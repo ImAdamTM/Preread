@@ -1,6 +1,6 @@
 [
   {
-    "category": "News",
+    "category": "World News",
     "description": "Smart, efficient news coverage of politics, business, and technology",
     "feedURL": "https://api.axios.com/feed/",
     "id": "f5e8ac85-4e40-4b1e-48c1-10f82ecca136",
@@ -9,7 +9,7 @@
     "tags": []
   },
   {
-    "category": "News",
+    "category": "World News",
     "description": "World news from BBC",
     "feedURL": "https://feeds.bbci.co.uk/news/world/rss.xml",
     "id": "1796df62-c4a2-87cc-aef6-70b248b7f98c",
@@ -18,7 +18,7 @@
     "tags": []
   },
   {
-    "category": "News",
+    "category": "World News",
     "description": "Comprehensive news aggregation from Google",
     "feedURL": "https://news.google.com/rss",
     "id": "fe39472a-3338-f318-54e9-e1fb64c6227a",
@@ -27,7 +27,7 @@
     "tags": []
   },
   {
-    "category": "News",
+    "category": "World News",
     "description": "CNBC International is the world leader for news on business, technology, China, trade, oil prices, the Middle East and",
     "feedURL": "https://www.cnbc.com/id/100727362/device/rss/rss.html",
     "id": "75e1d84f-ca2f-4528-2674-52a7c301d83d",
@@ -36,7 +36,7 @@
     "tags": []
   },
   {
-    "category": "News",
+    "category": "World News",
     "description": "NPR news, audio, and podcasts. Coverage of breaking stories, national and world news, politics, business, science",
     "feedURL": "https://feeds.npr.org/1001/rss.xml",
     "id": "04a13555-2494-b3db-f354-1c5fbc37af83",
@@ -45,7 +45,7 @@
     "tags": []
   },
   {
-    "category": "News",
+    "category": "World News",
     "description": "News, politics, culture, technology, and more",
     "feedURL": "https://www.theatlantic.com/feed/all/",
     "id": "72771e85-b141-6686-c704-7c5d452eddd6",
@@ -54,7 +54,7 @@
     "tags": []
   },
   {
-    "category": "News",
+    "category": "World News",
     "description": "World News: TOI brings the latest world news headlines, Current International breaking news world wide. In depth",
     "feedURL": "https://timesofindia.indiatimes.com/rssfeeds/296589292.cms",
     "id": "c59be43c-0f92-9ebb-4109-4ec1dd54f575",
@@ -63,7 +63,7 @@
     "tags": []
   },
   {
-    "category": "News",
+    "category": "World News",
     "description": "Vox is a general interest news site for the 21st century. Its mission: to help everyone understand our complicated",
     "feedURL": "https://www.vox.com/rss/index.xml",
     "id": "4aa317de-1aa3-aa76-6dda-8229ef4c63c2",

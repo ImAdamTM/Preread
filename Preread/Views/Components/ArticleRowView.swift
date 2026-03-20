@@ -391,7 +391,10 @@ struct ArticleRowView: View {
     private var statusLabel: (text: String, color: Color)? {
         switch article.fetchStatus {
         case .cached, .partial:
-            return ("Saved", Theme.textSecondary.opacity(0.7))
+            if let minutes = article.readingMinutes {
+                return (ReadingTimeFormatter.articleFormatted(minutes: minutes), Theme.textSecondary.opacity(0.7))
+            }
+            return nil
         case .fetching:
             return ("Saving", Theme.textSecondary.opacity(0.7))
         case .pending:

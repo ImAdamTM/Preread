@@ -1,6 +1,6 @@
 [
   {
-    "category": "Funny",
+    "category": "Humor & Satire",
     "description": "Every post that goes up on Cracked.com",
     "feedURL": "https://www.cracked.com/crackedrss/allposts.xml",
     "id": "205e047b-47d4-581c-99b8-a76c41b053c6",
@@ -9,7 +9,7 @@
     "tags": []
   },
   {
-    "category": "Funny",
+    "category": "Humor & Satire",
     "description": "The internet has generated a huge amount of laughs from cats and FAILS. And we all out of cats",
     "feedURL": "https://failblog.cheezburger.com/rss",
     "id": "66947e8e-8521-5444-8910-8517c5316120",
@@ -18,7 +18,7 @@
     "tags": []
   },
   {
-    "category": "Funny",
+    "category": "Humor & Satire",
     "description": "World's largest collection of cat memes and other animals",
     "feedURL": "https://icanhas.cheezburger.com/rss",
     "id": "d2fb02f2-93cb-5049-99d7-b30a6b111222",
@@ -27,7 +27,16 @@
     "tags": []
   },
   {
-    "category": "Funny",
+    "category": "Humor & Satire",
+    "description": "Literary humor, satirical essays, and lists from one of the web's most distinctive comedy voices",
+    "feedURL": "https://feeds.feedburner.com/mcsweeneys",
+    "id": "275986ee-5926-132e-978a-7a1d8d081601",
+    "name": "McSweeney's Internet Tendency",
+    "siteURL": "https://www.mcsweeneys.net/",
+    "tags": []
+  },
+  {
+    "category": "Humor & Satire",
     "description": "Humor and personal essays by Jenny Lawson",
     "feedURL": "https://thebloggess.com/feed/",
     "id": "7d7bef99-cda8-227a-8f88-7b4ad5db8931",
@@ -36,7 +45,7 @@
     "tags": []
   },
   {
-    "category": "Funny",
+    "category": "Humor & Satire",
     "description": "America's Finest News Source",
     "feedURL": "https://www.theonion.com/rss",
     "id": "613b5a03-7a84-ccea-643c-3684d89a017e",

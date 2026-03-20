@@ -1,0 +1,110 @@
+[
+  {
+    "category": "Health & Wellness",
+    "description": "Broad consumer health coverage with condition-specific guides and expert content",
+    "feedURL": "https://feeds.everydayhealth.com/google-discover.xml",
+    "id": "390f49e9-d04c-87ea-3faf-f60a2cbb11a6",
+    "name": "Everyday Health",
+    "siteURL": "https://www.everydayhealth.com/",
+    "tags": []
+  },
+  {
+    "category": "Health & Wellness",
+    "description": "Medically reviewed health news covering conditions, treatments, and wellness",
+    "feedURL": "https://www.healthline.com/rss/health-news",
+    "id": "7856bbb3-2f1b-f5fc-797a-a82a5cd7704c",
+    "name": "Healthline",
+    "siteURL": "https://www.healthline.com/",
+    "tags": []
+  },
+  {
+    "category": "Health & Wellness",
+    "description": "Nonprofit health policy journalism covering the healthcare system, insurance, and public health",
+    "feedURL": "https://kffhealthnews.org/feed",
+    "id": "bf3b93c1-e1d0-9343-f674-c61a06240cb2",
+    "name": "KFF Health News",
+    "siteURL": "https://kffhealthnews.org/",
+    "tags": []
+  },
+  {
+    "category": "Health & Wellness",
+    "description": "Mindfulness, meditation, and contemplative practices",
+    "feedURL": "https://www.mindful.org/feed",
+    "id": "91071b32-8655-fb66-430a-75dd95d554cc",
+    "name": "Mindful",
+    "siteURL": "https://www.mindful.org/",
+    "tags": []
+  },
+  {
+    "category": "Health & Wellness",
+    "description": "Evidence-based nutrition research reviews with cited sources",
+    "feedURL": "https://nutritionfacts.org/feed",
+    "id": "2db79578-8193-f201-6f1e-c57ae2dc71ea",
+    "name": "NutritionFacts.org",
+    "siteURL": "https://nutritionfacts.org/",
+    "tags": []
+  },
+  {
+    "category": "Health & Wellness",
+    "description": "Fitness, nutrition, and wellness from an active-lifestyle perspective",
+    "feedURL": "https://www.outsideonline.com/feed",
+    "id": "ae5a1480-a2f9-bc42-6190-c39382804211",
+    "name": "Outside Online",
+    "siteURL": "https://www.outsideonline.com/",
+    "tags": []
+  },
+  {
+    "category": "Health & Wellness",
+    "description": "Evidence-based nutrition and coaching content bridging science and practical application",
+    "feedURL": "https://www.precisionnutrition.com/feed",
+    "id": "bb7e70c6-128b-7b40-c26a-5df2a8a110d5",
+    "name": "Precision Nutrition",
+    "siteURL": "https://www.precisionnutrition.com/",
+    "tags": []
+  },
+  {
+    "category": "Health & Wellness",
+    "description": "Articles on psychology, relationships, and mental health from therapists and researchers",
+    "feedURL": "https://www.psychologytoday.com/us/front/feed",
+    "id": "3791c315-57cd-6cef-4542-7a936e998f8f",
+    "name": "Psychology Today",
+    "siteURL": "https://www.psychologytoday.com/",
+    "tags": []
+  },
+  {
+    "category": "Health & Wellness",
+    "description": "The gold standard for health and life sciences journalism",
+    "feedURL": "https://www.statnews.com/feed/",
+    "id": "91f73778-3386-1e82-9e7b-f3cb12ab6c23",
+    "name": "STAT News",
+    "siteURL": "https://www.statnews.com/",
+    "tags": []
+  },
+  {
+    "category": "Health & Wellness",
+    "description": "Health researchers writing directly for public audiences with nuance and evidence",
+    "feedURL": "https://theconversation.com/us/health/articles.atom",
+    "id": "0bb0e085-7f98-daa7-0ab2-34d3934b380f",
+    "name": "The Conversation: Health",
+    "siteURL": "https://theconversation.com/us/health",
+    "tags": []
+  },
+  {
+    "category": "Health & Wellness",
+    "description": "Comprehensive, medically reviewed health information and condition guides",
+    "feedURL": "https://feeds-api.dotdashmeredith.com/v1/rss/google/e9bc2236-f9bf-46ed-8fb4-be30d91fd32f",
+    "id": "86f60d12-06a7-7d28-3cde-c9246558cf1d",
+    "name": "Verywell Health",
+    "siteURL": "https://www.verywellhealth.com/",
+    "tags": []
+  },
+  {
+    "category": "Health & Wellness",
+    "description": "Expert mental health information covering therapy, wellness, and psychology",
+    "feedURL": "https://feeds-api.dotdashmeredith.com/v1/rss/google/16385a17-56e3-40a2-b61d-b29e3f7684d6",
+    "id": "a90eb757-96ba-f59a-b78f-727cf903b6a8",
+    "name": "Verywell Mind",
+    "siteURL": "https://www.verywellmind.com/",
+    "tags": []
+  }
+]

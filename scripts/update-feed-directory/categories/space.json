@@ -1,7 +1,16 @@
 [
   {
     "category": "Space",
-    "description": "NASA.gov brings you the latest news, images and videos from America's space agency, pioneering the future in space",
+    "description": "Deep-dive explainers on rocket engines, launch systems, and spaceflight",
+    "feedURL": "https://everydayastronaut.com/feed/",
+    "id": "c2978591-9eb8-8137-eb5b-ed472c4394ba",
+    "name": "Everyday Astronaut",
+    "siteURL": "https://everydayastronaut.com/",
+    "tags": []
+  },
+  {
+    "category": "Space",
+    "description": "NASA news, images, and videos from America's space agency",
     "feedURL": "https://www.nasa.gov/rss/dyn/breaking_news.rss",
     "id": "d25c6c3a-6b63-b163-f419-a1f6236d627a",
     "name": "NASA Breaking News",
@@ -10,7 +19,16 @@
   },
   {
     "category": "Space",
-    "description": "Science news and long reads from expert journalists, covering developments in science, technology, health and the",
+    "description": "Deep technical coverage of SpaceX, launch vehicles, and space missions",
+    "feedURL": "https://www.nasaspaceflight.com/feed/",
+    "id": "072b25a6-26ee-18ab-b841-89ac5ec67014",
+    "name": "NASASpaceFlight.com",
+    "siteURL": "https://www.nasaspaceflight.com/",
+    "tags": []
+  },
+  {
+    "category": "Space",
+    "description": "Space-focused science news from New Scientist",
     "feedURL": "https://www.newscientist.com/subject/space/feed/",
     "id": "7eb72c4e-5ff7-baa4-6d73-bffd45fcabd9",
     "name": "New Scientist: Space",
@@ -19,7 +37,7 @@
   },
   {
     "category": "Space",
-    "description": "Explore the universe with Sky & Telescope - your ultimate source for stargazing, celestial events, and the latest",
+    "description": "Explore the universe — stargazing, celestial events, and astronomy news",
     "feedURL": "https://www.skyandtelescope.com/feed/",
     "id": "b698806d-226f-201b-c951-d5cc16272860",
     "name": "Sky & Telescope",
@@ -28,11 +46,47 @@
   },
   {
     "category": "Space",
-    "description": "Get the latest space exploration, innovation and astronomy news. Space.com celebrates humanity's ongoing expansion",
+    "description": "Space exploration, innovation, and astronomy news",
     "feedURL": "https://www.space.com/feeds.xml",
     "id": "c2edd5eb-4423-abe3-82cb-a6f22ae12fac",
     "name": "Space.com",
     "siteURL": "https://www.space.com",
+    "tags": []
+  },
+  {
+    "category": "Space",
+    "description": "Launch coverage, mission updates, and straightforward spaceflight reporting",
+    "feedURL": "https://spaceflightnow.com/feed/",
+    "id": "3f9c29b2-e32f-7cbc-4a20-9b8bba2bb907",
+    "name": "Spaceflight Now",
+    "siteURL": "https://spaceflightnow.com/",
+    "tags": []
+  },
+  {
+    "category": "Space",
+    "description": "Industry trade news covering space policy, contracts, commercial space, and defense",
+    "feedURL": "https://spacenews.com/feed/",
+    "id": "a84245b2-6be0-3a0d-8ac8-cd754c641446",
+    "name": "SpaceNews",
+    "siteURL": "https://spacenews.com/",
+    "tags": []
+  },
+  {
+    "category": "Space",
+    "description": "Tracking space policy, budgets, and program decisions",
+    "feedURL": "https://spacepolicyonline.com/feed/",
+    "id": "19edb0d5-1382-b7f7-3300-e4cdedfd9ccc",
+    "name": "SpacePolicyOnline",
+    "siteURL": "https://spacepolicyonline.com/",
+    "tags": []
+  },
+  {
+    "category": "Space",
+    "description": "Independent space news, explainers, and mission coverage since 1999",
+    "feedURL": "https://www.universetoday.com/feed",
+    "id": "e3f9cbf3-e3b6-0160-96da-b766f9e20988",
+    "name": "Universe Today",
+    "siteURL": "https://www.universetoday.com/",
     "tags": []
   }
 ]

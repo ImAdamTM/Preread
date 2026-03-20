@@ -10,11 +10,20 @@
   },
   {
     "category": "Books",
-    "description": "Book Riot celebrates all things books! Find the best books for your next read or book club, including new books in all",
+    "description": "Accessible and inclusive book discovery across every genre",
     "feedURL": "https://bookriot.com/feed/",
     "id": "38c7dbeb-620c-fd3b-458e-9b59d1716210",
-    "name": "BOOK RIOT",
+    "name": "Book Riot",
     "siteURL": "https://bookriot.com/",
+    "tags": []
+  },
+  {
+    "category": "Books",
+    "description": "Publishing industry insights and practical advice for authors",
+    "feedURL": "https://janefriedman.com/feed/",
+    "id": "83fbbe30-9df7-96fc-6f97-33d3d95fb700",
+    "name": "Jane Friedman",
+    "siteURL": "https://janefriedman.com/",
     "tags": []
   },
   {
@@ -28,11 +37,38 @@
   },
   {
     "category": "Books",
-    "description": "Answering the Age old question - What are you reading?",
+    "description": "Daily essays, interviews, excerpts, and book criticism",
+    "feedURL": "https://lithub.com/feed",
+    "id": "859012ff-07e7-29b6-ae97-5e7a3dc12093",
+    "name": "Literary Hub",
+    "siteURL": "https://lithub.com/",
+    "tags": []
+  },
+  {
+    "category": "Books",
+    "description": "Answering the age old question — What are you reading?",
     "feedURL": "https://www.newinbooks.com/feed/",
     "id": "a20cdea1-e2e2-0f22-1cbe-8482a9ca1bf0",
     "name": "NewInBooks",
     "siteURL": "https://www.newinbooks.com",
+    "tags": []
+  },
+  {
+    "category": "Books",
+    "description": "Science fiction and fantasy coverage — reviews, essays, and news",
+    "feedURL": "https://reactormag.com/feed/",
+    "id": "9689be36-e334-3ac6-85fd-e140972c65a1",
+    "name": "Reactor",
+    "siteURL": "https://reactormag.com/",
+    "tags": []
+  },
+  {
+    "category": "Books",
+    "description": "Smart literary essays, most-anticipated lists, and year-in-reading features",
+    "feedURL": "https://themillions.com/feed",
+    "id": "9946666d-a1c2-bf2b-7719-41846e17c04a",
+    "name": "The Millions",
+    "siteURL": "https://themillions.com/",
     "tags": []
   }
 ]

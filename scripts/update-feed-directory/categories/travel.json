@@ -1,11 +1,56 @@
 [
   {
     "category": "Travel",
+    "description": "Experiential travel stories, destination guides, and tips for meaningful journeys",
+    "feedURL": "https://www.afar.com/index.atom",
+    "id": "b630db7b-8c34-6044-3930-138f93e0b740",
+    "name": "AFAR",
+    "siteURL": "https://www.afar.com/",
+    "tags": []
+  },
+  {
+    "category": "Travel",
+    "description": "Hotel reviews, destination guides, and luxury travel inspiration from Condé Nast",
+    "feedURL": "https://www.cntraveler.com/feed/rss",
+    "id": "33983496-aa07-c14b-cb6d-ffa884e27a9a",
+    "name": "Condé Nast Traveler",
+    "siteURL": "https://www.cntraveler.com",
+    "tags": []
+  },
+  {
+    "category": "Travel",
     "description": "Budget travel tips and destination guides",
     "feedURL": "https://www.nomadicmatt.com/travel-blog/feed/",
     "id": "4fb155fc-d51d-5a9e-1d95-93523348bf8b",
     "name": "Nomadic Matt's Travel Site",
     "siteURL": "https://www.nomadicmatt.com/travel-blog/",
+    "tags": []
+  },
+  {
+    "category": "Travel",
+    "description": "Travel industry news, analysis, and data for hospitality and tourism professionals",
+    "feedURL": "https://skift.com/feed/",
+    "id": "3a34d533-cce9-62ef-92d3-31edae0e98b7",
+    "name": "Skift",
+    "siteURL": "https://skift.com/",
+    "tags": []
+  },
+  {
+    "category": "Travel",
+    "description": "Credit card points, airline miles, and travel rewards strategies and deals",
+    "feedURL": "https://thepointsguy.com/feed/",
+    "id": "2e8c7bce-8186-f06d-d572-f7fe764298d1",
+    "name": "The Points Guy",
+    "siteURL": "https://thepointsguy.com/",
+    "tags": []
+  },
+  {
+    "category": "Travel",
+    "description": "Destination guides, hotel reviews, and travel tips from the editors of Travel + Leisure",
+    "feedURL": "https://feeds-api.dotdashmeredith.com/v1/rss/google/90b927aa-066f-4f66-9162-a018ad8ea366",
+    "id": "553569d6-57cf-71bd-9be0-36773df42711",
+    "name": "Travel + Leisure",
+    "siteURL": "https://www.travelandleisure.com/",
     "tags": []
   }
 ]

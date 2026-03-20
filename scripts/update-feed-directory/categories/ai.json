@@ -1,0 +1,128 @@
+[
+  {
+    "category": "AI",
+    "description": "Research-focused AI newsletter covering papers and trends with clarity",
+    "feedURL": "https://magazine.sebastianraschka.com/feed",
+    "id": "8249346b-6d16-594c-12b4-4b68fd2fe622",
+    "name": "Ahead of AI",
+    "siteURL": "https://magazine.sebastianraschka.com/",
+    "tags": []
+  },
+  {
+    "category": "AI",
+    "description": "Straightforward AI industry news covering product launches, research, and business developments",
+    "feedURL": "https://www.artificialintelligence-news.com/feed/",
+    "id": "31fd665b-fa89-c686-675a-cb4c5e6d38e8",
+    "name": "AI News",
+    "siteURL": "https://www.artificialintelligence-news.com/",
+    "tags": []
+  },
+  {
+    "category": "AI",
+    "description": "Open-source AI platform blog covering model releases, research, and community developments",
+    "feedURL": "https://huggingface.co/blog/feed.xml",
+    "id": "61d3148b-c057-2cab-03be-2891aea9f44f",
+    "name": "Hugging Face Blog",
+    "siteURL": "https://huggingface.co/blog/",
+    "tags": []
+  },
+  {
+    "category": "AI",
+    "description": "Weekly AI briefing covering research, policy, and industry developments",
+    "feedURL": "https://importai.substack.com/feed",
+    "id": "0f90c142-536d-f254-4caf-ca35ed835837",
+    "name": "Import AI",
+    "siteURL": "https://importai.substack.com/",
+    "tags": []
+  },
+  {
+    "category": "AI",
+    "description": "AI research and alignment insights from a former Hugging Face researcher",
+    "feedURL": "https://www.interconnects.ai/feed",
+    "id": "633e5ebc-b836-2611-e9ac-8d8f1bfd72c5",
+    "name": "Interconnects",
+    "siteURL": "https://www.interconnects.ai/",
+    "tags": []
+  },
+  {
+    "category": "AI",
+    "description": "Weekly roundup of the most important AI developments, research, and news",
+    "feedURL": "https://lastweekin.ai/feed",
+    "id": "5135495e-dde6-3868-1019-abdefcf6222f",
+    "name": "Last Week in AI",
+    "siteURL": "https://lastweekin.ai/",
+    "tags": []
+  },
+  {
+    "category": "AI",
+    "description": "AI research news covering new papers and breakthroughs with a technical focus",
+    "feedURL": "https://www.marktechpost.com/feed/",
+    "id": "ef3ff28c-60b4-cdf1-84d7-20bf3fbd5564",
+    "name": "MarkTechPost",
+    "siteURL": "https://www.marktechpost.com/",
+    "tags": []
+  },
+  {
+    "category": "AI",
+    "description": "Credible, in-depth AI journalism balancing technical depth with accessibility",
+    "feedURL": "https://www.technologyreview.com/feed",
+    "id": "795a5369-f7ce-f7f2-08f8-2869bf1ddbc7",
+    "name": "MIT Technology Review",
+    "siteURL": "https://www.technologyreview.com/",
+    "tags": []
+  },
+  {
+    "category": "AI",
+    "description": "Practical AI applications and insights from a Wharton professor",
+    "feedURL": "https://www.oneusefulthing.org/feed",
+    "id": "59f6b090-81d6-23bf-3a49-feb841c9f9d4",
+    "name": "One Useful Thing",
+    "siteURL": "https://www.oneusefulthing.org/",
+    "tags": []
+  },
+  {
+    "category": "AI",
+    "description": "Prolific and trusted voice on practical AI tooling, LLMs, and developer workflows",
+    "feedURL": "https://simonwillison.net/atom/everything/",
+    "id": "05243453-1db8-37d6-32eb-c483d8f33550",
+    "name": "Simon Willison's Weblog",
+    "siteURL": "https://simonwillison.net/",
+    "tags": []
+  },
+  {
+    "category": "AI",
+    "description": "Thoughtful, analytical AI coverage bridging technical and philosophical perspectives",
+    "feedURL": "https://www.thealgorithmicbridge.com/feed",
+    "id": "06197e19-b436-1b87-67ef-9b9edd6b325d",
+    "name": "The Algorithmic Bridge",
+    "siteURL": "https://www.thealgorithmicbridge.com/",
+    "tags": []
+  },
+  {
+    "category": "AI",
+    "description": "Fast-growing AI news site with breaking news and explainers",
+    "feedURL": "https://the-decoder.com/feed/",
+    "id": "40e60d3c-b89b-c601-c7c8-0ceb38a8579b",
+    "name": "The Decoder",
+    "siteURL": "https://the-decoder.com/",
+    "tags": []
+  },
+  {
+    "category": "AI",
+    "description": "Nonprofit publication covering AI research, interviews, and long-form essays",
+    "feedURL": "https://thegradient.pub/rss/",
+    "id": "4f833f98-5ed1-2add-27e1-cbef2b3c7510",
+    "name": "The Gradient",
+    "siteURL": "https://thegradient.pub/",
+    "tags": []
+  },
+  {
+    "category": "AI",
+    "description": "Enterprise AI coverage with a focus on business and industry applications",
+    "feedURL": "https://venturebeat.com/feed/",
+    "id": "1a71342d-965c-d9f7-fc4a-06e807a5c67b",
+    "name": "VentureBeat",
+    "siteURL": "https://venturebeat.com/",
+    "tags": []
+  }
+]

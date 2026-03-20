@@ -1,0 +1,101 @@
+[
+  {
+    "category": "Environment",
+    "description": "Clean energy and energy transition news from a nonprofit newsroom",
+    "feedURL": "https://www.canarymedia.com/rss.rss",
+    "id": "bd9f86f9-53b4-a5cb-1321-6d0d212f4886",
+    "name": "Canary Media",
+    "siteURL": "https://www.canarymedia.com/",
+    "tags": []
+  },
+  {
+    "category": "Environment",
+    "description": "Data-driven climate science and energy policy coverage",
+    "feedURL": "https://www.carbonbrief.org/feed",
+    "id": "5945e50d-6a0f-38ed-83a6-beeb75f4fb1a",
+    "name": "Carbon Brief",
+    "siteURL": "https://www.carbonbrief.org/",
+    "tags": []
+  },
+  {
+    "category": "Environment",
+    "description": "Clean energy, electric vehicles, and sustainability news",
+    "feedURL": "https://cleantechnica.com/feed/",
+    "id": "befffecf-3054-cb1e-48d5-0af34c2f5ef1",
+    "name": "CleanTechnica",
+    "siteURL": "https://cleantechnica.com/",
+    "tags": []
+  },
+  {
+    "category": "Environment",
+    "description": "Electric vehicles, solar, and clean energy news for enthusiasts",
+    "feedURL": "https://electrek.co/feed/",
+    "id": "5c676ee9-116d-fc48-8eb8-36c0776114dc",
+    "name": "Electrek",
+    "siteURL": "https://electrek.co/",
+    "tags": []
+  },
+  {
+    "category": "Environment",
+    "description": "Solutions-oriented climate and environmental justice journalism",
+    "feedURL": "https://grist.org/feed",
+    "id": "0eb34085-cf07-1aec-b367-1c3a51417508",
+    "name": "Grist",
+    "siteURL": "https://grist.org/",
+    "tags": []
+  },
+  {
+    "category": "Environment",
+    "description": "Coastal and ocean science and culture",
+    "feedURL": "https://hakaimagazine.com/feed/",
+    "id": "1e088771-ed91-1a74-2227-06545a458458",
+    "name": "Hakai Magazine",
+    "siteURL": "https://hakaimagazine.com/",
+    "tags": []
+  },
+  {
+    "category": "Environment",
+    "description": "Pulitzer Prize-winning investigative climate and energy journalism",
+    "feedURL": "https://insideclimatenews.org/feed/",
+    "id": "2f04e2ed-f907-4f62-4910-40d25035e36d",
+    "name": "Inside Climate News",
+    "siteURL": "https://insideclimatenews.org/",
+    "tags": []
+  },
+  {
+    "category": "Environment",
+    "description": "Tropical forests, biodiversity, and conservation news from a global reporter network",
+    "feedURL": "https://news.mongabay.com/feed",
+    "id": "ad0047a1-c4cd-01dd-fe3c-e1b5ed42b66e",
+    "name": "Mongabay",
+    "siteURL": "https://news.mongabay.com/",
+    "tags": []
+  },
+  {
+    "category": "Environment",
+    "description": "Endangered species, extinction, and conservation policy coverage",
+    "feedURL": "https://therevelator.org/feed/",
+    "id": "a7ae2203-0f63-8a74-acc1-d099a159604a",
+    "name": "The Revelator",
+    "siteURL": "https://therevelator.org/",
+    "tags": []
+  },
+  {
+    "category": "Environment",
+    "description": "Trade coverage of the utility and energy industry",
+    "feedURL": "https://www.utilitydive.com/feeds/news/",
+    "id": "f0fb325a-fe07-ff21-bf30-7014d5d5e16c",
+    "name": "Utility Dive",
+    "siteURL": "https://www.utilitydive.com/",
+    "tags": []
+  },
+  {
+    "category": "Environment",
+    "description": "Long-form environmental reporting and essays from Yale School of the Environment",
+    "feedURL": "https://e360.yale.edu/feed.xml",
+    "id": "31a4342e-71bd-2ea5-100d-e544d199e17a",
+    "name": "Yale Environment 360",
+    "siteURL": "https://e360.yale.edu/",
+    "tags": []
+  }
+]

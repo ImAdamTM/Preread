@@ -24,8 +24,8 @@
     ]
   },
   {
-    "category" : "Movies",
-    "description" : "The latest movie and television news, reviews, film trailers, exclusive interviews, and opinions - since 2005",
+    "category" : "Film & TV",
+    "description" : "The latest movie and television news, reviews, film trailers, exclusive interviews, and opinions",
     "feedURL" : "https:\/\/www.slashfilm.com\/category\/news\/feed\/",
     "id" : "76fac9c4-5b18-53d2-a523-3aaccd162538",
     "name" : "\/Film",
@@ -59,7 +59,7 @@
   },
   {
     "category" : "Sports",
-    "description" : "Original audio documentaries from the makers of the acclaimed 30 for 30 film series, featuring stories from the world",
+    "description" : "Original audio documentaries from the makers of the acclaimed 30 for 30 film series",
     "feedURL" : "https:\/\/feeds.megaphone.fm\/ESP5765452710",
     "id" : "f857ff91-c544-93ff-c834-df192e66de66",
     "name" : "30 For 30 Podcasts",
@@ -114,7 +114,7 @@
     ]
   },
   {
-    "category" : "Web Development",
+    "category" : "Web Design & UX",
     "description" : "Articles for people who make websites",
     "feedURL" : "https:\/\/alistapart.com\/main\/feed\/",
     "id" : "a7e7d078-5842-1de5-5674-1d9de663880f",
@@ -159,6 +159,28 @@
     ]
   },
   {
+    "category" : "Sports",
+    "description" : "Sports betting analysis and picks from an editorially serious operation",
+    "feedURL" : "https:\/\/www.actionnetwork.com\/feed",
+    "id" : "80ab96ab-aa8d-6f66-53d1-77a997aa56c2",
+    "name" : "Action Network",
+    "siteURL" : "https:\/\/www.actionnetwork.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "DIY",
+    "description" : "Electronics, hardware hacking, and maker projects with a strong community focus",
+    "feedURL" : "https:\/\/blog.adafruit.com\/feed\/",
+    "id" : "ef183625-1e24-1fac-3552-e1a02bd61675",
+    "name" : "Adafruit",
+    "siteURL" : "https:\/\/blog.adafruit.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Italy",
     "country" : "Italy",
     "description" : "News dell'ultima ora dall'Italia e dal mondo. Notizie, video, rubriche e approfondimenti su Sport, Cronaca, Economia",
@@ -166,6 +188,50 @@
     "id" : "7abaf032-6729-b328-a45f-2a67a9dd0568",
     "name" : "Adnkronos - ultimoratop",
     "siteURL" : "https:\/\/www.adnkronos.com",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Motorcycles",
+    "description" : "Adventure and dual-sport motorcycling community with ride reports and trip planning",
+    "feedURL" : "https:\/\/www.advrider.com\/feed",
+    "id" : "a88d421e-a1bf-7866-62f4-d72738d17390",
+    "name" : "ADVRider",
+    "siteURL" : "https:\/\/www.advrider.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Marketing",
+    "description" : "Advertising news with a creative and cultural lens",
+    "feedURL" : "https:\/\/www.adweek.com\/feed",
+    "id" : "9c373315-aef9-247a-b31c-1570da421980",
+    "name" : "Adweek",
+    "siteURL" : "https:\/\/www.adweek.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "History",
+    "description" : "Long-form intellectual essays on ideas, philosophy, science, and history",
+    "feedURL" : "https:\/\/aeon.co\/feed",
+    "id" : "15b4058d-8011-36ad-058f-4f0d1cb63fd0",
+    "name" : "Aeon",
+    "siteURL" : "https:\/\/aeon.co\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Travel",
+    "description" : "Experiential travel stories, destination guides, and tips for meaningful journeys",
+    "feedURL" : "https:\/\/www.afar.com\/index.atom",
+    "id" : "b630db7b-8c34-6044-3930-138f93e0b740",
+    "name" : "AFAR",
+    "siteURL" : "https:\/\/www.afar.com\/",
     "tags" : [
 
     ]
@@ -182,7 +248,40 @@
     ]
   },
   {
-    "category" : "Movies",
+    "category" : "History",
+    "description" : "Academic blog covering the long 18th century and revolutionary era",
+    "feedURL" : "https:\/\/ageofrevolutions.com\/feed\/",
+    "id" : "b7014e7d-6b3c-3f3b-5cef-875fc31476aa",
+    "name" : "Age of Revolutions",
+    "siteURL" : "https:\/\/ageofrevolutions.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "AI",
+    "description" : "Research-focused AI newsletter covering papers and trends with clarity",
+    "feedURL" : "https:\/\/magazine.sebastianraschka.com\/feed",
+    "id" : "8249346b-6d16-594c-12b4-4b68fd2fe622",
+    "name" : "Ahead of AI",
+    "siteURL" : "https:\/\/magazine.sebastianraschka.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "AI",
+    "description" : "Straightforward AI industry news covering product launches, research, and business developments",
+    "feedURL" : "https:\/\/www.artificialintelligence-news.com\/feed\/",
+    "id" : "31fd665b-fa89-c686-675a-cb4c5e6d38e8",
+    "name" : "AI News",
+    "siteURL" : "https:\/\/www.artificialintelligence-news.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Film & TV",
     "description" : "Movie, TV, and comic book news and reviews",
     "feedURL" : "https:\/\/www.aintitcool.com\/node\/feed\/",
     "id" : "6044df96-ff67-6032-8cde-c2dad97e1f2a",
@@ -205,7 +304,7 @@
     ]
   },
   {
-    "category" : "iOS Development",
+    "category" : "Mobile Development",
     "description" : "Principal Software Engineer @ Just Eat Takeaway. Based in London, made in Italy",
     "feedURL" : "https:\/\/albertodebortoli.com\/rss\/",
     "id" : "78b02b33-4d32-bd35-c4a9-d85bc90785a2",
@@ -216,7 +315,7 @@
     ]
   },
   {
-    "category" : "Business & Economy",
+    "category" : "Business & Finance",
     "description" : "Real-time quotes, charts, news & tools from Investing.com. Get AI analysis & premium data with InvestingPro to uncover",
     "feedURL" : "https:\/\/www.investing.com\/rss\/news.rss",
     "id" : "0501ace5-f09d-f1d9-77ab-c48d52a5338e",
@@ -234,6 +333,28 @@
     "id" : "3f501a5c-93c6-b90e-a7ab-df0145cf779a",
     "name" : "All: BreakingNews.ie",
     "siteURL" : "https:\/\/www.breakingnews.ie\/all\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Beauty",
+    "description" : "The authority in beauty — awards, reviews, and trends across skincare, hair, and makeup",
+    "feedURL" : "https:\/\/www.allure.com\/feed\/rss",
+    "id" : "74d3c1fa-61f3-7ee5-9233-1bc92b1d326a",
+    "name" : "Allure",
+    "siteURL" : "https:\/\/www.allure.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "DIY",
+    "description" : "Free furniture building plans and step-by-step woodworking project guides",
+    "feedURL" : "https:\/\/www.ana-white.com\/feed",
+    "id" : "07c03631-b2d5-f679-a3de-d7ae00cf7516",
+    "name" : "Ana White",
+    "siteURL" : "https:\/\/www.ana-white.com\/",
     "tags" : [
 
     ]
@@ -283,7 +404,7 @@
     ]
   },
   {
-    "category" : "Android Development",
+    "category" : "Mobile Development",
     "description" : "News and insights on the Android platform, developer tools, and events",
     "feedURL" : "https:\/\/android-developers.googleblog.com\/feeds\/posts\/default",
     "id" : "4b3aeebc-e9fe-5be4-8d3c-c87b30e82379",
@@ -338,6 +459,17 @@
     ]
   },
   {
+    "category" : "History",
+    "description" : "Archaeological digs, discoveries, and science from the Archaeological Institute of America",
+    "feedURL" : "https:\/\/archaeology.org\/feed\/",
+    "id" : "cd24d802-f8d6-cd90-d4a2-74df440fcf01",
+    "name" : "Archaeology Magazine",
+    "siteURL" : "https:\/\/www.archaeology.org\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Architecture",
     "description" : "ArchDaily, Broadcasting Architecture Worldwide: Architecture news, competitions and projects updated every hour for the",
     "feedURL" : "https:\/\/www.archdaily.com\/rss.xml",
@@ -382,8 +514,41 @@
     ]
   },
   {
+    "category" : "History",
+    "description" : "Obscure places, forgotten history, and cultural curiosities from around the world",
+    "feedURL" : "https:\/\/www.atlasobscura.com\/feeds\/latest",
+    "id" : "1e0b2d40-6f98-5530-3b31-21181c43fc6a",
+    "name" : "Atlas Obscura",
+    "siteURL" : "https:\/\/www.atlasobscura.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Cars",
-    "description" : "Car and Bike news, reviews and videos",
+    "description" : "Car news, reviews, and consumer-practical buying advice from the UK",
+    "feedURL" : "https:\/\/www.autoexpress.co.uk\/rss",
+    "id" : "0b8e4e5c-1503-c933-72f4-38daef7d4d74",
+    "name" : "Auto Express",
+    "siteURL" : "https:\/\/www.autoexpress.co.uk\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Cars",
+    "description" : "The global benchmark for road tests from the world's oldest car magazine",
+    "feedURL" : "https:\/\/www.autocar.co.uk\/rss",
+    "id" : "79904079-a84e-46a3-4b7c-fba493e62a52",
+    "name" : "Autocar",
+    "siteURL" : "https:\/\/www.autocar.co.uk\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Cars",
+    "description" : "Car and bike news, reviews, and videos from India",
     "feedURL" : "https:\/\/www.autocarindia.com\/RSS\/rss.ashx?type=all_bikes",
     "id" : "a3feefc3-fc55-e4ba-71f9-904788520c63",
     "name" : "Autocar India",
@@ -393,18 +558,7 @@
     ]
   },
   {
-    "category" : "Cars",
-    "description" : "Welcome to nirvana for car enthusiasts. You have just entered the online home of the world's oldest car magazine, and",
-    "feedURL" : "https:\/\/www.autocar.co.uk\/rss",
-    "id" : "79904079-a84e-46a3-4b7c-fba493e62a52",
-    "name" : "Autocar RSS Feed",
-    "siteURL" : "https:\/\/www.autocar.co.uk\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "News",
+    "category" : "World News",
     "description" : "Smart, efficient news coverage of politics, business, and technology",
     "feedURL" : "https:\/\/api.axios.com\/feed\/",
     "id" : "f5e8ac85-4e40-4b1e-48c1-10f82ecca136",
@@ -438,7 +592,7 @@
     ]
   },
   {
-    "category" : "News",
+    "category" : "World News",
     "description" : "World news from BBC",
     "feedURL" : "https:\/\/feeds.bbci.co.uk\/news\/world\/rss.xml",
     "id" : "1796df62-c4a2-87cc-aef6-70b248b7f98c",
@@ -450,7 +604,7 @@
   },
   {
     "category" : "Sports",
-    "description" : "Sports news, scores, and analysis from BBC Sport",
+    "description" : "Sports news, scores, and results from BBC Sport",
     "feedURL" : "https:\/\/feeds.bbci.co.uk\/sport\/rss.xml",
     "id" : "4265059e-11db-47d9-f1ba-d588157f4988",
     "name" : "BBC Sport",
@@ -460,7 +614,7 @@
     ]
   },
   {
-    "category" : "Cricket",
+    "category" : "Sports",
     "description" : "Cricket news, scores, and results from BBC Sport",
     "feedURL" : "https:\/\/feeds.bbci.co.uk\/sport\/cricket\/rss.xml",
     "id" : "73826047-a289-39cc-8393-5205ea59589e",
@@ -471,7 +625,7 @@
     ]
   },
   {
-    "category" : "Tennis",
+    "category" : "Sports",
     "description" : "Tennis news, scores, and results from BBC Sport",
     "feedURL" : "https:\/\/feeds.bbci.co.uk\/sport\/tennis\/rss.xml",
     "id" : "c8e79e6d-03a8-b82e-9afb-3455992921f6",
@@ -506,8 +660,19 @@
     ]
   },
   {
+    "category" : "Beauty",
+    "description" : "Trade publication covering indie brand launches, funding, and retail strategy",
+    "feedURL" : "https:\/\/www.beautyindependent.com\/feed\/",
+    "id" : "8a51560a-09b4-4137-145f-96d3f52678f1",
+    "name" : "Beauty Independent",
+    "siteURL" : "https:\/\/www.beautyindependent.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Motorcycles",
-    "description" : "The world's most exciting custom motorcycles, from cafe racers to bobbers to scramblers and street trackers",
+    "description" : "Custom motorcycles, cafe racers, and beautifully photographed builds",
     "feedURL" : "https:\/\/www.bikeexif.com\/feed",
     "id" : "4dc57b3a-f801-f8c1-1b53-a4866a090602",
     "name" : "Bike EXIF",
@@ -518,7 +683,7 @@
   },
   {
     "category" : "Cars",
-    "description" : "Stay ahead with the latest BMW news, reviews and exclusive insights. Watch stunning BMW reels, videos and photos! Your",
+    "description" : "Stay ahead with the latest BMW news, reviews, and exclusive insights",
     "feedURL" : "https:\/\/www.bmwblog.com\/feed",
     "id" : "3f1602b6-59f7-58fb-b95d-48273778f683",
     "name" : "BMW BLOG",
@@ -528,11 +693,22 @@
     ]
   },
   {
+    "category" : "DIY",
+    "description" : "Home improvement projects, product reviews, and practical how-to guides",
+    "feedURL" : "https:\/\/www.bobvila.com\/feed\/",
+    "id" : "a1e31c51-909b-d34c-7e51-82efb043ff40",
+    "name" : "Bob Vila",
+    "siteURL" : "https:\/\/www.bobvila.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Books",
-    "description" : "Book Riot celebrates all things books! Find the best books for your next read or book club, including new books in all",
+    "description" : "Accessible and inclusive book discovery across every genre",
     "feedURL" : "https:\/\/bookriot.com\/feed\/",
     "id" : "38c7dbeb-620c-fd3b-458e-9b59d1716210",
-    "name" : "BOOK RIOT",
+    "name" : "Book Riot",
     "siteURL" : "https:\/\/bookriot.com\/",
     "tags" : [
 
@@ -562,6 +738,17 @@
     ]
   },
   {
+    "category" : "DIY",
+    "description" : "Crafts, DIY projects, and lifestyle content for a creative audience",
+    "feedURL" : "https:\/\/www.brit.co\/feeds\/feed.rss",
+    "id" : "bfb0c1d2-09cc-0bc0-6f45-be2da9b71841",
+    "name" : "Brit + Co",
+    "siteURL" : "https:\/\/www.brit.co\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "India",
     "country" : "India",
     "description" : "Business News Today: Read latest breaking headlines for Business news, Financial news, Stock\/Share market & Indian",
@@ -569,6 +756,28 @@
     "id" : "d754cfa2-2720-8c23-352a-ccbdbcebb568",
     "name" : "Business Line",
     "siteURL" : "https:\/\/www.thehindubusinessline.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Beauty",
+    "description" : "Comprehensive skincare, hair, makeup, and nail coverage",
+    "feedURL" : "https:\/\/feeds-api.dotdashmeredith.com\/v1\/rss\/google\/6772aca0-2ce6-4ccc-8a40-d5556ba3a9c7",
+    "id" : "7a1c9831-b811-5f49-b438-c2f2ca0e2ef3",
+    "name" : "Byrdie",
+    "siteURL" : "https:\/\/www.byrdie.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Environment",
+    "description" : "Clean energy and energy transition news from a nonprofit newsroom",
+    "feedURL" : "https:\/\/www.canarymedia.com\/rss.rss",
+    "id" : "bd9f86f9-53b4-a5cb-1321-6d0d212f4886",
+    "name" : "Canary Media",
+    "siteURL" : "https:\/\/www.canarymedia.com\/",
     "tags" : [
 
     ]
@@ -598,7 +807,7 @@
   },
   {
     "category" : "Cars",
-    "description" : "Covering the auto industry since 1955 with reviews, analysis, and advice for car owners and buyers",
+    "description" : "The authority for rigorous car testing, comparison tests, and reviews",
     "feedURL" : "https:\/\/www.caranddriver.com\/rss\/all.xml\/",
     "id" : "30295614-6961-c08f-f1e7-7c1ad0b317ed",
     "name" : "Car and Driver",
@@ -609,7 +818,7 @@
   },
   {
     "category" : "Cars",
-    "description" : "Car Design Resources, News and Tutorials",
+    "description" : "Car design resources, news, and tutorials",
     "feedURL" : "https:\/\/www.carbodydesign.com\/feed\/",
     "id" : "c11d0b11-c883-89c4-6fdd-59e20bc2a3b4",
     "name" : "Car Body Design",
@@ -619,8 +828,19 @@
     ]
   },
   {
+    "category" : "Environment",
+    "description" : "Data-driven climate science and energy policy coverage",
+    "feedURL" : "https:\/\/www.carbonbrief.org\/feed",
+    "id" : "5945e50d-6a0f-38ed-83a6-beeb75f4fb1a",
+    "name" : "Carbon Brief",
+    "siteURL" : "https:\/\/www.carbonbrief.org\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Cars",
-    "description" : "Breaking news coverage for car buyers and auto enthusiasts with spy shots, reviews, auto shows, offbeat stories and",
+    "description" : "The fastest on scoops, spy shots, and global car news",
     "feedURL" : "https:\/\/www.carscoops.com\/feed\/",
     "id" : "e081bf72-d79e-e8a8-a5c0-0586e5ea2444",
     "name" : "Carscoops",
@@ -648,6 +868,17 @@
     "id" : "a29f1ffb-63d7-a9ed-8cf9-484edb038a11",
     "name" : "Chocolate & Zucchini",
     "siteURL" : "https:\/\/cnz.to\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Environment",
+    "description" : "Clean energy, electric vehicles, and sustainability news",
+    "feedURL" : "https:\/\/cleantechnica.com\/feed\/",
+    "id" : "befffecf-3054-cb1e-48d5-0af34c2f5ef1",
+    "name" : "CleanTechnica",
+    "siteURL" : "https:\/\/cleantechnica.com\/",
     "tags" : [
 
     ]
@@ -686,12 +917,34 @@
     ]
   },
   {
-    "category" : "Movies",
+    "category" : "Film & TV",
     "description" : "ComingSoon.net features the latest movie trailers and news, TV updates, video game reviews, anime releases, and more",
     "feedURL" : "https:\/\/www.comingsoon.net\/feed",
     "id" : "4d6fc1e4-151c-fb37-3c12-4cc7d5affbdb",
     "name" : "ComingSoon.net",
     "siteURL" : "https:\/\/www.comingsoon.net\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Travel",
+    "description" : "Hotel reviews, destination guides, and luxury travel inspiration from Condé Nast",
+    "feedURL" : "https:\/\/www.cntraveler.com\/feed\/rss",
+    "id" : "33983496-aa07-c14b-cb6d-ffa884e27a9a",
+    "name" : "Condé Nast Traveler",
+    "siteURL" : "https:\/\/www.cntraveler.com",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Marketing",
+    "description" : "Content marketing strategy, research reports, and industry benchmarks",
+    "feedURL" : "https:\/\/contentmarketinginstitute.com\/rss.xml",
+    "id" : "aac7759a-3d4d-022f-efee-38914e15e5c1",
+    "name" : "Content Marketing Institute",
+    "siteURL" : "https:\/\/contentmarketinginstitute.com\/",
     "tags" : [
 
     ]
@@ -708,7 +961,7 @@
     ]
   },
   {
-    "category" : "Funny",
+    "category" : "Humor & Satire",
     "description" : "Every post that goes up on Cracked.com",
     "feedURL" : "https:\/\/www.cracked.com\/crackedrss\/allposts.xml",
     "id" : "205e047b-47d4-581c-99b8-a76c41b053c6",
@@ -719,7 +972,18 @@
     ]
   },
   {
-    "category" : "Web Development",
+    "category" : "Boating",
+    "description" : "Cruising guides, boat reviews, and sailing lifestyle for bluewater and coastal cruisers",
+    "feedURL" : "https:\/\/www.cruisingworld.com\/feed\/",
+    "id" : "5b155090-4533-19ae-c53b-2e70e43c390b",
+    "name" : "Cruising World",
+    "siteURL" : "https:\/\/www.cruisingworld.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Web Design & UX",
     "description" : "Tips, tricks, and techniques on CSS and web development",
     "feedURL" : "https:\/\/css-tricks.com\/feed\/",
     "id" : "3292e08c-98ab-0fd7-c5df-fd64984e9645",
@@ -777,7 +1041,7 @@
     ]
   },
   {
-    "category" : "Android Development",
+    "category" : "Mobile Development",
     "description" : "Android development tips and insights",
     "feedURL" : "https:\/\/blog.danlew.net\/rss\/",
     "id" : "ca0b64ea-7f58-4fe1-ccd9-d0d3b9b422d4",
@@ -810,7 +1074,7 @@
     ]
   },
   {
-    "category" : "Web Development",
+    "category" : "Web Design & UX",
     "description" : "Tutorials on JavaScript, HTML5, CSS, and web development",
     "feedURL" : "https:\/\/davidwalsh.name\/feed",
     "id" : "dee356a0-2284-f2b7-d464-61c10914c2f0",
@@ -821,8 +1085,8 @@
     ]
   },
   {
-    "category" : "Movies",
-    "description" : "Deadline.com is always the first to break up-to-the-minute entertainment, Hollywood and media news, with an unfiltered",
+    "category" : "Film & TV",
+    "description" : "Breaking entertainment, Hollywood, and media news",
     "feedURL" : "https:\/\/deadline.com\/feed\/",
     "id" : "a6faba43-a17a-e08c-e8c2-ca2957c887cc",
     "name" : "Deadline",
@@ -839,6 +1103,17 @@
     "id" : "49d0299e-a7e9-e471-c594-4d6847d18c98",
     "name" : "Deccan Chronicle",
     "siteURL" : "https:\/\/www.deccanchronicle.com",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Sports",
+    "description" : "Smart, funny, independent sports writing from a worker-owned media company",
+    "feedURL" : "https:\/\/defector.com\/feed",
+    "id" : "7cf504ef-5bdb-2086-24c4-f2244396649b",
+    "name" : "Defector",
+    "siteURL" : "https:\/\/defector.com\/",
     "tags" : [
 
     ]
@@ -889,6 +1164,17 @@
     ]
   },
   {
+    "category" : "Marketing",
+    "description" : "Insider coverage of how digital marketing and media actually works",
+    "feedURL" : "https:\/\/digiday.com\/feed\/",
+    "id" : "a8ef91a3-6616-d9c1-2b5d-ef4d06829573",
+    "name" : "Digiday",
+    "siteURL" : "https:\/\/digiday.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Photography",
     "description" : "Photography tips and tutorials for all skill levels",
     "feedURL" : "https:\/\/digital-photography-school.com\/feed\/",
@@ -911,7 +1197,7 @@
     ]
   },
   {
-    "category" : "iOS Development",
+    "category" : "Mobile Development",
     "description" : "Practical Swift and iOS development tutorials and workshops",
     "feedURL" : "https:\/\/donnywals.com\/feed",
     "id" : "8cc83c87-41bb-58f5-98e7-a1f4f32bb4b5",
@@ -933,7 +1219,7 @@
     ]
   },
   {
-    "category" : "Business & Economy",
+    "category" : "Business & Finance",
     "description" : "Small business marketing tips and strategies",
     "feedURL" : "https:\/\/ducttape.libsyn.com\/rss",
     "id" : "d3242674-3285-be41-18b0-e9cf72c5d0bd",
@@ -944,7 +1230,7 @@
     ]
   },
   {
-    "category" : "Business & Economy",
+    "category" : "Business & Finance",
     "description" : "The Economic Times: Latest business, finance, markets, stocks, company news from India",
     "feedURL" : "https:\/\/economictimes.indiatimes.com\/rssfeedsdefault.cms",
     "id" : "244f9e96-12cc-f830-0c20-1888b38ba5cc",
@@ -1002,6 +1288,17 @@
     ]
   },
   {
+    "category" : "Environment",
+    "description" : "Electric vehicles, solar, and clean energy news for enthusiasts",
+    "feedURL" : "https:\/\/electrek.co\/feed\/",
+    "id" : "5c676ee9-116d-fc48-8eb8-36c0776114dc",
+    "name" : "Electrek",
+    "siteURL" : "https:\/\/electrek.co\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Beauty",
     "description" : "Fashion, beauty, celebrity, and culture",
     "feedURL" : "https:\/\/www.elle.com\/rss\/beauty.xml\/",
@@ -1024,7 +1321,7 @@
     ]
   },
   {
-    "category" : "iOS Development",
+    "category" : "Mobile Development",
     "description" : "iOS app size optimization, performance, and build tooling",
     "feedURL" : "https:\/\/www.emergetools.com\/rss.xml",
     "id" : "b3725457-67ba-5825-9594-25673f097d7d",
@@ -1046,7 +1343,7 @@
     ]
   },
   {
-    "category" : "Startups",
+    "category" : "Business & Finance",
     "description" : "Your ultimate resource for small business news, entrepreneurship, business management, franchise opportunities, growth",
     "feedURL" : "https:\/\/www.entrepreneur.com\/rss\/",
     "id" : "8fdd0497-44c5-5131-baeb-6d62a0e088e2",
@@ -1080,11 +1377,33 @@
   },
   {
     "category" : "Sports",
-    "description" : "Visit ESPN for live scores, highlights and sports news. Stream exclusive games on ESPN and play fantasy sports",
+    "description" : "Live scores, highlights, and sports news across every major sport",
     "feedURL" : "https:\/\/www.espn.com\/espn\/rss\/news",
     "id" : "8bc0466d-a15a-8166-21f7-77e304c50859",
     "name" : "ESPN",
     "siteURL" : "https:\/\/www.espn.com",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Sports",
+    "description" : "Tennis news, live scores, highlights, and analysis from ESPN",
+    "feedURL" : "https:\/\/www.espn.com\/espn\/rss\/tennis\/news",
+    "id" : "f85ac56d-78c4-bc29-18bf-14606bf67c27",
+    "name" : "ESPN Tennis",
+    "siteURL" : "https:\/\/www.espn.com",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Beauty",
+    "description" : "Beauty, culture, and entertainment with a focus on Black audiences",
+    "feedURL" : "https:\/\/www.essence.com\/feed\/",
+    "id" : "eacb7be9-a723-24db-61e6-3016c80b4818",
+    "name" : "Essence",
+    "siteURL" : "https:\/\/www.essence.com\/",
     "tags" : [
 
     ]
@@ -1113,7 +1432,40 @@
     ]
   },
   {
-    "category" : "iOS Development",
+    "category" : "Space",
+    "description" : "Deep-dive explainers on rocket engines, launch systems, and spaceflight",
+    "feedURL" : "https:\/\/everydayastronaut.com\/feed\/",
+    "id" : "c2978591-9eb8-8137-eb5b-ed472c4394ba",
+    "name" : "Everyday Astronaut",
+    "siteURL" : "https:\/\/everydayastronaut.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Health & Wellness",
+    "description" : "Broad consumer health coverage with condition-specific guides and expert content",
+    "feedURL" : "https:\/\/feeds.everydayhealth.com\/google-discover.xml",
+    "id" : "390f49e9-d04c-87ea-3faf-f60a2cbb11a6",
+    "name" : "Everyday Health",
+    "siteURL" : "https:\/\/www.everydayhealth.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Cars",
+    "description" : "The performance car bible — driving engagement over luxury features",
+    "feedURL" : "https:\/\/www.evo.co.uk\/news\/feed",
+    "id" : "2168ad3e-c419-7d41-bfcf-e7630637a8d1",
+    "name" : "Evo",
+    "siteURL" : "https:\/\/www.evo.co.uk\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Mobile Development",
     "description" : "iOS development blog",
     "feedURL" : "https:\/\/www.fabisevi.ch\/feed.xml",
     "id" : "b2572bcc-423d-1381-bb63-23cc20f93bc3",
@@ -1135,12 +1487,34 @@
     ]
   },
   {
-    "category" : "Funny",
+    "category" : "Humor & Satire",
     "description" : "The internet has generated a huge amount of laughs from cats and FAILS. And we all out of cats",
     "feedURL" : "https:\/\/failblog.cheezburger.com\/rss",
     "id" : "66947e8e-8521-5444-8910-8517c5316120",
     "name" : "FAIL Blog",
     "siteURL" : "https:\/\/failblog.cheezburger.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "DIY",
+    "description" : "Practical home repair, improvement tutorials, and tool reviews",
+    "feedURL" : "https:\/\/www.familyhandyman.com\/feed",
+    "id" : "7f09718c-dd82-7890-a2fb-19f15807fc73",
+    "name" : "Family Handyman",
+    "siteURL" : "https:\/\/www.familyhandyman.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Sports",
+    "description" : "The gold standard for baseball analytics and data-driven sports analysis",
+    "feedURL" : "https:\/\/www.fangraphs.com\/blogs\/feed\/",
+    "id" : "bed5578e-6d37-3bad-2b97-cb69e9bc74b6",
+    "name" : "FanGraphs",
+    "siteURL" : "https:\/\/www.fangraphs.com\/",
     "tags" : [
 
     ]
@@ -1180,7 +1554,7 @@
     ]
   },
   {
-    "category" : "iOS Development",
+    "category" : "Mobile Development",
     "description" : "In-depth SwiftUI, SwiftData, and Core Data tutorials",
     "feedURL" : "https:\/\/fatbobman.com\/en\/rss.xml",
     "id" : "cc27cebf-5e08-56d1-9bad-d70aed334a74",
@@ -1191,7 +1565,7 @@
     ]
   },
   {
-    "category" : "Startups",
+    "category" : "Business & Finance",
     "description" : "Venture capital and startup insights",
     "feedURL" : "https:\/\/feld.com\/feed",
     "id" : "c181c424-6a5c-e334-08d6-2ec6b506fac7",
@@ -1225,8 +1599,19 @@
     ]
   },
   {
-    "category" : "Movies",
-    "description" : "The latest movie trailers, release dates, film reviews, discussions, and updates on the cinematic experience from",
+    "category" : "DIY",
+    "description" : "Premium woodworking instruction, project plans, and technique guides",
+    "feedURL" : "https:\/\/www.finewoodworking.com\/feed",
+    "id" : "53032e89-a902-fb6a-aa91-3d4634af8cb7",
+    "name" : "Fine Woodworking",
+    "siteURL" : "https:\/\/www.finewoodworking.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Film & TV",
+    "description" : "The latest movie trailers, release dates, film reviews, discussions, and updates on the cinematic experience",
     "feedURL" : "https:\/\/www.firstshowing.net\/feed\/",
     "id" : "ca85d6a4-33d9-abde-9695-36848f3dbbe2",
     "name" : "FirstShowing.net",
@@ -1236,7 +1621,7 @@
     ]
   },
   {
-    "category" : "Business & Economy",
+    "category" : "Business & Finance",
     "description" : "Forbes is a leading source for reliable news and updated analysis on Business. Read the breaking Business coverage and",
     "feedURL" : "https:\/\/www.forbes.com\/business\/feed\/",
     "id" : "086a17a7-4573-dec9-f100-6b70cab9fd1a",
@@ -1247,7 +1632,7 @@
     ]
   },
   {
-    "category" : "Business & Economy",
+    "category" : "Business & Finance",
     "description" : "Unrivaled access, premier storytelling, and the best of business since 1930",
     "feedURL" : "https:\/\/fortune.com\/feed",
     "id" : "8a8180b4-2f01-8964-70b0-1963050312a7",
@@ -1373,7 +1758,7 @@
     ]
   },
   {
-    "category" : "News",
+    "category" : "World News",
     "description" : "Comprehensive news aggregation from Google",
     "feedURL" : "https:\/\/news.google.com\/rss",
     "id" : "fe39472a-3338-f318-54e9-e1fb64c6227a",
@@ -1395,12 +1780,34 @@
     ]
   },
   {
+    "category" : "Environment",
+    "description" : "Solutions-oriented climate and environmental justice journalism",
+    "feedURL" : "https:\/\/grist.org\/feed",
+    "id" : "0eb34085-cf07-1aec-b367-1c3a51417508",
+    "name" : "Grist",
+    "siteURL" : "https:\/\/grist.org\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Tech",
     "description" : "GSMArena.com - The ultimate resource for GSM handset information",
     "feedURL" : "https:\/\/www.gsmarena.com\/rss-news-reviews.php3",
     "id" : "02f8490e-8334-73e7-335c-8af567c5eee3",
     "name" : "GSMArena",
     "siteURL" : "https:\/\/www.gsmarena.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "DIY",
+    "description" : "Electronics, hardware hacking, and engineering projects from the maker community",
+    "feedURL" : "https:\/\/hackaday.com\/feed\/",
+    "id" : "baabfa3b-b514-98f2-9f5d-ee32fd604f9c",
+    "name" : "Hackaday",
+    "siteURL" : "https:\/\/hackaday.com\/",
     "tags" : [
 
     ]
@@ -1439,7 +1846,7 @@
     ]
   },
   {
-    "category" : "iOS Development",
+    "category" : "Mobile Development",
     "description" : "Free Swift tutorials for iOS development",
     "feedURL" : "https:\/\/www.hackingwithswift.com\/articles\/rss",
     "id" : "b506698e-0987-5ca3-d0d7-34e4b9243af2",
@@ -1450,7 +1857,7 @@
     ]
   },
   {
-    "category" : "Web Development",
+    "category" : "Web Design & UX",
     "description" : "Mozilla Hacks is written for web developers, designers and everyone who builds for the Web. Hacks is produced by Mozilla",
     "feedURL" : "https:\/\/hacks.mozilla.org\/feed\/",
     "id" : "394ba688-e40a-39f5-875e-6d5ee66d23af",
@@ -1461,7 +1868,40 @@
     ]
   },
   {
-    "category" : "Android Development",
+    "category" : "DIY",
+    "description" : "IoT and hardware project sharing platform with community tutorials",
+    "feedURL" : "https:\/\/www.hackster.io\/projects.rss?sort=recent",
+    "id" : "5cb6f1e1-def0-aa67-cc4c-09ec459e7d7d",
+    "name" : "Hackster.io",
+    "siteURL" : "https:\/\/www.hackster.io\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Cars",
+    "description" : "Classic cars, car culture, and the emotional side of automotive enthusiasm",
+    "feedURL" : "https:\/\/www.hagerty.com\/media\/feed\/",
+    "id" : "aa16b1db-c6c6-c7ac-3094-78026a788dc9",
+    "name" : "Hagerty",
+    "siteURL" : "https:\/\/www.hagerty.com\/media\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Environment",
+    "description" : "Coastal and ocean science and culture",
+    "feedURL" : "https:\/\/hakaimagazine.com\/feed\/",
+    "id" : "1e088771-ed91-1a74-2227-06545a458458",
+    "name" : "Hakai Magazine",
+    "siteURL" : "https:\/\/hakaimagazine.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Mobile Development",
     "description" : "Android and web development",
     "feedURL" : "https:\/\/handstandsam.com\/feed\/",
     "id" : "903aac8f-84b6-1d74-df10-9cafb0efed8b",
@@ -1494,6 +1934,17 @@
     ]
   },
   {
+    "category" : "Health & Wellness",
+    "description" : "Medically reviewed health news covering conditions, treatments, and wellness",
+    "feedURL" : "https:\/\/www.healthline.com\/rss\/health-news",
+    "id" : "7856bbb3-2f1b-f5fc-797a-a82a5cd7704c",
+    "name" : "Healthline",
+    "siteURL" : "https:\/\/www.healthline.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Fashion",
     "description" : "Streetwear, sneakers, and contemporary fashion",
     "feedURL" : "https:\/\/www.highsnobiety.com\/feeds\/rss",
@@ -1505,7 +1956,40 @@
     ]
   },
   {
-    "category" : "Business & Economy",
+    "category" : "History",
+    "description" : "BBC History Magazine's digital arm with articles, podcasts, and expert guides",
+    "feedURL" : "https:\/\/www.historyextra.com\/feed",
+    "id" : "b8bb4416-ba7a-d54b-4241-4ca60cfbe2cb",
+    "name" : "History Extra",
+    "siteURL" : "https:\/\/www.historyextra.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "History",
+    "description" : "One of the oldest and most respected dedicated history publications",
+    "feedURL" : "https:\/\/www.historytoday.com\/rss.xml",
+    "id" : "d547d6e4-8951-7109-ab95-526203a75038",
+    "name" : "History Today",
+    "siteURL" : "https:\/\/www.historytoday.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "History",
+    "description" : "Military history, Civil War, World War II, and more from a network of history magazines",
+    "feedURL" : "https:\/\/historynet.com\/feed\/",
+    "id" : "4123a374-68b4-422f-4382-3318857e15bc",
+    "name" : "HistoryNet",
+    "siteURL" : "https:\/\/www.historynet.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Business & Finance",
     "description" : "Indian business, markets, and economic news",
     "feedURL" : "https:\/\/www.business-standard.com\/rss\/home_page_top_stories.rss",
     "id" : "70b72ac2-200e-8358-f55a-8fd0b93315c0",
@@ -1574,6 +2058,17 @@
     ]
   },
   {
+    "category" : "Marketing",
+    "description" : "Inbound and content marketing guides, templates, and how-tos",
+    "feedURL" : "https:\/\/blog.hubspot.com\/feed",
+    "id" : "d2ef1348-c6b4-5963-f1c0-e8f1375972cd",
+    "name" : "HubSpot Blog",
+    "siteURL" : "https:\/\/blog.hubspot.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Spain",
     "country" : "Spain",
     "description" : "Últimas noticias y toda la actualidad en España y el mundo. Última hora, política, tendencias, vídeo, virales, opinión",
@@ -1581,6 +2076,17 @@
     "id" : "d58b2517-70b6-b97e-72f1-886dc0a46518",
     "name" : "huffingtonpost.es",
     "siteURL" : "https:\/\/www.huffingtonpost.es\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "AI",
+    "description" : "Open-source AI platform blog covering model releases, research, and community developments",
+    "feedURL" : "https:\/\/huggingface.co\/blog\/feed.xml",
+    "id" : "61d3148b-c057-2cab-03be-2891aea9f44f",
+    "name" : "Hugging Face Blog",
+    "siteURL" : "https:\/\/huggingface.co\/blog\/",
     "tags" : [
 
     ]
@@ -1597,7 +2103,18 @@
     ]
   },
   {
-    "category" : "Funny",
+    "category" : "History",
+    "description" : "Art, culture, material history, and cultural heritage criticism",
+    "feedURL" : "https:\/\/hyperallergic.com\/rss\/",
+    "id" : "31b3c59b-822b-db9e-afcf-df18f8a0cab7",
+    "name" : "Hyperallergic",
+    "siteURL" : "https:\/\/hyperallergic.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Humor & Satire",
     "description" : "World's largest collection of cat memes and other animals",
     "feedURL" : "https:\/\/icanhas.cheezburger.com\/rss",
     "id" : "d2fb02f2-93cb-5049-99d7-b30a6b111222",
@@ -1642,7 +2159,18 @@
     ]
   },
   {
-    "category" : "Startups",
+    "category" : "AI",
+    "description" : "Weekly AI briefing covering research, policy, and industry developments",
+    "feedURL" : "https:\/\/importai.substack.com\/feed",
+    "id" : "0f90c142-536d-f254-4caf-ca35ed835837",
+    "name" : "Import AI",
+    "siteURL" : "https:\/\/importai.substack.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Business & Finance",
     "description" : "Resources and advice for entrepreneurs and business leaders",
     "feedURL" : "https:\/\/www.inc.com\/rss\/",
     "id" : "84556dcb-442c-abe8-d233-e23509f37339",
@@ -1688,8 +2216,8 @@
     ]
   },
   {
-    "category" : "Movies",
-    "description" : "IndieWire is an online publication covering film, TV, and digital news, reviews, and interviews for passionate fans and",
+    "category" : "Film & TV",
+    "description" : "Film, TV, and digital news, reviews, and interviews for passionate fans",
     "feedURL" : "https:\/\/www.indiewire.com\/feed",
     "id" : "e4217dc6-df68-c3b8-818e-a29e5a31d093",
     "name" : "IndieWire",
@@ -1699,7 +2227,7 @@
     ]
   },
   {
-    "category" : "iOS Development",
+    "category" : "Mobile Development",
     "description" : "Brent Simmons's weblog on Mac and iOS development",
     "feedURL" : "https:\/\/inessential.com\/xml\/rss.xml",
     "id" : "c86eb5db-7fe1-6adf-dfd6-8b0fa7c13870",
@@ -1757,12 +2285,34 @@
     ]
   },
   {
-    "category" : "Startups",
+    "category" : "Environment",
+    "description" : "Pulitzer Prize-winning investigative climate and energy journalism",
+    "feedURL" : "https:\/\/insideclimatenews.org\/feed\/",
+    "id" : "2f04e2ed-f907-4f62-4910-40d25035e36d",
+    "name" : "Inside Climate News",
+    "siteURL" : "https:\/\/insideclimatenews.org\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Business & Finance",
     "description" : "Articles and Podcasts on Customer Service, AI and Automation, Product, and more",
     "feedURL" : "https:\/\/www.intercom.com\/blog\/feed",
     "id" : "5c6fc043-91e7-d79f-3f9e-f50a630d56a2",
     "name" : "Inside Intercom",
     "siteURL" : "https:\/\/www.intercom.com\/blog\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Cars",
+    "description" : "Comprehensive EV news, reviews, and charging coverage",
+    "feedURL" : "https:\/\/insideevs.com\/rss\/news\/all\/",
+    "id" : "6f392042-5b98-572e-0576-448cfe492c42",
+    "name" : "InsideEVs",
+    "siteURL" : "https:\/\/insideevs.com\/",
     "tags" : [
 
     ]
@@ -1780,7 +2330,18 @@
     ]
   },
   {
-    "category" : "News",
+    "category" : "AI",
+    "description" : "AI research and alignment insights from a former Hugging Face researcher",
+    "feedURL" : "https:\/\/www.interconnects.ai\/feed",
+    "id" : "633e5ebc-b836-2611-e9ac-8d8f1bfd72c5",
+    "name" : "Interconnects",
+    "siteURL" : "https:\/\/www.interconnects.ai\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "World News",
     "description" : "CNBC International is the world leader for news on business, technology, China, trade, oil prices, the Middle East and",
     "feedURL" : "https:\/\/www.cnbc.com\/id\/100727362\/device\/rss\/rss.html",
     "id" : "75e1d84f-ca2f-4528-2674-52a7c301d83d",
@@ -1851,7 +2412,7 @@
     ]
   },
   {
-    "category" : "Android Development",
+    "category" : "Mobile Development",
     "description" : "Android and Kotlin development",
     "feedURL" : "https:\/\/jakewharton.com\/atom.xml",
     "id" : "a33fc95b-48c6-e3ea-f0a0-be95ee187bb4",
@@ -1863,11 +2424,22 @@
   },
   {
     "category" : "Cars",
-    "description" : "From cars to motorcycles, Jalopnik is your go-to site covering everything with an engine—including automotive news",
+    "description" : "Automotive news covering everything with an engine",
     "feedURL" : "https:\/\/jalopnik.com\/rss",
     "id" : "acedcf60-42c8-82bd-151a-ebe84e686727",
     "name" : "Jalopnik",
     "siteURL" : "https:\/\/www.jalopnik.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Books",
+    "description" : "Publishing industry insights and practical advice for authors",
+    "feedURL" : "https:\/\/janefriedman.com\/feed\/",
+    "id" : "83fbbe30-9df7-96fc-6f97-33d3d95fb700",
+    "name" : "Jane Friedman",
+    "siteURL" : "https:\/\/janefriedman.com\/",
     "tags" : [
 
     ]
@@ -1885,12 +2457,23 @@
     ]
   },
   {
-    "category" : "iOS Development",
+    "category" : "Mobile Development",
     "description" : "Swift, open source, and Apple platform development",
     "feedURL" : "https:\/\/www.jessesquires.com\/feed.xml",
     "id" : "170b6316-68dd-56a8-b258-c3a40d8c4253",
     "name" : "Jesse Squires",
     "siteURL" : "https:\/\/www.jessesquires.com",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Beauty",
+    "description" : "Critical analysis of beauty industry claims and culture",
+    "feedURL" : "https:\/\/jessicadefino.substack.com\/feed",
+    "id" : "894ff557-38f8-1d97-f38e-971ee6ab4f6a",
+    "name" : "Jessica DeFino",
+    "siteURL" : "https:\/\/jessicadefino.substack.com\/",
     "tags" : [
 
     ]
@@ -1918,7 +2501,7 @@
     ]
   },
   {
-    "category" : "Android Development",
+    "category" : "Mobile Development",
     "description" : "Android, Flutter, and Google Assistant development",
     "feedURL" : "https:\/\/joebirch.co\/feed",
     "id" : "a5fc413d-bd0b-d1c6-443c-37dfd081c5fb",
@@ -1951,6 +2534,17 @@
     ]
   },
   {
+    "category" : "History",
+    "description" : "Connects current events to academic research with a strong history focus",
+    "feedURL" : "https:\/\/daily.jstor.org\/feed",
+    "id" : "b2e49b9b-bfa0-73b5-269f-b657a4914148",
+    "name" : "JSTOR Daily",
+    "siteURL" : "https:\/\/daily.jstor.org\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Bangladesh",
     "country" : "Bangladesh",
     "description" : "বাংলাদেশের শীর্ষ অনলাইন সংবাদপত্র",
@@ -1958,6 +2552,28 @@
     "id" : "59e0c6e4-f09a-ea39-1c32-5002ad79b946",
     "name" : "kalerkantho Kantho",
     "siteURL" : "https:\/\/www.kalerkantho.com",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Boating",
+    "description" : "Kayak fishing tips, gear reviews, and tournament coverage",
+    "feedURL" : "https:\/\/kayakanglermag.com\/feed\/",
+    "id" : "59f163ba-aa07-9fba-8a26-2bef478d8f7d",
+    "name" : "Kayak Angler",
+    "siteURL" : "https:\/\/www.kayakanglermag.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Health & Wellness",
+    "description" : "Nonprofit health policy journalism covering the healthcare system, insurance, and public health",
+    "feedURL" : "https:\/\/kffhealthnews.org\/feed",
+    "id" : "bf3b93c1-e1d0-9343-f674-c61a06240cb2",
+    "name" : "KFF Health News",
+    "siteURL" : "https:\/\/kffhealthnews.org\/",
     "tags" : [
 
     ]
@@ -2007,7 +2623,7 @@
     ]
   },
   {
-    "category" : "Android Development",
+    "category" : "Mobile Development",
     "description" : "Blog with mission to simplify Kotlin learning",
     "feedURL" : "https:\/\/blog.kotlin-academy.com\/feed",
     "id" : "d82be0c7-5b8c-a091-faec-8abedc848351",
@@ -2030,6 +2646,28 @@
     ]
   },
   {
+    "category" : "Beauty",
+    "description" : "Science-backed skincare analysis from a chemistry expert",
+    "feedURL" : "https:\/\/labmuffin.com\/feed\/",
+    "id" : "5ec5085a-be2d-910a-93fb-3ed3bfbfa96f",
+    "name" : "Lab Muffin Beauty Science",
+    "siteURL" : "https:\/\/labmuffin.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "History",
+    "description" : "Literary-historical publication exploring themes through primary sources across centuries",
+    "feedURL" : "https:\/\/www.laphamsquarterly.org\/rss.xml",
+    "id" : "61f41685-9cd5-53ce-c68b-d8e48ddce903",
+    "name" : "Lapham's Quarterly",
+    "siteURL" : "https:\/\/www.laphamsquarterly.org\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Canada",
     "country" : "Canada",
     "description" : "Section Actualités de LaPresse.ca : Nouvelles régionales, provinciales, nationales et internationales",
@@ -2042,6 +2680,17 @@
     ]
   },
   {
+    "category" : "AI",
+    "description" : "Weekly roundup of the most important AI developments, research, and news",
+    "feedURL" : "https:\/\/lastweekin.ai\/feed",
+    "id" : "5135495e-dde6-3868-1019-abdefcf6222f",
+    "name" : "Last Week in AI",
+    "siteURL" : "https:\/\/lastweekin.ai\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Nigeria",
     "country" : "Nigeria",
     "description" : "The Nation Newspaper - Nigerian News, Nigerian newspapers, Breaking News, Latest news, Entertainment, Sports, Business",
@@ -2049,6 +2698,17 @@
     "id" : "8898e8da-d27d-f400-adb2-278cc5f9a28e",
     "name" : "Latest Nigeria News",
     "siteURL" : "https:\/\/thenationonlineng.net",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Boating",
+    "description" : "West Coast sailing news, racing coverage, and cruising stories from the Bay Area and beyond",
+    "feedURL" : "https:\/\/www.latitude38.com\/feed\/",
+    "id" : "f0fe5b2e-a0d6-36bf-4d7d-2723f2c7fdf3",
+    "name" : "Latitude 38",
+    "siteURL" : "https:\/\/www.latitude38.com\/",
     "tags" : [
 
     ]
@@ -2090,6 +2750,28 @@
     ]
   },
   {
+    "category" : "Marketing",
+    "description" : "Product, growth, and marketing insights bridging tech and business",
+    "feedURL" : "https:\/\/www.lennysnewsletter.com\/feed",
+    "id" : "1ec8fb3c-0807-430c-f198-5fb4e9550327",
+    "name" : "Lenny's Newsletter",
+    "siteURL" : "https:\/\/www.lennysnewsletter.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "DIY",
+    "description" : "Paper crafts, SVG templates, and handmade project tutorials",
+    "feedURL" : "https:\/\/liagriffith.com\/feed\/",
+    "id" : "718b436c-3825-bb28-9d4e-baf45bf263d6",
+    "name" : "Lia Griffith",
+    "siteURL" : "https:\/\/liagriffith.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Italy",
     "country" : "Italy",
     "description" : "Quotidiano italiano di notizie e opinione",
@@ -2119,6 +2801,28 @@
     "id" : "b07199a0-7a95-63b1-0c10-24cc9602f114",
     "name" : "Light Stalking",
     "siteURL" : "https:\/\/www.lightstalking.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Books",
+    "description" : "Daily essays, interviews, excerpts, and book criticism",
+    "feedURL" : "https:\/\/lithub.com\/feed",
+    "id" : "859012ff-07e7-29b6-ae97-5e7a3dc12093",
+    "name" : "Literary Hub",
+    "siteURL" : "https:\/\/lithub.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Science",
+    "description" : "Accessible, high-traffic science news covering all disciplines",
+    "feedURL" : "https:\/\/www.livescience.com\/feeds.xml",
+    "id" : "6511ef25-8e6c-0b7b-3413-f87e408e93d5",
+    "name" : "Live Science",
+    "siteURL" : "https:\/\/www.livescience.com\/",
     "tags" : [
 
     ]
@@ -2169,8 +2873,19 @@
     ]
   },
   {
+    "category" : "DIY",
+    "description" : "DIY projects, maker tutorials, and ideas for builders and tinkerers",
+    "feedURL" : "https:\/\/makezine.com\/feed\/",
+    "id" : "5d249141-cfe5-4690-c3c3-01d76c3365e7",
+    "name" : "Make: Magazine",
+    "siteURL" : "https:\/\/makezine.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Beauty",
-    "description" : "A beauty blog blooming with fresh makeup reviews, swatches and beauty tips from your friendly neighborhood beauty addict",
+    "description" : "Makeup reviews, swatches, and beauty tips",
     "feedURL" : "https:\/\/www.makeupandbeautyblog.com\/feed\/",
     "id" : "c0555b53-a076-df56-ccf7-b84b53e6cdb7",
     "name" : "Makeup and Beauty Blog",
@@ -2186,6 +2901,39 @@
     "id" : "9ae3fa68-a393-54b5-91d1-7a48879c8da4",
     "name" : "Making Sense Of Cents",
     "siteURL" : "https:\/\/makingsenseofcents.com",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Marketing",
+    "description" : "Daily briefing covering the marketing landscape concisely",
+    "feedURL" : "https:\/\/www.marketingbrew.com\/feed.xml",
+    "id" : "e3301663-fe12-2527-298d-779232b32783",
+    "name" : "Marketing Brew",
+    "siteURL" : "https:\/\/www.marketingbrew.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Marketing",
+    "description" : "Clean, reliable marketing industry news without the fluff",
+    "feedURL" : "https:\/\/www.marketingdive.com\/feeds\/news\/",
+    "id" : "8d96a2c4-56b6-de0a-5e4a-d36f0654130d",
+    "name" : "Marketing Dive",
+    "siteURL" : "https:\/\/www.marketingdive.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "AI",
+    "description" : "AI research news covering new papers and breakthroughs with a technical focus",
+    "feedURL" : "https:\/\/www.marktechpost.com\/feed\/",
+    "id" : "ef3ff28c-60b4-cdf1-84d7-20bf3fbd5564",
+    "name" : "MarkTechPost",
+    "siteURL" : "https:\/\/www.marktechpost.com\/",
     "tags" : [
 
     ]
@@ -2213,6 +2961,17 @@
     ]
   },
   {
+    "category" : "Humor & Satire",
+    "description" : "Literary humor, satirical essays, and lists from one of the web's most distinctive comedy voices",
+    "feedURL" : "https:\/\/feeds.feedburner.com\/mcsweeneys",
+    "id" : "275986ee-5926-132e-978a-7a1d8d081601",
+    "name" : "McSweeney's Internet Tendency",
+    "siteURL" : "https:\/\/www.mcsweeneys.net\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "France",
     "country" : "France",
     "description" : "Mediapart est un journal d’information numérique, participatif et indépendant, sans publicité ni subvention, et qui ne",
@@ -2225,7 +2984,18 @@
     ]
   },
   {
-    "category" : "Android Development",
+    "category" : "History",
+    "description" : "Medieval history, archaeology, and culture for enthusiasts and scholars",
+    "feedURL" : "https:\/\/www.medievalists.net\/feed\/",
+    "id" : "ed36e2ad-d003-f619-1c1e-6c4142d5becb",
+    "name" : "Medievalists.net",
+    "siteURL" : "https:\/\/www.medievalists.net\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Mobile Development",
     "description" : "The official Android Developers publication on Medium",
     "feedURL" : "https:\/\/medium.com\/feed\/androiddevelopers",
     "id" : "e2ca2e09-bb18-922e-c44b-6add4fdd0268",
@@ -2283,6 +3053,28 @@
     ]
   },
   {
+    "category" : "Health & Wellness",
+    "description" : "Mindfulness, meditation, and contemplative practices",
+    "feedURL" : "https:\/\/www.mindful.org\/feed",
+    "id" : "91071b32-8655-fb66-430a-75dd95d554cc",
+    "name" : "Mindful",
+    "siteURL" : "https:\/\/www.mindful.org\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "AI",
+    "description" : "Credible, in-depth AI journalism balancing technical depth with accessibility",
+    "feedURL" : "https:\/\/www.technologyreview.com\/feed",
+    "id" : "795a5369-f7ce-f7f2-08f8-2869bf1ddbc7",
+    "name" : "MIT Technology Review",
+    "siteURL" : "https:\/\/www.technologyreview.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Personal finance",
     "description" : "Practical tips to earn more, spend less, and grow your money",
     "feedURL" : "https:\/\/moneytalksnews.com\/feed",
@@ -2306,8 +3098,30 @@
     ]
   },
   {
-    "category" : "Movies",
-    "description" : "Comic Book, Film, TV, Games, Toys News and Rumors",
+    "category" : "Environment",
+    "description" : "Tropical forests, biodiversity, and conservation news from a global reporter network",
+    "feedURL" : "https:\/\/news.mongabay.com\/feed",
+    "id" : "ad0047a1-c4cd-01dd-fe3c-e1b5ed42b66e",
+    "name" : "Mongabay",
+    "siteURL" : "https:\/\/news.mongabay.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Cars",
+    "description" : "International car news with strong global and regional coverage",
+    "feedURL" : "https:\/\/www.motor1.com\/rss\/news\/all\/",
+    "id" : "8691f84e-7ed3-9afe-4e7c-b1e33f7a682a",
+    "name" : "Motor1",
+    "siteURL" : "https:\/\/www.motor1.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Film & TV",
+    "description" : "Comic book, film, TV, games, and toy news and rumors from Bleeding Cool",
     "feedURL" : "https:\/\/www.bleedingcool.com\/movies\/feed\/",
     "id" : "37d17862-c86a-4935-858a-e346ba33a6cf",
     "name" : "Movies",
@@ -2352,11 +3166,22 @@
   },
   {
     "category" : "Space",
-    "description" : "NASA.gov brings you the latest news, images and videos from America's space agency, pioneering the future in space",
+    "description" : "NASA news, images, and videos from America's space agency",
     "feedURL" : "https:\/\/www.nasa.gov\/rss\/dyn\/breaking_news.rss",
     "id" : "d25c6c3a-6b63-b163-f419-a1f6236d627a",
     "name" : "NASA Breaking News",
     "siteURL" : "https:\/\/www.nasa.gov",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Space",
+    "description" : "Deep technical coverage of SpaceX, launch vehicles, and space missions",
+    "feedURL" : "https:\/\/www.nasaspaceflight.com\/feed\/",
+    "id" : "072b25a6-26ee-18ab-b841-89ac5ec67014",
+    "name" : "NASASpaceFlight.com",
+    "siteURL" : "https:\/\/www.nasaspaceflight.com\/",
     "tags" : [
 
     ]
@@ -2386,7 +3211,7 @@
   },
   {
     "category" : "Science",
-    "description" : "Science news and long reads from expert journalists, covering developments in science, technology, health and the environment",
+    "description" : "Science news and long reads covering developments in science, technology, health, and the environment",
     "feedURL" : "https:\/\/www.newscientist.com\/feed\/home\/",
     "id" : "be84762c-0520-3043-9b68-550373bf9304",
     "name" : "New Scientist",
@@ -2397,7 +3222,7 @@
   },
   {
     "category" : "Space",
-    "description" : "Science news and long reads from expert journalists, covering developments in science, technology, health and the",
+    "description" : "Space-focused science news from New Scientist",
     "feedURL" : "https:\/\/www.newscientist.com\/subject\/space\/feed\/",
     "id" : "7eb72c4e-5ff7-baa4-6d73-bffd45fcabd9",
     "name" : "New Scientist: Space",
@@ -2408,7 +3233,7 @@
   },
   {
     "category" : "Books",
-    "description" : "Answering the Age old question - What are you reading?",
+    "description" : "Answering the age old question — What are you reading?",
     "feedURL" : "https:\/\/www.newinbooks.com\/feed\/",
     "id" : "a20cdea1-e2e2-0f22-1cbe-8482a9ca1bf0",
     "name" : "NewInBooks",
@@ -2499,7 +3324,7 @@
     ]
   },
   {
-    "category" : "UI \/ UX",
+    "category" : "Web Design & UX",
     "description" : "UX research and design best practices from Nielsen Norman Group",
     "feedURL" : "https:\/\/www.nngroup.com\/feed\/rss\/",
     "id" : "f74a54fc-b5d6-6235-3029-66a458c5becf",
@@ -2521,7 +3346,7 @@
     ]
   },
   {
-    "category" : "News",
+    "category" : "World News",
     "description" : "NPR news, audio, and podcasts. Coverage of breaking stories, national and world news, politics, business, science",
     "feedURL" : "https:\/\/feeds.npr.org\/1001\/rss.xml",
     "id" : "04a13555-2494-b3db-f354-1c5fbc37af83",
@@ -2532,12 +3357,34 @@
     ]
   },
   {
-    "category" : "iOS Development",
+    "category" : "Health & Wellness",
+    "description" : "Evidence-based nutrition research reviews with cited sources",
+    "feedURL" : "https:\/\/nutritionfacts.org\/feed",
+    "id" : "2db79578-8193-f201-6f1e-c57ae2dc71ea",
+    "name" : "NutritionFacts.org",
+    "siteURL" : "https:\/\/nutritionfacts.org\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Mobile Development",
     "description" : "iOS and Swift development blog",
     "feedURL" : "https:\/\/oleb.net\/blog\/atom.xml",
     "id" : "2c124350-95c6-5735-c007-3aaf87fd5d6c",
     "name" : "Ole Begemann",
     "siteURL" : "https:\/\/oleb.net\/blog\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "AI",
+    "description" : "Practical AI applications and insights from a Wharton professor",
+    "feedURL" : "https:\/\/www.oneusefulthing.org\/feed",
+    "id" : "59f6b090-81d6-23bf-3a49-feb841c9f9d4",
+    "name" : "One Useful Thing",
+    "siteURL" : "https:\/\/www.oneusefulthing.org\/",
     "tags" : [
 
     ]
@@ -2579,8 +3426,19 @@
     ]
   },
   {
+    "category" : "Health & Wellness",
+    "description" : "Fitness, nutrition, and wellness from an active-lifestyle perspective",
+    "feedURL" : "https:\/\/www.outsideonline.com\/feed",
+    "id" : "ae5a1480-a2f9-bc42-6190-c39382804211",
+    "name" : "Outside Online",
+    "siteURL" : "https:\/\/www.outsideonline.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Marketing",
-    "description" : "Buffer’s social media marketing blog covers the latest social media tools, analytics, and strategies for X (Twitter)",
+    "description" : "Social media marketing tools, analytics, and strategies",
     "feedURL" : "https:\/\/buffer.com\/resources\/overflow\/rss\/",
     "id" : "572d391d-7a59-565e-f5a7-a660fa393d43",
     "name" : "Overflow - Buffer Resources",
@@ -2596,6 +3454,28 @@
     "id" : "449cde1f-f77e-04f2-cf5c-ee22e9f1f8e4",
     "name" : "Overreacted",
     "siteURL" : "https:\/\/overreacted.io\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Boating",
+    "description" : "Kayaking, canoeing, and paddleboarding gear reviews, destinations, and technique",
+    "feedURL" : "https:\/\/www.paddlingmag.com\/feed\/",
+    "id" : "88faccd3-df76-e291-db33-809a79921d8e",
+    "name" : "Paddling Magazine",
+    "siteURL" : "https:\/\/www.paddlingmag.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Boating",
+    "description" : "Marine electronics, navigation technology, and boat connectivity deep-dives",
+    "feedURL" : "https:\/\/panbo.com\/feed\/",
+    "id" : "8730e1ed-8543-f4b8-b437-af211d8ce09c",
+    "name" : "Panbo",
+    "siteURL" : "https:\/\/panbo.com\/",
     "tags" : [
 
     ]
@@ -2647,7 +3527,7 @@
     ]
   },
   {
-    "category" : "Tennis",
+    "category" : "Sports",
     "description" : "Tennis news and analysis",
     "feedURL" : "https:\/\/www.perfect-tennis.com\/feed\/",
     "id" : "98a61753-9862-1e84-2ce5-b99446c9e645",
@@ -2705,6 +3585,17 @@
     ]
   },
   {
+    "category" : "Science",
+    "description" : "Research news across all sciences aggregated from press releases and journals",
+    "feedURL" : "https:\/\/phys.org\/rss-feed\/",
+    "id" : "b157f7a1-fae2-4ec4-fb61-0b4f386a9d8e",
+    "name" : "Phys.org",
+    "siteURL" : "https:\/\/phys.org\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Music",
     "description" : "The most trusted voice in music",
     "feedURL" : "https:\/\/pitchfork.com\/feed\/feed-news\/rss",
@@ -2727,7 +3618,7 @@
     ]
   },
   {
-    "category" : "iOS Development",
+    "category" : "Mobile Development",
     "description" : "Functional programming in Swift and composable architecture",
     "feedURL" : "https:\/\/www.pointfree.co\/blog\/feed\/atom.xml",
     "id" : "1bf66f60-ab53-5f9c-b7c7-a2b2acdf394a",
@@ -2760,6 +3651,17 @@
     ]
   },
   {
+    "category" : "Science",
+    "description" : "Science and technology news, reviews, and product recommendations",
+    "feedURL" : "https:\/\/www.popsci.com\/feed\/",
+    "id" : "741b88dd-6ee3-ad6b-4cb7-0bfbfb96dc5c",
+    "name" : "Popular Science",
+    "siteURL" : "https:\/\/www.popsci.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Spain",
     "country" : "Spain",
     "description" : "Noticias económicas, mercados y opinión de España",
@@ -2779,6 +3681,39 @@
     "id" : "0eaddfa8-accb-c846-12b7-8030902a326c",
     "name" : "Portada, El Siglo de Torreón",
     "siteURL" : "https:\/\/www.elsiglodetorreon.com.mx\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Boating",
+    "description" : "Powerboat reviews, new model launches, and cruising destinations",
+    "feedURL" : "https:\/\/powerandmotoryacht.com\/feed\/",
+    "id" : "fa5be679-03b9-47be-edc5-be06de37d280",
+    "name" : "Power & Motoryacht",
+    "siteURL" : "https:\/\/www.powerandmotoryacht.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Boating",
+    "description" : "Independent, unbiased boat gear and equipment testing and reviews",
+    "feedURL" : "https:\/\/www.practical-sailor.com\/feed\/",
+    "id" : "481aa30c-bcf1-d463-5f5c-c18c9a2e0e7a",
+    "name" : "Practical Sailor",
+    "siteURL" : "https:\/\/www.practical-sailor.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Health & Wellness",
+    "description" : "Evidence-based nutrition and coaching content bridging science and practical application",
+    "feedURL" : "https:\/\/www.precisionnutrition.com\/feed",
+    "id" : "bb7e70c6-128b-7b40-c26a-5df2a8a110d5",
+    "name" : "Precision Nutrition",
+    "siteURL" : "https:\/\/www.precisionnutrition.com\/",
     "tags" : [
 
     ]
@@ -2807,7 +3742,7 @@
     ]
   },
   {
-    "category" : "Android Development",
+    "category" : "Mobile Development",
     "description" : "The latest posts from Android Professionals and Google Developer Experts",
     "feedURL" : "https:\/\/proandroiddev.com\/feed",
     "id" : "bd8a169e-adcb-548f-ebe4-b90492db6024",
@@ -2818,12 +3753,34 @@
     ]
   },
   {
-    "category" : "Android Development",
+    "category" : "Health & Wellness",
+    "description" : "Articles on psychology, relationships, and mental health from therapists and researchers",
+    "feedURL" : "https:\/\/www.psychologytoday.com\/us\/front\/feed",
+    "id" : "3791c315-57cd-6cef-4542-7a936e998f8f",
+    "name" : "Psychology Today",
+    "siteURL" : "https:\/\/www.psychologytoday.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Mobile Development",
     "description" : "Jesse Wilson on programming",
     "feedURL" : "https:\/\/publicobject.com\/rss\/",
     "id" : "2c5b75c9-c8e6-d550-c211-31bffb0d1f4e",
     "name" : "Public Object",
     "siteURL" : "https:\/\/publicobject.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Books",
+    "description" : "Science fiction and fantasy coverage — reviews, essays, and news",
+    "feedURL" : "https:\/\/reactormag.com\/feed\/",
+    "id" : "9689be36-e334-3ac6-85fd-e140972c65a1",
+    "name" : "Reactor",
+    "siteURL" : "https:\/\/reactormag.com\/",
     "tags" : [
 
     ]
@@ -2852,6 +3809,17 @@
     ]
   },
   {
+    "category" : "Motorcycles",
+    "description" : "Digital-first motorcycle news and reviews across all segments",
+    "feedURL" : "https:\/\/www.rideapart.com\/rss\/news\/all\/",
+    "id" : "9212d037-8027-6930-7864-edfafe2cce56",
+    "name" : "RideApart",
+    "siteURL" : "https:\/\/www.rideapart.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Poland",
     "country" : "Poland",
     "description" : "Najnowsze informacje z kraju i ze świata, najważniejsze wiadomości gospodarcze, sportowe i naukowe. Relacje na żywo",
@@ -2859,6 +3827,17 @@
     "id" : "d52c7acf-a9df-ddd7-244e-b0f0e954d18d",
     "name" : "RMF24.pl",
     "siteURL" : "https:\/\/www.rmf24.pl\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Cars",
+    "description" : "Car culture, long-form writing, and automotive lifestyle",
+    "feedURL" : "https:\/\/www.roadandtrack.com\/rss\/default.xml",
+    "id" : "8e6e2141-8565-b769-7f2f-376ba2d28558",
+    "name" : "Road & Track",
+    "siteURL" : "https:\/\/www.roadandtrack.com\/",
     "tags" : [
 
     ]
@@ -2910,6 +3889,61 @@
     ]
   },
   {
+    "category" : "Boating",
+    "description" : "Sailing news, racing coverage, boat reviews, and cruising advice",
+    "feedURL" : "https:\/\/sailmagazine.com\/feed\/",
+    "id" : "14bbcc46-156d-344d-6610-5e2374eb99eb",
+    "name" : "SAIL Magazine",
+    "siteURL" : "https:\/\/www.sailmagazine.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Boating",
+    "description" : "Irreverent sailing community with race coverage, industry commentary, and forums",
+    "feedURL" : "https:\/\/sailinganarchy.com\/feed\/",
+    "id" : "c3d3cded-867a-ebf0-1f5c-cf375d5fc97a",
+    "name" : "Sailing Anarchy",
+    "siteURL" : "https:\/\/sailinganarchy.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Boating",
+    "description" : "Competitive sailing coverage including regattas, one-design racing, and tactics",
+    "feedURL" : "https:\/\/www.sailingworld.com\/feed\/",
+    "id" : "7e43338b-6109-eeb5-0300-5befb6fbcbc4",
+    "name" : "Sailing World",
+    "siteURL" : "https:\/\/www.sailingworld.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Boating",
+    "description" : "Saltwater fishing tips, tackle reviews, and offshore fishing destinations",
+    "feedURL" : "https:\/\/www.saltwatersportsman.com\/feed\/",
+    "id" : "5cab5c32-b2a6-8a81-fce0-88a09ff048b6",
+    "name" : "Salt Water Sportsman",
+    "siteURL" : "https:\/\/www.saltwatersportsman.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Sports",
+    "description" : "Comprehensive fan community ecosystem with team-specific blogs across every sport",
+    "feedURL" : "https:\/\/www.sbnation.com\/rss\/index.xml",
+    "id" : "7a0f483d-609e-821c-8dd8-757810e6ae26",
+    "name" : "SB Nation",
+    "siteURL" : "https:\/\/www.sbnation.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Science",
     "description" : "Breaking news from the world's leading journal of original scientific research",
     "feedURL" : "https:\/\/www.science.org\/rss\/news_current.xml",
@@ -2932,12 +3966,45 @@
     ]
   },
   {
+    "category" : "Science",
+    "description" : "Accessible science news with a large social media following",
+    "feedURL" : "https:\/\/www.sciencealert.com\/feed\/gn\/",
+    "id" : "7d633c68-0359-bb8e-d8d1-95115aec5bd0",
+    "name" : "ScienceAlert",
+    "siteURL" : "https:\/\/www.sciencealert.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Science",
+    "description" : "Science journalism since 1845, covering everything from physics to public health",
+    "feedURL" : "https:\/\/www.scientificamerican.com\/platform\/syndication\/rss\/",
+    "id" : "cbc0fc8a-6abb-b7f8-b399-82ef08dfd2e4",
+    "name" : "Scientific American",
+    "siteURL" : "https:\/\/www.scientificamerican.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Programming",
     "description" : "Scott Hanselman on Programming, User Experience, The Zen of Computers and Life in General",
     "feedURL" : "https:\/\/feeds.hanselman.com\/ScottHanselman",
     "id" : "bbb7636b-680e-b0f6-8bb0-3c6557f42fe5",
     "name" : "Scott Hanselman's Blog",
     "siteURL" : "https:\/\/www.hanselman.com\/blog\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Marketing",
+    "description" : "SEO, search marketing news, and Google algorithm change tracking",
+    "feedURL" : "https:\/\/searchengineland.com\/feed",
+    "id" : "37926489-2dda-135a-700c-5198dd45038e",
+    "name" : "Search Engine Land",
+    "siteURL" : "https:\/\/searchengineland.com\/",
     "tags" : [
 
     ]
@@ -2954,7 +4021,18 @@
     ]
   },
   {
-    "category" : "Web Development",
+    "category" : "AI",
+    "description" : "Prolific and trusted voice on practical AI tooling, LLMs, and developer workflows",
+    "feedURL" : "https:\/\/simonwillison.net\/atom\/everything\/",
+    "id" : "05243453-1db8-37d6-32eb-c483d8f33550",
+    "name" : "Simon Willison's Weblog",
+    "siteURL" : "https:\/\/simonwillison.net\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Web Design & UX",
     "description" : "Tech and travel blog",
     "feedURL" : "https:\/\/gosink.in\/rss\/",
     "id" : "583e5a37-f678-6b06-ee8e-ea350fd1ae60",
@@ -2976,6 +4054,17 @@
     ]
   },
   {
+    "category" : "Travel",
+    "description" : "Travel industry news, analysis, and data for hospitality and tourism professionals",
+    "feedURL" : "https:\/\/skift.com\/feed\/",
+    "id" : "3a34d533-cce9-62ef-92d3-31edae0e98b7",
+    "name" : "Skift",
+    "siteURL" : "https:\/\/skift.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Food",
     "description" : "Delicious Healthy Recipes Made with Real Food",
     "feedURL" : "https:\/\/www.skinnytaste.com\/feed\/",
@@ -2988,7 +4077,7 @@
   },
   {
     "category" : "Space",
-    "description" : "Explore the universe with Sky & Telescope - your ultimate source for stargazing, celestial events, and the latest",
+    "description" : "Explore the universe — stargazing, celestial events, and astronomy news",
     "feedURL" : "https:\/\/www.skyandtelescope.com\/feed\/",
     "id" : "b698806d-226f-201b-c951-d5cc16272860",
     "name" : "Sky & Telescope",
@@ -2999,22 +4088,33 @@
   },
   {
     "category" : "Sports",
-    "description" : "Breaking news from the UK and around the world",
+    "description" : "Breaking news from the UK and around the world of sport",
     "feedURL" : "https:\/\/feeds.skynews.com\/feeds\/rss\/sports.xml",
     "id" : "06cb728c-d3a9-80fa-15eb-21784b34f65d",
-    "name" : "Sky News",
+    "name" : "Sky News Sport",
     "siteURL" : "https:\/\/news.sky.com\/sports",
     "tags" : [
 
     ]
   },
   {
-    "category" : "UI \/ UX",
+    "category" : "Web Design & UX",
     "description" : "Articles and tutorials for web designers and developers",
     "feedURL" : "https:\/\/www.smashingmagazine.com\/feed",
     "id" : "07c83d6d-0c0e-2a9e-8e6f-143d4ae9539b",
     "name" : "Smashing Magazine",
     "siteURL" : "https:\/\/www.smashingmagazine.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "History",
+    "description" : "The best general-audience history publication with excellent writing and photography",
+    "feedURL" : "https:\/\/www.smithsonianmag.com\/rss\/latest_articles\/",
+    "id" : "f5ae99cd-d499-da98-4b85-302d4a5009d4",
+    "name" : "Smithsonian Magazine",
+    "siteURL" : "https:\/\/www.smithsonianmag.com\/",
     "tags" : [
 
     ]
@@ -3043,7 +4143,7 @@
   },
   {
     "category" : "Space",
-    "description" : "Get the latest space exploration, innovation and astronomy news. Space.com celebrates humanity's ongoing expansion",
+    "description" : "Space exploration, innovation, and astronomy news",
     "feedURL" : "https:\/\/www.space.com\/feeds.xml",
     "id" : "c2edd5eb-4423-abe3-82cb-a6f22ae12fac",
     "name" : "Space.com",
@@ -3053,11 +4153,77 @@
     ]
   },
   {
+    "category" : "Space",
+    "description" : "Launch coverage, mission updates, and straightforward spaceflight reporting",
+    "feedURL" : "https:\/\/spaceflightnow.com\/feed\/",
+    "id" : "3f9c29b2-e32f-7cbc-4a20-9b8bba2bb907",
+    "name" : "Spaceflight Now",
+    "siteURL" : "https:\/\/spaceflightnow.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Space",
+    "description" : "Industry trade news covering space policy, contracts, commercial space, and defense",
+    "feedURL" : "https:\/\/spacenews.com\/feed\/",
+    "id" : "a84245b2-6be0-3a0d-8ac8-cd754c641446",
+    "name" : "SpaceNews",
+    "siteURL" : "https:\/\/spacenews.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Space",
+    "description" : "Tracking space policy, budgets, and program decisions",
+    "feedURL" : "https:\/\/spacepolicyonline.com\/feed\/",
+    "id" : "19edb0d5-1382-b7f7-3300-e4cdedfd9ccc",
+    "name" : "SpacePolicyOnline",
+    "siteURL" : "https:\/\/spacepolicyonline.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Marketing",
+    "description" : "Data-driven marketing insights challenging conventional wisdom",
+    "feedURL" : "https:\/\/sparktoro.com\/blog\/feed\/",
+    "id" : "7cf1988a-a294-26af-0a10-bc72aa24eca2",
+    "name" : "SparkToro Blog",
+    "siteURL" : "https:\/\/sparktoro.com\/blog\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Boating",
+    "description" : "Sport fishing techniques, tournament coverage, and boat reviews for anglers",
+    "feedURL" : "https:\/\/www.sportfishingmag.com\/feed\/",
+    "id" : "80d12397-0182-9bc2-f5ed-45517359beed",
+    "name" : "Sport Fishing",
+    "siteURL" : "https:\/\/www.sportfishingmag.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Sports",
+    "description" : "The business of sports — valuations, media rights, ownership, and deals",
+    "feedURL" : "https:\/\/www.sportico.com\/feed\/rss\/",
+    "id" : "90e5c588-ff3e-f1a0-e94b-31656572b24a",
+    "name" : "Sportico",
+    "siteURL" : "https:\/\/www.sportico.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Sports",
     "description" : "Sports news, scores, and fantasy games from Yahoo",
     "feedURL" : "https:\/\/sports.yahoo.com\/rss\/",
     "id" : "e4e0fd7b-8dcc-796d-9e62-29aef2fa81c2",
-    "name" : "Sports",
+    "name" : "Sports - Yahoo",
     "siteURL" : "https:\/\/sports.yahoo.com",
     "tags" : [
 
@@ -3065,11 +4231,22 @@
   },
   {
     "category" : "Sports",
-    "description" : "Follow Sportskeeda for in depth coverage of Sports, Gaming, Entertainment & more. Get news, videos, live scores",
+    "description" : "In-depth sports coverage across multiple sports with live scores",
     "feedURL" : "https:\/\/www.sportskeeda.com\/feed",
     "id" : "6f0b8ddb-0986-023d-5bb1-d8adc0e99cbb",
     "name" : "Sportskeeda",
     "siteURL" : "https:\/\/www.sportskeeda.com",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Health & Wellness",
+    "description" : "The gold standard for health and life sciences journalism",
+    "feedURL" : "https:\/\/www.statnews.com\/feed\/",
+    "id" : "91f73778-3386-1e82-9e7b-f3cb12ab6c23",
+    "name" : "STAT News",
+    "siteURL" : "https:\/\/www.statnews.com\/",
     "tags" : [
 
     ]
@@ -3098,7 +4275,7 @@
     ]
   },
   {
-    "category" : "iOS Development",
+    "category" : "Mobile Development",
     "description" : "Weekly Swift articles, podcasts, and tips by John Sundell",
     "feedURL" : "https:\/\/www.swiftbysundell.com\/feed.rss",
     "id" : "526432df-f7e6-580b-95f9-bea06f974520",
@@ -3109,7 +4286,7 @@
     ]
   },
   {
-    "category" : "iOS Development",
+    "category" : "Mobile Development",
     "description" : "A weekly blog about Swift, iOS, and Xcode tips and tricks",
     "feedURL" : "https:\/\/www.avanderlee.com\/feed\/",
     "id" : "f2f8c800-e3a1-0b14-ed9a-93ebb7e3e3c5",
@@ -3120,7 +4297,7 @@
     ]
   },
   {
-    "category" : "iOS Development",
+    "category" : "Mobile Development",
     "description" : "How Swift works under the hood, plus iOS tips and tricks",
     "feedURL" : "https:\/\/swiftrocks.com\/rss.xml",
     "id" : "37654122-9a02-7e3f-df67-bf6958a99b45",
@@ -3213,8 +4390,8 @@
     ]
   },
   {
-    "category" : "Tennis",
-    "description" : "Featuring tennis live scores, results, stats, rankings, ATP player and tournament information, news, video highlights",
+    "category" : "Sports",
+    "description" : "Tennis live scores, results, stats, rankings, and tournament news",
     "feedURL" : "https:\/\/www.atptour.com\/en\/media\/rss-feed\/xml-feed",
     "id" : "6dbfbb56-2565-88e1-e2f2-72bfd498cf73",
     "name" : "Tennis - ATP World Tour",
@@ -3224,7 +4401,7 @@
     ]
   },
   {
-    "category" : "Movies",
+    "category" : "Film & TV",
     "description" : "Pop culture obsessives writing for the pop culture obsessed",
     "feedURL" : "https:\/\/www.avclub.com\/rss.xml",
     "id" : "b06e129a-2079-b2bb-30d7-6a4496e723e1",
@@ -3242,6 +4419,17 @@
     "id" : "abccb225-fcff-6c5e-7515-6e8ac99d9f35",
     "name" : "The Age",
     "siteURL" : "https:\/\/www.theage.com.au\/rss\/feed.xml",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "AI",
+    "description" : "Thoughtful, analytical AI coverage bridging technical and philosophical perspectives",
+    "feedURL" : "https:\/\/www.thealgorithmicbridge.com\/feed",
+    "id" : "06197e19-b436-1b87-67ef-9b9edd6b325d",
+    "name" : "The Algorithmic Bridge",
+    "siteURL" : "https:\/\/www.thealgorithmicbridge.com\/",
     "tags" : [
 
     ]
@@ -3269,7 +4457,18 @@
     ]
   },
   {
-    "category" : "News",
+    "category" : "Sports",
+    "description" : "Deep beat coverage across every major sport from the NYT's sports writing operation",
+    "feedURL" : "https:\/\/www.nytimes.com\/athletic\/rss\/news\/",
+    "id" : "0325815a-f773-6df0-48b1-eb8b8ba885ef",
+    "name" : "The Athletic",
+    "siteURL" : "https:\/\/www.nytimes.com\/athletic\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "World News",
     "description" : "News, politics, culture, technology, and more",
     "feedURL" : "https:\/\/www.theatlantic.com\/feed\/all\/",
     "id" : "72771e85-b141-6686-c704-7c5d452eddd6",
@@ -3280,7 +4479,18 @@
     ]
   },
   {
-    "category" : "Funny",
+    "category" : "Cars",
+    "description" : "The most fun, passionate, and genuinely weird car writing on the internet",
+    "feedURL" : "https:\/\/www.theautopian.com\/feed",
+    "id" : "74315cd3-112d-c65b-d7b7-cb72f79f42e5",
+    "name" : "The Autopian",
+    "siteURL" : "https:\/\/www.theautopian.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Humor & Satire",
     "description" : "Humor and personal essays by Jenny Lawson",
     "feedURL" : "https:\/\/thebloggess.com\/feed\/",
     "id" : "7d7bef99-cda8-227a-8f88-7b4ad5db8931",
@@ -3298,6 +4508,28 @@
     "id" : "58dfc499-5a7f-faec-6698-156dd95e94c3",
     "name" : "The Citizen",
     "siteURL" : "https:\/\/www.citizen.co.za\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Science",
+    "description" : "Academics writing directly for public audiences across all research disciplines",
+    "feedURL" : "https:\/\/theconversation.com\/articles.atom",
+    "id" : "dd45cb48-628f-81be-013e-64c0f2d3e878",
+    "name" : "The Conversation",
+    "siteURL" : "https:\/\/theconversation.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Health & Wellness",
+    "description" : "Health researchers writing directly for public audiences with nuance and evidence",
+    "feedURL" : "https:\/\/theconversation.com\/us\/health\/articles.atom",
+    "id" : "0bb0e085-7f98-daa7-0ab2-34d3934b380f",
+    "name" : "The Conversation: Health",
+    "siteURL" : "https:\/\/theconversation.com\/us\/health",
     "tags" : [
 
     ]
@@ -3325,12 +4557,67 @@
     ]
   },
   {
+    "category" : "AI",
+    "description" : "Fast-growing AI news site with breaking news and explainers",
+    "feedURL" : "https:\/\/the-decoder.com\/feed\/",
+    "id" : "40e60d3c-b89b-c601-c7c8-0ceb38a8579b",
+    "name" : "The Decoder",
+    "siteURL" : "https:\/\/the-decoder.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Cars",
+    "description" : "Cars, trucks, tech, and military vehicles from a digital-first outlet",
+    "feedURL" : "https:\/\/www.thedrive.com\/feed",
+    "id" : "22f45195-776b-f74d-4599-a5dd394b7cfa",
+    "name" : "The Drive",
+    "siteURL" : "https:\/\/www.thedrive.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "AI",
+    "description" : "Nonprofit publication covering AI research, interviews, and long-form essays",
+    "feedURL" : "https:\/\/thegradient.pub\/rss\/",
+    "id" : "4f833f98-5ed1-2add-27e1-cbef2b3c7510",
+    "name" : "The Gradient",
+    "siteURL" : "https:\/\/thegradient.pub\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Fashion",
     "description" : "The latest news, comment, and analysis from The Guardian",
     "feedURL" : "https:\/\/www.theguardian.com\/fashion\/rss",
     "id" : "75940817-f17f-6454-ef14-a6aacb27c591",
     "name" : "The Guardian",
     "siteURL" : "https:\/\/www.theguardian.com\/fashion",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Sports",
+    "description" : "Daily football news, match reports, and analysis from The Guardian",
+    "feedURL" : "https:\/\/www.theguardian.com\/football\/rss",
+    "id" : "6eb7229a-d92e-92e1-ef6c-b890bf12d196",
+    "name" : "The Guardian Football",
+    "siteURL" : "https:\/\/www.theguardian.com\/football",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Sports",
+    "description" : "Global sports coverage, especially strong on football, cricket, tennis, and rugby",
+    "feedURL" : "https:\/\/www.theguardian.com\/us\/sport\/rss",
+    "id" : "42059b28-2b4a-290c-7223-5cecb5158ad0",
+    "name" : "The Guardian Sport",
+    "siteURL" : "https:\/\/www.theguardian.com\/us\/sport",
     "tags" : [
 
     ]
@@ -3343,6 +4630,17 @@
     "id" : "659d18e3-aa3a-552c-8056-3a42a315bce3",
     "name" : "The Hindu",
     "siteURL" : "https:\/\/www.thehindu.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Film & TV",
+    "description" : "Entertainment news, film and TV reviews, box office, and industry coverage",
+    "feedURL" : "https:\/\/www.hollywoodreporter.com\/feed\/rss\/",
+    "id" : "839d7a74-16b9-6c55-c744-873d7f8af55a",
+    "name" : "The Hollywood Reporter",
+    "siteURL" : "https:\/\/www.hollywoodreporter.com\/",
     "tags" : [
 
     ]
@@ -3366,6 +4664,17 @@
     "feedURL" : "https:\/\/feeds.thelocal.com\/rss\/it",
     "id" : "be7a0fea-4d37-b491-b4ef-f89139abd6c4",
     "name" : "The Local",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Books",
+    "description" : "Smart literary essays, most-anticipated lists, and year-in-reading features",
+    "feedURL" : "https:\/\/themillions.com\/feed",
+    "id" : "9946666d-a1c2-bf2b-7719-41846e17c04a",
+    "name" : "The Millions",
+    "siteURL" : "https:\/\/themillions.com\/",
     "tags" : [
 
     ]
@@ -3418,12 +4727,23 @@
     ]
   },
   {
-    "category" : "Funny",
+    "category" : "Humor & Satire",
     "description" : "America's Finest News Source",
     "feedURL" : "https:\/\/www.theonion.com\/rss",
     "id" : "613b5a03-7a84-ccea-643c-3684d89a017e",
     "name" : "The Onion",
     "siteURL" : "https:\/\/theonion.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Travel",
+    "description" : "Credit card points, airline miles, and travel rewards strategies and deals",
+    "feedURL" : "https:\/\/thepointsguy.com\/feed\/",
+    "id" : "2e8c7bce-8186-f06d-d572-f7fe764298d1",
+    "name" : "The Points Guy",
+    "siteURL" : "https:\/\/thepointsguy.com\/",
     "tags" : [
 
     ]
@@ -3441,12 +4761,34 @@
     ]
   },
   {
+    "category" : "History",
+    "description" : "Curates and contextualizes out-of-copyright texts, images, and cultural artifacts",
+    "feedURL" : "https:\/\/publicdomainreview.org\/rss.xml",
+    "id" : "cc71e918-4e11-47d5-c431-c2ec61711575",
+    "name" : "The Public Domain Review",
+    "siteURL" : "https:\/\/publicdomainreview.org\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Tech",
     "description" : "Enterprise technology news for IT decision-makers and professionals",
     "feedURL" : "https:\/\/www.theregister.com\/headlines.atom",
     "id" : "d0abe968-c6ff-2432-edcc-b77ce1318011",
     "name" : "The Register",
     "siteURL" : "https:\/\/www.theregister.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Environment",
+    "description" : "Endangered species, extinction, and conservation policy coverage",
+    "feedURL" : "https:\/\/therevelator.org\/feed\/",
+    "id" : "a7ae2203-0f63-8a74-acc1-d099a159604a",
+    "name" : "The Revelator",
+    "siteURL" : "https:\/\/therevelator.org\/",
     "tags" : [
 
     ]
@@ -3476,8 +4818,19 @@
     ]
   },
   {
+    "category" : "DIY",
+    "description" : "Home design ideas, gardening tips, cleaning guides, and how-tos",
+    "feedURL" : "https:\/\/feeds-api.dotdashmeredith.com\/v1\/rss\/google\/aa6fe5c4-9f19-4c32-b63e-6e4c19b5a50f",
+    "id" : "d76d61ff-6b82-ab68-f24b-89ff53123718",
+    "name" : "The Spruce",
+    "siteURL" : "https:\/\/www.thespruce.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Cars",
-    "description" : "The Truth About Cars is dedicated to providing candid, unbiased automobile reviews and the latest in auto industry news",
+    "description" : "Candid, unbiased automobile reviews and auto industry news",
     "feedURL" : "https:\/\/www.thetruthaboutcars.com\/rss\/feed\/all",
     "id" : "36fb51a2-54bc-b7f7-c4e5-91933d876723",
     "name" : "The Truth About Cars",
@@ -3493,6 +4846,17 @@
     "id" : "8c3d9d5d-77bb-3a83-07bb-80e9c74bc27f",
     "name" : "The Verge",
     "siteURL" : "https:\/\/www.theverge.com",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "DIY",
+    "description" : "Video woodworking instruction and project builds",
+    "feedURL" : "https:\/\/thewoodwhisperer.com\/feed\/",
+    "id" : "40b7231d-e791-a6a5-327b-f33a2f2d96f0",
+    "name" : "The Wood Whisperer",
+    "siteURL" : "https:\/\/thewoodwhisperer.com\/",
     "tags" : [
 
     ]
@@ -3522,7 +4886,7 @@
     ]
   },
   {
-    "category" : "News",
+    "category" : "World News",
     "description" : "World News: TOI brings the latest world news headlines, Current International breaking news world wide. In depth",
     "feedURL" : "https:\/\/timesofindia.indiatimes.com\/rssfeeds\/296589292.cms",
     "id" : "c59be43c-0f92-9ebb-4109-4ec1dd54f575",
@@ -3569,6 +4933,17 @@
     ]
   },
   {
+    "category" : "Travel",
+    "description" : "Destination guides, hotel reviews, and travel tips from the editors of Travel + Leisure",
+    "feedURL" : "https:\/\/feeds-api.dotdashmeredith.com\/v1\/rss\/google\/90b927aa-066f-4f66-9162-a018ad8ea366",
+    "id" : "553569d6-57cf-71bd-9be0-36773df42711",
+    "name" : "Travel + Leisure",
+    "siteURL" : "https:\/\/www.travelandleisure.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Indonesia",
     "country" : "Indonesia",
     "description" : "TribunNews.com menyajikan berita dan video terkini dari regional, nasional dan internasional dengan sudut pandang dan",
@@ -3581,8 +4956,8 @@
     ]
   },
   {
-    "category" : "Television",
-    "description" : "Your Home for TV Show Reviews, Opinions, Spoilers, and News!",
+    "category" : "Film & TV",
+    "description" : "TV show reviews, opinions, spoilers, and news",
     "feedURL" : "https:\/\/www.tvfanatic.com\/rss.xml",
     "id" : "0f672e8f-7a4c-54ed-91ba-bbd955a9ec00",
     "name" : "TV Fanatic",
@@ -3592,12 +4967,23 @@
     ]
   },
   {
-    "category" : "Television",
-    "description" : "Stay up to date with the latest TV news, previews, spoilers, casting updates, interviews, and more from TVLine. Your",
+    "category" : "Film & TV",
+    "description" : "TV news, previews, spoilers, casting updates, interviews, and more",
     "feedURL" : "https:\/\/tvline.com\/feed\/",
     "id" : "ed625c11-bff0-31ab-de41-1163a4d0c8f1",
     "name" : "TVLine",
     "siteURL" : "https:\/\/www.tvline.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Motorcycles",
+    "description" : "Motorcycle reviews, touring content, and racing coverage",
+    "feedURL" : "https:\/\/ultimatemotorcycling.com\/feed\/",
+    "id" : "31840fe4-3a9f-55d1-8a17-dcc2eaff7d5f",
+    "name" : "Ultimate Motorcycling",
+    "siteURL" : "https:\/\/ultimatemotorcycling.com\/",
     "tags" : [
 
     ]
@@ -3610,6 +4996,17 @@
     "id" : "27b386c5-7d4a-5059-35a6-83e434db0d90",
     "name" : "UNBOX PH",
     "siteURL" : "https:\/\/unbox.ph\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Space",
+    "description" : "Independent space news, explainers, and mission coverage since 1999",
+    "feedURL" : "https:\/\/www.universetoday.com\/feed",
+    "id" : "e3f9cbf3-e3b6-0160-96da-b766f9e20988",
+    "name" : "Universe Today",
+    "siteURL" : "https:\/\/www.universetoday.com\/",
     "tags" : [
 
     ]
@@ -3639,7 +5036,7 @@
     ]
   },
   {
-    "category" : "iOS Development",
+    "category" : "Mobile Development",
     "description" : "iOS development news and tips",
     "feedURL" : "https:\/\/useyourloaf.com\/blog\/rss.xml",
     "id" : "c09ad679-7f58-7792-da17-905087e04ed0",
@@ -3650,7 +5047,18 @@
     ]
   },
   {
-    "category" : "UI \/ UX",
+    "category" : "Environment",
+    "description" : "Trade coverage of the utility and energy industry",
+    "feedURL" : "https:\/\/www.utilitydive.com\/feeds\/news\/",
+    "id" : "f0fb325a-fe07-ff21-bf30-7014d5d5e16c",
+    "name" : "Utility Dive",
+    "siteURL" : "https:\/\/www.utilitydive.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Web Design & UX",
     "description" : "We believe designers are thinkers as much as they are makers. Curated stories on UX, Visual & Product Design",
     "feedURL" : "https:\/\/uxdesign.cc\/feed",
     "id" : "efe18eb2-8037-4393-b598-d54a5e5745cb",
@@ -3661,12 +5069,56 @@
     ]
   },
   {
-    "category" : "Movies",
-    "description" : "Entertainment news, film reviews, awards, film festivals, box office, entertainment industry conferences",
+    "category" : "Film & TV",
+    "description" : "Entertainment news, film reviews, awards, film festivals, box office, and industry conferences",
     "feedURL" : "https:\/\/variety.com\/feed\/",
     "id" : "58b40d3c-f048-1a8f-f2c4-158e59ab0ee4",
     "name" : "Variety",
     "siteURL" : "https:\/\/variety.com",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "AI",
+    "description" : "Enterprise AI coverage with a focus on business and industry applications",
+    "feedURL" : "https:\/\/venturebeat.com\/feed\/",
+    "id" : "1a71342d-965c-d9f7-fc4a-06e807a5c67b",
+    "name" : "VentureBeat",
+    "siteURL" : "https:\/\/venturebeat.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Health & Wellness",
+    "description" : "Comprehensive, medically reviewed health information and condition guides",
+    "feedURL" : "https:\/\/feeds-api.dotdashmeredith.com\/v1\/rss\/google\/e9bc2236-f9bf-46ed-8fb4-be30d91fd32f",
+    "id" : "86f60d12-06a7-7d28-3cde-c9246558cf1d",
+    "name" : "Verywell Health",
+    "siteURL" : "https:\/\/www.verywellhealth.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Health & Wellness",
+    "description" : "Expert mental health information covering therapy, wellness, and psychology",
+    "feedURL" : "https:\/\/feeds-api.dotdashmeredith.com\/v1\/rss\/google\/16385a17-56e3-40a2-b61d-b29e3f7684d6",
+    "id" : "a90eb757-96ba-f59a-b78f-727cf903b6a8",
+    "name" : "Verywell Mind",
+    "siteURL" : "https:\/\/www.verywellmind.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Motorcycles",
+    "description" : "UK-based motorcycle reviews, news, and practical buying advice",
+    "feedURL" : "https:\/\/www.visordown.com\/rss",
+    "id" : "dd880014-4494-1bf7-ecef-9c3c04680747",
+    "name" : "Visordown",
+    "siteURL" : "https:\/\/www.visordown.com\/",
     "tags" : [
 
     ]
@@ -3683,7 +5135,7 @@
     ]
   },
   {
-    "category" : "News",
+    "category" : "World News",
     "description" : "Vox is a general interest news site for the 21st century. Its mission: to help everyone understand our complicated",
     "feedURL" : "https:\/\/www.vox.com\/rss\/index.xml",
     "id" : "4aa317de-1aa3-aa76-6dda-8229ef4c63c2",
@@ -3727,6 +5179,17 @@
     ]
   },
   {
+    "category" : "Boating",
+    "description" : "Traditional wooden boat building, restoration, and craftsmanship",
+    "feedURL" : "https:\/\/www.woodenboat.com\/rss.xml",
+    "id" : "7b4438af-69d5-25b0-8590-d96a3b4e6d5e",
+    "name" : "WoodenBoat",
+    "siteURL" : "https:\/\/www.woodenboat.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "United States",
     "country" : "United States",
     "description" : "Nation and world news from the Los Angeles Times",
@@ -3739,23 +5202,23 @@
     ]
   },
   {
+    "category" : "History",
+    "description" : "Free, peer-reviewed articles covering civilizations and historical topics worldwide",
+    "feedURL" : "https:\/\/www.worldhistory.org\/rss2\/?lang=en",
+    "id" : "9897e9c7-c74f-c735-5fc2-9deb09c5471c",
+    "name" : "World History Encyclopedia",
+    "siteURL" : "https:\/\/www.worldhistory.org\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Fashion",
     "description" : "Breaking fashion news, designer collections, and industry coverage",
     "feedURL" : "https:\/\/wwd.com\/fashion-news\/feed",
     "id" : "f1a2b3c4-1010-4a10-b010-fashion0wwd0",
     "name" : "WWD",
     "siteURL" : "https:\/\/wwd.com\/fashion-news",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Tennis",
-    "description" : "Visit ESPN for live scores, highlights and sports news. Stream exclusive games on ESPN and play fantasy sports",
-    "feedURL" : "https:\/\/www.espn.com\/espn\/rss\/tennis\/news",
-    "id" : "f85ac56d-78c4-bc29-18bf-14606bf67c27",
-    "name" : "www.espn.com - TENNIS",
-    "siteURL" : "https:\/\/www.espn.com",
     "tags" : [
 
     ]
@@ -3779,6 +5242,39 @@
     "id" : "77980663-12ae-f6cf-2ef9-ee6b0f7382d9",
     "name" : "Xbox's Major Nelson",
     "siteURL" : "https:\/\/news.xbox.com\/en-us\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Boating",
+    "description" : "UK-based sailing magazine with boat tests, seamanship advice, and cruising guides",
+    "feedURL" : "https:\/\/www.yachtingmonthly.com\/feed",
+    "id" : "9aa66d10-2105-7ac2-a76c-02705f51fcfb",
+    "name" : "Yachting Monthly",
+    "siteURL" : "https:\/\/www.yachtingmonthly.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Boating",
+    "description" : "Global sailing and yachting news, racing events, and superyacht coverage",
+    "feedURL" : "https:\/\/www.yachtingworld.com\/feed",
+    "id" : "80728d6e-c67a-7869-e601-cb1d7f831fb6",
+    "name" : "Yachting World",
+    "siteURL" : "https:\/\/www.yachtingworld.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Environment",
+    "description" : "Long-form environmental reporting and essays from Yale School of the Environment",
+    "feedURL" : "https:\/\/e360.yale.edu\/feed.xml",
+    "id" : "31a4342e-71bd-2ea5-100d-e544d199e17a",
+    "name" : "Yale Environment 360",
+    "siteURL" : "https:\/\/e360.yale.edu\/",
     "tags" : [
 
     ]

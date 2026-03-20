@@ -1,7 +1,7 @@
 [
   {
     "category": "Sports",
-    "description": "Original audio documentaries from the makers of the acclaimed 30 for 30 film series, featuring stories from the world",
+    "description": "Original audio documentaries from the makers of the acclaimed 30 for 30 film series",
     "feedURL": "https://feeds.megaphone.fm/ESP5765452710",
     "id": "f857ff91-c544-93ff-c834-df192e66de66",
     "name": "30 For 30 Podcasts",
@@ -10,7 +10,16 @@
   },
   {
     "category": "Sports",
-    "description": "Sports news, scores, and analysis from BBC Sport",
+    "description": "Sports betting analysis and picks from an editorially serious operation",
+    "feedURL": "https://www.actionnetwork.com/feed",
+    "id": "80ab96ab-aa8d-6f66-53d1-77a997aa56c2",
+    "name": "Action Network",
+    "siteURL": "https://www.actionnetwork.com/",
+    "tags": []
+  },
+  {
+    "category": "Sports",
+    "description": "Sports news, scores, and results from BBC Sport",
     "feedURL": "https://feeds.bbci.co.uk/sport/rss.xml",
     "id": "4265059e-11db-47d9-f1ba-d588157f4988",
     "name": "BBC Sport",
@@ -19,11 +28,92 @@
   },
   {
     "category": "Sports",
-    "description": "Breaking news from the UK and around the world",
+    "description": "Cricket news, scores, and results from BBC Sport",
+    "feedURL": "https://feeds.bbci.co.uk/sport/cricket/rss.xml",
+    "id": "73826047-a289-39cc-8393-5205ea59589e",
+    "name": "BBC Sport: Cricket",
+    "siteURL": "https://www.bbc.co.uk/sport/cricket",
+    "tags": []
+  },
+  {
+    "category": "Sports",
+    "description": "Tennis news, scores, and results from BBC Sport",
+    "feedURL": "https://feeds.bbci.co.uk/sport/tennis/rss.xml",
+    "id": "c8e79e6d-03a8-b82e-9afb-3455992921f6",
+    "name": "BBC Sport: Tennis",
+    "siteURL": "https://www.bbc.co.uk/sport/tennis",
+    "tags": []
+  },
+  {
+    "category": "Sports",
+    "description": "Smart, funny, independent sports writing from a worker-owned media company",
+    "feedURL": "https://defector.com/feed",
+    "id": "7cf504ef-5bdb-2086-24c4-f2244396649b",
+    "name": "Defector",
+    "siteURL": "https://defector.com/",
+    "tags": []
+  },
+  {
+    "category": "Sports",
+    "description": "Live scores, highlights, and sports news across every major sport",
+    "feedURL": "https://www.espn.com/espn/rss/news",
+    "id": "8bc0466d-a15a-8166-21f7-77e304c50859",
+    "name": "ESPN",
+    "siteURL": "https://www.espn.com",
+    "tags": []
+  },
+  {
+    "category": "Sports",
+    "description": "Tennis news, live scores, highlights, and analysis from ESPN",
+    "feedURL": "https://www.espn.com/espn/rss/tennis/news",
+    "id": "f85ac56d-78c4-bc29-18bf-14606bf67c27",
+    "name": "ESPN Tennis",
+    "siteURL": "https://www.espn.com",
+    "tags": []
+  },
+  {
+    "category": "Sports",
+    "description": "The gold standard for baseball analytics and data-driven sports analysis",
+    "feedURL": "https://www.fangraphs.com/blogs/feed/",
+    "id": "bed5578e-6d37-3bad-2b97-cb69e9bc74b6",
+    "name": "FanGraphs",
+    "siteURL": "https://www.fangraphs.com/",
+    "tags": []
+  },
+  {
+    "category": "Sports",
+    "description": "Tennis news and analysis",
+    "feedURL": "https://www.perfect-tennis.com/feed/",
+    "id": "98a61753-9862-1e84-2ce5-b99446c9e645",
+    "name": "peRFect Tennis",
+    "siteURL": "https://www.perfect-tennis.com",
+    "tags": []
+  },
+  {
+    "category": "Sports",
+    "description": "Comprehensive fan community ecosystem with team-specific blogs across every sport",
+    "feedURL": "https://www.sbnation.com/rss/index.xml",
+    "id": "7a0f483d-609e-821c-8dd8-757810e6ae26",
+    "name": "SB Nation",
+    "siteURL": "https://www.sbnation.com/",
+    "tags": []
+  },
+  {
+    "category": "Sports",
+    "description": "Breaking news from the UK and around the world of sport",
     "feedURL": "https://feeds.skynews.com/feeds/rss/sports.xml",
     "id": "06cb728c-d3a9-80fa-15eb-21784b34f65d",
-    "name": "Sky News",
+    "name": "Sky News Sport",
     "siteURL": "https://news.sky.com/sports",
+    "tags": []
+  },
+  {
+    "category": "Sports",
+    "description": "The business of sports — valuations, media rights, ownership, and deals",
+    "feedURL": "https://www.sportico.com/feed/rss/",
+    "id": "90e5c588-ff3e-f1a0-e94b-31656572b24a",
+    "name": "Sportico",
+    "siteURL": "https://www.sportico.com/",
     "tags": []
   },
   {
@@ -31,13 +121,13 @@
     "description": "Sports news, scores, and fantasy games from Yahoo",
     "feedURL": "https://sports.yahoo.com/rss/",
     "id": "e4e0fd7b-8dcc-796d-9e62-29aef2fa81c2",
-    "name": "Sports",
+    "name": "Sports - Yahoo",
     "siteURL": "https://sports.yahoo.com",
     "tags": []
   },
   {
     "category": "Sports",
-    "description": "Follow Sportskeeda for in depth coverage of Sports, Gaming, Entertainment & more. Get news, videos, live scores",
+    "description": "In-depth sports coverage across multiple sports with live scores",
     "feedURL": "https://www.sportskeeda.com/feed",
     "id": "6f0b8ddb-0986-023d-5bb1-d8adc0e99cbb",
     "name": "Sportskeeda",
@@ -46,11 +136,38 @@
   },
   {
     "category": "Sports",
-    "description": "Visit ESPN for live scores, highlights and sports news. Stream exclusive games on ESPN and play fantasy sports",
-    "feedURL": "https://www.espn.com/espn/rss/news",
-    "id": "8bc0466d-a15a-8166-21f7-77e304c50859",
-    "name": "ESPN",
-    "siteURL": "https://www.espn.com",
+    "description": "Tennis live scores, results, stats, rankings, and tournament news",
+    "feedURL": "https://www.atptour.com/en/media/rss-feed/xml-feed",
+    "id": "6dbfbb56-2565-88e1-e2f2-72bfd498cf73",
+    "name": "Tennis - ATP World Tour",
+    "siteURL": "https://www.atptour.com",
+    "tags": []
+  },
+  {
+    "category": "Sports",
+    "description": "Deep beat coverage across every major sport from the NYT's sports writing operation",
+    "feedURL": "https://www.nytimes.com/athletic/rss/news/",
+    "id": "0325815a-f773-6df0-48b1-eb8b8ba885ef",
+    "name": "The Athletic",
+    "siteURL": "https://www.nytimes.com/athletic/",
+    "tags": []
+  },
+  {
+    "category": "Sports",
+    "description": "Global sports coverage, especially strong on football, cricket, tennis, and rugby",
+    "feedURL": "https://www.theguardian.com/us/sport/rss",
+    "id": "42059b28-2b4a-290c-7223-5cecb5158ad0",
+    "name": "The Guardian Sport",
+    "siteURL": "https://www.theguardian.com/us/sport",
+    "tags": []
+  },
+  {
+    "category": "Sports",
+    "description": "Daily football news, match reports, and analysis from The Guardian",
+    "feedURL": "https://www.theguardian.com/football/rss",
+    "id": "6eb7229a-d92e-92e1-ef6c-b890bf12d196",
+    "name": "The Guardian Football",
+    "siteURL": "https://www.theguardian.com/football",
     "tags": []
   }
 ]

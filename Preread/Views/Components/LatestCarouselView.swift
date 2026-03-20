@@ -311,13 +311,6 @@ private struct CarouselCardView: View {
             .overlay(alignment: .bottomLeading) {
                 // Article title + metadata — bottom left
                 VStack(alignment: .leading, spacing: 3) {
-                    if let minutes = article.readingMinutes {
-                        Text(ReadingTimeFormatter.articleFormatted(minutes: minutes))
-                            .font(Theme.scaledFont(size: 11))
-                            .foregroundStyle(.white.opacity(0.6))
-                            .shadow(color: .black.opacity(0.5), radius: 1, x: 0, y: 1)
-                    }
-
                     Text(article.title)
                         .font(Theme.scaledFont(size: 18, weight: .semibold))
                         .foregroundStyle(.white)
@@ -357,10 +350,14 @@ private struct CarouselCardView: View {
 
     private var statusText: String {
         switch article.fetchStatus {
-        case .cached, .partial: "Saved"
-        case .fetching: "Saving"
-        case .pending: "Pending"
-        case .failed: "Failed"
+        case .cached, .partial:
+            if let minutes = article.readingMinutes {
+                return ReadingTimeFormatter.articleFormatted(minutes: minutes)
+            }
+            return ""
+        case .fetching: return "Saving"
+        case .pending: return "Pending"
+        case .failed: return "Failed"
         }
     }
 

@@ -1,6 +1,6 @@
 [
   {
-    "category": "Business & Economy",
+    "category": "Business & Finance",
     "description": "Real-time quotes, charts, news & tools from Investing.com. Get AI analysis & premium data with InvestingPro to uncover",
     "feedURL": "https://www.investing.com/rss/news.rss",
     "id": "0501ace5-f09d-f1d9-77ab-c48d52a5338e",
@@ -9,7 +9,7 @@
     "tags": []
   },
   {
-    "category": "Business & Economy",
+    "category": "Business & Finance",
     "description": "Small business marketing tips and strategies",
     "feedURL": "https://ducttape.libsyn.com/rss",
     "id": "d3242674-3285-be41-18b0-e9cf72c5d0bd",
@@ -18,7 +18,7 @@
     "tags": []
   },
   {
-    "category": "Business & Economy",
+    "category": "Business & Finance",
     "description": "The Economic Times: Latest business, finance, markets, stocks, company news from India",
     "feedURL": "https://economictimes.indiatimes.com/rssfeedsdefault.cms",
     "id": "244f9e96-12cc-f830-0c20-1888b38ba5cc",
@@ -27,7 +27,25 @@
     "tags": []
   },
   {
-    "category": "Business & Economy",
+    "category": "Business & Finance",
+    "description": "Your ultimate resource for small business news, entrepreneurship, business management, franchise opportunities, growth",
+    "feedURL": "https://www.entrepreneur.com/rss/",
+    "id": "8fdd0497-44c5-5131-baeb-6d62a0e088e2",
+    "name": "Entrepreneur",
+    "siteURL": "https://www.entrepreneur.com/",
+    "tags": []
+  },
+  {
+    "category": "Business & Finance",
+    "description": "Venture capital and startup insights",
+    "feedURL": "https://feld.com/feed",
+    "id": "c181c424-6a5c-e334-08d6-2ec6b506fac7",
+    "name": "Feld Thoughts",
+    "siteURL": "https://feld.com/",
+    "tags": []
+  },
+  {
+    "category": "Business & Finance",
     "description": "Forbes is a leading source for reliable news and updated analysis on Business. Read the breaking Business coverage and",
     "feedURL": "https://www.forbes.com/business/feed/",
     "id": "086a17a7-4573-dec9-f100-6b70cab9fd1a",
@@ -36,7 +54,7 @@
     "tags": []
   },
   {
-    "category": "Business & Economy",
+    "category": "Business & Finance",
     "description": "Unrivaled access, premier storytelling, and the best of business since 1930",
     "feedURL": "https://fortune.com/feed",
     "id": "8a8180b4-2f01-8964-70b0-1963050312a7",
@@ -45,12 +63,30 @@
     "tags": []
   },
   {
-    "category": "Business & Economy",
+    "category": "Business & Finance",
     "description": "Indian business, markets, and economic news",
     "feedURL": "https://www.business-standard.com/rss/home_page_top_stories.rss",
     "id": "70b72ac2-200e-8358-f55a-8fd0b93315c0",
     "name": "Home Page",
     "siteURL": "https://www.business-standard.com",
+    "tags": []
+  },
+  {
+    "category": "Business & Finance",
+    "description": "Resources and advice for entrepreneurs and business leaders",
+    "feedURL": "https://www.inc.com/rss/",
+    "id": "84556dcb-442c-abe8-d233-e23509f37339",
+    "name": "Inc.com",
+    "siteURL": "https://www.inc.com/",
+    "tags": []
+  },
+  {
+    "category": "Business & Finance",
+    "description": "Articles and Podcasts on Customer Service, AI and Automation, Product, and more",
+    "feedURL": "https://www.intercom.com/blog/feed",
+    "id": "5c6fc043-91e7-d79f-3f9e-f50a630d56a2",
+    "name": "Inside Intercom",
+    "siteURL": "https://www.intercom.com/blog/",
     "tags": []
   }
 ]
