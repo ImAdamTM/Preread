@@ -42,7 +42,7 @@ After any changes to the readability/cleaning pipeline in `PageCacheService.swif
 
 1. Run the pipeline tests to verify no regressions
 2. If adding a new cleaning rule, add a fixture + test for the case it fixes
-3. Keep the `debug-cache` tool in sync with any pipeline changes
+3. **CRITICAL: Apply the same change to `debug-cache/Sources/main.swift`**. The debug tool replicates the production pipeline and must stay in sync — hero image filtering, cleaning rules, image stripping, and all other pipeline logic must match `PageCacheService.swift` exactly.
 4. Fixture files live in `PrereadTests/Fixtures/` — raw HTML saved from the debug-cache tool's `1_raw.html` output
 
 ### Adding a new fixture
@@ -67,11 +67,11 @@ Every fixture is tested through **both** pipelines:
 - `cleanedHTML` preserves article content, images, tables, and CSS stylesheets
 - Fixture-specific checks (e.g. no buttons, no dialogs, no hidden elements)
 
-When adding a new fixture, always add tests for **both** modes.
+**CRITICAL: When adding a new fixture, always add tests for both modes.** Skipping one leaves half the pipeline unvalidated.
 
 ## Pipeline cleanup rules
 
-When adding new cleanup rules to the pipeline, always prefer **generic, standards-based approaches** over site-specific selectors. Never use `data-testid`, `data-component`, or other site-specific attributes to identify elements to strip.
+**CRITICAL: Always prefer generic, standards-based approaches over site-specific selectors.** Never use `data-testid`, `data-component`, or other site-specific attributes to identify elements to strip.
 
 Good (generic):
 - Strip by HTML tag: `<nav>`, `<aside>`, `<button>`, `<svg>`
@@ -104,7 +104,7 @@ The feed directory lives at `scripts/update-feed-directory/`. Feeds are organise
 
 ### Generated files — never edit by hand
 
-`Preread/Resources/discover_feeds.json` is a **generated output**. It is produced by the feed directory tool and must never be edited manually. All feed changes go through the category files, then the tool regenerates the output.
+**CRITICAL: `Preread/Resources/discover_feeds.json` is a generated output.** It is produced by the feed directory tool and must never be edited manually. All feed changes go through the category files, then the tool regenerates the output.
 
 ### Workflow for adding or changing feeds
 
@@ -119,7 +119,7 @@ The feed directory lives at `scripts/update-feed-directory/`. Feeds are organise
    - Add the category to `categoryOrder` at the correct position.
    - Add an SF Symbol icon to `categoryIcons`.
 
-The `--skip-validation` and `--skip-quality` flags exist for development speed but must **not** be used as the final step when adding new feeds. New feeds must pass the full validation pipeline before being considered done.
+**CRITICAL: The `--skip-validation` and `--skip-quality` flags must not be used as the final step when adding new feeds.** They exist for development speed only. New feeds must pass the full validation pipeline before being considered done.
 
 Other tool modes:
 - `verify` — checks all existing feeds, auto-discovers replacement URLs for broken ones, and updates category files.

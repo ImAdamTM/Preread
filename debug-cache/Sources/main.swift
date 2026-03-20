@@ -523,10 +523,32 @@ if isFullMode {
                 }
                 ancestor = el.parent()
             }
-            // "avatar" in URLs usually means a user profile image (/avatar/, /avatars/)
-            // but not when it's part of article content (e.g. Avatar: The Last Airbender)
+            // "avatar" in URLs usually means a user profile image (/avatar/, /avatars/,
+            // avatar.jpg, avatar_name.webp) but not when it's part of article content
+            // (e.g. Avatar: The Last Airbender)
             if srcLower.contains("/avatar/") || srcLower.contains("/avatars/")
+                || srcLower.contains("/avatar.") || srcLower.contains("/avatar_")
                 || imgId.contains("avatar") { return false }
+            // Skip images inside <a> links that navigate to a different page.
+            // These are navigation/promo thumbnails (e.g. hero bars, related
+            // article cards) not the article's own hero image.
+            // Allow links to image files — a common lightbox/zoom pattern.
+            let imageExtensions: Set<String> = ["jpg", "jpeg", "png", "gif", "webp", "avif"]
+            var walk: Element? = img.parent()
+            for _ in 0..<5 {
+                guard let el = walk else { break }
+                if el.tagName() == "a",
+                   let href = try? el.attr("href"), !href.isEmpty,
+                   let linkURL = URL(string: href, relativeTo: pageURL) {
+                    let ext = linkURL.pathExtension.lowercased()
+                    if imageExtensions.contains(ext) { break }
+                    let linkPath = linkURL.path.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+                    let pagePath = pageURL.path.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+                    if !linkPath.isEmpty && linkPath != pagePath { return false }
+                    break
+                }
+                walk = el.parent()
+            }
             return true
         }
 
