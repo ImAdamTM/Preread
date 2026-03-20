@@ -68,7 +68,7 @@
     "feedURL": "https://www.nintendo.com/en-gb/news.xml",
     "id": "feb036c6-8a6e-8bc6-2aa7-6d73783810f0",
     "name": "Nintendo",
-    "siteURL": "https://www.nintendo.com/en-gb/?utm_source=rss_reader&utm_medium=rss&utm_campaign=rss_news",
+    "siteURL": "https://www.nintendo.com/en-gb/",
     "tags": []
   },
   {
@@ -121,7 +121,7 @@
     "description": "Steam is the ultimate destination for playing, discussing, and creating games",
     "feedURL": "https://store.steampowered.com/feeds/news.xml",
     "id": "b3a5a1c1-829b-6b2f-e4e4-2081acb973f8",
-    "name": "Steam RSS News Feed",
+    "name": "Steam News",
     "siteURL": "https://www.steampowered.com/",
     "tags": []
   },

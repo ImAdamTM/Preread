@@ -237,7 +237,7 @@
     ]
   },
   {
-    "category" : "Personal finance",
+    "category" : "Personal Finance",
     "description" : "Personal finance and building a life of freedom",
     "feedURL" : "https:\/\/affordanything.com\/feed\/",
     "id" : "649a18d8-2c48-7ea1-88d6-3b3348c9a544",
@@ -285,7 +285,7 @@
     "description" : "Movie, TV, and comic book news and reviews",
     "feedURL" : "https:\/\/www.aintitcool.com\/node\/feed\/",
     "id" : "6044df96-ff67-6032-8cde-c2dad97e1f2a",
-    "name" : "Ain't It Cool News Feed",
+    "name" : "Ain't It Cool News",
     "siteURL" : "https:\/\/www.aintitcool.com\/",
     "tags" : [
 
@@ -310,17 +310,6 @@
     "id" : "78b02b33-4d32-bd35-c4a9-d85bc90785a2",
     "name" : "Alberto De Bortoli",
     "siteURL" : "https:\/\/albertodebortoli.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Business & Finance",
-    "description" : "Real-time quotes, charts, news & tools from Investing.com. Get AI analysis & premium data with InvestingPro to uncover",
-    "feedURL" : "https:\/\/www.investing.com\/rss\/news.rss",
-    "id" : "0501ace5-f09d-f1d9-77ab-c48d52a5338e",
-    "name" : "All News",
-    "siteURL" : "https:\/\/www.investing.com",
     "tags" : [
 
     ]
@@ -415,6 +404,17 @@
     ]
   },
   {
+    "category" : "Mobile Development",
+    "description" : "The official Android Developers publication on Medium",
+    "feedURL" : "https:\/\/medium.com\/feed\/androiddevelopers",
+    "id" : "e2ca2e09-bb18-922e-c44b-6add4fdd0268",
+    "name" : "Android Developers Blog (Medium)",
+    "siteURL" : "https:\/\/medium.com\/androiddevelopers",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Android",
     "description" : "All the latest mobile tech news, deals, reviews, guides, editorials, and more. Embracing the green bubble since 2009",
     "feedURL" : "https:\/\/www.androidpolice.com\/feed\/",
@@ -432,6 +432,18 @@
     "id" : "bd824acc-c204-6945-7ea2-380963fd1f65",
     "name" : "AndroidGuys",
     "siteURL" : "https:\/\/androidguys.com",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Italy",
+    "country" : "Italy",
+    "description" : "Agenzia di stampa italiana con notizie dall'Italia e dal mondo",
+    "feedURL" : "https:\/\/www.ansa.it\/sito\/ansait_rss.xml",
+    "id" : "f3afd903-e63c-53e0-1560-18ab65d76359",
+    "name" : "ANSA",
+    "siteURL" : "https:\/\/www.ansa.it\/sito\/videogallery\/short_video\/2026\/03\/14\/il-racconto-della-settimana-in-foto_b02787b1-d4a0-448a-9ed2-0a0f00be5932.html",
     "tags" : [
 
     ]
@@ -682,6 +694,17 @@
     ]
   },
   {
+    "category" : "Film & TV",
+    "description" : "Comic book, film, TV, games, and toy news and rumors from Bleeding Cool",
+    "feedURL" : "https:\/\/www.bleedingcool.com\/movies\/feed\/",
+    "id" : "37d17862-c86a-4935-858a-e346ba33a6cf",
+    "name" : "Bleeding Cool",
+    "siteURL" : "https:\/\/bleedingcool.com",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Cars",
     "description" : "Stay ahead with the latest BMW news, reviews, and exclusive insights",
     "feedURL" : "https:\/\/www.bmwblog.com\/feed",
@@ -756,6 +779,17 @@
     "id" : "d754cfa2-2720-8c23-352a-ccbdbcebb568",
     "name" : "Business Line",
     "siteURL" : "https:\/\/www.thehindubusinessline.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Business & Finance",
+    "description" : "Indian business, markets, and economic news",
+    "feedURL" : "https:\/\/www.business-standard.com\/rss\/home_page_top_stories.rss",
+    "id" : "70b72ac2-200e-8358-f55a-8fd0b93315c0",
+    "name" : "Business Standard",
+    "siteURL" : "https:\/\/www.business-standard.com",
     "tags" : [
 
     ]
@@ -856,7 +890,7 @@
     "feedURL" : "https:\/\/www.cbc.ca\/cmlink\/rss-topstories",
     "id" : "655d1927-dcd4-21b6-3267-683fd032e7b9",
     "name" : "CBC",
-    "siteURL" : "https:\/\/www.cbc.ca\/news\/?cmp=rss",
+    "siteURL" : "https:\/\/www.cbc.ca\/news\/",
     "tags" : [
 
     ]
@@ -1147,7 +1181,7 @@
     "feedURL" : "https:\/\/rss.dw.com\/rdf\/rss-en-all",
     "id" : "14dda539-770f-94e3-25d6-e6242ab2c164",
     "name" : "Deutsche Welle",
-    "siteURL" : "https:\/\/www.dw.com\/english\/?maca=en-rss-en-all-1573-rdf",
+    "siteURL" : "https:\/\/www.dw.com\/english\/",
     "tags" : [
 
     ]
@@ -1588,7 +1622,7 @@
     ]
   },
   {
-    "category" : "Personal finance",
+    "category" : "Personal Finance",
     "description" : "Investing, real estate, and career strategies for financial independence",
     "feedURL" : "https:\/\/financialsamurai.com\/feed",
     "id" : "9f1a2b1a-4490-5e1d-8e8b-7d2b1162340e",
@@ -1857,17 +1891,6 @@
     ]
   },
   {
-    "category" : "Web Design & UX",
-    "description" : "Mozilla Hacks is written for web developers, designers and everyone who builds for the Web. Hacks is produced by Mozilla",
-    "feedURL" : "https:\/\/hacks.mozilla.org\/feed\/",
-    "id" : "394ba688-e40a-39f5-875e-6d5ee66d23af",
-    "name" : "Hacks",
-    "siteURL" : "https:\/\/hacks.mozilla.org\/",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "DIY",
     "description" : "IoT and hardware project sharing platform with community tutorials",
     "feedURL" : "https:\/\/www.hackster.io\/projects.rss?sort=recent",
@@ -1984,17 +2007,6 @@
     "id" : "4123a374-68b4-422f-4382-3318857e15bc",
     "name" : "HistoryNet",
     "siteURL" : "https:\/\/www.historynet.com\/",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Business & Finance",
-    "description" : "Indian business, markets, and economic news",
-    "feedURL" : "https:\/\/www.business-standard.com\/rss\/home_page_top_stories.rss",
-    "id" : "70b72ac2-200e-8358-f55a-8fd0b93315c0",
-    "name" : "Home Page",
-    "siteURL" : "https:\/\/www.business-standard.com",
     "tags" : [
 
     ]
@@ -2199,7 +2211,7 @@
     "feedURL" : "https:\/\/www.indiatoday.in\/rss\/home",
     "id" : "ba404cd1-18a7-4b67-fde5-3b0477d9a264",
     "name" : "India Today",
-    "siteURL" : "https:\/\/www.indiatoday.in\/?utm_source=rss",
+    "siteURL" : "https:\/\/www.indiatoday.in\/",
     "tags" : [
 
     ]
@@ -2359,6 +2371,17 @@
     "id" : "9cd17b59-e051-7cca-54f0-d60dbf694c29",
     "name" : "Internazionale",
     "siteURL" : "https:\/\/www.internazionale.it\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "Business & Finance",
+    "description" : "Real-time quotes, charts, news & tools from Investing.com. Get AI analysis & premium data with InvestingPro to uncover",
+    "feedURL" : "https:\/\/www.investing.com\/rss\/news.rss",
+    "id" : "0501ace5-f09d-f1d9-77ab-c48d52a5338e",
+    "name" : "Investing.com",
+    "siteURL" : "https:\/\/www.investing.com",
     "tags" : [
 
     ]
@@ -2627,8 +2650,8 @@
     "description" : "Blog with mission to simplify Kotlin learning",
     "feedURL" : "https:\/\/blog.kotlin-academy.com\/feed",
     "id" : "d82be0c7-5b8c-a091-faec-8abedc848351",
-    "name" : "Kt. Academy - Medium",
-    "siteURL" : "https:\/\/blog.kotlin-academy.com?source=rss----e57b304801ef---4",
+    "name" : "Kt. Academy",
+    "siteURL" : "https:\/\/blog.kotlin-academy.com",
     "tags" : [
 
     ]
@@ -2895,7 +2918,7 @@
     ]
   },
   {
-    "category" : "Personal finance",
+    "category" : "Personal Finance",
     "description" : "Saving money, paying off debt, and making smarter financial decisions",
     "feedURL" : "https:\/\/makingsenseofcents.com\/feed",
     "id" : "9ae3fa68-a393-54b5-91d1-7a48879c8da4",
@@ -2995,17 +3018,6 @@
     ]
   },
   {
-    "category" : "Mobile Development",
-    "description" : "The official Android Developers publication on Medium",
-    "feedURL" : "https:\/\/medium.com\/feed\/androiddevelopers",
-    "id" : "e2ca2e09-bb18-922e-c44b-6add4fdd0268",
-    "name" : "Medium",
-    "siteURL" : "https:\/\/medium.com\/androiddevelopers?source=rss----95b274b437c2---4",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Music",
     "description" : "Heavy metal news, music, and videos",
     "feedURL" : "https:\/\/metalinjection.net\/feed",
@@ -3075,7 +3087,7 @@
     ]
   },
   {
-    "category" : "Personal finance",
+    "category" : "Personal Finance",
     "description" : "Practical tips to earn more, spend less, and grow your money",
     "feedURL" : "https:\/\/moneytalksnews.com\/feed",
     "id" : "99c68bf8-9ccc-5b73-b88b-6b4a78c55b0f",
@@ -3120,12 +3132,12 @@
     ]
   },
   {
-    "category" : "Film & TV",
-    "description" : "Comic book, film, TV, games, and toy news and rumors from Bleeding Cool",
-    "feedURL" : "https:\/\/www.bleedingcool.com\/movies\/feed\/",
-    "id" : "37d17862-c86a-4935-858a-e346ba33a6cf",
-    "name" : "Movies",
-    "siteURL" : "https:\/\/bleedingcool.com",
+    "category" : "Web Design & UX",
+    "description" : "Mozilla Hacks is written for web developers, designers and everyone who builds for the Web. Hacks is produced by Mozilla",
+    "feedURL" : "https:\/\/hacks.mozilla.org\/feed\/",
+    "id" : "394ba688-e40a-39f5-875e-6d5ee66d23af",
+    "name" : "Mozilla Hacks",
+    "siteURL" : "https:\/\/hacks.mozilla.org\/",
     "tags" : [
 
     ]
@@ -3204,7 +3216,7 @@
     "feedURL" : "https:\/\/netflixtechblog.com\/feed",
     "id" : "cde22301-ccca-2028-bc13-1c440bce03a6",
     "name" : "Netflix TechBlog",
-    "siteURL" : "https:\/\/netflixtechblog.com?source=rss----2615bd06b42e---4",
+    "siteURL" : "https:\/\/netflixtechblog.com",
     "tags" : [
 
     ]
@@ -3243,18 +3255,6 @@
     ]
   },
   {
-    "category" : "United States",
-    "country" : "United States",
-    "description" : "The latest news and headlines from Yahoo News. Get breaking news stories and in-depth coverage with videos and photos",
-    "feedURL" : "https:\/\/news.yahoo.com\/rss\/mostviewed",
-    "id" : "265fe870-a638-edc6-9e12-41513972397e",
-    "name" : "News",
-    "siteURL" : "https:\/\/www.yahoo.com\/news",
-    "tags" : [
-
-    ]
-  },
-  {
     "category" : "Pakistan",
     "country" : "Pakistan",
     "description" : "Technology, travel, sports, health, and entertainment news",
@@ -3279,6 +3279,17 @@
     ]
   },
   {
+    "category" : "Web Design & UX",
+    "description" : "UX research and design best practices from Nielsen Norman Group",
+    "feedURL" : "https:\/\/www.nngroup.com\/feed\/rss\/",
+    "id" : "f74a54fc-b5d6-6235-3029-66a458c5becf",
+    "name" : "Nielsen Norman Group",
+    "siteURL" : "https:\/\/www.nngroup.com\/feed\/rss\/",
+    "tags" : [
+
+    ]
+  },
+  {
     "category" : "Nigeria",
     "country" : "Nigeria",
     "description" : "Latest news from Nigeria",
@@ -3296,7 +3307,7 @@
     "feedURL" : "https:\/\/www.nintendo.com\/en-gb\/news.xml",
     "id" : "feb036c6-8a6e-8bc6-2aa7-6d73783810f0",
     "name" : "Nintendo",
-    "siteURL" : "https:\/\/www.nintendo.com\/en-gb\/?utm_source=rss_reader&utm_medium=rss&utm_campaign=rss_news",
+    "siteURL" : "https:\/\/www.nintendo.com\/en-gb\/",
     "tags" : [
 
     ]
@@ -3319,17 +3330,6 @@
     "id" : "94dbc533-f564-568d-b191-431faea608d2",
     "name" : "NME",
     "siteURL" : "https:\/\/www.nme.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Web Design & UX",
-    "description" : "UX research and design best practices from Nielsen Norman Group",
-    "feedURL" : "https:\/\/www.nngroup.com\/feed\/rss\/",
-    "id" : "f74a54fc-b5d6-6235-3029-66a458c5becf",
-    "name" : "NN\/g latest articles and announcements",
-    "siteURL" : "https:\/\/www.nngroup.com\/feed\/rss\/",
     "tags" : [
 
     ]
@@ -3578,7 +3578,7 @@
     "description" : "Philippine news for the Filipino global community",
     "feedURL" : "https:\/\/www.philstar.com\/rss\/headlines",
     "id" : "0d2d178f-7eb3-a3e3-df07-305f629dd7fe",
-    "name" : "philstar.com - RSS Headlines",
+    "name" : "PhilStar",
     "siteURL" : "https:\/\/www.philstar.com\/rss\/headlines",
     "tags" : [
 
@@ -3735,8 +3735,8 @@
     "description" : "The things we learn as we build our products",
     "feedURL" : "https:\/\/engineering.prezi.com\/feed",
     "id" : "a4a249f1-8b5d-ff47-36fe-6834337ae2ad",
-    "name" : "Prezi Engineering - Medium",
-    "siteURL" : "https:\/\/engineering.prezi.com?source=rss----911e72786e31---4",
+    "name" : "Prezi Engineering",
+    "siteURL" : "https:\/\/engineering.prezi.com",
     "tags" : [
 
     ]
@@ -3747,7 +3747,7 @@
     "feedURL" : "https:\/\/proandroiddev.com\/feed",
     "id" : "bd8a169e-adcb-548f-ebe4-b90492db6024",
     "name" : "ProAndroidDev",
-    "siteURL" : "https:\/\/proandroiddev.com?source=rss----c72404660798---4",
+    "siteURL" : "https:\/\/proandroiddev.com",
     "tags" : [
 
     ]
@@ -3802,7 +3802,7 @@
     "description" : "Republika Online - berita terkini, berita hari ini, membahas isu politik, Dunia Islam dan peristiwa terhangat indonesia",
     "feedURL" : "https:\/\/www.republika.co.id\/rss\/",
     "id" : "18a17456-e1a3-0bad-24ca-8fdd7dab4491",
-    "name" : "Republika Online RSS Feed",
+    "name" : "Republika Online",
     "siteURL" : "https:\/\/www.republika.co.id",
     "tags" : [
 
@@ -3860,18 +3860,6 @@
     "id" : "ee8393ff-a0f3-5757-ba63-fb12bf146972",
     "name" : "Rolling Stone",
     "siteURL" : "https:\/\/www.rollingstone.com",
-    "tags" : [
-
-    ]
-  },
-  {
-    "category" : "Italy",
-    "country" : "Italy",
-    "description" : "Agenzia di stampa italiana con notizie dall'Italia e dal mondo",
-    "feedURL" : "https:\/\/www.ansa.it\/sito\/ansait_rss.xml",
-    "id" : "f3afd903-e63c-53e0-1560-18ab65d76359",
-    "name" : "RSS di - ANSA.it",
-    "siteURL" : "https:\/\/www.ansa.it\/sito\/videogallery\/short_video\/2026\/03\/14\/il-racconto-della-settimana-in-foto_b02787b1-d4a0-448a-9ed2-0a0f00be5932.html",
     "tags" : [
 
     ]
@@ -4256,7 +4244,7 @@
     "description" : "Steam is the ultimate destination for playing, discussing, and creating games",
     "feedURL" : "https:\/\/store.steampowered.com\/feeds\/news.xml",
     "id" : "b3a5a1c1-829b-6b2f-e4e4-2081acb973f8",
-    "name" : "Steam RSS News Feed",
+    "name" : "Steam News",
     "siteURL" : "https:\/\/www.steampowered.com\/",
     "tags" : [
 
@@ -5062,8 +5050,8 @@
     "description" : "We believe designers are thinkers as much as they are makers. Curated stories on UX, Visual & Product Design",
     "feedURL" : "https:\/\/uxdesign.cc\/feed",
     "id" : "efe18eb2-8037-4393-b598-d54a5e5745cb",
-    "name" : "UX Collective - Medium",
-    "siteURL" : "https:\/\/uxdesign.cc?source=rss----138adf9c44c---4",
+    "name" : "UX Collective",
+    "siteURL" : "https:\/\/uxdesign.cc",
     "tags" : [
 
     ]
@@ -5264,6 +5252,18 @@
     "id" : "80728d6e-c67a-7869-e601-cb1d7f831fb6",
     "name" : "Yachting World",
     "siteURL" : "https:\/\/www.yachtingworld.com\/",
+    "tags" : [
+
+    ]
+  },
+  {
+    "category" : "United States",
+    "country" : "United States",
+    "description" : "The latest news and headlines from Yahoo News. Get breaking news stories and in-depth coverage with videos and photos",
+    "feedURL" : "https:\/\/news.yahoo.com\/rss\/mostviewed",
+    "id" : "265fe870-a638-edc6-9e12-41513972397e",
+    "name" : "Yahoo News",
+    "siteURL" : "https:\/\/www.yahoo.com\/news",
     "tags" : [
 
     ]

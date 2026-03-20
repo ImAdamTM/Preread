@@ -121,8 +121,8 @@
     "description": "Blog with mission to simplify Kotlin learning",
     "feedURL": "https://blog.kotlin-academy.com/feed",
     "id": "d82be0c7-5b8c-a091-faec-8abedc848351",
-    "name": "Kt. Academy - Medium",
-    "siteURL": "https://blog.kotlin-academy.com?source=rss----e57b304801ef---4",
+    "name": "Kt. Academy",
+    "siteURL": "https://blog.kotlin-academy.com",
     "tags": []
   },
   {
@@ -130,8 +130,8 @@
     "description": "The official Android Developers publication on Medium",
     "feedURL": "https://medium.com/feed/androiddevelopers",
     "id": "e2ca2e09-bb18-922e-c44b-6add4fdd0268",
-    "name": "Medium",
-    "siteURL": "https://medium.com/androiddevelopers?source=rss----95b274b437c2---4",
+    "name": "Android Developers Blog (Medium)",
+    "siteURL": "https://medium.com/androiddevelopers",
     "tags": []
   },
   {
@@ -158,7 +158,7 @@
     "feedURL": "https://proandroiddev.com/feed",
     "id": "bd8a169e-adcb-548f-ebe4-b90492db6024",
     "name": "ProAndroidDev",
-    "siteURL": "https://proandroiddev.com?source=rss----c72404660798---4",
+    "siteURL": "https://proandroiddev.com",
     "tags": []
   },
   {

@@ -13,7 +13,7 @@
     "description": "Movie, TV, and comic book news and reviews",
     "feedURL": "https://www.aintitcool.com/node/feed/",
     "id": "6044df96-ff67-6032-8cde-c2dad97e1f2a",
-    "name": "Ain't It Cool News Feed",
+    "name": "Ain't It Cool News",
     "siteURL": "https://www.aintitcool.com/",
     "tags": []
   },
@@ -58,7 +58,7 @@
     "description": "Comic book, film, TV, games, and toy news and rumors from Bleeding Cool",
     "feedURL": "https://www.bleedingcool.com/movies/feed/",
     "id": "37d17862-c86a-4935-858a-e346ba33a6cf",
-    "name": "Movies",
+    "name": "Bleeding Cool",
     "siteURL": "https://bleedingcool.com",
     "tags": []
   },

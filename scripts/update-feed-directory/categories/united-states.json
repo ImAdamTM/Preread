@@ -15,7 +15,7 @@
     "description": "The latest news and headlines from Yahoo News. Get breaking news stories and in-depth coverage with videos and photos",
     "feedURL": "https://news.yahoo.com/rss/mostviewed",
     "id": "265fe870-a638-edc6-9e12-41513972397e",
-    "name": "News",
+    "name": "Yahoo News",
     "siteURL": "https://www.yahoo.com/news",
     "tags": []
   },

@@ -4,7 +4,7 @@
     "description": "Real-time quotes, charts, news & tools from Investing.com. Get AI analysis & premium data with InvestingPro to uncover",
     "feedURL": "https://www.investing.com/rss/news.rss",
     "id": "0501ace5-f09d-f1d9-77ab-c48d52a5338e",
-    "name": "All News",
+    "name": "Investing.com",
     "siteURL": "https://www.investing.com",
     "tags": []
   },
@@ -67,7 +67,7 @@
     "description": "Indian business, markets, and economic news",
     "feedURL": "https://www.business-standard.com/rss/home_page_top_stories.rss",
     "id": "70b72ac2-200e-8358-f55a-8fd0b93315c0",
-    "name": "Home Page",
+    "name": "Business Standard",
     "siteURL": "https://www.business-standard.com",
     "tags": []
   },

@@ -95,7 +95,7 @@
     "feedURL": "https://netflixtechblog.com/feed",
     "id": "cde22301-ccca-2028-bc13-1c440bce03a6",
     "name": "Netflix TechBlog",
-    "siteURL": "https://netflixtechblog.com?source=rss----2615bd06b42e---4",
+    "siteURL": "https://netflixtechblog.com",
     "tags": []
   },
   {
@@ -112,8 +112,8 @@
     "description": "The things we learn as we build our products",
     "feedURL": "https://engineering.prezi.com/feed",
     "id": "a4a249f1-8b5d-ff47-36fe-6834337ae2ad",
-    "name": "Prezi Engineering - Medium",
-    "siteURL": "https://engineering.prezi.com?source=rss----911e72786e31---4",
+    "name": "Prezi Engineering",
+    "siteURL": "https://engineering.prezi.com",
     "tags": []
   },
   {
