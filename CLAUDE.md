@@ -125,6 +125,10 @@ Other tool modes:
 - `verify` — checks all existing feeds, auto-discovers replacement URLs for broken ones, and updates category files.
 - `discover` — finds new candidate feeds from upstream OPML sources.
 
+## Test failures
+
+**CRITICAL: Never dismiss a test failure as "pre-existing" or "unrelated to this change".** Every failing test must be investigated. If a test fails while verifying your work, diagnose the root cause and fix it — even if the failure appears to predate your changes. Do not move on until all tests you run are passing.
+
 ## Problem-solving approach
 
 When a fix attempt fails, **do not guess at another fix**. Instead:
