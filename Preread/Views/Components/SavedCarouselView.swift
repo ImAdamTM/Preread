@@ -9,6 +9,9 @@ struct SavedCarouselView: View {
     @State private var articles: [Article] = []
     @State private var sourceNames: [UUID: String] = [:]
     @State private var thumbnailImages: [UUID: UIImage] = [:]
+    /// Tracks the thumbnailURL that was active when each thumbnail was loaded,
+    /// so we can detect when a refetch produces a new image.
+    @State private var loadedThumbnailURLs: [UUID: String] = [:]
     @State private var faviconImages: [UUID: UIImage] = [:]
     @State private var fetchingArticleIDs: Set<UUID> = []
     @State private var articleObservation: AnyDatabaseCancellable?
@@ -88,9 +91,19 @@ struct SavedCarouselView: View {
 
     private func loadThumbnails(for articles: [Article]) {
         for article in articles {
+            let currentURL = article.thumbnailURL
+            let previousURL = loadedThumbnailURLs[article.id]
+
+            // If the thumbnailURL changed (e.g. after a refetch), invalidate the stale image.
+            if let previousURL, previousURL != currentURL {
+                thumbnailImages[article.id] = nil
+                ThumbnailCache.shared.removeCardThumbnail(for: article.id)
+            }
+
             if thumbnailImages[article.id] != nil { continue }
             if let cached = ThumbnailCache.shared.cardThumbnail(for: article.id) {
                 thumbnailImages[article.id] = cached
+                loadedThumbnailURLs[article.id] = currentURL
                 continue
             }
             let articleID = article.id
@@ -117,6 +130,7 @@ struct SavedCarouselView: View {
 
                 if let image {
                     thumbnailImages[articleID] = image
+                    loadedThumbnailURLs[articleID] = currentURL
                     ThumbnailCache.shared.setCardThumbnail(image, for: articleID)
                 }
             }

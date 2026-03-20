@@ -33,6 +33,18 @@ struct SavedSectionView: View {
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
             }
+
+            if totalSavedCount > articles.count {
+                Button(action: onViewAll) {
+                    Text("View all \(totalSavedCount) articles")
+                        .font(Theme.scaledFont(size: 14, weight: .medium, relativeTo: .subheadline))
+                        .foregroundStyle(Theme.accentGradient)
+                        .frame(maxWidth: .infinity)
+                }
+                .listRowInsets(EdgeInsets(top: 12, leading: 0, bottom: 15, trailing: 0))
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
+            }
         } header: {
             sectionHeader
                 .padding(.bottom, 4)
@@ -95,12 +107,6 @@ struct SavedSectionView: View {
             }
 
             Spacer(minLength: 4)
-
-            Button(action: onViewAll) {
-                Text("View all")
-                    .font(Theme.scaledFont(size: 14, weight: .medium, relativeTo: .subheadline))
-                    .foregroundStyle(Theme.accentGradient)
-            }
         }
     }
 

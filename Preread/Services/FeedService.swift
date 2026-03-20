@@ -502,8 +502,8 @@ private final class FeedXMLParser: NSObject, XMLParserDelegate {
     }
 
     private func decodeHTMLEntities(_ string: String) -> String {
-        // Fast path: no entities to decode
-        guard string.contains("&") else { return string }
+        // Fast path: no entities or tags to decode
+        guard string.contains("&") || string.contains("<") else { return string }
 
         guard let data = string.data(using: .utf8),
               let attributed = try? NSAttributedString(
