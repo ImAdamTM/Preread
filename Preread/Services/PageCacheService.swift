@@ -454,6 +454,13 @@ actor PageCacheService {
         // Strip CSP meta tags
         try doc.select("meta[http-equiv=Content-Security-Policy]").remove()
 
+        // Ensure a white background fallback. Many sites rely on browser
+        // defaults or don't set an explicit background-color, which makes
+        // text illegible when the WebView has a transparent/dark background.
+        if let head = doc.head() {
+            try head.append("<style>html, body { background-color: #fff !important; }</style>")
+        }
+
         // Strip scripts and noscript fallbacks — we disable JS in the web
         // view, so noscript blocks render and create huge layout gaps
         // (e.g. BBC's full site-navigation tree inside <noscript>).
@@ -514,20 +521,28 @@ actor PageCacheService {
                 let alt = (try? img.attr("alt"))?.lowercased() ?? ""
                 if srcLower.contains(".svg") { return false }
                 let chromeWords = [
-                    "logo", "flag", "icon", "badge", "avatar", "spinner",
+                    "logo", "flag", "icon", "badge", "spinner",
                     "facebook", "twitter", "instagram", "pinterest", "tiktok",
                     "furniture", "share", "follow"
                 ]
                 for word in chromeWords {
                     if imgId.contains(word) || alt.contains(word) || srcLower.contains(word) { return false }
                 }
-                // Skip images inside <a> links to different pages (navigation/promo thumbnails)
+                // Avatar path-based filtering (same as standard pipeline)
+                if srcLower.contains("/avatar/") || srcLower.contains("/avatars/")
+                    || srcLower.contains("/avatar.") || srcLower.contains("/avatar_")
+                    || imgId.contains("avatar") { return false }
+                // Skip images inside <a> links to different pages (navigation/promo thumbnails).
+                // Allow links to image files — a common lightbox/zoom pattern.
+                let imageExtensions: Set<String> = ["jpg", "jpeg", "png", "gif", "webp", "avif"]
                 var walk: Element? = img.parent()
                 for _ in 0..<5 {
                     guard let el = walk else { break }
                     if el.tagName() == "a",
                        let href = try? el.attr("href"), !href.isEmpty,
                        let linkURL = URL(string: href, relativeTo: pageURL) {
+                        let ext = linkURL.pathExtension.lowercased()
+                        if imageExtensions.contains(ext) { break }
                         let linkPath = linkURL.path.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
                         let pagePath = pageURL.path.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
                         if !linkPath.isEmpty && linkPath != pagePath { return false }

@@ -386,6 +386,13 @@ if isFullMode {
     let cspMetas = try doc.select("meta[http-equiv=Content-Security-Policy]")
     try cspMetas.remove()
 
+    // Ensure a white background fallback. Many sites rely on browser
+    // defaults or don't set an explicit background-color, which makes
+    // text illegible when the WebView has a transparent/dark background.
+    if let head = doc.head() {
+        try head.append("<style>html, body { background-color: #fff !important; }</style>")
+    }
+
     // Strip scripts and noscript fallbacks
     let scripts = try doc.select("script")
     try scripts.remove()
