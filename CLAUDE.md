@@ -1,5 +1,79 @@
 # Preread — Claude Code Notes
 
+## App architecture
+
+Preread is an RSS reader for iOS/iPadOS with offline article caching. It has five targets sharing data via app groups:
+
+| Target | Purpose |
+|---|---|
+| **Preread** | Main app — feed management, article caching, reader UI |
+| **PrereadShareExtension** | Share sheet — extracts URL, deep-links to main app via `preread://add?url=` |
+| **PrereadWidget** | Home/lock screen widgets — read-only DB access, shows recent articles |
+| **PrereadWatch** | watchOS companion — receives articles via Watch Connectivity |
+| **PrereadWatchWidget** | Watch widget — text-only article previews |
+
+All targets access the same GRDB database and cached files through `ContainerPaths` (`group.com.ahartwig.preread`).
+
+### Models
+
+| Model | Role |
+|---|---|
+| `Source` | An RSS feed the user subscribes to. Has `feedURL`, `cacheLevel` (standard/full), `fetchFrequency`, layout prefs. Special `savedPagesID` (`UUID...0001`) is a hidden source holding manually saved pages. |
+| `Article` | A feed item. Lifecycle: `pending` → `fetching` → `cached`/`partial`/`failed`. Has `isSaved`, `isRead`, `thumbnailURL`. Belongs to a `Source`. |
+| `CachedPage` | One-to-one with Article. Stores `htmlPath`, `assetManifest`, `cacheLevelUsed`, `totalSizeBytes`. |
+| `DiscoverFeed` | In-memory only, loaded from bundled `discover_feeds.json`. Powers the feed discovery UI. |
+
+### Services
+
+| Service | Responsibility |
+|---|---|
+| `DatabaseManager` | GRDB `DatabasePool` singleton. Migrations, shared container setup. |
+| `FeedService` | Actor. Parses RSS/Atom feeds, discovers feed URLs from websites. |
+| `FetchCoordinator` | `@MainActor` ObservableObject. Orchestrates feed refresh → article insert → priority caching → pruning. Round-robin across sources. |
+| `PageCacheService` | Actor. Fetches page HTML, runs cleaning/extraction pipeline, stores assets on disk. Two modes: standard (Readability) and full (whole-page). |
+| `BackgroundTaskManager` | BGAppRefreshTask (15-min, parse feeds) + BGProcessingTask (1-hour, heavy caching). |
+| `ThumbnailCache` | In-memory LRU cache for row thumbnails (150), card thumbnails (80), favicons (50). Disk fallback chain. |
+| `ReaderModeExtractor` | Wraps Mozilla Readability (SwiftReadability). |
+| `IntegrityChecker` | App-launch housekeeping: orphan cleanup, duplicate removal, stale fetch reset. |
+| `ContainerPaths` | App group paths for DB, articles, sources, shared assets. |
+| `WatchConnectivityManager` | Syncs latest 10 articles to watch via `updateApplicationContext()`. |
+
+### View hierarchy
+
+```
+ContentView
+├─ iPhone: NavigationStack
+│   └─ SourcesListView (home)
+│       ├─ SavedCarouselView (latest 10 saved, horizontal)
+│       ├─ SourceSectionView per source (5 articles + "View all")
+│       │   └─ ArticleRowView / LatestCarouselView / SavedCardView
+│       ├─ → ArticleListView (full list for one source)
+│       └─ → ReaderView (article reader)
+├─ iPad: NavigationSplitView
+│   ├─ Sidebar: SourcesListView
+│   └─ Detail: ReaderView
+└─ Sheets: AddSourceSheet, SettingsView, FailedArticleSheet
+```
+
+`ReaderView` displays cached HTML in `CachedWebView` (WKWebView) with font/theme/size customisation.
+
+### Data flow
+
+- **Source of truth**: GRDB database. Views observe via GRDB `ValueObservation` (reactive, no polling).
+- **Refresh**: `FetchCoordinator` → `FeedService.parseFeed()` → insert articles as `.pending` → `PageCacheService.cacheArticle()` → update `fetchStatus` to `.cached`.
+- **Thumbnails**: Cached on disk at `articles/{id}/thumbnail.jpg` + `thumb.jpg` (80px). Loaded into `ThumbnailCache` LRU on demand.
+- **Assets**: Stored in `shared_assets/` and hardlinked into article dirs. Max 8 MB/article, 2 MB/asset.
+
+### Caching pipeline (standard mode)
+
+1. **Clean** — strip scripts, styles, nav, forms, buttons, badges, comments
+2. **Flatten** — unwrap figures, collapse single-child divs
+3. **Readability** — extract article content via DOM scoring
+4. **Hero inject** — re-add main image if Readability dropped it (with chrome filtering)
+5. **Template** — wrap in reader template with title, calculate reading time
+
+Full mode skips steps 2-4: cleans the whole page and stores it as-is for offline viewing.
+
 ## Article ordering
 
 When querying or processing articles (refreshing, retrying, caching), always sort newest-first: `ORDER BY COALESCE(publishedAt, addedAt) DESC`. This applies to every code path that fetches articles for processing — feed refresh, retry of failed/pending articles, background tasks, etc.
