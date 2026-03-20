@@ -428,11 +428,20 @@ struct SavedArticlesView: View {
             articles[index].fetchStatus = .fetching
         }
 
-        // Look up source's cache level
-        let source = try? await DatabaseManager.shared.dbPool.read { db in
-            try Source.fetchOne(db, key: article.sourceID)
+        // Manually saved pages remember the cache level chosen at save time.
+        // Feed articles use the source's current level.
+        let cacheLevel: CacheLevel
+        if article.sourceID == Source.savedPagesID,
+           let existing = try? await DatabaseManager.shared.dbPool.read({ db in
+               try CachedPage.fetchOne(db, key: article.id)
+           }) {
+            cacheLevel = existing.cacheLevelUsed
+        } else {
+            let source = try? await DatabaseManager.shared.dbPool.read { db in
+                try Source.fetchOne(db, key: article.sourceID)
+            }
+            cacheLevel = source?.effectiveCacheLevel ?? .standard
         }
-        let cacheLevel = source?.effectiveCacheLevel ?? .standard
 
         try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
         await loadArticles()
@@ -510,10 +519,20 @@ struct SavedArticlesView: View {
             }
         }
         let articleToCache = article
-        let source = try? await DatabaseManager.shared.dbPool.read { db in
-            try Source.fetchOne(db, key: articleToCache.sourceID)
+        // Manually saved pages (no feed source) remember the cache level the
+        // user chose when saving. Feed articles use the source's current level.
+        let cacheLevel: CacheLevel
+        if articleToCache.sourceID == Source.savedPagesID,
+           let existing = try? await DatabaseManager.shared.dbPool.read({ db in
+               try CachedPage.fetchOne(db, key: articleToCache.id)
+           }) {
+            cacheLevel = existing.cacheLevelUsed
+        } else {
+            let source = try? await DatabaseManager.shared.dbPool.read { db in
+                try Source.fetchOne(db, key: articleToCache.sourceID)
+            }
+            cacheLevel = source?.effectiveCacheLevel ?? .standard
         }
-        let cacheLevel = source?.effectiveCacheLevel ?? .standard
         try? await PageCacheService.shared.cacheArticle(articleToCache, cacheLevel: cacheLevel, forceReprocess: true)
         await loadArticles()
     }

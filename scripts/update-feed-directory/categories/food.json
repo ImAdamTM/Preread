@@ -16,6 +16,36 @@
   },
   {
     "category": "Food",
+    "description": "Recipes, restaurant coverage, and food culture from Conde Nast's flagship food brand",
+    "feedURL": "https://www.bonappetit.com/feed/rss",
+    "id": "9bafd88a-01b5-41f7-96bc-328ff6df7d0b",
+    "name": "Bon Appetit",
+    "siteURL": "https://www.bonappetit.com",
+    "tags": [
+      "recipes",
+      "restaurants",
+      "culture",
+      "video",
+      "technique"
+    ]
+  },
+  {
+    "category": "Food",
+    "description": "Recipes focused on cooking well on a tight budget with cost breakdowns per serving",
+    "feedURL": "https://www.budgetbytes.com/feed/",
+    "id": "59f72834-185d-494c-b640-2326c7da5160",
+    "name": "Budget Bytes",
+    "siteURL": "https://www.budgetbytes.com",
+    "tags": [
+      "budget",
+      "meal prep",
+      "cheap eats",
+      "groceries",
+      "weeknight"
+    ]
+  },
+  {
+    "category": "Food",
     "description": "Simple Recipes from my Paris Kitchen",
     "feedURL": "https://cnz.to/feed/",
     "id": "a29f1ffb-63d7-a9ed-8cf9-484edb038a11",
@@ -42,6 +72,51 @@
       "desserts",
       "pastry",
       "french"
+    ]
+  },
+  {
+    "category": "Food",
+    "description": "Restaurant news, city guides, food industry coverage, and criticism from Vox Media",
+    "feedURL": "https://www.eater.com/rss/index.xml",
+    "id": "268ce690-7325-4b86-b1d2-324460c6c99e",
+    "name": "Eater",
+    "siteURL": "https://www.eater.com",
+    "tags": [
+      "restaurants",
+      "city guides",
+      "industry",
+      "criticism",
+      "news"
+    ]
+  },
+  {
+    "category": "Food",
+    "description": "Massive recipe database plus editorial content and product reviews from Conde Nast",
+    "feedURL": "https://www.epicurious.com/feed/rss",
+    "id": "641867f3-e294-4a74-9cf6-3c445ce65a13",
+    "name": "Epicurious",
+    "siteURL": "https://www.epicurious.com",
+    "tags": [
+      "recipes",
+      "reviews",
+      "technique",
+      "seasonal",
+      "entertaining"
+    ]
+  },
+  {
+    "category": "Food",
+    "description": "Restaurant news, criticism, and food culture from New York Magazine",
+    "feedURL": "https://feeds.feedburner.com/nymag/grubstreet",
+    "id": "9aaa59e3-b4d6-4b5b-b94c-81e8449e2363",
+    "name": "Grub Street",
+    "siteURL": "https://www.grubstreet.com",
+    "tags": [
+      "restaurants",
+      "nyc",
+      "criticism",
+      "culture",
+      "news"
     ]
   },
   {
@@ -147,6 +222,21 @@
       "weeknight",
       "comfort food",
       "seasonal"
+    ]
+  },
+  {
+    "category": "Food",
+    "description": "Thoughtful food essays and culture writing exploring why food matters",
+    "feedURL": "https://tastecooking.com/feed/",
+    "id": "e6ef0bfb-2d5b-4dd0-9a3a-a4d879c25abc",
+    "name": "Taste Cooking",
+    "siteURL": "https://tastecooking.com",
+    "tags": [
+      "essays",
+      "culture",
+      "longform",
+      "identity",
+      "criticism"
     ]
   }
 ]

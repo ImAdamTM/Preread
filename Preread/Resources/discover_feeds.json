@@ -669,6 +669,21 @@
     ]
   },
   {
+    "category" : "Home & Design",
+    "description" : "The most broadly appealing home and design site with small space solutions, tours, and decorating ideas",
+    "feedURL" : "https:\/\/www.apartmenttherapy.com\/main.rss",
+    "id" : "5f595771-ea0e-4758-a683-2de28736ceb4",
+    "name" : "Apartment Therapy",
+    "siteURL" : "https:\/\/www.apartmenttherapy.com",
+    "tags" : [
+      "small spaces",
+      "tours",
+      "decorating",
+      "organization",
+      "rental"
+    ]
+  },
+  {
     "category" : "Apple",
     "description" : "Official Apple news and product announcements",
     "feedURL" : "https:\/\/www.apple.com\/newsroom\/rss-feed.rss",
@@ -726,6 +741,21 @@
       "competitions",
       "urban",
       "residential"
+    ]
+  },
+  {
+    "category" : "Architecture",
+    "description" : "The goal of Archinect is to make architecture more connected and open-minded, and bring together designers from around",
+    "feedURL" : "https:\/\/archinect.com\/feed\/1\/news",
+    "id" : "e659ec72-d023-d2de-df09-775e0d5fc10a",
+    "name" : "Archinect",
+    "siteURL" : "https:\/\/archinect.com\/",
+    "tags" : [
+      "community",
+      "jobs",
+      "competitions",
+      "urban",
+      "studios"
     ]
   },
   {
@@ -1047,6 +1077,21 @@
     ]
   },
   {
+    "category" : "Food",
+    "description" : "Recipes, restaurant coverage, and food culture from Conde Nast's flagship food brand",
+    "feedURL" : "https:\/\/www.bonappetit.com\/feed\/rss",
+    "id" : "9bafd88a-01b5-41f7-96bc-328ff6df7d0b",
+    "name" : "Bon Appetit",
+    "siteURL" : "https:\/\/www.bonappetit.com",
+    "tags" : [
+      "recipes",
+      "restaurants",
+      "culture",
+      "video",
+      "technique"
+    ]
+  },
+  {
     "category" : "Books",
     "description" : "Accessible and inclusive book discovery across every genre",
     "feedURL" : "https:\/\/bookriot.com\/feed\/",
@@ -1123,6 +1168,21 @@
     ]
   },
   {
+    "category" : "Food",
+    "description" : "Recipes focused on cooking well on a tight budget with cost breakdowns per serving",
+    "feedURL" : "https:\/\/www.budgetbytes.com\/feed\/",
+    "id" : "59f72834-185d-494c-b640-2326c7da5160",
+    "name" : "Budget Bytes",
+    "siteURL" : "https:\/\/www.budgetbytes.com",
+    "tags" : [
+      "budget",
+      "meal prep",
+      "cheap eats",
+      "groceries",
+      "weeknight"
+    ]
+  },
+  {
     "category" : "Business & Finance",
     "description" : "Business news with massive reach covering markets, careers, and corporate culture",
     "feedURL" : "https:\/\/feeds.businessinsider.com\/custom\/all",
@@ -1167,21 +1227,6 @@
       "corporate",
       "sensex",
       "policy"
-    ]
-  },
-  {
-    "category" : "Celebrity & Pop Culture",
-    "description" : "Celebrity news, quizzes, lists, and viral pop culture content",
-    "feedURL" : "https:\/\/www.buzzfeed.com\/index.xml",
-    "id" : "a8766304-3def-fa08-7935-19517522a22e",
-    "name" : "BuzzFeed",
-    "siteURL" : "https:\/\/www.buzzfeed.com",
-    "tags" : [
-      "quizzes",
-      "viral",
-      "lists",
-      "trending",
-      "memes"
     ]
   },
   {
@@ -1352,6 +1397,21 @@
     ]
   },
   {
+    "category" : "Home & Design",
+    "description" : "Home renovation and interior design blog documenting detailed projects",
+    "feedURL" : "https:\/\/www.chrislovesjulia.com\/feed",
+    "id" : "ff131df6-13a3-4655-9cea-57049eee25f3",
+    "name" : "Chris Loves Julia",
+    "siteURL" : "https:\/\/www.chrislovesjulia.com",
+    "tags" : [
+      "renovation",
+      "before after",
+      "projects",
+      "interiors",
+      "diy"
+    ]
+  },
+  {
     "category" : "Environment",
     "description" : "Clean energy, electric vehicles, and sustainability news",
     "feedURL" : "https:\/\/cleantechnica.com\/feed\/",
@@ -1379,6 +1439,21 @@
       "economy",
       "stocks",
       "fed"
+    ]
+  },
+  {
+    "category" : "World News",
+    "description" : "CNBC International is the world leader for news on business, technology, China, trade, oil prices, the Middle East and",
+    "feedURL" : "https:\/\/www.cnbc.com\/id\/100727362\/device\/rss\/rss.html",
+    "id" : "75e1d84f-ca2f-4528-2674-52a7c301d83d",
+    "name" : "CNBC International",
+    "siteURL" : "https:\/\/www.cnbc.com\/world-top-news\/",
+    "tags" : [
+      "markets",
+      "trade",
+      "asia",
+      "europe",
+      "economy"
     ]
   },
   {
@@ -1472,21 +1547,6 @@
     ]
   },
   {
-    "category" : "Travel",
-    "description" : "Hotel reviews, destination guides, and luxury travel inspiration from Condé Nast",
-    "feedURL" : "https:\/\/www.cntraveler.com\/feed\/rss",
-    "id" : "33983496-aa07-c14b-cb6d-ffa884e27a9a",
-    "name" : "Condé Nast Traveler",
-    "siteURL" : "https:\/\/www.cntraveler.com",
-    "tags" : [
-      "luxury",
-      "hotels",
-      "resorts",
-      "lists",
-      "destinations"
-    ]
-  },
-  {
     "category" : "Music",
     "description" : "Music news, reviews, and festival coverage across all genres",
     "feedURL" : "https:\/\/consequence.net\/feed",
@@ -1574,21 +1634,6 @@
       "anchoring",
       "passages",
       "liveaboard"
-    ]
-  },
-  {
-    "category" : "Anime",
-    "description" : "Anime news, simulcast schedules, and new series announcements from the streaming giant",
-    "feedURL" : "https:\/\/cr-news-api-service.prd.crunchyrollsvc.com\/v1\/en-US\/rss",
-    "id" : "1e0a06cc-bc1e-4c9d-9520-0249dd7f0cc6",
-    "name" : "Crunchyroll News",
-    "siteURL" : "https:\/\/www.crunchyroll.com\/news",
-    "tags" : [
-      "streaming",
-      "simulcast",
-      "announcements",
-      "new series",
-      "schedules"
     ]
   },
   {
@@ -1727,21 +1772,6 @@
       "desserts",
       "pastry",
       "french"
-    ]
-  },
-  {
-    "category" : "Web Design & UX",
-    "description" : "Tutorials on JavaScript, HTML5, CSS, and web development",
-    "feedURL" : "https:\/\/davidwalsh.name\/feed",
-    "id" : "dee356a0-2284-f2b7-d464-61c10914c2f0",
-    "name" : "David Walsh Blog",
-    "siteURL" : "https:\/\/davidwalsh.name",
-    "tags" : [
-      "javascript",
-      "html5",
-      "tutorials",
-      "frontend",
-      "performance"
     ]
   },
   {
@@ -1897,6 +1927,21 @@
     ]
   },
   {
+    "category" : "Home & Design",
+    "description" : "Home tours, decorating ideas, and shopping guides with a warm, aspirational tone",
+    "feedURL" : "https:\/\/www.domino.com\/feed\/rss",
+    "id" : "5fcf0048-11dd-45b1-9fe3-2a6c98ca774d",
+    "name" : "Domino",
+    "siteURL" : "https:\/\/www.domino.com",
+    "tags" : [
+      "decorating",
+      "tours",
+      "shopping",
+      "color",
+      "rooms"
+    ]
+  },
+  {
     "category" : "Mobile Development",
     "description" : "Practical Swift and iOS development tutorials and workshops",
     "feedURL" : "https:\/\/donnywals.com\/feed",
@@ -1957,6 +2002,21 @@
     ]
   },
   {
+    "category" : "Home & Design",
+    "description" : "Modern architecture and interior design with beautiful photography and thoughtful spaces",
+    "feedURL" : "https:\/\/www.dwell.com\/@dwell\/rss",
+    "id" : "589e5d32-24a8-4c2c-8ba8-94287a44a04b",
+    "name" : "Dwell",
+    "siteURL" : "https:\/\/www.dwell.com",
+    "tags" : [
+      "modern",
+      "architecture",
+      "interiors",
+      "prefab",
+      "sustainable"
+    ]
+  },
+  {
     "category" : "Celebrity & Pop Culture",
     "description" : "Red carpet, celebrity relationships, and reality TV coverage from NBCUniversal",
     "feedURL" : "https:\/\/www.eonline.com\/syndication\/feeds\/rssfeeds\/topstories.xml",
@@ -1969,6 +2029,21 @@
       "kardashians",
       "awards",
       "interviews"
+    ]
+  },
+  {
+    "category" : "Food",
+    "description" : "Restaurant news, city guides, food industry coverage, and criticism from Vox Media",
+    "feedURL" : "https:\/\/www.eater.com\/rss\/index.xml",
+    "id" : "268ce690-7325-4b86-b1d2-324460c6c99e",
+    "name" : "Eater",
+    "siteURL" : "https:\/\/www.eater.com",
+    "tags" : [
+      "restaurants",
+      "city guides",
+      "industry",
+      "criticism",
+      "news"
     ]
   },
   {
@@ -1985,6 +2060,21 @@
       "corporate",
       "startups",
       "economy"
+    ]
+  },
+  {
+    "category" : "Music",
+    "description" : "Electronic dance music news, downloads, and artist interviews",
+    "feedURL" : "https:\/\/edm.com\/.rss\/full\/",
+    "id" : "905f1e83-174c-8ba1-029b-217612e8b58c",
+    "name" : "EDM.com",
+    "siteURL" : "https:\/\/edm.com\/blog\/",
+    "tags" : [
+      "electronic",
+      "dj",
+      "festivals",
+      "house",
+      "techno"
     ]
   },
   {
@@ -2081,6 +2171,36 @@
     ]
   },
   {
+    "category" : "Home & Design",
+    "description" : "Higher-end interior design coverage with designer profiles and luxury homes",
+    "feedURL" : "https:\/\/www.elledecor.com\/rss\/all.xml",
+    "id" : "922b4372-a6a6-4989-9306-24762f465ce8",
+    "name" : "Elle Decor",
+    "siteURL" : "https:\/\/www.elledecor.com",
+    "tags" : [
+      "luxury",
+      "designers",
+      "interiors",
+      "trends",
+      "art"
+    ]
+  },
+  {
+    "category" : "Home & Design",
+    "description" : "Influential interior design blog documenting projects with genuine transparency",
+    "feedURL" : "https:\/\/stylebyemilyhenderson.com\/feed",
+    "id" : "6794acc7-ad74-454c-9b91-5afd397d9706",
+    "name" : "Emily Henderson",
+    "siteURL" : "https:\/\/stylebyemilyhenderson.com",
+    "tags" : [
+      "styling",
+      "renovation",
+      "before after",
+      "budget",
+      "interiors"
+    ]
+  },
+  {
     "category" : "Tech",
     "description" : "Find the latest technology news and expert tech product reviews. Learn about the latest gadgets and consumer tech",
     "feedURL" : "https:\/\/www.engadget.com\/rss.xml",
@@ -2123,6 +2243,21 @@
       "franchises",
       "founders",
       "growth"
+    ]
+  },
+  {
+    "category" : "Food",
+    "description" : "Massive recipe database plus editorial content and product reviews from Conde Nast",
+    "feedURL" : "https:\/\/www.epicurious.com\/feed\/rss",
+    "id" : "641867f3-e294-4a74-9cf6-3c445ce65a13",
+    "name" : "Epicurious",
+    "siteURL" : "https:\/\/www.epicurious.com",
+    "tags" : [
+      "recipes",
+      "reviews",
+      "technique",
+      "seasonal",
+      "entertaining"
     ]
   },
   {
@@ -2689,6 +2824,21 @@
     ]
   },
   {
+    "category" : "Food",
+    "description" : "Restaurant news, criticism, and food culture from New York Magazine",
+    "feedURL" : "https:\/\/feeds.feedburner.com\/nymag\/grubstreet",
+    "id" : "9aaa59e3-b4d6-4b5b-b94c-81e8449e2363",
+    "name" : "Grub Street",
+    "siteURL" : "https:\/\/www.grubstreet.com",
+    "tags" : [
+      "restaurants",
+      "nyc",
+      "criticism",
+      "culture",
+      "news"
+    ]
+  },
+  {
     "category" : "Tech",
     "description" : "GSMArena.com - The ultimate resource for GSM handset information",
     "feedURL" : "https:\/\/www.gsmarena.com\/rss-news-reviews.php3",
@@ -2900,21 +3050,6 @@
   },
   {
     "category" : "History",
-    "description" : "BBC History Magazine's digital arm with articles, podcasts, and expert guides",
-    "feedURL" : "https:\/\/www.historyextra.com\/feed",
-    "id" : "b8bb4416-ba7a-d54b-4241-4ca60cfbe2cb",
-    "name" : "History Extra",
-    "siteURL" : "https:\/\/www.historyextra.com\/",
-    "tags" : [
-      "bbc",
-      "podcasts",
-      "british",
-      "wars",
-      "monarchs"
-    ]
-  },
-  {
-    "category" : "History",
     "description" : "One of the oldest and most respected dedicated history publications",
     "feedURL" : "https:\/\/www.historytoday.com\/rss.xml",
     "id" : "d547d6e4-8951-7109-ab95-526203a75038",
@@ -2973,6 +3108,21 @@
       "headlines",
       "breaking",
       "daily"
+    ]
+  },
+  {
+    "category" : "Home & Design",
+    "description" : "Mainstream home decorating, room ideas, and trends from Hearst",
+    "feedURL" : "https:\/\/www.housebeautiful.com\/rss\/all.xml",
+    "id" : "d7f971cd-367c-4a9f-9f1e-e64d511f1567",
+    "name" : "House Beautiful",
+    "siteURL" : "https:\/\/www.housebeautiful.com",
+    "tags" : [
+      "decorating",
+      "rooms",
+      "trends",
+      "color",
+      "furniture"
     ]
   },
   {
@@ -3065,6 +3215,21 @@
       "datasets",
       "nlp",
       "fine-tuning"
+    ]
+  },
+  {
+    "category" : "Home & Design",
+    "description" : "Home decor, design, and lifestyle with an accessible editorial voice",
+    "feedURL" : "https:\/\/www.hunker.com\/feed",
+    "id" : "e4a9cc3a-e7da-4605-901e-419cb1b2c688",
+    "name" : "Hunker",
+    "siteURL" : "https:\/\/www.hunker.com",
+    "tags" : [
+      "decor",
+      "lifestyle",
+      "tours",
+      "budget",
+      "trends"
     ]
   },
   {
@@ -3514,22 +3679,6 @@
     ]
   },
   {
-    "category" : "Ireland",
-    "country" : "Ireland",
-    "description" : "Ireland's premier breaking news website providing up to the minute news and sports reports. With e-mail news releases",
-    "feedURL" : "https:\/\/www.irishexaminer.com\/feed\/35-top_news.xml",
-    "id" : "32dd30dd-7fa7-5d1e-acfe-c6e9c92d8d3a",
-    "name" : "IrishExaminer.com",
-    "siteURL" : "https:\/\/www.irishexaminer.com\/",
-    "tags" : [
-      "irish",
-      "cork",
-      "munster",
-      "politics",
-      "farming"
-    ]
-  },
-  {
     "category" : "Fitness",
     "description" : "The authority on ultra and trail running with race coverage and athlete interviews",
     "feedURL" : "https:\/\/www.irunfar.com\/feed",
@@ -3572,21 +3721,6 @@
       "quirky",
       "wrenching",
       "enthusiast"
-    ]
-  },
-  {
-    "category" : "Books",
-    "description" : "Publishing industry insights and practical advice for authors",
-    "feedURL" : "https:\/\/janefriedman.com\/feed\/",
-    "id" : "83fbbe30-9df7-96fc-6f97-33d3d95fb700",
-    "name" : "Jane Friedman",
-    "siteURL" : "https:\/\/janefriedman.com\/",
-    "tags" : [
-      "publishing",
-      "self-publishing",
-      "agents",
-      "querying",
-      "authors"
     ]
   },
   {
@@ -4289,21 +4423,6 @@
     ]
   },
   {
-    "category" : "Business & Finance",
-    "description" : "Markets, personal investing, and economic news from Dow Jones",
-    "feedURL" : "https:\/\/feeds.marketwatch.com\/marketwatch\/topstories",
-    "id" : "9324cffe-90de-09b6-b8f4-9301d6170243",
-    "name" : "MarketWatch",
-    "siteURL" : "https:\/\/www.marketwatch.com",
-    "tags" : [
-      "stocks",
-      "bonds",
-      "economy",
-      "retirement",
-      "dow jones"
-    ]
-  },
-  {
     "category" : "AI",
     "description" : "AI research news covering new papers and breakthroughs with a technical focus",
     "feedURL" : "https:\/\/www.marktechpost.com\/feed\/",
@@ -4884,6 +5003,21 @@
     ]
   },
   {
+    "category" : "World News",
+    "description" : "NPR news, audio, and podcasts. Coverage of breaking stories, national and world news, politics, business, science",
+    "feedURL" : "https:\/\/feeds.npr.org\/1001\/rss.xml",
+    "id" : "04a13555-2494-b3db-f354-1c5fbc37af83",
+    "name" : "NPR News",
+    "siteURL" : "https:\/\/www.npr.org\/templates\/story\/story.php?storyId=1001",
+    "tags" : [
+      "public radio",
+      "podcasts",
+      "politics",
+      "culture",
+      "investigations"
+    ]
+  },
+  {
     "category" : "Health & Wellness",
     "description" : "Evidence-based nutrition research reviews with cited sources",
     "feedURL" : "https:\/\/nutritionfacts.org\/feed",
@@ -4973,6 +5107,22 @@
       "parliament",
       "local",
       "politics"
+    ]
+  },
+  {
+    "category" : "France",
+    "country" : "France",
+    "description" : "Premier quotidien français d'information régionale et nationale",
+    "feedURL" : "https:\/\/www.ouest-france.fr\/rss-en-continu.xml",
+    "id" : "43c04ef8-ccec-e231-991f-46507b22973a",
+    "name" : "Ouest-France",
+    "siteURL" : "https:\/\/www.ouest-france.fr\/rss\/une",
+    "tags" : [
+      "regional",
+      "bretagne",
+      "french",
+      "normandie",
+      "local"
     ]
   },
   {
@@ -5266,21 +5416,6 @@
     ]
   },
   {
-    "category" : "Music",
-    "description" : "The most trusted voice in music",
-    "feedURL" : "https:\/\/pitchfork.com\/feed\/feed-news\/rss",
-    "id" : "aac3829f-c492-20d0-d0da-ab6b988da986",
-    "name" : "Pitchfork",
-    "siteURL" : "https:\/\/pitchfork.com",
-    "tags" : [
-      "reviews",
-      "ratings",
-      "indie",
-      "albums",
-      "best new music"
-    ]
-  },
-  {
     "category" : "United States",
     "country" : "United States",
     "description" : "The unofficial guide to official Washington",
@@ -5401,21 +5536,6 @@
       "luxury",
       "yachts",
       "trawlers"
-    ]
-  },
-  {
-    "category" : "Boating",
-    "description" : "Independent, unbiased boat gear and equipment testing and reviews",
-    "feedURL" : "https:\/\/www.practical-sailor.com\/feed\/",
-    "id" : "481aa30c-bcf1-d463-5f5c-c18c9a2e0e7a",
-    "name" : "Practical Sailor",
-    "siteURL" : "https:\/\/www.practical-sailor.com\/",
-    "tags" : [
-      "gear tests",
-      "rigging",
-      "anchors",
-      "sails",
-      "maintenance"
     ]
   },
   {
@@ -5540,21 +5660,6 @@
     ]
   },
   {
-    "category" : "Humor & Satire",
-    "description" : "Women's satire site that skewers media, relationships, and lifestyle culture",
-    "feedURL" : "https:\/\/reductress.com\/feed",
-    "id" : "61b00002-b48e-a034-8ed9-46ffaca19df6",
-    "name" : "Reductress",
-    "siteURL" : "https:\/\/reductress.com",
-    "tags" : [
-      "feminism",
-      "parody",
-      "headlines",
-      "women",
-      "media satire"
-    ]
-  },
-  {
     "category" : "Celebrity & Pop Culture",
     "description" : "Celebrity and pop culture alongside fashion and beauty for a younger audience",
     "feedURL" : "https:\/\/www.refinery29.com\/rss.xml",
@@ -5567,6 +5672,21 @@
       "beauty",
       "wellness",
       "identity"
+    ]
+  },
+  {
+    "category" : "Home & Design",
+    "description" : "Curated, design-conscious home content with sources guide and remodeling ideas",
+    "feedURL" : "https:\/\/www.remodelista.com\/rss",
+    "id" : "ef4564eb-4512-425a-bdc8-c49f9402ffd1",
+    "name" : "Remodelista",
+    "siteURL" : "https:\/\/www.remodelista.com",
+    "tags" : [
+      "remodeling",
+      "kitchens",
+      "sourcing",
+      "minimalist",
+      "practical"
     ]
   },
   {
@@ -5858,21 +5978,6 @@
     ]
   },
   {
-    "category" : "Business & Finance",
-    "description" : "Crowdsourced investment analysis covering earnings, dividends, and stocks",
-    "feedURL" : "https:\/\/seekingalpha.com\/feed",
-    "id" : "877afef3-69e1-d5fa-c6d8-a00d1557e9d5",
-    "name" : "Seeking Alpha",
-    "siteURL" : "https:\/\/seekingalpha.com",
-    "tags" : [
-      "dividends",
-      "earnings",
-      "stocks",
-      "analysis",
-      "portfolio"
-    ]
-  },
-  {
     "category" : "Fitness",
     "description" : "Strong fitness content with an inclusive, body-positive editorial voice",
     "feedURL" : "https:\/\/www.self.com\/feed\/rss",
@@ -5930,21 +6035,6 @@
       "sqlite",
       "open source",
       "prompts"
-    ]
-  },
-  {
-    "category" : "Apple",
-    "description" : "Apple news and commentary by Jason Snell",
-    "feedURL" : "https:\/\/feedpress.me\/sixcolors",
-    "id" : "417a72d1-8940-9b7a-3233-d7bc8dc0de6f",
-    "name" : "Six Colors",
-    "siteURL" : "https:\/\/sixcolors.com",
-    "tags" : [
-      "commentary",
-      "podcasts",
-      "iphone",
-      "mac",
-      "opinion"
     ]
   },
   {
@@ -6295,21 +6385,6 @@
     ]
   },
   {
-    "category" : "Fitness",
-    "description" : "No-BS strength training articles from coaches and athletes",
-    "feedURL" : "https:\/\/t-nation.com\/posts.rss",
-    "id" : "5380b3e9-8404-4bde-9efb-e5912dd34ec3",
-    "name" : "T Nation",
-    "siteURL" : "https:\/\/www.t-nation.com",
-    "tags" : [
-      "strength",
-      "coaching",
-      "bodybuilding",
-      "nutrition",
-      "performance"
-    ]
-  },
-  {
     "category" : "Germany",
     "country" : "Germany",
     "description" : "tagesschau.de - Die Nachrichten der ARD",
@@ -6338,6 +6413,21 @@
       "apps",
       "updates",
       "devices"
+    ]
+  },
+  {
+    "category" : "Food",
+    "description" : "Thoughtful food essays and culture writing exploring why food matters",
+    "feedURL" : "https:\/\/tastecooking.com\/feed\/",
+    "id" : "e6ef0bfb-2d5b-4dd0-9a3a-a4d879c25abc",
+    "name" : "Taste Cooking",
+    "siteURL" : "https:\/\/tastecooking.com",
+    "tags" : [
+      "essays",
+      "culture",
+      "longform",
+      "identity",
+      "criticism"
     ]
   },
   {
@@ -6661,6 +6751,21 @@
     ]
   },
   {
+    "category" : "Home & Design",
+    "description" : "Australian interior design and architecture with beautiful home tours and designer profiles",
+    "feedURL" : "https:\/\/thedesignfiles.net\/feed\/",
+    "id" : "61b201cd-7789-423b-b1d2-176f23facc4e",
+    "name" : "The Design Files",
+    "siteURL" : "https:\/\/thedesignfiles.net",
+    "tags" : [
+      "australian",
+      "tours",
+      "designers",
+      "architecture",
+      "art"
+    ]
+  },
+  {
     "category" : "Cars",
     "description" : "Cars, trucks, tech, and military vehicles from a digital-first outlet",
     "feedURL" : "https:\/\/www.thedrive.com\/feed",
@@ -6812,6 +6917,22 @@
     ]
   },
   {
+    "category" : "United Kingdom",
+    "country" : "United Kingdom",
+    "description" : "UK and world news, politics, and opinion",
+    "feedURL" : "https:\/\/www.independent.co.uk\/news\/uk\/rss",
+    "id" : "c1b3bc9d-4e2a-9305-b577-7f76797e6828",
+    "name" : "The Independent",
+    "siteURL" : "https:\/\/www.independent.co.uk\/news\/uk\/rss",
+    "tags" : [
+      "liberal",
+      "opinion",
+      "politics",
+      "world",
+      "culture"
+    ]
+  },
+  {
     "category" : "Books",
     "description" : "Smart literary essays, most-anticipated lists, and year-in-reading features",
     "feedURL" : "https:\/\/themillions.com\/feed",
@@ -6917,6 +7038,21 @@
       "comedy",
       "fake news",
       "headlines"
+    ]
+  },
+  {
+    "category" : "Travel",
+    "description" : "Credit card points, airline miles, and travel rewards strategies and deals",
+    "feedURL" : "https:\/\/thepointsguy.com\/feed\/",
+    "id" : "2e8c7bce-8186-f06d-d572-f7fe764298d1",
+    "name" : "The Points Guy",
+    "siteURL" : "https:\/\/thepointsguy.com\/",
+    "tags" : [
+      "miles",
+      "credit cards",
+      "rewards",
+      "lounges",
+      "flights"
     ]
   },
   {
@@ -7135,22 +7271,6 @@
     ]
   },
   {
-    "category" : "India",
-    "country" : "India",
-    "description" : "India's most widely read English newspaper, covering national and world news",
-    "feedURL" : "https:\/\/timesofindia.indiatimes.com\/rssfeeds\/296589292.cms",
-    "id" : "c59be43c-0f92-9ebb-4109-4ec1dd54f575",
-    "name" : "Times of India",
-    "siteURL" : "https:\/\/timesofindia.indiatimes.com",
-    "tags" : [
-      "national",
-      "cricket",
-      "bollywood",
-      "english",
-      "cities"
-    ]
-  },
-  {
     "category" : "Celebrity & Pop Culture",
     "description" : "The breaking celebrity news machine — breaks stories before anyone else",
     "feedURL" : "https:\/\/www.tmz.com\/rss.xml",
@@ -7364,6 +7484,22 @@
       "entertainment",
       "sports",
       "economia"
+    ]
+  },
+  {
+    "category" : "United States",
+    "country" : "United States",
+    "description" : "CNBC is the world leader in business news and real-time financial market coverage. Find fast, actionable information",
+    "feedURL" : "https:\/\/www.cnbc.com\/id\/100003114\/device\/rss\/rss.html",
+    "id" : "a25f7373-5963-d64a-7434-05c665d1f9a7",
+    "name" : "US Top News and Analysis",
+    "siteURL" : "https:\/\/www.cnbc.com\/us-top-news-and-analysis\/",
+    "tags" : [
+      "markets",
+      "economy",
+      "wall street",
+      "breaking",
+      "cnbc"
     ]
   },
   {
@@ -7592,18 +7728,19 @@
     ]
   },
   {
-    "category" : "Tech",
-    "description" : "The latest in technology, science, culture, and business",
-    "feedURL" : "https:\/\/www.wired.com\/feed\/rss",
-    "id" : "c01c14fc-345f-6361-c734-74db2e096195",
-    "name" : "Wired",
-    "siteURL" : "https:\/\/www.wired.com",
+    "category" : "United States",
+    "country" : "United States",
+    "description" : "Nation and world news from the Los Angeles Times",
+    "feedURL" : "https:\/\/www.latimes.com\/world-nation\/rss2.0.xml",
+    "id" : "fbc3b80b-9968-8e64-f2fa-9dea7b453c20",
+    "name" : "World & Nation",
+    "siteURL" : "https:\/\/www.latimes.com",
     "tags" : [
-      "culture",
-      "longform",
-      "security",
-      "science",
-      "gear"
+      "la times",
+      "california",
+      "politics",
+      "immigration",
+      "national"
     ]
   },
   {
@@ -7728,6 +7865,22 @@
     ]
   },
   {
+    "category" : "United States",
+    "country" : "United States",
+    "description" : "The latest news and headlines from Yahoo News. Get breaking news stories and in-depth coverage with videos and photos",
+    "feedURL" : "https:\/\/news.yahoo.com\/rss\/mostviewed",
+    "id" : "265fe870-a638-edc6-9e12-41513972397e",
+    "name" : "Yahoo News",
+    "siteURL" : "https:\/\/www.yahoo.com\/news",
+    "tags" : [
+      "aggregation",
+      "politics",
+      "breaking",
+      "viral",
+      "video"
+    ]
+  },
+  {
     "category" : "Environment",
     "description" : "Long-form environmental reporting and essays from Yale School of the Environment",
     "feedURL" : "https:\/\/e360.yale.edu\/feed.xml",
@@ -7740,6 +7893,21 @@
       "ecology",
       "pollution",
       "research"
+    ]
+  },
+  {
+    "category" : "Home & Design",
+    "description" : "Chicago-based couple documenting home renovations with practical detail and budget transparency",
+    "feedURL" : "https:\/\/yellowbrickhome.com\/feed\/",
+    "id" : "b23851e0-c6d9-4ee7-b894-0944948222be",
+    "name" : "Yellow Brick Home",
+    "siteURL" : "https:\/\/yellowbrickhome.com",
+    "tags" : [
+      "renovation",
+      "budget",
+      "before after",
+      "chicago",
+      "projects"
     ]
   },
   {
@@ -7773,6 +7941,38 @@
     ]
   },
   {
+    "category" : "Ukraine",
+    "country" : "Ukraine",
+    "description" : "Информационное агентство УНИАН :: Новости, Политика, Бизнес, Фотосервис, Регионы",
+    "feedURL" : "https:\/\/rss.unian.net\/site\/news_rus.rss",
+    "id" : "32c25369-b181-335e-3d97-897983fe7031",
+    "name" : "Информационное агентство УНИАН",
+    "siteURL" : "https:\/\/www.unian.net",
+    "tags" : [
+      "ukrainian",
+      "agency",
+      "politics",
+      "war",
+      "national"
+    ]
+  },
+  {
+    "category" : "Ukraine",
+    "country" : "Ukraine",
+    "description" : "Останні новини України та світу онлайн. Свіжі українські та світові новини політики, бізнесу, фінансів, технологій",
+    "feedURL" : "https:\/\/nv.ua\/rss\/all.xml",
+    "id" : "42e89edb-998e-7f00-fa77-4328ae9bd4db",
+    "name" : "НВ",
+    "siteURL" : "https:\/\/nv.ua\/",
+    "tags" : [
+      "ukrainian",
+      "kyiv",
+      "business",
+      "politics",
+      "culture"
+    ]
+  },
+  {
     "category" : "India",
     "country" : "India",
     "description" : "News in Hindi(हिन्दी में समाचार), Hindi News(हिंदी समाचार): देश के सबसे विश्वसनीय अख़बार पर पढ़ें ताज़ा ख़बरें। पढ़ें देश",
@@ -7786,22 +7986,6 @@
       "politics",
       "crime",
       "bhopal"
-    ]
-  },
-  {
-    "category" : "Bangladesh",
-    "country" : "Bangladesh",
-    "description" : "বাংলাদেশসহ বিশ্বের সর্বশেষ সংবাদ শিরোনাম, প্রতিবেদন, বিশ্লেষণ, খেলা, বিনোদন, চাকরি, রাজনীতি ও বাণিজ্যের বাংলা নিউজ পড়তে",
-    "feedURL" : "https:\/\/www.prothomalo.com\/feed\/",
-    "id" : "de392138-71b8-f60c-b77f-bfd43514d6e8",
-    "name" : "প্রথম আলো",
-    "siteURL" : "https:\/\/www.prothomalo.com",
-    "tags" : [
-      "bangla",
-      "dhaka",
-      "politics",
-      "cricket",
-      "national"
     ]
   },
   {

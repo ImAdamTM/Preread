@@ -170,10 +170,20 @@ struct SavedCarouselView: View {
     private func fetchArticleInline(_ article: Article) async {
         fetchingArticleIDs.insert(article.id)
 
-        let source = try? await DatabaseManager.shared.dbPool.read { db in
-            try Source.fetchOne(db, key: article.sourceID)
+        // Manually saved pages remember the cache level chosen at save time.
+        // Feed articles use the source's current level.
+        let cacheLevel: CacheLevel
+        if article.sourceID == Source.savedPagesID,
+           let existing = try? await DatabaseManager.shared.dbPool.read({ db in
+               try CachedPage.fetchOne(db, key: article.id)
+           }) {
+            cacheLevel = existing.cacheLevelUsed
+        } else {
+            let source = try? await DatabaseManager.shared.dbPool.read { db in
+                try Source.fetchOne(db, key: article.sourceID)
+            }
+            cacheLevel = source?.effectiveCacheLevel ?? .standard
         }
-        let cacheLevel = source?.effectiveCacheLevel ?? .standard
         try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
 
         if let updated = try? await DatabaseManager.shared.dbPool.read({ db in

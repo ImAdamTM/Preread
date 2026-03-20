@@ -196,7 +196,7 @@ struct ReaderView: View {
                 useLightMode: isReaderMode && !useDarkAppearance,
                 textSize: CGFloat(textSize),
                 fontFamily: fontFamily,
-                useTransparentBackground: true,
+                useTransparentBackground: isReaderMode,
                 heroImageURL: heroImageURL,
                 onScrollDown: { },
                 onScrollUp: { },
@@ -383,11 +383,20 @@ struct ReaderView: View {
     private func retryCache() async {
         isRetrying = true
         do {
-            // Look up the source's cache level
-            let source = try await DatabaseManager.shared.dbPool.read { db in
-                try Source.fetchOne(db, key: article.sourceID)
+            // Manually saved pages remember the cache level chosen at save time.
+            // Feed articles use the source's current level.
+            let cacheLevel: CacheLevel
+            if article.sourceID == Source.savedPagesID,
+               let existing = try? await DatabaseManager.shared.dbPool.read({ db in
+                   try CachedPage.fetchOne(db, key: article.id)
+               }) {
+                cacheLevel = existing.cacheLevelUsed
+            } else {
+                let source = try? await DatabaseManager.shared.dbPool.read { db in
+                    try Source.fetchOne(db, key: article.sourceID)
+                }
+                cacheLevel = source?.effectiveCacheLevel ?? .standard
             }
-            let cacheLevel = source?.effectiveCacheLevel ?? .standard
 
             // Clear stale conditional headers so we get a fresh response
             var mutable = article
