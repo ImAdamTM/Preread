@@ -123,6 +123,23 @@ struct ReaderView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack(spacing: 16) {
+                    // Share
+                    ShareLink(item: URL(string: article.articleURL) ?? URL(string: "https://preread.app")!,
+                              subject: Text(article.title)) {
+                        Image(systemName: "square.and.arrow.up")
+                            .font(Theme.scaledFont(size: 17))
+                            .foregroundColor(Theme.textPrimary)
+                    }
+
+                    // Save / Unsave
+                    Button {
+                        Task { await toggleSave() }
+                    } label: {
+                        Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
+                            .font(Theme.scaledFont(size: 17))
+                            .foregroundColor(isSaved ? Theme.accent : Theme.textPrimary)
+                    }
+
                     // Text size (long press for font picker)
                     Button {
                         showTextSize.toggle()
@@ -145,23 +162,6 @@ struct ReaderView: View {
                     .popover(isPresented: $showFontPicker) {
                         FontPickerPopover(selectedFont: $fontFamily, onChanged: { _ in })
                             .presentationCompactAdaptation(.popover)
-                    }
-
-                    // Share
-                    ShareLink(item: URL(string: article.articleURL) ?? URL(string: "https://preread.app")!,
-                              subject: Text(article.title)) {
-                        Image(systemName: "square.and.arrow.up")
-                            .font(Theme.scaledFont(size: 17))
-                            .foregroundColor(Theme.textPrimary)
-                    }
-
-                    // Save / Unsave
-                    Button {
-                        Task { await toggleSave() }
-                    } label: {
-                        Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
-                            .font(Theme.scaledFont(size: 17))
-                            .foregroundColor(isSaved ? Theme.accent : Theme.textPrimary)
                     }
                 }
             }

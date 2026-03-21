@@ -176,7 +176,7 @@ struct AddSourceSheet: View {
     // MARK: - State A: Input
 
     private var inputState: some View {
-        VStack(alignment: .leading, spacing: 20) {
+        VStack(alignment: .leading, spacing: 14) {
             VStack(alignment: .leading, spacing: 4) {
                 Text("Add a source")
                     .font(Theme.scaledFont(size: 28, weight: .regular))
@@ -250,7 +250,7 @@ struct AddSourceSheet: View {
             } else {
                 let isEmpty = urlText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
 
-                HStack(spacing: 10) {
+                HStack(spacing: 14) {
                     // Primary CTA
                     Button(action: startDetection) {
                         Text("Find articles")
@@ -353,7 +353,7 @@ struct AddSourceSheet: View {
                         Button {
                             discoverNavPath.append(category.name)
                         } label: {
-                            HStack(spacing: 10) {
+                            HStack(spacing: 14) {
                                 Image(systemName: category.icon)
                                     .font(Theme.scaledFont(size: 14))
                                     .foregroundColor(Theme.textSecondary)
@@ -384,7 +384,7 @@ struct AddSourceSheet: View {
                     Button {
                         discoverNavPath.append("__countries__")
                     } label: {
-                        HStack(spacing: 10) {
+                        HStack(spacing: 14) {
                             Image(systemName: "globe")
                                 .font(Theme.scaledFont(size: 14))
                                 .foregroundColor(Theme.textSecondary)
@@ -443,7 +443,7 @@ struct AddSourceSheet: View {
                         Button {
                             discoverNavPath.append(country.name)
                         } label: {
-                            HStack(spacing: 10) {
+                            HStack(spacing: 14) {
                                 Image(systemName: country.icon)
                                     .font(Theme.scaledFont(size: 14))
                                     .foregroundColor(Theme.textSecondary)
@@ -564,7 +564,7 @@ struct AddSourceSheet: View {
             .clipShape(RoundedRectangle(cornerRadius: 12))
 
             // Spinner + cycling text (inline, not a button)
-            HStack(spacing: 10) {
+            HStack(spacing: 14) {
                 ProgressView()
                     .tint(Theme.accent)
 
@@ -584,7 +584,7 @@ struct AddSourceSheet: View {
             }
 
             // Disabled placeholder buttons to maintain height
-            HStack(spacing: 10) {
+            HStack(spacing: 14) {
                 Text("Find articles")
                     .font(Theme.scaledFont(size: 15, weight: .semibold))
                     .foregroundColor(.white.opacity(0.5))

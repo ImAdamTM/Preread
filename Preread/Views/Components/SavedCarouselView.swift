@@ -304,7 +304,7 @@ private struct SavedCarouselCardView: View {
                             Text(" · ")
                         }
                         Text(statusText)
-                            .fontWeight(.medium)
+                            .fontWeight(statusWeight)
                             .foregroundStyle(statusColor)
                     }
                     .font(Theme.scaledFont(size: 12))
@@ -334,6 +334,13 @@ private struct SavedCarouselCardView: View {
         case .fetching: return "Saving"
         case .pending: return "Pending"
         case .failed: return "Failed"
+        }
+    }
+
+    private var statusWeight: Font.Weight {
+        switch article.fetchStatus {
+        case .cached, .partial: .regular
+        case .fetching, .pending, .failed: .medium
         }
     }
 

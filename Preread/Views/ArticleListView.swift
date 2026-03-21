@@ -28,6 +28,7 @@ struct ArticleListView: View {
     @State private var searchText = ""
     @State private var lastFetchedAt: Date?
     @State private var articleObservation: AnyDatabaseCancellable?
+    @State private var showDeleteConfirmation = false
 
     private var preferredScheme: ColorScheme {
         switch appAppearance {
@@ -62,12 +63,29 @@ struct ArticleListView: View {
                 .opacity(navBarTitleOpacity)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink {
-                    SettingsView()
-                } label: {
-                    Image(systemName: "gearshape")
-                        .font(Theme.scaledFont(size: 17))
-                        .foregroundColor(Theme.textPrimary)
+                HStack(spacing: 16) {
+                    if let siteURL = source.siteURL, let url = URL(string: siteURL) {
+                        ShareLink(item: url) {
+                            Image(systemName: "square.and.arrow.up")
+                                .font(Theme.scaledFont(size: 17))
+                                .foregroundColor(Theme.textPrimary)
+                        }
+                    }
+
+                    Button {
+                        Task { await FetchCoordinator.shared.refreshSingleSource(source) }
+                    } label: {
+                        navRefreshIcon
+                    }
+                    .disabled(isSourceRefreshing)
+
+                    NavigationLink {
+                        SettingsView()
+                    } label: {
+                        Image(systemName: "gearshape")
+                            .font(Theme.scaledFont(size: 17))
+                            .foregroundColor(Theme.textPrimary)
+                    }
                 }
             }
         }
@@ -261,60 +279,28 @@ struct ArticleListView: View {
 
             Spacer(minLength: 4)
 
-            HStack(spacing: 4) {
-                Button {
-                    Task { await FetchCoordinator.shared.refreshSingleSource(source) }
-                } label: {
-                    allArticlesRefreshIcon
-                        .frame(width: 36, height: 36)
-                        .contentShape(Rectangle())
-                }
-                .disabled(isSourceRefreshing)
-
-                Button {
-                    showSourceSettings = true
-                } label: {
-                    Image(systemName: "slider.horizontal.3")
-                        .font(Theme.scaledFont(size: 14, weight: .medium))
-                        .foregroundColor(Theme.textSecondary)
-                        .frame(width: 36, height: 36)
-                        .contentShape(Rectangle())
-                }
-                .disabled(isSourceRefreshing)
+            Button {
+                showSourceSettings = true
+            } label: {
+                Image(systemName: "slider.horizontal.3")
+                    .font(Theme.scaledFont(size: 14, weight: .medium))
+                    .foregroundColor(Theme.textSecondary)
+                    .frame(width: 36, height: 36)
+                    .contentShape(Rectangle())
             }
         }
     }
 
     @ViewBuilder
-    private var allArticlesRefreshIcon: some View {
+    private var navRefreshIcon: some View {
         if isSourceRefreshing {
-            inlineRefreshSpinner
+            ProgressView()
+                .scaleEffect(0.7)
+                .tint(Theme.textPrimary)
         } else {
             Image(systemName: "arrow.clockwise")
-                .font(Theme.scaledFont(size: 14, weight: .medium))
-                .foregroundColor(Theme.textSecondary)
-        }
-    }
-
-    private var inlineRefreshSpinner: some View {
-        TimelineView(.animation(minimumInterval: 1.0 / 60.0)) { context in
-            let angle = context.date.timeIntervalSinceReferenceDate.remainder(dividingBy: 1.2) / 1.2 * 360
-            ZStack {
-                Circle()
-                    .stroke(Theme.borderProminent, lineWidth: 1.5)
-                    .frame(width: 14, height: 14)
-                Circle()
-                    .trim(from: 0, to: 0.3)
-                    .stroke(
-                        AngularGradient(
-                            colors: [Theme.accent.opacity(0.6), Theme.accent],
-                            center: .center
-                        ),
-                        style: StrokeStyle(lineWidth: 1.5, lineCap: .round)
-                    )
-                    .frame(width: 14, height: 14)
-                    .rotationEffect(.degrees(angle))
-            }
+                .font(Theme.scaledFont(size: 17))
+                .foregroundColor(Theme.textPrimary)
         }
     }
 
@@ -611,13 +597,13 @@ struct ArticleListView: View {
                 Theme.sheetBackground.ignoresSafeArea()
 
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 24) {
+                    VStack(alignment: .leading, spacing: 16) {
                         Text("Source Settings")
                             .font(Theme.scaledFont(size: 28, weight: .regular))
                             .foregroundColor(Theme.textPrimary)
 
                         // Source name
-                        VStack(alignment: .leading, spacing: 10) {
+                        VStack(alignment: .leading, spacing: 14) {
                             Text("NAME")
                                 .font(Theme.scaledFont(size: 12, weight: .semibold, relativeTo: .caption))
                                 .foregroundColor(Theme.textSecondary)
@@ -625,13 +611,10 @@ struct ArticleListView: View {
                             TextField("Source name", text: $currentSourceName)
                                 .font(Theme.scaledFont(size: 15, relativeTo: .body))
                                 .foregroundColor(Theme.textPrimary)
-                                .padding(12)
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 14)
                                 .background(Theme.surfaceRaised)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Theme.border, lineWidth: 1)
-                                )
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
                                 .onSubmit {
                                     let trimmed = currentSourceName.trimmingCharacters(in: .whitespaces)
                                     if !trimmed.isEmpty {
@@ -642,6 +625,21 @@ struct ArticleListView: View {
                                 }
                         }
 
+                        // Delete source
+                        Button(role: .destructive) {
+                            showDeleteConfirmation = true
+                        } label: {
+                            HStack(spacing: 6) {
+                                Image(systemName: "trash")
+                                Text("Delete Source")
+                            }
+                            .font(Theme.scaledFont(size: 15, weight: .semibold))
+                            .foregroundColor(.red)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 16)
+                            .background(Color.red.opacity(0.1))
+                            .clipShape(RoundedRectangle(cornerRadius: 14))
+                        }
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 20)
@@ -656,10 +654,29 @@ struct ArticleListView: View {
                     .foregroundColor(Theme.accent)
                 }
             }
+            .alert("Delete Source?", isPresented: $showDeleteConfirmation) {
+                Button("Delete", role: .destructive) {
+                    Task { await deleteSource() }
+                }
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("All articles from \"\(currentSourceName)\" will be removed. Saved articles will be kept.")
+            }
         }
-        .presentationDetents([.fraction(0.35)])
+        .presentationDetents([.height(310)])
         .presentationDragIndicator(.visible)
         .presentationBackground(Theme.sheetBackground)
+    }
+
+    private func deleteSource() async {
+        HapticManager.deleteConfirm()
+        showSourceSettings = false
+        do {
+            try await Source.deleteWithCleanup(source)
+            dismiss()
+        } catch {
+            // Deletion failed — stay on the view
+        }
     }
 
     private func updateSourceName(_ name: String) async {

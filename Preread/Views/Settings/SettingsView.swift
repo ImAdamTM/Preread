@@ -321,12 +321,18 @@ struct SettingsView: View {
                     settingLabel("Usage")
 
                     GeometryReader { geo in
+                        let totalWidth = geo.size.width - CGFloat(max(storageBySource.count - 1, 0)) // subtract spacing
+                        let minWidth: CGFloat = 2
+                        let count = CGFloat(storageBySource.count)
+                        let reservedForMins = minWidth * count
+                        let flexWidth = max(totalWidth - reservedForMins, 0)
+
                         HStack(spacing: 1) {
                             ForEach(storageBySource, id: \.source.id) { item in
                                 let fraction = CGFloat(item.bytes) / CGFloat(max(totalStorageBytes, 1))
                                 RoundedRectangle(cornerRadius: 2)
                                     .fill(Theme.avatarGradient(for: item.source.title))
-                                    .frame(width: max(geo.size.width * fraction, 2))
+                                    .frame(width: minWidth + flexWidth * fraction)
                             }
                         }
                         .frame(height: 8)

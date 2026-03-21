@@ -2017,21 +2017,35 @@ actor PageCacheService {
 
     /// Discovers the best favicon URL from a parsed SwiftSoup Document.
     private func discoverFaviconURL(in doc: Document, baseURL: URL) -> URL? {
-        // 1. apple-touch-icon — always a high-res PNG (typically 180×180)
-        if let appleTouchIcon = try? doc.select("link[rel=apple-touch-icon], link[rel=apple-touch-icon-precomposed]").first(),
-           let href = try? appleTouchIcon.attr("abs:href"),
-           !href.isEmpty,
-           let url = URL(string: href) {
-            return url
+        // 1. apple-touch-icon — pick the largest raster icon, skipping SVGs
+        //    (UIImage can't render SVGs; some sites list SVG first with sizes="any")
+        if let touchIcons = try? doc.select("link[rel=apple-touch-icon], link[rel=apple-touch-icon-precomposed]") {
+            var best: (url: URL, size: Int)?
+            for icon in touchIcons {
+                guard let href = try? icon.attr("abs:href"),
+                      !href.isEmpty,
+                      let url = URL(string: href) else { continue }
+                // Skip SVG icons — UIImage(data:) can't load them
+                if url.pathExtension.lowercased() == "svg" { continue }
+                let sizes = (try? icon.attr("sizes")) ?? ""
+                if sizes.lowercased() == "any" { continue }
+                let size = sizes.split(separator: "x").first.flatMap { Int($0) } ?? 0
+                if best == nil || size > best!.size {
+                    best = (url, size)
+                }
+            }
+            if let best { return best.url }
         }
 
-        // 2. <link rel="icon"> — pick the largest available
+        // 2. <link rel="icon"> — pick the largest raster icon available
         if let icons = try? doc.select("link[rel~=icon]") {
             var best: (url: URL, size: Int)?
             for icon in icons {
                 guard let href = try? icon.attr("abs:href"),
                       !href.isEmpty,
                       let url = URL(string: href) else { continue }
+                // Skip SVG icons — UIImage(data:) can't load them
+                if url.pathExtension.lowercased() == "svg" { continue }
                 // Parse sizes attribute (e.g. "96x96", "32x32")
                 let sizes = (try? icon.attr("sizes")) ?? ""
                 let size = sizes.split(separator: "x").first.flatMap { Int($0) } ?? 0
