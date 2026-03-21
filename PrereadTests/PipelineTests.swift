@@ -245,6 +245,29 @@ struct StandardPipelineTests {
         #expect(!result.contentHTML.contains("<nav"))
     }
 
+    // MARK: - IGN
+
+    @Test("IGN: placeholder images recovered from parent anchors, article content extracted")
+    func ignArticle() async throws {
+        let html = try loadFixture("ign_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.ign.com/articles/resident-evils-big-nintendo-swing-and-a-miss")!
+        )
+
+        #expect(result.title.contains("Resident Evil"))
+        #expect(result.contentHTML.contains("Game Boy Color"))
+        #expect(result.contentHTML.contains("GameCube"))
+        // IGN uses data:image/gif placeholder src with real URLs on parent <a> tags.
+        // The pipeline should recover these placeholder images.
+        #expect(result.imageCount >= 3, "Placeholder images should be recovered from parent anchor hrefs")
+        #expect(result.contentHTML.contains("ignimgs.com"), "Recovered image URLs should point to IGN's CDN")
+        #expect(!result.contentHTML.contains("data:image/gif"), "Placeholder data URIs should be replaced")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
     // MARK: - Perez Hilton
 
     @Test("Perez Hilton: theme decoration image not injected as hero, article image preserved")
@@ -532,6 +555,30 @@ struct FullPipelineTests {
             #expect(!hero.contains("49e7759df340449dac6c9472319fe480"),
                     "Hero bar promo thumbnail should not be selected as hero image")
         }
+    }
+
+    // MARK: - IGN
+
+    @Test("IGN: placeholder images recovered, interactive elements stripped")
+    func ignArticle() async throws {
+        let html = try loadFixture("ign_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.ign.com/articles/resident-evils-big-nintendo-swing-and-a-miss")!
+        )
+
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form"))
+
+        // Content should be preserved
+        #expect(result.cleanedHTML.contains("Resident Evil"))
+        #expect(result.cleanedHTML.contains("Game Boy Color"))
+        #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
+        // Placeholder images should be recovered with real URLs
+        #expect(result.cleanedHTML.contains("ignimgs.com"), "Recovered image URLs should point to IGN's CDN")
     }
 
     // MARK: - Perez Hilton

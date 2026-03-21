@@ -39,6 +39,15 @@ final class FeedDirectory: @unchecked Sendable {
 
         for feed in allFeeds {
             let nameLower = feed.name.lowercased()
+            // Extract bare domain: "https://www.theverge.com" → "theverge"
+            let domainLower: String = {
+                guard let siteURL = feed.siteURL,
+                      let host = URL(string: siteURL)?.host?.lowercased() else { return "" }
+                let stripped = host.hasPrefix("www.") ? String(host.dropFirst(4)) : host
+                // Drop TLD (last dot-separated component)
+                let parts = stripped.split(separator: ".")
+                return parts.count > 1 ? parts.dropLast().joined(separator: ".") : stripped
+            }()
             var score = 0
 
             for term in terms {
@@ -47,6 +56,15 @@ final class FeedDirectory: @unchecked Sendable {
                     score += 100
                 } else if nameLower.contains(term) {
                     score += 80
+                }
+
+                // Domain match (e.g. "theverge" matches theverge.com)
+                if !domainLower.isEmpty {
+                    if domainLower == term {
+                        score += 90
+                    } else if domainLower.contains(term) {
+                        score += 70
+                    }
                 }
 
                 // Tag prefix match

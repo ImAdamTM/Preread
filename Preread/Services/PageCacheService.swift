@@ -236,6 +236,8 @@ actor PageCacheService {
         try preDoc.select("img.hide-when-no-script").remove()
         try preDoc.select("img[src*=placeholder]").remove()
 
+        try recoverPlaceholderImages(in: preDoc)
+
         try stripTinyImages(in: preDoc, maxDimension: 30)
         try stripBadgeClusters(in: preDoc)
         try stripImageLayoutStyles(in: preDoc)
@@ -466,6 +468,8 @@ actor PageCacheService {
         // (e.g. BBC's full site-navigation tree inside <noscript>).
         try doc.select("script").remove()
         try doc.select("noscript").remove()
+
+        try recoverPlaceholderImages(in: doc)
 
         // Strip navigation — site nav links are non-functional offline
         // and take up significant space above article content.
@@ -1756,6 +1760,33 @@ actor PageCacheService {
             try img.removeAttr("class")
             try img.removeAttr("data-nimg")
             try img.removeAttr("data-chromatic")
+        }
+    }
+
+    /// Recovers real image URLs for `<img>` tags that use placeholder `src` values
+    /// (e.g. a 1x1 transparent GIF data URI) when the parent `<a>` tag links to
+    /// an actual image file. This is a common lazy-loading pattern where JavaScript
+    /// swaps the real URL into `src` at runtime — since we fetch static HTML, the
+    /// swap never happens and images remain blank.
+    private func recoverPlaceholderImages(in doc: Document) throws {
+        let imageExtensions: Set<String> = ["jpg", "jpeg", "png", "gif", "webp", "avif", "bmp", "tiff"]
+        let images = try doc.select("img")
+        for img in images {
+            let src = try img.attr("src")
+            // Only process images with data URI placeholders
+            guard src.hasPrefix("data:") else { continue }
+
+            // Check if parent is an <a> tag linking to an image file
+            guard let parent = img.parent(), parent.tagName() == "a" else { continue }
+            let href = try parent.attr("href")
+            guard !href.isEmpty, !href.hasPrefix("data:") else { continue }
+
+            // Verify the href points to an image by checking the file extension
+            let pathComponent = URL(string: href)?.pathExtension.lowercased() ?? ""
+            guard imageExtensions.contains(pathComponent) else { continue }
+
+            try img.attr("src", href)
+            try img.removeAttr("aria-hidden")
         }
     }
 

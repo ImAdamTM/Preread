@@ -53,6 +53,30 @@ func stripImageLayoutStyles(in doc: Document) throws {
     }
 }
 
+// MARK: - Helper: recover placeholder images from parent anchors
+
+/// Recovers real image URLs for `<img>` tags that use placeholder `src` values
+/// (e.g. a 1x1 transparent GIF data URI) when the parent `<a>` tag links to
+/// an actual image file.
+func recoverPlaceholderImages(in doc: Document) throws {
+    let imageExtensions: Set<String> = ["jpg", "jpeg", "png", "gif", "webp", "avif", "bmp", "tiff"]
+    let images = try doc.select("img")
+    for img in images {
+        let src = try img.attr("src")
+        guard src.hasPrefix("data:") else { continue }
+
+        guard let parent = img.parent(), parent.tagName() == "a" else { continue }
+        let href = try parent.attr("href")
+        guard !href.isEmpty, !href.hasPrefix("data:") else { continue }
+
+        let pathComponent = URL(string: href)?.pathExtension.lowercased() ?? ""
+        guard imageExtensions.contains(pathComponent) else { continue }
+
+        try img.attr("src", href)
+        try img.removeAttr("aria-hidden")
+    }
+}
+
 // MARK: - Helper: flatten image-only divs
 
 func flattenImageOnlyDivs(in doc: Document) throws {
@@ -439,6 +463,8 @@ if isFullMode {
     try preDoc.select("meta[http-equiv=Content-Security-Policy]").remove()
     try preDoc.select("img.hide-when-no-script").remove()
     try preDoc.select("img[src*=placeholder]").remove()
+
+    try recoverPlaceholderImages(in: preDoc)
 
     // Strip tiny images (badges, tracking pixels, decorative icons)
     stripTinyImages(in: preDoc, maxDimension: 30)
