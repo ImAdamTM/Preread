@@ -33,8 +33,8 @@ struct Theme {
 
     static let surfaceRaised = Color(uiColor: UIColor { traits in
         traits.userInterfaceStyle == .dark
-            ? UIColor(red: 28/255, green: 28/255, blue: 40/255, alpha: 1)     // #1C1C28
-            : UIColor(red: 232/255, green: 232/255, blue: 237/255, alpha: 1)  // #E8E8ED
+            ? UIColor(red: 30/255, green: 30/255, blue: 34/255, alpha: 1)     // #1E1E22
+            : UIColor(red: 235/255, green: 235/255, blue: 237/255, alpha: 1)  // #EBEBED
     })
 
     static let textPrimary = Color(uiColor: UIColor { traits in

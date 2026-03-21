@@ -606,6 +606,7 @@ struct ArticleListView: View {
                         VStack(alignment: .leading, spacing: 14) {
                             Text("NAME")
                                 .font(Theme.scaledFont(size: 12, weight: .semibold, relativeTo: .caption))
+                                .tracking(1)
                                 .foregroundColor(Theme.textSecondary)
 
                             TextField("Source name", text: $currentSourceName)

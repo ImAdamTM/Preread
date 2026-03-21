@@ -347,7 +347,9 @@ final class FetchCoordinator: ObservableObject {
             let feed = try await FeedService.shared.parseFeed(from: feedURL, siteURL: source.siteURL.flatMap { URL(string: $0) })
 
             let currentCacheLevel = source.effectiveCacheLevel
-            let articleLimit = currentCacheLevel == .full ? 10 : 20
+            let userLimit = UserDefaults.standard.integer(forKey: "articleLimit")
+            let effectiveUserLimit = userLimit > 0 ? userLimit : 25
+            let articleLimit = min(currentCacheLevel == .full ? 10 : 20, effectiveUserLimit)
 
             var seenURLs = Set<String>()
             var seenTitles = Set<String>()
@@ -549,7 +551,9 @@ final class FetchCoordinator: ObservableObject {
     /// refreshes only cache the 5 visible articles per source.
     func backfillArticles(for source: Source) async {
         let cacheLevel = source.effectiveCacheLevel
-        let articleLimit = cacheLevel == .full ? 10 : 20
+        let userLimit = UserDefaults.standard.integer(forKey: "articleLimit")
+        let effectiveUserLimit = userLimit > 0 ? userLimit : 25
+        let articleLimit = min(cacheLevel == .full ? 10 : 20, effectiveUserLimit)
         let uncachedArticles: [Article]
         do {
             uncachedArticles = try await DatabaseManager.shared.dbPool.read { db in

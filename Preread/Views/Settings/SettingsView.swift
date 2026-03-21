@@ -367,10 +367,10 @@ struct SettingsView: View {
                 settingLabel("Article limit per source")
                 Spacer()
                 Picker("", selection: $articleLimit) {
+                    Text("10").tag(10)
+                    Text("15").tag(15)
                     Text("25").tag(25)
                     Text("50").tag(50)
-                    Text("75").tag(75)
-                    Text("100").tag(100)
                 }
                 .pickerStyle(.segmented)
                 .frame(width: 200)
