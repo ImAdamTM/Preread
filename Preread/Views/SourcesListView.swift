@@ -136,6 +136,10 @@ struct SourcesListView: View {
                     onSourceAdded: { addedSourceID in
                         Task {
                             await loadSources()
+                            // Brief delay lets the List layout settle after
+                            // inserting the new section, so scrollTo lands
+                            // with the header fully visible.
+                            try? await Task.sleep(for: .milliseconds(200))
                             scrollToSourceID = addedSourceID
                             highlightedSourceID = addedSourceID
                             try? await Task.sleep(for: .seconds(1))
@@ -327,7 +331,9 @@ struct SourcesListView: View {
             .onChange(of: scrollToSourceID) { _, sourceID in
                 guard let sourceID else { return }
                 withAnimation(Theme.gentleAnimation()) {
-                    proxy.scrollTo(sourceID, anchor: .top)
+                    // Anchor slightly above .top so the section header clears
+                    // the previous section's sticky header and sits fully visible.
+                    proxy.scrollTo(sourceID, anchor: UnitPoint(x: 0.5, y: -0.05))
                 }
                 scrollToSourceID = nil
             }

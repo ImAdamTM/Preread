@@ -285,19 +285,21 @@ struct AddSourceSheet: View {
                 }
             }
 
-            // Discover link
+            // Discover button
             Button {
                 navigateToDiscover()
             } label: {
-                HStack(spacing: 4) {
-                    Text("Discover feeds")
-                        .font(Theme.scaledFont(size: 14, weight: .medium))
-                        .foregroundStyle(Theme.accentGradient)
-                    Image(systemName: "arrow.right")
-                        .font(Theme.scaledFont(size: 12, weight: .semibold))
-                        .foregroundColor(Color("PrereadPurple"))
+                HStack(spacing: 5) {
+                    Text("Browse topics")
+                        .font(Theme.scaledFont(size: 15, weight: .semibold))
+                    Image(systemName: "sparkles")
+                        .font(.system(size: 13, weight: .medium))
                 }
+                .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
+                .padding(.vertical, 16)
+                .background(Theme.accentGradient)
+                .clipShape(RoundedRectangle(cornerRadius: 14))
             }
         }
     }
@@ -339,7 +341,7 @@ struct AddSourceSheet: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 // Header
-                Text("Discover")
+                Text("Browse topics")
                     .font(Theme.scaledFont(size: 28, weight: .regular))
                     .foregroundColor(Theme.textPrimary)
 
