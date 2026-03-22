@@ -29,7 +29,7 @@ struct SourcesListView: View {
     @State private var readerSelection: ReaderSelection?
     @State private var transitionSourceID: String?
     @State private var accentGradientImage: UIImage?
-    @State private var totalReadingMinutes: Int = 0
+    @State private var totalArticleCount: Int = 0
     @Environment(\.colorScheme) private var systemColorScheme
     @ObservedObject private var detailCoordinator = ArticleDetailCoordinator.shared
     @AppStorage("appAppearance") private var appAppearance: String = "system"
@@ -439,11 +439,10 @@ struct SourcesListView: View {
                 .font(Theme.scaledFont(size: 32, weight: .regular))
                 .foregroundColor(Theme.textPrimary)
 
-            Text(ReadingTimeFormatter.formatted(minutes: totalReadingMinutes)
-                 .map { "\($0) read" } ?? " ")
+            Text(totalArticleCount > 0 ? "\(totalArticleCount) articles ready" : " ")
                 .font(Theme.scaledFont(size: 13, relativeTo: .caption))
                 .foregroundColor(Theme.textSecondary)
-                .opacity(totalReadingMinutes > 0 ? 1 : 0)
+                .opacity(totalArticleCount > 0 ? 1 : 0)
                 .padding(.top, -4)
         }
         .padding(.horizontal, 18)
@@ -570,15 +569,15 @@ struct SourcesListView: View {
             }
             hasSavedArticles = savedExists
 
-            let readingSum = try await DatabaseManager.shared.dbPool.read { db in
+            let articleCount = try await DatabaseManager.shared.dbPool.read { db in
                 try Int.fetchOne(db, sql: """
-                    SELECT COALESCE(SUM(readingMinutes), 0)
+                    SELECT COUNT(*)
                     FROM article
                     WHERE sourceID != ?
                       AND fetchStatus IN ('cached', 'partial')
                 """, arguments: [Source.savedPagesID])
             }
-            totalReadingMinutes = readingSum ?? 0
+            totalArticleCount = articleCount ?? 0
         } catch {
             // Silently fail — sources will remain as last loaded
         }

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Currentwave</title>
+    <link>https://streamlinelabs.io/misc/preread/examples/currentwave/</link>
+    <description>Tech, culture, and the ideas shaping tomorrow</description>
+    <language>en-us</language>
+    <atom:link href="https://streamlinelabs.io/misc/preread/examples/currentwave/feed.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>The Quiet Revolution in How We Read Online</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/currentwave/quiet-revolution-reading.html</link>
+      <pubDate>Sat, 21 Mar 2026 09:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1200" alt="Library with warm lighting" />
+        <p>For years, the web optimised for engagement over comprehension. Infinite scrolls, auto-playing videos, and algorithmic feeds turned reading into a competitive sport between your attention and a thousand distractions.</p>
+        <p>Now a counter-movement is gaining momentum. A new generation of tools strips away the noise and returns the focus to the words themselves. Distraction-free readers, offline caching, and curated feeds are giving people something the modern web had almost lost: the ability to sit with an article and actually finish it.</p>
+        <p>The shift isn't just about aesthetics. Studies from the University of Stavanger suggest that reading in calm, uncluttered environments improves retention by as much as 25 percent. When the medium stops competing with the message, comprehension wins.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>Why Every Smart Home Still Has One Dumb Problem</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/currentwave/smart-home-dumb-problem.html</link>
+      <pubDate>Thu, 19 Mar 2026 14:30:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200" alt="Modern living room with smart devices" />
+        <p>You can ask your voice assistant to dim the lights, lock the front door, and start the dishwasher. But try to get your smart thermostat to talk to your window blinds and you'll spend a Sunday afternoon deep in firmware update hell.</p>
+        <p>Interoperability remains the Achilles heel of the connected home. The Matter standard promised to fix this two years ago, and while adoption is climbing, the reality on the ground is still patchy. Devices from different ecosystems play nicely in demos but stumble in the kind of edge cases that fill real households.</p>
+        <p>The fix might not be technical at all. It might simply require manufacturers to stop treating their ecosystems as moats and start treating them as bridges.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>Mechanical Keyboards Went Mainstream. Now What?</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/currentwave/mechanical-keyboards-mainstream.html</link>
+      <pubDate>Tue, 17 Mar 2026 11:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=1200" alt="Mechanical keyboard on a desk" />
+        <p>What started as a niche hobby for enthusiasts who debated switch actuation forces on forums has become a genuine consumer category. Major retailers now stock hot-swappable boards next to wireless mice and webcams.</p>
+        <p>The mainstreaming of mechanical keyboards has been a double-edged sword. Prices have dropped and build quality has improved across the board. But the community that spent years perfecting the craft worries that mass production dilutes the soul of what made custom keyboards special in the first place.</p>
+        <p>The truth, as usual, sits somewhere in the middle. More people typing on better hardware is unambiguously good. And for those who want to go deeper, the artisan end of the market has never been more inventive.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>The Case for Logging Off at Five</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/currentwave/logging-off-at-five.html</link>
+      <pubDate>Sun, 15 Mar 2026 08:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200" alt="Laptop closed on a desk at sunset" />
+        <p>Remote work promised freedom. For many, it delivered a longer workday with blurrier boundaries. The laptop is always within arm's reach, and Slack never truly sleeps.</p>
+        <p>A growing body of research suggests that hard stops aren't just good for wellbeing, they're good for output. Microsoft's own internal studies found that employees who disconnected fully at the end of the day produced measurably better work the following morning than those who kept half an eye on their inbox through the evening.</p>
+        <p>Setting a firm boundary isn't laziness. It's maintenance. The best tools are useless when the person operating them is running on fumes.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>How a Tiny Studio in Porto Built the Year's Best Weather App</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/currentwave/porto-weather-app.html</link>
+      <pubDate>Fri, 13 Mar 2026 16:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1200" alt="Developer working at a computer" />
+        <p>Three designers and two engineers in a converted sardine factory overlooking the Douro River have done what billion-dollar companies couldn't: make checking the weather feel delightful.</p>
+        <p>Their app, Céu, uses fluid animations that mirror actual atmospheric conditions. Fog doesn't just appear as an icon; it drifts across the interface. Rain doesn't ping a notification; it subtly shifts the colour temperature of the entire app. The result is information you feel before you read it.</p>
+        <p>It's a reminder that taste and restraint can still outperform scale. Not every problem needs a hundred engineers. Sometimes it just needs five people who care deeply about getting one thing right.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>The Unexpected Joy of Single-Purpose Apps</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/currentwave/single-purpose-apps.html</link>
+      <pubDate>Wed, 11 Mar 2026 10:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1200" alt="Phone screen showing minimal app interface" />
+        <p>In an era of everything-apps, there's a growing appetite for software that does exactly one thing and does it well. A timer that just times. A note app that just takes notes. A weather app that just shows the weather.</p>
+        <p>The appeal isn't nostalgia. It's cognitive relief. Every feature added to an app is a decision the user didn't ask to make. Single-purpose tools respect the fact that your attention is finite and your patience for settings screens is even more so.</p>
+        <p>The best ones disappear after use. You open them, do the thing, and close them. No feed to scroll, no streak to maintain, no notification asking you to come back. Software as a tool, not a destination.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>What Happened When a City Removed All Its Parking Meters</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/currentwave/city-removed-parking-meters.html</link>
+      <pubDate>Mon, 09 Mar 2026 14:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1200" alt="City street with pedestrians and cyclists" />
+        <p>When Ghent removed parking meters from its city centre and replaced street parking with bike lanes and café terraces, critics predicted economic collapse. Three years later, retail revenue in the affected zones is up 18 percent.</p>
+        <p>The logic was counterintuitive but simple: cars passing through don't spend money. People who walk, cycle, and linger do. A parking space serves one person. A bench serves dozens. The economics of public space favour humans over vehicles, but it took decades of car-centric planning to obscure that fact.</p>
+        <p>Other European cities are watching closely. The question is no longer whether car-free zones work, but how quickly the rest of the world will catch on.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1200" medium="image"/>
+    </item>
+
+  </channel>
+</rss>

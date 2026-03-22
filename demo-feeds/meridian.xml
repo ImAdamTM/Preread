@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Meridian</title>
+    <link>https://streamlinelabs.io/misc/preread/examples/meridian/</link>
+    <description>Stories from the places worth slowing down for</description>
+    <language>en-us</language>
+    <atom:link href="https://streamlinelabs.io/misc/preread/examples/meridian/feed.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>Twelve Hours in Kyoto Without a Plan</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/meridian/twelve-hours-kyoto.html</link>
+      <pubDate>Fri, 20 Mar 2026 09:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200" alt="Traditional Kyoto street with temple" />
+        <p>The best day I've spent in Kyoto started with getting lost. I walked out of a small hotel near Gion with no map, no itinerary, and a vague intention to find breakfast. Three hours later I was sitting cross-legged on a tatami floor eating grilled fish and pickled vegetables while rain tapped against a paper screen.</p>
+        <p>Kyoto rewards aimlessness. The city was built for people who walk slowly. Every narrow lane leads to something: a shrine tucked between apartment buildings, a wagashi shop that's been open since 1803, a garden so quiet you can hear the moss growing.</p>
+        <p>You don't need to see everything. You just need to see what's in front of you.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>The Norwegian Coast by Slow Ferry</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/meridian/norwegian-coast-slow-ferry.html</link>
+      <pubDate>Tue, 18 Mar 2026 07:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1520769669658-f07657f5a307?w=1200" alt="Norwegian fjord with mountains" />
+        <p>The Hurtigruten ferry from Bergen to Kirkenes takes six and a half days. Flights cover the same distance in two hours. Choosing the ferry is choosing to be bored, cold, and astonished in roughly equal measure.</p>
+        <p>You eat breakfast watching the Lofoten Islands materialise from grey mist. You drink coffee while the ship threads through channels so narrow you could almost touch the rock face. You stand on deck at midnight as the sky does something with light that doesn't have a name in English.</p>
+        <p>Slow travel isn't about the destination. It's about letting the journey take up enough space in your memory that you actually keep it.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1520769669658-f07657f5a307?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>Mexico City's Best Neighbourhood Is the One You Haven't Heard Of</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/meridian/mexico-city-neighbourhood.html</link>
+      <pubDate>Sat, 15 Mar 2026 14:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1518659526054-190340b32735?w=1200" alt="Colourful street in Mexico City" />
+        <p>Everyone goes to Roma and Condesa. They're beautiful, well-documented, and full of people who read the same travel guides. But twenty minutes south, Coyoacán moves at a different speed entirely.</p>
+        <p>The streets are cobbled and shaded by jacaranda trees that turn purple in March. The markets sell tlacoyos stuffed with fava beans and slathered in green salsa. The Frida Kahlo museum draws crowds, but two blocks away the neighbourhood empties out into quiet plazas where elderly couples share benches and ice cream.</p>
+        <p>The best version of any city is always one turn away from the popular version.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1518659526054-190340b32735?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>A Week on the Amalfi Coast, Off-Season</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/meridian/amalfi-coast-off-season.html</link>
+      <pubDate>Wed, 12 Mar 2026 10:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1534008897995-27a23e859048?w=1200" alt="Amalfi Coast cliffside village" />
+        <p>In July, the Amalfi Coast is a postcard you can't enjoy because forty other people are standing in front of it. In November, it belongs to you.</p>
+        <p>The water is still warm enough to swim. The restaurants are open but unhurried. You can walk the Path of the Gods without queuing, and the light in the late afternoon turns the limestone cliffs the colour of honey.</p>
+        <p>Off-season travel requires accepting that some things will be closed and the weather might not cooperate. In return, you get the thing that no amount of money can buy in peak season: space.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1534008897995-27a23e859048?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>The Overnight Train Making a Comeback in Europe</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/meridian/overnight-train-europe.html</link>
+      <pubDate>Sun, 09 Mar 2026 08:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=1200" alt="Train travelling through countryside" />
+        <p>The sleeper train from Vienna to Paris departs at eight in the evening. You have dinner in the restaurant car somewhere over the Austrian Alps, fall asleep in Bavaria, and wake up pulling into Gare de l'Est with coffee and a croissant on your fold-down table.</p>
+        <p>A decade ago, night trains were a dying relic. Now they're the fastest-growing segment of European rail. New routes are launching every season, with modern carriages that make the old couchettes feel like a distant memory.</p>
+        <p>The appeal isn't just environmental, though that matters. It's the romance of going to sleep in one country and waking up in another, with no security queues, no baggage carousel, and no lost hours in airport limbo.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>The Portuguese Village Where Time Runs Differently</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/meridian/portuguese-village-time.html</link>
+      <pubDate>Thu, 06 Mar 2026 11:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=1200" alt="Whitewashed village on a hillside" />
+        <p>Monsaraz sits on a ridge above the Alentejo plain like a place that forgot to modernise. The walls are thirteenth century. The streets are cobbled and barely wide enough for a donkey. The nearest supermarket is a twenty-minute drive down a road with no markings.</p>
+        <p>Lunch starts at one and finishes when it finishes. The café in the main square serves one wine — the owner's — and it's excellent. At dusk, the reservoir below the town turns gold, and the only sound is swallows.</p>
+        <p>It's the kind of place that makes you wonder what you're actually rushing home for.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>How to Pack for a Month in a Carry-On</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/meridian/pack-month-carry-on.html</link>
+      <pubDate>Mon, 03 Mar 2026 08:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=1200" alt="Neatly packed carry-on bag" />
+        <p>The trick isn't packing less. It's packing smarter. After fifteen years of living out of a 40-litre bag for weeks at a time, the system is simple: five bottoms, seven tops, one layer, one pair of shoes you can walk ten miles in.</p>
+        <p>Everything should work with everything else. If a shirt only goes with one pair of trousers, leave it at home. Merino wool is your best friend — it regulates temperature, resists odour, and dries overnight on a towel rail.</p>
+        <p>The real liberation isn't at the airport. It's at every train station, bus stop, and cobbled street where you're not dragging a suitcase behind you like a penance.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=1200" medium="image"/>
+    </item>
+
+  </channel>
+</rss>

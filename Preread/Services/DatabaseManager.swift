@@ -52,6 +52,7 @@ final class DatabaseManager {
                 t.column("appearanceMode", .text)
                 t.column("layout", .text)
                 t.column("homeLayout", .text)
+                t.column("isCollapsed", .boolean).notNull().defaults(to: false)
                 t.column("sortOrder", .integer).notNull().defaults(to: 0)
             }
 
@@ -107,6 +108,7 @@ final class DatabaseManager {
                 appearanceMode: nil,
                 layout: nil,
                 homeLayout: nil,
+                isCollapsed: false,
                 sortOrder: -1
             )
             try savedPagesSource.save(db)
@@ -117,6 +119,14 @@ final class DatabaseManager {
                 try db.alter(table: "source") { t in
                     t.add(column: "layout", .text)
                     t.add(column: "homeLayout", .text)
+                }
+            }
+        }
+
+        migrator.registerMigration("v3-add-isCollapsed") { db in
+            if try !db.columns(in: "source").contains(where: { $0.name == "isCollapsed" }) {
+                try db.alter(table: "source") { t in
+                    t.add(column: "isCollapsed", .boolean).notNull().defaults(to: false)
                 }
             }
         }

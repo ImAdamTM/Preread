@@ -15,66 +15,101 @@ struct SourceSectionView: View {
     @Namespace private var namespace
     @State private var articles: [Article] = []
     @State private var totalArticleCount: Int = 0
+    @State private var unreadCount: Int = 0
     @State private var totalReadingMinutes: Int = 0
     @State private var cachedFavicon: UIImage?
     @State private var showDeleteConfirmation = false
     @State private var isAutoCaching = false
+    @State private var isCollapsed: Bool
     @State private var articleObservation: AnyDatabaseCancellable?
     @AppStorage("articleLimit") private var articleLimit: Int = 25
 
+    init(
+        source: Source,
+        refreshState: SourceRefreshState,
+        transitionNamespace: Namespace.ID,
+        onViewAll: @escaping () -> Void,
+        onRefresh: @escaping () -> Void,
+        onEditName: @escaping () -> Void,
+        onRemove: @escaping () -> Void,
+        onOpenArticle: @escaping (Article) -> Void
+    ) {
+        self.source = source
+        self.refreshState = refreshState
+        self.transitionNamespace = transitionNamespace
+        self.onViewAll = onViewAll
+        self.onRefresh = onRefresh
+        self.onEditName = onEditName
+        self.onRemove = onRemove
+        self.onOpenArticle = onOpenArticle
+        self._isCollapsed = State(initialValue: source.isCollapsed)
+    }
+
     var body: some View {
-        Section {
-            if articles.isEmpty && (refreshState == .refreshing || isAutoCaching) {
-                HStack(spacing: 8) {
-                    ProgressView()
-                        .controlSize(.small)
-                        .tint(Theme.textSecondary)
-                    Text("Loading articles...")
-                        .font(Theme.scaledFont(size: 15))
-                        .foregroundColor(Theme.textSecondary)
+        Group {
+            if isCollapsed {
+                // When collapsed, render header as a plain row so it doesn't stick.
+                // Match the vertical space a plain-list section header occupies.
+                Section {
+                    sectionHeader
+                        .listRowInsets(EdgeInsets(top: 9, leading: 20, bottom: 4, trailing: 20))
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
                 }
-                .padding(.vertical, 12)
-                .padding(.horizontal, 16)
-                .listRowInsets(EdgeInsets())
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.clear)
-            }
-            ForEach(articles) { article in
-                ArticleRowView(
-                    article: article,
-                    namespace: namespace,
-                    onTap: { handleTap(article) },
-                    onToggleRead: { Task { await toggleRead(article) } },
-                    onToggleSave: { Task { await toggleSave(article) } },
-                    onRefetch: { Task { await refetchArticle(article) } },
-                    onDelete: { Task { await deleteArticle(article) } },
-                    sourceName: source.isTopicFeed ? article.displayDomain : nil
-                )
-                .matchedTransitionSource(id: "\(source.id)-\(article.id)", in: transitionNamespace) {
-                    $0.clipShape(RoundedRectangle(cornerRadius: 12))
-                        .background(Theme.background)
-                }
-                .listRowInsets(EdgeInsets())
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.clear)
-            }
+            } else {
+                Section {
+                    if articles.isEmpty && (refreshState == .refreshing || isAutoCaching) {
+                        HStack(spacing: 8) {
+                            ProgressView()
+                                .controlSize(.small)
+                                .tint(Theme.textSecondary)
+                            Text("Loading articles...")
+                                .font(Theme.scaledFont(size: 15))
+                                .foregroundColor(Theme.textSecondary)
+                        }
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 16)
+                        .listRowInsets(EdgeInsets())
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                    }
+                    ForEach(articles) { article in
+                        ArticleRowView(
+                            article: article,
+                            namespace: namespace,
+                            onTap: { handleTap(article) },
+                            onToggleRead: { Task { await toggleRead(article) } },
+                            onToggleSave: { Task { await toggleSave(article) } },
+                            onRefetch: { Task { await refetchArticle(article) } },
+                            onDelete: { Task { await deleteArticle(article) } },
+                            sourceName: source.isTopicFeed ? article.displayDomain : nil
+                        )
+                        .matchedTransitionSource(id: "\(source.id)-\(article.id)", in: transitionNamespace) {
+                            $0.clipShape(RoundedRectangle(cornerRadius: 12))
+                                .background(Theme.background)
+                        }
+                        .listRowInsets(EdgeInsets())
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                    }
 
-            if totalArticleCount > articles.count {
-                Button(action: onViewAll) {
-                    Text("View all \(totalArticleCount) articles")
-                        .font(Theme.scaledFont(size: 14, weight: .medium, relativeTo: .subheadline))
-                        .foregroundStyle(Theme.accentGradient)
-                        .frame(maxWidth: .infinity)
+                    if totalArticleCount > articles.count {
+                        Button(action: onViewAll) {
+                            Text("View all \(totalArticleCount) articles")
+                                .font(Theme.scaledFont(size: 14, weight: .medium, relativeTo: .subheadline))
+                                .foregroundStyle(Theme.accentGradient)
+                                .frame(maxWidth: .infinity)
+                        }
+                        .listRowInsets(EdgeInsets(top: 12, leading: 0, bottom: 15, trailing: 0))
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                    }
+                } header: {
+                    sectionHeader
+                        .padding(.bottom, 4)
+                        .textCase(nil)
                 }
-                .listRowInsets(EdgeInsets(top: 12, leading: 0, bottom: 15, trailing: 0))
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.clear)
             }
-
-        } header: {
-            sectionHeader
-                .padding(.bottom, 4)
-                .textCase(nil)
         }
         .task {
             let sourceID = source.id
@@ -142,6 +177,28 @@ struct SourceSectionView: View {
         return parts.joined(separator: " · ")
     }
 
+    private func toggleCollapsed() {
+        withAnimation(.spring(duration: 0.35, bounce: 0.0)) {
+            isCollapsed.toggle()
+        }
+        HapticManager.modeToggle()
+        // Capture value for Sendable closure
+        let newValue = isCollapsed
+        let sourceID = source.id
+        Task {
+            do {
+                try await DatabaseManager.shared.dbPool.write { db in
+                    try db.execute(
+                        sql: "UPDATE source SET isCollapsed = ? WHERE id = ?",
+                        arguments: [newValue, sourceID]
+                    )
+                }
+            } catch {
+                // Persistence failed silently — local state still reflects toggle
+            }
+        }
+    }
+
     private var sectionHeader: some View {
         HStack(alignment: .center, spacing: 12) {
             faviconView
@@ -164,10 +221,25 @@ struct SourceSectionView: View {
             }
 
             Spacer(minLength: 4)
+
+            if isCollapsed && unreadCount > 0 {
+                Text("\(unreadCount)")
+                    .font(Theme.scaledFont(size: 15))
+                    .foregroundColor(Theme.textSecondary)
+                    .transition(.opacity)
+            }
+
+            Image(systemName: "chevron.right")
+                .font(.system(size: 13, weight: .semibold))
+                .foregroundStyle(isCollapsed ? AnyShapeStyle(Theme.textSecondary) : AnyShapeStyle(Theme.accentGradient))
+                .rotationEffect(.degrees(isCollapsed ? 0 : 90))
+                .offset(y: isCollapsed ? 0 : -1)
+                .animation(.spring(duration: 0.35, bounce: 0.0), value: isCollapsed)
+                .frame(width: 20, height: 20)
         }
         .contentShape(Rectangle())
         .onTapGesture {
-            onViewAll()
+            toggleCollapsed()
         }
         .contextMenu {
             Button {
@@ -284,7 +356,7 @@ struct SourceSectionView: View {
         let sourceID = source.id
         let cachedStatuses = [ArticleFetchStatus.cached.rawValue,
                               ArticleFetchStatus.partial.rawValue]
-        let observation = ValueObservation.tracking { db -> ([Article], Int, Int) in
+        let observation = ValueObservation.tracking { db -> ([Article], Int, Int, Int) in
             let articles = try Article
                 .filter(Column("sourceID") == sourceID)
                 .filter(cachedStatuses.contains(Column("fetchStatus")))
@@ -301,18 +373,26 @@ struct SourceSectionView: View {
                 WHERE sourceID = ?
                   AND fetchStatus IN ('cached', 'partial')
             """, arguments: [sourceID]) ?? 0
-            return (articles, count, readingSum)
+            let unread = try Int.fetchOne(db, sql: """
+                SELECT COUNT(*)
+                FROM article
+                WHERE sourceID = ?
+                  AND fetchStatus IN ('cached', 'partial')
+                  AND isRead = 0
+            """, arguments: [sourceID]) ?? 0
+            return (articles, count, readingSum, unread)
         }
         articleObservation = observation.start(
             in: DatabaseManager.shared.dbPool,
             scheduling: .async(onQueue: .main)
         ) { error in
             // Observation failed — keep existing data
-        } onChange: { (newArticles, count, readingSum) in
+        } onChange: { (newArticles, count, readingSum, unread) in
             articles = newArticles
             let cap = articleLimit > 0 ? articleLimit : 25
             totalArticleCount = min(count, cap)
             totalReadingMinutes = readingSum
+            unreadCount = unread
         }
     }
 
@@ -320,7 +400,7 @@ struct SourceSectionView: View {
         let cachedStatuses = [ArticleFetchStatus.cached.rawValue,
                               ArticleFetchStatus.partial.rawValue]
         do {
-            let (loaded, count, readingSum) = try await DatabaseManager.shared.dbPool.read { db in
+            let (loaded, count, readingSum, unread) = try await DatabaseManager.shared.dbPool.read { db in
                 let articles = try Article
                     .filter(Column("sourceID") == source.id)
                     .filter(cachedStatuses.contains(Column("fetchStatus")))
@@ -337,12 +417,20 @@ struct SourceSectionView: View {
                     WHERE sourceID = ?
                       AND fetchStatus IN ('cached', 'partial')
                 """, arguments: [source.id]) ?? 0
-                return (articles, count, readingSum)
+                let unread = try Int.fetchOne(db, sql: """
+                    SELECT COUNT(*)
+                    FROM article
+                    WHERE sourceID = ?
+                      AND fetchStatus IN ('cached', 'partial')
+                      AND isRead = 0
+                """, arguments: [source.id]) ?? 0
+                return (articles, count, readingSum, unread)
             }
             articles = loaded
             let cap = articleLimit > 0 ? articleLimit : 25
             totalArticleCount = min(count, cap)
             totalReadingMinutes = readingSum
+            unreadCount = unread
         } catch {
             // Keep existing articles
         }

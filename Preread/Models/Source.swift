@@ -52,6 +52,7 @@ struct Source: Identifiable, Codable, FetchableRecord, PersistableRecord {
     var appearanceMode: AppearanceMode?
     var layout: SourceLayout?
     var homeLayout: SourceLayout?
+    var isCollapsed: Bool
     var sortOrder: Int
 
     /// Returns the per-source cache level, defaulting to .standard.

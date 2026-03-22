@@ -1145,6 +1145,7 @@ struct AddSourceSheet: View {
                     appearanceMode: nil,
                     layout: nil,
                     homeLayout: nil,
+                    isCollapsed: false,
                     sortOrder: 0
                 )
 

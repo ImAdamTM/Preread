@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Sated</title>
+    <link>https://streamlinelabs.io/misc/preread/examples/sated/</link>
+    <description>Recipes, ingredients, and the stories behind what we eat</description>
+    <language>en-us</language>
+    <atom:link href="https://streamlinelabs.io/misc/preread/examples/sated/feed.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>The Simplest Pasta You'll Make All Spring</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/sated/simplest-spring-pasta.html</link>
+      <pubDate>Sat, 21 Mar 2026 10:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=1200" alt="Fresh pasta with herbs" />
+        <p>Good pasta doesn't need a long ingredient list. This one has six things in it, and three of them are pantry staples you already own. The trick is letting each one do its job without getting in the way of the others.</p>
+        <p>Cook your spaghetti two minutes short of al dente. While it boils, warm good olive oil with thinly sliced garlic and a pinch of chilli flakes until the garlic just starts to turn golden. Toss the pasta in with a cup of starchy cooking water, a handful of torn basil, and a squeeze of lemon. Finish with pecorino.</p>
+        <p>The lemon is what makes this. It brightens everything without tasting citrusy. Serve it in a warm bowl and eat it before it cools down.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>Why Your Sourdough Starter Deserves a Rest Day</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/sated/sourdough-rest-day.html</link>
+      <pubDate>Wed, 18 Mar 2026 08:30:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1585478259715-876acc5be8eb?w=1200" alt="Sourdough bread loaf" />
+        <p>The sourdough community has a tendency toward over-attentiveness. Twice-daily feedings, precise hydration ratios, temperature logs that rival a chemistry lab. But your starter is tougher than you think, and occasionally neglecting it might actually make it better.</p>
+        <p>A cold retard in the fridge for a day or two slows fermentation and develops deeper, more complex flavour compounds. The wild yeasts don't die; they just work more slowly, producing acetic acid that gives the bread a more rounded tang.</p>
+        <p>Think of it as the bread equivalent of a rest day at the gym. The growth happens during recovery.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1585478259715-876acc5be8eb?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>A Guide to Seasoning Your Cast Iron (Without the Anxiety)</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/sated/cast-iron-seasoning.html</link>
+      <pubDate>Mon, 16 Mar 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=1200" alt="Cast iron skillet on a stovetop" />
+        <p>The internet has made cast iron care sound like a sacred ritual. It isn't. You need oil, heat, and a little patience. That's the whole secret.</p>
+        <p>Wipe a thin layer of flaxseed or grapeseed oil over every surface, inside and out. Place it upside down in a 250-degree oven for an hour. Let it cool completely in the oven. Do this three times for a new pan, and once every few months after that.</p>
+        <p>The anxiety around cast iron is worse than the actual maintenance. Cook with it, clean it with hot water and a stiff brush, dry it on the hob, and move on with your life. The pan will outlast you either way.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>The Fish Taco That Changed My Mind About Cabbage</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/sated/fish-taco-cabbage.html</link>
+      <pubDate>Sat, 14 Mar 2026 11:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=1200" alt="Fish tacos with fresh toppings" />
+        <p>I spent most of my twenties ignoring cabbage entirely. It showed up in sad coleslaws and forgettable stir-fries, and I never gave it a second thought. Then I ate a fish taco in Ensenada that ruined every fish taco I'd had before it.</p>
+        <p>The secret was the cabbage. Shredded paper-thin, tossed with lime juice, a little salt, and left to sit for exactly ten minutes. Not five, not twenty. Ten. Enough time for the acid to soften the fibres without turning them limp.</p>
+        <p>It sat on top of battered white fish, underneath a drizzle of chipotle crema, and it was the best thing on the plate. Sometimes the supporting actor steals the whole show.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>Morning Eggs, Five Ways</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/sated/morning-eggs-five-ways.html</link>
+      <pubDate>Thu, 12 Mar 2026 07:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=1200" alt="Perfectly cooked eggs on toast" />
+        <p>An egg is a six-minute meal with a decade of depth. Here are five ways to cook one that feel completely different from each other, all using the same ingredient and a single pan.</p>
+        <p>Soft-scrambled with butter and chives. Fried in olive oil until the edges crisp. Poached in simmering water with a splash of vinegar. Basted with a lid and a tablespoon of water. Or the one nobody talks about enough: cracked directly into a small pot of simmering tomato sauce with cumin and a pinch of sugar.</p>
+        <p>Master all five and you'll never be bored at breakfast again.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>The Salad That Converted a Meat-and-Potatoes Household</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/sated/salad-converted-household.html</link>
+      <pubDate>Tue, 10 Mar 2026 09:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1200" alt="Vibrant salad with roasted vegetables" />
+        <p>My father has eaten the same rotation of seven dinners for thirty years. Salad, in his worldview, is what food eats. So when he asked for seconds of this one, I knew I'd done something right.</p>
+        <p>Roast cubes of butternut squash and red onion until caramelised. Toss them while still hot over bitter leaves — radicchio, frisée, anything with backbone. Add toasted walnuts, crumbled blue cheese, and a dressing made from sherry vinegar, honey, and Dijon mustard.</p>
+        <p>The warmth wilts the greens just enough. The sweetness of the squash balances the bitterness of the leaves. It's a salad that earns its place at the centre of the table, not the side.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>Why You Should Be Making Stock on Sundays</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/sated/stock-on-sundays.html</link>
+      <pubDate>Sun, 08 Mar 2026 08:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=1200" alt="Pot of homemade stock simmering" />
+        <p>A pot of stock takes five minutes of active work and four hours of doing nothing. You put bones, an onion, a carrot, a stick of celery, and cold water in a pot. You bring it to a gentle simmer. You walk away.</p>
+        <p>What you get back is a foundation for the entire week. Rice cooked in stock instead of water tastes like a different ingredient. A simple soup becomes something worth sitting down for.</p>
+        <p>The bones cost almost nothing. Freeze the stock in ice cube trays and you have flavour on demand for a month. It's the highest-return, lowest-effort thing you can do in a kitchen.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1547592180-85f173990554?w=1200" medium="image"/>
+    </item>
+
+  </channel>
+</rss>

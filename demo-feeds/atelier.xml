@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Atelier</title>
+    <link>https://streamlinelabs.io/misc/preread/examples/atelier/</link>
+    <description>Architecture, interiors, and the spaces we inhabit</description>
+    <language>en-us</language>
+    <atom:link href="https://streamlinelabs.io/misc/preread/examples/atelier/feed.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>The Concrete House That Feels Like a Forest</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/atelier/concrete-house-forest.html</link>
+      <pubDate>Fri, 21 Mar 2026 11:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200" alt="Modern house with large windows surrounded by trees" />
+        <p>From the street, it's a modest concrete box on a wooded hillside in southern Chile. Step inside and the walls dissolve. Floor-to-ceiling glass wraps three sides, framing the native beech forest so completely that the architecture disappears.</p>
+        <p>The architect, María Paz Undurraga, describes the design as "a frame for what was already there." The concrete is board-formed, bearing the grain of the timber moulds, so even the solid walls carry the texture of the forest. Heating comes from a single wood-burning stove at the centre of the open plan.</p>
+        <p>The house cost less to build than a conventional home of the same size. The restraint isn't a budget compromise; it's the entire point.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>What Japanese Joinery Can Teach Modern Builders</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/atelier/japanese-joinery-modern.html</link>
+      <pubDate>Tue, 18 Mar 2026 09:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1200" alt="Traditional Japanese wooden architecture" />
+        <p>Traditional Japanese timber joinery uses no nails, no screws, and no adhesive. Pieces of wood are cut to interlock with such precision that the joints are stronger than the material itself. Some of these connections have held for over a thousand years.</p>
+        <p>The practice is experiencing a revival among architects who see it as an answer to two modern problems: the environmental cost of steel fasteners and the brittle failure modes of rigid connections. A nailed joint snaps. A timber joint flexes. In earthquake-prone regions, that flexibility is the difference between a building that survives and one that doesn't.</p>
+        <p>Learning the technique takes years. But the growing interest suggests that speed of construction and longevity of construction might be two different metrics worth optimising for.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>The Return of the Courtyard Home</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/atelier/courtyard-home-return.html</link>
+      <pubDate>Sat, 15 Mar 2026 13:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200" alt="Modern home with interior courtyard" />
+        <p>For centuries, from Roman villas to Moroccan riads, homes were built around open courtyards. The form created private outdoor space, cross-ventilation, and natural light without exposing the interior to the street. Then suburbia happened, and the courtyard was replaced by the front lawn.</p>
+        <p>Now, as urban plots get smaller and privacy becomes harder to achieve, architects are rediscovering the courtyard as a solution to a very modern problem: how to live outdoors in a dense city without being overlooked.</p>
+        <p>The new courtyard homes don't look like their historical predecessors. They're compact, often single-storey, and use the enclosed garden as a second living room. But the principle is ancient and unchanged: the best outdoor space is the one that belongs only to you.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>Why Brutalism Looks Better With Age</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/atelier/brutalism-better-with-age.html</link>
+      <pubDate>Wed, 12 Mar 2026 15:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?w=1200" alt="Concrete brutalist building with dramatic angles" />
+        <p>Brutalist buildings were controversial when they were new. Half a century later, the ones that survived demolition campaigns are among the most photographed structures in their cities. The Barbican in London. Habitat 67 in Montreal. The National Theatre on the South Bank.</p>
+        <p>Concrete ages in a way that glass and steel don't. It stains, weathers, and accumulates character. Moss fills the board-formed grain. Rain streaks create patterns that the architect never drew. The building becomes a collaboration between the designer and time itself.</p>
+        <p>The current generation of architects citing Brutalist influences aren't nostalgic; they're practical. Exposed concrete is honest, durable, and requires almost no maintenance. In an era obsessed with sustainability, a building material that lasts a century without a paint job deserves a second look.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>Designing a Room Around One Good Chair</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/atelier/one-good-chair.html</link>
+      <pubDate>Sun, 09 Mar 2026 10:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200" alt="Minimalist room with a designer chair" />
+        <p>Interior design often starts with the room and works inward: walls, then furniture, then accessories. But some of the best spaces are designed in the opposite direction, starting with a single object and letting everything else respond to it.</p>
+        <p>A well-chosen chair anchors a room the way a thesis anchors an essay. It sets the tone, the palette, and the level of formality. Everything else in the space becomes a supporting argument.</p>
+        <p>The chair doesn't need to be expensive. It needs to be considered. A bent plywood Eames shell. A worn leather club chair from a flea market. A Hans Wegner Wishbone if you're feeling generous. Pick one, place it where it catches the light, and build outward from there.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>The Library That Bends With the Wind</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/atelier/library-bends-wind.html</link>
+      <pubDate>Thu, 06 Mar 2026 10:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200" alt="Modern library interior with dramatic ceiling" />
+        <p>The new public library in Stavanger, Norway, is designed to move. Its timber-lattice roof flexes up to eight centimetres in high winds, absorbing the force rather than resisting it. The engineers took their cue from Viking longships, which survived North Sea storms not through rigidity but through controlled flex.</p>
+        <p>Inside, the movement is imperceptible. But on stormy days, a subtle creak runs through the building — the sound of architecture doing exactly what it was designed to do. The patrons barely notice. The building is working so they don't have to worry.</p>
+        <p>It's a philosophy that applies beyond engineering. The best structures — physical, organisational, personal — are the ones that bend without breaking.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>What a 400-Year-Old Farmhouse Knows About Insulation</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/atelier/farmhouse-insulation.html</link>
+      <pubDate>Mon, 03 Mar 2026 09:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=1200" alt="Old stone farmhouse in countryside" />
+        <p>The stone walls of a seventeenth-century Cotswold farmhouse are 600 millimetres thick. They have no insulation, no cavity, and no vapour barrier. They also keep the house cool in summer and warm in winter, performing better than many modern builds with a fraction of the technology.</p>
+        <p>The principle is thermal mass. Dense stone absorbs heat slowly during the day and releases it slowly at night, smoothing out temperature swings that would send a timber-frame house reaching for the thermostat. The walls are both structure and climate system, doing two jobs with one material.</p>
+        <p>Modern building science is rediscovering what vernacular builders knew instinctively: sometimes the best insulation strategy isn't to trap heat — it's to slow it down.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=1200" medium="image"/>
+    </item>
+
+  </channel>
+</rss>

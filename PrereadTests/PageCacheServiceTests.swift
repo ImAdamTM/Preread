@@ -18,6 +18,10 @@ private func makeSource() throws -> Source {
         fetchFrequency: .manual,
         fetchStatus: .idle,
         cacheLevel: nil,
+        appearanceMode: nil,
+        layout: nil,
+        homeLayout: nil,
+        isCollapsed: false,
         sortOrder: 0
     )
     try DatabaseManager.shared.dbPool.write { db in

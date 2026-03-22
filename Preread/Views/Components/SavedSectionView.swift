@@ -10,45 +10,57 @@ struct SavedSectionView: View {
     @Namespace private var namespace
     @State private var articles: [Article] = []
     @State private var totalSavedCount: Int = 0
+    @AppStorage("savedSectionCollapsed") private var isCollapsed: Bool = false
 
     var body: some View {
-        Section {
-            ForEach(articles) { article in
-                ArticleRowView(
-                    article: article,
-                    namespace: namespace,
-                    onTap: { handleTap(article) },
-                    onToggleRead: { Task { await toggleRead(article) } },
-                    onToggleSave: { Task { await toggleSave(article) } },
-                    onRefetch: { Task { await refetchArticle(article) } },
-                    onDelete: { Task { await deleteArticle(article) } },
-                    sourceName: article.originalSourceName,
-                    showUnsaveInsteadOfSave: true
-                )
-                .matchedTransitionSource(id: "saved-section-\(article.id)", in: transitionNamespace) {
-                    $0.clipShape(RoundedRectangle(cornerRadius: 12))
-                        .background(Theme.background)
+        Group {
+            if isCollapsed {
+                Section {
+                    sectionHeader
+                        .listRowInsets(EdgeInsets(top: 9, leading: 20, bottom: 4, trailing: 20))
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
                 }
-                .listRowInsets(EdgeInsets())
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.clear)
-            }
+            } else {
+                Section {
+                    ForEach(articles) { article in
+                        ArticleRowView(
+                            article: article,
+                            namespace: namespace,
+                            onTap: { handleTap(article) },
+                            onToggleRead: { Task { await toggleRead(article) } },
+                            onToggleSave: { Task { await toggleSave(article) } },
+                            onRefetch: { Task { await refetchArticle(article) } },
+                            onDelete: { Task { await deleteArticle(article) } },
+                            sourceName: article.originalSourceName,
+                            showUnsaveInsteadOfSave: true
+                        )
+                        .matchedTransitionSource(id: "saved-section-\(article.id)", in: transitionNamespace) {
+                            $0.clipShape(RoundedRectangle(cornerRadius: 12))
+                                .background(Theme.background)
+                        }
+                        .listRowInsets(EdgeInsets())
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                    }
 
-            if totalSavedCount > articles.count {
-                Button(action: onViewAll) {
-                    Text("View all \(totalSavedCount) articles")
-                        .font(Theme.scaledFont(size: 14, weight: .medium, relativeTo: .subheadline))
-                        .foregroundStyle(Theme.accentGradient)
-                        .frame(maxWidth: .infinity)
+                    if totalSavedCount > articles.count {
+                        Button(action: onViewAll) {
+                            Text("View all \(totalSavedCount) articles")
+                                .font(Theme.scaledFont(size: 14, weight: .medium, relativeTo: .subheadline))
+                                .foregroundStyle(Theme.accentGradient)
+                                .frame(maxWidth: .infinity)
+                        }
+                        .listRowInsets(EdgeInsets(top: 12, leading: 0, bottom: 15, trailing: 0))
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                    }
+                } header: {
+                    sectionHeader
+                        .padding(.bottom, 4)
+                        .textCase(nil)
                 }
-                .listRowInsets(EdgeInsets(top: 12, leading: 0, bottom: 15, trailing: 0))
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.clear)
             }
-        } header: {
-            sectionHeader
-                .padding(.bottom, 4)
-                .textCase(nil)
         }
         .task {
             await loadArticles()
@@ -75,6 +87,13 @@ struct SavedSectionView: View {
             return "Latest \(articles.count) · \(totalSavedCount) articles"
         }
         return "\(totalSavedCount) article\(totalSavedCount == 1 ? "" : "s")"
+    }
+
+    private func toggleCollapsed() {
+        withAnimation(.spring(duration: 0.35, bounce: 0.0)) {
+            isCollapsed.toggle()
+        }
+        HapticManager.modeToggle()
     }
 
     private var sectionHeader: some View {
@@ -107,6 +126,25 @@ struct SavedSectionView: View {
             }
 
             Spacer(minLength: 4)
+
+            if isCollapsed && totalSavedCount > 0 {
+                Text("\(totalSavedCount)")
+                    .font(Theme.scaledFont(size: 15))
+                    .foregroundColor(Theme.textSecondary)
+                    .transition(.opacity)
+            }
+
+            Image(systemName: "chevron.right")
+                .font(.system(size: 13, weight: .semibold))
+                .foregroundStyle(isCollapsed ? AnyShapeStyle(Theme.textSecondary) : AnyShapeStyle(Theme.accentGradient))
+                .rotationEffect(.degrees(isCollapsed ? 0 : 90))
+                .offset(y: isCollapsed ? 0 : -1)
+                .animation(.spring(duration: 0.35, bounce: 0.0), value: isCollapsed)
+                .frame(width: 20, height: 20)
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            toggleCollapsed()
         }
     }
 
