@@ -208,11 +208,17 @@ let dateFormatter: DateFormatter = {
 
 // MARK: - Shared session factory
 
+/// User-Agent string matching the main app's FeedService — a full Safari UA.
+/// Truncated or generic UAs get blocked by Cloudflare and similar WAFs.
+let sharedUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"
+
 func makeSession(timeout: TimeInterval = 15) -> URLSession {
     URLSession(configuration: {
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = timeout
+        config.timeoutIntervalForResource = timeout * 2
         config.httpMaximumConnectionsPerHost = 5
+        config.httpAdditionalHeaders = ["User-Agent": sharedUserAgent]
         return config
     }())
 }
@@ -385,8 +391,9 @@ func runAudit() async throws {
                 } else {
                     deadFeeds.append((name: feed.name, feedURL: feed.feedURL, category: feed.category))
                     invalidCount += 1
+                    let issue = result.issue?.description ?? "unknown"
                     if verbose {
-                        print("  \u{2717} \(feed.name) (\(feed.feedURL))")
+                        print("  \u{2717} \(feed.name) (\(feed.feedURL)) — \(issue)")
                     }
                 }
             }

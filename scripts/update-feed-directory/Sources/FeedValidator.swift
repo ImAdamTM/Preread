@@ -45,10 +45,7 @@ enum FeedValidator {
         }
 
         do {
-            var request = URLRequest(url: url, timeoutInterval: 15)
-            request.setValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36", forHTTPHeaderField: "User-Agent")
-
-            let (data, response) = try await session.data(for: request)
+            let (data, response) = try await fetchWithRetry(url: url, session: session)
 
             guard let httpResponse = response as? HTTPURLResponse,
                   (200...299).contains(httpResponse.statusCode) else {
@@ -164,15 +161,39 @@ enum FeedValidator {
         return nil
     }
 
+    // MARK: - HTTP fetch with retry
+
+    /// Fetches data with retry logic matching the app's FeedService.
+    /// Retries on transient QUIC/network errors (HTTP/3 negotiation, connection reset, timeout).
+    private static func fetchWithRetry(url: URL, session: URLSession,
+                                       timeout: TimeInterval = 15) async throws -> (Data, URLResponse) {
+        var request = URLRequest(url: url, timeoutInterval: timeout)
+        request.assumesHTTP3Capable = false
+
+        var lastError: Error?
+        for attempt in 0...2 {
+            do {
+                return try await session.data(for: request)
+            } catch {
+                let nsError = error as NSError
+                let isTransient = nsError.domain == NSURLErrorDomain &&
+                    (nsError.code == -1017 || nsError.code == -1005 || nsError.code == -1001)
+                if isTransient && attempt < 2 {
+                    lastError = error
+                    try? await Task.sleep(nanoseconds: UInt64(500_000_000 * (attempt + 1)))
+                    continue
+                }
+                throw error
+            }
+        }
+        throw lastError ?? URLError(.unknown)
+    }
+
     /// Fetches an HTML page and looks for <link rel="alternate" type="application/rss+xml">
     /// or atom+xml tags.
     private static func discoverFromHTML(baseURL: URL, session: URLSession) async -> String? {
         do {
-            var request = URLRequest(url: baseURL, timeoutInterval: 15)
-            request.setValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
-                           forHTTPHeaderField: "User-Agent")
-
-            let (data, response) = try await session.data(for: request)
+            let (data, response) = try await fetchWithRetry(url: baseURL, session: session)
             guard let httpResponse = response as? HTTPURLResponse,
                   (200...299).contains(httpResponse.statusCode) else { return nil }
 

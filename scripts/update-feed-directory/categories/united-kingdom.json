@@ -46,5 +46,21 @@
       "world",
       "culture"
     ]
+  },
+  {
+    "category": "United Kingdom",
+    "country": "United Kingdom",
+    "description": "Breaking news, sport, showbiz, and entertainment from Britain's biggest newspaper",
+    "feedURL": "https://www.thesun.co.uk/feed/",
+    "id": "a3405078-173f-5186-b562-cf7b911acee1",
+    "name": "The Sun",
+    "siteURL": "https://www.thesun.co.uk",
+    "tags": [
+      "tabloid",
+      "showbiz",
+      "sport",
+      "crime",
+      "entertainment"
+    ]
   }
 ]

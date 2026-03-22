@@ -98,5 +98,18 @@
       <media:content url="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=1200" medium="image"/>
     </item>
 
+    <item>
+      <title>The Bookshop at the End of the World</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/meridian/bookshop-end-of-world.html</link>
+      <pubDate>Thu, 27 Feb 2026 10:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1526243741027-444d633d7365?w=1200" alt="Old bookshop interior with stacked shelves" />
+        <p>Wigtown is a town of 900 people on the southwest coast of Scotland. It has one pub, one post office, and eleven bookshops. The entire town is a bookshop, or rather, a town that decided to become one.</p>
+        <p>In 1998, Wigtown was dying. The local economy had collapsed, young people were leaving, and the high street was empty. Then someone proposed an experiment: designate the town as Scotland's National Book Town and invite second-hand booksellers to set up shop in the abandoned buildings.</p>
+        <p>It worked. The bookshops drew visitors, the visitors drew cafés, and the cafés drew residents. Today, 100,000 people a year visit a town that most maps barely acknowledge. The lesson isn't about books — it's about identity. Give a place a reason to exist, and people will find a reason to come.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1526243741027-444d633d7365?w=1200" medium="image"/>
+    </item>
+
   </channel>
 </rss>

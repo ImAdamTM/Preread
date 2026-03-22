@@ -98,5 +98,29 @@
       <media:content url="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1200" medium="image"/>
     </item>
 
+    <item>
+      <title>The Rise of the 32-Hour Work Week</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/currentwave/32-hour-work-week.html</link>
+      <pubDate>Sat, 07 Mar 2026 09:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=1200" alt="Empty office with natural light" />
+        <p>Iceland ran the world's largest trial of a shorter work week between 2015 and 2019. The results were unequivocal: productivity held steady or improved, employee wellbeing rose dramatically, and burnout plummeted. Now dozens of companies worldwide are following suit.</p>
+        <p>The 32-hour week doesn't mean cramming five days into four. It means rethinking which meetings, reports, and processes actually produce value — and cutting the ones that don't. Most organisations, when forced to be honest, discover that a startling amount of their work week is performative.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>Your Phone's Best Feature Is the One You Never Use</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/currentwave/phones-best-feature.html</link>
+      <pubDate>Thu, 05 Mar 2026 11:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1523206489230-c012c64b2b48?w=1200" alt="Person holding a phone with a calm screen" />
+        <p>Every phone shipped in the last three years has a Focus mode, a Screen Time tracker, and a Do Not Disturb schedule. Almost nobody uses them. The tools to reclaim your attention are already in your pocket — they're just buried three menus deep behind the apps designed to steal it.</p>
+        <p>Setting up a custom Focus mode takes five minutes and changes the entire character of your phone. A "Reading" focus that silences everything except calls. A "Morning" focus that hides social apps until noon. The phone becomes a different device depending on what you're trying to do.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1523206489230-c012c64b2b48?w=1200" medium="image"/>
+    </item>
+
   </channel>
 </rss>

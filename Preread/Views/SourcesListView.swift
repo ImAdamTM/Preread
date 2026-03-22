@@ -356,16 +356,18 @@ struct SourcesListView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             )
-            .frame(height: 100)
+            .frame(height: 72)
             .offset(x: 5)
 
-            Text("Your library is empty")
-                .font(Theme.scaledFont(size: 22, weight: .bold, relativeTo: .title2))
-                .foregroundColor(Theme.textPrimary)
+            VStack(spacing: 6) {
+                Text("Your library is empty")
+                    .font(Theme.scaledFont(size: 22, weight: .semibold, relativeTo: .title2))
+                    .foregroundColor(Theme.textPrimary)
 
-            Text("Add a site to get started...")
-                .font(Theme.scaledFont(size: 15, relativeTo: .subheadline))
-                .foregroundColor(Theme.textSecondary)
+                Text("Add a site to get started...")
+                    .font(Theme.scaledFont(size: 15, relativeTo: .subheadline))
+                    .foregroundColor(Theme.textSecondary)
+            }
 
             Button {
                 showAddSource = true

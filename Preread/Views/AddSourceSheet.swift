@@ -285,22 +285,31 @@ struct AddSourceSheet: View {
                 }
             }
 
-            // Discover button
+            // Discover link
             Button {
                 navigateToDiscover()
             } label: {
                 HStack(spacing: 5) {
                     Text("Browse topics")
-                        .font(Theme.scaledFont(size: 15, weight: .semibold))
                     Image(systemName: "sparkles")
-                        .font(.system(size: 13, weight: .medium))
+                        .font(.system(size: 12, weight: .medium))
                 }
+                .font(Theme.scaledFont(size: 15, weight: .semibold))
                 .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 16)
-                .background(Theme.accentGradient)
-                .clipShape(RoundedRectangle(cornerRadius: 14))
+                .overlay(
+                    Theme.accentGradient
+                        .mask(
+                            HStack(spacing: 5) {
+                                Text("Browse topics")
+                                Image(systemName: "sparkles")
+                                    .font(.system(size: 12, weight: .medium))
+                            }
+                            .font(Theme.scaledFont(size: 15, weight: .semibold))
+                        )
+                )
             }
+            .frame(maxWidth: .infinity)
+            .padding(.top, 8)
         }
     }
 

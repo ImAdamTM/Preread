@@ -47,10 +47,7 @@ enum ContentQualityChecker {
 
             do {
                 var request = URLRequest(url: url, timeoutInterval: 10)
-                request.setValue(
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-                    forHTTPHeaderField: "User-Agent"
-                )
+                request.assumesHTTP3Capable = false
 
                 let (data, response) = try await session.data(for: request)
 

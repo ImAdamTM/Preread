@@ -98,5 +98,29 @@
       <media:content url="https://images.unsplash.com/photo-1500642243832-3b380609e5ae?w=1200" medium="image"/>
     </item>
 
+    <item>
+      <title>The Sound the Universe Makes</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/prism/sound-universe-makes.html</link>
+      <pubDate>Sun, 02 Mar 2026 08:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=1200" alt="Deep space nebula" />
+        <p>Space isn't silent. NASA's Chandra X-ray Observatory has been translating astronomical data into sound since 2020, and the results are haunting. Galaxy clusters hum in B-flat, 57 octaves below middle C. Black holes groan at frequencies so low they'd take 10 million years to complete a single oscillation.</p>
+        <p>The technique is called sonification — mapping data that we normally visualise into audio frequencies we can hear. It's not artistic licence; it's a genuine analytical tool that reveals patterns invisible on a graph.</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=1200" medium="image"/>
+    </item>
+
+    <item>
+      <title>The Plant That Learned to Count</title>
+      <link>https://streamlinelabs.io/misc/preread/examples/prism/plant-learned-count.html</link>
+      <pubDate>Wed, 26 Feb 2026 14:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <img src="https://images.unsplash.com/photo-1530968033775-2c92f0cf0e84?w=1200" alt="Venus flytrap close-up" />
+        <p>The Venus flytrap counts. When an insect brushes one of the trigger hairs inside its trap, the plant registers the touch but doesn't close. Only on the second touch, within 20 seconds of the first, does the trap snap shut. The plant is counting to two, and it's doing it without a brain, without neurons, without anything we'd recognise as a nervous system.</p>
+        <p>But it goes further. After closing, the trap counts three more stimulations before it begins secreting digestive enzymes. Five touches total: two to close, three more to digest. The plant is using a counting mechanism to distinguish between a raindrop (one touch) and a meal (repeated movement).</p>
+      ]]></description>
+      <media:content url="https://images.unsplash.com/photo-1530968033775-2c92f0cf0e84?w=1200" medium="image"/>
+    </item>
+
   </channel>
 </rss>
