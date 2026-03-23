@@ -458,6 +458,17 @@ struct SettingsView: View {
             }
             .settingsRow()
 
+            Link(destination: URL(string: "https://preread.app/terms")!) {
+                HStack {
+                    settingLabel("Terms of use")
+                    Spacer()
+                    Image(systemName: "arrow.up.right")
+                        .font(Theme.scaledFont(size: 12, weight: .semibold))
+                        .foregroundColor(Theme.textSecondary)
+                }
+            }
+            .settingsRow()
+
             Button {
                 requestReview()
             } label: {

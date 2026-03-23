@@ -2,6 +2,7 @@
 
 import { useRef, useMemo, useEffect, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { EffectComposer } from "@react-three/postprocessing";
 import * as THREE from "three";
 import { FlipSim, clamp, mix } from "./FlipSim";
 
@@ -60,7 +61,7 @@ function FlipFluidScene() {
     h: 0,
     gravity: 8,
   });
-  const mouseRef = useRef({ x: 0, y: 0, prevX: 0, prevY: 0, isDown: false, onScreen: false });
+  const mouseRef = useRef({ x: 0, y: 0, prevX: 0, prevY: 0, onScreen: false });
   const flipSimRef = useRef<FlipSim | null>(null);
   const posBufferRef = useRef<THREE.InstancedInterleavedBuffer | null>(null);
   const infoBufferRef = useRef<THREE.InstancedInterleavedBuffer | null>(null);
@@ -115,12 +116,6 @@ function FlipFluidScene() {
     const onLeave = () => {
       mouseRef.current.onScreen = false;
     };
-    const onDown = () => {
-      mouseRef.current.isDown = true;
-    };
-    const onUp = () => {
-      mouseRef.current.isDown = false;
-    };
     const onTouch = (e: TouchEvent) => {
       if (e.touches.length > 0) {
         const rect = canvas.getBoundingClientRect();
@@ -132,35 +127,42 @@ function FlipFluidScene() {
       }
     };
     const onTouchStart = (e: TouchEvent) => {
-      onDown();
       onTouch(e);
     };
     const onTouchEnd = () => {
-      onUp();
       mouseRef.current.onScreen = false;
     };
+    // Mouse on window (desktop — hover only, no click)
     window.addEventListener("mousemove", onMove);
     document.addEventListener("mouseleave", onLeave);
-    window.addEventListener("mousedown", onDown);
-    window.addEventListener("mouseup", onUp);
-    window.addEventListener("touchmove", onTouch);
-    window.addEventListener("touchstart", onTouchStart);
-    window.addEventListener("touchend", onTouchEnd);
+    // Touch only on the canvas element
+    canvas.addEventListener("touchmove", onTouch, { passive: true });
+    canvas.addEventListener("touchstart", onTouchStart, { passive: true });
+    canvas.addEventListener("touchend", onTouchEnd);
     return () => {
       window.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseleave", onLeave);
-      window.removeEventListener("mousedown", onDown);
-      window.removeEventListener("mouseup", onUp);
-      window.removeEventListener("touchmove", onTouch);
-      window.removeEventListener("touchstart", onTouchStart);
-      window.removeEventListener("touchend", onTouchEnd);
+      canvas.removeEventListener("touchmove", onTouch);
+      canvas.removeEventListener("touchstart", onTouchStart);
+      canvas.removeEventListener("touchend", onTouchEnd);
     };
   }, [gl]);
 
-  // Init/reinit sim on size change
+  // Track previous width to only reinit on actual width changes
+  const prevWidthRef = useRef(0);
+
+  // Init/reinit sim only when width changes (not height — mobile browser chrome causes height jitter)
   useEffect(() => {
     const w = size.width, h = size.height;
     if (w === 0 || h === 0) return;
+
+    // Height-only change (mobile scroll bar show/hide) — just update aspect uniform
+    if (prevWidthRef.current === w && simRef.current.initialized) {
+      simRef.current.h = h;
+      uniforms.u_aspect.value = w / h;
+      return;
+    }
+    prevWidthRef.current = w;
 
     const aspect = h / w;
     const tankW = 2, tankH = 2 * aspect;
@@ -238,18 +240,12 @@ function FlipFluidScene() {
       vy = (tmy - ((pmy / h) * sim.tankInnerHeight + sim.h)) / dt;
     }
     const cr =
-      (150 / w) *
-      (mouse.isDown ? 0.35 : clamp(Math.sqrt(vx * vx + vy * vy) / 2, 0.2, 1));
+      (150 / w) * clamp(Math.sqrt(vx * vx + vy * vy) / 2, 0.2, 1);
 
+    // Emitter always at fixed center — no click-to-reposition
     sim.isFlushing = false;
-    if (!mouse.isDown) {
-      sim.emitterPosA.set(sim.tankInnerWidth * 0.3 + sim.h, s.tankH * 0.5);
-      sim.emitterPosB.set(sim.tankInnerWidth * 0.7 + sim.h, s.tankH * 0.5);
-    } else {
-      sim.isFlushing = true;
-      sim.emitterPosA.set(tmx, tmy);
-      sim.emitterPosB.set(tmx, tmy);
-    }
+    sim.emitterPosA.set(sim.tankInnerWidth * 0.3 + sim.h, s.tankH * 0.5);
+    sim.emitterPosB.set(sim.tankInnerWidth * 0.7 + sim.h, s.tankH * 0.5);
 
     sim.simulate(
       dt,
@@ -308,6 +304,7 @@ export function FlipFluidCanvas({ className = "" }: { className?: string }) {
         style={{ width: "100%", height: "100%" }}
       >
         <FlipFluidScene />
+        <EffectComposer multisampling={8}>{null}</EffectComposer>
       </Canvas>
     </div>
   );

@@ -30,6 +30,9 @@ export function Footer() {
           <a href="/privacy" className="hover:text-white transition-colors">
             Privacy Policy
           </a>
+          <a href="/terms" className="hover:text-white transition-colors">
+            Terms of Use
+          </a>
         </div>
         <div className="text-sm" style={{ color: "rgba(136,136,153,0.5)" }}>
           © 2026 Streamline Labs LLC

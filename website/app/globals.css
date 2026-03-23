@@ -2,34 +2,109 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
 body {
-  font-family: 'Gabarito', system-ui, sans-serif;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
-h1, h2, h3, h4, h5, h6, p {
+body {
+  font-family: "Gabarito", system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
   text-wrap: balance;
 }
 
 ::selection {
-  background: #A855F7;
+  background: #a855f7;
   color: #fff;
 }
 
 ::-moz-selection {
-  background: #A855F7;
+  background: #a855f7;
   color: #fff;
 }
 
-.mockup-scroll::-webkit-scrollbar { width: 4px; }
-.mockup-scroll::-webkit-scrollbar-track { background: transparent; }
-.mockup-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.mockup-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.mockup-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.mockup-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
 
 .gradient-text {
   @apply text-transparent bg-clip-text;
-  background-image: linear-gradient(90deg, #818CF8, #C084FC);
+  background-image: linear-gradient(90deg, #818cf8, #c084fc);
 }
 
 .accent-gradient {
-  background: linear-gradient(90deg, #818CF8, #C084FC);
+  background: linear-gradient(90deg, #818cf8, #c084fc);
+}
+
+.phone-clip-mobile {
+  overflow: hidden;
+  max-height: 280px;
+  -webkit-mask-image: linear-gradient(to bottom, white 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, white 80%, transparent 100%);
+}
+
+@media (min-width: 768px) {
+  .phone-clip-mobile {
+    max-height: none;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+.ipad-scale-wrapper {
+  width: 100%;
+  max-width: 850px;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ipad-scale-wrapper > div {
+  transform-origin: top left;
+  scale: 0.4;
+  margin-bottom: -330px;
+  margin-right: calc(-850px * (1 - 0.4));
+}
+@media (min-width: 480px) {
+  .ipad-scale-wrapper > div {
+    scale: 0.55;
+    margin-bottom: -248px;
+    margin-right: calc(-850px * (1 - 0.55));
+  }
+}
+@media (min-width: 640px) {
+  .ipad-scale-wrapper > div {
+    scale: 0.7;
+    margin-bottom: -165px;
+    margin-right: calc(-850px * (1 - 0.7));
+  }
+}
+@media (min-width: 768px) {
+  .ipad-scale-wrapper > div {
+    scale: 0.85;
+    margin-bottom: -82px;
+    margin-right: calc(-850px * (1 - 0.85));
+  }
+}
+@media (min-width: 900px) {
+  .ipad-scale-wrapper > div {
+    scale: 1;
+    margin-bottom: 0;
+    margin-right: 0;
+  }
 }

@@ -40,3 +40,10 @@ export const images = {
   octopus: 'https://images.unsplash.com/photo-1545671913-b89ac1b4ac10?w=400&h=400&fit=crop',
   fjord: 'https://images.unsplash.com/photo-1520769669658-f07657f5a307?w=400&h=400&fit=crop',
 };
+
+/**
+ * Matches the app's makeAccentGradientImage():
+ * 64x64 diagonal gradient from Teal (#22D3EE) to Purple (#A855F7),
+ * drawn from (0,0) to (w,h) = 135deg.
+ */
+export const accentGradientBg = "linear-gradient(135deg, #22D3EE, #A855F7)";

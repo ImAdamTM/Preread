@@ -2,7 +2,7 @@
 import { PhoneFrame, StatusBar } from "./PhoneFrame";
 import { Logo } from "./Logo";
 import { PlusIcon, RefreshIcon, GearIcon, ChevronDownIcon } from "./Icons";
-import { theme as t, images as img } from "./theme";
+import { theme as t, images as img, accentGradientBg } from "./theme";
 
 export function HomePhone() {
   const articles = [
@@ -51,24 +51,32 @@ export function HomePhone() {
         style={{ background: t.bg, aspectRatio: "1/2.15" }}
       >
         {/*
-          Background blur: diagonal teal→purple gradient, blurred at 40px,
-          30% opacity, masked to fade out vertically.
-          Matches makeAccentGradientImage() + blur(radius:40) + opacity(0.3)
-          + LinearGradient mask from SourcesListView.swift
+          Background blur — matches app exactly:
+          1. makeAccentGradientImage(): 64x64 diagonal gradient from Teal to Purple
+          2. Resized to fill width, 140px height
+          3. blur(radius: 40)
+          4. opacity(0.3)
+          5. Masked: solid 0→40%, fade to transparent at 100%
         */}
         <div
-          className="absolute top-0 left-0 right-0 pointer-events-none z-0"
+          className="absolute top-0 left-0 right-0 pointer-events-none z-0 overflow-hidden"
           style={{
-            height: 160,
-            background: `linear-gradient(135deg, ${t.accent}, ${t.purple})`,
-            filter: "blur(40px)",
+            height: 140,
             opacity: 0.3,
-            maskImage:
-              "linear-gradient(to bottom, white 0%, white 40%, transparent 100%)",
-            WebkitMaskImage:
-              "linear-gradient(to bottom, white 0%, white 40%, transparent 100%)",
+            maskImage: "linear-gradient(to bottom, white 0%, white 40%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, white 0%, white 40%, transparent 100%)",
           }}
-        />
+        >
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              background: accentGradientBg,
+              filter: "blur(40px)",
+              transform: "scale(1.5)",
+            }}
+          />
+        </div>
 
         <div className="relative z-10">
           <StatusBar />

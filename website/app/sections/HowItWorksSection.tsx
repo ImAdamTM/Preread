@@ -20,7 +20,7 @@ const steps = [
     num: "3",
     title: "Read anywhere. Even offline.",
     desc: "On the train, on a plane, or just on the sofa. Your articles are always there.",
-    image: "/assets/article.webp",
+    image: "/assets/article-alt.webp",
   },
 ];
 
@@ -55,14 +55,16 @@ export function HowItWorksSection() {
               >
                 {step.desc}
               </p>
-              <PhoneFrame className="w-full max-w-[260px]">
-                <img
-                  src={step.image}
-                  alt={step.title}
-                  className="w-full h-auto block"
-                  style={{ aspectRatio: "1260 / 2736" }}
-                />
-              </PhoneFrame>
+              <div className="w-full max-w-[260px] phone-clip-mobile">
+                <PhoneFrame className="w-full">
+                  <img
+                    src={step.image}
+                    alt={step.title}
+                    className="w-full h-auto block"
+                    style={{ aspectRatio: "1260 / 2736" }}
+                  />
+                </PhoneFrame>
+              </div>
             </ScrollScale>
           ))}
         </div>

@@ -12,13 +12,14 @@ const sidebarArticles = [
 
 export function IPadSplitView() {
   return (
+    <div className="ipad-scale-wrapper" style={{ margin: '0 auto' }}>
     <div
-      className="mx-auto w-full max-w-[850px] h-[500px] md:h-[550px] rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden flex text-left"
+      className="w-[850px] h-[550px] rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden flex text-left"
       style={{ background: t.bg, boxShadow: "0 30px 60px -15px rgba(0,0,0,0.8), 0 0 60px rgba(107,107,240,0.06)" }}
     >
       {/* ── Sidebar ── */}
       <div
-        className="hidden md:flex w-[260px] border-r flex-col flex-shrink-0 overflow-hidden relative"
+        className="flex w-[260px] border-r flex-col flex-shrink-0 overflow-hidden relative"
         style={{ borderColor: t.border, background: t.bg }}
       >
         {/* Blurred favicon background — matches SourceHeroView.blurredBackground */}
@@ -141,7 +142,7 @@ export function IPadSplitView() {
         </div>
 
         {/* Article content */}
-        <div className="flex-1 px-8 py-6 overflow-y-auto mockup-scroll relative z-10">
+        <div className="flex-1 px-8 py-6 overflow-hidden relative z-10">
           <div className="max-w-lg">
             <h3
               className="text-[24px] font-heading font-bold leading-[1.15] mb-2"
@@ -171,6 +172,7 @@ export function IPadSplitView() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

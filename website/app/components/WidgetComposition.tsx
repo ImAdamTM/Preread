@@ -40,36 +40,38 @@ function WidgetCard({
 
 export function WidgetComposition({ className = "" }: { className?: string }) {
   return (
-    <div
-      className={`relative ${className}`}
-      style={{ width: 400, height: 460 }}
-    >
-      <WidgetCard
-        src="/assets/widget-large.webp"
-        alt="Large widget"
-        style={{ width: 250, top: 0, left: 0, zIndex: 1 }}
-        slideX={["-60%", "0%"]}
-      />
-      <WidgetCard
-        src="/assets/widget-wide.webp"
-        alt="Wide widget"
-        style={{ width: 260, top: 90, right: -30, zIndex: 2 }}
-        slideX={["40%", "0%"]}
-        slideY={[40, 0]}
-      />
-      <WidgetCard
-        src="/assets/widget-small.webp"
-        alt="Small widget"
-        style={{
-          width: 190,
-          bottom: 50,
-          left: 50,
-          zIndex: 3,
-        }}
-        slideX={["-30%", "0%"]}
-        borderRadius={35}
-        slideY={[60, 0]}
-      />
+    <div className={`flex justify-center ${className}`}>
+      <div
+        className="relative scale-[0.9] md:scale-100 origin-top"
+        style={{ width: 400, height: 460 }}
+      >
+        <WidgetCard
+          src="/assets/widget-large.webp"
+          alt="Large widget"
+          style={{ width: 250, top: 0, left: -70, zIndex: 1 }}
+          slideX={["-60%", "0%"]}
+        />
+        <WidgetCard
+          src="/assets/widget-wide.webp"
+          alt="Wide widget"
+          style={{ width: 260, top: 90, right: -70, zIndex: 2 }}
+          slideX={["40%", "0%"]}
+          slideY={[40, 0]}
+        />
+        <WidgetCard
+          src="/assets/widget-small.webp"
+          alt="Small widget"
+          style={{
+            width: 190,
+            bottom: 50,
+            left: 50,
+            zIndex: 3,
+          }}
+          slideX={["-30%", "0%"]}
+          borderRadius={35}
+          slideY={[60, 0]}
+        />
+      </div>
     </div>
   );
 }

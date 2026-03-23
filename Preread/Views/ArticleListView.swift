@@ -291,17 +291,39 @@ struct ArticleListView: View {
         }
     }
 
-    @ViewBuilder
     private var navRefreshIcon: some View {
-        if isSourceRefreshing {
-            ProgressView()
-                .scaleEffect(0.7)
-                .tint(Theme.textPrimary)
-        } else {
+        let isRefreshing = isSourceRefreshing
+        return ZStack {
             Image(systemName: "arrow.clockwise")
-                .font(Theme.scaledFont(size: 17))
+                .font(Theme.scaledFont(size: 15, weight: .medium))
                 .foregroundColor(Theme.textPrimary)
+                .opacity(isRefreshing ? 0 : 1)
+                .scaleEffect(isRefreshing ? 0.5 : 1)
+
+            TimelineView(.animation(minimumInterval: 1.0 / 60.0, paused: !isRefreshing)) { context in
+                let angle = context.date.timeIntervalSinceReferenceDate.remainder(dividingBy: 1.2) / 1.2 * 360
+                ZStack {
+                    Circle()
+                        .stroke(Theme.borderProminent, lineWidth: 2)
+                        .frame(width: 20, height: 20)
+
+                    Circle()
+                        .trim(from: 0, to: 0.3)
+                        .stroke(
+                            AngularGradient(
+                                colors: [Theme.accent.opacity(0.6), Theme.accent],
+                                center: .center
+                            ),
+                            style: StrokeStyle(lineWidth: 2, lineCap: .round)
+                        )
+                        .frame(width: 20, height: 20)
+                        .rotationEffect(.degrees(angle))
+                }
+            }
+            .opacity(isRefreshing ? 1 : 0)
+            .scaleEffect(isRefreshing ? 1 : 0.5)
         }
+        .animation(.easeInOut(duration: 0.25), value: isRefreshing)
     }
 
     // MARK: - Nav bar title opacity

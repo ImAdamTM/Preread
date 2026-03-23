@@ -2,7 +2,7 @@
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { EffectComposer } from "@react-three/postprocessing";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   DoubleSide,
   LinearSRGBColorSpace,
@@ -61,7 +61,18 @@ function BackgroundPlane() {
   );
 }
 
+function useIsTouchDevice() {
+  const [isTouch, setIsTouch] = useState(false);
+  useEffect(() => {
+    setIsTouch("ontouchstart" in window || navigator.maxTouchPoints > 0);
+  }, []);
+  return isTouch;
+}
+
 export default function SceneCanvas() {
+  const isTouch = useIsTouchDevice();
+  if (isTouch) return null;
+
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
       <Canvas

@@ -6,7 +6,7 @@ import { motion } from "motion/react";
 export function Header() {
   return (
     <motion.header
-      className="w-full fixed top-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/5"
+      className="w-full fixed top-0 z-50 bg-black/10 backdrop-blur-md border-b border-white/5"
       style={{ transform: "translateY(-100%)" }}
       initial={{ y: "-100%" }}
       animate={{ y: 0 }}
