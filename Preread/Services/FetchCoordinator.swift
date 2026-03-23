@@ -27,9 +27,27 @@ final class FetchCoordinator: ObservableObject {
     /// specific feed when the app returned to foreground.
     private var deferredStaleSources: [Source] = []
 
+    /// Source IDs that have been deleted. Status updates for these sources
+    /// are suppressed so that in-flight fetches don't trigger UI reloads
+    /// that temporarily resurrect a deleted source.
+    private var deletedSourceIDs: Set<UUID> = []
+
     private let maxConcurrentSources = 3
 
     private init() {}
+
+    /// Marks a source as deleted so that any in-flight fetch activity for it
+    /// is silently ignored. Call this *before* removing the source from the DB.
+    func cancelSource(_ id: UUID) {
+        deletedSourceIDs.insert(id)
+        sourceStatuses.removeValue(forKey: id)
+    }
+
+    /// Sets a source's refresh status, suppressing updates for deleted sources.
+    private func setStatus(_ status: SourceRefreshState, for sourceID: UUID) {
+        guard !deletedSourceIDs.contains(sourceID) else { return }
+        sourceStatuses[sourceID] = status
+    }
 
     // MARK: - Refresh all sources
 
@@ -151,11 +169,11 @@ final class FetchCoordinator: ObservableObject {
     /// Refreshes a single source. Always runs even if a bulk refresh is in progress.
     /// Uses priority caching (top 5 first, then backfill).
     func refreshSingleSource(_ source: Source) async {
-        sourceStatuses[source.id] = .refreshing
+        setStatus(.refreshing, for: source.id)
 
         let result = await parseFeedAndPrepareArticles(source)
         guard let result else {
-            sourceStatuses[source.id] = .failed
+            setStatus(.failed, for: source.id)
             return
         }
 
@@ -192,7 +210,7 @@ final class FetchCoordinator: ObservableObject {
         await pruneExcessArticles(for: source.id)
         await pruneExcessPendingArticles(for: source.id)
 
-        sourceStatuses[source.id] = .completed
+        setStatus(.completed, for: source.id)
     }
 
     // MARK: - Three-phase refresh pipeline
@@ -222,7 +240,7 @@ final class FetchCoordinator: ObservableObject {
     private func refreshSourcesWithPriority(_ sources: [Source], skipBackfill: Bool = false) async {
         // Reset statuses
         for source in sources {
-            sourceStatuses[source.id] = .refreshing
+            setStatus(.refreshing, for: source.id)
         }
 
         // ── Phase 1: Parse feeds concurrently ──
@@ -258,7 +276,7 @@ final class FetchCoordinator: ObservableObject {
         // Mark sources that failed parsing (no result returned)
         let parsedSourceIDs = Set(parseResults.map(\.source.id))
         for source in sources where !parsedSourceIDs.contains(source.id) {
-            sourceStatuses[source.id] = .failed
+            setStatus(.failed, for: source.id)
         }
 
         // ── Phase 2: Priority-cache top 5 per source (round-robin) ──
@@ -289,7 +307,7 @@ final class FetchCoordinator: ObservableObject {
             await pruneExcessArticles(for: result.source.id)
             await pruneExcessPendingArticles(for: result.source.id)
             if sourceStatuses[result.source.id] != .failed {
-                sourceStatuses[result.source.id] = .completed
+                setStatus(.completed, for: result.source.id)
             }
         }
     }
@@ -349,7 +367,7 @@ final class FetchCoordinator: ObservableObject {
             let currentCacheLevel = source.effectiveCacheLevel
             let userLimit = UserDefaults.standard.integer(forKey: "articleLimit")
             let effectiveUserLimit = userLimit > 0 ? userLimit : 25
-            let articleLimit = min(currentCacheLevel == .full ? 10 : 20, effectiveUserLimit)
+            let articleLimit = min(currentCacheLevel == .full ? 10 : 25, effectiveUserLimit)
 
             var seenURLs = Set<String>()
             var seenTitles = Set<String>()
@@ -539,7 +557,7 @@ final class FetchCoordinator: ObservableObject {
         } catch {
             source.fetchStatus = .error
             try? await saveSource(&source)
-            sourceStatuses[source.id] = .failed
+            setStatus(.failed, for: source.id)
             return nil
         }
     }
@@ -553,7 +571,7 @@ final class FetchCoordinator: ObservableObject {
         let cacheLevel = source.effectiveCacheLevel
         let userLimit = UserDefaults.standard.integer(forKey: "articleLimit")
         let effectiveUserLimit = userLimit > 0 ? userLimit : 25
-        let articleLimit = min(cacheLevel == .full ? 10 : 20, effectiveUserLimit)
+        let articleLimit = min(cacheLevel == .full ? 10 : 25, effectiveUserLimit)
         let uncachedArticles: [Article]
         do {
             uncachedArticles = try await DatabaseManager.shared.dbPool.read { db in
@@ -600,7 +618,7 @@ final class FetchCoordinator: ObservableObject {
     /// Shows the refresh spinner in the hero while working.
     func retryFailedArticles(for source: Source) async {
         let cacheLevel = source.effectiveCacheLevel
-        let retryLimit = cacheLevel == .full ? 10 : 20
+        let retryLimit = cacheLevel == .full ? 10 : 25
         let articlesToRetry: [Article]
         do {
             articlesToRetry = try await DatabaseManager.shared.dbPool.read { db in
@@ -621,7 +639,7 @@ final class FetchCoordinator: ObservableObject {
 
         guard !articlesToRetry.isEmpty else { return }
 
-        sourceStatuses[source.id] = .refreshing
+        setStatus(.refreshing, for: source.id)
 
         for (index, article) in articlesToRetry.enumerated() {
             // Skip non-article URLs (auth pages etc.) that slipped in
@@ -653,7 +671,7 @@ final class FetchCoordinator: ObservableObject {
             }
         }
 
-        sourceStatuses[source.id] = .completed
+        setStatus(.completed, for: source.id)
     }
 
     // MARK: - Helpers

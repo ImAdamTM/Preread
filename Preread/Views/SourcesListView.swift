@@ -167,7 +167,9 @@ struct SourcesListView: View {
                 .presentationDragIndicator(.hidden)
                 .preferredColorScheme(preferredScheme)
             }
-            .sheet(isPresented: $showSettings) {
+            .sheet(isPresented: $showSettings, onDismiss: {
+                Task { await loadSources() }
+            }) {
                 NavigationStack {
                     SettingsView()
                         .toolbar {
@@ -603,12 +605,21 @@ struct SourcesListView: View {
     private func removeSource(_ source: Source) async {
         HapticManager.deleteConfirm()
 
+        // Tell the coordinator to stop updating status for this source.
+        // Without this, an in-flight fetch completing mid-deletion triggers
+        // loadSources() which can temporarily resurrect the source.
+        coordinator.cancelSource(source.id)
+
+        // Remove from the local array first so the SourceSectionView's
+        // observation is torn down before the DB cascade-delete fires.
+        // This prevents a race where the observation sees 0 articles
+        // mid-animation, leaving a stuck header.
+        withAnimation(Theme.gentleAnimation()) {
+            sources.removeAll { $0.id == source.id }
+        }
+
         do {
             try await Source.deleteWithCleanup(source)
-
-            withAnimation(Theme.gentleAnimation()) {
-                sources.removeAll { $0.id == source.id }
-            }
 
             // Refresh saved status in case removing the source affected saved articles
             let savedExists = try await DatabaseManager.shared.dbPool.read { db in
@@ -616,6 +627,9 @@ struct SourcesListView: View {
             }
             hasSavedArticles = savedExists
         } catch {
+            // DB cleanup failed — the source is already removed from the UI.
+            // Reload from DB to reconcile state.
+            await loadSources()
             toastManager.show("Couldn't remove source", type: .error)
         }
     }
