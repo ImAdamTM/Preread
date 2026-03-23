@@ -15,6 +15,7 @@ struct SourcesListView: View {
     @State private var sources: [Source] = []
     @State private var hasSavedArticles: Bool = false
     @State private var showAddSource = false
+    @State private var showSettings = false
     @State private var addSourceInitialURL: String?
     @State private var highlightedSourceID: UUID?
     @State private var navigationPath = NavigationPath()
@@ -76,8 +77,8 @@ struct SourcesListView: View {
                         }
                         .disabled(coordinator.isFetching)
 
-                        NavigationLink {
-                            SettingsView()
+                        Button {
+                            showSettings = true
                         } label: {
                             Image(systemName: "gearshape")
                                 .font(Theme.scaledFont(size: 17))
@@ -164,6 +165,17 @@ struct SourcesListView: View {
                 .navigationTransition(.zoom(sourceID: transitionSourceID ?? "\(selection.source.id)-\(selection.article.id)", in: namespace))
                 .toastOverlay()
                 .presentationDragIndicator(.hidden)
+                .preferredColorScheme(preferredScheme)
+            }
+            .sheet(isPresented: $showSettings) {
+                NavigationStack {
+                    SettingsView()
+                        .toolbar {
+                            ToolbarItem(placement: .confirmationAction) {
+                                Button("Done") { showSettings = false }
+                            }
+                        }
+                }
                 .preferredColorScheme(preferredScheme)
             }
             .alert("Edit name", isPresented: Binding(
@@ -364,7 +376,7 @@ struct SourcesListView: View {
                     .font(Theme.scaledFont(size: 22, weight: .semibold, relativeTo: .title2))
                     .foregroundColor(Theme.textPrimary)
 
-                Text("Add a site to get started...")
+                Text("Discover and follow your favourite sites")
                     .font(Theme.scaledFont(size: 15, relativeTo: .subheadline))
                     .foregroundColor(Theme.textSecondary)
             }
@@ -519,11 +531,12 @@ struct SourcesListView: View {
     /// then runs the provided navigation action after a brief delay
     /// so that dismissals complete before the new navigation begins.
     private func dismissAndNavigate(then navigate: @escaping () -> Void) {
-        let needsDismissal = !navigationPath.isEmpty || showAddSource || readerSelection != nil
+        let needsDismissal = !navigationPath.isEmpty || showAddSource || showSettings || readerSelection != nil
 
         // Pop to root and close any open sheets
         navigationPath = NavigationPath()
         showAddSource = false
+        showSettings = false
         readerSelection = nil
 
         if needsDismissal {

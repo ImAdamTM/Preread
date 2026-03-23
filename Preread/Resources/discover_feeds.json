@@ -306,6 +306,21 @@
     ]
   },
   {
+    "category" : "Travel",
+    "description" : "Experiential travel stories, destination guides, and tips for meaningful journeys",
+    "feedURL" : "https:\/\/www.afar.com\/index.atom",
+    "id" : "b630db7b-8c34-6044-3930-138f93e0b740",
+    "name" : "AFAR",
+    "siteURL" : "https:\/\/www.afar.com\/",
+    "tags" : [
+      "experiential",
+      "destinations",
+      "culture",
+      "itineraries",
+      "responsible"
+    ]
+  },
+  {
     "category" : "Personal Finance",
     "description" : "Personal finance and building a life of freedom",
     "feedURL" : "https:\/\/affordanything.com\/feed\/",
@@ -394,6 +409,21 @@
       "wirtschaft",
       "frankfurt",
       "feuilleton"
+    ]
+  },
+  {
+    "category" : "World News",
+    "description" : "Independent journalism from the Middle East and beyond",
+    "feedURL" : "https:\/\/www.aljazeera.com\/xml\/rss\/all.xml",
+    "id" : "fa080031-bb9f-0725-b354-d2657f84d5bc",
+    "name" : "Al Jazeera English",
+    "siteURL" : "https:\/\/www.aljazeera.com",
+    "tags" : [
+      "middle east",
+      "global south",
+      "conflicts",
+      "investigations",
+      "documentary"
     ]
   },
   {
@@ -1592,6 +1622,21 @@
     ]
   },
   {
+    "category" : "Travel",
+    "description" : "Hotel reviews, destination guides, and luxury travel inspiration from Condé Nast",
+    "feedURL" : "https:\/\/www.cntraveler.com\/feed\/rss",
+    "id" : "33983496-aa07-c14b-cb6d-ffa884e27a9a",
+    "name" : "Condé Nast Traveler",
+    "siteURL" : "https:\/\/www.cntraveler.com",
+    "tags" : [
+      "luxury",
+      "hotels",
+      "resorts",
+      "lists",
+      "destinations"
+    ]
+  },
+  {
     "category" : "Music",
     "description" : "Music news, reviews, and festival coverage across all genres",
     "feedURL" : "https:\/\/consequence.net\/feed",
@@ -1835,6 +1880,21 @@
     ]
   },
   {
+    "category" : "Web Design & UX",
+    "description" : "Tutorials on JavaScript, HTML5, CSS, and web development",
+    "feedURL" : "https:\/\/davidwalsh.name\/feed",
+    "id" : "dee356a0-2284-f2b7-d464-61c10914c2f0",
+    "name" : "David Walsh Blog",
+    "siteURL" : "https:\/\/davidwalsh.name",
+    "tags" : [
+      "javascript",
+      "html5",
+      "tutorials",
+      "frontend",
+      "performance"
+    ]
+  },
+  {
     "category" : "Film & TV",
     "description" : "Breaking entertainment, Hollywood, and media news",
     "feedURL" : "https:\/\/deadline.com\/feed\/",
@@ -1847,22 +1907,6 @@
       "deals",
       "casting",
       "streaming"
-    ]
-  },
-  {
-    "category" : "India",
-    "country" : "India",
-    "description" : "Deccan Chronicle brings you the latest news, views, analysis and images from India and the world",
-    "feedURL" : "https:\/\/www.deccanchronicle.com\/rss_feed\/",
-    "id" : "49d0299e-a7e9-e471-c594-4d6847d18c98",
-    "name" : "Deccan Chronicle",
-    "siteURL" : "https:\/\/www.deccanchronicle.com",
-    "tags" : [
-      "hyderabad",
-      "telangana",
-      "south india",
-      "politics",
-      "english"
     ]
   },
   {
@@ -2670,6 +2714,22 @@
     ]
   },
   {
+    "category" : "United States",
+    "country" : "United States",
+    "description" : "Breaking News, Latest News and Current News from FOXNews.com. Breaking news and video. Latest Current News: U.S",
+    "feedURL" : "https:\/\/feeds.foxnews.com\/foxnews\/latest",
+    "id" : "2643d6de-5410-3a6a-fdce-2316e9a040c6",
+    "name" : "FOX News",
+    "siteURL" : "https:\/\/www.foxnews.com\/",
+    "tags" : [
+      "conservative",
+      "politics",
+      "opinion",
+      "washington",
+      "breaking"
+    ]
+  },
+  {
     "category" : "France",
     "country" : "France",
     "description" : "Pour savoir ce qui se passe maintenant - Toutes les infos livrées minute par minute par la rédaction de Franceinfo",
@@ -2820,22 +2880,6 @@
       "politics",
       "crime",
       "weather"
-    ]
-  },
-  {
-    "category" : "Philippines",
-    "country" : "Philippines",
-    "description" : "Philippine news from GMA Network",
-    "feedURL" : "https:\/\/data.gmanews.tv\/gno\/rss\/news\/feed.xml",
-    "id" : "b65539a6-c853-76b7-b958-d7454caaa6b6",
-    "name" : "GMA News Online \/ News",
-    "siteURL" : "https:\/\/www.gmanetwork.com\/news\/news\/",
-    "tags" : [
-      "filipino",
-      "manila",
-      "television",
-      "politics",
-      "entertainment"
     ]
   },
   {
@@ -3596,6 +3640,21 @@
       "emissions",
       "policy",
       "energy"
+    ]
+  },
+  {
+    "category" : "Tech",
+    "description" : "Articles and podcasts on customer service, AI and automation, and product",
+    "feedURL" : "https:\/\/www.intercom.com\/blog\/feed",
+    "id" : "5c6fc043-91e7-d79f-3f9e-f50a630d56a2",
+    "name" : "Inside Intercom",
+    "siteURL" : "https:\/\/www.intercom.com\/blog\/",
+    "tags" : [
+      "saas",
+      "customer support",
+      "chatbots",
+      "product",
+      "automation"
     ]
   },
   {
@@ -4542,22 +4601,6 @@
     ]
   },
   {
-    "category" : "France",
-    "country" : "France",
-    "description" : "Mediapart est un journal d’information numérique, participatif et indépendant, sans publicité ni subvention, et qui ne",
-    "feedURL" : "https:\/\/www.mediapart.fr\/articles\/feed",
-    "id" : "330db775-e754-6d53-ca37-d2955550c79c",
-    "name" : "Mediapart",
-    "siteURL" : "https:\/\/www.mediapart.fr\/",
-    "tags" : [
-      "investigations",
-      "french",
-      "independant",
-      "politique",
-      "enquete"
-    ]
-  },
-  {
     "category" : "History",
     "description" : "Medieval history, archaeology, and culture for enthusiasts and scholars",
     "feedURL" : "https:\/\/www.medievalists.net\/feed\/",
@@ -4632,6 +4675,22 @@
       "tax",
       "accountability",
       "independent"
+    ]
+  },
+  {
+    "category" : "Italy",
+    "country" : "Italy",
+    "description" : "Testata giornalistica dedicata al Milan",
+    "feedURL" : "https:\/\/www.milannews.it\/rss\/",
+    "id" : "b977dfe3-0c89-299b-7fd0-1933ed868648",
+    "name" : "Milan News",
+    "siteURL" : "https:\/\/www.milannews.it",
+    "tags" : [
+      "milan",
+      "serie a",
+      "calcio",
+      "transfers",
+      "rossoneri"
     ]
   },
   {
@@ -4738,6 +4797,21 @@
       "reviews",
       "spy shots",
       "comparisons"
+    ]
+  },
+  {
+    "category" : "Web Design & UX",
+    "description" : "Mozilla Hacks is written for web developers, designers and everyone who builds for the Web. Hacks is produced by Mozilla",
+    "feedURL" : "https:\/\/hacks.mozilla.org\/feed\/",
+    "id" : "394ba688-e40a-39f5-875e-6d5ee66d23af",
+    "name" : "Mozilla Hacks",
+    "siteURL" : "https:\/\/hacks.mozilla.org\/",
+    "tags" : [
+      "firefox",
+      "webassembly",
+      "standards",
+      "pwa",
+      "apis"
     ]
   },
   {
@@ -4970,6 +5044,21 @@
     ]
   },
   {
+    "category" : "Web Design & UX",
+    "description" : "UX research and design best practices from Nielsen Norman Group",
+    "feedURL" : "https:\/\/www.nngroup.com\/feed\/rss\/",
+    "id" : "f74a54fc-b5d6-6235-3029-66a458c5becf",
+    "name" : "Nielsen Norman Group",
+    "siteURL" : "https:\/\/www.nngroup.com\/feed\/rss\/",
+    "tags" : [
+      "usability",
+      "research",
+      "heuristics",
+      "testing",
+      "patterns"
+    ]
+  },
+  {
     "category" : "Nigeria",
     "country" : "Nigeria",
     "description" : "Latest news from Nigeria",
@@ -5028,6 +5117,21 @@
       "festivals",
       "albums",
       "gigs"
+    ]
+  },
+  {
+    "category" : "Travel",
+    "description" : "Budget travel tips and destination guides",
+    "feedURL" : "https:\/\/www.nomadicmatt.com\/travel-blog\/feed\/",
+    "id" : "4fb155fc-d51d-5a9e-1d95-93523348bf8b",
+    "name" : "Nomadic Matt's Travel Site",
+    "siteURL" : "https:\/\/www.nomadicmatt.com\/travel-blog\/",
+    "tags" : [
+      "budget",
+      "backpacking",
+      "hostels",
+      "guides",
+      "tips"
     ]
   },
   {
@@ -5138,6 +5242,22 @@
     ]
   },
   {
+    "category" : "France",
+    "country" : "France",
+    "description" : "Premier quotidien français d'information régionale et nationale",
+    "feedURL" : "https:\/\/www.ouest-france.fr\/rss-en-continu.xml",
+    "id" : "43c04ef8-ccec-e231-991f-46507b22973a",
+    "name" : "Ouest-France",
+    "siteURL" : "https:\/\/www.ouest-france.fr\/rss\/une",
+    "tags" : [
+      "regional",
+      "bretagne",
+      "french",
+      "normandie",
+      "local"
+    ]
+  },
+  {
     "category" : "Health & Wellness",
     "description" : "Fitness, nutrition, and wellness from an active-lifestyle perspective",
     "feedURL" : "https:\/\/www.outsideonline.com\/feed",
@@ -5225,6 +5345,22 @@
       "radar",
       "chartplotter",
       "nmea"
+    ]
+  },
+  {
+    "category" : "Italy",
+    "country" : "Italy",
+    "description" : "Settimanale italiano di attualità, politica e cultura",
+    "feedURL" : "https:\/\/www.panorama.it\/feeds\/feed.rss",
+    "id" : "a02b857f-fd87-b1cc-b3ac-fd69c7446360",
+    "name" : "Panorama",
+    "siteURL" : "https:\/\/www.panorama.it",
+    "tags" : [
+      "italian",
+      "attualita",
+      "politica",
+      "cultura",
+      "settimanale"
     ]
   },
   {
@@ -5547,22 +5683,6 @@
       "luxury",
       "yachts",
       "trawlers"
-    ]
-  },
-  {
-    "category" : "Nigeria",
-    "country" : "Nigeria",
-    "description" : "Nigeria's leading independent online newspaper",
-    "feedURL" : "https:\/\/www.premiumtimesng.com\/feed",
-    "id" : "e3aba06d-313c-0fdb-21f6-ac71b9b762a3",
-    "name" : "Premium Times Nigeria",
-    "siteURL" : "https:\/\/premiumtimesng.com",
-    "tags" : [
-      "investigations",
-      "politics",
-      "independent",
-      "corruption",
-      "governance"
     ]
   },
   {
@@ -5989,21 +6109,6 @@
     ]
   },
   {
-    "category" : "Business & Finance",
-    "description" : "Crowdsourced investment analysis covering earnings, dividends, and stocks",
-    "feedURL" : "https:\/\/seekingalpha.com\/feed",
-    "id" : "877afef3-69e1-d5fa-c6d8-a00d1557e9d5",
-    "name" : "Seeking Alpha",
-    "siteURL" : "https:\/\/seekingalpha.com",
-    "tags" : [
-      "dividends",
-      "earnings",
-      "stocks",
-      "analysis",
-      "portfolio"
-    ]
-  },
-  {
     "category" : "Fitness",
     "description" : "Strong fitness content with an inclusive, body-positive editorial voice",
     "feedURL" : "https:\/\/www.self.com\/feed\/rss",
@@ -6064,6 +6169,21 @@
     ]
   },
   {
+    "category" : "Web Design & UX",
+    "description" : "Tech and travel blog",
+    "feedURL" : "https:\/\/gosink.in\/rss\/",
+    "id" : "583e5a37-f678-6b06-ee8e-ea350fd1ae60",
+    "name" : "Sink In",
+    "siteURL" : "https:\/\/gosink.in\/",
+    "tags" : [
+      "travel",
+      "personal",
+      "web",
+      "reflections",
+      "design"
+    ]
+  },
+  {
     "category" : "Apple",
     "description" : "Apple news and commentary by Jason Snell",
     "feedURL" : "https:\/\/feedpress.me\/sixcolors",
@@ -6121,6 +6241,21 @@
       "cricket",
       "f1",
       "boxing"
+    ]
+  },
+  {
+    "category" : "Web Design & UX",
+    "description" : "Articles and tutorials for web designers and developers",
+    "feedURL" : "https:\/\/www.smashingmagazine.com\/feed",
+    "id" : "07c83d6d-0c0e-2a9e-8e6f-143d4ae9539b",
+    "name" : "Smashing Magazine",
+    "siteURL" : "https:\/\/www.smashingmagazine.com\/",
+    "tags" : [
+      "responsive",
+      "accessibility",
+      "performance",
+      "css",
+      "javascript"
     ]
   },
   {
@@ -6334,6 +6469,21 @@
     ]
   },
   {
+    "category" : "Music",
+    "description" : "Indie and alternative album reviews, news, and features",
+    "feedURL" : "https:\/\/stereogum.com\/feed",
+    "id" : "2c763f98-fd9f-4316-7a1a-9e0aee0382e3",
+    "name" : "Stereogum",
+    "siteURL" : "https:\/\/www.stereogum.com",
+    "tags" : [
+      "indie",
+      "alternative",
+      "albums",
+      "premieres",
+      "reviews"
+    ]
+  },
+  {
     "category" : "Fitness",
     "description" : "Evidence-based training and nutrition analysis bridging research and practice",
     "feedURL" : "https:\/\/www.strongerbyscience.com\/feed\/",
@@ -6470,6 +6620,21 @@
       "it",
       "startups",
       "broadband"
+    ]
+  },
+  {
+    "category" : "Tech",
+    "description" : "TechCrunch | Reporting on the business of technology, startups, venture capital funding, and Silicon Valley",
+    "feedURL" : "https:\/\/techcrunch.com\/feed\/",
+    "id" : "f84187f7-c52e-f9b3-4619-8263cd46c96b",
+    "name" : "TechCrunch",
+    "siteURL" : "https:\/\/techcrunch.com\/",
+    "tags" : [
+      "startups",
+      "funding",
+      "vc",
+      "silicon valley",
+      "launches"
     ]
   },
   {
@@ -7037,6 +7202,21 @@
     ]
   },
   {
+    "category" : "Tech",
+    "description" : "We inform, inspire, and connect people who love tech",
+    "feedURL" : "https:\/\/thenextweb.com\/feed",
+    "id" : "18382aea-9526-6bd8-0f84-d1e75e10b4a1",
+    "name" : "The Next Web",
+    "siteURL" : "https:\/\/thenextweb.com",
+    "tags" : [
+      "startups",
+      "europe",
+      "web",
+      "apps",
+      "events"
+    ]
+  },
+  {
     "category" : "Humor & Satire",
     "description" : "America's Finest News Source",
     "feedURL" : "https:\/\/www.theonion.com\/rss",
@@ -7049,6 +7229,21 @@
       "comedy",
       "fake news",
       "headlines"
+    ]
+  },
+  {
+    "category" : "Travel",
+    "description" : "Credit card points, airline miles, and travel rewards strategies and deals",
+    "feedURL" : "https:\/\/thepointsguy.com\/feed\/",
+    "id" : "2e8c7bce-8186-f06d-d572-f7fe764298d1",
+    "name" : "The Points Guy",
+    "siteURL" : "https:\/\/thepointsguy.com\/",
+    "tags" : [
+      "miles",
+      "credit cards",
+      "rewards",
+      "lounges",
+      "flights"
     ]
   },
   {
@@ -7248,6 +7443,22 @@
       "furniture",
       "finishing",
       "tools"
+    ]
+  },
+  {
+    "category" : "Ireland",
+    "country" : "Ireland",
+    "description" : "The latest Irish and international sports news from The 42",
+    "feedURL" : "https:\/\/www.the42.ie\/feed\/",
+    "id" : "8e00d437-c128-a51c-0b81-6a6ad3e0e5cc",
+    "name" : "The42",
+    "siteURL" : "https:\/\/www.the42.ie\/",
+    "tags" : [
+      "gaa",
+      "rugby",
+      "soccer",
+      "irish sport",
+      "results"
     ]
   },
   {
@@ -7770,6 +7981,21 @@
     ]
   },
   {
+    "category" : "Tech",
+    "description" : "The latest in technology, science, culture, and business",
+    "feedURL" : "https:\/\/www.wired.com\/feed\/rss",
+    "id" : "c01c14fc-345f-6361-c734-74db2e096195",
+    "name" : "Wired",
+    "siteURL" : "https:\/\/www.wired.com",
+    "tags" : [
+      "culture",
+      "longform",
+      "security",
+      "science",
+      "gear"
+    ]
+  },
+  {
     "category" : "United States",
     "country" : "United States",
     "description" : "Nation and world news from the Los Angeles Times",
@@ -7985,6 +8211,38 @@
   {
     "category" : "Ukraine",
     "country" : "Ukraine",
+    "description" : "ГОРДОН: Головні новини дня України та світу, ексклюзивні коментарі, аналітика. Фото, відео. Спецпроекти, ексклюзивні",
+    "feedURL" : "https:\/\/gordonua.com\/xml\/rss_category\/top.html",
+    "id" : "14d68765-94f3-a0b3-c1c1-d7b519a9a25a",
+    "name" : "Гордон - Самые популярные материалы",
+    "siteURL" : "https:\/\/gordonua.com",
+    "tags" : [
+      "ukrainian",
+      "kyiv",
+      "war",
+      "politics",
+      "analysis"
+    ]
+  },
+  {
+    "category" : "Ukraine",
+    "country" : "Ukraine",
+    "description" : "Читайте онлайн останні новини України і світу на сайті телеканалу Еспресо. ᐈ Найважливіші новини дня, свіжа інформація",
+    "feedURL" : "https:\/\/espreso.tv\/rss",
+    "id" : "b72a647c-9b68-8869-3400-0b795b13bb71",
+    "name" : "Еспресо",
+    "siteURL" : "https:\/\/espreso.tv\/",
+    "tags" : [
+      "ukrainian",
+      "kyiv",
+      "tv",
+      "politics",
+      "breaking"
+    ]
+  },
+  {
+    "category" : "Ukraine",
+    "country" : "Ukraine",
     "description" : "Информационное агентство УНИАН :: Новости, Политика, Бизнес, Фотосервис, Регионы",
     "feedURL" : "https:\/\/rss.unian.net\/site\/news_rus.rss",
     "id" : "32c25369-b181-335e-3d97-897983fe7031",
@@ -7996,6 +8254,22 @@
       "politics",
       "war",
       "national"
+    ]
+  },
+  {
+    "category" : "Ukraine",
+    "country" : "Ukraine",
+    "description" : "Останні новини України та світу онлайн. Свіжі українські та світові новини політики, бізнесу, фінансів, технологій",
+    "feedURL" : "https:\/\/nv.ua\/rss\/all.xml",
+    "id" : "42e89edb-998e-7f00-fa77-4328ae9bd4db",
+    "name" : "НВ",
+    "siteURL" : "https:\/\/nv.ua\/",
+    "tags" : [
+      "ukrainian",
+      "kyiv",
+      "business",
+      "politics",
+      "culture"
     ]
   },
   {

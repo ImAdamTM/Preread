@@ -219,6 +219,10 @@ func makeSession(timeout: TimeInterval = 15) -> URLSession {
         config.timeoutIntervalForResource = timeout * 2
         config.httpMaximumConnectionsPerHost = 5
         config.httpAdditionalHeaders = ["User-Agent": sharedUserAgent]
+        // Disable URL cache — we never re-read responses, and the default
+        // in-memory cache grows large enough to OOM when validating 500+ feeds.
+        config.urlCache = nil
+        config.requestCachePolicy = .reloadIgnoringLocalCacheData
         return config
     }())
 }
@@ -237,6 +241,11 @@ func slugifyCategory(_ name: String) -> String {
 
 /// Loads all feeds from the categories/ directory by reading every .json file.
 func loadAllFeeds(from scriptDir: URL) throws -> [DiscoverFeedOutput] {
+    try loadFeedsByCategory(from: scriptDir).flatMap(\.feeds)
+}
+
+/// Loads feeds grouped by category file, preserving per-file grouping.
+func loadFeedsByCategory(from scriptDir: URL) throws -> [(category: String, feeds: [DiscoverFeedOutput])] {
     let categoriesDir = scriptDir.appendingPathComponent("categories")
     let fm = FileManager.default
 
@@ -248,14 +257,15 @@ func loadAllFeeds(from scriptDir: URL) throws -> [DiscoverFeedOutput] {
         .filter { $0.pathExtension == "json" }
         .sorted { $0.lastPathComponent < $1.lastPathComponent }
 
-    var allFeeds: [DiscoverFeedOutput] = []
+    var result: [(category: String, feeds: [DiscoverFeedOutput])] = []
     for file in files {
         let data = try Data(contentsOf: file)
         let feeds = try JSONDecoder().decode([DiscoverFeedOutput].self, from: data)
-        allFeeds.append(contentsOf: feeds)
+        let categoryName = file.deletingPathExtension().lastPathComponent
+        result.append((category: categoryName, feeds: feeds))
     }
 
-    return allFeeds
+    return result
 }
 
 /// Writes feeds back to the categories/ directory, one file per category.
@@ -318,14 +328,9 @@ func runAudit() async throws {
         .deletingLastPathComponent()
         .deletingLastPathComponent()
 
-    let masterFeeds = try loadAllFeeds(from: scriptDir)
-    let categoryFileCount = try FileManager.default.contentsOfDirectory(
-        at: scriptDir.appendingPathComponent("categories"),
-        includingPropertiesForKeys: nil
-    ).filter { $0.pathExtension == "json" }.count
-    print("📥 Loaded \(masterFeeds.count) feeds from \(categoryFileCount) category files")
-
-    let session = makeSession()
+    let feedsByCategory = try loadFeedsByCategory(from: scriptDir)
+    let totalFeeds = feedsByCategory.reduce(0) { $0 + $1.feeds.count }
+    print("📥 Loaded \(totalFeeds) feeds from \(feedsByCategory.count) category files")
 
     // Track removals for the report
     var deadFeeds: [(name: String, feedURL: String, category: String)] = []
@@ -343,63 +348,115 @@ func runAudit() async throws {
 
     if skipValidation {
         print("Skipping validation (--skip-validation)")
-        validatedFeeds = masterFeeds.map {
+        let allFeeds = feedsByCategory.flatMap(\.feeds)
+        validatedFeeds = allFeeds.map {
             ValidatedFeed(feed: $0, siteURL: $0.siteURL, newestItemDate: nil, articleURLs: [])
         }
     } else {
-        print("Validating \(masterFeeds.count) feeds...")
+        print("Validating \(totalFeeds) feeds across \(feedsByCategory.count) categories...")
         var validCount = 0
         var invalidCount = 0
+        var processedTotal = 0
 
-        let batchSize = 10
-        for batchStart in stride(from: 0, to: masterFeeds.count, by: batchSize) {
-            let batchEnd = min(batchStart + batchSize, masterFeeds.count)
-            let batch = Array(masterFeeds[batchStart..<batchEnd])
+        // Process each category independently with its own URLSession.
+        // This prevents connection pool exhaustion that causes false failures
+        // when all 500+ feeds share a single session.
+        for (categorySlug, categoryFeeds) in feedsByCategory {
+            guard !categoryFeeds.isEmpty else { continue }
 
-            let results = await withTaskGroup(
-                of: (DiscoverFeedOutput, FeedValidator.ValidationResult).self
-            ) { group in
-                for feed in batch {
-                    group.addTask {
-                        let result = await FeedValidator.validate(
-                            feedURL: feed.feedURL, session: session,
-                            checkATSRedirects: true
-                        )
-                        return (feed, result)
+            let session = makeSession()
+            let categoryDisplay = categoryFeeds.first?.category ?? categorySlug
+            print("  [\(categoryDisplay)] \(categoryFeeds.count) feeds...")
+
+            let batchSize = 10
+            for batchStart in stride(from: 0, to: categoryFeeds.count, by: batchSize) {
+                let batchEnd = min(batchStart + batchSize, categoryFeeds.count)
+                let batch = Array(categoryFeeds[batchStart..<batchEnd])
+
+                let results = await withTaskGroup(
+                    of: (DiscoverFeedOutput, FeedValidator.ValidationResult).self
+                ) { group in
+                    for feed in batch {
+                        group.addTask {
+                            let result = await FeedValidator.validate(
+                                feedURL: feed.feedURL, session: session,
+                                checkATSRedirects: true
+                            )
+                            return (feed, result)
+                        }
+                    }
+                    var collected: [(DiscoverFeedOutput, FeedValidator.ValidationResult)] = []
+                    for await result in group {
+                        collected.append(result)
+                    }
+                    return collected
+                }
+
+                for (feed, result) in results {
+                    if result.isValid {
+                        validatedFeeds.append(ValidatedFeed(
+                            feed: feed,
+                            siteURL: feed.siteURL ?? result.siteURL,
+                            newestItemDate: result.newestItemDate,
+                            articleURLs: result.articleURLs
+                        ))
+                        validCount += 1
+                        if verbose {
+                            let dateStr = result.newestItemDate.map { dateFormatter.string(from: $0) } ?? "no date"
+                            print("    \u{2713} \(feed.name) (\(feed.feedURL)) — newest: \(dateStr)")
+                        }
+                    } else {
+                        deadFeeds.append((name: feed.name, feedURL: feed.feedURL, category: feed.category))
+                        invalidCount += 1
+                        let issue = result.issue?.description ?? "unknown"
+                        if verbose {
+                            print("    \u{2717} \(feed.name) (\(feed.feedURL)) — \(issue)")
+                        }
                     }
                 }
-                var collected: [(DiscoverFeedOutput, FeedValidator.ValidationResult)] = []
-                for await result in group {
-                    collected.append(result)
-                }
-                return collected
             }
 
-            for (feed, result) in results {
+            processedTotal += categoryFeeds.count
+            print("    \(processedTotal)/\(totalFeeds) done (\(validCount) valid, \(invalidCount) dead)")
+
+        }
+
+        // Retry failed feeds with a fresh session after a cooldown.
+        // Late-alphabet categories often fail due to accumulated network state;
+        // retrying with a clean session recovers most of them.
+        if !deadFeeds.isEmpty {
+            print("Retrying \(deadFeeds.count) failed feeds...")
+            try? await Task.sleep(nanoseconds: 2_000_000_000) // 2s cooldown
+            let retrySession = makeSession()
+            var stillDead: [(name: String, feedURL: String, category: String)] = []
+
+            for dead in deadFeeds {
+                let result = await FeedValidator.validate(
+                    feedURL: dead.feedURL, session: retrySession,
+                    checkATSRedirects: true
+                )
                 if result.isValid {
+                    // Find the original feed object from feedsByCategory
+                    let originalFeed = feedsByCategory.flatMap(\.feeds)
+                        .first(where: { $0.feedURL == dead.feedURL })!
                     validatedFeeds.append(ValidatedFeed(
-                        feed: feed,
-                        siteURL: feed.siteURL ?? result.siteURL,
+                        feed: originalFeed,
+                        siteURL: originalFeed.siteURL ?? result.siteURL,
                         newestItemDate: result.newestItemDate,
                         articleURLs: result.articleURLs
                     ))
                     validCount += 1
-                    if verbose {
-                        let dateStr = result.newestItemDate.map { dateFormatter.string(from: $0) } ?? "no date"
-                        print("  \u{2713} \(feed.name) (\(feed.feedURL)) — newest: \(dateStr)")
-                    }
+                    invalidCount -= 1
+                    print("  \u{2713} \(dead.name) — recovered on retry")
                 } else {
-                    deadFeeds.append((name: feed.name, feedURL: feed.feedURL, category: feed.category))
-                    invalidCount += 1
+                    stillDead.append(dead)
                     let issue = result.issue?.description ?? "unknown"
-                    if verbose {
-                        print("  \u{2717} \(feed.name) (\(feed.feedURL)) — \(issue)")
-                    }
+                    print("  \u{2717} \(dead.name) — still failing: \(issue)")
                 }
             }
 
-            let progress = min(batchEnd, masterFeeds.count)
-            print("  Progress: \(progress)/\(masterFeeds.count) (\(validCount) valid, \(invalidCount) dead)")
+            deadFeeds = stillDead
+            print("After retry: \(validCount) valid, \(invalidCount) dead")
         }
 
         print("Validation: \(validCount) valid, \(invalidCount) dead")
@@ -429,59 +486,65 @@ func runAudit() async throws {
             }
         }
 
-        // 2b. Content quality check
+        // 2b. Content quality check — process per-category to avoid connection exhaustion
         let feedsToCheck = validatedFeeds.filter { !$0.articleURLs.isEmpty }
 
         if !feedsToCheck.isEmpty {
             print("Checking content quality for \(feedsToCheck.count) feeds...")
 
-            let qualitySession = makeSession(timeout: 10)
+            let groupedByCategory = Dictionary(grouping: feedsToCheck, by: \.feed.category)
             var thinFeedURLs = Set<String>()
+            var qualityProcessed = 0
 
-            let qualityBatchSize = 5
-            for batchStart in stride(from: 0, to: feedsToCheck.count, by: qualityBatchSize) {
-                let batchEnd = min(batchStart + qualityBatchSize, feedsToCheck.count)
-                let batch = Array(feedsToCheck[batchStart..<batchEnd])
+            for (category, categoryFeeds) in groupedByCategory.sorted(by: { $0.key < $1.key }) {
+                let qualitySession = makeSession(timeout: 10)
 
-                let results = await withTaskGroup(
-                    of: ContentQualityChecker.QualityResult.self
-                ) { group in
-                    for vf in batch {
-                        group.addTask {
-                            await ContentQualityChecker.check(
-                                feedURL: vf.feed.feedURL,
-                                articleURLs: vf.articleURLs,
-                                session: qualitySession
-                            )
+                let qualityBatchSize = 5
+                for batchStart in stride(from: 0, to: categoryFeeds.count, by: qualityBatchSize) {
+                    let batchEnd = min(batchStart + qualityBatchSize, categoryFeeds.count)
+                    let batch = Array(categoryFeeds[batchStart..<batchEnd])
+
+                    let results = await withTaskGroup(
+                        of: ContentQualityChecker.QualityResult.self
+                    ) { group in
+                        for vf in batch {
+                            group.addTask {
+                                await ContentQualityChecker.check(
+                                    feedURL: vf.feed.feedURL,
+                                    articleURLs: vf.articleURLs,
+                                    session: qualitySession
+                                )
+                            }
+                        }
+                        var collected: [ContentQualityChecker.QualityResult] = []
+                        for await result in group {
+                            collected.append(result)
+                        }
+                        return collected
+                    }
+
+                    for result in results {
+                        if !result.isAcceptable {
+                            thinFeedURLs.insert(result.feedURL)
+                            if let vf = feedsToCheck.first(where: { $0.feed.feedURL == result.feedURL }) {
+                                thinFeeds.append((
+                                    name: vf.feed.name,
+                                    feedURL: vf.feed.feedURL,
+                                    category: vf.feed.category,
+                                    words: result.medianWordCount,
+                                    images: result.medianImageCount
+                                ))
+                            }
+                        }
+                        if verbose {
+                            print("   \(result.isAcceptable ? "\u{2713}" : "\u{2717}") \(result.feedURL) — \(result.reason)")
                         }
                     }
-                    var collected: [ContentQualityChecker.QualityResult] = []
-                    for await result in group {
-                        collected.append(result)
-                    }
-                    return collected
+
+                    qualityProcessed += batch.count
                 }
 
-                for result in results {
-                    if !result.isAcceptable {
-                        thinFeedURLs.insert(result.feedURL)
-                        if let vf = feedsToCheck.first(where: { $0.feed.feedURL == result.feedURL }) {
-                            thinFeeds.append((
-                                name: vf.feed.name,
-                                feedURL: vf.feed.feedURL,
-                                category: vf.feed.category,
-                                words: result.medianWordCount,
-                                images: result.medianImageCount
-                            ))
-                        }
-                    }
-                    if verbose {
-                        print("   \(result.isAcceptable ? "\u{2713}" : "\u{2717}") \(result.feedURL) — \(result.reason)")
-                    }
-                }
-
-                let progress = min(batchEnd, feedsToCheck.count)
-                print("  Quality progress: \(progress)/\(feedsToCheck.count)")
+                print("  Quality: \(qualityProcessed)/\(feedsToCheck.count) [\(category)]")
             }
 
             if !thinFeedURLs.isEmpty {

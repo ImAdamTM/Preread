@@ -37,6 +37,11 @@ Pods/
 timeline.xctimeline
 playground.xcworkspace
 
+# Website
+website/node_modules/
+website/.next/
+website/out/
+
 Preread/Services/PageCacheService.swift
 Preread/Services/PageCacheService.swift
 Preread/Services/PageCacheService.swift
