@@ -455,7 +455,7 @@ struct SourcesListView: View {
                 .font(Theme.scaledFont(size: 32, weight: .regular))
                 .foregroundColor(Theme.textPrimary)
 
-            Text(totalArticleCount > 0 ? "\(totalArticleCount) articles ready" : " ")
+            Text(totalArticleCount > 0 ? "\(totalArticleCount.formatted()) articles ready" : " ")
                 .font(Theme.scaledFont(size: 13, relativeTo: .caption))
                 .foregroundColor(Theme.textSecondary)
                 .opacity(totalArticleCount > 0 ? 1 : 0)
