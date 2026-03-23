@@ -1,5 +1,4 @@
 import { Reveal } from "../components/Reveal";
-import { ScrollScale } from "../components/ScrollScale";
 import { IPadSplitView } from "../components/iPadSplitView";
 import { theme as t } from "../components/theme";
 
@@ -27,12 +26,7 @@ export function OfflineSection() {
         </Reveal>
 
         <Reveal y={40}>
-          <ScrollScale
-            scale={{ default: [1.04, 1], md: [1.7, 1] }}
-            y={{ default: ["30%", "0%"], md: ["30%", "0%"] }}
-          >
-            <IPadSplitView />
-          </ScrollScale>
+          <IPadSplitView />
         </Reveal>
       </div>
     </section>

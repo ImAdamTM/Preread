@@ -18,11 +18,12 @@ export function ManifestoSection() {
             style={{ color: t.secondary }}
           >
             <p>
-              Social media buries the things you care about under noise you
-              didn&apos;t ask for. Preread is the opposite. A calm space
-              curated around your actual interests, not someone else&apos;s algorithm.
+              Social media is 90% noise designed to keep you scrolling. The
+              other 10% is what you actually came for. Preread is just that 10%.
+              A calm space built around the topics you care about, not someone
+              else&apos;s algorithm.
             </p>
-            <p>
+            <p class="gradient-text">
               No recommendations. No algorithms. Just the words and images,
               beautifully presented.
             </p>

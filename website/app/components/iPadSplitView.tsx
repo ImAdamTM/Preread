@@ -1,5 +1,4 @@
 /* iPad split view mockup: Matches actual iPad screenshot layout */
-import { Logo } from "./Logo";
 import { SidebarIcon, ChevronLeftIcon, ShareIcon, BookmarkIcon, TextSizeIcon, RefreshIcon, GearIcon } from "./Icons";
 import { theme as t, images as img } from "./theme";
 
@@ -33,7 +32,7 @@ export function IPadSplitView() {
           }}
         >
           <img
-            src="/meridian-icon.png"
+            src="/meridian-icon.webp"
             alt=""
             className="w-full h-full object-cover"
             style={{ filter: 'blur(40px)', transform: 'scale(3)' }}
@@ -56,7 +55,7 @@ export function IPadSplitView() {
         {/* Source header */}
         <div className="px-4 py-3 relative z-10">
           <div className="flex items-center gap-2.5 mb-1">
-            <img src="/meridian-icon.png" alt="" className="w-7 h-7 rounded-lg" />
+            <img src="/meridian-icon.webp" alt="" className="w-7 h-7 rounded-lg" />
             <div>
               <div className="text-[13px] font-semibold" style={{ color: t.text }}>Meridian</div>
               <div className="text-[9px]" style={{ color: t.secondary }}>8 articles · 10min read · Updated 3m ago</div>
@@ -131,7 +130,7 @@ export function IPadSplitView() {
         {/* Detail toolbar */}
         <div className="flex items-center justify-between px-5 py-3 relative z-10">
           <div className="flex items-center gap-2">
-            <img src="/meridian-icon.png" alt="" className="w-5 h-5 rounded" />
+            <img src="/meridian-icon.webp" alt="" className="w-5 h-5 rounded" />
             <span className="text-[13px] font-semibold" style={{ color: t.text }}>Meridian</span>
           </div>
           <div className="flex items-center gap-4">

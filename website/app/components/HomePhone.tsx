@@ -170,7 +170,7 @@ export function HomePhone() {
             {/* Source section header — with real Atelier icon */}
             <div className="flex items-center gap-2.5 mt-1">
               <img
-                src="/atelier-icon.png"
+                src="/atelier-icon.webp"
                 alt="Atelier"
                 className="w-[34px] h-[34px] rounded-lg"
               />

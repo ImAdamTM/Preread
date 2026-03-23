@@ -58,6 +58,12 @@ p {
   mask-image: linear-gradient(to bottom, white 80%, transparent 100%);
 }
 
+@media (max-width: 767px) {
+  .phone-offset-mobile {
+    transform: translateY(var(--phone-offset, 0));
+  }
+}
+
 @media (min-width: 768px) {
   .phone-clip-mobile {
     max-height: none;
