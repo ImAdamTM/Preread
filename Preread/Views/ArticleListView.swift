@@ -111,10 +111,14 @@ struct ArticleListView: View {
 
             // Retry any pending/failed articles, then backfill remaining
             // uncached articles that were skipped during the foreground refresh.
-            let retrySource = source
-            Task {
-                await coordinator.retryFailedArticles(for: retrySource)
-                await coordinator.backfillArticles(for: retrySource)
+            // Skip when offline to avoid pointlessly marking pending articles
+            // as failed and burning through their retry budget.
+            if NetworkMonitor.isConnected {
+                let retrySource = source
+                Task {
+                    await coordinator.retryFailedArticles(for: retrySource)
+                    await coordinator.backfillArticles(for: retrySource)
+                }
             }
         }
         .onAppear {
@@ -715,12 +719,17 @@ struct ArticleListView: View {
 
     /// Starts a GRDB ValueObservation that reactively updates articles
     /// whenever the database changes, replacing the old 1-second polling loop.
+    /// Only shows cached/partial articles so that pending articles from a
+    /// feed refresh don't push readable content off the end of the list.
     private func startArticleObservation() {
         let sourceID = source.id
         let limit = articleLimit
+        let cachedStatuses = [ArticleFetchStatus.cached.rawValue,
+                              ArticleFetchStatus.partial.rawValue]
         let observation = ValueObservation.tracking { db in
             try Article
                 .filter(Column("sourceID") == sourceID)
+                .filter(cachedStatuses.contains(Column("fetchStatus")))
                 .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
                 .limit(limit)
                 .fetchAll(db)
@@ -747,10 +756,13 @@ struct ArticleListView: View {
 
     private func loadArticles() async {
         let limit = articleLimit
+        let cachedStatuses = [ArticleFetchStatus.cached.rawValue,
+                              ArticleFetchStatus.partial.rawValue]
         do {
             let loaded = try await DatabaseManager.shared.dbPool.read { db in
                 try Article
                     .filter(Column("sourceID") == source.id)
+                    .filter(cachedStatuses.contains(Column("fetchStatus")))
                     .order(SQL("COALESCE(publishedAt, addedAt)").sqlExpression.desc)
                     .limit(limit)
                     .fetchAll(db)

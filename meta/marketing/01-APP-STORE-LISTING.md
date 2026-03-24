@@ -30,23 +30,23 @@ _Note: "offline," "rss," and "pocket" live here for search visibility — not in
 ```
 All the things you love to read. In one place. Ready whenever you are.
 
-Preread is your personal article reader. Add websites and publications you care about, and Preread makes sure full articles are ready to read — even without a connection.
+Add the sites you love. Preread makes sure there's always something great to read. Even without WiFi.
 
-On a plane. On the subway. Anywhere. Your articles are always there.
+Social media is 90% noise designed to keep you scrolling. The other 10% is what you actually came for. Preread is just that 10%. A calm space built around the topics you care about, not someone else's algorithm.
 
-A calm, focused reading experience. No recommendations. No algorithms. Just the words and images you chose, beautifully presented.
+One-time purchase. No account required. No in-app purchases.
 
 — DISCOVER NEW INTERESTS —
 
-Browse a curated directory of 500+ sources across 55+ topics and countries — from world news, science, and tech to food, travel, gaming, DIY, celebrity culture, architecture, and beyond. Stumble into new interests you didn't know you had.
+Browse 500+ sources across world news, science, food, travel, gaming, DIY, celebrity culture, architecture, from 55+ topics and countries. Your next favourite publication is one tap away.
 
-— ALWAYS READY — NO SAVING REQUIRED —
+— ALWAYS READY. NO SAVING REQUIRED —
 
-Most reading apps make you save articles one at a time. Preread does the opposite — your articles are ready automatically in the background, so your reading list is always full without you lifting a finger. Open the app anytime, anywhere. Everything is already there.
+Most reading apps make you save articles one at a time. Preread works in the background, so your reading list is always full without you lifting a finger. Open the app anytime, anywhere. Everything is already there.
 
 — A READING-FIRST EXPERIENCE —
 
-• Beautiful reader — articles presented in a clean, focused layout
+• Beautiful reader with clean, focused typography
 • Customisable fonts and text sizes
 • Dark mode, light mode, or match your system
 • Reading time estimates on every article
@@ -63,10 +63,10 @@ Most reading apps make you save articles one at a time. Preread does the opposit
 
 • Home screen and lock screen widgets
 • Apple Watch companion app
-• Share extension — send any URL to Preread from Safari or any app
-• Siri shortcuts — "Read Science in Preread"
+• Share extension. Send any URL to Preread from Safari or any app
+• Siri shortcuts. "Read Science in Preread"
 • iPad split view support
-• Works offline — read your articles even without a connection
+• Works offline. Preread prepares your articles while you're connected, so they're there when you're not
 
 — YOUR ARTICLES, YOUR WAY —
 
@@ -80,12 +80,12 @@ Beautiful reading. Quietly prepared. Always ready.
 
 ### Promotional Text (170 characters)
 
-`Your personal article reader. Add the sites you love — full articles are ready to read before you are. On a plane, on the subway, anywhere. Beautiful and calm.`
+`Add the sites you love. Preread makes sure there's always something great to read. Even without WiFi. One-time purchase. No account required.`
 
 _This can be updated anytime without app review — use it for seasonal hooks:_
 
-- Summer: `Never run out of things to read this summer. Preread caches full articles for the beach, the plane, or anywhere you go.`
-- New Year: `Start the year reading more intentionally. Preread curates your favourite sources into one calm, beautiful reading space.`
+- Summer: `Never run out of things to read this summer. Preread prepares full articles for the beach, the plane, or anywhere you go.`
+- New Year: `Start the year reading more intentionally. Preread is a calm space built around the topics you care about, not an algorithm.`
 
 ### What's New (Launch)
 

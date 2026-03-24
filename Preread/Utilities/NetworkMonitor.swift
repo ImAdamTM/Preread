@@ -4,6 +4,12 @@ import Network
 /// Lightweight wrapper around NWPathMonitor for one-shot connectivity checks.
 /// No long-lived monitor — just reads the current path on demand.
 enum NetworkMonitor {
+    /// Returns `true` when the device has any network connectivity.
+    static var isConnected: Bool {
+        let monitor = NWPathMonitor()
+        return monitor.currentPath.status == .satisfied
+    }
+
     /// Returns `true` when the device is on WiFi (or Ethernet/wired).
     static var isOnWiFi: Bool {
         let monitor = NWPathMonitor()

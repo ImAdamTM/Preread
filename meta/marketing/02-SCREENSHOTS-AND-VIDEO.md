@@ -1,68 +1,66 @@
 # Screenshots & Video Plan — Final
 
-*Finalised by Kai (Design) with input from Maya and Jess.*
+*Updated by the marketing team to align with final site copy and positioning.*
 
 ---
 
 ## Principles
 
-- **Dark backgrounds throughout.** Most App Store listings use light backgrounds. Dark stands out and matches the app's default appearance.
-- **No device frames.** Full-bleed app UI with rounded corners and a subtle shadow. Frameless looks modern and won't date when new devices ship.
-- **One message per screenshot.** A single short headline overlaid or above the UI. The app does the talking.
-- **Use the demo feeds.** All content shown uses our fictional sources (Currentwave, Sated, Meridian, Prism, Atelier) with Unsplash imagery. No trademark or rights concerns.
-- **Gabarito for overlay text.** Matches the app typeface for brand consistency.
+- **Dark mode throughout.** Stands out in the App Store where most listings are light. Matches the app's default appearance.
+- **No device frames.** Full-bleed app UI with rounded corners and subtle shadow. Won't date when new devices ship.
+- **One message per screenshot.** Short headline above or overlaid on the UI. The app does the talking.
+- **Use the demo feeds.** Currentwave, Sated, Meridian, Prism, Atelier with Unsplash imagery. No trademark concerns.
+- **Gabarito for overlay text.** Matches the app typeface.
+- **No em dashes in copy.** Periods and short sentences.
 
 ---
 
 ## iPhone Screenshots (6 screens, 6.9" display)
 
 ### Screenshot 1 — The Hook
-- **Text:** "All your articles. Ready when you are."
-- **Show:** Home screen — "Preread for you" header, hero carousel with a Sated food article (pasta photo), Atelier source section below with article rows
-- **Purpose:** First impression. Shows the app is polished, content-rich, and inviting. The food imagery is universally appealing.
-- **Mood:** Warm, welcoming, personal
+- **Text:** "All the things you love to read. Ready whenever you are."
+- **Show:** Home screen with "Preread for you" header, hero carousel showing the Sated pasta article, Atelier section below with article rows and unread dots
+- **Purpose:** First impression. Content-rich, polished, inviting. The food photo is universally appealing.
 
 ### Screenshot 2 — The Reader
-- **Text:** "Beautiful reading. Zero distractions."
-- **Show:** Reader view of a Meridian travel article (Kyoto or Amalfi Coast). Dark mode. Large hero image, clean typography, date and source attribution visible
-- **Purpose:** Demonstrates the core experience. This is what 90% of time in the app looks like.
-- **Mood:** Calm, immersive, editorial
+- **Text:** "A reading-first experience."
+- **Show:** Reader view of a Meridian article (Kyoto). Dark mode. Hero image, clean typography, source and date visible. Show both dark and light mode if possible (side by side or second screenshot).
+- **Purpose:** The core experience. This is what using the app actually feels like.
 
 ### Screenshot 3 — Discovery
-- **Text:** "Discover something new."
-- **Show:** Browse Topics screen showing the category list — World News, Tech, AI, Science, Space, Food, Travel, Music, Gaming, etc. with feed counts
-- **Purpose:** Shows breadth. Signals this isn't a niche app — it covers everything. Makes users think "oh, I'd add that one."
-- **Mood:** Expansive, curious
+- **Text:** "Stumble into new interests."
+- **Show:** Browse Topics screen showing the full category list with feed counts. World News, Tech, AI, Science, Food, Travel, Gaming, etc.
+- **Purpose:** Shows breadth. "Oh, they have architecture? And boating?" Makes people think about what they'd add.
 
-### Screenshot 4 — Simplicity
-- **Text:** "Add any website. We handle the rest."
-- **Show:** Add Source sheet with a URL typed in, the "Find articles" and "Save single page" buttons, and the gradient "Browse topics" link below
-- **Purpose:** Demystifies onboarding. Shows how simple it is to add content. "We handle the rest" reinforces the set-and-forget value.
-- **Mood:** Simple, approachable
+### Screenshot 4 — No Saving Required
+- **Text:** "No saving required. It's already there."
+- **Show:** Settings screen showing Auto refresh enabled, background refresh on, WiFi-only toggle. Conveys the set-and-forget value.
+- **Purpose:** Differentiator from Pocket/Instapaper. You don't save articles one at a time.
 
-### Screenshot 5 — Personalisation
-- **Text:** "Your reading. Your way."
-- **Show:** Settings screen — appearance toggle (System/Light/Dark), reading font selector, text size slider, sync frequency options
-- **Purpose:** Shows customisation depth without complexity. The dark/light toggle and font options are visually interesting.
-- **Mood:** Refined, in-control
+### Screenshot 5 — Offline
+- **Text:** "On a plane. On the subway. Off the grid."
+- **Show:** Reader view with airplane mode visible in the status bar (use `xcrun simctl status_bar` to fake it). Article fully loaded, no loading indicators.
+- **Purpose:** Owns the offline moment. The status bar tells the story.
 
-### Screenshot 6 — Ecosystem
-- **Text:** "On your home screen. On your wrist."
-- **Show:** Composite — a Preread widget (medium size) on an iOS home screen, plus a small inset of the Apple Watch app showing article list
-- **Purpose:** Shows system integration. Widgets and Watch support signal a polished, well-integrated app.
-- **Mood:** Modern, seamless
+### Screenshot 6 — Widgets
+- **Text:** "Glance at your latest articles."
+- **Show:** Home screen with Preread widget (large or medium size). Real articles visible in the widget with thumbnails.
+- **Purpose:** System integration. Widgets signal a polished, native app.
+
+### Optional Screenshot 7 — iPad
+- **Text:** "Beautiful on iPad too."
+- **Show:** Split view with sidebar and reader, Meridian article open. Same content as the website's iPad mockup.
+- **Purpose:** Shows iPad support for users browsing on iPad.
 
 ---
 
-## iPad Screenshots (optional, 6 screens)
+## iPad Screenshots (if submitting separately)
 
-If submitted, use the same headlines but show iPad-specific layouts:
-1. Split view — sidebar + reader (landscape)
-2. Reader view — full-width article with large hero image
-3. Browse Topics — wider grid layout
-4. Home screen with multiple sources visible
-5. Settings
-6. Widget on iPad home screen
+Use the same messaging but show iPad-specific layouts:
+1. **Split view** with sidebar + reader (landscape). Meridian article with blurred favicon background.
+2. **Browse Topics** showing the wider layout
+3. **Home screen** with multiple sources expanded
+4. **Widget** on iPad home screen
 
 ---
 
@@ -72,35 +70,55 @@ If submitted, use the same headlines but show iPad-specific layouts:
 
 | Time | What's on screen | Notes |
 |---|---|---|
-| 0-2s | App opens to home screen. "Preread for you" visible with loaded articles. | Start in motion — no splash screen |
-| 2-5s | Slow scroll through home. Carousel slides past. Source sections visible. | Show content density and beautiful imagery |
-| 5-8s | Tap a Meridian article. Reader view opens with zoom transition. Kyoto hero image fills the screen. | The "wow" moment — clean reader with stunning photo |
-| 8-11s | Slow scroll through the article. Clean typography visible. | Show the reading experience in motion |
-| 11-13s | Swipe back. Tap "+" to add source. Browse Topics screen appears. | Show discovery |
-| 13-16s | Scroll through topics list. Tap into one category briefly. | Show breadth |
-| 16-18s | Cut to home screen with Preread widget showing an article | System integration |
-| 18-20s | Fade to app icon + "Preread. Ready when you are." | Closing card |
+| 0-2s | App opens to home screen. "Preread for you" with articles loaded. | Start in motion. No splash screen. |
+| 2-4s | Scroll through home. Carousel slides. Source sections with unread dots. | Show content density and imagery. |
+| 4-7s | Tap a Meridian article. Reader opens with zoom transition. Kyoto hero image. | The "wow" moment. Clean reader, stunning photo. |
+| 7-9s | Slow scroll through the article body. | Show the reading experience. |
+| 9-11s | Swipe back. Tap "+". Browse Topics appears. | Show discovery. |
+| 11-13s | Scroll through topics. Tap into Food or Travel briefly. | Show breadth. |
+| 13-15s | Cut to home screen with Preread widget. | System integration. |
+| 15-17s | Enable airplane mode. Open app. Articles still there. | The offline moment. |
+| 17-20s | App icon with text: "Preread. Ready when you are." | Closing card. |
 
 ### Production Notes
-- **No narration.** Subtle ambient music only (Apple allows royalty-free music).
-- **No cursor visible.** Record on Simulator (cursor hidden) or real device via QuickTime.
-- **Dark mode throughout.** Consistent with screenshots.
-- **Real device preferred** for natural scrolling physics — use QuickTime screen mirroring from iPhone.
-- **Resolution:** Match device class (1290x2796 for 6.9" iPhone).
+
+- **Record on a real device** via QuickTime screen mirroring for natural scroll physics and animations
+- **No narration.** Subtle ambient music (royalty-free). Apple allows this.
+- **Dark mode throughout.**
+- **Set status bar** before recording: `xcrun simctl status_bar booted override --time "9:41"`
+- **Resolution:** 1290x2796 for iPhone 16 Pro Max / iPhone 17 Pro Max (6.9")
+- **Demo feeds must be fully cached** before recording. No loading spinners visible.
 
 ---
 
 ## Screenshot Production Checklist
 
-- [ ] Load all 5 demo feeds into the app and let them cache fully
+### Before capturing
+- [ ] Load all 5 demo feeds and let them fully cache
 - [ ] Set app to dark mode
 - [ ] Set font to System, text size to default (18pt)
-- [ ] Take Screenshot 1: Home screen with carousel visible
-- [ ] Take Screenshot 2: Open a Meridian article with strong hero image
-- [ ] Take Screenshot 3: Navigate to Browse Topics
-- [ ] Take Screenshot 4: Open Add Source sheet with a URL typed
-- [ ] Take Screenshot 5: Open Settings
-- [ ] Take Screenshot 6: Set up a widget on home screen + capture Watch app
-- [ ] Add text overlays in Figma, Keynote, or similar
+- [ ] Override status bar: `xcrun simctl status_bar booted override --time "9:41" --wifiBars 3 --cellularBars 4 --batteryState charged --batteryLevel 100`
+
+### Capture
+- [ ] Screenshot 1: Home screen with carousel and Atelier articles
+- [ ] Screenshot 2: Reader view (Meridian/Kyoto, dark mode)
+- [ ] Screenshot 3: Browse Topics full list
+- [ ] Screenshot 4: Settings with sync options visible
+- [ ] Screenshot 5: Reader with airplane mode status bar
+- [ ] Screenshot 6: Widget on home screen
+- [ ] Screenshot 7 (optional): iPad split view
+
+### Post-processing
+- [ ] Add text overlays in Figma or Keynote (Gabarito font, white text on dark)
 - [ ] Export at correct App Store resolutions
-- [ ] Record video preview (15-20s)
+- [ ] Record video preview (15-20s) on real device
+
+### For airplane mode screenshot
+```bash
+xcrun simctl status_bar booted override --time "9:41" --wifiBars 0 --cellularBars 0 --cellularMode notSupported --batteryState charged --batteryLevel 100
+```
+
+### Reset status bar after
+```bash
+xcrun simctl status_bar booted clear
+```

@@ -131,8 +131,9 @@ struct SourceSectionView: View {
             // Observe article changes reactively instead of polling.
             startArticleObservation()
             // Auto-cache any visible pending/failed articles (e.g. after
-            // cache wipe or integrity checker reset) when not refreshing
-            if refreshState != .refreshing && !coordinator.isFetching {
+            // cache wipe or integrity checker reset) when not refreshing.
+            // Skip when offline to avoid burning retry budget.
+            if refreshState != .refreshing && !coordinator.isFetching && NetworkMonitor.isConnected {
                 await cacheUncachedArticles()
             }
         }
@@ -152,7 +153,7 @@ struct SourceSectionView: View {
             }
         }
         .onChange(of: coordinator.startupComplete) { _, complete in
-            if complete {
+            if complete && NetworkMonitor.isConnected {
                 // IntegrityChecker may have reset articles from .cached to
                 // .pending — re-cache any that need it (article list updates
                 // are handled automatically by the database observation)
