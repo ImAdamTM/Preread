@@ -306,7 +306,7 @@ func deduplicateSiblingImages(in doc: Document) throws {
 func stripEmptyElements(in doc: Document) throws {
     let preservedTags: Set<String> = [
         "img", "br", "hr", "input", "source", "meta", "link",
-        "video", "audio", "canvas", "iframe", "embed", "object",
+        "canvas", "iframe", "embed", "object",
         "table", "thead", "tbody", "tfoot", "tr", "th", "td",
     ]
     for _ in 0..<6 {
@@ -490,6 +490,8 @@ if isFullMode {
     try preDoc.select("select").remove()
     try preDoc.select("textarea").remove()
     try preDoc.select("iframe").remove()
+    try preDoc.select("video").remove()
+    try preDoc.select("audio").remove()
 
     stripLinkedThumbnailCards(in: preDoc, pageURL: pageURL)
 

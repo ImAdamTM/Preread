@@ -257,6 +257,8 @@ actor PageCacheService {
         try preDoc.select("select").remove()
         try preDoc.select("textarea").remove()
         try preDoc.select("iframe").remove()
+        try preDoc.select("video").remove()
+        try preDoc.select("audio").remove()
 
         try stripLinkedThumbnailCards(in: preDoc, pageURL: pageURL)
 
@@ -487,6 +489,8 @@ actor PageCacheService {
         try doc.select("input").remove()
         try doc.select("select").remove()
         try doc.select("textarea").remove()
+        try doc.select("video").remove()
+        try doc.select("audio").remove()
 
         // Strip elements explicitly marked as hidden — these are popovers,
         // tooltips, and overlays that take up layout space without JS.
@@ -992,12 +996,8 @@ actor PageCacheService {
                 let href = try link.attr("abs:href")
                 if let url = URL(string: href) { urls.append(url) }
             }
-            // Source elements for video/audio
-            let mediaSources = try doc.select("video > source[src], audio > source[src]")
-            for source in mediaSources {
-                let src = try source.attr("abs:src")
-                if let url = URL(string: src) { urls.append(url) }
-            }
+            // Note: video/audio elements are stripped during cleaning,
+            // so we don't collect their source URLs.
         }
 
         // Deduplicate while preserving order
@@ -1462,14 +1462,8 @@ actor PageCacheService {
             }
         }
 
-        // Rewrite video/audio source src
-        let mediaSources = try doc.select("video > source[src], audio > source[src]")
-        for source in mediaSources {
-            let src = try source.attr("abs:src")
-            if src == original {
-                try source.attr("src", replacement)
-            }
-        }
+        // Note: video/audio elements are stripped during cleaning,
+        // so we don't rewrite their source URLs.
     }
 
     /// Checks if any entry in an element's srcset matches the original URL.
@@ -1683,7 +1677,7 @@ actor PageCacheService {
     private func stripEmptyElements(in doc: Document) throws {
         let preservedTags: Set<String> = [
             "img", "br", "hr", "input", "source", "meta", "link",
-            "video", "audio", "canvas", "iframe", "embed", "object",
+            "canvas", "iframe", "embed", "object",
             "table", "thead", "tbody", "tfoot", "tr", "th", "td",
         ]
         // Multiple passes: removing empty <li> can leave <ul> empty,

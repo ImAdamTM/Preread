@@ -136,36 +136,6 @@
   },
   {
     "category": "AI",
-    "description": "Prolific and trusted voice on practical AI tooling, LLMs, and developer workflows",
-    "feedURL": "https://simonwillison.net/atom/everything/",
-    "id": "05243453-1db8-37d6-32eb-c483d8f33550",
-    "name": "Simon Willison's Weblog",
-    "siteURL": "https://simonwillison.net/",
-    "tags": [
-      "llms",
-      "python",
-      "sqlite",
-      "open source",
-      "prompts"
-    ]
-  },
-  {
-    "category": "AI",
-    "description": "Thoughtful, analytical AI coverage bridging technical and philosophical perspectives",
-    "feedURL": "https://www.thealgorithmicbridge.com/feed",
-    "id": "06197e19-b436-1b87-67ef-9b9edd6b325d",
-    "name": "The Algorithmic Bridge",
-    "siteURL": "https://www.thealgorithmicbridge.com/",
-    "tags": [
-      "philosophy",
-      "ethics",
-      "society",
-      "alignment",
-      "consciousness"
-    ]
-  },
-  {
-    "category": "AI",
     "description": "Fast-growing AI news site with breaking news and explainers",
     "feedURL": "https://the-decoder.com/feed/",
     "id": "40e60d3c-b89b-c601-c7c8-0ceb38a8579b",
@@ -192,21 +162,6 @@
       "papers",
       "nonprofit",
       "longform"
-    ]
-  },
-  {
-    "category": "AI",
-    "description": "Enterprise AI coverage with a focus on business and industry applications",
-    "feedURL": "https://venturebeat.com/feed/",
-    "id": "1a71342d-965c-d9f7-fc4a-06e807a5c67b",
-    "name": "VentureBeat",
-    "siteURL": "https://venturebeat.com/",
-    "tags": [
-      "enterprise",
-      "startups",
-      "funding",
-      "corporate",
-      "saas"
     ]
   }
 ]
