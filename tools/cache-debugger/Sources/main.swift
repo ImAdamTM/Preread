@@ -437,6 +437,8 @@ if isFullMode {
 
     // Strip navigation
     try doc.select("nav").remove()
+    try doc.select("[role=navigation]").remove()
+    try doc.select("header[id*=navigation], header[class*=navigation]").remove()
 
     // Strip comment sections
     try doc.select("#comments, .comments, #disqus_thread").remove()
@@ -497,6 +499,8 @@ if isFullMode {
     try preDoc.select("dialog").remove()
     try preDoc.select("svg").remove()
     try preDoc.select("nav").remove()
+    try preDoc.select("[role=navigation]").remove()
+    try preDoc.select("header[id*=navigation], header[class*=navigation]").remove()
     try preDoc.select("aside").remove()
     try preDoc.select("form").remove()
     try preDoc.select("input").remove()

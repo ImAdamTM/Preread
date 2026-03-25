@@ -251,6 +251,8 @@ actor PageCacheService {
         try preDoc.select("dialog").remove()
         try preDoc.select("svg").remove()
         try preDoc.select("nav").remove()
+        try preDoc.select("[role=navigation]").remove()
+        try preDoc.select("header[id*=navigation], header[class*=navigation]").remove()
         try preDoc.select("aside").remove()
         try preDoc.select("form").remove()
         try preDoc.select("input").remove()
@@ -477,6 +479,8 @@ actor PageCacheService {
         // Strip navigation — site nav links are non-functional offline
         // and take up significant space above article content.
         try doc.select("nav").remove()
+        try doc.select("[role=navigation]").remove()
+        try doc.select("header[id*=navigation], header[class*=navigation]").remove()
 
         // Strip comment sections — user-generated comments are non-functional
         // offline and add unnecessary weight.
@@ -863,6 +867,16 @@ actor PageCacheService {
             isTruncated = downloadResults.contains { result in
                 if case .success(let mapping) = result { return mapping.wasTruncated }
                 return false
+            }
+
+            // If the article has no images but a thumbnail was cached from the
+            // RSS feed, inject it as a hero below the title so the reader
+            // isn't purely text.
+            if pipelineResult.imageCount == 0 {
+                let thumbnailPath = articleDir.appendingPathComponent("thumbnail.jpg")
+                if FileManager.default.fileExists(atPath: thumbnailPath.path) {
+                    contentHTML = "<img src=\"./thumbnail.jpg\" />" + contentHTML
+                }
             }
 
             // Build templated HTML and calculate total size

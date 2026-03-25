@@ -312,6 +312,25 @@ struct StandardPipelineTests {
         #expect(!result.contentHTML.contains("<nav"))
         #expect(!result.contentHTML.contains("<style"))
     }
+
+    // MARK: - Squarespace blog
+
+    @Test("Squarespace: no navigation images injected, text-only article")
+    func squarespaceBlog() async throws {
+        let html = try loadFixture("squarespace_blog")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.squarespace.com/blog/how-to-start-a-tutoring-business")!
+        )
+
+        #expect(result.title.contains("Tutoring"))
+        #expect(result.contentHTML.contains("personalized instruction"))
+        // The article has no images — navigation images must not be injected
+        #expect(result.imageCount == 0, "Text-only article should have no images")
+        #expect(!result.contentHTML.contains("site-navigation"), "Navigation images must not leak into content")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+    }
 }
 
 // MARK: - Full-mode tests
@@ -652,5 +671,25 @@ struct FullPipelineTests {
         // Brooklyn's statement should also be preserved
         #expect(result.cleanedHTML.contains("I do not want to reconcile with my family"))
         #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
+    }
+
+    // MARK: - Squarespace blog
+
+    @Test("Squarespace: navigation and header stripped, article content preserved")
+    func squarespaceBlog() async throws {
+        let html = try loadFixture("squarespace_blog")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.squarespace.com/blog/how-to-start-a-tutoring-business")!
+        )
+
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form"))
+        // Article content should be preserved
+        #expect(result.cleanedHTML.contains("personalized instruction"))
+        #expect(result.cleanedHTML.contains("Tutoring"))
     }
 }
