@@ -289,6 +289,29 @@ struct StandardPipelineTests {
         #expect(!result.contentHTML.contains("<script"))
         #expect(!result.contentHTML.contains("<nav"))
     }
+
+    // MARK: - Daily Mail (factbox)
+
+    @Test("Daily Mail factbox: article body and embedded statement both extracted")
+    func dailymailFactbox() async throws {
+        let html = try loadFixture("dailymail_factbox")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.dailymail.co.uk/tvshowbiz/article-15677151/Cruz-Beckham-sings-song-breaking-mamas-heart-takes-aim-Brooklyn-brutal-lyrics.html")!
+        )
+
+        #expect(result.title.contains("Cruz Beckham"))
+        // Main article body should be extracted
+        #expect(result.contentHTML.contains("Loneliest Boy"), "Song title should appear in extracted content")
+        #expect(result.contentHTML.contains("The Breakers"), "Band name should appear in extracted content")
+        // Brooklyn's embedded statement (inside a factbox/custom element) should also be extracted
+        #expect(result.contentHTML.contains("I do not want to reconcile with my family"),
+                "Brooklyn's statement from the factbox should be included")
+        #expect(result.imageCount >= 3, "Article photos should be preserved")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
 }
 
 // MARK: - Full-mode tests
@@ -606,5 +629,28 @@ struct FullPipelineTests {
             #expect(!hero.contains("feature-st-patrick"),
                     "Theme decoration image should not be selected as hero image")
         }
+    }
+
+    // MARK: - Daily Mail (factbox)
+
+    @Test("Daily Mail factbox: interactive elements stripped, article and statement preserved")
+    func dailymailFactbox() async throws {
+        let html = try loadFixture("dailymail_factbox")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.dailymail.co.uk/tvshowbiz/article-15677151/Cruz-Beckham-sings-song-breaking-mamas-heart-takes-aim-Brooklyn-brutal-lyrics.html")!
+        )
+
+        // Interactive elements should be stripped
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<form"))
+        #expect(!result.cleanedHTML.contains("<button"))
+
+        // Article content should be preserved
+        #expect(result.cleanedHTML.contains("Cruz Beckham"))
+        #expect(result.cleanedHTML.contains("Loneliest Boy"))
+        // Brooklyn's statement should also be preserved
+        #expect(result.cleanedHTML.contains("I do not want to reconcile with my family"))
+        #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
     }
 }

@@ -262,6 +262,7 @@ actor PageCacheService {
 
         try stripLinkedThumbnailCards(in: preDoc, pageURL: pageURL)
 
+        try unwrapCustomElements(in: preDoc)
         try preDoc.select("figure").unwrap()
         try flattenImageOnlyDivs(in: preDoc)
         flattenSingleChildDivs(in: preDoc)
@@ -1835,6 +1836,28 @@ actor PageCacheService {
             for img in sorted.dropFirst() {
                 try img.remove()
             }
+        }
+    }
+
+    // MARK: - Custom element unwrapping
+
+    /// Unwraps HTML custom elements (tags containing a hyphen, per the HTML spec)
+    /// such as `<mol-permabox>`, `<ad-slot>`, `<react-partial>`.
+    ///
+    /// CMS platforms wrap supplementary content in custom elements which creates
+    /// separate scoring containers in Readability. This fragments article text and
+    /// can cause Readability to pick a dense sidebar block (e.g. a quoted statement)
+    /// over the main article body. Unwrapping merges their children into the parent
+    /// so Readability sees one continuous block.
+    private func unwrapCustomElements(in doc: Document) throws {
+        guard let allElements = try? doc.getAllElements() else { return }
+        for element in allElements.reversed() {
+            guard element.parent() != nil else { continue }
+            let tag = element.tagName()
+            guard tag.contains("-") else { continue }
+            // Don't unwrap standard web component-like tags that are already handled
+            guard tag != "br" else { continue }
+            try element.unwrap()
         }
     }
 

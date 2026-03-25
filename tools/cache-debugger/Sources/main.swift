@@ -77,6 +77,19 @@ func recoverPlaceholderImages(in doc: Document) throws {
     }
 }
 
+// MARK: - Helper: unwrap custom elements
+
+func unwrapCustomElements(in doc: Document) throws {
+    guard let allElements = try? doc.getAllElements() else { return }
+    for element in allElements.reversed() {
+        guard element.parent() != nil else { continue }
+        let tag = element.tagName()
+        guard tag.contains("-") else { continue }
+        guard tag != "br" else { continue }
+        try element.unwrap()
+    }
+}
+
 // MARK: - Helper: flatten image-only divs
 
 func flattenImageOnlyDivs(in doc: Document) throws {
@@ -499,6 +512,7 @@ if isFullMode {
     saveStep("2_cleaned.html", html: cleanedHTML)
 
     // Step 3: Flatten
+    try unwrapCustomElements(in: preDoc)
     try preDoc.select("figure").unwrap()
     try flattenImageOnlyDivs(in: preDoc)
     flattenSingleChildDivs(in: preDoc)
