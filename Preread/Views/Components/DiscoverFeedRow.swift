@@ -65,6 +65,7 @@ struct DiscoverFeedRow: View {
                 .interpolation(.high)
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 34, height: 34)
+                .background(Theme.faviconBackground, in: RoundedRectangle(cornerRadius: 34 * 0.24))
                 .clipShape(RoundedRectangle(cornerRadius: 34 * 0.24))
         } else {
             let letter = String(feed.name.prefix(1)).uppercased()

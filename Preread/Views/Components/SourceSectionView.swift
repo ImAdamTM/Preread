@@ -287,6 +287,7 @@ struct SourceSectionView: View {
                 .interpolation(.high)
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 38, height: 38)
+                .background(Theme.faviconBackground, in: RoundedRectangle(cornerRadius: 9))
                 .clipShape(RoundedRectangle(cornerRadius: 9))
         } else {
             letterAvatar

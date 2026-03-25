@@ -31,6 +31,10 @@ struct Theme {
             : UIColor(red: 242/255, green: 242/255, blue: 247/255, alpha: 1)  // #F2F2F7
     })
 
+    /// Very subtle background behind favicons so transparent icons remain
+    /// visible in both light and dark mode.
+    static let faviconBackground = surfaceRaised.opacity(0.85)
+
     static let surfaceRaised = Color(uiColor: UIColor { traits in
         traits.userInterfaceStyle == .dark
             ? UIColor(red: 30/255, green: 30/255, blue: 34/255, alpha: 1)     // #1E1E22

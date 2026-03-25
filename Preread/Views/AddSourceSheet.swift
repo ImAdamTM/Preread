@@ -637,6 +637,7 @@ struct AddSourceSheet: View {
                         .interpolation(.high)
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 44, height: 44)
+                        .background(Theme.faviconBackground, in: RoundedRectangle(cornerRadius: 44 * 0.2))
                         .clipShape(RoundedRectangle(cornerRadius: 44 * 0.2))
                 } else {
                     letterAvatar(for: editableName.isEmpty ? "?" : editableName, size: 44)

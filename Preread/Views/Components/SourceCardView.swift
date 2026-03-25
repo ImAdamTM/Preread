@@ -125,6 +125,7 @@ struct SourceCardView: View {
                 .interpolation(.high)
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 40, height: 40)
+                .background(Theme.faviconBackground, in: RoundedRectangle(cornerRadius: 8))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
         } else {
             letterAvatar

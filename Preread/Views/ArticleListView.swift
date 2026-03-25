@@ -377,6 +377,7 @@ struct ArticleListView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 24, height: 24)
+                .background(Theme.faviconBackground, in: RoundedRectangle(cornerRadius: 5))
                 .clipShape(RoundedRectangle(cornerRadius: 5))
         } else {
             smallLetterAvatar

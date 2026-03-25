@@ -159,6 +159,7 @@ struct SourceHeroView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 38, height: 38)
+                .background(Theme.faviconBackground, in: RoundedRectangle(cornerRadius: 9))
                 .clipShape(RoundedRectangle(cornerRadius: 9))
                 .shadow(color: .black.opacity(0.08), radius: 4, y: 2)
         } else {
