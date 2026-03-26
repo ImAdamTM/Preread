@@ -31,10 +31,7 @@ struct LatestCarouselView: View {
                                 isFetching: fetchingArticleIDs.contains(article.id),
                                 onTap: { handleTap(article) }
                             )
-                            .matchedTransitionSource(id: "latest-carousel-\(article.id)", in: transitionNamespace) {
-                                $0.clipShape(RoundedRectangle(cornerRadius: 16))
-                                    .background(Theme.background)
-                            }
+                            .zoomTransitionSource(id: "latest-carousel-\(article.id)", in: transitionNamespace, cornerRadius: 16)
                             .scrollTransition { content, phase in
                                 content
                                     .scaleEffect(phase.isIdentity ? 1.0 : 0.93)

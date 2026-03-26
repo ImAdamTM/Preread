@@ -100,7 +100,7 @@ struct SavedArticlesView: View {
             NavigationStack {
                 ReaderView(article: selection.article, source: selection.source)
             }
-            .navigationTransition(.zoom(sourceID: transitionSourceID ?? "row-\(selection.article.id)", in: namespace))
+            .zoomNavigationTransition(sourceID: transitionSourceID ?? "row-\(selection.article.id)", in: namespace)
             .toastOverlay()
             .presentationDragIndicator(.hidden)
             .preferredColorScheme(preferredScheme)
@@ -150,10 +150,7 @@ struct SavedArticlesView: View {
                     sourceName: article.originalSourceName ?? sourceNames[article.sourceID],
                     showUnsaveInsteadOfSave: true
                 )
-                .matchedTransitionSource(id: "row-\(article.id)", in: namespace) {
-                    $0.clipShape(RoundedRectangle(cornerRadius: 12))
-                        .background(Theme.background)
-                }
+                .zoomTransitionSource(id: "row-\(article.id)", in: namespace, cornerRadius: 12)
                 .listRowInsets(EdgeInsets())
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)

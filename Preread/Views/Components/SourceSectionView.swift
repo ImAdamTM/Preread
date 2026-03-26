@@ -84,10 +84,7 @@ struct SourceSectionView: View {
                             onDelete: { Task { await deleteArticle(article) } },
                             sourceName: source.isTopicFeed ? article.displayDomain : nil
                         )
-                        .matchedTransitionSource(id: "\(source.id)-\(article.id)", in: transitionNamespace) {
-                            $0.clipShape(RoundedRectangle(cornerRadius: 12))
-                                .background(Theme.background)
-                        }
+                        .zoomTransitionSource(id: "\(source.id)-\(article.id)", in: transitionNamespace, cornerRadius: 12)
                         .listRowInsets(EdgeInsets())
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)

@@ -35,10 +35,7 @@ struct SourceCarouselView: View {
                                 isTopicFeed: isTopicFeed,
                                 onTap: { handleTap(article) }
                             )
-                            .matchedTransitionSource(id: "source-carousel-\(article.id)", in: transitionNamespace) {
-                                $0.clipShape(RoundedRectangle(cornerRadius: 16))
-                                    .background(Theme.background)
-                            }
+                            .zoomTransitionSource(id: "source-carousel-\(article.id)", in: transitionNamespace, cornerRadius: 16)
                             .scrollTransition { content, phase in
                                 content
                                     .scaleEffect(phase.isIdentity ? 1.0 : 0.93)

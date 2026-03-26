@@ -171,7 +171,7 @@ struct ArticleListView: View {
             NavigationStack {
                 ReaderView(article: article, source: source)
             }
-            .navigationTransition(.zoom(sourceID: transitionSourceID ?? "row-\(article.id)", in: namespace))
+            .zoomNavigationTransition(sourceID: transitionSourceID ?? "row-\(article.id)", in: namespace)
             .toastOverlay()
             .presentationDragIndicator(.hidden)
             .preferredColorScheme(preferredScheme)
@@ -231,10 +231,7 @@ struct ArticleListView: View {
                         onDelete: { Task { await deleteArticle(article) } },
                         sourceName: source.isTopicFeed ? article.displayDomain : nil
                     )
-                    .matchedTransitionSource(id: "row-\(article.id)", in: namespace) {
-                        $0.clipShape(RoundedRectangle(cornerRadius: 12))
-                            .background(Theme.background)
-                    }
+                    .zoomTransitionSource(id: "row-\(article.id)", in: namespace, cornerRadius: 12)
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)

@@ -162,7 +162,7 @@ struct SourcesListView: View {
                 NavigationStack {
                     ReaderView(article: selection.article, source: selection.source)
                 }
-                .navigationTransition(.zoom(sourceID: transitionSourceID ?? "\(selection.source.id)-\(selection.article.id)", in: namespace))
+                .zoomNavigationTransition(sourceID: transitionSourceID ?? "\(selection.source.id)-\(selection.article.id)", in: namespace)
                 .toastOverlay()
                 .presentationDragIndicator(.hidden)
                 .preferredColorScheme(preferredScheme)

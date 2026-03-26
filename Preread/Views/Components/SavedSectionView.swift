@@ -35,10 +35,7 @@ struct SavedSectionView: View {
                             sourceName: article.originalSourceName,
                             showUnsaveInsteadOfSave: true
                         )
-                        .matchedTransitionSource(id: "saved-section-\(article.id)", in: transitionNamespace) {
-                            $0.clipShape(RoundedRectangle(cornerRadius: 12))
-                                .background(Theme.background)
-                        }
+                        .zoomTransitionSource(id: "saved-section-\(article.id)", in: transitionNamespace, cornerRadius: 12)
                         .listRowInsets(EdgeInsets())
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
