@@ -61,21 +61,6 @@
   },
   {
     "category": "Mobile Development",
-    "description": "iOS app size optimization, performance, and build tooling",
-    "feedURL": "https://www.emergetools.com/rss.xml",
-    "id": "b3725457-67ba-5825-9594-25673f097d7d",
-    "name": "Emerge Tools",
-    "siteURL": "https://www.emergetools.com/blog",
-    "tags": [
-      "app size",
-      "performance",
-      "build times",
-      "profiling",
-      "optimization"
-    ]
-  },
-  {
-    "category": "Mobile Development",
     "description": "iOS development blog",
     "feedURL": "https://www.fabisevi.ch/feed.xml",
     "id": "b2572bcc-423d-1381-bb63-23cc20f93bc3",
@@ -181,21 +166,6 @@
   },
   {
     "category": "Mobile Development",
-    "description": "Android, Flutter, and Google Assistant development",
-    "feedURL": "https://joebirch.co/feed",
-    "id": "a5fc413d-bd0b-d1c6-443c-37dfd081c5fb",
-    "name": "Joe Birch",
-    "siteURL": "https://joebirch.co",
-    "tags": [
-      "flutter",
-      "compose",
-      "android",
-      "google",
-      "multiplatform"
-    ]
-  },
-  {
-    "category": "Mobile Development",
     "description": "Blog with mission to simplify Kotlin learning",
     "feedURL": "https://blog.kotlin-academy.com/feed",
     "id": "d82be0c7-5b8c-a091-faec-8abedc848351",
@@ -241,21 +211,6 @@
   },
   {
     "category": "Mobile Development",
-    "description": "Functional programming in Swift and composable architecture",
-    "feedURL": "https://www.pointfree.co/blog/feed/atom.xml",
-    "id": "1bf66f60-ab53-5f9c-b7c7-a2b2acdf394a",
-    "name": "Point-Free",
-    "siteURL": "https://www.pointfree.co/blog",
-    "tags": [
-      "functional",
-      "composable",
-      "tca",
-      "swift",
-      "architecture"
-    ]
-  },
-  {
-    "category": "Mobile Development",
     "description": "The latest posts from Android Professionals and Google Developer Experts",
     "feedURL": "https://proandroiddev.com/feed",
     "id": "bd8a169e-adcb-548f-ebe4-b90492db6024",
@@ -282,21 +237,6 @@
       "java",
       "open source",
       "networking"
-    ]
-  },
-  {
-    "category": "Mobile Development",
-    "description": "Weekly Swift articles, podcasts, and tips by John Sundell",
-    "feedURL": "https://www.swiftbysundell.com/feed.rss",
-    "id": "526432df-f7e6-580b-95f9-bea06f974520",
-    "name": "Swift by Sundell",
-    "siteURL": "https://www.swiftbysundell.com",
-    "tags": [
-      "swift",
-      "swiftui",
-      "podcasts",
-      "tips",
-      "patterns"
     ]
   },
   {

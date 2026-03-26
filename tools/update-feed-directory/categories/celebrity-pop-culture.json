@@ -76,21 +76,6 @@
   },
   {
     "category": "Celebrity & Pop Culture",
-    "description": "Snarky celebrity gossip from one of the last great independent gossip blogs",
-    "feedURL": "https://dlisted.com/feed/",
-    "id": "77c87aa8-8830-7df8-fc03-447f2d5a339e",
-    "name": "Dlisted",
-    "siteURL": "https://dlisted.com",
-    "tags": [
-      "gossip",
-      "snarky",
-      "independent",
-      "humor",
-      "commentary"
-    ]
-  },
-  {
-    "category": "Celebrity & Pop Culture",
     "description": "Red carpet, celebrity relationships, and reality TV coverage from NBCUniversal",
     "feedURL": "https://www.eonline.com/syndication/feeds/rssfeeds/topstories.xml",
     "id": "b269fba3-5035-a7e7-8d35-b82757bbff5c",

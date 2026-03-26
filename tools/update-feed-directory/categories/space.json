@@ -1,21 +1,6 @@
 [
   {
     "category": "Space",
-    "description": "Deep-dive explainers on rocket engines, launch systems, and spaceflight",
-    "feedURL": "https://everydayastronaut.com/feed/",
-    "id": "c2978591-9eb8-8137-eb5b-ed472c4394ba",
-    "name": "Everyday Astronaut",
-    "siteURL": "https://everydayastronaut.com/",
-    "tags": [
-      "rockets",
-      "engines",
-      "explainers",
-      "spacex",
-      "starship"
-    ]
-  },
-  {
-    "category": "Space",
     "description": "NASA news, images, and videos from America's space agency",
     "feedURL": "https://www.nasa.gov/rss/dyn/breaking_news.rss",
     "id": "d25c6c3a-6b63-b163-f419-a1f6236d627a",

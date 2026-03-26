@@ -548,10 +548,9 @@ func runAudit() async throws {
             }
 
             if !thinFeedURLs.isEmpty {
-                validatedFeeds.removeAll { thinFeedURLs.contains($0.feed.feedURL) }
-                print("Thin content feeds removed: \(thinFeeds.count)")
+                print("Thin content feeds (kept, warning only): \(thinFeeds.count)")
                 for thin in thinFeeds.sorted(by: { $0.words < $1.words }) {
-                    print("   - \(thin.name) (\(thin.category)) — median: \(thin.words) words, \(thin.images) images")
+                    print("   ⚠ \(thin.name) (\(thin.category)) — median: \(thin.words) words, \(thin.images) images")
                 }
             }
         }
@@ -1136,10 +1135,10 @@ func runTest(url inputURL: String) async throws {
     }
 
     print("")
-    if qualityFailed {
-        print("RESULT: FAIL — thin or paywalled content")
-    } else if isStaleFeed {
+    if isStaleFeed {
         print("RESULT: FAIL — feed is stale (>6 months)")
+    } else if qualityFailed {
+        print("RESULT: WARN — thin or paywalled content (will still be included in directory)")
     } else {
         print("RESULT: PASS")
     }

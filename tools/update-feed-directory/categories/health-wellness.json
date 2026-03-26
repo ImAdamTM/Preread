@@ -91,21 +91,6 @@
   },
   {
     "category": "Health & Wellness",
-    "description": "Evidence-based nutrition and coaching content bridging science and practical application",
-    "feedURL": "https://www.precisionnutrition.com/feed",
-    "id": "bb7e70c6-128b-7b40-c26a-5df2a8a110d5",
-    "name": "Precision Nutrition",
-    "siteURL": "https://www.precisionnutrition.com/",
-    "tags": [
-      "coaching",
-      "diet",
-      "macros",
-      "habits",
-      "supplements"
-    ]
-  },
-  {
-    "category": "Health & Wellness",
     "description": "Articles on psychology, relationships, and mental health from therapists and researchers",
     "feedURL": "https://www.psychologytoday.com/us/front/feed",
     "id": "3791c315-57cd-6cef-4542-7a936e998f8f",

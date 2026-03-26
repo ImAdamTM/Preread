@@ -91,21 +91,6 @@
   },
   {
     "category": "History",
-    "description": "Military history, Civil War, World War II, and more from a network of history magazines",
-    "feedURL": "https://historynet.com/feed/",
-    "id": "4123a374-68b4-422f-4382-3318857e15bc",
-    "name": "HistoryNet",
-    "siteURL": "https://www.historynet.com/",
-    "tags": [
-      "military",
-      "civil war",
-      "world war",
-      "battles",
-      "generals"
-    ]
-  },
-  {
-    "category": "History",
     "description": "Art, culture, material history, and cultural heritage criticism",
     "feedURL": "https://hyperallergic.com/rss/",
     "id": "31b3c59b-822b-db9e-afcf-df18f8a0cab7",

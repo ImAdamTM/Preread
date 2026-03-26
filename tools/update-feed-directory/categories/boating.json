@@ -181,21 +181,6 @@
   },
   {
     "category": "Boating",
-    "description": "Traditional wooden boat building, restoration, and craftsmanship",
-    "feedURL": "https://www.woodenboat.com/rss.xml",
-    "id": "7b4438af-69d5-25b0-8590-d96a3b4e6d5e",
-    "name": "WoodenBoat",
-    "siteURL": "https://www.woodenboat.com/",
-    "tags": [
-      "restoration",
-      "craftsmanship",
-      "building",
-      "classic",
-      "traditional"
-    ]
-  },
-  {
-    "category": "Boating",
     "description": "UK-based sailing magazine with boat tests, seamanship advice, and cruising guides",
     "feedURL": "https://www.yachtingmonthly.com/feed",
     "id": "9aa66d10-2105-7ac2-a76c-02705f51fcfb",

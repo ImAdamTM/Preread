@@ -226,21 +226,6 @@
   },
   {
     "category": "Sports",
-    "description": "Tennis live scores, results, stats, rankings, and tournament news",
-    "feedURL": "https://www.atptour.com/en/media/rss-feed/xml-feed",
-    "id": "6dbfbb56-2565-88e1-e2f2-72bfd498cf73",
-    "name": "Tennis - ATP World Tour",
-    "siteURL": "https://www.atptour.com",
-    "tags": [
-      "atp",
-      "rankings",
-      "draws",
-      "results",
-      "tour"
-    ]
-  },
-  {
-    "category": "Sports",
     "description": "Deep beat coverage across every major sport from the NYT's sports writing operation",
     "feedURL": "https://www.nytimes.com/athletic/rss/news/",
     "id": "0325815a-f773-6df0-48b1-eb8b8ba885ef",

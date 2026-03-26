@@ -16,21 +16,6 @@
   },
   {
     "category": "Architecture",
-    "description": "The goal of Archinect is to make architecture more connected and open-minded, and bring together designers from around",
-    "feedURL": "https://archinect.com/feed/1/news",
-    "id": "e659ec72-d023-d2de-df09-775e0d5fc10a",
-    "name": "Archinect",
-    "siteURL": "https://archinect.com/",
-    "tags": [
-      "community",
-      "jobs",
-      "competitions",
-      "urban",
-      "studios"
-    ]
-  },
-  {
-    "category": "Architecture",
     "description": "Architectural Digest is the international design authority, featuring the work of top architects and designers",
     "feedURL": "https://www.architecturaldigest.com/feed/rss",
     "id": "82f5275d-fd84-ecab-8459-93b8718429e7",
@@ -71,21 +56,6 @@
       "exhibitions",
       "contemporary",
       "urban",
-      "projects"
-    ]
-  },
-  {
-    "category": "Architecture",
-    "description": "Dezeen is the world's most influential architecture, interiors and design magazine",
-    "feedURL": "https://www.dezeen.com/architecture/feed/",
-    "id": "b6e0340f-b9ad-d166-0e35-0150e80ea7ff",
-    "name": "Dezeen",
-    "siteURL": "https://www.dezeen.com",
-    "tags": [
-      "interiors",
-      "furniture",
-      "urban",
-      "sustainability",
       "projects"
     ]
   },

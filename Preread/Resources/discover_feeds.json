@@ -805,21 +805,6 @@
   },
   {
     "category" : "Architecture",
-    "description" : "The goal of Archinect is to make architecture more connected and open-minded, and bring together designers from around",
-    "feedURL" : "https:\/\/archinect.com\/feed\/1\/news",
-    "id" : "e659ec72-d023-d2de-df09-775e0d5fc10a",
-    "name" : "Archinect",
-    "siteURL" : "https:\/\/archinect.com\/",
-    "tags" : [
-      "community",
-      "jobs",
-      "competitions",
-      "urban",
-      "studios"
-    ]
-  },
-  {
-    "category" : "Architecture",
     "description" : "Architectural Digest is the international design authority, featuring the work of top architects and designers",
     "feedURL" : "https:\/\/www.architecturaldigest.com\/feed\/rss",
     "id" : "82f5275d-fd84-ecab-8459-93b8718429e7",
@@ -936,21 +921,6 @@
       "discovery",
       "vinyl",
       "global"
-    ]
-  },
-  {
-    "category" : "Fitness",
-    "description" : "Strength sports coverage including powerlifting, weightlifting, strongman, and CrossFit",
-    "feedURL" : "https:\/\/barbend.com\/feed\/",
-    "id" : "61d06b77-ea1a-4406-b2f5-f771b4abdb38",
-    "name" : "BarBend",
-    "siteURL" : "https:\/\/barbend.com",
-    "tags" : [
-      "powerlifting",
-      "weightlifting",
-      "strongman",
-      "crossfit",
-      "training"
     ]
   },
   {
@@ -1212,21 +1182,6 @@
     ]
   },
   {
-    "category" : "Fitness",
-    "description" : "Accessible training content across multiple styles for beginners and experienced lifters",
-    "feedURL" : "https:\/\/breakingmuscle.com\/feed\/",
-    "id" : "739b4c9e-feaf-4b40-9dcf-5e4add073aa7",
-    "name" : "Breaking Muscle",
-    "siteURL" : "https:\/\/breakingmuscle.com",
-    "tags" : [
-      "training",
-      "mobility",
-      "kettlebells",
-      "bodyweight",
-      "coaching"
-    ]
-  },
-  {
     "category" : "Cars",
     "description" : "Online auction platform for enthusiast vehicles",
     "feedURL" : "https:\/\/bringatrailer.com\/feed\/",
@@ -1408,21 +1363,6 @@
       "politics",
       "local",
       "public service"
-    ]
-  },
-  {
-    "category" : "Photography",
-    "description" : "Stay updated with the latest Canon rumors, leaks & official announcements. Get trusted insights on new cameras, lenses",
-    "feedURL" : "https:\/\/www.canonrumors.com\/feed\/",
-    "id" : "b6d88105-ffe6-cc14-e82a-1f665a9a0490",
-    "name" : "Canon Rumors",
-    "siteURL" : "https:\/\/www.canonrumors.com",
-    "tags" : [
-      "canon",
-      "lenses",
-      "rumors",
-      "leaks",
-      "mirrorless"
     ]
   },
   {
@@ -2062,21 +2002,6 @@
     ]
   },
   {
-    "category" : "Architecture",
-    "description" : "Dezeen is the world's most influential architecture, interiors and design magazine",
-    "feedURL" : "https:\/\/www.dezeen.com\/architecture\/feed\/",
-    "id" : "b6e0340f-b9ad-d166-0e35-0150e80ea7ff",
-    "name" : "Dezeen",
-    "siteURL" : "https:\/\/www.dezeen.com",
-    "tags" : [
-      "interiors",
-      "furniture",
-      "urban",
-      "sustainability",
-      "projects"
-    ]
-  },
-  {
     "category" : "Marketing",
     "description" : "Insider coverage of how digital marketing and media actually works",
     "feedURL" : "https:\/\/digiday.com\/feed\/",
@@ -2104,21 +2029,6 @@
       "tips",
       "composition",
       "lighting"
-    ]
-  },
-  {
-    "category" : "Celebrity & Pop Culture",
-    "description" : "Snarky celebrity gossip from one of the last great independent gossip blogs",
-    "feedURL" : "https:\/\/dlisted.com\/feed\/",
-    "id" : "77c87aa8-8830-7df8-fc03-447f2d5a339e",
-    "name" : "Dlisted",
-    "siteURL" : "https:\/\/dlisted.com",
-    "tags" : [
-      "gossip",
-      "snarky",
-      "independent",
-      "humor",
-      "commentary"
     ]
   },
   {
@@ -2411,21 +2321,6 @@
     ]
   },
   {
-    "category" : "Mobile Development",
-    "description" : "iOS app size optimization, performance, and build tooling",
-    "feedURL" : "https:\/\/www.emergetools.com\/rss.xml",
-    "id" : "b3725457-67ba-5825-9594-25673f097d7d",
-    "name" : "Emerge Tools",
-    "siteURL" : "https:\/\/www.emergetools.com\/blog",
-    "tags" : [
-      "app size",
-      "performance",
-      "build times",
-      "profiling",
-      "optimization"
-    ]
-  },
-  {
     "category" : "Home & Design",
     "description" : "Influential interior design blog documenting projects with genuine transparency",
     "feedURL" : "https:\/\/stylebyemilyhenderson.com\/feed",
@@ -2604,21 +2499,6 @@
       "digital foundry",
       "indie",
       "analysis"
-    ]
-  },
-  {
-    "category" : "Space",
-    "description" : "Deep-dive explainers on rocket engines, launch systems, and spaceflight",
-    "feedURL" : "https:\/\/everydayastronaut.com\/feed\/",
-    "id" : "c2978591-9eb8-8137-eb5b-ed472c4394ba",
-    "name" : "Everyday Astronaut",
-    "siteURL" : "https:\/\/everydayastronaut.com\/",
-    "tags" : [
-      "rockets",
-      "engines",
-      "explainers",
-      "spacex",
-      "starship"
     ]
   },
   {
@@ -3259,21 +3139,6 @@
     ]
   },
   {
-    "category" : "Environment",
-    "description" : "Coastal and ocean science and culture",
-    "feedURL" : "https:\/\/hakaimagazine.com\/feed\/",
-    "id" : "1e088771-ed91-1a74-2227-06545a458458",
-    "name" : "Hakai Magazine",
-    "siteURL" : "https:\/\/hakaimagazine.com\/",
-    "tags" : [
-      "oceans",
-      "marine",
-      "coastal",
-      "coral reefs",
-      "ecology"
-    ]
-  },
-  {
     "category" : "Mobile Development",
     "description" : "Android and web development",
     "feedURL" : "https:\/\/handstandsam.com\/feed\/",
@@ -3391,21 +3256,6 @@
       "british",
       "european",
       "analysis"
-    ]
-  },
-  {
-    "category" : "History",
-    "description" : "Military history, Civil War, World War II, and more from a network of history magazines",
-    "feedURL" : "https:\/\/historynet.com\/feed\/",
-    "id" : "4123a374-68b4-422f-4382-3318857e15bc",
-    "name" : "HistoryNet",
-    "siteURL" : "https:\/\/www.historynet.com\/",
-    "tags" : [
-      "military",
-      "civil war",
-      "world war",
-      "battles",
-      "generals"
     ]
   },
   {
@@ -3699,21 +3549,6 @@
     ]
   },
   {
-    "category" : "Business & Finance",
-    "description" : "Resources and advice for entrepreneurs and business leaders",
-    "feedURL" : "https:\/\/www.inc.com\/rss\/",
-    "id" : "84556dcb-442c-abe8-d233-e23509f37339",
-    "name" : "Inc.com",
-    "siteURL" : "https:\/\/www.inc.com\/",
-    "tags" : [
-      "startups",
-      "founders",
-      "leadership",
-      "small business",
-      "growth"
-    ]
-  },
-  {
     "category" : "India",
     "country" : "India",
     "description" : "dnaindia.com delivers news and information on the latest top stories, sport, entertainment, business, technology",
@@ -3943,21 +3778,6 @@
       "traduzione",
       "global",
       "longform"
-    ]
-  },
-  {
-    "category" : "Business & Finance",
-    "description" : "Real-time quotes, charts, news & tools from Investing.com",
-    "feedURL" : "https:\/\/www.investing.com\/rss\/news.rss",
-    "id" : "0501ace5-f09d-f1d9-77ab-c48d52a5338e",
-    "name" : "Investing.com",
-    "siteURL" : "https:\/\/www.investing.com",
-    "tags" : [
-      "charts",
-      "forex",
-      "commodities",
-      "crypto",
-      "real-time"
     ]
   },
   {
@@ -4203,21 +4023,6 @@
       "politics",
       "opinion",
       "women"
-    ]
-  },
-  {
-    "category" : "Mobile Development",
-    "description" : "Android, Flutter, and Google Assistant development",
-    "feedURL" : "https:\/\/joebirch.co\/feed",
-    "id" : "a5fc413d-bd0b-d1c6-443c-37dfd081c5fb",
-    "name" : "Joe Birch",
-    "siteURL" : "https:\/\/joebirch.co",
-    "tags" : [
-      "flutter",
-      "compose",
-      "android",
-      "google",
-      "multiplatform"
     ]
   },
   {
@@ -4506,22 +4311,6 @@
       "digest",
       "headlines",
       "breakthroughs"
-    ]
-  },
-  {
-    "category" : "Nigeria",
-    "country" : "Nigeria",
-    "description" : "The Nation Newspaper - Nigerian News, Nigerian newspapers, Breaking News, Latest news, Entertainment, Sports, Business",
-    "feedURL" : "https:\/\/thenationonlineng.net\/feed\/",
-    "id" : "8898e8da-d27d-f400-adb2-278cc5f9a28e",
-    "name" : "Latest Nigeria News",
-    "siteURL" : "https:\/\/thenationonlineng.net",
-    "tags" : [
-      "politics",
-      "economy",
-      "naira",
-      "lagos",
-      "national"
     ]
   },
   {
@@ -4842,21 +4631,6 @@
       "retail",
       "digital",
       "social media"
-    ]
-  },
-  {
-    "category" : "Business & Finance",
-    "description" : "Markets, personal investing, and economic news from Dow Jones",
-    "feedURL" : "https:\/\/feeds.marketwatch.com\/marketwatch\/topstories",
-    "id" : "9324cffe-90de-09b6-b8f4-9301d6170243",
-    "name" : "MarketWatch",
-    "siteURL" : "https:\/\/www.marketwatch.com",
-    "tags" : [
-      "stocks",
-      "bonds",
-      "economy",
-      "retirement",
-      "dow jones"
     ]
   },
   {
@@ -5561,36 +5335,6 @@
     ]
   },
   {
-    "category" : "Anime",
-    "description" : "Longer-form anime and manga features, reviews, and editorial content",
-    "feedURL" : "https:\/\/otakuusamagazine.com\/feed\/",
-    "id" : "9bdc73a3-f914-4a6b-ae4c-a55d1215b249",
-    "name" : "Otaku USA Magazine",
-    "siteURL" : "https:\/\/otakuusamagazine.com",
-    "tags" : [
-      "magazine",
-      "reviews",
-      "features",
-      "manga",
-      "figures"
-    ]
-  },
-  {
-    "category" : "Anime",
-    "description" : "Japanese pop culture news contextualizing anime within the wider cultural landscape",
-    "feedURL" : "https:\/\/www.otaquest.com\/feed\/",
-    "id" : "5e57e913-8ba0-47a3-ac75-9ce2362e56a2",
-    "name" : "OTAQUEST",
-    "siteURL" : "https:\/\/www.otaquest.com",
-    "tags" : [
-      "japanese culture",
-      "pop culture",
-      "music",
-      "fashion",
-      "anime"
-    ]
-  },
-  {
     "category" : "Canada",
     "country" : "Canada",
     "description" : "Ottawa news, sports, and headlines",
@@ -5913,21 +5657,6 @@
     ]
   },
   {
-    "category" : "Fitness",
-    "description" : "The mountain biking community hub with race coverage, gear reviews, and trail content",
-    "feedURL" : "https:\/\/www.pinkbike.com\/rss\/",
-    "id" : "6a45acfb-cf79-456b-9798-cfa1f32ade96",
-    "name" : "Pinkbike",
-    "siteURL" : "https:\/\/www.pinkbike.com",
-    "tags" : [
-      "mountain biking",
-      "trails",
-      "gear",
-      "racing",
-      "enduro"
-    ]
-  },
-  {
     "category" : "Music",
     "description" : "The most trusted voice in music",
     "feedURL" : "https:\/\/pitchfork.com\/feed\/feed-news\/rss",
@@ -5955,21 +5684,6 @@
       "congress",
       "white house",
       "insiders"
-    ]
-  },
-  {
-    "category" : "Mobile Development",
-    "description" : "Functional programming in Swift and composable architecture",
-    "feedURL" : "https:\/\/www.pointfree.co\/blog\/feed\/atom.xml",
-    "id" : "1bf66f60-ab53-5f9c-b7c7-a2b2acdf394a",
-    "name" : "Point-Free",
-    "siteURL" : "https:\/\/www.pointfree.co\/blog",
-    "tags" : [
-      "functional",
-      "composable",
-      "tca",
-      "swift",
-      "architecture"
     ]
   },
   {
@@ -6095,21 +5809,6 @@
     ]
   },
   {
-    "category" : "Health & Wellness",
-    "description" : "Evidence-based nutrition and coaching content bridging science and practical application",
-    "feedURL" : "https:\/\/www.precisionnutrition.com\/feed",
-    "id" : "bb7e70c6-128b-7b40-c26a-5df2a8a110d5",
-    "name" : "Precision Nutrition",
-    "siteURL" : "https:\/\/www.precisionnutrition.com\/",
-    "tags" : [
-      "coaching",
-      "diet",
-      "macros",
-      "habits",
-      "supplements"
-    ]
-  },
-  {
     "category" : "Nigeria",
     "country" : "Nigeria",
     "description" : "Nigeria's leading independent online newspaper",
@@ -6183,21 +5882,6 @@
       "java",
       "open source",
       "networking"
-    ]
-  },
-  {
-    "category" : "Business & Finance",
-    "description" : "Global business journalism with a distinctive, accessible voice",
-    "feedURL" : "https:\/\/qz.com\/feed",
-    "id" : "848f6bb5-2e8f-f5b9-e48e-c6646f88407d",
-    "name" : "Quartz",
-    "siteURL" : "https:\/\/qz.com",
-    "tags" : [
-      "global economy",
-      "innovation",
-      "data",
-      "charts",
-      "emerging markets"
     ]
   },
   {
@@ -7016,21 +6700,6 @@
   },
   {
     "category" : "Mobile Development",
-    "description" : "Weekly Swift articles, podcasts, and tips by John Sundell",
-    "feedURL" : "https:\/\/www.swiftbysundell.com\/feed.rss",
-    "id" : "526432df-f7e6-580b-95f9-bea06f974520",
-    "name" : "Swift by Sundell",
-    "siteURL" : "https:\/\/www.swiftbysundell.com",
-    "tags" : [
-      "swift",
-      "swiftui",
-      "podcasts",
-      "tips",
-      "patterns"
-    ]
-  },
-  {
-    "category" : "Mobile Development",
     "description" : "A weekly blog about Swift, iOS, and Xcode tips and tricks",
     "feedURL" : "https:\/\/www.avanderlee.com\/feed\/",
     "id" : "f2f8c800-e3a1-0b14-ed9a-93ebb7e3e3c5",
@@ -7197,21 +6866,6 @@
       "gadgets",
       "specs",
       "reviews"
-    ]
-  },
-  {
-    "category" : "Sports",
-    "description" : "Tennis live scores, results, stats, rankings, and tournament news",
-    "feedURL" : "https:\/\/www.atptour.com\/en\/media\/rss-feed\/xml-feed",
-    "id" : "6dbfbb56-2565-88e1-e2f2-72bfd498cf73",
-    "name" : "Tennis - ATP World Tour",
-    "siteURL" : "https:\/\/www.atptour.com",
-    "tags" : [
-      "atp",
-      "rankings",
-      "draws",
-      "results",
-      "tour"
     ]
   },
   {
@@ -8102,21 +7756,6 @@
     ]
   },
   {
-    "category" : "Fitness",
-    "description" : "Trail and ultra running coverage with race reports and training advice",
-    "feedURL" : "https:\/\/www.trailrunnermag.com\/feed\/",
-    "id" : "68f4ad72-26ce-4d21-80ba-0540dbaec49b",
-    "name" : "Trail Runner Magazine",
-    "siteURL" : "https:\/\/www.trailrunnermag.com",
-    "tags" : [
-      "trail running",
-      "ultramarathons",
-      "races",
-      "training",
-      "gear"
-    ]
-  },
-  {
     "category" : "Travel",
     "description" : "Destination guides, hotel reviews, and travel tips from the editors of Travel + Leisure",
     "feedURL" : "https:\/\/feeds-api.dotdashmeredith.com\/v1\/rss\/google\/90b927aa-066f-4f66-9162-a018ad8ea366",
@@ -8481,21 +8120,6 @@
     ]
   },
   {
-    "category" : "Anime",
-    "description" : "Critical essays on anime art, culture, and production",
-    "feedURL" : "https:\/\/wavemotioncannon.com\/feed\/",
-    "id" : "41c48c19-76c9-4084-b3f0-a82c3c6296f4",
-    "name" : "Wave Motion Cannon",
-    "siteURL" : "https:\/\/wavemotioncannon.com",
-    "tags" : [
-      "essays",
-      "criticism",
-      "art",
-      "culture",
-      "analysis"
-    ]
-  },
-  {
     "category" : "Celebrity & Pop Culture",
     "description" : "The Australian People equivalent — celebrity news with local and international coverage",
     "feedURL" : "https:\/\/www.who.com.au\/feed",
@@ -8538,36 +8162,6 @@
       "security",
       "science",
       "gear"
-    ]
-  },
-  {
-    "category" : "Fitness",
-    "description" : "Training plans, nutrition, and wellness content for women",
-    "feedURL" : "https:\/\/www.womenshealth.com\/rss\/all.xml",
-    "id" : "cdc50977-25dd-4231-9357-fc8b2f297e99",
-    "name" : "Women's Health",
-    "siteURL" : "https:\/\/www.womenshealth.com",
-    "tags" : [
-      "workouts",
-      "nutrition",
-      "wellness",
-      "weight loss",
-      "strength"
-    ]
-  },
-  {
-    "category" : "Boating",
-    "description" : "Traditional wooden boat building, restoration, and craftsmanship",
-    "feedURL" : "https:\/\/www.woodenboat.com\/rss.xml",
-    "id" : "7b4438af-69d5-25b0-8590-d96a3b4e6d5e",
-    "name" : "WoodenBoat",
-    "siteURL" : "https:\/\/www.woodenboat.com\/",
-    "tags" : [
-      "restoration",
-      "craftsmanship",
-      "building",
-      "classic",
-      "traditional"
     ]
   },
   {

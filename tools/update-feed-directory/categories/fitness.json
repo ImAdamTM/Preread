@@ -1,21 +1,6 @@
 [
   {
     "category": "Fitness",
-    "description": "Strength sports coverage including powerlifting, weightlifting, strongman, and CrossFit",
-    "feedURL": "https://barbend.com/feed/",
-    "id": "61d06b77-ea1a-4406-b2f5-f771b4abdb38",
-    "name": "BarBend",
-    "siteURL": "https://barbend.com",
-    "tags": [
-      "powerlifting",
-      "weightlifting",
-      "strongman",
-      "crossfit",
-      "training"
-    ]
-  },
-  {
-    "category": "Fitness",
     "description": "The anchor cycling fitness publication covering gear, training, and rides",
     "feedURL": "https://www.bicycling.com/rss/all.xml",
     "id": "b06f0da2-2656-4e23-8675-eed7e011bbe1",
@@ -27,21 +12,6 @@
       "training plans",
       "rides",
       "nutrition"
-    ]
-  },
-  {
-    "category": "Fitness",
-    "description": "Accessible training content across multiple styles for beginners and experienced lifters",
-    "feedURL": "https://breakingmuscle.com/feed/",
-    "id": "739b4c9e-feaf-4b40-9dcf-5e4add073aa7",
-    "name": "Breaking Muscle",
-    "siteURL": "https://breakingmuscle.com",
-    "tags": [
-      "training",
-      "mobility",
-      "kettlebells",
-      "bodyweight",
-      "coaching"
     ]
   },
   {
@@ -121,21 +91,6 @@
   },
   {
     "category": "Fitness",
-    "description": "The mountain biking community hub with race coverage, gear reviews, and trail content",
-    "feedURL": "https://www.pinkbike.com/rss/",
-    "id": "6a45acfb-cf79-456b-9798-cfa1f32ade96",
-    "name": "Pinkbike",
-    "siteURL": "https://www.pinkbike.com",
-    "tags": [
-      "mountain biking",
-      "trails",
-      "gear",
-      "racing",
-      "enduro"
-    ]
-  },
-  {
-    "category": "Fitness",
     "description": "The undisputed authority for runners with training plans, gear reviews, and injury prevention",
     "feedURL": "https://www.runnersworld.com/rss/all.xml",
     "id": "3c7601b8-791a-44ac-813b-fea0180e4d54",
@@ -196,21 +151,6 @@
   },
   {
     "category": "Fitness",
-    "description": "Trail and ultra running coverage with race reports and training advice",
-    "feedURL": "https://www.trailrunnermag.com/feed/",
-    "id": "68f4ad72-26ce-4d21-80ba-0540dbaec49b",
-    "name": "Trail Runner Magazine",
-    "siteURL": "https://www.trailrunnermag.com",
-    "tags": [
-      "trail running",
-      "ultramarathons",
-      "races",
-      "training",
-      "gear"
-    ]
-  },
-  {
-    "category": "Fitness",
     "description": "Triathlon training, racing, and swim-bike-run programming",
     "feedURL": "https://www.triathlete.com/feed/",
     "id": "4c19e5a0-a24b-4af6-baf3-fcc6dd209191",
@@ -237,21 +177,6 @@
       "tour de france",
       "performance",
       "training"
-    ]
-  },
-  {
-    "category": "Fitness",
-    "description": "Training plans, nutrition, and wellness content for women",
-    "feedURL": "https://www.womenshealth.com/rss/all.xml",
-    "id": "cdc50977-25dd-4231-9357-fc8b2f297e99",
-    "name": "Women's Health",
-    "siteURL": "https://www.womenshealth.com",
-    "tags": [
-      "workouts",
-      "nutrition",
-      "wellness",
-      "weight loss",
-      "strength"
     ]
   },
   {

@@ -76,21 +76,6 @@
   },
   {
     "category": "Environment",
-    "description": "Coastal and ocean science and culture",
-    "feedURL": "https://hakaimagazine.com/feed/",
-    "id": "1e088771-ed91-1a74-2227-06545a458458",
-    "name": "Hakai Magazine",
-    "siteURL": "https://hakaimagazine.com/",
-    "tags": [
-      "oceans",
-      "marine",
-      "coastal",
-      "coral reefs",
-      "ecology"
-    ]
-  },
-  {
-    "category": "Environment",
     "description": "Pulitzer Prize-winning investigative climate and energy journalism",
     "feedURL": "https://insideclimatenews.org/feed/",
     "id": "2f04e2ed-f907-4f62-4910-40d25035e36d",

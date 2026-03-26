@@ -166,36 +166,6 @@
   },
   {
     "category": "Anime",
-    "description": "Japanese pop culture news contextualizing anime within the wider cultural landscape",
-    "feedURL": "https://www.otaquest.com/feed/",
-    "id": "5e57e913-8ba0-47a3-ac75-9ce2362e56a2",
-    "name": "OTAQUEST",
-    "siteURL": "https://www.otaquest.com",
-    "tags": [
-      "japanese culture",
-      "pop culture",
-      "music",
-      "fashion",
-      "anime"
-    ]
-  },
-  {
-    "category": "Anime",
-    "description": "Longer-form anime and manga features, reviews, and editorial content",
-    "feedURL": "https://otakuusamagazine.com/feed/",
-    "id": "9bdc73a3-f914-4a6b-ae4c-a55d1215b249",
-    "name": "Otaku USA Magazine",
-    "siteURL": "https://otakuusamagazine.com",
-    "tags": [
-      "magazine",
-      "reviews",
-      "features",
-      "manga",
-      "figures"
-    ]
-  },
-  {
-    "category": "Anime",
     "description": "The authority on anime production quality, animation craft, and sakuga analysis",
     "feedURL": "https://blog.sakugabooru.com/feed/",
     "id": "22a3db45-261c-4a6f-93b6-5216a604698b",
@@ -252,21 +222,6 @@
       "fashion",
       "events",
       "news"
-    ]
-  },
-  {
-    "category": "Anime",
-    "description": "Critical essays on anime art, culture, and production",
-    "feedURL": "https://wavemotioncannon.com/feed/",
-    "id": "41c48c19-76c9-4084-b3f0-a82c3c6296f4",
-    "name": "Wave Motion Cannon",
-    "siteURL": "https://wavemotioncannon.com",
-    "tags": [
-      "essays",
-      "criticism",
-      "art",
-      "culture",
-      "analysis"
     ]
   },
   {
