@@ -15,12 +15,14 @@ enum FeedValidator {
         enum Issue: CustomStringConvertible {
             case unreachable(String)        // Network error or non-2xx status
             case notAFeed                   // Response doesn't look like XML/RSS/Atom
+            case malformedXML(String)       // XML has parse errors (app's XMLParser will reject it)
             case redirectsToHTTP(String)    // Final URL is HTTP (ATS blocks on iOS)
 
             var description: String {
                 switch self {
                 case .unreachable(let reason): return "unreachable: \(reason)"
                 case .notAFeed: return "response is not a feed"
+                case .malformedXML(let detail): return "malformed XML: \(detail)"
                 case .redirectsToHTTP(let url): return "redirects to HTTP: \(url)"
                 }
             }
@@ -75,6 +77,20 @@ enum FeedValidator {
                 return ValidationResult(feedURL: feedURL, siteURL: nil, isValid: false,
                                         newestItemDate: nil, articleURLs: [],
                                         issue: .notAFeed)
+            }
+
+            // Verify the XML is well-formed — the app's XMLParser will reject
+            // malformed feeds, so the tool must catch them too.
+            let xmlCheck = XMLParseChecker()
+            let xmlParser = XMLParser(data: data)
+            xmlParser.delegate = xmlCheck
+            xmlParser.parse()
+            if let xmlError = xmlCheck.fatalError {
+                let line = xmlError.line
+                let desc = xmlError.message
+                return ValidationResult(feedURL: feedURL, siteURL: nil, isValid: false,
+                                        newestItemDate: nil, articleURLs: [],
+                                        issue: .malformedXML("line \(line): \(desc)"))
             }
 
             // Extract site URL from feed content
@@ -489,6 +505,33 @@ private final class FeedItemExtractor: NSObject, XMLParserDelegate {
             if let date = formatter.date(from: string) { return date }
         }
         return nil
+    }
+}
+
+// MARK: - XML Well-Formedness Checker
+
+/// Parses the full XML to verify it is well-formed. Records the first fatal
+/// parse error (ignoring intentional delegate aborts). This matches the
+/// behaviour of the app's XMLParser which rejects malformed feeds.
+private final class XMLParseChecker: NSObject, XMLParserDelegate {
+    struct ParseError {
+        let line: Int
+        let message: String
+    }
+
+    var fatalError: ParseError?
+
+    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
+        let nsError = parseError as NSError
+        // Code 512 = NSXMLParserDelegateAbortedParseError — that's an
+        // intentional abort by another delegate, not a real XML error.
+        guard nsError.code != 512 else { return }
+        if fatalError == nil {
+            fatalError = ParseError(
+                line: parser.lineNumber,
+                message: nsError.localizedDescription
+            )
+        }
     }
 }
 

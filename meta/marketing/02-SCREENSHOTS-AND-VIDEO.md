@@ -15,41 +15,53 @@
 
 ---
 
-## iPhone Screenshots (6 screens, 6.9" display)
+## iPhone Screenshots (5 screens, 6.9" display)
 
 ### Screenshot 1 — The Hook
-- **Text:** "All the things you love to read. Ready whenever you are."
+- **Text:**
+  `All the things you love to read.`
+  `Ready whenever you are.`
+  `In one place. Even offline.`
 - **Show:** Home screen with "Preread for you" header, hero carousel showing the Sated pasta article, Atelier section below with article rows and unread dots
-- **Purpose:** First impression. Content-rich, polished, inviting. The food photo is universally appealing.
+- **Purpose:** First impression. Three beats: emotional, convenience, killer feature.
 
-### Screenshot 2 — The Reader
-- **Text:** "A reading-first experience."
-- **Show:** Reader view of a Meridian article (Kyoto). Dark mode. Hero image, clean typography, source and date visible. Show both dark and light mode if possible (side by side or second screenshot).
-- **Purpose:** The core experience. This is what using the app actually feels like.
+### Screenshot 2 — Discovery
+- **Text:**
+  `Stumble into new interests.`
+  `Add the sites you love.`
+  `Preread handles the rest.`
+- **Show:** Browse Topics screen or Add Source sheet. Shows both entry points: browse or paste a URL.
+- **Purpose:** Explains the mechanic and the breadth in one. "Oh, I just add sites and it does the rest."
 
-### Screenshot 3 — Discovery
-- **Text:** "Stumble into new interests."
-- **Show:** Browse Topics screen showing the full category list with feed counts. World News, Tech, AI, Science, Food, Travel, Gaming, etc.
-- **Purpose:** Shows breadth. "Oh, they have architecture? And boating?" Makes people think about what they'd add.
+### Screenshot 3 — The Reader
+- **Text:**
+  `Stop scrolling. Start reading.`
+  `Beautifully presented.`
+  `Full. Clean. Focused.`
+- **Show:** Reader view of a Meridian article (Kyoto). Dark mode. Hero image, clean typography.
+- **Purpose:** The feeling. This is what using the app actually looks like.
 
-### Screenshot 4 — No Saving Required
-- **Text:** "No saving required. It's already there."
-- **Show:** Settings screen showing Auto refresh enabled, background refresh on, WiFi-only toggle. Conveys the set-and-forget value.
-- **Purpose:** Differentiator from Pocket/Instapaper. You don't save articles one at a time.
+### Screenshot 4 — Set and Forget
+- **Text:**
+  `Set it and forget it.`
+  `Preread keeps your library fresh.`
+  `Open the app. Start reading.`
+- **Show:** Settings screen with Auto refresh on, or home screen full of fresh articles.
+- **Purpose:** The differentiator. Your reading list fills itself.
 
-### Screenshot 5 — Offline
-- **Text:** "On a plane. On the subway. Off the grid."
-- **Show:** Reader view with airplane mode visible in the status bar (use `xcrun simctl status_bar` to fake it). Article fully loaded, no loading indicators.
-- **Purpose:** Owns the offline moment. The status bar tells the story.
+### Screenshot 5 — Everywhere
+- **Text:**
+  `On your homescreen.`
+  `On your wrist.`
+  `Widgets. Watch. Siri.`
+- **Show:** Widget composite showing large, wide, and small widgets.
+- **Purpose:** System integration. Signals a polished, deeply native app.
 
-### Screenshot 6 — Widgets
-- **Text:** "Glance at your latest articles."
-- **Show:** Home screen with Preread widget (large or medium size). Real articles visible in the widget with thumbnails.
-- **Purpose:** System integration. Widgets signal a polished, native app.
-
-### Optional Screenshot 7 — iPad
-- **Text:** "Beautiful on iPad too."
-- **Show:** Split view with sidebar and reader, Meridian article open. Same content as the website's iPad mockup.
+### Optional Screenshot 6 — iPad
+- **Text:**
+  `Beautiful on iPad too.`
+  `Full split view with sidebar and reader.`
+- **Show:** iPad split view with Meridian article open.
 - **Purpose:** Shows iPad support for users browsing on iPad.
 
 ---

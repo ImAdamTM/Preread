@@ -44,7 +44,7 @@ export function HeroSection() {
             style={{ color: t.secondary }}
           >
             Add the sites you love. Preread makes sure there's always something
-            great to read. Even without WiFi.
+            great to read. Even offline.
           </p>
           <p
             className="mt-3 text-sm max-w-sm md:max-w-md mx-auto"

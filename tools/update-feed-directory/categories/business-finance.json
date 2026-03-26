@@ -6,13 +6,7 @@
     "id": "5e8ad580-afd9-9bd6-aad4-eb4be29200d4",
     "name": "Business Insider",
     "siteURL": "https://www.businessinsider.com",
-    "tags": [
-      "careers",
-      "corporate",
-      "markets",
-      "startups",
-      "wall street"
-    ]
+    "tags": ["careers", "corporate", "markets", "startups", "wall street"]
   },
   {
     "category": "Business & Finance",
@@ -21,13 +15,7 @@
     "id": "87d0a449-0004-94b5-516f-75f826debcd0",
     "name": "CNBC",
     "siteURL": "https://www.cnbc.com",
-    "tags": [
-      "markets",
-      "earnings",
-      "economy",
-      "stocks",
-      "fed"
-    ]
+    "tags": ["markets", "earnings", "economy", "stocks", "fed"]
   },
   {
     "category": "Business & Finance",
@@ -36,13 +24,7 @@
     "id": "8fdd0497-44c5-5131-baeb-6d62a0e088e2",
     "name": "Entrepreneur",
     "siteURL": "https://www.entrepreneur.com/",
-    "tags": [
-      "startups",
-      "small business",
-      "franchises",
-      "founders",
-      "growth"
-    ]
+    "tags": ["startups", "small business", "franchises", "founders", "growth"]
   },
   {
     "category": "Business & Finance",
@@ -51,13 +33,7 @@
     "id": "241d8b7c-e9ae-1cc9-46da-4188d8b329d0",
     "name": "Fast Company",
     "siteURL": "https://www.fastcompany.com",
-    "tags": [
-      "innovation",
-      "design",
-      "leadership",
-      "creativity",
-      "startups"
-    ]
+    "tags": ["innovation", "design", "leadership", "creativity", "startups"]
   },
   {
     "category": "Business & Finance",
@@ -66,13 +42,7 @@
     "id": "086a17a7-4573-dec9-f100-6b70cab9fd1a",
     "name": "Forbes",
     "siteURL": "https://www.forbes.com/business/",
-    "tags": [
-      "billionaires",
-      "leadership",
-      "startups",
-      "wealth",
-      "ceo"
-    ]
+    "tags": ["billionaires", "leadership", "startups", "wealth", "ceo"]
   },
   {
     "category": "Business & Finance",
@@ -81,28 +51,7 @@
     "id": "8a8180b4-2f01-8964-70b0-1963050312a7",
     "name": "Fortune",
     "siteURL": "https://fortune.com",
-    "tags": [
-      "fortune 500",
-      "ceo",
-      "corporate",
-      "leadership",
-      "rankings"
-    ]
-  },
-  {
-    "category": "Business & Finance",
-    "description": "Resources and advice for entrepreneurs and business leaders",
-    "feedURL": "https://www.inc.com/rss/",
-    "id": "84556dcb-442c-abe8-d233-e23509f37339",
-    "name": "Inc.com",
-    "siteURL": "https://www.inc.com/",
-    "tags": [
-      "startups",
-      "founders",
-      "leadership",
-      "small business",
-      "growth"
-    ]
+    "tags": ["fortune 500", "ceo", "corporate", "leadership", "rankings"]
   },
   {
     "category": "Business & Finance",
@@ -111,58 +60,7 @@
     "id": "52569af2-03a8-1694-883d-09a0c3726bdb",
     "name": "Investopedia",
     "siteURL": "https://www.investopedia.com",
-    "tags": [
-      "education",
-      "definitions",
-      "tutorials",
-      "concepts",
-      "beginners"
-    ]
-  },
-  {
-    "category": "Business & Finance",
-    "description": "Real-time quotes, charts, news & tools from Investing.com",
-    "feedURL": "https://www.investing.com/rss/news.rss",
-    "id": "0501ace5-f09d-f1d9-77ab-c48d52a5338e",
-    "name": "Investing.com",
-    "siteURL": "https://www.investing.com",
-    "tags": [
-      "charts",
-      "forex",
-      "commodities",
-      "crypto",
-      "real-time"
-    ]
-  },
-  {
-    "category": "Business & Finance",
-    "description": "Markets, personal investing, and economic news from Dow Jones",
-    "feedURL": "https://feeds.marketwatch.com/marketwatch/topstories",
-    "id": "9324cffe-90de-09b6-b8f4-9301d6170243",
-    "name": "MarketWatch",
-    "siteURL": "https://www.marketwatch.com",
-    "tags": [
-      "stocks",
-      "bonds",
-      "economy",
-      "retirement",
-      "dow jones"
-    ]
-  },
-  {
-    "category": "Business & Finance",
-    "description": "Global business journalism with a distinctive, accessible voice",
-    "feedURL": "https://qz.com/feed",
-    "id": "848f6bb5-2e8f-f5b9-e48e-c6646f88407d",
-    "name": "Quartz",
-    "siteURL": "https://qz.com",
-    "tags": [
-      "global economy",
-      "innovation",
-      "data",
-      "charts",
-      "emerging markets"
-    ]
+    "tags": ["education", "definitions", "tutorials", "concepts", "beginners"]
   },
   {
     "category": "Business & Finance",
@@ -171,13 +69,7 @@
     "id": "877afef3-69e1-d5fa-c6d8-a00d1557e9d5",
     "name": "Seeking Alpha",
     "siteURL": "https://seekingalpha.com",
-    "tags": [
-      "dividends",
-      "earnings",
-      "stocks",
-      "analysis",
-      "portfolio"
-    ]
+    "tags": ["dividends", "earnings", "stocks", "analysis", "portfolio"]
   },
   {
     "category": "Business & Finance",
@@ -186,13 +78,7 @@
     "id": "24cd6274-6635-2c70-a035-caa181e44e37",
     "name": "The Hustle",
     "siteURL": "https://thehustle.co",
-    "tags": [
-      "briefing",
-      "newsletter",
-      "trends",
-      "startups",
-      "data"
-    ]
+    "tags": ["briefing", "newsletter", "trends", "startups", "data"]
   },
   {
     "category": "Business & Finance",
@@ -201,13 +87,7 @@
     "id": "5d312f5c-9836-2971-6c6b-c442e56b6ae0",
     "name": "The Motley Fool",
     "siteURL": "https://www.fool.com",
-    "tags": [
-      "stocks",
-      "investing",
-      "etfs",
-      "portfolio",
-      "dividends"
-    ]
+    "tags": ["stocks", "investing", "etfs", "portfolio", "dividends"]
   },
   {
     "category": "Business & Finance",
@@ -216,13 +96,7 @@
     "id": "23e9208d-82a2-dea2-c33d-03439562654e",
     "name": "Visual Capitalist",
     "siteURL": "https://www.visualcapitalist.com",
-    "tags": [
-      "infographics",
-      "data",
-      "charts",
-      "maps",
-      "trends"
-    ]
+    "tags": ["infographics", "data", "charts", "maps", "trends"]
   },
   {
     "category": "Business & Finance",
@@ -231,12 +105,6 @@
     "id": "f502be6b-2f74-307d-7b99-9c2a029112f5",
     "name": "Yahoo Finance",
     "siteURL": "https://finance.yahoo.com",
-    "tags": [
-      "stocks",
-      "portfolio",
-      "wall street",
-      "markets",
-      "investing"
-    ]
+    "tags": ["stocks", "portfolio", "wall street", "markets", "investing"]
   }
 ]

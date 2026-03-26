@@ -1019,10 +1019,141 @@ func runVerify() async throws {
     }
 }
 
+// MARK: - Test Mode
+
+/// Tests a single URL end-to-end: feed validation, discovery, staleness, and content quality.
+/// Replicates the app's discovery flow so you can diagnose why a URL fails in the app.
+func runTest(url inputURL: String) async throws {
+    let session = makeSession()
+
+    // Normalize: prepend https:// if no scheme
+    var urlString = inputURL
+    if !urlString.lowercased().hasPrefix("http://") && !urlString.lowercased().hasPrefix("https://") {
+        urlString = "https://" + urlString
+    }
+    // Upgrade http to https (matches app behaviour)
+    urlString = upgradeToHTTPS(urlString)
+
+    print("Testing: \(urlString)")
+    print("")
+
+    // Step 1: Is the URL itself a feed?
+    print("1. Checking if URL is a feed...")
+    let directResult = await FeedValidator.validate(feedURL: urlString, session: session, checkATSRedirects: true)
+    var feedURL: String?
+    var validationResult: FeedValidator.ValidationResult?
+
+    if directResult.isValid {
+        print("   \u{2713} URL is a valid feed")
+        feedURL = urlString
+        validationResult = directResult
+    } else {
+        let issue = directResult.issue?.description ?? "not a feed"
+        print("   \u{2717} Not a feed (\(issue))")
+
+        // Step 2: Discover from the site
+        print("")
+        print("2. Discovering feed from site...")
+
+        // 2a: HTML <link> discovery
+        print("   Checking <link rel=\"alternate\"> tags...")
+        if let discovered = await FeedValidator.discoverFeed(siteURL: urlString, feedURL: urlString, session: session) {
+            let discoveredResult = await FeedValidator.validate(feedURL: discovered, session: session, checkATSRedirects: true)
+            if discoveredResult.isValid {
+                print("   \u{2713} Discovered feed: \(discovered)")
+                feedURL = discovered
+                validationResult = discoveredResult
+            } else {
+                let issue = discoveredResult.issue?.description ?? "invalid"
+                print("   \u{2717} Discovered \(discovered) but it failed validation: \(issue)")
+            }
+        } else {
+            print("   \u{2717} No feed found via discovery (link tags, common paths, feeds subdomain)")
+        }
+    }
+
+    guard let feedURL, let validationResult else {
+        print("")
+        print("RESULT: FAIL — no valid feed found")
+        exit(1)
+    }
+
+    // Step 3: Feed info
+    print("")
+    print("3. Feed details")
+    if let siteURL = validationResult.siteURL {
+        print("   Site URL:  \(siteURL)")
+    }
+    print("   Feed URL:  \(feedURL)")
+
+    if let newestDate = validationResult.newestItemDate {
+        let dateStr = dateFormatter.string(from: newestDate)
+        let sixMonthsAgo = Calendar.current.date(byAdding: .month, value: -6, to: Date())!
+        let isStale = newestDate < sixMonthsAgo
+        print("   Newest article: \(dateStr)\(isStale ? " \u{26A0}\u{FE0F} STALE (>6 months)" : "")")
+    } else {
+        print("   Newest article: unknown (no dates in feed)")
+    }
+    print("   Articles in feed: \(validationResult.articleURLs.count)")
+
+    // Step 4: Content quality
+    var qualityFailed = false
+    if !validationResult.articleURLs.isEmpty {
+        print("")
+        print("4. Content quality (sampling up to 5 articles)...")
+        let qualityResult = await ContentQualityChecker.check(
+            feedURL: feedURL,
+            articleURLs: validationResult.articleURLs,
+            session: session
+        )
+        print("   Median words:  \(qualityResult.medianWordCount)")
+        print("   Median images: \(qualityResult.medianImageCount)")
+        print("   Sampled:       \(qualityResult.sampledArticles) articles")
+        print("   Quality:       \(qualityResult.isAcceptable ? "\u{2713} acceptable" : "\u{2717} thin (\(qualityResult.reason))")")
+        qualityFailed = !qualityResult.isAcceptable
+    }
+
+    // Step 5: Check staleness
+    var isStaleFeed = false
+    if let newestDate = validationResult.newestItemDate {
+        let sixMonthsAgo = Calendar.current.date(byAdding: .month, value: -6, to: Date())!
+        isStaleFeed = newestDate < sixMonthsAgo
+    }
+
+    // Step 6: Check if it's in the directory
+    let scriptDir = URL(fileURLWithPath: #filePath)
+        .deletingLastPathComponent()
+        .deletingLastPathComponent()
+    if let existingFeeds = try? loadAllFeeds(from: scriptDir) {
+        let normalizedFeed = normalizeFeedURL(feedURL)
+        if let match = existingFeeds.first(where: { normalizeFeedURL($0.feedURL) == normalizedFeed }) {
+            print("")
+            print("6. Directory: \u{2713} Already in directory as \"\(match.name)\" [\(match.category)]")
+        } else {
+            print("")
+            print("6. Directory: not in directory")
+        }
+    }
+
+    print("")
+    if qualityFailed {
+        print("RESULT: FAIL — thin or paywalled content")
+    } else if isStaleFeed {
+        print("RESULT: FAIL — feed is stale (>6 months)")
+    } else {
+        print("RESULT: PASS")
+    }
+}
+
 // MARK: - Entry point
 
 do {
-    if CommandLine.arguments.contains("discover") {
+    if CommandLine.arguments.contains("test"),
+       let testIndex = CommandLine.arguments.firstIndex(of: "test"),
+       testIndex + 1 < CommandLine.arguments.count {
+        let url = CommandLine.arguments[testIndex + 1]
+        try await runTest(url: url)
+    } else if CommandLine.arguments.contains("discover") {
         try await runDiscover()
     } else if CommandLine.arguments.contains("verify") {
         try await runVerify()

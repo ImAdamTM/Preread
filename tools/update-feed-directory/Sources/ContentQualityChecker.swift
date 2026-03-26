@@ -68,6 +68,18 @@ enum ContentQualityChecker {
 
         let sampledCount = wordCounts.count
 
+        // If zero articles could be fetched, the site blocks scraping entirely
+        // — the app won't be able to cache articles either.
+        guard sampledCount >= 1 else {
+            return QualityResult(
+                feedURL: feedURL, medianWordCount: 0, medianImageCount: 0,
+                sampledArticles: 0, isAcceptable: false,
+                reason: "Site blocks article fetches (0 of \(urls.count) succeeded)"
+            )
+        }
+
+        // With only 1 article sampled, give benefit of the doubt — one
+        // failure could be intermittent.
         guard sampledCount >= 2 else {
             return QualityResult(
                 feedURL: feedURL, medianWordCount: 0, medianImageCount: 0,
