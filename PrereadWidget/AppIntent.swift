@@ -8,7 +8,7 @@ struct SelectSourceIntent: WidgetConfigurationIntent {
     static var title: LocalizedStringResource = "Select Source"
     static var description: IntentDescription = "Choose which source to show articles from."
 
-    @Parameter(title: "Source", default: WidgetSourceEntity.allSources)
+    @Parameter(title: "Source")
     var source: WidgetSourceEntity
 }
 
