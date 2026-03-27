@@ -199,24 +199,32 @@ struct SourceSectionView: View {
 
     private var sectionHeader: some View {
         HStack(alignment: .center, spacing: 12) {
-            faviconView
+            // Left: source info — taps into the source
+            Button {
+                onViewAll()
+            } label: {
+                HStack(spacing: 12) {
+                    faviconView
 
-            VStack(alignment: .leading, spacing: 0) {
-                Text(source.title)
-                    .font(Theme.scaledFont(size: 18, weight: .medium))
-                    .foregroundColor(Theme.textPrimary)
-                    .lineLimit(1)
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text(source.title)
+                            .font(Theme.scaledFont(size: 18, weight: .medium))
+                            .foregroundColor(Theme.textPrimary)
+                            .lineLimit(1)
 
-                HStack(spacing: 5) {
-                    Text(subtitleText)
-                        .font(Theme.scaledFont(size: 13, relativeTo: .caption))
-                        .foregroundColor(Theme.textPrimary.opacity(0.6))
+                        HStack(spacing: 5) {
+                            Text(subtitleText)
+                                .font(Theme.scaledFont(size: 13, relativeTo: .caption))
+                                .foregroundColor(Theme.textPrimary.opacity(0.6))
 
-                    if refreshState == .refreshing || isAutoCaching {
-                        refreshSpinner
+                            if refreshState == .refreshing || isAutoCaching {
+                                refreshSpinner
+                            }
+                        }
                     }
                 }
             }
+            .buttonStyle(.plain)
 
             Spacer(minLength: 4)
 
@@ -235,6 +243,7 @@ struct SourceSectionView: View {
                 .animation(.spring(duration: 0.35, bounce: 0.0), value: isCollapsed)
                 .frame(width: 20, height: 20)
         }
+        // Collapse/expand on tap anywhere except the source info button
         .contentShape(Rectangle())
         .onTapGesture {
             toggleCollapsed()

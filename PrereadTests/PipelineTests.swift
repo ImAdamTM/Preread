@@ -315,7 +315,7 @@ struct StandardPipelineTests {
 
     // MARK: - Squarespace blog
 
-    @Test("Squarespace: no navigation images injected, text-only article")
+    @Test("Squarespace: og:image used as hero for text-only article, no navigation images")
     func squarespaceBlog() async throws {
         let html = try loadFixture("squarespace_blog")
         let result = try await PageCacheService.shared.runStandardPipeline(
@@ -325,9 +325,71 @@ struct StandardPipelineTests {
 
         #expect(result.title.contains("Tutoring"))
         #expect(result.contentHTML.contains("personalized instruction"))
-        // The article has no images — navigation images must not be injected
-        #expect(result.imageCount == 0, "Text-only article should have no images")
+        // No <img> heroes in the body, but og:image provides a hero
+        #expect(result.imageCount == 1, "og:image should be injected as hero")
+        #expect(result.heroImageURL?.contains("squarespace") == true, "Hero should come from og:image")
         #expect(!result.contentHTML.contains("site-navigation"), "Navigation images must not leak into content")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+    }
+
+    // MARK: - NPR
+
+    @Test("NPR: picture elements unwrapped, caption toggles stripped, images preserved")
+    func nprArticle() async throws {
+        let html = try loadFixture("npr_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.npr.org/2026/03/27/nx-s1-5763475/iran-war-talks-rubio-markets-g7")!
+        )
+
+        #expect(result.title.contains("Rubio"))
+        #expect(result.imageCount >= 1, "Images from <picture> elements should survive")
+        #expect(result.contentHTML.contains("G7"))
+        #expect(!result.contentHTML.contains("hide caption"), "Caption toggle text should be stripped")
+        #expect(!result.contentHTML.contains("toggle caption"), "Caption toggle text should be stripped")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
+    // MARK: - CNBC
+
+    @Test("CNBC: og:image used as hero when no <img> hero found, author thumbnail filtered")
+    func cnbcArticle() async throws {
+        let html = try loadFixture("cnbc_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.cnbc.com/2026/03/26/inifiniti-qx65-suv-nissan.html")!
+        )
+
+        #expect(result.title.contains("Infiniti") || result.title.contains("SUV"))
+        #expect(result.imageCount >= 1, "og:image should be injected as hero")
+        #expect(result.heroImageURL != nil, "og:image should provide heroImageURL")
+        // The og:image should be the CNBC article image, not the author thumbnail
+        #expect(result.heroImageURL?.contains("cnbcfm.com") == true, "Hero should be from og:image")
+        #expect(!result.contentHTML.contains("w=60&h=60"), "Author thumbnail should not be hero")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
+    // MARK: - CNBC Special Report
+
+    @Test("CNBC Special Report: banner header filtered, article image used as hero")
+    func cnbcSpecialReport() async throws {
+        let html = try loadFixture("cnbc_special_report")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.cnbc.com/2026/03/27/iran-war-wipes-out-100-billion-from-luxury-stocks.html")!
+        )
+
+        #expect(result.title.contains("luxury") || result.title.contains("billion"))
+        #expect(result.imageCount >= 1, "Article image should be present")
+        // The HEADER_BKGD banner should be filtered by chromeWords
+        #expect(!result.contentHTML.contains("HEADER_BKGD"), "Banner background should be filtered")
+        #expect(!result.contentHTML.contains("HEADER_LOGO"), "Banner logo should be filtered")
+        #expect(result.heroImageURL?.contains("cnbcfm.com") == true, "Hero should be the article image")
         #expect(!result.contentHTML.contains("<script"))
         #expect(!result.contentHTML.contains("<nav"))
     }
@@ -691,5 +753,82 @@ struct FullPipelineTests {
         // Article content should be preserved
         #expect(result.cleanedHTML.contains("personalized instruction"))
         #expect(result.cleanedHTML.contains("Tutoring"))
+    }
+
+    // MARK: - NPR
+
+    @Test("NPR: picture elements unwrapped, caption toggles stripped, images preserved")
+    func nprArticle() async throws {
+        let html = try loadFixture("npr_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.npr.org/2026/03/27/nx-s1-5763475/iran-war-talks-rubio-markets-g7")!
+        )
+
+        // Interactive elements should be stripped
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form"))
+
+        // Caption toggle text should be stripped
+        #expect(!result.cleanedHTML.contains("hide caption"), "Caption toggle text should be stripped")
+        #expect(!result.cleanedHTML.contains("toggle caption"), "Caption toggle text should be stripped")
+
+        // Content should be preserved
+        #expect(result.cleanedHTML.contains("Rubio"))
+        #expect(result.cleanedHTML.contains("G7"))
+        #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
+    }
+
+    // MARK: - CNBC
+
+    @Test("CNBC: og:image used as hero fallback, interactive elements stripped")
+    func cnbcArticle() async throws {
+        let html = try loadFixture("cnbc_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.cnbc.com/2026/03/26/inifiniti-qx65-suv-nissan.html")!
+        )
+
+        // Interactive elements should be stripped
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form"))
+
+        // og:image should be picked up as hero for thumbnail backfill
+        #expect(result.heroImageURL != nil, "og:image should provide heroImageURL")
+        #expect(result.heroImageURL?.contains("cnbcfm.com") == true, "Hero should be from og:image")
+
+        // Content should be preserved
+        #expect(result.cleanedHTML.contains("Infiniti") || result.cleanedHTML.contains("Nissan"))
+    }
+
+    // MARK: - CNBC Special Report
+
+    @Test("CNBC Special Report: banner header filtered, interactive elements stripped")
+    func cnbcSpecialReport() async throws {
+        let html = try loadFixture("cnbc_special_report")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.cnbc.com/2026/03/27/iran-war-wipes-out-100-billion-from-luxury-stocks.html")!
+        )
+
+        // Interactive elements should be stripped
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form"))
+
+        // Hero should be the article image, not the banner
+        #expect(result.heroImageURL != nil, "Article image should be used as hero")
+        #expect(result.heroImageURL?.contains("HEADER_BKGD") != true, "Banner should not be hero")
+
+        // Content should be preserved
+        #expect(result.cleanedHTML.contains("luxury") || result.cleanedHTML.contains("billion"))
     }
 }

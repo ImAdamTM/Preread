@@ -12,6 +12,11 @@ extension View {
     func zoomNavigationTransition(sourceID: some Hashable, in namespace: Namespace.ID) -> some View {
         modifier(ZoomNavigationTransitionModifier(sourceID: AnyHashable(sourceID), namespace: namespace))
     }
+
+    /// Applies Liquid Glass on iOS 26+, falls back to ultra-thin material on older versions.
+    func glassCloseButton() -> some View {
+        modifier(GlassCloseButtonModifier())
+    }
 }
 
 private struct ZoomTransitionSourceModifier: ViewModifier {
@@ -28,6 +33,19 @@ private struct ZoomTransitionSourceModifier: ViewModifier {
                 }
         } else {
             content
+        }
+    }
+}
+
+private struct GlassCloseButtonModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 26.0, *) {
+            content
+                .glassEffect(.regular.interactive(), in: .circle)
+        } else {
+            content
+                .foregroundStyle(Theme.textPrimary)
+                .background(.ultraThinMaterial, in: Circle())
         }
     }
 }

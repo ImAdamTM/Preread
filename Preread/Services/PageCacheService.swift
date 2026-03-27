@@ -237,6 +237,8 @@ actor PageCacheService {
         try preDoc.select("img[src*=placeholder]").remove()
 
         try recoverPlaceholderImages(in: preDoc)
+        try unwrapPictureElements(in: preDoc)
+        try stripCaptionToggles(in: preDoc)
 
         try stripTinyImages(in: preDoc, maxDimension: 30)
         try stripBadgeClusters(in: preDoc)
@@ -313,7 +315,8 @@ actor PageCacheService {
             let chromeWords = [
                 "logo", "flag", "icon", "badge", "spinner",
                 "facebook", "twitter", "instagram", "pinterest", "tiktok",
-                "furniture", "share", "follow"
+                "furniture", "share", "follow", "thumbnail",
+                "banner", "bkgd"
             ]
             for word in chromeWords {
                 if imgId.contains(word) || alt.contains(word) || srcLower.contains(word) { return false }
@@ -348,6 +351,10 @@ actor PageCacheService {
             if srcLower.contains("/avatar/") || srcLower.contains("/avatars/")
                 || srcLower.contains("/avatar.") || srcLower.contains("/avatar_")
                 || imgId.contains("avatar") { return false }
+            // Skip images whose alt text marks them as structural/decorative
+            // (e.g. "background of header", "foreground of header"). These are
+            // site-wide branding elements, not article content.
+            if alt.hasPrefix("background") || alt.hasPrefix("foreground") { return false }
             // Skip images inside <a> links that navigate to a different page.
             // These are navigation/promo thumbnails (e.g. hero bars, related
             // article cards) not the article's own hero image.
@@ -407,6 +414,17 @@ actor PageCacheService {
                         contentHTML = heroTag + contentHTML
                     }
                 }
+            }
+        }
+
+        // If no hero image was found from <img> elements, fall back to
+        // the OpenGraph image (og:image meta tag). Many sites declare their
+        // primary image only via og:image (e.g. CNBC, JS-rendered pages).
+        // The meta tags survive cleaning (only CSP metas are stripped).
+        if heroImageURL == nil {
+            if let ogImage = try extractOpenGraphImage(from: preDoc, baseURL: pageURL) {
+                heroImageURL = ogImage
+                contentHTML = "<img src=\"\(escapeHTML(ogImage))\" />" + contentHTML
             }
         }
 
@@ -475,6 +493,8 @@ actor PageCacheService {
         try doc.select("noscript").remove()
 
         try recoverPlaceholderImages(in: doc)
+        try unwrapPictureElements(in: doc)
+        try stripCaptionToggles(in: doc)
 
         // Strip navigation — site nav links are non-functional offline
         // and take up significant space above article content.
@@ -536,7 +556,8 @@ actor PageCacheService {
                 let chromeWords = [
                     "logo", "flag", "icon", "badge", "spinner",
                     "facebook", "twitter", "instagram", "pinterest", "tiktok",
-                    "furniture", "share", "follow"
+                    "furniture", "share", "follow", "thumbnail",
+                    "banner", "bkgd"
                 ]
                 for word in chromeWords {
                     if imgId.contains(word) || alt.contains(word) || srcLower.contains(word) { return false }
@@ -545,6 +566,8 @@ actor PageCacheService {
                 if srcLower.contains("/avatar/") || srcLower.contains("/avatars/")
                     || srcLower.contains("/avatar.") || srcLower.contains("/avatar_")
                     || imgId.contains("avatar") { return false }
+                // Skip images whose alt text marks them as structural/decorative
+                if alt.hasPrefix("background") || alt.hasPrefix("foreground") { return false }
                 // Skip images inside <a> links to different pages (navigation/promo thumbnails).
                 // Allow links to image files — a common lightbox/zoom pattern.
                 let imageExtensions: Set<String> = ["jpg", "jpeg", "png", "gif", "webp", "avif"]
@@ -567,6 +590,11 @@ actor PageCacheService {
             })
         }).first {
             heroImageURL = try? firstImg.attr("src")
+        }
+
+        // Fall back to OpenGraph image if no <img> hero found
+        if heroImageURL == nil {
+            heroImageURL = try extractOpenGraphImage(from: doc, baseURL: pageURL)
         }
 
         // Detect empty content (e.g. JS-rendered SPAs with no server-side HTML).
@@ -1797,6 +1825,79 @@ actor PageCacheService {
             try img.attr("src", href)
             try img.removeAttr("aria-hidden")
         }
+    }
+
+    // MARK: - Picture element unwrap
+
+    /// Unwraps `<picture>` elements to just their `<img>` child, removing
+    /// `<source>` elements. `<picture>` is a responsive image container that
+    /// adds complexity for offline reader mode — the `<source srcset>` URLs
+    /// reference external servers and won't work offline, and Readability
+    /// sometimes drops the `<img>` fallback when the DOM is complex.
+    ///
+    /// If a `<picture>` has no `<img>` child, the first `<source srcset>` URL
+    /// is promoted to a new `<img>` so the image isn't lost entirely.
+    private func unwrapPictureElements(in doc: Document) throws {
+        for picture in try doc.select("picture").array() {
+            let sources = try picture.select("source")
+            if try picture.select("img").isEmpty() {
+                // No <img> fallback — create one from the first source srcset
+                if let firstSource = sources.first() {
+                    let srcset = try firstSource.attr("srcset")
+                    let firstURL = srcset.components(separatedBy: ",").first?
+                        .trimmingCharacters(in: .whitespaces)
+                        .components(separatedBy: " ").first ?? ""
+                    if !firstURL.isEmpty {
+                        try picture.appendElement("img").attr("src", firstURL)
+                    }
+                }
+            }
+            try sources.remove()
+            try picture.unwrap()
+        }
+    }
+
+    // MARK: - Caption toggle cleanup
+
+    /// Strips orphaned caption toggle UI text — news sites (NPR, PBS, etc.)
+    /// wrap interactive show/hide caption controls in `<b>` tags. After
+    /// JavaScript/button stripping these survive as meaningless visible text
+    /// like "hide caption" or "toggle caption".
+    private func stripCaptionToggles(in doc: Document) throws {
+        let captionToggles: Set<String> = ["hide caption", "toggle caption", "show caption"]
+        for bold in try doc.select("b").array() {
+            let text = try bold.text().trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+            if captionToggles.contains(text) {
+                try bold.remove()
+            }
+        }
+    }
+
+    // MARK: - OpenGraph image extraction
+
+    /// Extracts the OpenGraph image URL (`og:image`) from the document's
+    /// `<meta>` tags. Falls back to `twitter:image` if og:image is absent.
+    /// Returns nil if no suitable image meta tag is found.
+    ///
+    /// This provides a reliable hero/thumbnail fallback for sites where the
+    /// main article image is only declared in meta tags (e.g. CNBC, JS-rendered
+    /// pages) and not present as an `<img>` in the body.
+    private func extractOpenGraphImage(from doc: Document, baseURL: URL) throws -> String? {
+        // Try og:image first (most widely used)
+        if let ogMeta = try doc.select("meta[property=og:image]").first() {
+            let content = try ogMeta.attr("content")
+            if !content.isEmpty, let url = URL(string: content, relativeTo: baseURL) {
+                return url.absoluteString
+            }
+        }
+        // Fall back to twitter:image (some sites only set this)
+        if let twitterMeta = try doc.select("meta[name=twitter:image]").first() {
+            let content = try twitterMeta.attr("content")
+            if !content.isEmpty, let url = URL(string: content, relativeTo: baseURL) {
+                return url.absoluteString
+            }
+        }
+        return nil
     }
 
     // MARK: - Sibling image deduplication

@@ -3,8 +3,8 @@ import SafariServices
 import GRDB
 
 struct ReaderView: View {
-    let article: Article
     let source: Source
+    @State private var currentArticle: Article
 
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
@@ -19,6 +19,7 @@ struct ReaderView: View {
     @State private var tappedLinkURL: URL?
     @State private var showTextSize = false
     @State private var showFontPicker = false
+    @State private var showArticleDrawer = false
     @State private var cachedPage: CachedPage?
     @State private var isLoadingCachedPage = true
     @State private var isRetrying = false
@@ -27,15 +28,15 @@ struct ReaderView: View {
     @State private var isSaved: Bool
 
     init(article: Article, source: Source) {
-        self.article = article
         self.source = source
+        _currentArticle = State(initialValue: article)
         _isSaved = State(initialValue: article.isSaved)
     }
 
     /// Display name for the toolbar — prefers the original source name when the article
     /// has been detached from its original source (e.g. source was deleted).
     private var displaySourceName: String {
-        if source.isHidden, let original = article.originalSourceName, !original.isEmpty {
+        if source.isHidden, let original = currentArticle.originalSourceName, !original.isEmpty {
             return original
         }
         return source.title
@@ -54,7 +55,7 @@ struct ReaderView: View {
 
     private var articleHTMLURL: URL {
         return ContainerPaths.articlesBaseURL
-            .appendingPathComponent(article.id.uuidString, isDirectory: true)
+            .appendingPathComponent(currentArticle.id.uuidString, isDirectory: true)
             .appendingPathComponent("index.html")
     }
 
@@ -107,8 +108,8 @@ struct ReaderView: View {
                                 dismiss()
                             }
                         } label: {
-                            Image(systemName: "xmark")
-                                .font(Theme.scaledFont(size: 14, weight: .semibold))
+                            Image(systemName: "chevron.left")
+                                .font(Theme.scaledFont(size: 16, weight: .semibold))
                                 .foregroundColor(Theme.textPrimary)
                         }
                     }
@@ -124,8 +125,8 @@ struct ReaderView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack(spacing: 16) {
                     // Share
-                    ShareLink(item: URL(string: article.articleURL) ?? URL(string: "https://preread.app")!,
-                              subject: Text(article.title)) {
+                    ShareLink(item: URL(string: currentArticle.articleURL) ?? URL(string: "https://preread.app")!,
+                              subject: Text(currentArticle.title)) {
                         Image(systemName: "square.and.arrow.up")
                             .font(Theme.scaledFont(size: 17))
                             .foregroundColor(Theme.textPrimary)
@@ -166,6 +167,37 @@ struct ReaderView: View {
                 }
             }
         }
+        .overlay(alignment: .bottom) {
+            if !detailCoordinator.isSplitView {
+                HStack {
+                    // Close
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundStyle(.white)
+                            .frame(width: 48, height: 48)
+                    }
+                    .glassCloseButton()
+
+                    Spacer()
+
+                    // Article drawer
+                    Button {
+                        showArticleDrawer = true
+                    } label: {
+                        Image(systemName: "list.bullet")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundStyle(.white)
+                            .frame(width: 48, height: 48)
+                    }
+                    .glassCloseButton()
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 16)
+            }
+        }
         .task {
             await loadCachedPage()
             isLoadingCachedPage = false
@@ -176,6 +208,15 @@ struct ReaderView: View {
                 SafariView(url: url)
                     .ignoresSafeArea()
             }
+        }
+        .sheet(isPresented: $showArticleDrawer) {
+            ArticleDrawerView(
+                currentArticleID: currentArticle.id,
+                sourceID: currentArticle.sourceID,
+                sourceName: displaySourceName,
+                isSavedContext: currentArticle.isSaved && currentArticle.sourceID == Source.savedPagesID,
+                onSelectArticle: { switchToArticle($0) }
+            )
         }
     }
 
@@ -238,7 +279,7 @@ struct ReaderView: View {
     // MARK: - Hero image URL
 
     private var heroImageURL: URL? {
-        let articleDir = ContainerPaths.articlesBaseURL.appendingPathComponent(article.id.uuidString, isDirectory: true)
+        let articleDir = ContainerPaths.articlesBaseURL.appendingPathComponent(currentArticle.id.uuidString, isDirectory: true)
 
         // Try the regular-size downsampled thumbnail (600px)
         let thumbnailPath = articleDir.appendingPathComponent("thumbnail.jpg")
@@ -288,7 +329,7 @@ struct ReaderView: View {
 
                     // For detached articles, try loading from the original icon URL
                     if source.isHidden,
-                       let iconURLString = article.originalSourceIconURL,
+                       let iconURLString = currentArticle.originalSourceIconURL,
                        let iconURL = URL(string: iconURLString) {
                         if let (data, _) = try? await URLSession.shared.data(from: iconURL),
                            let image = UIImage(data: data) {
@@ -351,7 +392,7 @@ struct ReaderView: View {
                 .disabled(isRetrying)
                 .padding(.top, 8)
 
-                if let url = URL(string: article.articleURL) {
+                if let url = URL(string: currentArticle.articleURL) {
                     Button {
                         safariURL = url
                         showSafari = true
@@ -374,7 +415,7 @@ struct ReaderView: View {
     private func loadCachedPage() async {
         do {
             cachedPage = try await DatabaseManager.shared.dbPool.read { db in
-                try CachedPage.fetchOne(db, key: article.id)
+                try CachedPage.fetchOne(db, key: currentArticle.id)
             }
         } catch {
             cachedPage = nil
@@ -387,20 +428,20 @@ struct ReaderView: View {
             // Manually saved pages remember the cache level chosen at save time.
             // Feed articles use the source's current level.
             let cacheLevel: CacheLevel
-            if article.sourceID == Source.savedPagesID,
+            if currentArticle.sourceID == Source.savedPagesID,
                let existing = try? await DatabaseManager.shared.dbPool.read({ db in
-                   try CachedPage.fetchOne(db, key: article.id)
+                   try CachedPage.fetchOne(db, key: currentArticle.id)
                }) {
                 cacheLevel = existing.cacheLevelUsed
             } else {
                 let source = try? await DatabaseManager.shared.dbPool.read { db in
-                    try Source.fetchOne(db, key: article.sourceID)
+                    try Source.fetchOne(db, key: currentArticle.sourceID)
                 }
                 cacheLevel = source?.effectiveCacheLevel ?? .standard
             }
 
             // Clear stale conditional headers so we get a fresh response
-            var mutable = article
+            var mutable = currentArticle
             mutable.etag = nil
             mutable.lastModified = nil
             let snapshot = mutable
@@ -419,8 +460,8 @@ struct ReaderView: View {
     }
 
     private func markAsRead() async {
-        guard !article.isRead else { return }
-        var mutable = article
+        guard !currentArticle.isRead else { return }
+        var mutable = currentArticle
         mutable.isRead = true
         let toSave = mutable
         do {
@@ -436,7 +477,7 @@ struct ReaderView: View {
         let newSaved = !isSaved
         isSaved = newSaved
 
-        var mutable = article
+        var mutable = currentArticle
         mutable.isSaved = newSaved
         mutable.savedAt = newSaved ? Date() : nil
         if newSaved {
@@ -461,6 +502,22 @@ struct ReaderView: View {
             FetchCoordinator.shared.savedArticlesVersion += 1
         } catch {
             isSaved = !newSaved
+        }
+    }
+
+    private func switchToArticle(_ article: Article) {
+        showArticleDrawer = false
+        currentArticle = article
+        isSaved = article.isSaved
+        cachedPage = nil
+        isLoadingCachedPage = true
+        webViewVisible = false
+        navFaviconImage = nil
+        lightboxImageURL = nil
+        Task {
+            await loadCachedPage()
+            isLoadingCachedPage = false
+            await markAsRead()
         }
     }
 }
