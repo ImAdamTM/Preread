@@ -305,6 +305,10 @@ actor PageCacheService {
         let isHeroCandidate: (Element) -> Bool = { img in
             guard let src = try? img.attr("src"), !src.isEmpty,
                   !src.hasPrefix("data:") else { return false }
+            // Skip images too small to be a meaningful hero (avatars, icons)
+            let w = Int((try? img.attr("width")) ?? "") ?? Int.max
+            let h = Int((try? img.attr("height")) ?? "") ?? Int.max
+            if w < 120 || h < 120 { return false }
             let srcLower = src.lowercased()
             let imgId = (try? img.attr("id"))?.lowercased() ?? ""
             let alt = (try? img.attr("alt"))?.lowercased() ?? ""
@@ -1887,14 +1891,19 @@ actor PageCacheService {
         if let ogMeta = try doc.select("meta[property=og:image]").first() {
             let content = try ogMeta.attr("content")
             if !content.isEmpty, let url = URL(string: content, relativeTo: baseURL) {
-                return url.absoluteString
+                // Upgrade http to https so ATS doesn't block the download
+                var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
+                if components?.scheme == "http" { components?.scheme = "https" }
+                return components?.url?.absoluteString ?? url.absoluteString
             }
         }
         // Fall back to twitter:image (some sites only set this)
         if let twitterMeta = try doc.select("meta[name=twitter:image]").first() {
             let content = try twitterMeta.attr("content")
             if !content.isEmpty, let url = URL(string: content, relativeTo: baseURL) {
-                return url.absoluteString
+                var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
+                if components?.scheme == "http" { components?.scheme = "https" }
+                return components?.url?.absoluteString ?? url.absoluteString
             }
         }
         return nil
@@ -1902,14 +1911,15 @@ actor PageCacheService {
 
     // MARK: - Sibling image deduplication
 
-    /// A regex that matches dimension suffixes like `-640x426`, `-1024x648`, `-980x652`
-    /// commonly used in responsive image URLs.
+    /// A regex that matches dimension suffixes like `-640x426`, `-1024x648`, `-980x652`,
+    /// plus an optional trailing CDN hash like `-1774644559` (appended to cropped variants).
     private static let dimensionSuffixPattern = try! NSRegularExpression(
-        pattern: #"-\d+x\d+"#
+        pattern: #"-\d+x\d+(-\d+)?"#
     )
 
     /// Strips the dimension suffix from an image URL to produce a base key for comparison.
     /// e.g. "https://cdn.example.com/image-640x426.jpg" → "https://cdn.example.com/image.jpg"
+    /// e.g. "https://cdn.example.com/image-1152x648-1774644559.jpg" → "https://cdn.example.com/image.jpg"
     private func imageDedupKey(for src: String) -> String {
         let range = NSRange(src.startIndex..<src.endIndex, in: src)
         return Self.dimensionSuffixPattern.stringByReplacingMatches(
@@ -1934,8 +1944,6 @@ actor PageCacheService {
             let src = try img.attr("src")
             guard !src.isEmpty, !src.hasPrefix("data:") else { continue }
             let key = imageDedupKey(for: src)
-            // Only group if the dedup key differs from the src (i.e. there was a dimension suffix)
-            guard key != src else { continue }
             let pk = ParentKey(parentHash: ObjectIdentifier(parent).hashValue, dedupKey: key)
             groups[pk, default: []].append(img)
         }

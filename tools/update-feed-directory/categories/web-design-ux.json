@@ -4,6 +4,7 @@
     "description": "Articles for people who make websites",
     "feedURL": "https://alistapart.com/main/feed/",
     "id": "a7e7d078-5842-1de5-5674-1d9de663880f",
+    "lastVerified": "2026-03-28",
     "name": "A List Apart",
     "siteURL": "https://alistapart.com",
     "tags": [
@@ -19,6 +20,7 @@
     "description": "Tips, tricks, and techniques on CSS and web development",
     "feedURL": "https://css-tricks.com/feed/",
     "id": "3292e08c-98ab-0fd7-c5df-fd64984e9645",
+    "lastVerified": "2026-03-28",
     "name": "CSS-Tricks",
     "siteURL": "https://css-tricks.com",
     "tags": [
@@ -34,6 +36,7 @@
     "description": "Tutorials on JavaScript, HTML5, CSS, and web development",
     "feedURL": "https://davidwalsh.name/feed",
     "id": "dee356a0-2284-f2b7-d464-61c10914c2f0",
+    "lastVerified": "2026-03-28",
     "name": "David Walsh Blog",
     "siteURL": "https://davidwalsh.name",
     "tags": [
@@ -49,6 +52,7 @@
     "description": "Mozilla Hacks is written for web developers, designers and everyone who builds for the Web. Hacks is produced by Mozilla",
     "feedURL": "https://hacks.mozilla.org/feed/",
     "id": "394ba688-e40a-39f5-875e-6d5ee66d23af",
+    "lastVerified": "2026-03-28",
     "name": "Mozilla Hacks",
     "siteURL": "https://hacks.mozilla.org/",
     "tags": [
@@ -64,6 +68,7 @@
     "description": "UX research and design best practices from Nielsen Norman Group",
     "feedURL": "https://www.nngroup.com/feed/rss/",
     "id": "f74a54fc-b5d6-6235-3029-66a458c5becf",
+    "lastVerified": "2026-03-28",
     "name": "Nielsen Norman Group",
     "siteURL": "https://www.nngroup.com/feed/rss/",
     "tags": [
@@ -79,6 +84,7 @@
     "description": "Tech and travel blog",
     "feedURL": "https://gosink.in/rss/",
     "id": "583e5a37-f678-6b06-ee8e-ea350fd1ae60",
+    "lastVerified": "2026-03-28",
     "name": "Sink In",
     "siteURL": "https://gosink.in/",
     "tags": [
@@ -94,6 +100,7 @@
     "description": "Articles and tutorials for web designers and developers",
     "feedURL": "https://www.smashingmagazine.com/feed",
     "id": "07c83d6d-0c0e-2a9e-8e6f-143d4ae9539b",
+    "lastVerified": "2026-03-28",
     "name": "Smashing Magazine",
     "siteURL": "https://www.smashingmagazine.com/",
     "tags": [
@@ -106,9 +113,26 @@
   },
   {
     "category": "Web Design & UX",
+    "description": "Latest news on WordPress.com and the WordPress community, democratizing publishing",
+    "feedURL": "https://wordpress.com/blog/feed",
+    "id": "347ef0aa-f531-48df-809e-72daf505342c",
+    "lastVerified": "2026-03-28",
+    "name": "The WordPress.com Blog",
+    "siteURL": "https://wordpress.com/blog",
+    "tags": [
+      "wordpress",
+      "cms",
+      "publishing",
+      "blogging",
+      "open source"
+    ]
+  },
+  {
+    "category": "Web Design & UX",
     "description": "We believe designers are thinkers as much as they are makers. Curated stories on UX, Visual & Product Design",
     "feedURL": "https://uxdesign.cc/feed",
     "id": "efe18eb2-8037-4393-b598-d54a5e5745cb",
+    "lastVerified": "2026-03-28",
     "name": "UX Collective",
     "siteURL": "https://uxdesign.cc",
     "tags": [

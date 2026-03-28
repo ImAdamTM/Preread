@@ -4,6 +4,7 @@
     "description": "Fashion, beauty, celebrity style, and culture",
     "feedURL": "https://coveteur.com/feed",
     "id": "f1a2b3c4-1002-4a02-b002-fashion0cov2",
+    "lastVerified": "2026-03-28",
     "name": "Coveteur",
     "siteURL": "https://coveteur.com",
     "tags": [
@@ -19,6 +20,7 @@
     "description": "Fashion, beauty, and lifestyle for the modern woman",
     "feedURL": "https://www.elle.com/rss/all.xml",
     "id": "f1a2b3c4-1003-4a03-b003-fashion0elle",
+    "lastVerified": "2026-03-28",
     "name": "ELLE",
     "siteURL": "https://www.elle.com",
     "tags": [
@@ -34,6 +36,7 @@
     "description": "Men's fashion and style guide",
     "feedURL": "https://www.fashionbeans.com/rss-feed/?category=fashion",
     "id": "fc08e847-9480-6a1c-bdee-d581c317536b",
+    "lastVerified": "2026-03-28",
     "name": "FashionBeans",
     "siteURL": "https://www.fashionbeans.com",
     "tags": [
@@ -49,6 +52,7 @@
     "description": "Men's style, grooming, and fashion advice",
     "feedURL": "https://www.gq.com/feed/rss",
     "id": "f1a2b3c4-1004-4a04-b004-fashion00gq4",
+    "lastVerified": "2026-03-28",
     "name": "GQ",
     "siteURL": "https://www.gq.com",
     "tags": [
@@ -61,9 +65,26 @@
   },
   {
     "category": "Fashion",
+    "description": "Fashion, beauty, culture, and entertainment news from a stylish destination",
+    "feedURL": "https://graziamagazine.com/feed",
+    "id": "4667b4d5-a6fa-47f3-a8eb-32a1b3518e34",
+    "lastVerified": "2026-03-28",
+    "name": "GRAZIA",
+    "siteURL": "https://graziamagazine.com",
+    "tags": [
+      "women",
+      "beauty",
+      "culture",
+      "shopping",
+      "trends"
+    ]
+  },
+  {
+    "category": "Fashion",
     "description": "Fashion trends, designer news, and celebrity style",
     "feedURL": "https://www.harpersbazaar.com/rss/fashion.xml",
     "id": "f1a2b3c4-1005-4a05-b005-fashionharp5",
+    "lastVerified": "2026-03-28",
     "name": "Harper's Bazaar",
     "siteURL": "https://www.harpersbazaar.com/fashion",
     "tags": [
@@ -76,9 +97,26 @@
   },
   {
     "category": "Fashion",
+    "description": "Leading men's style magazine and tailor shop specializing in custom suits",
+    "feedURL": "https://hespokestyle.com/feed",
+    "id": "f613c04e-4077-40fa-a30f-227ea211b4ec",
+    "lastVerified": "2026-03-28",
+    "name": "He Spoke Style",
+    "siteURL": "https://hespokestyle.com",
+    "tags": [
+      "menswear",
+      "suits",
+      "tailoring",
+      "bespoke",
+      "style guides"
+    ]
+  },
+  {
+    "category": "Fashion",
     "description": "Streetwear, sneakers, and contemporary fashion",
     "feedURL": "https://www.highsnobiety.com/feeds/rss",
     "id": "f1a2b3c4-1006-4a06-b006-fashionhigh6",
+    "lastVerified": "2026-03-28",
     "name": "Highsnobiety",
     "siteURL": "https://www.highsnobiety.com",
     "tags": [
@@ -94,6 +132,7 @@
     "description": "Streetwear, sneakers, and fashion culture",
     "feedURL": "https://hypebeast.com/fashion/feed",
     "id": "f1a2b3c4-1007-4a07-b007-fashionhype7",
+    "lastVerified": "2026-03-28",
     "name": "Hypebeast",
     "siteURL": "https://hypebeast.com/fashion",
     "tags": [
@@ -106,9 +145,26 @@
   },
   {
     "category": "Fashion",
+    "description": "Iconic fashion and art magazine enriched by the biggest international names",
+    "feedURL": "https://numero.com/en/feed",
+    "id": "be5b5f9e-4feb-4e39-a8ab-4d4fadc782e1",
+    "lastVerified": "2026-03-28",
+    "name": "Numéro",
+    "siteURL": "https://numero.com/en",
+    "tags": [
+      "french",
+      "art",
+      "haute couture",
+      "photography",
+      "culture"
+    ]
+  },
+  {
+    "category": "Fashion",
     "description": "Fashion, beauty, and style trends",
     "feedURL": "https://www.popsugar.com/fashion/feed",
     "id": "1d06c732-fa07-8dff-9d5e-5004eae3590d",
+    "lastVerified": "2026-03-28",
     "name": "POPSUGAR Fashion",
     "siteURL": "https://www.popsugar.com/fashion/",
     "tags": [
@@ -124,6 +180,7 @@
     "description": "The latest news, comment, and analysis from The Guardian",
     "feedURL": "https://www.theguardian.com/fashion/rss",
     "id": "75940817-f17f-6454-ef14-a6aacb27c591",
+    "lastVerified": "2026-03-28",
     "name": "The Guardian",
     "siteURL": "https://www.theguardian.com/fashion",
     "tags": [
@@ -139,6 +196,7 @@
     "description": "The original fashion, beauty, and lifestyle authority",
     "feedURL": "https://www.vogue.com/feed/rss",
     "id": "f1a2b3c4-1008-4a08-b008-fashionvogu8",
+    "lastVerified": "2026-03-28",
     "name": "Vogue",
     "siteURL": "https://www.vogue.com",
     "tags": [
@@ -154,6 +212,7 @@
     "description": "Fashion, film, art, and entertainment converge",
     "feedURL": "https://www.wmagazine.com/rss",
     "id": "f1a2b3c4-1009-4a09-b009-fashionwmag9",
+    "lastVerified": "2026-03-28",
     "name": "W Magazine",
     "siteURL": "https://www.wmagazine.com",
     "tags": [
@@ -169,6 +228,7 @@
     "description": "Fashion trends, outfit ideas, and style inspiration",
     "feedURL": "https://www.whowhatwear.com/feeds.xml",
     "id": "6a06d6de-9a21-319d-8e48-8d90766292c4",
+    "lastVerified": "2026-03-28",
     "name": "Who What Wear",
     "siteURL": "https://www.whowhatwear.com",
     "tags": [
@@ -184,6 +244,7 @@
     "description": "Breaking fashion news, designer collections, and industry coverage",
     "feedURL": "https://wwd.com/fashion-news/feed",
     "id": "f1a2b3c4-1010-4a10-b010-fashion0wwd0",
+    "lastVerified": "2026-03-28",
     "name": "WWD",
     "siteURL": "https://wwd.com/fashion-news",
     "tags": [

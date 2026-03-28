@@ -123,6 +123,7 @@ struct AddSourceSheet: View {
                     Button("Cancel") {
                         dismiss()
                     }
+                    .font(Theme.scaledFont(size: 17))
                     .foregroundColor(Theme.textSecondary)
                 }
             }
@@ -254,7 +255,7 @@ struct AddSourceSheet: View {
                     // Primary CTA
                     Button(action: startDetection) {
                         Text("Find articles")
-                            .font(Theme.scaledFont(size: 15, weight: .semibold))
+                            .font(Theme.scaledFont(size: 15, weight: .medium))
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 16)
@@ -270,7 +271,7 @@ struct AddSourceSheet: View {
                     // Secondary CTA
                     Button(action: startSavePageFlow) {
                         Text("Save single page")
-                            .font(Theme.scaledFont(size: 15, weight: .semibold))
+                            .font(Theme.scaledFont(size: 15, weight: .medium))
                             .foregroundColor(isEmpty ? Theme.textSecondary.opacity(0.5) : Theme.textPrimary)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 16)
@@ -294,7 +295,7 @@ struct AddSourceSheet: View {
                     Image(systemName: "sparkles")
                         .font(.system(size: 12, weight: .medium))
                 }
-                .font(Theme.scaledFont(size: 15, weight: .semibold))
+                .font(Theme.scaledFont(size: 15, weight: .medium))
                 .foregroundColor(.white)
                 .overlay(
                     Theme.accentGradient
@@ -304,7 +305,7 @@ struct AddSourceSheet: View {
                                 Image(systemName: "sparkles")
                                     .font(.system(size: 12, weight: .medium))
                             }
-                            .font(Theme.scaledFont(size: 15, weight: .semibold))
+                            .font(Theme.scaledFont(size: 15, weight: .medium))
                         )
                 )
             }
@@ -597,7 +598,7 @@ struct AddSourceSheet: View {
             // Disabled placeholder buttons to maintain height
             HStack(spacing: 14) {
                 Text("Find articles")
-                    .font(Theme.scaledFont(size: 15, weight: .semibold))
+                    .font(Theme.scaledFont(size: 15, weight: .medium))
                     .foregroundColor(.white.opacity(0.5))
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 16)
@@ -605,7 +606,7 @@ struct AddSourceSheet: View {
                     .clipShape(RoundedRectangle(cornerRadius: 14))
 
                 Text("Save single page")
-                    .font(Theme.scaledFont(size: 15, weight: .semibold))
+                    .font(Theme.scaledFont(size: 15, weight: .medium))
                     .foregroundColor(Theme.textSecondary.opacity(0.3))
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 16)

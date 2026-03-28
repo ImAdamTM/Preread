@@ -4,107 +4,207 @@
     "description": "Business news with massive reach covering markets, careers, and corporate culture",
     "feedURL": "https://feeds.businessinsider.com/custom/all",
     "id": "5e8ad580-afd9-9bd6-aad4-eb4be29200d4",
+    "lastVerified": "2026-03-28",
     "name": "Business Insider",
     "siteURL": "https://www.businessinsider.com",
-    "tags": ["careers", "corporate", "markets", "startups", "wall street"]
+    "tags": [
+      "careers",
+      "corporate",
+      "markets",
+      "startups",
+      "wall street"
+    ]
   },
   {
     "category": "Business & Finance",
     "description": "Business news covering markets, economy, corporate news, and earnings",
     "feedURL": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10001147",
     "id": "87d0a449-0004-94b5-516f-75f826debcd0",
+    "lastVerified": "2026-03-28",
     "name": "CNBC",
     "siteURL": "https://www.cnbc.com",
-    "tags": ["markets", "earnings", "economy", "stocks", "fed"]
+    "tags": [
+      "markets",
+      "earnings",
+      "economy",
+      "stocks",
+      "fed"
+    ]
   },
   {
     "category": "Business & Finance",
     "description": "Your ultimate resource for small business news, entrepreneurship, business management, franchise opportunities, growth",
     "feedURL": "https://www.entrepreneur.com/rss/",
     "id": "8fdd0497-44c5-5131-baeb-6d62a0e088e2",
+    "lastVerified": "2026-03-28",
     "name": "Entrepreneur",
     "siteURL": "https://www.entrepreneur.com/",
-    "tags": ["startups", "small business", "franchises", "founders", "growth"]
+    "tags": [
+      "startups",
+      "small business",
+      "franchises",
+      "founders",
+      "growth"
+    ]
   },
   {
     "category": "Business & Finance",
     "description": "Innovation, business design, and leadership with a forward-looking editorial voice",
     "feedURL": "https://www.fastcompany.com/latest/rss",
     "id": "241d8b7c-e9ae-1cc9-46da-4188d8b329d0",
+    "lastVerified": "2026-03-28",
     "name": "Fast Company",
     "siteURL": "https://www.fastcompany.com",
-    "tags": ["innovation", "design", "leadership", "creativity", "startups"]
+    "tags": [
+      "innovation",
+      "design",
+      "leadership",
+      "creativity",
+      "startups"
+    ]
   },
   {
     "category": "Business & Finance",
     "description": "Forbes is a leading source for reliable news and updated analysis on Business. Read the breaking Business coverage and",
     "feedURL": "https://www.forbes.com/business/feed/",
     "id": "086a17a7-4573-dec9-f100-6b70cab9fd1a",
+    "lastVerified": "2026-03-28",
     "name": "Forbes",
     "siteURL": "https://www.forbes.com/business/",
-    "tags": ["billionaires", "leadership", "startups", "wealth", "ceo"]
+    "tags": [
+      "billionaires",
+      "leadership",
+      "startups",
+      "wealth",
+      "ceo"
+    ]
   },
   {
     "category": "Business & Finance",
     "description": "Unrivaled access, premier storytelling, and the best of business since 1930",
     "feedURL": "https://fortune.com/feed",
     "id": "8a8180b4-2f01-8964-70b0-1963050312a7",
+    "lastVerified": "2026-03-28",
     "name": "Fortune",
     "siteURL": "https://fortune.com",
-    "tags": ["fortune 500", "ceo", "corporate", "leadership", "rankings"]
+    "tags": [
+      "fortune 500",
+      "ceo",
+      "corporate",
+      "leadership",
+      "rankings"
+    ]
   },
   {
     "category": "Business & Finance",
     "description": "Explainer and education content on markets, investing, and financial concepts",
     "feedURL": "https://feeds-api.dotdashmeredith.com/v1/rss/google/f8466ec3-5044-46bc-94b7-2df65f770eff",
     "id": "52569af2-03a8-1694-883d-09a0c3726bdb",
+    "lastVerified": "2026-03-28",
     "name": "Investopedia",
     "siteURL": "https://www.investopedia.com",
-    "tags": ["education", "definitions", "tutorials", "concepts", "beginners"]
+    "tags": [
+      "education",
+      "definitions",
+      "tutorials",
+      "concepts",
+      "beginners"
+    ]
   },
   {
     "category": "Business & Finance",
     "description": "Crowdsourced investment analysis covering earnings, dividends, and stocks",
     "feedURL": "https://seekingalpha.com/feed",
     "id": "877afef3-69e1-d5fa-c6d8-a00d1557e9d5",
+    "lastVerified": "2026-03-28",
     "name": "Seeking Alpha",
     "siteURL": "https://seekingalpha.com",
-    "tags": ["dividends", "earnings", "stocks", "analysis", "portfolio"]
+    "tags": [
+      "dividends",
+      "earnings",
+      "stocks",
+      "analysis",
+      "portfolio"
+    ]
+  },
+  {
+    "category": "Business & Finance",
+    "description": "Guides and resources for starting and growing a business online from the team behind Squarespace",
+    "feedURL": "https://www.squarespace.com/blog?format=rss",
+    "id": "f6dc9b00-23a9-4f4c-b89c-236110408324",
+    "lastVerified": "2026-03-28",
+    "name": "Squarespace Blog",
+    "siteURL": "https://www.squarespace.com/blog",
+    "tags": [
+      "entrepreneurship",
+      "small business",
+      "branding",
+      "website",
+      "marketing"
+    ]
   },
   {
     "category": "Business & Finance",
     "description": "Daily business briefing with an accessible, slightly irreverent voice",
     "feedURL": "https://thehustle.co/news/rss.xml",
     "id": "24cd6274-6635-2c70-a035-caa181e44e37",
+    "lastVerified": "2026-03-28",
     "name": "The Hustle",
     "siteURL": "https://thehustle.co",
-    "tags": ["briefing", "newsletter", "trends", "startups", "data"]
+    "tags": [
+      "briefing",
+      "newsletter",
+      "trends",
+      "startups",
+      "data"
+    ]
   },
   {
     "category": "Business & Finance",
     "description": "Free editorial content on investing and company analysis",
     "feedURL": "https://www.fool.com/feeds/index.aspx",
     "id": "5d312f5c-9836-2971-6c6b-c442e56b6ae0",
+    "lastVerified": "2026-03-28",
     "name": "The Motley Fool",
     "siteURL": "https://www.fool.com",
-    "tags": ["stocks", "investing", "etfs", "portfolio", "dividends"]
+    "tags": [
+      "stocks",
+      "investing",
+      "etfs",
+      "portfolio",
+      "dividends"
+    ]
   },
   {
     "category": "Business & Finance",
     "description": "Data visualization focused business and markets content",
     "feedURL": "https://www.visualcapitalist.com/feed/",
     "id": "23e9208d-82a2-dea2-c33d-03439562654e",
+    "lastVerified": "2026-03-28",
     "name": "Visual Capitalist",
     "siteURL": "https://www.visualcapitalist.com",
-    "tags": ["infographics", "data", "charts", "maps", "trends"]
+    "tags": [
+      "infographics",
+      "data",
+      "charts",
+      "maps",
+      "trends"
+    ]
   },
   {
     "category": "Business & Finance",
     "description": "Market news, earnings coverage, and financial aggregation",
     "feedURL": "https://finance.yahoo.com/news/rss.xml",
     "id": "f502be6b-2f74-307d-7b99-9c2a029112f5",
+    "lastVerified": "2026-03-28",
     "name": "Yahoo Finance",
     "siteURL": "https://finance.yahoo.com",
-    "tags": ["stocks", "portfolio", "wall street", "markets", "investing"]
+    "tags": [
+      "stocks",
+      "portfolio",
+      "wall street",
+      "markets",
+      "investing"
+    ]
   }
 ]

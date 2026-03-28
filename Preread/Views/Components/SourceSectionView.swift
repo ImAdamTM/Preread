@@ -400,7 +400,7 @@ struct SourceSectionView: View {
             let cap = articleLimit > 0 ? articleLimit : 25
             totalArticleCount = min(count, cap)
             totalReadingMinutes = readingSum
-            unreadCount = unread
+            unreadCount = min(unread, cap)
         }
     }
 
@@ -438,7 +438,7 @@ struct SourceSectionView: View {
             let cap = articleLimit > 0 ? articleLimit : 25
             totalArticleCount = min(count, cap)
             totalReadingMinutes = readingSum
-            unreadCount = unread
+            unreadCount = min(unread, cap)
         } catch {
             // Keep existing articles
         }

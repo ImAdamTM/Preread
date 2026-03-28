@@ -27,6 +27,7 @@ struct SourcesListView: View {
     
     @Namespace private var namespace
     @State private var scrollToSourceID: UUID?
+    @State private var scrollToTop = false
     @State private var readerSelection: ReaderSelection?
     @State private var transitionSourceID: String?
     @State private var accentGradientImage: UIImage?
@@ -66,7 +67,7 @@ struct SourcesListView: View {
                             showAddSource = true
                         } label: {
                             Image(systemName: "plus")
-                                .font(Theme.scaledFont(size: 17, weight: .semibold))
+                                .font(Theme.scaledFont(size: 17))
                                 .foregroundColor(Theme.textPrimary)
                         }
 
@@ -253,6 +254,7 @@ struct SourcesListView: View {
             List {
                 if !sources.isEmpty {
                     homeHeroRow
+                        .id("top")
                         .listRowInsets(EdgeInsets())
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
@@ -324,7 +326,7 @@ struct SourcesListView: View {
                                     .fill(Theme.accentGradient)
                                     .frame(width: 36, height: 36)
                                 Image(systemName: "plus")
-                                    .font(Theme.scaledFont(size: 16, weight: .semibold))
+                                    .font(Theme.scaledFont(size: 16))
                                     .foregroundColor(.white)
                             }
                             Text("Add a new source")
@@ -350,6 +352,13 @@ struct SourcesListView: View {
                     proxy.scrollTo(sourceID, anchor: UnitPoint(x: 0.5, y: -0.05))
                 }
                 scrollToSourceID = nil
+            }
+            .onChange(of: scrollToTop) { _, shouldScroll in
+                guard shouldScroll else { return }
+                withAnimation(Theme.gentleAnimation()) {
+                    proxy.scrollTo("top", anchor: .top)
+                }
+                scrollToTop = false
             }
         }
     }
@@ -440,11 +449,15 @@ struct SourcesListView: View {
     // MARK: - Logomark
 
     private var logomark: some View {
-        Image("Logo")
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(height: 21)
-            .padding(.leading, 3)
+        Button {
+            scrollToTop = true
+        } label: {
+            Image("Logo")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(height: 21)
+                .padding(.leading, 3)
+        }
     }
 
     // MARK: - Home hero

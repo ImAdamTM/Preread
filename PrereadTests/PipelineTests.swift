@@ -136,20 +136,20 @@ struct StandardPipelineTests {
         let html = try loadFixture("arstechnica_article")
         let result = try await PageCacheService.shared.runStandardPipeline(
             html: html,
-            pageURL: URL(string: "https://arstechnica.com/tech-policy/2026/03/binance-sues-wsj-over-report-sparking-government-probes-into-exchange/")!
+            pageURL: URL(string: "https://arstechnica.com/science/2026/03/getting-formal-about-quantum-mechanics-lack-of-causality/")!
         )
 
-        #expect(result.title.contains("Binance"))
-        #expect(result.contentHTML.contains("Wall Street Journal"))
+        #expect(result.title.contains("Causality"))
+        #expect(result.contentHTML.contains("quantum"))
         #expect(result.imageCount >= 1, "Hero image should be present")
 
-        // The key check: Ars Technica puts two <img> siblings with different
-        // dimension suffixes (e.g. -640x426 vs -1024x648) inside one <a>.
+        // The key check: Ars Technica puts two <img> siblings inside one <a> —
+        // a small thumbnail (with -WxH suffix) and the full-size image (no suffix).
         // After deduplication, only the largest variant should remain.
         let contentDoc = try SwiftSoup.parseBodyFragment(result.contentHTML, "https://arstechnica.com")
         let heroImages = try contentDoc.select("img").array().filter { img in
             let src = (try? img.attr("src")) ?? ""
-            return src.contains("GettyImages-2263087121")
+            return src.contains("ligo-laser")
         }
         #expect(heroImages.count == 1, "Duplicate hero images should be deduplicated to one")
 
@@ -328,6 +328,7 @@ struct StandardPipelineTests {
         // No <img> heroes in the body, but og:image provides a hero
         #expect(result.imageCount == 1, "og:image should be injected as hero")
         #expect(result.heroImageURL?.contains("squarespace") == true, "Hero should come from og:image")
+        #expect(result.heroImageURL?.hasPrefix("https://") == true, "og:image http URL should be upgraded to https")
         #expect(!result.contentHTML.contains("site-navigation"), "Navigation images must not leak into content")
         #expect(!result.contentHTML.contains("<script"))
         #expect(!result.contentHTML.contains("<nav"))
@@ -548,7 +549,7 @@ struct FullPipelineTests {
         let html = try loadFixture("arstechnica_article")
         let result = try await PageCacheService.shared.runFullPipeline(
             html: html,
-            pageURL: URL(string: "https://arstechnica.com/tech-policy/2026/03/binance-sues-wsj-over-report-sparking-government-probes-into-exchange/")!
+            pageURL: URL(string: "https://arstechnica.com/science/2026/03/getting-formal-about-quantum-mechanics-lack-of-causality/")!
         )
 
         // Interactive elements should be stripped
@@ -559,8 +560,8 @@ struct FullPipelineTests {
         #expect(!result.cleanedHTML.contains("<form"))
 
         // Content should be preserved
-        #expect(result.cleanedHTML.contains("Binance"))
-        #expect(result.cleanedHTML.contains("Wall Street Journal"))
+        #expect(result.cleanedHTML.contains("quantum"))
+        #expect(result.cleanedHTML.contains("causal order"))
         #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
     }
 

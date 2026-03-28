@@ -4,6 +4,7 @@
     "description": "Three nerds discussing tech, Apple, programming, and loosely related matters",
     "feedURL": "https://atp.fm/rss",
     "id": "d7f8f797-814d-0653-56f1-04da31923af7",
+    "lastVerified": "2026-03-28",
     "name": "Accidental Tech Podcast",
     "siteURL": "https://atp.fm/",
     "tags": [
@@ -19,6 +20,7 @@
     "description": "So many podcasts are about our digital devices. Analog(ue) is a show about how these devices make us feel and how they",
     "feedURL": "https://www.relay.fm/analogue/feed",
     "id": "48a818c7-0b11-002f-62ba-05932ee47a52",
+    "lastVerified": "2026-03-28",
     "name": "Analog(ue)",
     "siteURL": "https://www.relay.fm/analogue",
     "tags": [
@@ -34,6 +36,7 @@
     "description": "Serving the Technologist for more than a decade. IT news, reviews, and analysis",
     "feedURL": "https://feeds.arstechnica.com/arstechnica/index",
     "id": "7170fc47-3d11-956d-2f13-fb12ed675078",
+    "lastVerified": "2026-03-28",
     "name": "Ars Technica",
     "siteURL": "https://arstechnica.com",
     "tags": [
@@ -49,6 +52,7 @@
     "description": "Get full-length product reviews, the latest news, tech coverage, daily deals, and category deep dives from CNET experts",
     "feedURL": "https://www.cnet.com/rss/news/",
     "id": "f5e6f52c-79a4-e098-9786-3116727a6536",
+    "lastVerified": "2026-03-28",
     "name": "CNET News",
     "siteURL": "https://www.cnet.com/",
     "tags": [
@@ -64,6 +68,7 @@
     "description": "Find the latest technology news and expert tech product reviews. Learn about the latest gadgets and consumer tech",
     "feedURL": "https://www.engadget.com/rss.xml",
     "id": "2ccba97d-94b1-1077-57b7-1d747858933b",
+    "lastVerified": "2026-03-28",
     "name": "Engadget",
     "siteURL": "https://www.engadget.com/",
     "tags": [
@@ -79,6 +84,7 @@
     "description": "Dive into cutting-edge tech, reviews and the latest trends with the expert team at Gizmodo. Your ultimate source for",
     "feedURL": "https://gizmodo.com/rss",
     "id": "341a14d8-1345-6824-ea75-b022bda9dfdf",
+    "lastVerified": "2026-03-28",
     "name": "Gizmodo",
     "siteURL": "https://gizmodo.com/",
     "tags": [
@@ -94,6 +100,7 @@
     "description": "GSMArena.com - The ultimate resource for GSM handset information",
     "feedURL": "https://www.gsmarena.com/rss-news-reviews.php3",
     "id": "02f8490e-8334-73e7-335c-8af567c5eee3",
+    "lastVerified": "2026-03-28",
     "name": "GSMArena",
     "siteURL": "https://www.gsmarena.com/",
     "tags": [
@@ -109,6 +116,7 @@
     "description": "Fresh hacks every day",
     "feedURL": "https://hackaday.com/blog/feed/",
     "id": "f0b14a3a-449f-446f-a9a4-4600929e337d",
+    "lastVerified": "2026-03-28",
     "name": "Hackaday",
     "siteURL": "https://hackaday.com",
     "tags": [
@@ -124,6 +132,7 @@
     "description": "Links for the intellectually curious, ranked by readers",
     "feedURL": "https://news.ycombinator.com/rss",
     "id": "7198d80d-0366-f20d-90e9-e30aab12bc67",
+    "lastVerified": "2026-03-28",
     "name": "Hacker News",
     "siteURL": "https://news.ycombinator.com/",
     "tags": [
@@ -139,6 +148,7 @@
     "description": "Top stories from Hacker News",
     "feedURL": "https://hnrss.org/frontpage",
     "id": "6a418c53-13a0-9d59-e396-e43ba0b88292",
+    "lastVerified": "2026-03-28",
     "name": "Hacker News: Front Page",
     "siteURL": "https://news.ycombinator.com/",
     "tags": [
@@ -154,6 +164,7 @@
     "description": "We explain technology. Learn more with our articles, reviews, tips, and the best answers to your most pressing tech",
     "feedURL": "https://www.howtogeek.com/feed/",
     "id": "2d89e672-da68-a2ff-4d81-13133a3348af",
+    "lastVerified": "2026-03-28",
     "name": "How-To Geek",
     "siteURL": "https://www.howtogeek.com",
     "tags": [
@@ -169,6 +180,7 @@
     "description": "Articles and podcasts on customer service, AI and automation, and product",
     "feedURL": "https://www.intercom.com/blog/feed",
     "id": "5c6fc043-91e7-d79f-3f9e-f50a630d56a2",
+    "lastVerified": "2026-03-28",
     "name": "Inside Intercom",
     "siteURL": "https://www.intercom.com/blog/",
     "tags": [
@@ -184,6 +196,7 @@
     "description": "Do everything better",
     "feedURL": "https://lifehacker.com/rss",
     "id": "2e0f8d1e-c5f5-630d-8ace-851c78ed2a4a",
+    "lastVerified": "2026-03-28",
     "name": "Lifehacker",
     "siteURL": "https://lifehacker.com/feed/rss",
     "tags": [
@@ -199,6 +212,7 @@
     "description": "Mashable is a leading source for news, information & resources for the Connected Generation. Mashable reports on the",
     "feedURL": "https://mashable.com/feeds/rss/all",
     "id": "acfbeb04-2d35-f049-1ffc-ab98186ce477",
+    "lastVerified": "2026-03-28",
     "name": "Mashable",
     "siteURL": "https://mashable.com",
     "tags": [
@@ -214,6 +228,7 @@
     "description": "MUO is your guide to modern tech. Learn how to make use of the tech and gadgets around you, and discover cool stuff on",
     "feedURL": "https://www.makeuseof.com/feed/",
     "id": "9e6ac84d-2b50-a5e9-af40-70515b8bf63b",
+    "lastVerified": "2026-03-28",
     "name": "MUO",
     "siteURL": "https://www.makeuseof.com",
     "tags": [
@@ -229,6 +244,7 @@
     "description": "Technology news, trends, and analysis",
     "feedURL": "https://readwrite.com/feed/",
     "id": "09bc5991-0369-545d-f6e1-5ac5d6e0716c",
+    "lastVerified": "2026-03-28",
     "name": "ReadWrite",
     "siteURL": "https://readwrite.com/",
     "tags": [
@@ -241,9 +257,42 @@
   },
   {
     "category": "Tech",
+    "description": "Gadget and technology news, reviews, and buyer's guides covering smartphones, laptops, audio, and gaming",
+    "feedURL": "https://www.t3.com/feeds.xml",
+    "id": "f8159962-3b2e-4ab5-91fe-06ce5395a96f",
+    "lastVerified": "2026-03-28",
+    "name": "T3",
+    "siteURL": "https://www.t3.com",
+    "tags": [
+      "gadgets",
+      "reviews",
+      "buyer's guides",
+      "smart home",
+      "fitness tech"
+    ]
+  },
+  {
+    "category": "Tech",
+    "description": "Technology news from the Middle East and North Africa covering cybersecurity, Web3, and startups",
+    "feedURL": "https://techmgzn.com/feed",
+    "id": "45c54421-cdbc-4793-82e0-22ec0c1c6dd9",
+    "lastVerified": "2026-03-28",
+    "name": "Tech Magazine",
+    "siteURL": "https://techmgzn.com",
+    "tags": [
+      "mena",
+      "cybersecurity",
+      "web3",
+      "startups",
+      "social media"
+    ]
+  },
+  {
+    "category": "Tech",
     "description": "TechCrunch | Reporting on the business of technology, startups, venture capital funding, and Silicon Valley",
     "feedURL": "https://techcrunch.com/feed/",
     "id": "f84187f7-c52e-f9b3-4619-8263cd46c96b",
+    "lastVerified": "2026-03-28",
     "name": "TechCrunch",
     "siteURL": "https://techcrunch.com/",
     "tags": [
@@ -259,6 +308,7 @@
     "description": "We inform, inspire, and connect people who love tech",
     "feedURL": "https://thenextweb.com/feed",
     "id": "18382aea-9526-6bd8-0f84-d1e75e10b4a1",
+    "lastVerified": "2026-03-28",
     "name": "The Next Web",
     "siteURL": "https://thenextweb.com",
     "tags": [
@@ -274,6 +324,7 @@
     "description": "Enterprise technology news for IT decision-makers and professionals",
     "feedURL": "https://www.theregister.com/headlines.atom",
     "id": "d0abe968-c6ff-2432-edcc-b77ce1318011",
+    "lastVerified": "2026-03-28",
     "name": "The Register",
     "siteURL": "https://www.theregister.com/",
     "tags": [
@@ -289,6 +340,7 @@
     "description": "Covering the intersection of technology, science, art, and culture",
     "feedURL": "https://www.theverge.com/rss/index.xml",
     "id": "8c3d9d5d-77bb-3a83-07bb-80e9c74bc27f",
+    "lastVerified": "2026-03-28",
     "name": "The Verge",
     "siteURL": "https://www.theverge.com",
     "tags": [
@@ -304,6 +356,7 @@
     "description": "The latest in technology, science, culture, and business",
     "feedURL": "https://www.wired.com/feed/rss",
     "id": "c01c14fc-345f-6361-c734-74db2e096195",
+    "lastVerified": "2026-03-28",
     "name": "Wired",
     "siteURL": "https://www.wired.com",
     "tags": [

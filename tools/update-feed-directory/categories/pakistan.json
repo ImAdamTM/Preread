@@ -5,6 +5,7 @@
     "description": "Technology, travel, sports, health, and entertainment news",
     "feedURL": "https://newsnblogs.com/feed/",
     "id": "86d6b6aa-91c4-0c35-4cbe-689c6b997f88",
+    "lastVerified": "2026-03-28",
     "name": "News Blog",
     "siteURL": "https://newsnblogs.com",
     "tags": [
@@ -21,6 +22,7 @@
     "description": "Progressive American journalism on politics and culture",
     "feedURL": "https://nation.com.pk/rss/top-stories",
     "id": "b95d42ad-0d90-0c1c-d159-f4fb8f71794c",
+    "lastVerified": "2026-03-28",
     "name": "The Nation",
     "siteURL": "https://www.nation.com.pk/rss/top-stories",
     "tags": [
@@ -37,6 +39,7 @@
     "description": "Pakistan's leading English-language newspaper",
     "feedURL": "https://www.thenews.com.pk/rss/1/1",
     "id": "37cd9fdd-5163-e1d2-21df-a953bcc3a372",
+    "lastVerified": "2026-03-28",
     "name": "The News International - Pakistan",
     "siteURL": "https://www.thenews.com.pk/",
     "tags": [

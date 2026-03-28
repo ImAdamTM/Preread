@@ -74,7 +74,7 @@ struct ArticleDrawerView: View {
                 }
             }
         }
-        .presentationDetents([.medium, .large])
+        .presentationDetents([.medium])
         .presentationDragIndicator(.visible)
         .presentationBackground(Theme.sheetBackground)
     }
@@ -88,18 +88,18 @@ struct ArticleDrawerView: View {
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 44, height: 44)
+                    .frame(width: 52, height: 52)
                     .clipShape(RoundedRectangle(cornerRadius: 6))
             } else {
                 RoundedRectangle(cornerRadius: 6)
                     .fill(Theme.textSecondary.opacity(0.1))
-                    .frame(width: 44, height: 44)
+                    .frame(width: 52, height: 52)
             }
 
             // Title + metadata
             VStack(alignment: .leading, spacing: 3) {
                 Text(article.title)
-                    .font(Theme.scaledFont(size: 15, weight: article.id == currentArticleID ? .semibold : .regular))
+                    .font(Theme.scaledFont(size: 15, weight: .medium))
                     .foregroundStyle(Theme.textPrimary)
                     .lineLimit(2)
 

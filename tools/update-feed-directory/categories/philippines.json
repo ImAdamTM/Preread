@@ -5,6 +5,7 @@
     "description": "Latest Philippine breaking news and stories",
     "feedURL": "https://currentph.com/feed/",
     "id": "146c0273-78b0-3212-dcc9-ad8967904e05",
+    "lastVerified": "2026-03-28",
     "name": "Current PH",
     "siteURL": "https://currentph.com",
     "tags": [
@@ -21,6 +22,7 @@
     "description": "Philippine news from GMA Network",
     "feedURL": "https://data.gmanews.tv/gno/rss/news/feed.xml",
     "id": "b65539a6-c853-76b7-b958-d7454caaa6b6",
+    "lastVerified": "2026-03-28",
     "name": "GMA News Online / News",
     "siteURL": "https://www.gmanetwork.com/news/news/",
     "tags": [
@@ -37,6 +39,7 @@
     "description": "Philippine news for Filipinos",
     "feedURL": "https://www.inquirer.net/feed",
     "id": "23fa3cb2-07a4-4935-2c19-c547e6941e3e",
+    "lastVerified": "2026-03-28",
     "name": "INQUIRER.net",
     "siteURL": "https://www.inquirer.net/",
     "tags": [
@@ -53,6 +56,7 @@
     "description": "Philippines news features and explanatory reports",
     "feedURL": "https://www.interaksyon.com/feed/",
     "id": "201a4a0d-5481-b3fa-72ba-34e55572df18",
+    "lastVerified": "2026-03-28",
     "name": "Interaksyon",
     "siteURL": "https://interaksyon.philstar.com",
     "tags": [
@@ -69,6 +73,7 @@
     "description": "Trusted news and guides on FinTech, Tourism, Sports & Entertainment. Clear Insights and practical updates that matter",
     "feedURL": "https://www.philnews.xyz/feeds/posts/default?alt=rss",
     "id": "bfd2d9a8-50ed-365a-81c6-57affcdda61b",
+    "lastVerified": "2026-03-28",
     "name": "PhilNews.XYZ",
     "siteURL": "https://www.philnews.xyz/",
     "tags": [
@@ -85,6 +90,7 @@
     "description": "Philippine news for the Filipino global community",
     "feedURL": "https://www.philstar.com/rss/headlines",
     "id": "0d2d178f-7eb3-a3e3-df07-305f629dd7fe",
+    "lastVerified": "2026-03-28",
     "name": "PhilStar",
     "siteURL": "https://www.philstar.com/rss/headlines",
     "tags": [
@@ -101,6 +107,7 @@
     "description": "The Philippines' Technology News Blog Website, Sharing Specs and Beyond to Help Build a Tech-Informed, Tech-Empowered",
     "feedURL": "https://www.techpinas.com/feeds/posts/default",
     "id": "6fc3105c-264f-51df-a84e-76328639331e",
+    "lastVerified": "2026-03-28",
     "name": "TechPinas",
     "siteURL": "https://www.techpinas.com/",
     "tags": [
@@ -117,6 +124,7 @@
     "description": "The Philippines' best online source for cars and the automotive industry",
     "feedURL": "https://www.topgear.com.ph/feed/rss1",
     "id": "9c296a28-f16d-7dd5-94af-78c5796a1648",
+    "lastVerified": "2026-03-28",
     "name": "Top Gear",
     "siteURL": "https://www.topgear.com.ph",
     "tags": [
@@ -133,6 +141,7 @@
     "description": "Get your daily dose of tech news, brand list, gadget reviews, and more essential information from Unbox PH",
     "feedURL": "https://www.unbox.ph/feed/",
     "id": "27b386c5-7d4a-5059-35a6-83e434db0d90",
+    "lastVerified": "2026-03-28",
     "name": "UNBOX PH",
     "siteURL": "https://unbox.ph/",
     "tags": [

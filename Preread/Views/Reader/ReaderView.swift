@@ -74,6 +74,7 @@ struct ReaderView: View {
                     missingContentView
                 }
             }
+            .ignoresSafeArea(edges: .top)
             .alert(
                 "Open External Link",
                 isPresented: $showLinkConfirmation,
@@ -176,7 +177,7 @@ struct ReaderView: View {
                     } label: {
                         Image(systemName: "xmark")
                             .font(.system(size: 16, weight: .semibold))
-                            .foregroundStyle(.white)
+                            .foregroundStyle(Theme.textPrimary)
                             .frame(width: 48, height: 48)
                     }
                     .glassCloseButton()
@@ -189,7 +190,7 @@ struct ReaderView: View {
                     } label: {
                         Image(systemName: "list.bullet")
                             .font(.system(size: 16, weight: .semibold))
-                            .foregroundStyle(.white)
+                            .foregroundStyle(Theme.textPrimary)
                             .frame(width: 48, height: 48)
                     }
                     .glassCloseButton()

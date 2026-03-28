@@ -1,37 +1,5 @@
 [
   {
-    "category" : "India",
-    "country" : "India",
-    "description" : "हिंदी में पाइए देश, विदेश, खेल, राजनीति, क्राइम, ऑटोमोबाइल और ज्योतिष से सम्बंधित सभी खबरें अमर उजाला पर",
-    "feedURL" : "https:\/\/www.amarujala.com\/rss\/breaking-news.xml",
-    "id" : "0237d29b-0086-d28b-f571-10c1e5710cf9",
-    "name" : " Amar Ujala",
-    "siteURL" : "https:\/\/www.amarujala.com",
-    "tags" : [
-      "hindi",
-      "national",
-      "politics",
-      "crime",
-      "regional"
-    ]
-  },
-  {
-    "category" : "India",
-    "country" : "India",
-    "description" : "Gujarat Samachar News (ગુજરાતી ન્યૂઝ) - Stay updated with latest & breaking New from Gujarat, India, & the world. Get",
-    "feedURL" : "https:\/\/www.gujaratsamachar.com\/rss\/top-stories",
-    "id" : "75b9ad1e-123d-2e25-3673-ce7b6ae01c7b",
-    "name" : " Gujarat Samachar",
-    "siteURL" : "https:\/\/www.gujaratsamachar.com",
-    "tags" : [
-      "gujarati",
-      "ahmedabad",
-      "regional",
-      "politics",
-      "local"
-    ]
-  },
-  {
     "category" : "Film & TV",
     "description" : "The latest movie and television news, reviews, film trailers, exclusive interviews, and opinions",
     "feedURL" : "https:\/\/www.slashfilm.com\/category\/news\/feed\/",
@@ -457,22 +425,6 @@
     ]
   },
   {
-    "category" : "Ireland",
-    "country" : "Ireland",
-    "description" : "Ireland's breaking news, sport, and weather",
-    "feedURL" : "https:\/\/feeds.breakingnews.ie\/bntopstories",
-    "id" : "3f501a5c-93c6-b90e-a7ab-df0145cf779a",
-    "name" : "All: BreakingNews.ie",
-    "siteURL" : "https:\/\/www.breakingnews.ie\/all\/",
-    "tags" : [
-      "irish",
-      "breaking",
-      "weather",
-      "sport",
-      "cork"
-    ]
-  },
-  {
     "category" : "Beauty",
     "description" : "The authority in beauty — awards, reviews, and trends across skincare, hair, and makeup",
     "feedURL" : "https:\/\/www.allure.com\/feed\/rss",
@@ -485,6 +437,22 @@
       "awards",
       "drugstore",
       "trends"
+    ]
+  },
+  {
+    "category" : "India",
+    "country" : "India",
+    "description" : "हिंदी में पाइए देश, विदेश, खेल, राजनीति, क्राइम, ऑटोमोबाइल और ज्योतिष से सम्बंधित सभी खबरें अमर उजाला पर",
+    "feedURL" : "https:\/\/www.amarujala.com\/rss\/breaking-news.xml",
+    "id" : "0237d29b-0086-d28b-f571-10c1e5710cf9",
+    "name" : "Amar Ujala",
+    "siteURL" : "https:\/\/www.amarujala.com",
+    "tags" : [
+      "hindi",
+      "national",
+      "politics",
+      "crime",
+      "regional"
     ]
   },
   {
@@ -1182,6 +1150,22 @@
     ]
   },
   {
+    "category" : "Ireland",
+    "country" : "Ireland",
+    "description" : "Ireland's breaking news, sport, and weather",
+    "feedURL" : "https:\/\/feeds.breakingnews.ie\/bntopstories",
+    "id" : "3f501a5c-93c6-b90e-a7ab-df0145cf779a",
+    "name" : "BreakingNews.ie",
+    "siteURL" : "https:\/\/www.breakingnews.ie\/all\/",
+    "tags" : [
+      "irish",
+      "breaking",
+      "weather",
+      "sport",
+      "cork"
+    ]
+  },
+  {
     "category" : "Cars",
     "description" : "Online auction platform for enthusiast vehicles",
     "feedURL" : "https:\/\/bringatrailer.com\/feed\/",
@@ -1487,6 +1471,21 @@
     ]
   },
   {
+    "category" : "Film & TV",
+    "description" : "Italian cinema magazine covering film news, reviews, and industry since 1985",
+    "feedURL" : "https:\/\/ciakmagazine.it\/feed",
+    "id" : "0a5e8d54-0a49-4099-a82f-5bd954cd516f",
+    "name" : "Ciak Magazine",
+    "siteURL" : "https:\/\/ciakmagazine.it",
+    "tags" : [
+      "italian",
+      "cinema",
+      "reviews",
+      "interviews",
+      "festivals"
+    ]
+  },
+  {
     "category" : "Environment",
     "description" : "Clean energy, electric vehicles, and sustainability news",
     "feedURL" : "https:\/\/cleantechnica.com\/feed\/",
@@ -1502,6 +1501,36 @@
     ]
   },
   {
+    "category" : "Personal Finance",
+    "description" : "Financial education platform providing women with guidance toward financial independence",
+    "feedURL" : "https:\/\/clevergirlfinance.com\/feed",
+    "id" : "e8c0e5bb-c8e6-4267-a9a9-007032e01ee3",
+    "name" : "Clever Girl Finance",
+    "siteURL" : "https:\/\/clevergirlfinance.com",
+    "tags" : [
+      "women",
+      "budgeting",
+      "investing",
+      "debt",
+      "independence"
+    ]
+  },
+  {
+    "category" : "Celebrity & Pop Culture",
+    "description" : "Celebrity gossip, real-life stories, and showbiz news from Bauer Media UK",
+    "feedURL" : "https:\/\/rss.onebauer.media\/api\/feed-aggregator?hostname=https:\/\/closeronline.co.uk",
+    "id" : "17181917-8da8-48fd-8418-88429c5e594b",
+    "name" : "Closer Magazine",
+    "siteURL" : "https:\/\/www.closeronline.co.uk",
+    "tags" : [
+      "gossip",
+      "real life",
+      "british",
+      "soap spoilers",
+      "dieting"
+    ]
+  },
+  {
     "category" : "Business & Finance",
     "description" : "Business news covering markets, economy, corporate news, and earnings",
     "feedURL" : "https:\/\/search.cnbc.com\/rs\/search\/combinedcms\/view.xml?partnerId=wrss01&id=10001147",
@@ -1514,6 +1543,22 @@
       "economy",
       "stocks",
       "fed"
+    ]
+  },
+  {
+    "category" : "United States",
+    "country" : "United States",
+    "description" : "CNBC is the world leader in business news and real-time financial market coverage. Find fast, actionable information",
+    "feedURL" : "https:\/\/www.cnbc.com\/id\/100003114\/device\/rss\/rss.html",
+    "id" : "a25f7373-5963-d64a-7434-05c665d1f9a7",
+    "name" : "CNBC",
+    "siteURL" : "https:\/\/www.cnbc.com\/us-top-news-and-analysis\/",
+    "tags" : [
+      "markets",
+      "economy",
+      "wall street",
+      "breaking",
+      "cnbc"
     ]
   },
   {
@@ -1850,6 +1895,22 @@
     ]
   },
   {
+    "category" : "United Kingdom",
+    "country" : "United Kingdom",
+    "description" : "UK and world news, crime, politics, and showbiz from one of Britain's biggest tabloids",
+    "feedURL" : "https:\/\/www.mirror.co.uk\/news\/world-news\/?service=rss",
+    "id" : "46d52130-1e30-43b2-906a-2e6a191e292f",
+    "name" : "Daily Mirror",
+    "siteURL" : "https:\/\/www.mirror.co.uk\/news\/world-news\/",
+    "tags" : [
+      "tabloid",
+      "world news",
+      "crime",
+      "politics",
+      "showbiz"
+    ]
+  },
+  {
     "category" : "Mobile Development",
     "description" : "Android development tips and insights",
     "feedURL" : "https:\/\/blog.danlew.net\/rss\/",
@@ -2182,6 +2243,21 @@
     ]
   },
   {
+    "category" : "Food",
+    "description" : "Healthy, delicious recipes and meal plans from test kitchen cooks and nutrition experts",
+    "feedURL" : "https:\/\/feeds-api.dotdashmeredith.com\/v1\/rss\/google\/dcbd6d38-4ab3-42e8-a5f6-37a8a48ceb94",
+    "id" : "a4d6ffe5-03e8-4556-8763-e50da568a074",
+    "name" : "EatingWell",
+    "siteURL" : "https:\/\/www.eatingwell.com",
+    "tags" : [
+      "healthy",
+      "meal plans",
+      "nutrition",
+      "recipes",
+      "diet"
+    ]
+  },
+  {
     "category" : "India",
     "country" : "India",
     "description" : "The Economic Times: Latest business, finance, markets, stocks, company news from India",
@@ -2336,6 +2412,21 @@
     ]
   },
   {
+    "category" : "Film & TV",
+    "description" : "UK's best-loved movie brand covering film news, reviews, podcasts, and live events",
+    "feedURL" : "https:\/\/rss.onebauer.media\/api\/feed-aggregator?hostname=https:\/\/www.empireonline.com",
+    "id" : "4711c602-ca6e-4f17-83c4-1730b5a90f6b",
+    "name" : "Empire",
+    "siteURL" : "https:\/\/www.empireonline.com",
+    "tags" : [
+      "movies",
+      "reviews",
+      "podcasts",
+      "british",
+      "blockbusters"
+    ]
+  },
+  {
     "category" : "Tech",
     "description" : "Find the latest technology news and expert tech product reviews. Learn about the latest gadgets and consumer tech",
     "feedURL" : "https:\/\/www.engadget.com\/rss.xml",
@@ -2417,6 +2508,7 @@
     "feedURL" : "https:\/\/rss.elconfidencial.com\/espana\/",
     "id" : "2a77e2e7-1bee-3493-b144-c09f82259251",
     "name" : "España",
+    "siteURL" : "https:\/\/www.elconfidencial.com",
     "tags" : [
       "spanish",
       "nacional",
@@ -2453,6 +2545,21 @@
       "grand slams",
       "rankings",
       "matches"
+    ]
+  },
+  {
+    "category" : "Gaming",
+    "description" : "Esports industry news, interviews, tournament previews, and business insights",
+    "feedURL" : "https:\/\/esportsinsider.com\/feed",
+    "id" : "0d250a3c-d909-47e2-a691-a8b46c1f8539",
+    "name" : "Esports Insider",
+    "siteURL" : "https:\/\/esportsinsider.com",
+    "tags" : [
+      "esports",
+      "tournaments",
+      "business",
+      "leagues",
+      "interviews"
     ]
   },
   {
@@ -2668,6 +2775,36 @@
     ]
   },
   {
+    "category" : "Film & TV",
+    "description" : "Reviews and analysis of mainstream, art-house, and avant-garde filmmaking since 1962",
+    "feedURL" : "https:\/\/filmcomment.com\/feed",
+    "id" : "f6979554-0679-40e7-b312-27607189955d",
+    "name" : "Film Comment",
+    "siteURL" : "https:\/\/filmcomment.com",
+    "tags" : [
+      "criticism",
+      "art house",
+      "avant-garde",
+      "essays",
+      "analysis"
+    ]
+  },
+  {
+    "category" : "Film & TV",
+    "description" : "Independent film coverage with articles, resources, and filmmaker perspectives",
+    "feedURL" : "https:\/\/filmmakermagazine.com\/feed",
+    "id" : "83e48837-a397-4a5f-acb4-f4b5c412696c",
+    "name" : "Filmmaker Magazine",
+    "siteURL" : "https:\/\/filmmakermagazine.com",
+    "tags" : [
+      "indie",
+      "filmmaking",
+      "directors",
+      "sundance",
+      "production"
+    ]
+  },
+  {
     "category" : "Canada",
     "country" : "Canada",
     "description" : "Canadian business, financial, and investment news",
@@ -2726,6 +2863,21 @@
       "reviews",
       "indie",
       "festivals"
+    ]
+  },
+  {
+    "category" : "Food",
+    "description" : "Tested recipes, trusted culinary content, and the best in food and wine",
+    "feedURL" : "https:\/\/feeds-api.dotdashmeredith.com\/v1\/rss\/google\/fdd0cc60-6e85-462a-a071-58da5a17711f",
+    "id" : "a952878f-1574-49b2-b763-935bd39240f9",
+    "name" : "Food & Wine",
+    "siteURL" : "https:\/\/www.foodandwine.com",
+    "tags" : [
+      "recipes",
+      "wine",
+      "restaurants",
+      "chefs",
+      "entertaining"
     ]
   },
   {
@@ -2868,6 +3020,21 @@
   },
   {
     "category" : "Programming",
+    "description" : "Engineering, open source, and the developer community from the team behind GitHub",
+    "feedURL" : "https:\/\/github.blog\/feed\/",
+    "id" : "d76a9142-417b-4fd3-922a-7f3b0ec87ecd",
+    "name" : "GitHub Blog",
+    "siteURL" : "https:\/\/github.blog",
+    "tags" : [
+      "open source",
+      "developer tools",
+      "engineering",
+      "git",
+      "community"
+    ]
+  },
+  {
+    "category" : "Programming",
     "description" : "Tutorials, product information, expert insights, and more from GitLab to help DevSecOps teams build, test, and deploy",
     "feedURL" : "https:\/\/about.gitlab.com\/atom.xml",
     "id" : "49eb4e5a-a146-f3bd-7efb-64ffdf2408d2",
@@ -2944,6 +3111,36 @@
     ]
   },
   {
+    "category" : "Travel",
+    "description" : "Digital travel magazine with destination guides, videos, and tips for world travelers",
+    "feedURL" : "https:\/\/goworldtravel.com\/feed",
+    "id" : "7d8c7250-1283-433d-82b1-c27f8dea9e88",
+    "name" : "Go World Travel Magazine",
+    "siteURL" : "https:\/\/goworldtravel.com",
+    "tags" : [
+      "destinations",
+      "guides",
+      "videos",
+      "culture",
+      "adventure"
+    ]
+  },
+  {
+    "category" : "Environment",
+    "description" : "Zero waste lifestyle tips, sustainable fashion, beauty, and eco-friendly living",
+    "feedURL" : "https:\/\/goingzerowaste.com\/feed",
+    "id" : "9e9f1df5-47cf-4bcd-8c70-64c5f19cadae",
+    "name" : "Going Zero Waste",
+    "siteURL" : "https:\/\/goingzerowaste.com",
+    "tags" : [
+      "zero waste",
+      "sustainable",
+      "eco-friendly",
+      "lifestyle",
+      "tips"
+    ]
+  },
+  {
     "category" : "Programming",
     "description" : "News and updates for Google developers",
     "feedURL" : "https:\/\/developers.googleblog.com\/feed\/",
@@ -2989,6 +3186,21 @@
     ]
   },
   {
+    "category" : "Fashion",
+    "description" : "Fashion, beauty, culture, and entertainment news from a stylish destination",
+    "feedURL" : "https:\/\/graziamagazine.com\/feed",
+    "id" : "4667b4d5-a6fa-47f3-a8eb-32a1b3518e34",
+    "name" : "GRAZIA",
+    "siteURL" : "https:\/\/graziamagazine.com",
+    "tags" : [
+      "women",
+      "beauty",
+      "culture",
+      "shopping",
+      "trends"
+    ]
+  },
+  {
     "category" : "Environment",
     "description" : "Solutions-oriented climate and environmental justice journalism",
     "feedURL" : "https:\/\/grist.org\/feed",
@@ -3031,6 +3243,37 @@
       "comparisons",
       "benchmarks",
       "camera"
+    ]
+  },
+  {
+    "category" : "Music",
+    "description" : "Expert tips, gear reviews, and lessons for guitarists of all skill levels with iconic tablatures",
+    "feedURL" : "https:\/\/www.guitarworld.com\/feeds.xml",
+    "id" : "0fa0d57e-92da-4cc4-af04-c504bf03eb49",
+    "name" : "Guitar World",
+    "siteURL" : "https:\/\/www.guitarworld.com",
+    "tags" : [
+      "guitar",
+      "gear",
+      "lessons",
+      "tabs",
+      "reviews"
+    ]
+  },
+  {
+    "category" : "India",
+    "country" : "India",
+    "description" : "Gujarat Samachar News (ગુજરાતી ન્યૂઝ) - Stay updated with latest & breaking New from Gujarat, India, & the world. Get",
+    "feedURL" : "https:\/\/www.gujaratsamachar.com\/rss\/top-stories",
+    "id" : "75b9ad1e-123d-2e25-3673-ce7b6ae01c7b",
+    "name" : "Gujarat Samachar",
+    "siteURL" : "https:\/\/www.gujaratsamachar.com",
+    "tags" : [
+      "gujarati",
+      "ahmedabad",
+      "regional",
+      "politics",
+      "local"
     ]
   },
   {
@@ -3184,6 +3427,36 @@
     ]
   },
   {
+    "category" : "Fashion",
+    "description" : "Leading men's style magazine and tailor shop specializing in custom suits",
+    "feedURL" : "https:\/\/hespokestyle.com\/feed",
+    "id" : "f613c04e-4077-40fa-a30f-227ea211b4ec",
+    "name" : "He Spoke Style",
+    "siteURL" : "https:\/\/hespokestyle.com",
+    "tags" : [
+      "menswear",
+      "suits",
+      "tailoring",
+      "bespoke",
+      "style guides"
+    ]
+  },
+  {
+    "category" : "Health & Wellness",
+    "description" : "Latest health articles covering wellness, nutrition, fitness, and medical conditions",
+    "feedURL" : "https:\/\/feeds.distribution.dotdashmeredith.com\/v3\/rss\/3e5c98be-d0f0-46ab-8201-3c3b64bdbcf0",
+    "id" : "48befd0a-1103-42bb-9a25-13916fbd2740",
+    "name" : "Health.com",
+    "siteURL" : "https:\/\/www.health.com",
+    "tags" : [
+      "wellness",
+      "nutrition",
+      "fitness",
+      "conditions",
+      "lifestyle"
+    ]
+  },
+  {
     "category" : "Health & Wellness",
     "description" : "Medically reviewed health news covering conditions, treatments, and wellness",
     "feedURL" : "https:\/\/www.healthline.com\/rss\/health-news",
@@ -3211,6 +3484,36 @@
       "culture",
       "essays",
       "analysis"
+    ]
+  },
+  {
+    "category" : "Celebrity & Pop Culture",
+    "description" : "Fashion, celebrity news, and pop culture from Bauer Media UK",
+    "feedURL" : "https:\/\/rss.onebauer.media\/api\/feed-aggregator?hostname=https:\/\/heatworld.com",
+    "id" : "b70ca2f8-1f49-49ca-9ec6-590aed645f90",
+    "name" : "Heat World",
+    "siteURL" : "https:\/\/heatworld.com",
+    "tags" : [
+      "fashion",
+      "beauty",
+      "british",
+      "shopping",
+      "celebrity"
+    ]
+  },
+  {
+    "category" : "Celebrity & Pop Culture",
+    "description" : "Celebrity and royal news, fashion, beauty, and lifestyle from the UK and around the world",
+    "feedURL" : "https:\/\/www.hellomagazine.com\/feeds\/rss\/any\/any\/any\/50.xml",
+    "id" : "0ffca22c-6cf1-4015-884a-a1947315f187",
+    "name" : "HELLO! Magazine",
+    "siteURL" : "https:\/\/www.hellomagazine.com",
+    "tags" : [
+      "royals",
+      "weddings",
+      "babies",
+      "fashion",
+      "british"
     ]
   },
   {
@@ -3295,7 +3598,7 @@
     "description" : "Hong Kong news headlines",
     "feedURL" : "https:\/\/feeds.hongkongnews.net\/rss\/b82693edf38ebff8",
     "id" : "6f5b7ee1-6f48-dd9a-ff22-ec76bc51732d",
-    "name" : "hongkongnews.net latest rss headlines",
+    "name" : "Hong Kong News",
     "siteURL" : "https:\/\/hongkongnews.net",
     "tags" : [
       "cantonese",
@@ -3351,22 +3654,6 @@
     ]
   },
   {
-    "category" : "Poland",
-    "country" : "Poland",
-    "description" : "Rzeczpospolita — polskie wiadomości i publicystyka",
-    "feedURL" : "https:\/\/www.rp.pl\/rss\/1019",
-    "id" : "f6d99b42-549d-8837-2c49-517404f50b27",
-    "name" : "https:\/\/www.rp.pl",
-    "siteURL" : "https:\/\/www.rp.pl\/",
-    "tags" : [
-      "polish",
-      "prawo",
-      "ekonomia",
-      "warszawa",
-      "publicystyka"
-    ]
-  },
-  {
     "category" : "Marketing",
     "description" : "Inbound and content marketing guides, templates, and how-tos",
     "feedURL" : "https:\/\/blog.hubspot.com\/feed",
@@ -3410,6 +3697,21 @@
       "datasets",
       "nlp",
       "fine-tuning"
+    ]
+  },
+  {
+    "category" : "World News",
+    "description" : "Investigates human rights crises in 90+ countries, compelling governments to take action",
+    "feedURL" : "https:\/\/www.hrw.org\/rss\/news",
+    "id" : "b84e536a-ba62-4c99-aa9c-bd4ca0001833",
+    "name" : "Human Rights Watch",
+    "siteURL" : "https:\/\/www.hrw.org",
+    "tags" : [
+      "human rights",
+      "investigations",
+      "global",
+      "advocacy",
+      "reports"
     ]
   },
   {
@@ -3801,7 +4103,7 @@
     "description" : "South African news from Independent Media",
     "feedURL" : "https:\/\/rss.iol.io\/iol\/news",
     "id" : "f48866ff-9680-7746-8349-6598c6f5f105",
-    "name" : "IOL section feed for News",
+    "name" : "IOL News",
     "siteURL" : "https:\/\/www.iol.co.za",
     "tags" : [
       "south african",
@@ -4177,21 +4479,6 @@
     ]
   },
   {
-    "category" : "Anime",
-    "description" : "Video games, anime, and Japanese culture coverage",
-    "feedURL" : "https:\/\/kotaku.com\/rss",
-    "id" : "b859d1ea-4455-45d6-8d5e-27247e6d224e",
-    "name" : "Kotaku",
-    "siteURL" : "https:\/\/kotaku.com",
-    "tags" : [
-      "gaming",
-      "culture",
-      "anime",
-      "reviews",
-      "features"
-    ]
-  },
-  {
     "category" : "Gaming",
     "description" : "Gaming news, reviews, and culture",
     "feedURL" : "https:\/\/kotaku.com\/rss",
@@ -4235,6 +4522,22 @@
       "grande region",
       "actualites",
       "frontaliers"
+    ]
+  },
+  {
+    "category" : "United States",
+    "country" : "United States",
+    "description" : "Nation and world news from the Los Angeles Times",
+    "feedURL" : "https:\/\/www.latimes.com\/world-nation\/rss2.0.xml",
+    "id" : "fbc3b80b-9968-8e64-f2fa-9dea7b453c20",
+    "name" : "LA Times",
+    "siteURL" : "https:\/\/www.latimes.com",
+    "tags" : [
+      "la times",
+      "california",
+      "politics",
+      "immigration",
+      "national"
     ]
   },
   {
@@ -4833,6 +5136,21 @@
     ]
   },
   {
+    "category" : "Music",
+    "description" : "UK music magazine with deep storytelling and focus on classic and alternative music",
+    "feedURL" : "https:\/\/rss.onebauer.media\/api\/feed-aggregator?hostname=https:\/\/www.mojo4music.com",
+    "id" : "8f4dfe03-a041-4cc0-a400-f3197d0db728",
+    "name" : "Mojo",
+    "siteURL" : "https:\/\/www.mojo4music.com",
+    "tags" : [
+      "classic rock",
+      "albums",
+      "longform",
+      "british",
+      "alternative"
+    ]
+  },
+  {
     "category" : "Personal Finance",
     "description" : "Practical tips to earn more, spend less, and grow your money",
     "feedURL" : "https:\/\/moneytalksnews.com\/feed",
@@ -4984,27 +5302,11 @@
     ]
   },
   {
-    "category" : "Myanmar (Burma)",
-    "country" : "Myanmar (Burma)",
-    "description" : "Myanmar news and current affairs",
-    "feedURL" : "https:\/\/myanmargazette.net\/feed",
-    "id" : "c8aca843-59a8-a688-9850-eedddc341689",
-    "name" : "Myanmar Gazette",
-    "siteURL" : "https:\/\/myanmargazette.net",
-    "tags" : [
-      "burmese",
-      "yangon",
-      "politics",
-      "military",
-      "southeast asia"
-    ]
-  },
-  {
     "category" : "Space",
     "description" : "NASA news, images, and videos from America's space agency",
     "feedURL" : "https:\/\/www.nasa.gov\/rss\/dyn\/breaking_news.rss",
     "id" : "d25c6c3a-6b63-b163-f419-a1f6236d627a",
-    "name" : "NASA Breaking News",
+    "name" : "NASA",
     "siteURL" : "https:\/\/www.nasa.gov",
     "tags" : [
       "nasa",
@@ -5142,7 +5444,7 @@
     "description" : "South African news and current affairs",
     "feedURL" : "https:\/\/feeds.news24.com\/articles\/news24\/TopStories\/rss",
     "id" : "b5b16cb5-36be-4f67-350b-75550911066c",
-    "name" : "News24 Top Stories",
+    "name" : "News24",
     "siteURL" : "https:\/\/www.news24.com\/southafrica\/crime-and-courts\/suspect-arrested-in-murder-of-madlanga-commissions-witness-d-20260314-1088",
     "tags" : [
       "south african",
@@ -5173,7 +5475,7 @@
     "description" : "Latest news from Nigeria",
     "feedURL" : "https:\/\/www.nigerianeye.com\/feeds\/posts\/default",
     "id" : "e702b101-5f30-5ffe-ba53-cd32c4be73e5",
-    "name" : "Nigerian News Latest",
+    "name" : "Nigerian Eye",
     "siteURL" : "https:\/\/www.nigerianeye.com\/",
     "tags" : [
       "breaking",
@@ -5259,6 +5561,21 @@
     ]
   },
   {
+    "category" : "Fashion",
+    "description" : "Iconic fashion and art magazine enriched by the biggest international names",
+    "feedURL" : "https:\/\/numero.com\/en\/feed",
+    "id" : "be5b5f9e-4feb-4e39-a8ab-4d4fadc782e1",
+    "name" : "Numéro",
+    "siteURL" : "https:\/\/numero.com\/en",
+    "tags" : [
+      "french",
+      "art",
+      "haute couture",
+      "photography",
+      "culture"
+    ]
+  },
+  {
     "category" : "Health & Wellness",
     "description" : "Evidence-based nutrition research reviews with cited sources",
     "feedURL" : "https:\/\/nutritionfacts.org\/feed",
@@ -5286,6 +5603,21 @@
       "indie",
       "style",
       "emerging"
+    ]
+  },
+  {
+    "category" : "Celebrity & Pop Culture",
+    "description" : "Royal and celebrity news with exclusive offerings on style, beauty, and daily celebrity life",
+    "feedURL" : "https:\/\/okmagazine.com\/rss",
+    "id" : "740f0e97-60d2-4945-8a49-015683a75f90",
+    "name" : "OK! Magazine",
+    "siteURL" : "https:\/\/okmagazine.com",
+    "tags" : [
+      "royals",
+      "exclusives",
+      "style",
+      "reality tv",
+      "weddings"
     ]
   },
   {
@@ -5678,6 +6010,7 @@
     "feedURL" : "https:\/\/rss.politico.com\/playbook.xml",
     "id" : "1018c501-6f82-8028-87ef-5c4977c84efb",
     "name" : "Playbook",
+    "siteURL" : "https:\/\/www.politico.com",
     "tags" : [
       "politico",
       "washington",
@@ -5822,6 +6155,21 @@
       "independent",
       "corruption",
       "governance"
+    ]
+  },
+  {
+    "category" : "Health & Wellness",
+    "description" : "Practical strategies for physical, mental, and emotional well-being from Hearst",
+    "feedURL" : "https:\/\/www.prevention.com\/rss\/default.xml",
+    "id" : "2ede40a8-2e94-4623-8400-ae6d38fc97ed",
+    "name" : "Prevention",
+    "siteURL" : "https:\/\/www.prevention.com",
+    "tags" : [
+      "wellness",
+      "weight loss",
+      "recipes",
+      "aging",
+      "fitness"
     ]
   },
   {
@@ -6080,6 +6428,22 @@
       "gear",
       "marathons",
       "injury prevention"
+    ]
+  },
+  {
+    "category" : "Poland",
+    "country" : "Poland",
+    "description" : "Rzeczpospolita — polskie wiadomości i publicystyka",
+    "feedURL" : "https:\/\/www.rp.pl\/rss\/1019",
+    "id" : "f6d99b42-549d-8837-2c49-517404f50b27",
+    "name" : "Rzeczpospolita",
+    "siteURL" : "https:\/\/www.rp.pl\/",
+    "tags" : [
+      "polish",
+      "prawo",
+      "ekonomia",
+      "warszawa",
+      "publicystyka"
     ]
   },
   {
@@ -6609,6 +6973,21 @@
   },
   {
     "category" : "Sports",
+    "description" : "Sports news, expert analysis, highlights, stats, and scores for NFL, NBA, MLB, NHL, and more",
+    "feedURL" : "https:\/\/www.si.com\/feed",
+    "id" : "2b9630a3-1611-4894-8c9f-f7528c90aff3",
+    "name" : "Sports Illustrated",
+    "siteURL" : "https:\/\/www.si.com",
+    "tags" : [
+      "nfl",
+      "nba",
+      "mlb",
+      "fantasy",
+      "analysis"
+    ]
+  },
+  {
+    "category" : "Sports",
     "description" : "In-depth sports coverage across multiple sports with live scores",
     "feedURL" : "https:\/\/www.sportskeeda.com\/feed",
     "id" : "6f0b8ddb-0986-023d-5bb1-d8adc0e99cbb",
@@ -6620,6 +6999,21 @@
       "football",
       "live scores",
       "fantasy"
+    ]
+  },
+  {
+    "category" : "Business & Finance",
+    "description" : "Guides and resources for starting and growing a business online from the team behind Squarespace",
+    "feedURL" : "https:\/\/www.squarespace.com\/blog?format=rss",
+    "id" : "f6dc9b00-23a9-4f4c-b89c-236110408324",
+    "name" : "Squarespace Blog",
+    "siteURL" : "https:\/\/www.squarespace.com\/blog",
+    "tags" : [
+      "entrepreneurship",
+      "small business",
+      "branding",
+      "website",
+      "marketing"
     ]
   },
   {
@@ -6669,6 +7063,21 @@
   },
   {
     "category" : "Fitness",
+    "description" : "Women's health and fitness with workouts, nutrition advice, and empowerment stories",
+    "feedURL" : "https:\/\/strongfitnessmag.com\/feed",
+    "id" : "919ddd38-9a55-4dc8-9220-cb1f36446c32",
+    "name" : "STRONG Fitness Magazine",
+    "siteURL" : "https:\/\/strongfitnessmag.com",
+    "tags" : [
+      "women",
+      "strength training",
+      "yoga",
+      "mental health",
+      "empowerment"
+    ]
+  },
+  {
+    "category" : "Fitness",
     "description" : "Evidence-based training and nutrition analysis bridging research and practice",
     "feedURL" : "https:\/\/www.strongerbyscience.com\/feed\/",
     "id" : "16bc4dbc-fbab-4829-8206-5350586f184e",
@@ -6680,6 +7089,21 @@
       "programming",
       "nutrition",
       "strength"
+    ]
+  },
+  {
+    "category" : "Environment",
+    "description" : "Sustainability tips, eco-friendly products, brands, and stories about meaningful environmental work",
+    "feedURL" : "https:\/\/sustainablejungle.com\/feed",
+    "id" : "53e010a7-5208-4b9f-8b75-782a2b9d04b5",
+    "name" : "Sustainable Jungle",
+    "siteURL" : "https:\/\/sustainablejungle.com",
+    "tags" : [
+      "eco-friendly",
+      "ethical brands",
+      "sustainable living",
+      "products",
+      "guides"
     ]
   },
   {
@@ -6760,6 +7184,21 @@
     ]
   },
   {
+    "category" : "Tech",
+    "description" : "Gadget and technology news, reviews, and buyer's guides covering smartphones, laptops, audio, and gaming",
+    "feedURL" : "https:\/\/www.t3.com\/feeds.xml",
+    "id" : "f8159962-3b2e-4ab5-91fe-06ce5395a96f",
+    "name" : "T3",
+    "siteURL" : "https:\/\/www.t3.com",
+    "tags" : [
+      "gadgets",
+      "reviews",
+      "buyer's guides",
+      "smart home",
+      "fitness tech"
+    ]
+  },
+  {
     "category" : "Germany",
     "country" : "Germany",
     "description" : "tagesschau.de - Die Nachrichten der ARD",
@@ -6803,6 +7242,36 @@
       "longform",
       "identity",
       "criticism"
+    ]
+  },
+  {
+    "category" : "Food",
+    "description" : "Favorite desserts, appetizers, and main dish recipes with home cooking tips and kitchen insights",
+    "feedURL" : "https:\/\/www.tasteofhome.com\/feed",
+    "id" : "7038eeb8-94c7-4e7e-b99f-522a7f4729b8",
+    "name" : "Taste of Home",
+    "siteURL" : "https:\/\/www.tasteofhome.com",
+    "tags" : [
+      "home cooking",
+      "desserts",
+      "comfort food",
+      "appetizers",
+      "community"
+    ]
+  },
+  {
+    "category" : "Tech",
+    "description" : "Technology news from the Middle East and North Africa covering cybersecurity, Web3, and startups",
+    "feedURL" : "https:\/\/techmgzn.com\/feed",
+    "id" : "45c54421-cdbc-4793-82e0-22ec0c1c6dd9",
+    "name" : "Tech Magazine",
+    "siteURL" : "https:\/\/techmgzn.com",
+    "tags" : [
+      "mena",
+      "cybersecurity",
+      "web3",
+      "startups",
+      "social media"
     ]
   },
   {
@@ -6927,6 +7396,21 @@
       "projects",
       "planning",
       "exhibitions"
+    ]
+  },
+  {
+    "category" : "Health & Wellness",
+    "description" : "Health, fitness, diets, and wellbeing information for an active lifestyle",
+    "feedURL" : "https:\/\/artofhealthyliving.com\/feed\/",
+    "id" : "c9bc77d2-0d20-4b4f-a267-1549b17bde2f",
+    "name" : "The Art of Healthy Living",
+    "siteURL" : "https:\/\/artofhealthyliving.com",
+    "tags" : [
+      "wellness",
+      "diets",
+      "fitness",
+      "mental health",
+      "lifestyle"
     ]
   },
   {
@@ -7299,6 +7783,7 @@
     "feedURL" : "https:\/\/feeds.thelocal.com\/rss\/it",
     "id" : "be7a0fea-4d37-b491-b4ef-f89139abd6c4",
     "name" : "The Local",
+    "siteURL" : "https:\/\/www.thelocal.it",
     "tags" : [
       "english",
       "expat",
@@ -7630,6 +8115,21 @@
     ]
   },
   {
+    "category" : "Web Design & UX",
+    "description" : "Latest news on WordPress.com and the WordPress community, democratizing publishing",
+    "feedURL" : "https:\/\/wordpress.com\/blog\/feed",
+    "id" : "347ef0aa-f531-48df-809e-72daf505342c",
+    "name" : "The WordPress.com Blog",
+    "siteURL" : "https:\/\/wordpress.com\/blog",
+    "tags" : [
+      "wordpress",
+      "cms",
+      "publishing",
+      "blogging",
+      "open source"
+    ]
+  },
+  {
     "category" : "Ireland",
     "country" : "Ireland",
     "description" : "The latest Irish and international sports news from The 42",
@@ -7753,6 +8253,21 @@
       "sports",
       "crime",
       "entertainment"
+    ]
+  },
+  {
+    "category" : "AI",
+    "description" : "Sharing concepts, ideas, and code on data science from thousands of contributors",
+    "feedURL" : "https:\/\/towardsdatascience.com\/feed",
+    "id" : "56ceaae2-7fef-4244-89b7-4fbe166acc05",
+    "name" : "Towards Data Science",
+    "siteURL" : "https:\/\/towardsdatascience.com",
+    "tags" : [
+      "data science",
+      "machine learning",
+      "python",
+      "tutorials",
+      "deep learning"
     ]
   },
   {
@@ -7891,22 +8406,6 @@
       "entertainment",
       "sports",
       "economia"
-    ]
-  },
-  {
-    "category" : "United States",
-    "country" : "United States",
-    "description" : "CNBC is the world leader in business news and real-time financial market coverage. Find fast, actionable information",
-    "feedURL" : "https:\/\/www.cnbc.com\/id\/100003114\/device\/rss\/rss.html",
-    "id" : "a25f7373-5963-d64a-7434-05c665d1f9a7",
-    "name" : "US Top News and Analysis",
-    "siteURL" : "https:\/\/www.cnbc.com\/us-top-news-and-analysis\/",
-    "tags" : [
-      "markets",
-      "economy",
-      "wall street",
-      "breaking",
-      "cnbc"
     ]
   },
   {
@@ -8165,19 +8664,18 @@
     ]
   },
   {
-    "category" : "United States",
-    "country" : "United States",
-    "description" : "Nation and world news from the Los Angeles Times",
-    "feedURL" : "https:\/\/www.latimes.com\/world-nation\/rss2.0.xml",
-    "id" : "fbc3b80b-9968-8e64-f2fa-9dea7b453c20",
-    "name" : "World & Nation",
-    "siteURL" : "https:\/\/www.latimes.com",
+    "category" : "Fitness",
+    "description" : "Effective workouts, fitness advice, activewear, and sports technology for women",
+    "feedURL" : "https:\/\/womensfitness.co.uk\/feed",
+    "id" : "ec143bc3-8124-4e71-8732-7d6317f41bdf",
+    "name" : "Women's Fitness",
+    "siteURL" : "https:\/\/womensfitness.co.uk",
     "tags" : [
-      "la times",
-      "california",
-      "politics",
-      "immigration",
-      "national"
+      "women",
+      "activewear",
+      "workouts",
+      "running",
+      "technology"
     ]
   },
   {
@@ -8193,6 +8691,21 @@
       "free",
       "peer-reviewed",
       "timelines"
+    ]
+  },
+  {
+    "category" : "Travel",
+    "description" : "Southeast Asia's leading luxury travel and lifestyle magazine based in Singapore",
+    "feedURL" : "https:\/\/www.wtravelmagazine.com\/feed\/",
+    "id" : "9714cb8e-caf2-4b61-a1a5-b3fbd5d497b1",
+    "name" : "World Travel Magazine",
+    "siteURL" : "https:\/\/www.wtravelmagazine.com",
+    "tags" : [
+      "luxury",
+      "southeast asia",
+      "hotels",
+      "singapore",
+      "lifestyle"
     ]
   },
   {

@@ -4,14 +4,15 @@ import CryptoKit
 // MARK: - Feed model (used for both master list input and output)
 
 struct DiscoverFeedOutput: Codable {
-    let id: String
-    let name: String
-    let feedURL: String
-    let siteURL: String?
-    let description: String
-    let category: String
-    let country: String?
-    let tags: [String]
+    var id: String
+    var name: String
+    var feedURL: String
+    var siteURL: String?
+    var description: String
+    var category: String
+    var country: String?
+    var tags: [String]
+    var lastVerified: String?   // yyyy-MM-dd — set when feed passes validation
 }
 
 // MARK: - GitHub API model
@@ -346,14 +347,51 @@ func runAudit() async throws {
     }
     var validatedFeeds: [ValidatedFeed] = []
 
+    // Track which feed URLs passed verification so we can update lastVerified
+    var verifiedFeedURLs = Set<String>()
+
     if skipValidation {
         print("Skipping validation (--skip-validation)")
         let allFeeds = feedsByCategory.flatMap(\.feeds)
         validatedFeeds = allFeeds.map {
             ValidatedFeed(feed: $0, siteURL: $0.siteURL, newestItemDate: nil, articleURLs: [])
         }
+        verifiedFeedURLs = Set(allFeeds.map(\.feedURL))
     } else {
-        print("Validating \(totalFeeds) feeds across \(feedsByCategory.count) categories...")
+        // Auto-approve feeds verified within the last 60 days
+        let recentCutoff = Calendar.current.date(byAdding: .day, value: -60, to: Date())!
+
+        // Separate recently-verified feeds from those needing re-check
+        var feedsToValidate: [(category: String, feeds: [DiscoverFeedOutput])] = []
+        var autoApprovedCount = 0
+
+        for (categorySlug, categoryFeeds) in feedsByCategory {
+            var needsCheck: [DiscoverFeedOutput] = []
+            for feed in categoryFeeds {
+                if let lastStr = feed.lastVerified,
+                   let lastDate = dateFormatter.date(from: lastStr),
+                   lastDate >= recentCutoff {
+                    // Recently verified — auto-approve
+                    validatedFeeds.append(ValidatedFeed(
+                        feed: feed, siteURL: feed.siteURL,
+                        newestItemDate: nil, articleURLs: []
+                    ))
+                    verifiedFeedURLs.insert(feed.feedURL)
+                    autoApprovedCount += 1
+                } else {
+                    needsCheck.append(feed)
+                }
+            }
+            if !needsCheck.isEmpty {
+                feedsToValidate.append((category: categorySlug, feeds: needsCheck))
+            }
+        }
+
+        let needsValidation = feedsToValidate.reduce(0) { $0 + $1.feeds.count }
+        if autoApprovedCount > 0 {
+            print("⏩ Auto-approved \(autoApprovedCount) feeds verified within the last 60 days")
+        }
+        print("Validating \(needsValidation) feeds across \(feedsToValidate.count) categories...")
         var validCount = 0
         var invalidCount = 0
         var processedTotal = 0
@@ -361,7 +399,7 @@ func runAudit() async throws {
         // Process each category independently with its own URLSession.
         // This prevents connection pool exhaustion that causes false failures
         // when all 500+ feeds share a single session.
-        for (categorySlug, categoryFeeds) in feedsByCategory {
+        for (categorySlug, categoryFeeds) in feedsToValidate {
             guard !categoryFeeds.isEmpty else { continue }
 
             let session = makeSession()
@@ -400,6 +438,7 @@ func runAudit() async throws {
                             newestItemDate: result.newestItemDate,
                             articleURLs: result.articleURLs
                         ))
+                        verifiedFeedURLs.insert(feed.feedURL)
                         validCount += 1
                         if verbose {
                             let dateStr = result.newestItemDate.map { dateFormatter.string(from: $0) } ?? "no date"
@@ -417,7 +456,7 @@ func runAudit() async throws {
             }
 
             processedTotal += categoryFeeds.count
-            print("    \(processedTotal)/\(totalFeeds) done (\(validCount) valid, \(invalidCount) dead)")
+            print("    \(processedTotal)/\(needsValidation) done (\(validCount) valid, \(invalidCount) dead)")
 
         }
 
@@ -445,6 +484,7 @@ func runAudit() async throws {
                         newestItemDate: result.newestItemDate,
                         articleURLs: result.articleURLs
                     ))
+                    verifiedFeedURLs.insert(dead.feedURL)
                     validCount += 1
                     invalidCount -= 1
                     print("  \u{2713} \(dead.name) — recovered on retry")
@@ -558,7 +598,8 @@ func runAudit() async throws {
         print("Skipping quality checks (--skip-quality)")
     }
 
-    // 3. Build output — master list already has clean names/IDs, just upgrade URLs to HTTPS
+    // 3. Build output — master list already has clean names/IDs, just upgrade URLs to HTTPS.
+    //    lastVerified is set to nil so it's omitted from the app bundle output.
     var outputFeeds: [DiscoverFeedOutput] = validatedFeeds.map { vf in
         let finalFeedURL = upgradeToHTTPS(vf.feed.feedURL)
         let finalSiteURL = (vf.siteURL ?? vf.feed.siteURL).map { upgradeToHTTPS($0) }
@@ -571,7 +612,8 @@ func runAudit() async throws {
             description: vf.feed.description,
             category: vf.feed.category,
             country: vf.feed.country,
-            tags: vf.feed.tags
+            tags: vf.feed.tags,
+            lastVerified: nil
         )
     }
     outputFeeds.sort {
@@ -602,7 +644,19 @@ func runAudit() async throws {
     print("Done! Wrote \(outputFeeds.count) feeds (\(sizeKB)KB)")
     print("   Output: \(outputPath.path)")
 
-    // 5. Report
+    // 5. Update lastVerified in category files for feeds that passed verification
+    if !skipValidation {
+        let today = dateFormatter.string(from: Date())
+        var allFeeds = feedsByCategory.flatMap(\.feeds)
+        for i in allFeeds.indices {
+            if verifiedFeedURLs.contains(allFeeds[i].feedURL) {
+                allFeeds[i].lastVerified = today
+            }
+        }
+        try writeAllFeeds(allFeeds, to: scriptDir)
+    }
+
+    // 6. Report
     let totalRemoved = deadFeeds.count + staleFeeds.count + thinFeeds.count
     if totalRemoved > 0 {
         print("")

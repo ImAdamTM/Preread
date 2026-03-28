@@ -4,6 +4,7 @@
     "description": "The anchor cycling fitness publication covering gear, training, and rides",
     "feedURL": "https://www.bicycling.com/rss/all.xml",
     "id": "b06f0da2-2656-4e23-8675-eed7e011bbe1",
+    "lastVerified": "2026-03-28",
     "name": "Bicycling",
     "siteURL": "https://www.bicycling.com",
     "tags": [
@@ -19,6 +20,7 @@
     "description": "The best editorial voice in road cycling journalism with race coverage and gear deep-dives",
     "feedURL": "https://cyclingtips.com/feed/",
     "id": "7577fe8c-9b6c-4277-9855-52352b143f7b",
+    "lastVerified": "2026-03-28",
     "name": "CyclingTips",
     "siteURL": "https://cyclingtips.com",
     "tags": [
@@ -34,6 +36,7 @@
     "description": "Fitness and outdoor gear reviews and adventure content",
     "feedURL": "https://gearjunkie.com/feed",
     "id": "924cae4b-04f1-4e55-8624-22124f5eb999",
+    "lastVerified": "2026-03-28",
     "name": "GearJunkie",
     "siteURL": "https://gearjunkie.com",
     "tags": [
@@ -46,9 +49,26 @@
   },
   {
     "category": "Fitness",
+    "description": "The authority on ultra and trail running with race coverage and athlete interviews",
+    "feedURL": "https://www.irunfar.com/feed",
+    "id": "d8468e22-f3ac-49cb-a96b-d216f79168e8",
+    "lastVerified": "2026-03-28",
+    "name": "iRunFar",
+    "siteURL": "https://www.irunfar.com",
+    "tags": [
+      "ultrarunning",
+      "trail running",
+      "races",
+      "interviews",
+      "gear"
+    ]
+  },
+  {
+    "category": "Fitness",
     "description": "The biggest mainstream fitness publication with workouts, nutrition, and lifestyle",
     "feedURL": "https://www.menshealth.com/rss/all.xml",
     "id": "8b60a955-2fe7-48f3-9908-bc1073ff8d94",
+    "lastVerified": "2026-03-28",
     "name": "Men's Health",
     "siteURL": "https://www.menshealth.com",
     "tags": [
@@ -64,6 +84,7 @@
     "description": "Daily CrossFit community news, Games coverage, and affiliate stories",
     "feedURL": "https://morningchalkup.com/feed/",
     "id": "582bf49d-1447-4b04-befc-9c1955da7d73",
+    "lastVerified": "2026-03-28",
     "name": "Morning Chalk Up",
     "siteURL": "https://morningchalkup.com",
     "tags": [
@@ -79,6 +100,7 @@
     "description": "Legacy bodybuilding and gym culture publication with workouts and physique training",
     "feedURL": "https://www.muscleandfitness.com/feed/",
     "id": "97b06005-f5ab-4a86-8bb9-70e3f804f465",
+    "lastVerified": "2026-03-28",
     "name": "Muscle & Fitness",
     "siteURL": "https://www.muscleandfitness.com",
     "tags": [
@@ -94,6 +116,7 @@
     "description": "The undisputed authority for runners with training plans, gear reviews, and injury prevention",
     "feedURL": "https://www.runnersworld.com/rss/all.xml",
     "id": "3c7601b8-791a-44ac-813b-fea0180e4d54",
+    "lastVerified": "2026-03-28",
     "name": "Runner's World",
     "siteURL": "https://www.runnersworld.com",
     "tags": [
@@ -109,6 +132,7 @@
     "description": "Strong fitness content with an inclusive, body-positive editorial voice",
     "feedURL": "https://www.self.com/feed/rss",
     "id": "41ab912f-a76a-4183-9fea-0b962ee8a2aa",
+    "lastVerified": "2026-03-28",
     "name": "Self",
     "siteURL": "https://www.self.com",
     "tags": [
@@ -121,9 +145,26 @@
   },
   {
     "category": "Fitness",
+    "description": "Women's health and fitness with workouts, nutrition advice, and empowerment stories",
+    "feedURL": "https://strongfitnessmag.com/feed",
+    "id": "919ddd38-9a55-4dc8-9220-cb1f36446c32",
+    "lastVerified": "2026-03-28",
+    "name": "STRONG Fitness Magazine",
+    "siteURL": "https://strongfitnessmag.com",
+    "tags": [
+      "women",
+      "strength training",
+      "yoga",
+      "mental health",
+      "empowerment"
+    ]
+  },
+  {
+    "category": "Fitness",
     "description": "Evidence-based training and nutrition analysis bridging research and practice",
     "feedURL": "https://www.strongerbyscience.com/feed/",
     "id": "16bc4dbc-fbab-4829-8206-5350586f184e",
+    "lastVerified": "2026-03-28",
     "name": "Stronger By Science",
     "siteURL": "https://www.strongerbyscience.com",
     "tags": [
@@ -139,6 +180,7 @@
     "description": "No-BS strength training articles from coaches and athletes",
     "feedURL": "https://t-nation.com/posts.rss",
     "id": "5380b3e9-8404-4bde-9efb-e5912dd34ec3",
+    "lastVerified": "2026-03-28",
     "name": "T Nation",
     "siteURL": "https://www.t-nation.com",
     "tags": [
@@ -154,6 +196,7 @@
     "description": "Triathlon training, racing, and swim-bike-run programming",
     "feedURL": "https://www.triathlete.com/feed/",
     "id": "4c19e5a0-a24b-4af6-baf3-fcc6dd209191",
+    "lastVerified": "2026-03-28",
     "name": "Triathlete",
     "siteURL": "https://www.triathlete.com",
     "tags": [
@@ -169,6 +212,7 @@
     "description": "Road cycling racing and performance training with strong event coverage",
     "feedURL": "https://www.velonews.com/feed/",
     "id": "0ade4ee8-7638-4b2f-b6f0-ead057765730",
+    "lastVerified": "2026-03-28",
     "name": "VeloNews",
     "siteURL": "https://www.velonews.com",
     "tags": [
@@ -181,9 +225,26 @@
   },
   {
     "category": "Fitness",
+    "description": "Effective workouts, fitness advice, activewear, and sports technology for women",
+    "feedURL": "https://womensfitness.co.uk/feed",
+    "id": "ec143bc3-8124-4e71-8732-7d6317f41bdf",
+    "lastVerified": "2026-03-28",
+    "name": "Women's Fitness",
+    "siteURL": "https://womensfitness.co.uk",
+    "tags": [
+      "women",
+      "activewear",
+      "workouts",
+      "running",
+      "technology"
+    ]
+  },
+  {
+    "category": "Fitness",
     "description": "Yoga poses, sequences, philosophy, and teacher content",
     "feedURL": "https://www.yogajournal.com/feed/",
     "id": "2c4e1410-1e05-4a99-a449-af9fd6b8a689",
+    "lastVerified": "2026-03-28",
     "name": "Yoga Journal",
     "siteURL": "https://www.yogajournal.com",
     "tags": [
@@ -192,21 +253,6 @@
       "meditation",
       "flexibility",
       "mindfulness"
-    ]
-  },
-  {
-    "category": "Fitness",
-    "description": "The authority on ultra and trail running with race coverage and athlete interviews",
-    "feedURL": "https://www.irunfar.com/feed",
-    "id": "d8468e22-f3ac-49cb-a96b-d216f79168e8",
-    "name": "iRunFar",
-    "siteURL": "https://www.irunfar.com",
-    "tags": [
-      "ultrarunning",
-      "trail running",
-      "races",
-      "interviews",
-      "gear"
     ]
   }
 ]

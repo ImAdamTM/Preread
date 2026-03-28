@@ -5,6 +5,7 @@
     "description": "Noticias de última hora sobre la actualidad en España y el mundo: política, economía, deportes, cultura, sociedad",
     "feedURL": "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/portada",
     "id": "1cb5f7ec-73e6-3009-2f16-a2441442b79b",
+    "lastVerified": "2026-03-28",
     "name": "EL PAÍS: el periódico global",
     "siteURL": "https://elpais.com",
     "tags": [
@@ -21,6 +22,7 @@
     "description": "Diario digital de noticias de actualidad sobre política y economía, análisis y blogs de opinión. Dirigido por Ignacio",
     "feedURL": "https://www.eldiario.es/rss/",
     "id": "177c7afd-aada-9473-dc21-568a8179b827",
+    "lastVerified": "2026-03-28",
     "name": "ElDiario.es - ElDiario.es",
     "siteURL": "https://www.eldiario.es/",
     "tags": [
@@ -37,7 +39,9 @@
     "description": "Noticias de España",
     "feedURL": "https://rss.elconfidencial.com/espana/",
     "id": "2a77e2e7-1bee-3493-b144-c09f82259251",
+    "lastVerified": "2026-03-28",
     "name": "España",
+    "siteURL": "https://www.elconfidencial.com",
     "tags": [
       "spanish",
       "nacional",
@@ -52,6 +56,7 @@
     "description": "Euro Weekly News - The English paper for Spanish Living Your essential guide to local, expat and international news",
     "feedURL": "https://www.euroweeklynews.com/feed/",
     "id": "46cb5e07-1a3c-c1dd-becc-67c2beb904a1",
+    "lastVerified": "2026-03-28",
     "name": "Euro Weekly News Spain",
     "siteURL": "https://euroweeklynews.com",
     "tags": [
@@ -68,6 +73,7 @@
     "description": "Últimas noticias y toda la actualidad en España y el mundo. Última hora, política, tendencias, vídeo, virales, opinión",
     "feedURL": "https://www.huffingtonpost.es/feeds/index.xml",
     "id": "d58b2517-70b6-b97e-72f1-886dc0a46518",
+    "lastVerified": "2026-03-28",
     "name": "huffingtonpost.es",
     "siteURL": "https://www.huffingtonpost.es/",
     "tags": [
@@ -84,6 +90,7 @@
     "description": "Noticias económicas, mercados y opinión de España",
     "feedURL": "https://e00-expansion.uecdn.es/rss/portada.xml",
     "id": "b37a9e61-e872-7115-7754-4b62bb116e98",
+    "lastVerified": "2026-03-28",
     "name": "Portada // expansion",
     "siteURL": "https://www.expansion.com",
     "tags": [
