@@ -11,8 +11,10 @@ struct WatchArticle: Codable, Identifiable {
     let isRead: Bool
     let excerpt: String?
     let thumbnailData: Data?
+    var isSaved: Bool
+    let articleURL: String?
 
-    init(id: UUID, title: String, sourceName: String, publishedAt: Date?, readingMinutes: Int?, isRead: Bool, excerpt: String? = nil, thumbnailData: Data? = nil) {
+    init(id: UUID, title: String, sourceName: String, publishedAt: Date?, readingMinutes: Int?, isRead: Bool, excerpt: String? = nil, thumbnailData: Data? = nil, isSaved: Bool = false, articleURL: String? = nil) {
         self.id = id
         self.title = title
         self.sourceName = sourceName
@@ -21,5 +23,7 @@ struct WatchArticle: Codable, Identifiable {
         self.isRead = isRead
         self.excerpt = excerpt
         self.thumbnailData = thumbnailData
+        self.isSaved = isSaved
+        self.articleURL = articleURL
     }
 }

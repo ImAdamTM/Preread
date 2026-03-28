@@ -43,7 +43,8 @@ final class WatchConnectivityManager: NSObject, WCSessionDelegate {
                     WatchArticle(
                         id: $0.id, title: $0.title, sourceName: $0.sourceName,
                         publishedAt: $0.publishedAt, readingMinutes: $0.readingMinutes,
-                        isRead: $0.isRead, excerpt: $0.excerpt, thumbnailData: nil
+                        isRead: $0.isRead, excerpt: $0.excerpt, thumbnailData: nil,
+                        isSaved: $0.isSaved, articleURL: $0.articleURL
                     )
                 }
                 data = try encoder.encode(stripped)
@@ -68,37 +69,58 @@ final class WatchConnectivityManager: NSObject, WCSessionDelegate {
     }
 
     func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
+        handleWatchMessage(message)
+    }
+
+    func session(_ session: WCSession, didReceiveMessage message: [String: Any], replyHandler: @escaping ([String: Any]) -> Void) {
+        handleWatchMessage(message)
+        replyHandler(["status": "ok"])
+    }
+
+    private func handleWatchMessage(_ message: [String: Any]) {
         guard let action = message["action"] as? String,
               let idString = message["articleID"] as? String,
               let articleID = UUID(uuidString: idString) else { return }
 
         switch action {
-        case "markRead":
-            markArticleAsRead(articleID)
-        case "openOnPhone":
-            openArticleOnPhone(articleID)
+        case "toggleSave":
+            toggleSaveArticle(articleID)
         default:
             break
         }
     }
 
-    private func markArticleAsRead(_ id: UUID) {
+    private func toggleSaveArticle(_ id: UUID) {
         do {
             try DatabaseManager.shared.dbPool.write { db in
-                try db.execute(sql: "UPDATE article SET isRead = 1 WHERE id = ?", arguments: [id])
+                guard var article = try Article.fetchOne(db, key: id) else { return }
+                article.isSaved.toggle()
+                article.savedAt = article.isSaved ? Date() : nil
+                if !article.isSaved {
+                    article.originalSourceName = nil
+                    article.originalSourceIconURL = nil
+                } else {
+                    // Look up source name for saved article display
+                    let sourceName = try String.fetchOne(db, sql: "SELECT title FROM source WHERE id = ?", arguments: [article.sourceID])
+                    let iconURL = try String.fetchOne(db, sql: "SELECT iconURL FROM source WHERE id = ?", arguments: [article.sourceID])
+                    article.originalSourceName = sourceName
+                    article.originalSourceIconURL = iconURL
+                }
+                try article.update(db)
             }
-            // Push updated list back to watch
+            // Notify the UI so the home screen reflects the change immediately
+            DispatchQueue.main.async {
+                FetchCoordinator.shared.savedArticlesVersion += 1
+            }
+            // Push updated list back to watch so saved state is reflected
             pushArticlesToWatch()
         } catch {
-            print("[WatchConnectivity] Failed to mark article as read: \(error)")
+            print("[WatchConnectivity] Failed to toggle save: \(error)")
         }
     }
 
-    private func openArticleOnPhone(_ id: UUID) {
-        DispatchQueue.main.async {
-            guard let url = URL(string: "preread://article/\(id.uuidString)") else { return }
-            UIApplication.shared.open(url)
-        }
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
+        handleWatchMessage(userInfo)
     }
 
     func sessionDidBecomeInactive(_ session: WCSession) { }
@@ -146,7 +168,9 @@ final class WatchConnectivityManager: NSObject, WCSessionDelegate {
                     readingMinutes: article.readingMinutes,
                     isRead: article.isRead,
                     excerpt: excerpt,
-                    thumbnailData: thumbnail
+                    thumbnailData: thumbnail,
+                    isSaved: article.isSaved,
+                    articleURL: article.articleURL
                 )
             }
         } catch {

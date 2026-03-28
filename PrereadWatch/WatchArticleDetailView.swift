@@ -1,9 +1,15 @@
 import SwiftUI
 import WatchConnectivity
 
-/// Detail view for an article, showing excerpt text and open-on-iPhone action.
+/// Detail view for an article, showing excerpt text with save and share actions.
 struct WatchArticleDetailView: View {
     let article: WatchArticle
+    @State private var isSaved: Bool
+
+    init(article: WatchArticle) {
+        self.article = article
+        _isSaved = State(initialValue: article.isSaved)
+    }
 
     var body: some View {
         ScrollView {
@@ -29,7 +35,7 @@ struct WatchArticleDetailView: View {
                     Text(excerpt)
                         .font(.body)
                 } else {
-                    Text("Open on iPhone to read the full article.")
+                    Text("No excerpt available for this article.")
                         .font(.body)
                         .foregroundStyle(.secondary)
                         .italic()
@@ -37,12 +43,26 @@ struct WatchArticleDetailView: View {
 
                 Divider()
 
-                Button {
-                    openOnPhone()
-                } label: {
-                    Label("Open on iPhone", systemImage: "iphone")
-                        .frame(maxWidth: .infinity)
+                // Save & Share actions
+                HStack {
+                    Button {
+                        toggleSave()
+                    } label: {
+                        Label(isSaved ? "Saved" : "Save",
+                              systemImage: isSaved ? "bookmark.fill" : "bookmark")
+                    }
+
+                    Spacer()
+
+                    if let urlString = article.articleURL,
+                       let url = URL(string: urlString) {
+                        ShareLink(item: url) {
+                            Label("Share", systemImage: "square.and.arrow.up")
+                        }
+                    }
                 }
+                .labelStyle(.iconOnly)
+                .font(.title3)
             }
             .padding(.horizontal, 4)
         }
@@ -50,11 +70,24 @@ struct WatchArticleDetailView: View {
 
     // MARK: - Actions
 
-    private func openOnPhone() {
-        guard WCSession.default.isReachable else { return }
-        WCSession.default.sendMessage(
-            ["action": "openOnPhone", "articleID": article.id.uuidString],
-            replyHandler: nil
-        )
+    private func toggleSave() {
+        isSaved.toggle()
+
+        // Update local store optimistically so the pager reflects the change
+        var articles = WatchDataStore.loadArticles()
+        if let index = articles.firstIndex(where: { $0.id == article.id }) {
+            articles[index].isSaved = isSaved
+            WatchDataStore.saveArticles(articles)
+        }
+
+        // Tell iPhone to persist the change
+        let message: [String: Any] = [
+            "action": "toggleSave",
+            "articleID": article.id.uuidString
+        ]
+        WCSession.default.sendMessage(message, replyHandler: nil) { error in
+            print("[WatchDetail] toggleSave sendMessage failed: \(error)")
+            WCSession.default.transferUserInfo(message)
+        }
     }
 }
