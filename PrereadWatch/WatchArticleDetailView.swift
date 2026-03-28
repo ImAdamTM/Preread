@@ -23,9 +23,11 @@ struct WatchArticleDetailView: View {
                         .foregroundStyle(.secondary)
 
                     if let published = article.publishedAt {
-                        Text(RelativeTimeFormatter.string(from: published))
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                        TimelineView(.periodic(from: .now, by: 60)) { _ in
+                            Text(RelativeTimeFormatter.string(from: published))
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
                     }
                 }
 

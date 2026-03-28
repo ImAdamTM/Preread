@@ -4,6 +4,7 @@ import SwiftUI
 /// Digital Crown scrolls between articles; tap opens detail view with excerpt.
 struct WatchContentView: View {
     @State private var articles: [WatchArticle] = []
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         Group {
@@ -18,6 +19,11 @@ struct WatchContentView: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: .watchArticlesDidUpdate)) { _ in
             articles = WatchDataStore.loadArticles()
+        }
+        .onChange(of: scenePhase) { _, newPhase in
+            if newPhase == .active {
+                articles = WatchDataStore.loadArticles()
+            }
         }
     }
 
@@ -104,10 +110,12 @@ struct WatchContentView: View {
                 .shadow(color: .black.opacity(0.6), radius: 2, x: 0, y: 1)
 
             if let published = article.publishedAt {
-                Text(RelativeTimeFormatter.string(from: published))
-                    .font(.system(size: 11))
-                    .foregroundStyle(.white.opacity(0.7))
-                    .shadow(color: .black.opacity(0.5), radius: 1, x: 0, y: 1)
+                TimelineView(.periodic(from: .now, by: 60)) { _ in
+                    Text(RelativeTimeFormatter.string(from: published))
+                        .font(.system(size: 11))
+                        .foregroundStyle(.white.opacity(0.7))
+                        .shadow(color: .black.opacity(0.5), radius: 1, x: 0, y: 1)
+                }
             }
         }
         .padding(.horizontal, 6)
