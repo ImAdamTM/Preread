@@ -85,14 +85,33 @@ func recoverPlaceholderImages(in doc: Document) throws {
 func unwrapPictureElements(in doc: Document) throws {
     for picture in try doc.select("picture").array() {
         let sources = try picture.select("source")
+
+        // Extract the best URL from <source> srcset or data-srcset
+        var sourceURL: String?
+        for source in sources {
+            let srcset = try source.attr("srcset")
+            let dataSrcset = try source.attr("data-srcset")
+            let value = srcset.isEmpty ? dataSrcset : srcset
+            let url = value.components(separatedBy: ",").first?
+                .trimmingCharacters(in: .whitespaces)
+                .components(separatedBy: " ").first ?? ""
+            if !url.isEmpty {
+                sourceURL = url
+                break
+            }
+        }
+
         if try picture.select("img").isEmpty() {
-            if let firstSource = sources.first() {
-                let srcset = try firstSource.attr("srcset")
-                let firstURL = srcset.components(separatedBy: ",").first?
-                    .trimmingCharacters(in: .whitespaces)
-                    .components(separatedBy: " ").first ?? ""
-                if !firstURL.isEmpty {
-                    try picture.appendElement("img").attr("src", firstURL)
+            // No <img> fallback — create one from source
+            if let url = sourceURL {
+                try picture.appendElement("img").attr("src", url)
+            }
+        } else if let img = try picture.select("img").first() {
+            // <img> exists but may lack src (lazy-loaded sites like ESPN)
+            let src = try img.attr("src")
+            if src.isEmpty || src.hasPrefix("data:") {
+                if let url = sourceURL {
+                    try img.attr("src", url)
                 }
             }
         }
@@ -627,7 +646,7 @@ if isFullMode {
                 "logo", "flag", "icon", "badge", "spinner",
                 "facebook", "twitter", "instagram", "pinterest", "tiktok",
                 "furniture", "share", "follow", "thumbnail",
-                "banner", "bkgd"
+                "banner", "bkgd", "reactions"
             ]
             for word in chromeWords {
                 if imgId.contains(word) || alt.contains(word) || srcLower.contains(word) { return false }

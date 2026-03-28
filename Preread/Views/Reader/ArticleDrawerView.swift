@@ -103,17 +103,20 @@ struct ArticleDrawerView: View {
                     .foregroundStyle(Theme.textPrimary)
                     .lineLimit(2)
 
-                HStack(spacing: 6) {
-                    if let minutes = article.readingMinutes, minutes > 0 {
-                        Text("\(minutes) min")
-                            .font(Theme.scaledFont(size: 12))
-                            .foregroundStyle(Theme.textSecondary)
-                    }
-
+                HStack(spacing: 0) {
                     let date = article.publishedAt ?? article.addedAt
                     Text(RelativeTimeFormatter.string(from: date))
                         .font(Theme.scaledFont(size: 12))
                         .foregroundStyle(Theme.textSecondary)
+
+                    if let minutes = article.readingMinutes, minutes > 0 {
+                        Text(" · ")
+                            .font(Theme.scaledFont(size: 12))
+                            .foregroundStyle(Theme.textSecondary.opacity(0.7))
+                        Text(ReadingTimeFormatter.articleFormatted(minutes: minutes))
+                            .font(Theme.scaledFont(size: 12))
+                            .foregroundStyle(Theme.textSecondary)
+                    }
                 }
             }
 
