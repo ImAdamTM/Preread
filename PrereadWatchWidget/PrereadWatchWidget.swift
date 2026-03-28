@@ -7,6 +7,7 @@ struct PrereadWatchWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: WatchTimelineProvider()) { entry in
             WatchWidgetView(entry: entry)
+                .containerBackground(.clear, for: .widget)
         }
         .configurationDisplayName("Latest Articles")
         .description("See the latest articles from your sources.")
