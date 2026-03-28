@@ -716,7 +716,7 @@
 				DEVELOPMENT_TEAM = 2SH6ZS5455;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = PrereadWatch;
+				INFOPLIST_KEY_CFBundleDisplayName = Preread;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKApplication = YES;
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.ahartwig.preread;
@@ -743,7 +743,7 @@
 				DEVELOPMENT_TEAM = 2SH6ZS5455;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = PrereadWatch;
+				INFOPLIST_KEY_CFBundleDisplayName = Preread;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKApplication = YES;
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.ahartwig.preread;
