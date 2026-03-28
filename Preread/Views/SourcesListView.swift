@@ -108,13 +108,16 @@ struct SourcesListView: View {
                 }
             }
             .refreshable {
-                HapticManager.pullToRefresh()
+                await MainActor.run { HapticManager.pullToRefresh() }
                 // Run in an unstructured Task so SwiftUI's pull-to-refresh
                 // lifecycle doesn't cancel the refresh when the spinner dismisses.
                 await Task {
                     await coordinator.refreshAllSources()
                 }.value
-                await loadSources()
+                // loadSources() is not called here — .onChange(of: coordinator.isFetching)
+                // already triggers it on the main actor when the refresh completes.
+                // Calling it from .refreshable's background thread caused the
+                // "Publishing changes from background threads" warning.
             }
             .onChange(of: coordinator.isFetching) { _, isFetching in
                 if !isFetching {

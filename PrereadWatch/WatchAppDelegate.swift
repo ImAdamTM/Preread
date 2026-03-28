@@ -2,6 +2,10 @@ import WatchKit
 import WatchConnectivity
 import WidgetKit
 
+extension Notification.Name {
+    static let watchArticlesDidUpdate = Notification.Name("watchArticlesDidUpdate")
+}
+
 /// Handles Watch Connectivity session on the watch side.
 /// Receives article data from the paired iPhone and stores it in the shared app group.
 class WatchAppDelegate: NSObject, WKApplicationDelegate, WCSessionDelegate {
@@ -35,6 +39,9 @@ class WatchAppDelegate: NSObject, WKApplicationDelegate, WCSessionDelegate {
         }
 
         WatchDataStore.saveArticles(articles)
-        WidgetCenter.shared.reloadAllTimelines()
+        DispatchQueue.main.async {
+            WidgetCenter.shared.reloadAllTimelines()
+            NotificationCenter.default.post(name: .watchArticlesDidUpdate, object: nil)
+        }
     }
 }

@@ -211,6 +211,7 @@ final class FetchCoordinator: ObservableObject {
         await pruneExcessPendingArticles(for: source.id)
 
         setStatus(.completed, for: source.id)
+        notifyExtensions()
     }
 
     // MARK: - Three-phase refresh pipeline

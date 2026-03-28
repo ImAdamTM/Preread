@@ -7,7 +7,7 @@ struct WatchTimelineProvider: TimelineProvider {
         WatchWidgetEntry(
             date: Date(),
             articles: [
-                WatchArticle(id: .init(), title: "Article Title", sourceName: "Source", publishedAt: Date())
+                WatchArticle(id: .init(), title: "Article Title", sourceName: "Source", publishedAt: Date(), readingMinutes: nil, isRead: false)
             ]
         )
     }
