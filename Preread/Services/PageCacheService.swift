@@ -322,6 +322,18 @@ actor PageCacheService {
             let w = Int((try? img.attr("width")) ?? "") ?? Int.max
             let h = Int((try? img.attr("height")) ?? "") ?? Int.max
             if w < 120 || h < 120 { return false }
+            // Small images (both dims ≤ 250) are avatars, sidebar thumbs, etc.
+            if w != Int.max, h != Int.max, w <= 250, h <= 250 { return false }
+            // Narrow portrait images (w ≤ 200, taller than wide) are author photos
+            if w != Int.max, h != Int.max, w < h, w <= 200 { return false }
+            // Also check URL resize parameters (e.g. ?w=150) — WordPress and
+            // CDNs use these for thumbnail/avatar variants without setting
+            // HTML width/height attributes.
+            if let urlComps = URLComponents(string: src),
+               let wParam = urlComps.queryItems?.first(where: { $0.name == "w" })?.value,
+               let urlWidth = Int(wParam), urlWidth <= 150 {
+                return false
+            }
             let srcLower = src.lowercased()
             let imgId = (try? img.attr("id"))?.lowercased() ?? ""
             let alt = (try? img.attr("alt"))?.lowercased() ?? ""
@@ -592,6 +604,20 @@ actor PageCacheService {
             try? doc.select(selector).first(where: { img in
                 guard let src = try? img.attr("src"), !src.isEmpty,
                       !src.hasPrefix("data:") else { return false }
+                // Skip images too small to be a meaningful hero (avatars, icons)
+                let w = Int((try? img.attr("width")) ?? "") ?? Int.max
+                let h = Int((try? img.attr("height")) ?? "") ?? Int.max
+                if w < 120 || h < 120 { return false }
+                // Small images (both dims ≤ 250) are avatars, sidebar thumbs, etc.
+                if w != Int.max, h != Int.max, w <= 250, h <= 250 { return false }
+                // Narrow portrait images (w ≤ 200, taller than wide) are author photos
+                if w != Int.max, h != Int.max, w < h, w <= 200 { return false }
+                // Skip small URL-resized images (e.g. ?w=150 author thumbnails)
+                if let urlComps = URLComponents(string: src),
+                   let wParam = urlComps.queryItems?.first(where: { $0.name == "w" })?.value,
+                   let urlWidth = Int(wParam), urlWidth <= 150 {
+                    return false
+                }
                 let srcLower = src.lowercased()
                 let imgId = (try? img.attr("id"))?.lowercased() ?? ""
                 let alt = (try? img.attr("alt"))?.lowercased() ?? ""

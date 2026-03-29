@@ -824,6 +824,16 @@ if isFullMode {
             let w = Int((try? img.attr("width")) ?? "") ?? Int.max
             let h = Int((try? img.attr("height")) ?? "") ?? Int.max
             if w < 120 || h < 120 { return false }
+            // Small images (both dims ≤ 250) are avatars, sidebar thumbs, etc.
+            if w != Int.max, h != Int.max, w <= 250, h <= 250 { return false }
+            // Narrow portrait images (w ≤ 200, taller than wide) are author photos
+            if w != Int.max, h != Int.max, w < h, w <= 200 { return false }
+            // Also check URL resize parameters (e.g. ?w=150)
+            if let urlComps = URLComponents(string: src),
+               let wParam = urlComps.queryItems?.first(where: { $0.name == "w" })?.value,
+               let urlWidth = Int(wParam), urlWidth <= 150 {
+                return false
+            }
             let srcLower = src.lowercased()
             let imgId = (try? img.attr("id"))?.lowercased() ?? ""
             let alt = (try? img.attr("alt"))?.lowercased() ?? ""

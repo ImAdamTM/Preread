@@ -494,6 +494,61 @@ struct StandardPipelineTests {
         #expect(!result.contentHTML.contains("<nav"))
         #expect(!result.contentHTML.contains("<style"))
     }
+
+    @Test("TechCrunch YC: author photo with ?w=150 filtered, article image used as hero")
+    func techcrunchYCArticle() async throws {
+        let html = try loadFixture("techcrunch_yc_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://techcrunch.com/2026/03/28/from-moon-hotels-to-cattle-herding-8-startups-investors-chased-at-yc-demo-day/")!
+        )
+
+        #expect(result.heroImageURL != nil, "Hero image should be found")
+        #expect(!(result.heroImageURL ?? "").contains("IMG_0758"), "Author photo should not be used as hero")
+        #expect((result.heroImageURL ?? "").contains("yc-sf"), "YC skyline image should be hero")
+        #expect(result.contentHTML.contains("Demo Day") || result.contentHTML.contains("YC"))
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
+    // MARK: - Health.com
+
+    @Test("Health.com: small square author photo filtered, article image used as hero")
+    func healthArticle() async throws {
+        let html = try loadFixture("health_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.health.com/worrying-about-aging-might-make-you-age-faster-11933189")!
+        )
+
+        #expect(result.heroImageURL != nil, "Hero image should be found")
+        #expect(!(result.heroImageURL ?? "").contains("untitled-5582"), "Author photo should not be used as hero")
+        #expect((result.heroImageURL ?? "").contains("GettyImages"), "Article image should be hero")
+        #expect(result.contentHTML.contains("aging") || result.contentHTML.contains("Aging"))
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
+    // MARK: - Chocolate & Zucchini
+
+    @Test("cnz.to: small portrait author photo filtered, recipe image used as hero")
+    func cnzRecipe() async throws {
+        let html = try loadFixture("cnz_recipe")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://cnz.to/recipes/vegetables-grains/spiced-pilau-rice-beets-recipe/")!
+        )
+
+        #expect(result.heroImageURL != nil, "Hero image should be found")
+        #expect(!(result.heroImageURL ?? "").contains("clotilde"), "Author photo should not be used as hero")
+        #expect((result.heroImageURL ?? "").contains("beet_pilau"), "Recipe image should be hero")
+        #expect(result.contentHTML.contains("pilau") || result.contentHTML.contains("Pilau") || result.contentHTML.contains("rice"))
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
 }
 
 // MARK: - Full-mode tests
@@ -1023,6 +1078,63 @@ struct FullPipelineTests {
         #expect(result.cleanedHTML.contains("fusion") || result.cleanedHTML.contains("Fusion"))
         #expect(result.heroImageURL != nil, "Hero image should be found")
         #expect(!(result.heroImageURL ?? "").contains("headshot"), "Author headshot should not be used as hero")
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<form"))
+    }
+
+    // MARK: - TechCrunch YC
+
+    @Test("TechCrunch YC: author photo with ?w=150 filtered, article content preserved")
+    func techcrunchYCArticle() async throws {
+        let html = try loadFixture("techcrunch_yc_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://techcrunch.com/2026/03/28/from-moon-hotels-to-cattle-herding-8-startups-investors-chased-at-yc-demo-day/")!
+        )
+
+        #expect(result.cleanedHTML.contains("Demo Day") || result.cleanedHTML.contains("YC"))
+        #expect(result.heroImageURL != nil, "Hero image should be found")
+        #expect(!(result.heroImageURL ?? "").contains("IMG_0758"), "Author photo should not be used as hero")
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<form"))
+    }
+
+    // MARK: - Health.com
+
+    @Test("Health.com: small square author photo filtered, article content preserved")
+    func healthArticle() async throws {
+        let html = try loadFixture("health_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.health.com/worrying-about-aging-might-make-you-age-faster-11933189")!
+        )
+
+        #expect(result.cleanedHTML.contains("aging") || result.cleanedHTML.contains("Aging"))
+        #expect(result.heroImageURL != nil, "Hero image should be found")
+        #expect(!(result.heroImageURL ?? "").contains("untitled-5582"), "Author photo should not be used as hero")
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<form"))
+    }
+
+    // MARK: - Chocolate & Zucchini
+
+    @Test("cnz.to: small portrait author photo filtered, recipe content preserved")
+    func cnzRecipe() async throws {
+        let html = try loadFixture("cnz_recipe")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://cnz.to/recipes/vegetables-grains/spiced-pilau-rice-beets-recipe/")!
+        )
+
+        #expect(result.cleanedHTML.contains("pilau") || result.cleanedHTML.contains("Pilau") || result.cleanedHTML.contains("rice"))
+        #expect(result.heroImageURL != nil, "Hero image should be found")
+        #expect(!(result.heroImageURL ?? "").contains("clotilde"), "Author photo should not be used as hero")
         #expect(!result.cleanedHTML.contains("<script"))
         #expect(!result.cleanedHTML.contains("<nav"))
         #expect(!result.cleanedHTML.contains("<noscript"))
