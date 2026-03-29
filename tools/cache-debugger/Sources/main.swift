@@ -55,6 +55,29 @@ func stripImageLayoutStyles(in doc: Document) throws {
 
 // MARK: - Helper: recover placeholder images from parent anchors
 
+/// Promotes image URLs from `<noscript>` fallbacks onto their JS-dependent
+/// sibling `<img>` tags. Many sites use a pattern where `<noscript>` holds
+/// an `<img>` with a real `src`, while a sibling `<img>` outside has no `src`
+/// and relies on JavaScript to populate it.
+func promoteNoscriptImages(in doc: Document) throws {
+    for noscript in try doc.select("noscript").array() {
+        let noscriptHTML = try noscript.html()
+        guard noscriptHTML.contains("<img") else { continue }
+
+        let fragment = try SwiftSoup.parseBodyFragment(noscriptHTML)
+        guard let noscriptImg = try fragment.select("img[src]").first() else { continue }
+        let realSrc = try noscriptImg.attr("src")
+        guard !realSrc.isEmpty, !realSrc.hasPrefix("data:") else { continue }
+
+        guard let sibling = try noscript.nextElementSibling(),
+              sibling.tagName() == "img" else { continue }
+        let sibSrc = try sibling.attr("src")
+        guard sibSrc.isEmpty || sibSrc.hasPrefix("data:") else { continue }
+
+        try sibling.attr("src", realSrc)
+    }
+}
+
 /// Recovers real image URLs for `<img>` tags that use placeholder `src` values
 /// (e.g. a 1x1 transparent GIF data URI) when the parent `<a>` tag links to
 /// an actual image file.
@@ -63,17 +86,72 @@ func recoverPlaceholderImages(in doc: Document) throws {
     let images = try doc.select("img")
     for img in images {
         let src = try img.attr("src")
-        guard src.hasPrefix("data:") else { continue }
+        let srcIsPlaceholder = src.isEmpty
+            || src.hasPrefix("data:")
+            || src.contains("lazyload")
+            || src.contains("fallback")
+            || src.contains("spacer")
+            || src.contains("blank.gif")
+            || src.contains("grey-placeholder")
+            || src.contains("placeholder")
 
-        guard let parent = img.parent(), parent.tagName() == "a" else { continue }
-        let href = try parent.attr("href")
-        guard !href.isEmpty, !href.hasPrefix("data:") else { continue }
+        if srcIsPlaceholder {
+            // Try common lazy-load data attributes for the real src
+            let lazySrcAttrs = ["data-lazy-src", "data-src", "data-original", "data-orig-file"]
+            for attr in lazySrcAttrs {
+                let value = try img.attr(attr)
+                if !value.isEmpty, !value.hasPrefix("data:") {
+                    try img.attr("src", value)
+                    try img.removeAttr(attr)
+                    break
+                }
+            }
 
-        let pathComponent = URL(string: href)?.pathExtension.lowercased() ?? ""
-        guard imageExtensions.contains(pathComponent) else { continue }
+            // Promote data-lazy-srcset → srcset if srcset is empty
+            let srcset = try img.attr("srcset")
+            if srcset.isEmpty {
+                let lazySrcsetAttrs = ["data-lazy-srcset", "data-srcset"]
+                for attr in lazySrcsetAttrs {
+                    let value = try img.attr(attr)
+                    if !value.isEmpty {
+                        try img.attr("srcset", value)
+                        try img.removeAttr(attr)
+                        break
+                    }
+                }
+            }
 
-        try img.attr("src", href)
-        try img.removeAttr("aria-hidden")
+            // Promote data-lazy-sizes → sizes if sizes is empty
+            let sizes = try img.attr("sizes")
+            if sizes.isEmpty {
+                let lazySizesAttrs = ["data-lazy-sizes", "data-sizes"]
+                for attr in lazySizesAttrs {
+                    let value = try img.attr(attr)
+                    if !value.isEmpty {
+                        try img.attr("sizes", value)
+                        try img.removeAttr(attr)
+                        break
+                    }
+                }
+            }
+
+            try img.removeAttr("aria-hidden")
+        }
+
+        // Fallback: if src is still a data URI placeholder and parent <a> links
+        // to an image file, use the href as src
+        let currentSrc = try img.attr("src")
+        if currentSrc.hasPrefix("data:") {
+            if let parent = img.parent(), parent.tagName() == "a" {
+                let href = try parent.attr("href")
+                if !href.isEmpty, !href.hasPrefix("data:") {
+                    let pathComponent = URL(string: href)?.pathExtension.lowercased() ?? ""
+                    if imageExtensions.contains(pathComponent) {
+                        try img.attr("src", href)
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -270,6 +348,41 @@ func stripTinyImages(in doc: Document, maxDimension: Int) {
     }
 }
 
+func constrainAvatarImages(in doc: Document) throws {
+    for img in try doc.select("img[alt]") {
+        let alt = try img.attr("alt").lowercased()
+        guard alt.contains("avatar") else { continue }
+
+        let w = Int(try img.attr("width")) ?? 0
+        let h = Int(try img.attr("height")) ?? 0
+        let maxDim = max(w, h)
+        let minDim = min(w, h)
+        guard maxDim > 0, Double(minDim) / Double(maxDim) >= 0.9 else { continue }
+
+        try img.attr("width", "100")
+        try img.attr("height", "100")
+        try img.attr("style", "width:100px; height:100px; border-radius:50%; display:inline; margin:0 8px 0 0")
+    }
+}
+
+// MARK: - Helper: strip byline images
+
+func stripBylineImages(in doc: Document) throws {
+    for img in try doc.select("img[alt]").reversed() {
+        guard img.parent() != nil else { continue }
+        let alt = try img.attr("alt").lowercased().trimmingCharacters(in: .whitespaces)
+        guard alt.contains("headshot") || alt.hasPrefix("photo of") else { continue }
+
+        let w = Int(try img.attr("width")) ?? 0
+        let h = Int(try img.attr("height")) ?? 0
+        guard w > 0, h > 0, w <= 200, h <= 200 else { continue }
+        let ratio = Double(min(w, h)) / Double(max(w, h))
+        guard ratio >= 0.8 else { continue }
+
+        try img.remove()
+    }
+}
+
 // MARK: - Helper: strip linked thumbnail cards
 
 func stripLinkedThumbnailCards(in doc: Document, pageURL: URL) {
@@ -458,6 +571,58 @@ func stripStickyPositioning(in doc: Document) throws {
     }
 }
 
+// MARK: - Helper: extract __NEXT_DATA__ article content
+
+/// Extracts article HTML from a Next.js `__NEXT_DATA__` script element,
+/// but only if the body doesn't already contain the article text (i.e.
+/// the site relies on client-side rendering rather than SSR).
+func extractNextDataContent(from doc: Document) -> String? {
+    guard let scriptEl = try? doc.select("script#__NEXT_DATA__").first(),
+          let jsonText = try? scriptEl.data(),
+          let jsonData = jsonText.data(using: .utf8),
+          let json = try? JSONSerialization.jsonObject(with: jsonData) else {
+        return nil
+    }
+
+    var bestHTML: String?
+    var bestLength = 200
+
+    func walk(_ value: Any) {
+        switch value {
+        case let str as String:
+            if str.count > bestLength && str.contains("<p>") {
+                bestHTML = str
+                bestLength = str.count
+            }
+        case let dict as [String: Any]:
+            for v in dict.values { walk(v) }
+        case let arr as [Any]:
+            for v in arr { walk(v) }
+        default:
+            break
+        }
+    }
+
+    walk(json)
+
+    // Only inject if the body doesn't already contain the article text.
+    guard let articleHTML = bestHTML else { return nil }
+
+    if let articleDoc = try? SwiftSoup.parseBodyFragment(articleHTML),
+       let articleText = try? articleDoc.body()?.text(),
+       articleText.count > 200 {
+        let midStart = articleText.index(articleText.startIndex, offsetBy: 100)
+        let midEnd = articleText.index(midStart, offsetBy: min(60, articleText.distance(from: midStart, to: articleText.endIndex)))
+        let snippet = String(articleText[midStart..<midEnd])
+
+        if let bodyText = try? doc.body()?.text(), bodyText.contains(snippet) {
+            return nil // Content already server-rendered
+        }
+    }
+
+    return bestHTML
+}
+
 // MARK: - Helper: save step
 
 func saveStep(_ name: String, html: String) {
@@ -511,6 +676,9 @@ if isFullMode {
 
     let doc = try SwiftSoup.parse(html, pageURL.absoluteString)
 
+    // Extract __NEXT_DATA__ article HTML before stripping scripts
+    let nextDataContent = extractNextDataContent(from: doc)
+
     // Strip CSP
     let cspMetas = try doc.select("meta[http-equiv=Content-Security-Policy]")
     try cspMetas.remove()
@@ -522,9 +690,16 @@ if isFullMode {
         try head.append("<style>html, body { background-color: #fff !important; }</style>")
     }
 
+    // If __NEXT_DATA__ had article HTML, inject it into the body
+    if let nextContent = nextDataContent, let body = doc.body() {
+        try body.append("<article id=\"next-data-article\">\(nextContent)</article>")
+        print("  -> Injected __NEXT_DATA__ article content into DOM")
+    }
+
     // Strip scripts and noscript fallbacks
     let scripts = try doc.select("script")
     try scripts.remove()
+    try promoteNoscriptImages(in: doc)
     try doc.select("noscript").remove()
 
     // Strip navigation
@@ -564,8 +739,20 @@ if isFullMode {
 
     // Step 2: Clean
     let preDoc = try SwiftSoup.parse(html, pageURL.absoluteString)
+
+    // Extract __NEXT_DATA__ article HTML before stripping scripts
+    let nextDataContent = extractNextDataContent(from: preDoc)
+
     try preDoc.select("script").remove()
+    try promoteNoscriptImages(in: preDoc)
     try preDoc.select("noscript").remove()
+
+    // If __NEXT_DATA__ had article HTML, inject it into the body.
+    // The <article> tag gives Readability a strong content signal.
+    if let nextContent = nextDataContent, let body = preDoc.body() {
+        try body.append("<article id=\"next-data-article\">\(nextContent)</article>")
+        print("  -> Injected __NEXT_DATA__ article content into DOM")
+    }
     try preDoc.select("style").remove()
     try preDoc.select("meta[http-equiv=Content-Security-Policy]").remove()
     try preDoc.select("img.hide-when-no-script").remove()
@@ -582,6 +769,7 @@ if isFullMode {
     try stripBadgeClusters(in: preDoc)
 
     try stripImageLayoutStyles(in: preDoc)
+    try constrainAvatarImages(in: preDoc)
 
     // Strip comment sections — user-generated comments can outweigh article
     // text and confuse Readability's scoring.
@@ -645,7 +833,7 @@ if isFullMode {
             let chromeWords = [
                 "logo", "flag", "icon", "badge", "spinner",
                 "facebook", "twitter", "instagram", "pinterest", "tiktok",
-                "furniture", "share", "follow", "thumbnail",
+                "furniture", "share", "follow", "comment", "thumbnail",
                 "banner", "bkgd", "reactions"
             ]
             for word in chromeWords {
@@ -675,11 +863,12 @@ if isFullMode {
                 }
                 ancestor = el.parent()
             }
-            // "avatar" in URLs usually means a user profile image (/avatar/, /avatars/,
-            // avatar.jpg, avatar_name.webp) but not when it's part of article content
-            // (e.g. Avatar: The Last Airbender)
+            // Profile images: avatars and author headshots served from
+            // dedicated paths (/avatar/, /avatars/, /authors/) are never
+            // article content.
             if srcLower.contains("/avatar/") || srcLower.contains("/avatars/")
                 || srcLower.contains("/avatar.") || srcLower.contains("/avatar_")
+                || srcLower.contains("/authors/")
                 || imgId.contains("avatar") { return false }
             // Skip images whose alt text marks them as structural/decorative
             if alt.hasPrefix("background") || alt.hasPrefix("foreground") { return false }
@@ -767,9 +956,12 @@ if isFullMode {
 
         // Deduplicate images — exact src match, then base-URL match
         // (strips query params so crop/size variants of the same image
-        // are recognised as duplicates, e.g. The Verge product cards).
+        // are recognised as duplicates, e.g. The Verge product cards),
+        // then host+filename match (catches CDN resize variants with
+        // different path hashes, e.g. CNET /a/img/resize/{hash}/.../file.jpg).
         var seenSrcs = Set<String>()
         var seenBasePaths = Set<String>()
+        var seenHostFilenames = Set<String>()
         for img in try contentDoc.select("img[src]") {
             let src = try img.attr("src")
             guard !src.isEmpty, !src.hasPrefix("data:") else { continue }
@@ -777,12 +969,22 @@ if isFullMode {
                 try img.remove()
                 continue
             }
-            // Also dedup by base path (scheme + host + path, ignoring query/fragment)
             if let url = URL(string: src),
                let scheme = url.scheme, let host = url.host {
+                // Dedup by base path (scheme + host + path, ignoring query/fragment)
                 let basePath = "\(scheme)://\(host)\(url.path)"
                 if !seenBasePaths.insert(basePath).inserted {
                     try img.remove()
+                    continue
+                }
+                // Dedup by host + filename — catches CDN resize variants where
+                // only an intermediate path segment (hash/dimensions) differs
+                let filename = url.lastPathComponent
+                if !filename.isEmpty, filename != "/" {
+                    let hostFilename = "\(host)/\(filename)"
+                    if !seenHostFilenames.insert(hostFilename).inserted {
+                        try img.remove()
+                    }
                 }
             }
         }
@@ -790,6 +992,7 @@ if isFullMode {
         // Deduplicate sibling images with same base URL but different dimension suffixes
         try deduplicateSiblingImages(in: contentDoc)
 
+        try stripBylineImages(in: contentDoc)
         // Strip empty elements left behind by our cleaning passes
         try stripEmptyElements(in: contentDoc)
         contentHTML = (try? contentDoc.body()?.html()) ?? contentHTML

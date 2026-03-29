@@ -228,8 +228,20 @@ actor PageCacheService {
     /// without requiring network access or database state.
     func runStandardPipeline(html: String, pageURL: URL) throws -> PipelineResult {
         let preDoc = try SwiftSoup.parse(html, pageURL.absoluteString)
+
+        // Before stripping scripts, extract article HTML from __NEXT_DATA__
+        // (Next.js sites that don't fully server-render their content).
+        let nextDataContent = extractNextDataContent(from: preDoc)
+
         try preDoc.select("script").remove()
+        try promoteNoscriptImages(in: preDoc)
         try preDoc.select("noscript").remove()
+
+        // If __NEXT_DATA__ had article HTML, inject it into the body.
+        // The <article> tag gives Readability a strong content signal.
+        if let nextContent = nextDataContent, let body = preDoc.body() {
+            try body.append("<article id=\"next-data-article\">\(nextContent)</article>")
+        }
         try preDoc.select("style").remove()
         try preDoc.select("meta[http-equiv=Content-Security-Policy]").remove()
 
@@ -243,6 +255,7 @@ actor PageCacheService {
         try stripTinyImages(in: preDoc, maxDimension: 30)
         try stripBadgeClusters(in: preDoc)
         try stripImageLayoutStyles(in: preDoc)
+        try constrainAvatarImages(in: preDoc)
 
         // Strip comment sections — these contain user-generated comments
         // that can outweigh article text and confuse Readability's scoring.
@@ -319,7 +332,7 @@ actor PageCacheService {
             let chromeWords = [
                 "logo", "flag", "icon", "badge", "spinner",
                 "facebook", "twitter", "instagram", "pinterest", "tiktok",
-                "furniture", "share", "follow", "thumbnail",
+                "furniture", "share", "follow", "comment", "thumbnail",
                 "banner", "bkgd", "reactions"
             ]
             for word in chromeWords {
@@ -349,11 +362,12 @@ actor PageCacheService {
                 }
                 ancestor = el.parent()
             }
-            // "avatar" in URLs usually means a user profile image (/avatar/, /avatars/,
-            // avatar.jpg, avatar_name.webp) but not when it's part of article content
-            // (e.g. Avatar: The Last Airbender)
+            // Profile images: avatars and author headshots served from
+            // dedicated paths (/avatar/, /avatars/, /authors/) are never
+            // article content.
             if srcLower.contains("/avatar/") || srcLower.contains("/avatars/")
                 || srcLower.contains("/avatar.") || srcLower.contains("/avatar_")
+                || srcLower.contains("/authors/")
                 || imgId.contains("avatar") { return false }
             // Skip images whose alt text marks them as structural/decorative
             // (e.g. "background of header", "foreground of header"). These are
@@ -440,9 +454,12 @@ actor PageCacheService {
 
         // Deduplicate images — exact src match, then base-URL match
         // (strips query params so crop/size variants of the same image
-        // are recognised as duplicates, e.g. The Verge product cards).
+        // are recognised as duplicates, e.g. The Verge product cards),
+        // then host+filename match (catches CDN resize variants with
+        // different path hashes, e.g. CNET /a/img/resize/{hash}/.../file.jpg).
         var seenSrcs = Set<String>()
         var seenBasePaths = Set<String>()
+        var seenHostFilenames = Set<String>()
         for img in try contentDoc.select("img[src]") {
             let src = try img.attr("src")
             guard !src.isEmpty, !src.hasPrefix("data:") else { continue }
@@ -450,12 +467,22 @@ actor PageCacheService {
                 try img.remove()
                 continue
             }
-            // Also dedup by base path (scheme + host + path, ignoring query/fragment)
             if let url = URL(string: src),
                let scheme = url.scheme, let host = url.host {
+                // Dedup by base path (scheme + host + path, ignoring query/fragment)
                 let basePath = "\(scheme)://\(host)\(url.path)"
                 if !seenBasePaths.insert(basePath).inserted {
                     try img.remove()
+                    continue
+                }
+                // Dedup by host + filename — catches CDN resize variants where
+                // only an intermediate path segment (hash/dimensions) differs
+                let filename = url.lastPathComponent
+                if !filename.isEmpty, filename != "/" {
+                    let hostFilename = "\(host)/\(filename)"
+                    if !seenHostFilenames.insert(hostFilename).inserted {
+                        try img.remove()
+                    }
                 }
             }
         }
@@ -465,6 +492,7 @@ actor PageCacheService {
         // vs image-1024x648.jpg). Keeps the largest variant.
         try deduplicateSiblingImages(in: contentDoc)
 
+        try stripBylineImages(in: contentDoc)
         try stripEmptyElements(in: contentDoc)
 
         let imageCount = (try? contentDoc.select("img"))?.size() ?? 0
@@ -480,8 +508,18 @@ actor PageCacheService {
     func runFullPipeline(html: String, pageURL: URL) throws -> FullPipelineResult {
         let doc = try SwiftSoup.parse(html, pageURL.absoluteString)
 
+        // Before stripping scripts, extract article HTML from __NEXT_DATA__
+        let nextDataContent = extractNextDataContent(from: doc)
+
         // Strip CSP meta tags
         try doc.select("meta[http-equiv=Content-Security-Policy]").remove()
+
+        // If __NEXT_DATA__ had article HTML, inject it into the body before
+        // scripts are stripped. This ensures the article content is visible
+        // in the cleaned output for sites that don't server-render their content.
+        if let nextContent = nextDataContent, let body = doc.body() {
+            try body.append("<article id=\"next-data-article\">\(nextContent)</article>")
+        }
 
         // Ensure a white background fallback. Many sites rely on browser
         // defaults or don't set an explicit background-color, which makes
@@ -494,6 +532,7 @@ actor PageCacheService {
         // view, so noscript blocks render and create huge layout gaps
         // (e.g. BBC's full site-navigation tree inside <noscript>).
         try doc.select("script").remove()
+        try promoteNoscriptImages(in: doc)
         try doc.select("noscript").remove()
 
         try recoverPlaceholderImages(in: doc)
@@ -560,15 +599,16 @@ actor PageCacheService {
                 let chromeWords = [
                     "logo", "flag", "icon", "badge", "spinner",
                     "facebook", "twitter", "instagram", "pinterest", "tiktok",
-                    "furniture", "share", "follow", "thumbnail",
+                    "furniture", "share", "follow", "comment", "thumbnail",
                     "banner", "bkgd"
                 ]
                 for word in chromeWords {
                     if imgId.contains(word) || alt.contains(word) || srcLower.contains(word) { return false }
                 }
-                // Avatar path-based filtering (same as standard pipeline)
+                // Profile images: avatars and author headshots (same as standard pipeline)
                 if srcLower.contains("/avatar/") || srcLower.contains("/avatars/")
                     || srcLower.contains("/avatar.") || srcLower.contains("/avatar_")
+                    || srcLower.contains("/authors/")
                     || imgId.contains("avatar") { return false }
                 // Skip images whose alt text marks them as structural/decorative
                 if alt.hasPrefix("background") || alt.hasPrefix("foreground") { return false }
@@ -612,6 +652,199 @@ actor PageCacheService {
 
         let cleanedHTML = try doc.outerHtml()
         return FullPipelineResult(cleanedHTML: cleanedHTML, heroImageURL: heroImageURL, wordCount: wordCount)
+    }
+
+    // MARK: - RSS content fallback pipeline
+
+    /// Cleans RSS content:encoded HTML for display in the reader template.
+    /// Unlike the standard pipeline, this skips Readability extraction since
+    /// the RSS content IS the article text. Only strips unsafe/interactive elements.
+    func cleanRSSContent(html: String, baseURL: URL) throws -> PipelineResult {
+        let doc = try SwiftSoup.parseBodyFragment(html, baseURL.absoluteString)
+        guard let body = doc.body() else {
+            throw NSError(domain: "PageCacheService", code: 5, userInfo: [
+                NSLocalizedDescriptionKey: "RSS content could not be parsed"
+            ])
+        }
+
+        // Strip unsafe/interactive elements
+        try doc.select("script").remove()
+        try doc.select("style").remove()
+        try doc.select("noscript").remove()
+        try doc.select("button").remove()
+        try doc.select("dialog").remove()
+        try doc.select("svg").remove()
+        try doc.select("nav").remove()
+        try doc.select("form").remove()
+        try doc.select("input").remove()
+        try doc.select("select").remove()
+        try doc.select("textarea").remove()
+        try doc.select("iframe").remove()
+        try doc.select("video").remove()
+        try doc.select("audio").remove()
+
+        try stripEmptyElements(in: doc)
+
+        // Add paragraph structure if content is flat text (no block-level elements).
+        // Many RSS feeds provide content:encoded as a single text blob without
+        // <p>, <br>, or any structural HTML — this makes them readable.
+        let blockTags = "p, div, br, h1, h2, h3, h4, h5, h6, ul, ol, blockquote, pre, hr, table"
+        if try body.select(blockTags).isEmpty() {
+            let rawHTML = try body.html()
+            let paragraphed = addParagraphBreaks(to: rawHTML)
+            try body.html(paragraphed)
+        }
+
+        let contentHTML = try body.html()
+
+        // Validate: must have meaningful text
+        let plainText = (try? body.text())?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let wordCount = plainText.split { $0.isWhitespace || $0.isNewline }.count
+        guard plainText.count >= 50 else {
+            throw NSError(domain: "PageCacheService", code: 5, userInfo: [
+                NSLocalizedDescriptionKey: "RSS content too short (\(plainText.count) chars)"
+            ])
+        }
+
+        let heroImageURL = try doc.select("img[src]").first().flatMap { img -> String? in
+            let src = try? img.attr("src")
+            guard let src, !src.isEmpty, !src.hasPrefix("data:") else { return nil }
+            return src
+        }
+
+        let imageCount = (try? doc.select("img"))?.size() ?? 0
+
+        return PipelineResult(
+            title: "",
+            contentHTML: contentHTML,
+            imageCount: imageCount,
+            heroImageURL: heroImageURL,
+            wordCount: wordCount
+        )
+    }
+
+    /// Adds `<p>` structure to flat text that lacks block-level HTML.
+    /// Tries splitting on double newlines, then single newlines, then
+    /// sentence boundaries (grouping ~3 sentences per paragraph).
+    private func addParagraphBreaks(to html: String) -> String {
+        // Try double newlines
+        let doubleChunks = html.components(separatedBy: "\n\n")
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+        if doubleChunks.count > 1 {
+            return doubleChunks.map { "<p>\($0)</p>" }.joined(separator: "\n")
+        }
+
+        // Try single newlines
+        let singleChunks = html.components(separatedBy: "\n")
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+        if singleChunks.count > 1 {
+            return singleChunks.map { "<p>\($0)</p>" }.joined(separator: "\n")
+        }
+
+        // No newlines: split on sentence boundaries
+        // (period/exclamation/question mark + whitespace + capital letter)
+        guard let regex = try? NSRegularExpression(
+            pattern: "(?<=[.!?])\\s+(?=[A-Z])",
+            options: []
+        ) else {
+            return "<p>\(html)</p>"
+        }
+
+        let nsHTML = html as NSString
+        let matches = regex.matches(in: html, options: [], range: NSRange(location: 0, length: nsHTML.length))
+
+        guard !matches.isEmpty else {
+            return "<p>\(html)</p>"
+        }
+
+        // Split at sentence boundaries
+        var sentences: [String] = []
+        var lastEnd = 0
+        for match in matches {
+            let chunk = nsHTML.substring(with: NSRange(location: lastEnd, length: match.range.location - lastEnd))
+            sentences.append(chunk.trimmingCharacters(in: .whitespaces))
+            lastEnd = match.range.location + match.range.length
+        }
+        if lastEnd < nsHTML.length {
+            sentences.append(nsHTML.substring(from: lastEnd).trimmingCharacters(in: .whitespaces))
+        }
+
+        // Group every 3 sentences into a paragraph
+        var paragraphs: [String] = []
+        for i in stride(from: 0, to: sentences.count, by: 3) {
+            let end = min(i + 3, sentences.count)
+            let group = sentences[i..<end].joined(separator: " ")
+            if !group.isEmpty {
+                paragraphs.append(group)
+            }
+        }
+
+        return paragraphs.map { "<p>\($0)</p>" }.joined(separator: "\n")
+    }
+
+    // MARK: - Next.js __NEXT_DATA__ extraction
+
+    /// Extracts article HTML from a Next.js `__NEXT_DATA__` script element,
+    /// but only if the body doesn't already contain the article text (i.e.
+    /// the site relies on client-side rendering rather than SSR).
+    ///
+    /// Many Next.js sites embed their article content as JSON inside this script.
+    /// Sites with proper SSR also have the content in the visible DOM, so we
+    /// skip injection to avoid confusing Readability with duplicate content.
+    func extractNextDataContent(from doc: Document) -> String? {
+        guard let scriptEl = try? doc.select("script#__NEXT_DATA__").first(),
+              let jsonText = try? scriptEl.data(),
+              let jsonData = jsonText.data(using: .utf8),
+              let json = try? JSONSerialization.jsonObject(with: jsonData) else {
+            return nil
+        }
+
+        // Recursively find the longest string value containing HTML paragraph tags.
+        var bestHTML: String?
+        var bestLength = 200 // Minimum threshold — skip short fragments
+
+        func walk(_ value: Any) {
+            switch value {
+            case let str as String:
+                if str.count > bestLength && str.contains("<p>") {
+                    bestHTML = str
+                    bestLength = str.count
+                }
+            case let dict as [String: Any]:
+                for v in dict.values { walk(v) }
+            case let arr as [Any]:
+                for v in arr { walk(v) }
+            default:
+                break
+            }
+        }
+
+        walk(json)
+
+        // Only inject if the body doesn't already contain the article text.
+        // Extract a distinctive snippet from the middle of the content and
+        // check if it appears in the body text (excluding scripts).
+        guard let articleHTML = bestHTML else { return nil }
+
+        // Get plain text from the extracted HTML
+        if let articleDoc = try? SwiftSoup.parseBodyFragment(articleHTML),
+           let articleText = try? articleDoc.body()?.text(),
+           articleText.count > 200 {
+            // Use a snippet from the middle to avoid matching meta descriptions
+            let midStart = articleText.index(articleText.startIndex, offsetBy: 100)
+            let midEnd = articleText.index(midStart, offsetBy: min(60, articleText.distance(from: midStart, to: articleText.endIndex)))
+            let snippet = String(articleText[midStart..<midEnd])
+
+            // Check against the body text (scripts still present at this point,
+            // but the snippet is from mid-article so it won't match JSON keys)
+            if let bodyText = try? doc.body()?.text(), bodyText.contains(snippet) {
+                return nil // Content already server-rendered — skip injection
+            }
+        }
+
+        return bestHTML
     }
 
     // MARK: - Cache article
@@ -769,95 +1002,164 @@ actor PageCacheService {
         var cssInlineReplacements: [String: String] = [:]
         var pipelineHeroImageURL: String?
         var readingMinutes: Int?
+        var usedRSSFallback = false
 
         if cacheLevel == .full {
             // FULL: Save the complete page with all assets
-            let fullResult = try runFullPipeline(html: html, pageURL: pageURL)
-            pipelineHeroImageURL = fullResult.heroImageURL
-            readingMinutes = ReadingTimeFormatter.estimateMinutes(wordCount: fullResult.wordCount)
-            let doc = try SwiftSoup.parse(fullResult.cleanedHTML, pageURL.absoluteString)
+            do {
+                let fullResult = try runFullPipeline(html: html, pageURL: pageURL)
+                pipelineHeroImageURL = fullResult.heroImageURL
+                readingMinutes = ReadingTimeFormatter.estimateMinutes(wordCount: fullResult.wordCount)
+                let doc = try SwiftSoup.parse(fullResult.cleanedHTML, pageURL.absoluteString)
 
-            let assetURLs = try extractAssetURLs(from: doc, baseURL: pageURL, cacheLevel: cacheLevel)
+                let assetURLs = try extractAssetURLs(from: doc, baseURL: pageURL, cacheLevel: cacheLevel)
 
-            let downloadResults = await downloadAssets(
-                urls: assetURLs,
-                to: assetsDir,
-                baseURL: pageURL
-            )
+                let downloadResults = await downloadAssets(
+                    urls: assetURLs,
+                    to: assetsDir,
+                    baseURL: pageURL
+                )
 
-            for result in downloadResults {
-                switch result {
-                case .success(let mapping):
-                    try rewriteURL(in: doc, original: mapping.originalURL, replacement: "./assets/\(mapping.filename)")
-                case .failure:
-                    anyFailed = true
+                for result in downloadResults {
+                    switch result {
+                    case .success(let mapping):
+                        try rewriteURL(in: doc, original: mapping.originalURL, replacement: "./assets/\(mapping.filename)")
+                    case .failure:
+                        anyFailed = true
+                    }
                 }
-            }
 
-            // Clean up remaining remote image references that weren't rewritten.
-            // The webview blocks all https?:// requests, so any remaining srcset
-            // entries or <picture><source> elements pointing to remote URLs will
-            // fail to load. Strip them so the browser falls through to local src.
-            try stripRemoteImageReferences(in: doc)
-
-            // Inline CSS stylesheets directly into the HTML so the page is
-            // fully self-contained for offline viewing.
-            let cssLinks = try doc.select("link[rel=stylesheet][href]")
-            for link in cssLinks {
-                let href = try link.attr("href")
-                let cssFileURL: URL
-                if href.hasPrefix("./") {
-                    cssFileURL = articleDir.appendingPathComponent(String(href.dropFirst(2)))
-                } else {
-                    cssFileURL = articleDir.appendingPathComponent(href)
+                // Fallback: try src attribute for images whose srcset download failed
+                let fallbackResults = try await downloadSrcFallbackImages(in: doc, assetsDir: assetsDir, baseURL: pageURL)
+                for result in fallbackResults {
+                    if case .success(let mapping) = result {
+                        try rewriteURL(in: doc, original: mapping.originalURL, replacement: "./assets/\(mapping.filename)")
+                    }
                 }
-                if let cssData = try? Data(contentsOf: cssFileURL),
-                   let cssText = String(data: cssData, encoding: .utf8) {
-                    // Use a placeholder that we'll replace in the final HTML string,
-                    // because SwiftSoup escapes content inside .text()
-                    let placeholder = "/*PREREAD_CSS_\(UUID().uuidString)*/"
-                    let styleTag = try doc.createElement("style")
-                    try styleTag.append(placeholder)
-                    try link.replaceWith(styleTag)
-                    // Store for post-processing
-                    cssInlineReplacements[placeholder] = cssText
+
+                // Clean up remaining remote image references that weren't rewritten.
+                try stripRemoteImageReferences(in: doc)
+
+                // Inline CSS stylesheets directly into the HTML so the page is
+                // fully self-contained for offline viewing.
+                let cssLinks = try doc.select("link[rel=stylesheet][href]")
+                for link in cssLinks {
+                    let href = try link.attr("href")
+                    let cssFileURL: URL
+                    if href.hasPrefix("./") {
+                        cssFileURL = articleDir.appendingPathComponent(String(href.dropFirst(2)))
+                    } else {
+                        cssFileURL = articleDir.appendingPathComponent(href)
+                    }
+                    if let cssData = try? Data(contentsOf: cssFileURL),
+                       let cssText = String(data: cssData, encoding: .utf8) {
+                        let placeholder = "/*PREREAD_CSS_\(UUID().uuidString)*/"
+                        let styleTag = try doc.createElement("style")
+                        try styleTag.append(placeholder)
+                        try link.replaceWith(styleTag)
+                        cssInlineReplacements[placeholder] = cssText
+                    }
                 }
-            }
 
-            // Remove ALL remaining <link rel=stylesheet> that weren't inlined.
-            // Successfully inlined links were already replaced with <style> tags above.
-            // Any still present either failed to download or failed to read — they can't
-            // be loaded from a local file:// webview and cause WebContent process crashes.
-            let remainingCSS = try doc.select("link[rel=stylesheet]")
-            try remainingCSS.remove()
+                // Remove remaining <link rel=stylesheet> that weren't inlined.
+                let remainingCSS = try doc.select("link[rel=stylesheet]")
+                try remainingCSS.remove()
 
-            var finalHTML = try doc.outerHtml()
-            // Replace CSS placeholders with actual CSS content
-            for (placeholder, css) in cssInlineReplacements {
-                finalHTML = finalHTML.replacingOccurrences(of: placeholder, with: css)
-            }
-            htmlData = Data(finalHTML.utf8)
+                var finalHTML = try doc.outerHtml()
+                for (placeholder, css) in cssInlineReplacements {
+                    finalHTML = finalHTML.replacingOccurrences(of: placeholder, with: css)
+                }
+                htmlData = Data(finalHTML.utf8)
 
-            assetFilenames = downloadResults.compactMap { result -> String? in
-                if case .success(let mapping) = result { return mapping.filename }
-                return nil
-            }
-            totalSize = htmlData.count + downloadResults.reduce(0) { sum, result in
-                if case .success(let mapping) = result { return sum + mapping.size }
-                return sum
-            }
-            isTruncated = downloadResults.contains { result in
-                if case .success(let mapping) = result { return mapping.wasTruncated }
-                return false
+                let allFullResults = downloadResults + fallbackResults
+                assetFilenames = allFullResults.compactMap { result -> String? in
+                    if case .success(let mapping) = result { return mapping.filename }
+                    return nil
+                }
+                totalSize = htmlData.count + allFullResults.reduce(0) { sum, result in
+                    if case .success(let mapping) = result { return sum + mapping.size }
+                    return sum
+                }
+                isTruncated = allFullResults.contains { result in
+                    if case .success(let mapping) = result { return mapping.wasTruncated }
+                    return false
+                }
+            } catch {
+                // Full pipeline failed (content too short / SPA page).
+                // Fall back to RSS content in reader template (downgrade to standard).
+                guard let rssHTML = article.rssContentHTML, !rssHTML.isEmpty else {
+                    throw error
+                }
+                print("[PageCacheService] Full pipeline failed, falling back to RSS content for \(article.articleURL)")
+                usedRSSFallback = true
+                let rssResult = try cleanRSSContent(html: rssHTML, baseURL: pageURL)
+                pipelineHeroImageURL = rssResult.heroImageURL
+                readingMinutes = ReadingTimeFormatter.estimateMinutes(wordCount: rssResult.wordCount)
+
+                var rssContentHTML = rssResult.contentHTML
+
+                let rssContentDoc = try SwiftSoup.parseBodyFragment(rssContentHTML, pageURL.absoluteString)
+                let rssImageURLs = try extractAssetURLs(from: rssContentDoc, baseURL: pageURL, cacheLevel: .standard)
+                let rssDownloadResults = await downloadAssets(urls: rssImageURLs, to: assetsDir, baseURL: pageURL)
+                for result in rssDownloadResults {
+                    switch result {
+                    case .success(let mapping):
+                        try rewriteURL(in: rssContentDoc, original: mapping.originalURL, replacement: "./assets/\(mapping.filename)")
+                    case .failure:
+                        anyFailed = true
+                    }
+                }
+
+                // Fallback: try src attribute for images whose srcset download failed
+                let rssFallbackResults = try await downloadSrcFallbackImages(in: rssContentDoc, assetsDir: assetsDir, baseURL: pageURL)
+                for result in rssFallbackResults {
+                    if case .success(let mapping) = result {
+                        try rewriteURL(in: rssContentDoc, original: mapping.originalURL, replacement: "./assets/\(mapping.filename)")
+                    }
+                }
+                try stripRemoteImageReferences(in: rssContentDoc)
+
+                rssContentHTML = (try? rssContentDoc.body()?.html()) ?? rssContentHTML
+
+                let allRssResults = rssDownloadResults + rssFallbackResults
+                assetFilenames = allRssResults.compactMap { result -> String? in
+                    if case .success(let mapping) = result { return mapping.filename }
+                    return nil
+                }
+
+                let templatedHTML = readerTemplate
+                    .replacingOccurrences(of: "{{TITLE}}", with: escapeHTML(article.title))
+                    .replacingOccurrences(of: "{{BODY_HTML}}", with: rssContentHTML)
+                htmlData = Data(templatedHTML.utf8)
+                let assetSize = allRssResults.reduce(0) { sum, result in
+                    if case .success(let mapping) = result { return sum + mapping.size }
+                    return sum
+                }
+                totalSize = htmlData.count + assetSize
+                isTruncated = false
             }
         } else {
             // STANDARD: Extract article content with Readability,
             // then template into reader_template.html
 
-            let pipelineResult = try runStandardPipeline(html: html, pageURL: pageURL)
+            var pipelineResult: PipelineResult
+
+            do {
+                pipelineResult = try runStandardPipeline(html: html, pageURL: pageURL)
+            } catch {
+                // Standard pipeline failed (Readability returned nil or content too short).
+                // Fall back to RSS content:encoded if available.
+                guard let rssHTML = article.rssContentHTML, !rssHTML.isEmpty else {
+                    throw error
+                }
+                print("[PageCacheService] Standard pipeline failed, falling back to RSS content for \(article.articleURL)")
+                pipelineResult = try cleanRSSContent(html: rssHTML, baseURL: pageURL)
+                usedRSSFallback = true
+            }
+
             pipelineHeroImageURL = pipelineResult.heroImageURL
             readingMinutes = ReadingTimeFormatter.estimateMinutes(wordCount: pipelineResult.wordCount)
-            let articleTitle = pipelineResult.title
+            let articleTitle = usedRSSFallback ? article.title : pipelineResult.title
             var contentHTML = pipelineResult.contentHTML
 
             // Re-parse for asset extraction and URL rewriting
@@ -884,19 +1186,31 @@ actor PageCacheService {
                 }
             }
 
+            // Fallback: try src attribute for images whose srcset download failed
+            let fallbackResults = try await downloadSrcFallbackImages(in: contentDoc, assetsDir: assetsDir, baseURL: pageURL)
+            for result in fallbackResults {
+                if case .success(let mapping) = result {
+                    try rewriteURL(in: contentDoc, original: mapping.originalURL, replacement: "./assets/\(mapping.filename)")
+                }
+            }
+
+            // Clean up remaining remote images to prevent dead boxes offline
+            try stripRemoteImageReferences(in: contentDoc)
+
             contentHTML = (try? contentBody.html()) ?? contentHTML
 
-            let allFilenames = downloadResults.compactMap { result -> String? in
+            let allResults = downloadResults + fallbackResults
+            let allFilenames = allResults.compactMap { result -> String? in
                 if case .success(let mapping) = result { return mapping.filename }
                 return nil
             }
             assetFilenames = allFilenames
 
-            let assetSize = downloadResults.reduce(0) { sum, result in
+            let assetSize = allResults.reduce(0) { sum, result in
                 if case .success(let mapping) = result { return sum + mapping.size }
                 return sum
             }
-            isTruncated = downloadResults.contains { result in
+            isTruncated = allResults.contains { result in
                 if case .success(let mapping) = result { return mapping.wasTruncated }
                 return false
             }
@@ -975,6 +1289,9 @@ actor PageCacheService {
         article.readingMinutes = readingMinutes
         article.fetchStatus = anyFailed ? .partial : .cached
         article.lastHTTPStatus = 200
+        if !usedRSSFallback {
+            article.rssContentHTML = nil  // Free DB space — page pipeline succeeded without RSS fallback
+        }
         try updateArticle(&article)
         return .contentUpdated
     }
@@ -1054,9 +1371,13 @@ actor PageCacheService {
 
     /// Target width in CSS pixels for srcset selection.
     /// 2x retina on a ~390pt-wide iPhone ≈ 780px, but article content areas are
-    /// typically narrower than full screen. ~1200px gives sharp images on any
+    /// typically narrower than full screen. ~1000px gives sharp images on any
     /// current device without downloading unnecessarily large variants.
-    private let srcsetTargetWidth = 1200
+    private let srcsetTargetWidth = 1000
+
+    /// Maximum width to select from srcset. Images above this are likely to
+    /// exceed the 2 MB per-asset download limit and produce dead image boxes.
+    private let srcsetMaxWidth = 1500
 
     /// Splits a srcset attribute value into individual entries, handling commas
     /// that appear inside URL paths or query parameters.
@@ -1142,17 +1463,26 @@ actor PageCacheService {
 
         guard !candidates.isEmpty else { return nil }
 
-        // If we have width descriptors, pick the smallest one >= target, or the largest available
+        // If we have width descriptors, pick the best fit within size limits.
+        // Prefer the smallest variant >= target that's also <= max (avoids
+        // downloading multi-MB originals that exceed the per-asset limit).
         let withWidths = candidates.filter { $0.width > 0 }
         let chosen: String
         if !withWidths.isEmpty {
-            let atOrAbove = withWidths.filter { $0.width >= srcsetTargetWidth }
+            let inRange = withWidths.filter { $0.width >= srcsetTargetWidth && $0.width <= srcsetMaxWidth }
                 .sorted { $0.width < $1.width }
-            if let best = atOrAbove.first {
+            if let best = inRange.first {
                 chosen = best.url
             } else {
-                // All smaller than target — pick the largest
-                chosen = withWidths.sorted { $0.width > $1.width }.first!.url
+                // Nothing in the ideal range — pick the largest that's <= max
+                let underMax = withWidths.filter { $0.width <= srcsetMaxWidth }
+                    .sorted { $0.width > $1.width }
+                if let best = underMax.first {
+                    chosen = best.url
+                } else {
+                    // All variants exceed max — pick the smallest available
+                    chosen = withWidths.sorted { $0.width < $1.width }.first!.url
+                }
             }
         } else {
             // No width descriptors — pick the first entry
@@ -1178,10 +1508,12 @@ actor PageCacheService {
             let absSrc = try img.attr("abs:src")
             if let url = URL(string: absSrc), !isPlaceholderImage(url) { return url }
         }
-        // Fall back to data-src
-        let dataSrc = try img.attr("data-src")
-        if !dataSrc.isEmpty, !dataSrc.hasPrefix("data:") {
-            if let url = URL(string: dataSrc, relativeTo: baseURL)?.absoluteURL, !isPlaceholderImage(url) { return url }
+        // Fall back to data-src / data-lazy-src
+        for attr in ["data-src", "data-lazy-src", "data-original"] {
+            let value = try img.attr(attr)
+            if !value.isEmpty, !value.hasPrefix("data:") {
+                if let url = URL(string: value, relativeTo: baseURL)?.absoluteURL, !isPlaceholderImage(url) { return url }
+            }
         }
         return nil
     }
@@ -1193,6 +1525,10 @@ actor PageCacheService {
 
         // Grey placeholder images
         if path.contains("grey-placeholder") || path.contains("placeholder") {
+            return true
+        }
+        // Lazy-load fallback images
+        if path.contains("lazyload-fallback") || path.contains("spacer") {
             return true
         }
         // Common tracking pixels (1x1 images)
@@ -1542,11 +1878,40 @@ actor PageCacheService {
         return false
     }
 
+    // MARK: - Image download fallback
+
+    /// Second-pass fallback for images whose srcset-based download failed.
+    /// Sites like WWD have srcset entries where "reasonable" widths (e.g. 1333w)
+    /// are actually unoptimized originals that exceed the per-asset size limit.
+    /// This method finds images still pointing to remote URLs and tries downloading
+    /// their `src` attribute, which is typically a smaller server-resized variant.
+    private func downloadSrcFallbackImages(in doc: Document, assetsDir: URL, baseURL: URL) async throws -> [Result<AssetMapping, Error>] {
+        var fallbackURLs: [URL] = []
+        let images = try doc.select("img")
+        for img in images {
+            let src = try img.attr("src")
+            guard !src.isEmpty,
+                  !src.hasPrefix("./assets/"),
+                  !src.hasPrefix("assets/"),
+                  !src.hasPrefix("data:") else { continue }
+            let absSrc = try img.attr("abs:src")
+            if let url = URL(string: absSrc), !isPlaceholderImage(url) {
+                fallbackURLs.append(url)
+            }
+        }
+        // Deduplicate while preserving order
+        var seen = Set<URL>()
+        fallbackURLs = fallbackURLs.filter { seen.insert($0).inserted }
+
+        guard !fallbackURLs.isEmpty else { return [] }
+        return await downloadAssets(urls: fallbackURLs, to: assetsDir, baseURL: baseURL)
+    }
+
     // MARK: - Remote image cleanup
 
     /// Strips remaining non-local references after URL rewriting.
     /// Removes `<source>` elements inside `<picture>` that weren't rewritten to local paths,
-    /// and strips non-local srcset/src from `<img>` tags to prevent WKWebView sandbox errors.
+    /// and removes `<img>` tags with non-local src to prevent dead image boxes.
     private func stripRemoteImageReferences(in doc: Document) throws {
         // Remove <source> elements inside <picture> that weren't rewritten to local
         let pictureSources = try doc.select("picture > source[srcset]")
@@ -1573,11 +1938,8 @@ actor PageCacheService {
                     try img.removeAttr("sizes")
                 }
             } else {
-                // Image download failed — clear src to avoid sandbox errors
-                try img.attr("src", "")
-                try img.removeAttr("srcset")
-                try img.removeAttr("srcSet")
-                try img.removeAttr("sizes")
+                // Image download failed — remove element to prevent dead image boxes
+                try img.remove()
             }
         }
     }
@@ -1600,6 +1962,49 @@ actor PageCacheService {
             } else if let h = height, h > 0, h <= maxDimension {
                 try img.remove()
             }
+        }
+    }
+
+    /// Constrains author avatar images to a small inline size instead of
+    /// rendering full-width. Detected by `alt` containing "avatar" (case-
+    /// insensitive) AND the image being roughly square (within 10%). This
+    /// combination is a strong signal for byline avatars without risking
+    /// false positives on article content images.
+    private func constrainAvatarImages(in doc: Document) throws {
+        for img in try doc.select("img[alt]") {
+            let alt = try img.attr("alt").lowercased()
+            guard alt.contains("avatar") else { continue }
+
+            let w = Int(try img.attr("width")) ?? 0
+            let h = Int(try img.attr("height")) ?? 0
+            let maxDim = max(w, h)
+            let minDim = min(w, h)
+            guard maxDim > 0, Double(minDim) / Double(maxDim) >= 0.9 else { continue }
+
+            try img.attr("width", "100")
+            try img.attr("height", "100")
+            try img.attr("style", "width:100px; height:100px; border-radius:50%; display:inline; margin:0 8px 0 0")
+        }
+    }
+
+    /// Strips byline/author images from Readability output. These are small
+    /// square headshots that appear in author bios — often with alt text like
+    /// "Headshot of Jane Doe" or "Photo of John Smith". Detected generically:
+    /// alt contains "headshot" or starts with "photo of", both dimensions present
+    /// and ≤ 200px, roughly square (aspect ratio ≥ 0.8).
+    private func stripBylineImages(in doc: Document) throws {
+        for img in try doc.select("img[alt]").reversed() {
+            guard img.parent() != nil else { continue }
+            let alt = try img.attr("alt").lowercased().trimmingCharacters(in: .whitespaces)
+            guard alt.contains("headshot") || alt.hasPrefix("photo of") else { continue }
+
+            let w = Int(try img.attr("width")) ?? 0
+            let h = Int(try img.attr("height")) ?? 0
+            guard w > 0, h > 0, w <= 200, h <= 200 else { continue }
+            let ratio = Double(min(w, h)) / Double(max(w, h))
+            guard ratio >= 0.8 else { continue }
+
+            try img.remove()
         }
     }
 
@@ -1804,30 +2209,109 @@ actor PageCacheService {
         }
     }
 
-    /// Recovers real image URLs for `<img>` tags that use placeholder `src` values
-    /// (e.g. a 1x1 transparent GIF data URI) when the parent `<a>` tag links to
-    /// an actual image file. This is a common lazy-loading pattern where JavaScript
-    /// swaps the real URL into `src` at runtime — since we fetch static HTML, the
-    /// swap never happens and images remain blank.
+    /// Promotes image URLs from `<noscript>` fallbacks onto their JS-dependent
+    /// sibling `<img>` tags. Many sites use a pattern where `<noscript>` holds
+    /// an `<img>` with a real `src`, while a sibling `<img>` outside has no `src`
+    /// and relies on JavaScript to populate it. Since we strip `<noscript>` later
+    /// (it causes layout gaps), this copies the real URL before it's lost.
+    private func promoteNoscriptImages(in doc: Document) throws {
+        for noscript in try doc.select("noscript").array() {
+            let noscriptHTML = try noscript.html()
+            guard noscriptHTML.contains("<img") else { continue }
+
+            // Parse the noscript content to extract img src
+            let fragment = try SwiftSoup.parseBodyFragment(noscriptHTML)
+            guard let noscriptImg = try fragment.select("img[src]").first() else { continue }
+            let realSrc = try noscriptImg.attr("src")
+            guard !realSrc.isEmpty, !realSrc.hasPrefix("data:") else { continue }
+
+            // Look for a sibling <img> without src (or with empty src)
+            guard let sibling = try noscript.nextElementSibling(),
+                  sibling.tagName() == "img" else { continue }
+            let sibSrc = try sibling.attr("src")
+            guard sibSrc.isEmpty || sibSrc.hasPrefix("data:") else { continue }
+
+            try sibling.attr("src", realSrc)
+        }
+    }
+
+    /// Recovers real image URLs for `<img>` tags that use placeholder `src` values.
+    /// Many sites use JavaScript-based lazy loading where the real image URL lives
+    /// in a data attribute (`data-lazy-src`, `data-src`, `data-original`, etc.)
+    /// and `src` is set to a tiny placeholder (data URI, 1x1 GIF, fallback image).
+    /// Since we fetch static HTML, the JS swap never runs and images stay blank.
+    /// This method promotes the real URLs to standard attributes before Readability.
     private func recoverPlaceholderImages(in doc: Document) throws {
         let imageExtensions: Set<String> = ["jpg", "jpeg", "png", "gif", "webp", "avif", "bmp", "tiff"]
         let images = try doc.select("img")
         for img in images {
             let src = try img.attr("src")
-            // Only process images with data URI placeholders
-            guard src.hasPrefix("data:") else { continue }
+            let srcIsPlaceholder = src.isEmpty
+                || src.hasPrefix("data:")
+                || src.contains("lazyload")
+                || src.contains("fallback")
+                || src.contains("spacer")
+                || src.contains("blank.gif")
+                || src.contains("grey-placeholder")
+                || src.contains("placeholder")
 
-            // Check if parent is an <a> tag linking to an image file
-            guard let parent = img.parent(), parent.tagName() == "a" else { continue }
-            let href = try parent.attr("href")
-            guard !href.isEmpty, !href.hasPrefix("data:") else { continue }
+            if srcIsPlaceholder {
+                // Try common lazy-load data attributes for the real src
+                let lazySrcAttrs = ["data-lazy-src", "data-src", "data-original", "data-orig-file"]
+                for attr in lazySrcAttrs {
+                    let value = try img.attr(attr)
+                    if !value.isEmpty, !value.hasPrefix("data:") {
+                        try img.attr("src", value)
+                        try img.removeAttr(attr)
+                        break
+                    }
+                }
 
-            // Verify the href points to an image by checking the file extension
-            let pathComponent = URL(string: href)?.pathExtension.lowercased() ?? ""
-            guard imageExtensions.contains(pathComponent) else { continue }
+                // Promote data-lazy-srcset → srcset if srcset is empty
+                let srcset = try img.attr("srcset")
+                if srcset.isEmpty {
+                    let lazySrcsetAttrs = ["data-lazy-srcset", "data-srcset"]
+                    for attr in lazySrcsetAttrs {
+                        let value = try img.attr(attr)
+                        if !value.isEmpty {
+                            try img.attr("srcset", value)
+                            try img.removeAttr(attr)
+                            break
+                        }
+                    }
+                }
 
-            try img.attr("src", href)
-            try img.removeAttr("aria-hidden")
+                // Promote data-lazy-sizes → sizes if sizes is empty
+                let sizes = try img.attr("sizes")
+                if sizes.isEmpty {
+                    let lazySizesAttrs = ["data-lazy-sizes", "data-sizes"]
+                    for attr in lazySizesAttrs {
+                        let value = try img.attr(attr)
+                        if !value.isEmpty {
+                            try img.attr("sizes", value)
+                            try img.removeAttr(attr)
+                            break
+                        }
+                    }
+                }
+
+                try img.removeAttr("aria-hidden")
+            }
+
+            // Fallback: if src is still a data URI placeholder and parent <a> links
+            // to an image file, use the href as src
+            let currentSrc = try img.attr("src")
+            if currentSrc.hasPrefix("data:") {
+                if let parent = img.parent(), parent.tagName() == "a" {
+                    let href = try parent.attr("href")
+                    if !href.isEmpty, !href.hasPrefix("data:") {
+                        let pathComponent = URL(string: href)?.pathExtension.lowercased() ?? ""
+                        if imageExtensions.contains(pathComponent) {
+                            try img.attr("src", href)
+                        }
+                    }
+                }
+            }
         }
     }
 

@@ -4,7 +4,7 @@
     "description": "Independent journalism from the Middle East and beyond",
     "feedURL": "https://www.aljazeera.com/xml/rss/all.xml",
     "id": "fa080031-bb9f-0725-b354-d2657f84d5bc",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Al Jazeera English",
     "siteURL": "https://www.aljazeera.com",
     "tags": [
@@ -20,7 +20,7 @@
     "description": "Smart, efficient news coverage of politics, business, and technology",
     "feedURL": "https://api.axios.com/feed/",
     "id": "f5e8ac85-4e40-4b1e-48c1-10f82ecca136",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Axios",
     "siteURL": "https://www.axios.com/",
     "tags": [
@@ -36,7 +36,7 @@
     "description": "World news from BBC",
     "feedURL": "https://feeds.bbci.co.uk/news/world/rss.xml",
     "id": "1796df62-c4a2-87cc-aef6-70b248b7f98c",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "BBC News: World",
     "siteURL": "https://www.bbc.co.uk/news/world",
     "tags": [
@@ -52,7 +52,7 @@
     "description": "CNBC International is the world leader for news on business, technology, China, trade, oil prices, the Middle East and",
     "feedURL": "https://www.cnbc.com/id/100727362/device/rss/rss.html",
     "id": "75e1d84f-ca2f-4528-2674-52a7c301d83d",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "CNBC International",
     "siteURL": "https://www.cnbc.com/world-top-news/",
     "tags": [
@@ -68,7 +68,7 @@
     "description": "Comprehensive news aggregation from Google",
     "feedURL": "https://news.google.com/rss",
     "id": "fe39472a-3338-f318-54e9-e1fb64c6227a",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Google News",
     "siteURL": "https://news.google.com/?hl=en-US&gl=US&ceid=US:en",
     "tags": [
@@ -84,7 +84,7 @@
     "description": "Investigates human rights crises in 90+ countries, compelling governments to take action",
     "feedURL": "https://www.hrw.org/rss/news",
     "id": "b84e536a-ba62-4c99-aa9c-bd4ca0001833",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Human Rights Watch",
     "siteURL": "https://www.hrw.org",
     "tags": [
@@ -100,7 +100,7 @@
     "description": "NPR news, audio, and podcasts. Coverage of breaking stories, national and world news, politics, business, science",
     "feedURL": "https://feeds.npr.org/1001/rss.xml",
     "id": "04a13555-2494-b3db-f354-1c5fbc37af83",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "NPR News",
     "siteURL": "https://www.npr.org/templates/story/story.php?storyId=1001",
     "tags": [
@@ -116,7 +116,7 @@
     "description": "News, politics, culture, technology, and more",
     "feedURL": "https://www.theatlantic.com/feed/all/",
     "id": "72771e85-b141-6686-c704-7c5d452eddd6",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "The Atlantic",
     "siteURL": "https://www.theatlantic.com/",
     "tags": [
@@ -132,7 +132,7 @@
     "description": "World news, comment, and analysis from The Guardian",
     "feedURL": "https://www.theguardian.com/world/rss",
     "id": "d64709a6-05cb-acc0-04d9-8965ab19a65f",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "The Guardian: World",
     "siteURL": "https://www.theguardian.com/world",
     "tags": [
@@ -148,7 +148,7 @@
     "description": "Vox is a general interest news site for the 21st century. Its mission: to help everyone understand our complicated",
     "feedURL": "https://www.vox.com/rss/index.xml",
     "id": "4aa317de-1aa3-aa76-6dda-8229ef4c63c2",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Vox",
     "siteURL": "https://www.vox.com",
     "tags": [

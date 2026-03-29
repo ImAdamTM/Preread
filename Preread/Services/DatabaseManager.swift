@@ -131,5 +131,13 @@ final class DatabaseManager {
             }
         }
 
+        migrator.registerMigration("v4-add-rssContentHTML") { db in
+            if try !db.columns(in: "article").contains(where: { $0.name == "rssContentHTML" }) {
+                try db.alter(table: "article") { t in
+                    t.add(column: "rssContentHTML", .text)
+                }
+            }
+        }
+
     }
 }

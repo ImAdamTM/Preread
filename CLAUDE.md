@@ -182,7 +182,7 @@ The feed directory lives at `tools/update-feed-directory/`. Feeds are organised 
 
 ### Workflow for adding or changing feeds
 
-1. Edit (or create) the relevant `categories/<slug>.json` file.
+1. Edit (or create) the relevant `categories/<slug>.json` file. Set `lastVerified` to `""` — the tool will stamp the date after successful validation. Never set a verification date manually.
 2. Run the tool **with validation** to verify all feeds:
    ```bash
    cd /Users/adamhartwig/gitrepos/Preread/tools/update-feed-directory && swift run UpdateFeedDirectory

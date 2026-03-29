@@ -4,7 +4,7 @@
     "description": "Every post that goes up on Cracked.com",
     "feedURL": "https://www.cracked.com/crackedrss/allposts.xml",
     "id": "205e047b-47d4-581c-99b8-a76c41b053c6",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Cracked: All Posts",
     "siteURL": "https://www.cracked.com/",
     "tags": [
@@ -20,7 +20,7 @@
     "description": "Literary humor, satirical essays, and lists from one of the web's most distinctive comedy voices",
     "feedURL": "https://feeds.feedburner.com/mcsweeneys",
     "id": "275986ee-5926-132e-978a-7a1d8d081601",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "McSweeney's Internet Tendency",
     "siteURL": "https://www.mcsweeneys.net/",
     "tags": [
@@ -33,26 +33,10 @@
   },
   {
     "category": "Humor & Satire",
-    "description": "Women's satire site that skewers media, relationships, and lifestyle culture",
-    "feedURL": "https://reductress.com/feed",
-    "id": "61b00002-b48e-a034-8ed9-46ffaca19df6",
-    "lastVerified": "2026-03-28",
-    "name": "Reductress",
-    "siteURL": "https://reductress.com",
-    "tags": [
-      "feminism",
-      "parody",
-      "headlines",
-      "women",
-      "media satire"
-    ]
-  },
-  {
-    "category": "Humor & Satire",
     "description": "Conservative Christian news satire",
     "feedURL": "https://babylonbee.com/feed",
     "id": "cc552eda-3d5b-d374-05eb-4b19c629fee6",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "The Babylon Bee",
     "siteURL": "https://babylonbee.com",
     "tags": [
@@ -68,7 +52,7 @@
     "description": "Humor and personal essays by Jenny Lawson",
     "feedURL": "https://thebloggess.com/feed/",
     "id": "7d7bef99-cda8-227a-8f88-7b4ad5db8931",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "The Bloggess",
     "siteURL": "https://thebloggess.com",
     "tags": [
@@ -84,7 +68,7 @@
     "description": "Punk and hardcore satire news from the underground music scene",
     "feedURL": "https://thehardtimes.net/feed/",
     "id": "c5b932f3-650a-831e-32cc-7a6d8265d131",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "The Hard Times",
     "siteURL": "https://thehardtimes.net",
     "tags": [
@@ -100,7 +84,7 @@
     "description": "America's Finest News Source",
     "feedURL": "https://www.theonion.com/rss",
     "id": "613b5a03-7a84-ccea-643c-3684d89a017e",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "The Onion",
     "siteURL": "https://theonion.com/",
     "tags": [

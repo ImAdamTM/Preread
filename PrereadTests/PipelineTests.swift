@@ -394,6 +394,86 @@ struct StandardPipelineTests {
         #expect(!result.contentHTML.contains("<script"))
         #expect(!result.contentHTML.contains("<nav"))
     }
+
+    // MARK: - HackerNoon (Next.js __NEXT_DATA__)
+
+    @Test("HackerNoon: article extracted from __NEXT_DATA__ JSON")
+    func hackernoonArticle() async throws {
+        let html = try loadFixture("hackernoon_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://hackernoon.com/backward-compatibility-in-go-what-to-know")!
+        )
+
+        #expect(result.title.contains("Backward Compatibility"))
+        #expect(result.contentHTML.contains("Go 1.21"))
+        #expect(result.contentHTML.contains("GODEBUG"))
+        #expect(result.wordCount > 100, "Article should have substantial content")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
+    // MARK: - Mashable
+
+    @Test("Mashable: author headshot not used as hero, article image injected")
+    func mashableArticle() async throws {
+        let html = try loadFixture("mashable_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://mashable.com/article/march-28-best-amazon-spring-sale-pokemon-tcg-perfect-order-booster-deal")!
+        )
+
+        #expect(result.imageCount >= 1, "Article image should be present")
+        #expect(result.heroImageURL != nil, "Hero image should be found")
+        #expect(!(result.heroImageURL ?? "").contains("/authors/"), "Author headshot should not be used as hero")
+        #expect(result.contentHTML.contains("Pokémon") || result.contentHTML.contains("Pokemon"))
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
+    // MARK: - Sky & Telescope
+
+    @Test("Sky & Telescope: comment icon not used as hero, article images preserved")
+    func skyTelescopeArticle() async throws {
+        let html = try loadFixture("skytelescope_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://skyandtelescope.org/astronomy-news/comet-break-up-caught-in-action/")!
+        )
+
+        #expect(result.title.contains("Comet"))
+        #expect(result.contentHTML.contains("Hubble"))
+        #expect(result.contentHTML.contains("ATLAS"))
+        #expect(result.imageCount >= 2, "Article images should be preserved")
+        #expect(!result.contentHTML.contains("comment.png"), "Comment icon should not be in article content")
+        #expect(result.heroImageURL != nil, "Hero image should be found")
+        #expect(!(result.heroImageURL ?? "").contains("comment"), "Comment icon should not be used as hero")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
+    // MARK: - CNET
+
+    @Test("CNET: duplicate author headshots removed, article content preserved")
+    func cnetArticle() async throws {
+        let html = try loadFixture("cnet_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.cnet.com/tech/gaming/todays-nyt-connections-sports-edition-hints-and-answers-for-march-29-552/")!
+        )
+
+        #expect(result.title.contains("Connections"))
+        #expect(result.imageCount == 2, "Should have exactly 2 images (hero + article photo), not duplicate headshots")
+        #expect(!result.contentHTML.contains("Headshot of"), "Author headshots should be stripped")
+        #expect(result.contentHTML.contains("Connections: Sports Edition"))
+        #expect(result.heroImageURL != nil, "Hero image should be found")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
 }
 
 // MARK: - Full-mode tests
@@ -831,5 +911,188 @@ struct FullPipelineTests {
 
         // Content should be preserved
         #expect(result.cleanedHTML.contains("luxury") || result.cleanedHTML.contains("billion"))
+    }
+
+    // MARK: - HackerNoon (Next.js __NEXT_DATA__)
+
+    @Test("HackerNoon: article content injected from __NEXT_DATA__ JSON")
+    func hackernoonArticle() async throws {
+        let html = try loadFixture("hackernoon_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://hackernoon.com/backward-compatibility-in-go-what-to-know")!
+        )
+
+        #expect(result.cleanedHTML.contains("Go 1.21"))
+        #expect(result.cleanedHTML.contains("GODEBUG"))
+        #expect(result.wordCount > 100, "Article should have substantial content")
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form"))
+    }
+
+    // MARK: - Mashable
+
+    @Test("Mashable: author headshot filtered from hero, article content preserved")
+    func mashableArticle() async throws {
+        let html = try loadFixture("mashable_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://mashable.com/article/march-28-best-amazon-spring-sale-pokemon-tcg-perfect-order-booster-deal")!
+        )
+
+        #expect(result.heroImageURL != nil, "Hero image should be found")
+        #expect(!(result.heroImageURL ?? "").contains("/authors/"), "Author headshot should not be used as hero")
+        #expect(result.cleanedHTML.contains("Pokémon") || result.cleanedHTML.contains("Pokemon"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form"))
+    }
+
+    // MARK: - Sky & Telescope
+
+    @Test("Sky & Telescope: comment icon filtered from hero, article content preserved")
+    func skyTelescopeArticle() async throws {
+        let html = try loadFixture("skytelescope_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://skyandtelescope.org/astronomy-news/comet-break-up-caught-in-action/")!
+        )
+
+        #expect(result.cleanedHTML.contains("Comet"))
+        #expect(result.cleanedHTML.contains("Hubble"))
+        #expect(result.heroImageURL != nil, "Hero image should be found")
+        #expect(!(result.heroImageURL ?? "").contains("comment"), "Comment icon should not be used as hero")
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form"))
+    }
+
+    // MARK: - CNET
+
+    @Test("CNET: scripts and navigation stripped, article content preserved")
+    func cnetArticle() async throws {
+        let html = try loadFixture("cnet_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.cnet.com/tech/gaming/todays-nyt-connections-sports-edition-hints-and-answers-for-march-29-552/")!
+        )
+
+        #expect(result.cleanedHTML.contains("Connections: Sports Edition"))
+        #expect(result.heroImageURL != nil, "Hero image should be found")
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<form"))
+    }
+}
+
+// MARK: - RSS content fallback pipeline tests
+
+@Suite("RSS content fallback pipeline")
+struct RSSFallbackPipelineTests {
+
+    @Test("Strips scripts and interactive elements from RSS HTML")
+    func stripsUnsafeElements() async throws {
+        let rssHTML = """
+        <p>Article text here with <strong>bold</strong> content that is long enough to pass validation.</p>
+        <script>alert('xss')</script>
+        <button>Subscribe</button>
+        <nav><a href="/">Home</a></nav>
+        <form><input type="text" /></form>
+        <p>More article text with important information about the topic being discussed.</p>
+        """
+        let result = try await PageCacheService.shared.cleanRSSContent(
+            html: rssHTML,
+            baseURL: URL(string: "https://example.com/article")!
+        )
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<button"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<form"))
+        #expect(!result.contentHTML.contains("<input"))
+        #expect(result.contentHTML.contains("Article text here"))
+        #expect(result.contentHTML.contains("More article text"))
+        #expect(result.wordCount > 0)
+    }
+
+    @Test("Preserves images and extracts hero image URL")
+    func preservesImages() async throws {
+        let rssHTML = """
+        <p>Article intro paragraph with enough text to pass validation easily without issues.</p>
+        <img src="https://example.com/hero.jpg" />
+        <p>More article content after the image with sufficient length to be meaningful.</p>
+        """
+        let result = try await PageCacheService.shared.cleanRSSContent(
+            html: rssHTML,
+            baseURL: URL(string: "https://example.com/article")!
+        )
+        #expect(result.imageCount >= 1)
+        #expect(result.heroImageURL == "https://example.com/hero.jpg")
+    }
+
+    @Test("Rejects content that is too short")
+    func rejectsShortContent() async throws {
+        let rssHTML = "<p>Short</p>"
+        do {
+            _ = try await PageCacheService.shared.cleanRSSContent(
+                html: rssHTML,
+                baseURL: URL(string: "https://example.com/article")!
+            )
+            Issue.record("Should have thrown for short content")
+        } catch {
+            // Expected — RSS content was too short
+        }
+    }
+
+    @Test("Preserves text formatting: bold, italic, links, lists")
+    func preservesFormatting() async throws {
+        let rssHTML = """
+        <p>This is a <strong>bold</strong> and <em>italic</em> test with a <a href="https://example.com">link</a>.</p>
+        <ul><li>First item in the list</li><li>Second item in the list</li></ul>
+        <blockquote>A notable quote from the article source material.</blockquote>
+        """
+        let result = try await PageCacheService.shared.cleanRSSContent(
+            html: rssHTML,
+            baseURL: URL(string: "https://example.com/article")!
+        )
+        #expect(result.contentHTML.contains("<strong>bold</strong>"))
+        #expect(result.contentHTML.contains("<em>italic</em>"))
+        #expect(result.contentHTML.contains("<a"))
+        #expect(result.contentHTML.contains("<li>"))
+        #expect(result.contentHTML.contains("<blockquote>"))
+    }
+
+    @Test("Adds paragraph breaks to flat text without block-level HTML")
+    func addsParagraphBreaks() async throws {
+        // Flat text with no <p>, <br>, or other block elements — like Crunchyroll's RSS
+        let flatHTML = "First sentence here. Second sentence follows closely. Third one wraps up the intro. Fourth starts a new topic entirely. Fifth provides more details on it. Sixth is the final thought. Source: Official website"
+        let result = try await PageCacheService.shared.cleanRSSContent(
+            html: flatHTML,
+            baseURL: URL(string: "https://example.com/article")!
+        )
+        // Should contain <p> tags (paragraph structure was added)
+        #expect(result.contentHTML.contains("<p>"))
+        // Should have multiple paragraphs (not one giant block)
+        let pCount = result.contentHTML.components(separatedBy: "<p>").count - 1
+        #expect(pCount >= 2, "Should split flat text into multiple paragraphs, got \(pCount)")
+    }
+
+    @Test("Preserves existing paragraph structure without modification")
+    func preservesExistingParagraphs() async throws {
+        let structuredHTML = "<p>First paragraph with enough content to pass the minimum length threshold for this test.</p><p>Second paragraph also with sufficient content to meet the requirements.</p>"
+        let result = try await PageCacheService.shared.cleanRSSContent(
+            html: structuredHTML,
+            baseURL: URL(string: "https://example.com/article")!
+        )
+        // Should NOT double-wrap in <p> tags
+        #expect(!result.contentHTML.contains("<p><p>"))
+        // Should still have the original paragraphs
+        #expect(result.contentHTML.contains("First paragraph"))
+        #expect(result.contentHTML.contains("Second paragraph"))
     }
 }

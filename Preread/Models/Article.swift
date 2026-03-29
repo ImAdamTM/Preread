@@ -30,6 +30,7 @@ struct Article: Identifiable, Codable, Hashable, FetchableRecord, PersistableRec
     var lastModified: String?
     var retryCount: Int
     var readingMinutes: Int?
+    var rssContentHTML: String?
 
     static let databaseTableName = "article"
 }

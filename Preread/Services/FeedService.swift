@@ -17,6 +17,7 @@ struct FeedItem {
     let publishedAt: Date?
     let thumbnailURL: URL?
     let sourceName: String?
+    let contentHTML: String?
 }
 
 enum FeedError: Error, LocalizedError {
@@ -370,6 +371,12 @@ private final class FeedXMLParser: NSObject, XMLParserDelegate {
         currentText += string
     }
 
+    func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
+        if let string = String(data: CDATABlock, encoding: .utf8) {
+            currentText += string
+        }
+    }
+
     func parser(_ parser: XMLParser, didEndElement elementName: String,
                 namespaceURI: String?, qualifiedName qName: String?) {
         let element = elementName.lowercased()
@@ -398,7 +405,10 @@ private final class FeedXMLParser: NSObject, XMLParserDelegate {
                 if itemURL.isEmpty { itemURL = text }
             case "pubdate", "published", "updated", "dc:date":
                 if itemDateString.isEmpty { itemDateString = text }
-            case "content", "content:encoded", "description":
+            case "content:encoded":
+                // content:encoded has full article text — always prefer over description
+                if !text.isEmpty { itemContentHTML = text }
+            case "content", "description":
                 if itemContentHTML.isEmpty { itemContentHTML = text }
             case "source":
                 if itemSourceName.isEmpty { itemSourceName = text }
@@ -443,12 +453,16 @@ private final class FeedXMLParser: NSObject, XMLParserDelegate {
 
         let cleanTitle = itemTitle.isEmpty ? url.absoluteString : decodeHTMLEntities(itemTitle)
 
+        // Only keep contentHTML if it has meaningful text (> 100 chars)
+        let meaningfulContent: String? = itemContentHTML.count > 100 ? itemContentHTML : nil
+
         items.append(FeedItem(
             title: cleanTitle,
             url: url,
             publishedAt: date,
             thumbnailURL: thumbnail,
-            sourceName: itemSourceName.isEmpty ? nil : decodeHTMLEntities(itemSourceName)
+            sourceName: itemSourceName.isEmpty ? nil : decodeHTMLEntities(itemSourceName),
+            contentHTML: meaningfulContent
         ))
     }
 

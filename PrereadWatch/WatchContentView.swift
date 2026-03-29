@@ -1,4 +1,5 @@
 import SwiftUI
+import WatchConnectivity
 
 /// Watch companion app showing latest articles as full-screen paging cards.
 /// Digital Crown scrolls between articles; tap opens detail view with excerpt.
@@ -23,8 +24,17 @@ struct WatchContentView: View {
         .onChange(of: scenePhase) { _, newPhase in
             if newPhase == .active {
                 articles = WatchDataStore.loadArticles()
+                requestFreshArticles()
             }
         }
+    }
+
+    /// Asks the iPhone to push fresh article data.
+    /// Uses sendMessage which works reliably when both devices are active.
+    private func requestFreshArticles() {
+        let session = WCSession.default
+        guard session.activationState == .activated, session.isReachable else { return }
+        session.sendMessage(["action": "requestArticles"], replyHandler: nil, errorHandler: nil)
     }
 
     // MARK: - Pager

@@ -4,7 +4,7 @@
     "description": "NASA news, images, and videos from America's space agency",
     "feedURL": "https://www.nasa.gov/rss/dyn/breaking_news.rss",
     "id": "d25c6c3a-6b63-b163-f419-a1f6236d627a",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "NASA",
     "siteURL": "https://www.nasa.gov",
     "tags": [
@@ -20,7 +20,7 @@
     "description": "Deep technical coverage of SpaceX, launch vehicles, and space missions",
     "feedURL": "https://www.nasaspaceflight.com/feed/",
     "id": "072b25a6-26ee-18ab-b841-89ac5ec67014",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "NASASpaceFlight.com",
     "siteURL": "https://www.nasaspaceflight.com/",
     "tags": [
@@ -36,7 +36,7 @@
     "description": "Space-focused science news from New Scientist",
     "feedURL": "https://www.newscientist.com/subject/space/feed/",
     "id": "7eb72c4e-5ff7-baa4-6d73-bffd45fcabd9",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "New Scientist: Space",
     "siteURL": "https://www.newscientist.com/",
     "tags": [
@@ -52,7 +52,7 @@
     "description": "Explore the universe — stargazing, celestial events, and astronomy news",
     "feedURL": "https://www.skyandtelescope.com/feed/",
     "id": "b698806d-226f-201b-c951-d5cc16272860",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Sky & Telescope",
     "siteURL": "https://skyandtelescope.org/",
     "tags": [
@@ -68,7 +68,7 @@
     "description": "Space exploration, innovation, and astronomy news",
     "feedURL": "https://www.space.com/feeds.xml",
     "id": "c2edd5eb-4423-abe3-82cb-a6f22ae12fac",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Space.com",
     "siteURL": "https://www.space.com",
     "tags": [
@@ -84,7 +84,7 @@
     "description": "Launch coverage, mission updates, and straightforward spaceflight reporting",
     "feedURL": "https://spaceflightnow.com/feed/",
     "id": "3f9c29b2-e32f-7cbc-4a20-9b8bba2bb907",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Spaceflight Now",
     "siteURL": "https://spaceflightnow.com/",
     "tags": [
@@ -100,7 +100,7 @@
     "description": "Industry trade news covering space policy, contracts, commercial space, and defense",
     "feedURL": "https://spacenews.com/feed/",
     "id": "a84245b2-6be0-3a0d-8ac8-cd754c641446",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "SpaceNews",
     "siteURL": "https://spacenews.com/",
     "tags": [
@@ -116,7 +116,7 @@
     "description": "Tracking space policy, budgets, and program decisions",
     "feedURL": "https://spacepolicyonline.com/feed/",
     "id": "19edb0d5-1382-b7f7-3300-e4cdedfd9ccc",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "SpacePolicyOnline",
     "siteURL": "https://spacepolicyonline.com/",
     "tags": [
@@ -132,7 +132,7 @@
     "description": "Independent space news, explainers, and mission coverage since 1999",
     "feedURL": "https://www.universetoday.com/feed",
     "id": "e3f9cbf3-e3b6-0160-96da-b766f9e20988",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Universe Today",
     "siteURL": "https://www.universetoday.com/",
     "tags": [

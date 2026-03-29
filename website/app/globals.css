@@ -7,6 +7,13 @@ body {
   overflow-x: clip;
 }
 
+canvas {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
   font-family: "Gabarito", system-ui, sans-serif;
 }

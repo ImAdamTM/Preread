@@ -4,7 +4,7 @@
     "description": "UK anime distributor blog with interviews, behind-the-scenes features, and release coverage",
     "feedURL": "https://blog.alltheanime.com/feed/",
     "id": "eb7ce656-3307-4206-9ebc-7bca59e10630",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "All the Anime Blog",
     "siteURL": "https://blog.alltheanime.com",
     "tags": [
@@ -20,7 +20,7 @@
     "description": "Community-driven anime news, seasonal polls, and episode rankings",
     "feedURL": "https://animecorner.me/feed/",
     "id": "d45b6a3b-0936-404e-b0de-071f4da26feb",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Anime Corner",
     "siteURL": "https://animecorner.me",
     "tags": [
@@ -36,7 +36,7 @@
     "description": "Seasonal guides and critical writing on anime from a feminist perspective",
     "feedURL": "https://animefeminist.com/feed/",
     "id": "fdc7a18b-196d-416b-b49b-906397d9d5d1",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Anime Feminist",
     "siteURL": "https://animefeminist.com",
     "tags": [
@@ -52,7 +52,7 @@
     "description": "Independent anime news site covering conventions, industry news, and reviews",
     "feedURL": "https://www.animeherald.com/feed/",
     "id": "d249aaae-cbe8-46f6-b6ca-a550ae04ea13",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Anime Herald",
     "siteURL": "https://www.animeherald.com",
     "tags": [
@@ -68,7 +68,7 @@
     "description": "The most comprehensive English-language anime news, reviews, and encyclopedic database",
     "feedURL": "https://www.animenewsnetwork.com/all/rss.xml",
     "id": "e36aa3dd-3baa-48a2-be53-c53a4738e4ab",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Anime News Network",
     "siteURL": "https://www.animenewsnetwork.com",
     "tags": [
@@ -84,7 +84,7 @@
     "description": "Anime and manga blog covering UK releases, events, and reviews with a European perspective",
     "feedURL": "https://animeuknews.net/feed/",
     "id": "7cb151dd-befe-4827-b6dd-e2f030af8085",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Anime UK News",
     "siteURL": "https://animeuknews.net",
     "tags": [
@@ -100,7 +100,7 @@
     "description": "Manga and anime publishing industry coverage from a business and sales perspective",
     "feedURL": "https://www.comicsbeat.com/category/manga/feed/",
     "id": "ab98126f-fc3b-4c26-b9e9-fe8a29758bd8",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Comics Beat: Manga",
     "siteURL": "https://www.comicsbeat.com/category/manga/",
     "tags": [
@@ -116,7 +116,7 @@
     "description": "Anime news, simulcast schedules, and new series announcements from the streaming giant",
     "feedURL": "https://cr-news-api-service.prd.crunchyrollsvc.com/v1/en-US/rss",
     "id": "1e0a06cc-bc1e-4c9d-9520-0249dd7f0cc6",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Crunchyroll News",
     "siteURL": "https://www.crunchyroll.com/news",
     "tags": [
@@ -132,7 +132,7 @@
     "description": "Gaming site with growing anime coverage, especially game adaptations and cross-media franchises",
     "feedURL": "https://www.dualshockers.com/feed/",
     "id": "51c1e65d-4cac-48c4-84f4-ec3c87d372e0",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "DualShockers",
     "siteURL": "https://www.dualshockers.com",
     "tags": [
@@ -148,7 +148,7 @@
     "description": "Community anime and manga news, reviews, and seasonal previews",
     "feedURL": "https://myanimelist.net/rss/news.xml",
     "id": "a36d08a7-5f4e-4f21-a970-f3fe1c8138ab",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "MyAnimeList News",
     "siteURL": "https://myanimelist.net",
     "tags": [
@@ -164,7 +164,7 @@
     "description": "The authority on anime production quality, animation craft, and sakuga analysis",
     "feedURL": "https://blog.sakugabooru.com/feed/",
     "id": "22a3db45-261c-4a6f-93b6-5216a604698b",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Sakuga Blog",
     "siteURL": "https://blog.sakugabooru.com",
     "tags": [
@@ -180,7 +180,7 @@
     "description": "Japanese games and anime crossover news, adaptations, and character reveals",
     "feedURL": "https://www.siliconera.com/feed/",
     "id": "1900ae5e-1167-4cfb-a856-c83530ea72db",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Siliconera",
     "siteURL": "https://www.siliconera.com",
     "tags": [
@@ -196,7 +196,7 @@
     "description": "One of the longest-running anime blogs with seasonal previews and rankings",
     "feedURL": "https://thecartdriver.com/feed/",
     "id": "b6a0f62c-d2b8-4a37-8f84-5fef155714e7",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "The Cart Driver",
     "siteURL": "https://thecartdriver.com",
     "tags": [
@@ -212,7 +212,7 @@
     "description": "Japanese pop culture news covering anime, figures, fashion, and events",
     "feedURL": "https://otakumode.com/news/feed",
     "id": "0bb555e5-b520-4f1e-a2e0-8a1310d08816",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Tokyo Otaku Mode",
     "siteURL": "https://otakumode.com",
     "tags": [
@@ -228,7 +228,7 @@
     "description": "Thoughtful essay-style anime criticism and in-depth episode analysis",
     "feedURL": "https://wrongeverytime.com/feed/",
     "id": "6a2d73c5-f609-463e-b065-fdd8898f6793",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Wrong Every Time",
     "siteURL": "https://wrongeverytime.com",
     "tags": [
@@ -244,7 +244,7 @@
     "description": "Japanese hobby culture, retro anime, model kits, and vintage collectibles",
     "feedURL": "https://www.zimmerit.moe/feed/",
     "id": "b9139131-58f2-459e-96f0-bc17c6cf8957",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Zimmerit",
     "siteURL": "https://www.zimmerit.moe",
     "tags": [

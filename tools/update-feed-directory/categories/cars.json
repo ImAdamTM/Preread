@@ -4,7 +4,7 @@
     "description": "Car news, reviews, and consumer-practical buying advice from the UK",
     "feedURL": "https://www.autoexpress.co.uk/rss",
     "id": "0b8e4e5c-1503-c933-72f4-38daef7d4d74",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Auto Express",
     "siteURL": "https://www.autoexpress.co.uk/",
     "tags": [
@@ -20,7 +20,7 @@
     "description": "The global benchmark for road tests from the world's oldest car magazine",
     "feedURL": "https://www.autocar.co.uk/rss",
     "id": "79904079-a84e-46a3-4b7c-fba493e62a52",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Autocar",
     "siteURL": "https://www.autocar.co.uk/",
     "tags": [
@@ -36,7 +36,7 @@
     "description": "Car and bike news, reviews, and videos from India",
     "feedURL": "https://www.autocarindia.com/RSS/rss.ashx?type=all_bikes",
     "id": "a3feefc3-fc55-e4ba-71f9-904788520c63",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Autocar India",
     "siteURL": "https://www.autocarindia.com",
     "tags": [
@@ -52,7 +52,7 @@
     "description": "Stay ahead with the latest BMW news, reviews, and exclusive insights",
     "feedURL": "https://www.bmwblog.com/feed",
     "id": "3f1602b6-59f7-58fb-b95d-48273778f683",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "BMW BLOG",
     "siteURL": "https://www.bmwblog.com/",
     "tags": [
@@ -68,7 +68,7 @@
     "description": "Online auction platform for enthusiast vehicles",
     "feedURL": "https://bringatrailer.com/feed/",
     "id": "4cfb5617-635c-30bf-8209-a31cf5967d10",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Bring a Trailer",
     "siteURL": "https://bringatrailer.com",
     "tags": [
@@ -84,7 +84,7 @@
     "description": "The authority for rigorous car testing, comparison tests, and reviews",
     "feedURL": "https://www.caranddriver.com/rss/all.xml/",
     "id": "30295614-6961-c08f-f1e7-7c1ad0b317ed",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Car and Driver",
     "siteURL": "https://www.caranddriver.com/",
     "tags": [
@@ -100,7 +100,7 @@
     "description": "Car design resources, news, and tutorials",
     "feedURL": "https://www.carbodydesign.com/feed/",
     "id": "c11d0b11-c883-89c4-6fdd-59e20bc2a3b4",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Car Body Design",
     "siteURL": "https://www.carbodydesign.com",
     "tags": [
@@ -116,7 +116,7 @@
     "description": "The fastest on scoops, spy shots, and global car news",
     "feedURL": "https://www.carscoops.com/feed/",
     "id": "e081bf72-d79e-e8a8-a5c0-0586e5ea2444",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Carscoops",
     "siteURL": "https://www.carscoops.com/",
     "tags": [
@@ -132,7 +132,7 @@
     "description": "The performance car bible — driving engagement over luxury features",
     "feedURL": "https://www.evo.co.uk/news/feed",
     "id": "2168ad3e-c419-7d41-bfcf-e7630637a8d1",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Evo",
     "siteURL": "https://www.evo.co.uk/",
     "tags": [
@@ -148,7 +148,7 @@
     "description": "Classic cars, car culture, and the emotional side of automotive enthusiasm",
     "feedURL": "https://www.hagerty.com/media/feed/",
     "id": "aa16b1db-c6c6-c7ac-3094-78026a788dc9",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Hagerty",
     "siteURL": "https://www.hagerty.com/media/",
     "tags": [
@@ -164,7 +164,7 @@
     "description": "Comprehensive EV news, reviews, and charging coverage",
     "feedURL": "https://insideevs.com/rss/news/all/",
     "id": "6f392042-5b98-572e-0576-448cfe492c42",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "InsideEVs",
     "siteURL": "https://insideevs.com/",
     "tags": [
@@ -180,7 +180,7 @@
     "description": "Automotive news covering everything with an engine",
     "feedURL": "https://jalopnik.com/rss",
     "id": "acedcf60-42c8-82bd-151a-ebe84e686727",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Jalopnik",
     "siteURL": "https://www.jalopnik.com/",
     "tags": [
@@ -196,7 +196,7 @@
     "description": "International car news with strong global and regional coverage",
     "feedURL": "https://www.motor1.com/rss/news/all/",
     "id": "8691f84e-7ed3-9afe-4e7c-b1e33f7a682a",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Motor1",
     "siteURL": "https://www.motor1.com/",
     "tags": [
@@ -212,7 +212,7 @@
     "description": "Car culture, long-form writing, and automotive lifestyle",
     "feedURL": "https://www.roadandtrack.com/rss/default.xml",
     "id": "8e6e2141-8565-b769-7f2f-376ba2d28558",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Road & Track",
     "siteURL": "https://www.roadandtrack.com/",
     "tags": [
@@ -228,7 +228,7 @@
     "description": "The most fun, passionate, and genuinely weird car writing on the internet",
     "feedURL": "https://www.theautopian.com/feed",
     "id": "74315cd3-112d-c65b-d7b7-cb72f79f42e5",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "The Autopian",
     "siteURL": "https://www.theautopian.com/",
     "tags": [
@@ -244,7 +244,7 @@
     "description": "Cars, trucks, tech, and military vehicles from a digital-first outlet",
     "feedURL": "https://www.thedrive.com/feed",
     "id": "22f45195-776b-f74d-4599-a5dd394b7cfa",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "The Drive",
     "siteURL": "https://www.thedrive.com/",
     "tags": [
@@ -260,7 +260,7 @@
     "description": "Candid, unbiased automobile reviews and auto industry news",
     "feedURL": "https://www.thetruthaboutcars.com/rss/feed/all",
     "id": "36fb51a2-54bc-b7f7-c4e5-91933d876723",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "The Truth About Cars",
     "siteURL": "https://www.thetruthaboutcars.com",
     "tags": [

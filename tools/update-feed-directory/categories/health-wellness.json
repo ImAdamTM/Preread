@@ -4,7 +4,7 @@
     "description": "Broad consumer health coverage with condition-specific guides and expert content",
     "feedURL": "https://feeds.everydayhealth.com/google-discover.xml",
     "id": "390f49e9-d04c-87ea-3faf-f60a2cbb11a6",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Everyday Health",
     "siteURL": "https://www.everydayhealth.com/",
     "tags": [
@@ -20,7 +20,7 @@
     "description": "Latest health articles covering wellness, nutrition, fitness, and medical conditions",
     "feedURL": "https://feeds.distribution.dotdashmeredith.com/v3/rss/3e5c98be-d0f0-46ab-8201-3c3b64bdbcf0",
     "id": "48befd0a-1103-42bb-9a25-13916fbd2740",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Health.com",
     "siteURL": "https://www.health.com",
     "tags": [
@@ -36,7 +36,7 @@
     "description": "Medically reviewed health news covering conditions, treatments, and wellness",
     "feedURL": "https://www.healthline.com/rss/health-news",
     "id": "7856bbb3-2f1b-f5fc-797a-a82a5cd7704c",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Healthline",
     "siteURL": "https://www.healthline.com/",
     "tags": [
@@ -52,7 +52,7 @@
     "description": "Nonprofit health policy journalism covering the healthcare system, insurance, and public health",
     "feedURL": "https://kffhealthnews.org/feed",
     "id": "bf3b93c1-e1d0-9343-f674-c61a06240cb2",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "KFF Health News",
     "siteURL": "https://kffhealthnews.org/",
     "tags": [
@@ -68,7 +68,7 @@
     "description": "Mindfulness, meditation, and contemplative practices",
     "feedURL": "https://www.mindful.org/feed",
     "id": "91071b32-8655-fb66-430a-75dd95d554cc",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Mindful",
     "siteURL": "https://www.mindful.org/",
     "tags": [
@@ -84,7 +84,7 @@
     "description": "Evidence-based nutrition research reviews with cited sources",
     "feedURL": "https://nutritionfacts.org/feed",
     "id": "2db79578-8193-f201-6f1e-c57ae2dc71ea",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "NutritionFacts.org",
     "siteURL": "https://nutritionfacts.org/",
     "tags": [
@@ -100,7 +100,7 @@
     "description": "Fitness, nutrition, and wellness from an active-lifestyle perspective",
     "feedURL": "https://www.outsideonline.com/feed",
     "id": "ae5a1480-a2f9-bc42-6190-c39382804211",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Outside Online",
     "siteURL": "https://www.outsideonline.com/",
     "tags": [
@@ -116,7 +116,7 @@
     "description": "Practical strategies for physical, mental, and emotional well-being from Hearst",
     "feedURL": "https://www.prevention.com/rss/default.xml",
     "id": "2ede40a8-2e94-4623-8400-ae6d38fc97ed",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Prevention",
     "siteURL": "https://www.prevention.com",
     "tags": [
@@ -132,7 +132,7 @@
     "description": "Articles on psychology, relationships, and mental health from therapists and researchers",
     "feedURL": "https://www.psychologytoday.com/us/front/feed",
     "id": "3791c315-57cd-6cef-4542-7a936e998f8f",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Psychology Today",
     "siteURL": "https://www.psychologytoday.com/",
     "tags": [
@@ -148,7 +148,7 @@
     "description": "The gold standard for health and life sciences journalism",
     "feedURL": "https://www.statnews.com/feed/",
     "id": "91f73778-3386-1e82-9e7b-f3cb12ab6c23",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "STAT News",
     "siteURL": "https://www.statnews.com/",
     "tags": [
@@ -164,7 +164,7 @@
     "description": "Health, fitness, diets, and wellbeing information for an active lifestyle",
     "feedURL": "https://artofhealthyliving.com/feed/",
     "id": "c9bc77d2-0d20-4b4f-a267-1549b17bde2f",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "The Art of Healthy Living",
     "siteURL": "https://artofhealthyliving.com",
     "tags": [
@@ -180,7 +180,7 @@
     "description": "Health researchers writing directly for public audiences with nuance and evidence",
     "feedURL": "https://theconversation.com/us/health/articles.atom",
     "id": "0bb0e085-7f98-daa7-0ab2-34d3934b380f",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "The Conversation: Health",
     "siteURL": "https://theconversation.com/us/health",
     "tags": [
@@ -196,7 +196,7 @@
     "description": "Comprehensive, medically reviewed health information and condition guides",
     "feedURL": "https://feeds-api.dotdashmeredith.com/v1/rss/google/e9bc2236-f9bf-46ed-8fb4-be30d91fd32f",
     "id": "86f60d12-06a7-7d28-3cde-c9246558cf1d",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Verywell Health",
     "siteURL": "https://www.verywellhealth.com/",
     "tags": [
@@ -212,7 +212,7 @@
     "description": "Expert mental health information covering therapy, wellness, and psychology",
     "feedURL": "https://feeds-api.dotdashmeredith.com/v1/rss/google/16385a17-56e3-40a2-b61d-b29e3f7684d6",
     "id": "a90eb757-96ba-f59a-b78f-727cf903b6a8",
-    "lastVerified": "2026-03-28",
+    "lastVerified": "2026-03-29",
     "name": "Verywell Mind",
     "siteURL": "https://www.verywellmind.com/",
     "tags": [

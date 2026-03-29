@@ -37,7 +37,7 @@ enum SourceLayout: String, Codable, CaseIterable, DatabaseValueConvertible {
 struct Source: Identifiable, Codable, FetchableRecord, PersistableRecord {
     /// Well-known UUID for the hidden "Saved Pages" source that holds force-added webpages.
     static let savedPagesID = UUID(uuidString: "00000000-0000-0000-0000-000000000001")!
-    static let maxSources = 20
+    static let maxSources = 25
 
     var id: UUID
     var title: String

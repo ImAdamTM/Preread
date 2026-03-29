@@ -535,7 +535,8 @@ final class FetchCoordinator: ObservableObject {
                         lastHTTPStatus: nil,
                         etag: nil,
                         lastModified: nil,
-                        retryCount: 0
+                        retryCount: 0,
+                        rssContentHTML: item.contentHTML
                     )
                     do {
                         try await DatabaseManager.shared.dbPool.write { db in
@@ -737,7 +738,8 @@ final class FetchCoordinator: ObservableObject {
                     lastHTTPStatus: nil,
                     etag: nil,
                     lastModified: nil,
-                    retryCount: 0
+                    retryCount: 0,
+                    rssContentHTML: item.contentHTML
                 )
                 try article.insert(db)
                 inserted.append(article)

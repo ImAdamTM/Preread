@@ -78,12 +78,14 @@ final class WatchConnectivityManager: NSObject, WCSessionDelegate {
     }
 
     private func handleWatchMessage(_ message: [String: Any]) {
-        guard let action = message["action"] as? String,
-              let idString = message["articleID"] as? String,
-              let articleID = UUID(uuidString: idString) else { return }
+        guard let action = message["action"] as? String else { return }
 
         switch action {
+        case "requestArticles":
+            pushArticlesToWatch()
         case "toggleSave":
+            guard let idString = message["articleID"] as? String,
+                  let articleID = UUID(uuidString: idString) else { return }
             toggleSaveArticle(articleID)
         default:
             break

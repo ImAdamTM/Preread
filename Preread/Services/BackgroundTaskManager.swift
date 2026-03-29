@@ -220,7 +220,8 @@ enum BackgroundTaskManager {
                         lastHTTPStatus: nil,
                         etag: nil,
                         lastModified: nil,
-                        retryCount: 0
+                        retryCount: 0,
+                        rssContentHTML: pending.feedItem.contentHTML
                     )
 
                     try await DatabaseManager.shared.dbPool.write { db in

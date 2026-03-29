@@ -3309,8 +3309,8 @@
   {
     "category" : "Tech",
     "description" : "Links for the intellectually curious, ranked by readers",
-    "feedURL" : "https:\/\/news.ycombinator.com\/rss",
-    "id" : "7198d80d-0366-f20d-90e9-e30aab12bc67",
+    "feedURL" : "https:\/\/hnrss.org\/frontpage",
+    "id" : "6a418c53-13a0-9d59-e396-e43ba0b88292",
     "name" : "Hacker News",
     "siteURL" : "https:\/\/news.ycombinator.com\/",
     "tags" : [
@@ -3322,18 +3322,18 @@
     ]
   },
   {
-    "category" : "Tech",
-    "description" : "Top stories from Hacker News",
-    "feedURL" : "https:\/\/hnrss.org\/frontpage",
-    "id" : "6a418c53-13a0-9d59-e396-e43ba0b88292",
-    "name" : "Hacker News: Front Page",
-    "siteURL" : "https:\/\/news.ycombinator.com\/",
+    "category" : "Programming",
+    "description" : "How hackers start their afternoons. Community-driven tech articles on software development, AI, and startups",
+    "feedURL" : "https:\/\/hackernoon.com\/feed",
+    "id" : "f48a6ac6-e5bf-4070-885a-9e2403cbd3da",
+    "name" : "HackerNoon",
+    "siteURL" : "https:\/\/hackernoon.com",
     "tags" : [
+      "software development",
       "startups",
-      "programming",
-      "trending",
-      "vc",
-      "discussion"
+      "ai",
+      "web development",
+      "community"
     ]
   },
   {
@@ -4982,6 +4982,22 @@
     ]
   },
   {
+    "category" : "Motorcycles",
+    "country" : "United Kingdom",
+    "description" : "UK's biggest motorcycle news site with reviews, road tests, and racing coverage from MCN",
+    "feedURL" : "https:\/\/www.motorcyclenews.com\/news\/rss",
+    "id" : "c4a19e72-5b83-4d1f-b6e0-9f82d4a71c53",
+    "name" : "MCN",
+    "siteURL" : "https:\/\/www.motorcyclenews.com\/",
+    "tags" : [
+      "uk",
+      "reviews",
+      "racing",
+      "news",
+      "road tests"
+    ]
+  },
+  {
     "category" : "Humor & Satire",
     "description" : "Literary humor, satirical essays, and lists from one of the web's most distinctive comedy voices",
     "feedURL" : "https:\/\/feeds.feedburner.com\/mcsweeneys",
@@ -5836,6 +5852,22 @@
     ]
   },
   {
+    "category" : "United States",
+    "country" : "United States",
+    "description" : "In-depth news coverage from PBS NewsHour, America's most trusted evening news program",
+    "feedURL" : "https:\/\/www.pbs.org\/newshour\/feeds\/rss\/headlines",
+    "id" : "b7e3a1f0-8d42-4c6e-a915-3f1d72e8b094",
+    "name" : "PBS NewsHour",
+    "siteURL" : "https:\/\/www.pbs.org\/newshour\/",
+    "tags" : [
+      "pbs",
+      "politics",
+      "national",
+      "public media",
+      "nonpartisan"
+    ]
+  },
+  {
     "category" : "Gaming",
     "description" : "The global authority on PC gaming, hardware, and Half-Life 3",
     "feedURL" : "https:\/\/www.pcgamer.com\/feeds.xml",
@@ -5848,21 +5880,6 @@
       "hardware",
       "mods",
       "strategy"
-    ]
-  },
-  {
-    "category" : "Gaming",
-    "description" : "Gaming webcomic and commentary by Mike Krahulik and Jerry Holkins",
-    "feedURL" : "https:\/\/www.penny-arcade.com\/feed",
-    "id" : "b7821720-d59e-648d-b481-c669d69a6071",
-    "name" : "Penny Arcade",
-    "siteURL" : "https:\/\/www.penny-arcade.com\/",
-    "tags" : [
-      "webcomic",
-      "pax",
-      "humor",
-      "culture",
-      "commentary"
     ]
   },
   {
@@ -6260,21 +6277,6 @@
       "trends",
       "cloud",
       "analysis"
-    ]
-  },
-  {
-    "category" : "Humor & Satire",
-    "description" : "Women's satire site that skewers media, relationships, and lifestyle culture",
-    "feedURL" : "https:\/\/reductress.com\/feed",
-    "id" : "61b00002-b48e-a034-8ed9-46ffaca19df6",
-    "name" : "Reductress",
-    "siteURL" : "https:\/\/reductress.com",
-    "tags" : [
-      "feminism",
-      "parody",
-      "headlines",
-      "women",
-      "media satire"
     ]
   },
   {

@@ -31,7 +31,11 @@ private func makeSource() throws -> Source {
 }
 
 /// Creates an Article row in the database linked to the given source.
+/// Deletes any stale article with the same URL first (leftover from crashed test runs).
 private func makeArticle(sourceID: UUID, url: String, fetchStatus: ArticleFetchStatus = .pending) throws -> Article {
+    try DatabaseManager.shared.dbPool.write { db in
+        try Article.filter(Column("articleURL") == url).deleteAll(db)
+    }
     let article = Article(
         id: UUID(),
         sourceID: sourceID,
@@ -56,11 +60,9 @@ private func makeArticle(sourceID: UUID, url: String, fetchStatus: ArticleFetchS
     return article
 }
 
-/// Returns the article directory URL inside ApplicationSupport/preread/articles/.
+/// Returns the article directory URL inside the shared container's articles directory.
 private func articleDir(for articleID: UUID) -> URL {
-    let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-    return appSupport
-        .appendingPathComponent("preread/articles", isDirectory: true)
+    ContainerPaths.articlesBaseURL
         .appendingPathComponent(articleID.uuidString, isDirectory: true)
 }
 
@@ -88,12 +90,12 @@ private func reloadCachedPage(articleID: UUID) throws -> CachedPage? {
     }
 }
 
-// A real-world article URL known to have images and CSS.
-private let testArticleURL = "https://www.theverge.com/2024/1/9/24030520/apple-vision-pro-release-date-availability-price"
+// A real-world article URL known to have images and CSS. Wikipedia is used for stability.
+private let testArticleURL = "https://en.wikipedia.org/wiki/Apple_Vision_Pro"
 
 // MARK: - Tests
 
-@Suite("PageCacheService")
+@Suite("PageCacheService", .serialized)
 struct PageCacheServiceTests {
 
     // MARK: - standard
@@ -158,9 +160,9 @@ struct PageCacheServiceTests {
         }
         #expect(!imageFiles.isEmpty, "full cache should include images")
 
-        // Should have CSS files
-        let cssFiles = assetFiles.filter { $0.hasSuffix(".css") }
-        #expect(!cssFiles.isEmpty, "full cache should include CSS")
+        // Full mode inlines CSS into <style> tags — verify CSS was inlined
+        let html = try String(contentsOf: indexPath, encoding: .utf8)
+        #expect(html.contains("<style"), "full cache should inline CSS")
     }
 
     // MARK: - Non-HTML response
@@ -183,8 +185,8 @@ struct PageCacheServiceTests {
     @Test("response body under 1000 bytes sets fetchStatus to .failed")
     func tinyBodyFails() async throws {
         let source = try makeSource()
-        // httpbin.org/html returns a small HTML page well under 1000 bytes
-        let article = try makeArticle(sourceID: source.id, url: "https://httpbin.org/html")
+        // Returns 200 with text/html content type but a body well under 1000 bytes
+        let article = try makeArticle(sourceID: source.id, url: "https://httpbin.org/response-headers?Content-Type=text%2Fhtml")
         defer { cleanUp(articleID: article.id) }
 
         try await PageCacheService.shared.cacheArticle(article, cacheLevel: .standard)
