@@ -203,7 +203,14 @@ actor FeedService {
     // MARK: - Private helpers
 
     private func fetchData(from url: URL) async throws -> (Data, URLResponse) {
-        var request = URLRequest(url: url)
+        // Upgrade http to https so ATS doesn't block the request
+        var fetchURL = url
+        if url.scheme == "http",
+           var components = URLComponents(url: url, resolvingAgainstBaseURL: true) {
+            components.scheme = "https"
+            if let upgraded = components.url { fetchURL = upgraded }
+        }
+        var request = URLRequest(url: fetchURL)
         request.assumesHTTP3Capable = false
 
         var lastError: Error?
@@ -481,10 +488,19 @@ private final class FeedXMLParser: NSObject, XMLParserDelegate {
 
     private func resolveURL(_ string: String) -> URL? {
         guard !string.isEmpty else { return nil }
+        var resolved: URL?
         if let absolute = URL(string: string), absolute.scheme != nil {
-            return absolute
+            resolved = absolute
+        } else {
+            resolved = URL(string: string, relativeTo: feedURL)?.absoluteURL
         }
-        return URL(string: string, relativeTo: feedURL)?.absoluteURL
+        // Upgrade http to https so ATS doesn't block downstream downloads
+        if let url = resolved, url.scheme == "http",
+           var components = URLComponents(url: url, resolvingAgainstBaseURL: true) {
+            components.scheme = "https"
+            resolved = components.url
+        }
+        return resolved
     }
 
     private func parseDate(_ string: String) -> Date? {

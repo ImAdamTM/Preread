@@ -549,6 +549,89 @@ struct StandardPipelineTests {
         #expect(!result.contentHTML.contains("<nav"))
         #expect(!result.contentHTML.contains("<style"))
     }
+
+    // MARK: - Business Insider
+
+    @Test("Business Insider: data-srcs JSON lazy-load images recovered")
+    func businessInsiderArticle() async throws {
+        let html = try loadFixture("businessinsider_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.businessinsider.com/best-biggest-fast-food-burgers-ranked")!
+        )
+
+        #expect(result.title.contains("burger") || result.title.contains("Burger") || result.title.contains("fast-food") || result.title.contains("fast food"))
+        #expect(result.imageCount >= 10, "Should recover lazy-loaded images from data-srcs JSON (got \(result.imageCount))")
+        #expect(!result.contentHTML.contains("data:image/svg"), "SVG placeholders should be replaced with real URLs")
+        #expect(result.contentHTML.contains("i.insider.com"), "Real image URLs should be present")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
+    // MARK: - The Verge (Suno)
+
+    @Test("The Verge Suno: correct hero selected from compound filename")
+    func theVergeSunoArticle() async throws {
+        let html = try loadFixture("theverge_suno_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.theverge.com/entertainment/903056/suno-ai-music-v5-5-model")!
+        )
+
+        #expect(result.title.contains("Suno"))
+        // Hero must be the Suno banner, not a related article thumbnail like screen-02.png.
+        // Readability may include related article images as sibling content,
+        // so check that the FIRST image is the Suno banner.
+        #expect(result.contentHTML.contains("blogouterbanner"), "Suno banner should be the hero image")
+        let firstImgRange = result.contentHTML.range(of: "<img ")
+        if let range = firstImgRange {
+            let firstImg = String(result.contentHTML[range.lowerBound...].prefix(500))
+            #expect(firstImg.contains("blogouterbanner"), "First image should be the Suno banner, not a related article thumbnail")
+        }
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
+    // MARK: - Coveteur
+
+    @Test("Coveteur: data-runner-src lazy-load images recovered")
+    func coveteurArticle() async throws {
+        let html = try loadFixture("coveteur_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://coveteur.com/milan-fashion-week-guide")!
+        )
+
+        #expect(result.title.contains("Milan") || result.title.contains("Fashion"))
+        #expect(result.imageCount >= 5, "Should recover lazy-loaded images from data-runner-src (got \(result.imageCount))")
+        #expect(!result.contentHTML.contains("data:image/svg"), "SVG placeholders should be replaced with real URLs")
+        #expect(result.contentHTML.contains("media-library"), "Real image URLs should be present")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
+    // MARK: - HuggingFace Blog
+
+    @Test("HuggingFace Blog: avatar images stripped, article content extracted")
+    func huggingfaceBlog() async throws {
+        let html = try loadFixture("huggingface_blog")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://huggingface.co/blog/liberate-your-openclaw")!
+        )
+
+        #expect(result.title.contains("OpenClaw") || result.title.contains("Liberate"))
+        #expect(result.contentHTML.contains("Anthropic"), "Article text should be present")
+        #expect(result.contentHTML.contains("llama.cpp") || result.contentHTML.contains("llama-server"), "Code examples should be preserved")
+        #expect(!result.contentHTML.contains("cdn-avatars"), "Author avatar images should be stripped")
+        #expect(result.imageCount >= 1, "Article thumbnail should be preserved")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
 }
 
 // MARK: - Full-mode tests
@@ -1139,6 +1222,93 @@ struct FullPipelineTests {
         #expect(!result.cleanedHTML.contains("<nav"))
         #expect(!result.cleanedHTML.contains("<noscript"))
         #expect(!result.cleanedHTML.contains("<form"))
+    }
+
+    // MARK: - Business Insider
+
+    @Test("Business Insider: data-srcs JSON lazy-load images recovered, content preserved")
+    func businessInsiderArticle() async throws {
+        let html = try loadFixture("businessinsider_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.businessinsider.com/best-biggest-fast-food-burgers-ranked")!
+        )
+
+        #expect(!result.cleanedHTML.contains("data:image/svg"), "SVG placeholders should be replaced with real URLs")
+        #expect(result.cleanedHTML.contains("i.insider.com"), "Real image URLs should be present")
+        #expect(result.cleanedHTML.contains("burger") || result.cleanedHTML.contains("Burger"))
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<form"))
+    }
+
+    // MARK: - The Verge (Suno)
+
+    @Test("The Verge Suno: compound filename not falsely rejected by chrome filter")
+    func theVergeSunoArticle() async throws {
+        let html = try loadFixture("theverge_suno_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.theverge.com/entertainment/903056/suno-ai-music-v5-5-model")!
+        )
+
+        // Suno banner with compound filename "blogouterbanner" should not be
+        // rejected by chrome word filters (contains "logo" and "banner" as substrings)
+        #expect(result.heroImageURL?.contains("blogouterbanner") == true, "Suno banner should be the hero")
+        #expect(result.cleanedHTML.contains("Suno") || result.cleanedHTML.contains("suno"))
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<form"))
+    }
+
+    // MARK: - Coveteur
+
+    @Test("Coveteur full: lazy-load images recovered, no SVG placeholders")
+    func coveteurArticle() async throws {
+        let html = try loadFixture("coveteur_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://coveteur.com/milan-fashion-week-guide")!
+        )
+
+        // Check that img src attributes don't contain SVG placeholders (full page
+        // may contain SVG data URIs in CSS/preload, so check img tags specifically)
+        #expect(!result.cleanedHTML.contains("src=\"data:image/svg"), "img src SVG placeholders should be replaced")
+        #expect(result.cleanedHTML.contains("media-library"), "Real image URLs should be present")
+        // Strip HTML comments before checking for removed elements — IE conditional
+        // comments (<!--[if IE]>...<![endif]-->) contain inert <script> references
+        // that SwiftSoup preserves as comment nodes, not executable elements.
+        let noComments = result.cleanedHTML.replacingOccurrences(
+            of: "<!--[\\s\\S]*?-->",
+            with: "",
+            options: .regularExpression
+        )
+        #expect(!noComments.contains("<script>") && !noComments.contains("<script "))
+        #expect(!noComments.contains("<nav>") && !noComments.contains("<nav "))
+        #expect(!noComments.contains("<noscript"))
+        #expect(!noComments.contains("<form>") && !noComments.contains("<form "))
+        #expect(!noComments.contains("<svg"))
+    }
+
+    // MARK: - HuggingFace Blog
+
+    @Test("HuggingFace Blog: scripts and navigation stripped, article content preserved")
+    func huggingfaceBlog() async throws {
+        let html = try loadFixture("huggingface_blog")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://huggingface.co/blog/liberate-your-openclaw")!
+        )
+
+        #expect(result.cleanedHTML.contains("Anthropic"), "Article text should be preserved")
+        #expect(result.cleanedHTML.contains("llama.cpp") || result.cleanedHTML.contains("llama-server"), "Code examples should be preserved")
+        #expect(!result.cleanedHTML.contains("<script>") && !result.cleanedHTML.contains("<script "))
+        #expect(!result.cleanedHTML.contains("<nav>") && !result.cleanedHTML.contains("<nav "))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<form>") && !result.cleanedHTML.contains("<form "))
+        #expect(!result.cleanedHTML.contains("<svg"))
     }
 }
 

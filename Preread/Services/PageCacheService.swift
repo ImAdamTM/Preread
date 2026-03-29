@@ -283,6 +283,8 @@ actor PageCacheService {
         try preDoc.select("figure").unwrap()
         try flattenImageOnlyDivs(in: preDoc)
         flattenSingleChildDivs(in: preDoc)
+        try stripEmptyElements(in: preDoc)
+        try mergeStandaloneImages(in: preDoc)
 
         let cleanedHTML = try preDoc.html()
 
@@ -347,8 +349,19 @@ actor PageCacheService {
                 "furniture", "share", "follow", "comment", "thumbnail",
                 "banner", "bkgd", "reactions", "headshot"
             ]
+            // Use word-segment matching instead of substring matching to avoid
+            // false positives on compound filenames (e.g. "blogouterbanner"
+            // contains "logo" and "banner" as substrings but neither as a segment).
+            let segmentDelims: Set<Character> = ["_", "-", ".", "/", " ", "?", "&", "="]
+            let segments = { (text: String) -> Set<Substring> in
+                Set(text.split { segmentDelims.contains($0) })
+            }
+            let idSegs = segments(imgId)
+            let altSegs = segments(alt)
+            let srcSegs = segments(srcLower)
             for word in chromeWords {
-                if imgId.contains(word) || alt.contains(word) || srcLower.contains(word) { return false }
+                let w = Substring(word)
+                if idSegs.contains(w) || altSegs.contains(w) || srcSegs.contains(w) { return false }
             }
             // Check up to 2 ancestor levels for chrome signals.
             // Sites often wrap logos/avatars in containers like
@@ -481,16 +494,33 @@ actor PageCacheService {
             }
             if let url = URL(string: src),
                let scheme = url.scheme, let host = url.host {
-                // Dedup by base path (scheme + host + path, ignoring query/fragment)
-                let basePath = "\(scheme)://\(host)\(url.path)"
+                // Dedup by base path (scheme + host + path, ignoring query/fragment).
+                // Include identity query params (id, uuid, p) so media-library-style
+                // URLs like /media-library/image.jpg?id=123 aren't falsely deduped.
+                var basePath = "\(scheme)://\(host)\(url.path)"
+                if let comps = URLComponents(string: src),
+                   let items = comps.queryItems {
+                    let idParams = items
+                        .filter { ["id", "uuid", "p", "attachment_id"].contains($0.name.lowercased()) }
+                        .compactMap { item -> String? in
+                            guard let value = item.value else { return nil }
+                            return "\(item.name)=\(value)"
+                        }
+                        .sorted()
+                    if !idParams.isEmpty {
+                        basePath += "?" + idParams.joined(separator: "&")
+                    }
+                }
                 if !seenBasePaths.insert(basePath).inserted {
                     try img.remove()
                     continue
                 }
                 // Dedup by host + filename — catches CDN resize variants where
-                // only an intermediate path segment (hash/dimensions) differs
+                // only an intermediate path segment (hash/dimensions) differs.
+                // Skip when the filename is generic (shared across many images).
                 let filename = url.lastPathComponent
-                if !filename.isEmpty, filename != "/" {
+                let genericFilenames: Set<String> = ["image.jpg", "image.jpeg", "image.png", "image.webp", "photo.jpg", "photo.jpeg"]
+                if !filename.isEmpty, filename != "/", !genericFilenames.contains(filename.lowercased()) {
                     let hostFilename = "\(host)/\(filename)"
                     if !seenHostFilenames.insert(hostFilename).inserted {
                         try img.remove()
@@ -628,8 +658,17 @@ actor PageCacheService {
                     "furniture", "share", "follow", "comment", "thumbnail",
                     "banner", "bkgd", "headshot"
                 ]
+                // Word-segment matching (same as standard pipeline)
+                let segmentDelims: Set<Character> = ["_", "-", ".", "/", " ", "?", "&", "="]
+                let segments = { (text: String) -> Set<Substring> in
+                    Set(text.split { segmentDelims.contains($0) })
+                }
+                let idSegs = segments(imgId)
+                let altSegs = segments(alt)
+                let srcSegs = segments(srcLower)
                 for word in chromeWords {
-                    if imgId.contains(word) || alt.contains(word) || srcLower.contains(word) { return false }
+                    let w = Substring(word)
+                    if idSegs.contains(w) || altSegs.contains(w) || srcSegs.contains(w) { return false }
                 }
                 // Profile images: avatars and author headshots (same as standard pipeline)
                 if srcLower.contains("/avatar/") || srcLower.contains("/avatars/")
@@ -974,34 +1013,51 @@ actor PageCacheService {
 
         // Validate response
         let contentType = httpResponse.value(forHTTPHeaderField: "Content-Type")?.lowercased() ?? ""
-        guard httpResponse.statusCode == 200,
-              contentType.contains("text/html"),
-              data.count > 1000 else {
+        let httpValidationPassed = httpResponse.statusCode == 200
+            && contentType.contains("text/html")
+            && data.count > 1000
+
+        if !httpValidationPassed {
             print("[PageCacheService] Validation failed for \(article.articleURL): status=\(httpResponse.statusCode), contentType=\(contentType), dataSize=\(data.count)")
             article.lastHTTPStatus = httpResponse.statusCode
-            if wasPreviouslyCached, hasCachedContentOnDisk(for: article) {
-                article.fetchStatus = .cached
-            } else {
-                article.fetchStatus = .failed
-                article.retryCount += 1
+
+            // If RSS content is available, let the pipeline run on empty HTML —
+            // it will throw, and the catch block will fall back to RSS content.
+            if article.rssContentHTML == nil || article.rssContentHTML!.isEmpty {
+                if wasPreviouslyCached, hasCachedContentOnDisk(for: article) {
+                    article.fetchStatus = .cached
+                } else {
+                    article.fetchStatus = .failed
+                    article.retryCount += 1
+                }
+                try updateArticle(&article)
+                return .failed
             }
-            try updateArticle(&article)
-            return .failed
+            print("[PageCacheService] HTTP \(httpResponse.statusCode) for \(article.articleURL), will try RSS content fallback")
         }
 
-        // Parse HTML
-        let html = String(data: data, encoding: .utf8)
-            ?? String(data: data, encoding: .ascii)
-            ?? ""
-        guard !html.isEmpty else {
-            if wasPreviouslyCached, hasCachedContentOnDisk(for: article) {
-                article.fetchStatus = .cached
-            } else {
-                article.fetchStatus = .failed
-                article.retryCount += 1
+        // Parse HTML from HTTP response (empty when HTTP failed but RSS fallback exists)
+        let html: String
+        if httpValidationPassed {
+            html = String(data: data, encoding: .utf8)
+                ?? String(data: data, encoding: .ascii)
+                ?? ""
+            if html.isEmpty {
+                // Empty body — try RSS fallback if available, otherwise fail
+                if article.rssContentHTML == nil || article.rssContentHTML!.isEmpty {
+                    if wasPreviouslyCached, hasCachedContentOnDisk(for: article) {
+                        article.fetchStatus = .cached
+                    } else {
+                        article.fetchStatus = .failed
+                        article.retryCount += 1
+                    }
+                    try updateArticle(&article)
+                    return .failed
+                }
+                print("[PageCacheService] Empty HTML body for \(article.articleURL), will try RSS content fallback")
             }
-            try updateArticle(&article)
-            return .failed
+        } else {
+            html = ""
         }
 
         // Set up article directory — wipe any previous cache so we don't
@@ -1717,7 +1773,14 @@ actor PageCacheService {
     /// The original full-size image is not kept on disk.
     private func cacheThumbnail(url: URL, to articleDir: URL) async {
         do {
-            var request = URLRequest(url: url)
+            // Upgrade http to https so ATS doesn't block the download
+            var downloadURL = url
+            if downloadURL.scheme == "http",
+               var components = URLComponents(url: downloadURL, resolvingAgainstBaseURL: true) {
+                components.scheme = "https"
+                if let upgraded = components.url { downloadURL = upgraded }
+            }
+            var request = URLRequest(url: downloadURL)
             request.assumesHTTP3Capable = false
             let (data, response) = try await resilientData(for: request)
             if let httpResponse = response as? HTTPURLResponse,
@@ -2013,17 +2076,43 @@ actor PageCacheService {
         }
     }
 
-    /// Strips byline/author images from Readability output. These are small
-    /// square headshots that appear in author bios — often with alt text like
-    /// "Headshot of Jane Doe" or "Photo of John Smith". Detected generically:
-    /// alt contains "headshot" or starts with "photo of", both dimensions present
-    /// and ≤ 200px, roughly square (aspect ratio ≥ 0.8).
+    /// Strips byline/author images from Readability output.
+    ///
+    /// Two patterns are detected generically:
+    ///
+    /// 1. **Avatar images** — identified by the possessive pattern "'s avatar"
+    ///    in alt text (e.g. "Clem 🤗's avatar"), or by "avatar"/"avatars" as a
+    ///    segment in the src URL (CDN hostnames like `cdn-avatars.example.com`
+    ///    or paths like `/avatars/user.jpg`). The alt check uses the possessive
+    ///    form to avoid false positives on articles about the movie "Avatar".
+    ///
+    /// 2. **Headshot images** — alt contains "headshot" or starts with "photo of",
+    ///    both dimensions present and ≤ 200px, roughly square (aspect ratio ≥ 0.8).
     private func stripBylineImages(in doc: Document) throws {
-        for img in try doc.select("img[alt]").reversed() {
+        let segmentDelims: Set<Character> = ["_", "-", ".", "/", " ", "?", "&", "="]
+        for img in try doc.select("img").reversed() {
             guard img.parent() != nil else { continue }
             let alt = try img.attr("alt").lowercased().trimmingCharacters(in: .whitespaces)
-            guard alt.contains("headshot") || alt.hasPrefix("photo of") else { continue }
+            let src = try img.attr("src").lowercased()
 
+            // Pattern 1a: Avatar images identified by possessive alt text
+            // ("Clem's avatar", "ben burtenshaw's avatar"). The possessive
+            // form is universal for author avatars and never matches movie
+            // titles like "Avatar: The Way of Water".
+            let isAvatarAlt = alt.contains("'s avatar") || alt.contains("\u{2019}s avatar")
+
+            // Pattern 1b: Avatar images identified by src URL — CDN hostnames
+            // or paths containing "avatar"/"avatars" as a segment.
+            let srcSegments = Set(src.split { segmentDelims.contains($0) })
+            let isAvatarSrc = srcSegments.contains("avatar") || srcSegments.contains("avatars")
+
+            if isAvatarAlt || isAvatarSrc {
+                try img.remove()
+                continue
+            }
+
+            // Pattern 2: Headshot images — require explicit small square dimensions.
+            guard alt.contains("headshot") || alt.hasPrefix("photo of") else { continue }
             let w = Int(try img.attr("width")) ?? 0
             let h = Int(try img.attr("height")) ?? 0
             guard w > 0, h > 0, w <= 200, h <= 200 else { continue }
@@ -2282,9 +2371,11 @@ actor PageCacheService {
                 || src.contains("placeholder")
 
             if srcIsPlaceholder {
-                // Try common lazy-load data attributes for the real src
-                let lazySrcAttrs = ["data-lazy-src", "data-src", "data-original", "data-orig-file"]
-                for attr in lazySrcAttrs {
+                // Try well-known lazy-load attributes first (order matters when
+                // multiple exist — e.g. data-src may hold a low-res fallback while
+                // data-lazy-src holds the full-res version).
+                let prioritySrcAttrs = ["data-lazy-src", "data-src", "data-original", "data-orig-file"]
+                for attr in prioritySrcAttrs {
                     let value = try img.attr(attr)
                     if !value.isEmpty, !value.hasPrefix("data:") {
                         try img.attr("src", value)
@@ -2293,35 +2384,113 @@ actor PageCacheService {
                     }
                 }
 
-                // Promote data-lazy-srcset → srcset if srcset is empty
-                let srcset = try img.attr("srcset")
-                if srcset.isEmpty {
-                    let lazySrcsetAttrs = ["data-lazy-srcset", "data-srcset"]
-                    for attr in lazySrcsetAttrs {
-                        let value = try img.attr(attr)
-                        if !value.isEmpty {
-                            try img.attr("srcset", value)
-                            try img.removeAttr(attr)
-                            break
+                // Fallback: scan ALL data-* attributes for any whose name ends
+                // with "src" (but not "srcset") and whose value looks like a URL.
+                // Catches CMS-specific attributes like data-runner-src, data-hi-res-src,
+                // data-full-src, etc. without hardcoding each one.
+                let srcAfterPriority = try img.attr("src")
+                if srcAfterPriority.isEmpty || srcAfterPriority.hasPrefix("data:") {
+                    if let attrs = img.getAttributes() {
+                        for attr in attrs {
+                            let key = attr.getKey()
+                            guard key.hasPrefix("data-"),
+                                  key.hasSuffix("src"),
+                                  !key.hasSuffix("srcset") else { continue }
+                            let value = attr.getValue()
+                            if !value.isEmpty, !value.hasPrefix("data:"),
+                               value.hasPrefix("http") || value.hasPrefix("//") || value.hasPrefix("/") {
+                                try img.attr("src", value)
+                                try img.removeAttr(key)
+                                break
+                            }
                         }
                     }
                 }
 
-                // Promote data-lazy-sizes → sizes if sizes is empty
+                // Try data-srcs (JSON-encoded lazy-load, e.g. Business Insider)
+                // Format: {"https://example.com/image.jpg":{"contentType":"image/jpeg",...}}
+                let srcAfterLazy = try img.attr("src")
+                if srcAfterLazy.isEmpty || srcAfterLazy.hasPrefix("data:") {
+                    let dataSrcs = try img.attr("data-srcs")
+                    if !dataSrcs.isEmpty,
+                       let jsonData = dataSrcs.data(using: .utf8),
+                       let json = try? JSONSerialization.jsonObject(with: jsonData) as? [String: Any],
+                       let firstURL = json.keys.first(where: { $0.hasPrefix("http") }) {
+                        try img.attr("src", firstURL)
+                        try img.removeAttr("data-srcs")
+                    }
+                }
+
+                // Promote data-*-srcset → srcset if srcset is empty.
+                // Try well-known attributes first, then scan data-* generically.
+                let srcset = try img.attr("srcset")
+                if srcset.isEmpty {
+                    let prioritySrcsetAttrs = ["data-lazy-srcset", "data-srcset"]
+                    var found = false
+                    for attr in prioritySrcsetAttrs {
+                        let value = try img.attr(attr)
+                        if !value.isEmpty {
+                            try img.attr("srcset", value)
+                            try img.removeAttr(attr)
+                            found = true
+                            break
+                        }
+                    }
+                    if !found, let attrs = img.getAttributes() {
+                        for attr in attrs {
+                            let key = attr.getKey()
+                            guard key.hasPrefix("data-"), key.hasSuffix("srcset") else { continue }
+                            let value = attr.getValue()
+                            if !value.isEmpty {
+                                try img.attr("srcset", value)
+                                try img.removeAttr(key)
+                                break
+                            }
+                        }
+                    }
+                }
+
+                // Promote data-*-sizes → sizes if sizes is empty.
                 let sizes = try img.attr("sizes")
                 if sizes.isEmpty {
-                    let lazySizesAttrs = ["data-lazy-sizes", "data-sizes"]
-                    for attr in lazySizesAttrs {
+                    let prioritySizesAttrs = ["data-lazy-sizes", "data-sizes"]
+                    var found = false
+                    for attr in prioritySizesAttrs {
                         let value = try img.attr(attr)
                         if !value.isEmpty {
                             try img.attr("sizes", value)
                             try img.removeAttr(attr)
+                            found = true
                             break
+                        }
+                    }
+                    if !found, let attrs = img.getAttributes() {
+                        for attr in attrs {
+                            let key = attr.getKey()
+                            guard key.hasPrefix("data-"), key.hasSuffix("sizes") else { continue }
+                            let value = attr.getValue()
+                            if !value.isEmpty {
+                                try img.attr("sizes", value)
+                                try img.removeAttr(key)
+                                break
+                            }
                         }
                     }
                 }
 
                 try img.removeAttr("aria-hidden")
+
+                // Strip lazy-load classes/attributes so Readability's fixLazyImages
+                // doesn't re-process images we already recovered
+                try img.removeAttr("lazy-loadable")
+                let className = try img.attr("class")
+                if className.lowercased().contains("lazy") {
+                    let cleaned = className
+                        .components(separatedBy: " ")
+                        .filter { !$0.lowercased().contains("lazy") }
+                        .joined(separator: " ")
+                    try img.attr("class", cleaned)
+                }
             }
 
             // Fallback: if src is still a data URI placeholder and parent <a> links
@@ -2547,6 +2716,56 @@ actor PageCacheService {
         }
     }
 
+    // MARK: - Standalone image merging
+
+    /// Merges standalone `<img>` elements into adjacent text paragraphs so Readability
+    /// includes them during content extraction. Readability drops image-only `<p>` elements
+    /// and standalone `<img>` tags because they have zero text content. By prepending
+    /// an image to the next text `<p>` (or appending to the previous one), the image
+    /// inherits the paragraph's text score and survives extraction.
+    private func mergeStandaloneImages(in doc: Document) throws {
+        let blockContainers: Set<String> = ["div", "section", "article", "main"]
+        let images = try doc.select("img[src]")
+        for img in images {
+            guard let parent = img.parent(),
+                  blockContainers.contains(parent.tagName()) else { continue }
+            let siblings = parent.children().array()
+            guard let imgIndex = siblings.firstIndex(where: { $0 === img }) else { continue }
+            // Find the nearest text-bearing <p> sibling to merge into
+            var targetP: Element?
+            var prepend = true
+            // Prefer the NEXT text paragraph (image appears above the text)
+            for i in (imgIndex + 1)..<siblings.count {
+                if siblings[i].tagName() == "p",
+                   let text = try? siblings[i].text(),
+                   !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                    targetP = siblings[i]
+                    prepend = true
+                    break
+                }
+            }
+            // Fall back to previous text paragraph (image appears below the text)
+            if targetP == nil {
+                for i in (0..<imgIndex).reversed() {
+                    if siblings[i].tagName() == "p",
+                       let text = try? siblings[i].text(),
+                       !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        targetP = siblings[i]
+                        prepend = false
+                        break
+                    }
+                }
+            }
+            if let target = targetP {
+                if prepend {
+                    try target.prependChild(img)
+                } else {
+                    try target.appendChild(img)
+                }
+            }
+        }
+    }
+
     // MARK: - DOM flattening
 
     /// Unwraps `<div>` elements that serve purely as layout wrappers — those with exactly
@@ -2575,9 +2794,12 @@ actor PageCacheService {
                 // Count element children — only unwrap if there's exactly one child element
                 let elementChildren = div.children().array()
                 guard elementChildren.count == 1 else { continue }
-                // Only unwrap if the single child is a <div> or <img>
+                // Only unwrap if the single child is a block/content element
                 let childTag = elementChildren[0].tagName()
-                guard childTag == "div" || childTag == "img" else { continue }
+                let unwrapChildTags: Set<String> = [
+                    "div", "img", "picture", "figure"
+                ]
+                guard unwrapChildTags.contains(childTag) else { continue }
                 // Skip if the div has meaningful direct text
                 var hasDirectText = false
                 for node in div.getChildNodes() {

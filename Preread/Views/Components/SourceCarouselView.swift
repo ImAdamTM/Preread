@@ -47,7 +47,7 @@ struct SourceCarouselView: View {
                 }
                 .contentMargins(.horizontal, 20, for: .scrollContent)
                 .scrollTargetBehavior(.viewAligned)
-            } else {
+            } else if !articles.isEmpty {
                 // Reserve the card height while thumbnails load so the
                 // list layout doesn't jump when the carousel appears.
                 Color.clear.frame(height: cardHeight)

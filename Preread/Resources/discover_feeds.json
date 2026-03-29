@@ -2715,21 +2715,6 @@
     ]
   },
   {
-    "category" : "Fashion",
-    "description" : "Men's fashion and style guide",
-    "feedURL" : "https:\/\/www.fashionbeans.com\/rss-feed\/?category=fashion",
-    "id" : "fc08e847-9480-6a1c-bdee-d581c317536b",
-    "name" : "FashionBeans",
-    "siteURL" : "https:\/\/www.fashionbeans.com",
-    "tags" : [
-      "menswear",
-      "grooming",
-      "outfits",
-      "casual",
-      "streetwear"
-    ]
-  },
-  {
     "category" : "Beauty",
     "description" : "Fashion industry news, beauty, and style",
     "feedURL" : "https:\/\/fashionista.com\/.rss\/excerpt\/beauty",
@@ -4298,21 +4283,6 @@
     ]
   },
   {
-    "category" : "Programming",
-    "description" : "News and announcements from JetBrains",
-    "feedURL" : "https:\/\/blog.jetbrains.com\/blog\/feed",
-    "id" : "62a13c7d-59fb-8dae-1c56-a2f57a710f6c",
-    "name" : "JetBrains News | JetBrains Blog",
-    "siteURL" : "https:\/\/blog.jetbrains.com",
-    "tags" : [
-      "ide",
-      "releases",
-      "updates",
-      "tooling",
-      "kotlin"
-    ]
-  },
-  {
     "category" : "Celebrity & Pop Culture",
     "description" : "Celebrity and culture coverage with a feminist lens",
     "feedURL" : "https:\/\/jezebel.com\/rss",
@@ -5742,21 +5712,6 @@
       "analytics",
       "engagement",
       "instagram"
-    ]
-  },
-  {
-    "category" : "Programming",
-    "description" : "Personal blog by Dan Abramov on React and JavaScript",
-    "feedURL" : "https:\/\/overreacted.io\/rss.xml",
-    "id" : "449cde1f-f77e-04f2-cf5c-ee22e9f1f8e4",
-    "name" : "Overreacted",
-    "siteURL" : "https:\/\/overreacted.io\/",
-    "tags" : [
-      "react",
-      "javascript",
-      "hooks",
-      "mental models",
-      "frontend"
     ]
   },
   {
@@ -7823,21 +7778,6 @@
       "independent",
       "moscow",
       "politics"
-    ]
-  },
-  {
-    "category" : "Business & Finance",
-    "description" : "Free editorial content on investing and company analysis",
-    "feedURL" : "https:\/\/www.fool.com\/feeds\/index.aspx",
-    "id" : "5d312f5c-9836-2971-6c6b-c442e56b6ae0",
-    "name" : "The Motley Fool",
-    "siteURL" : "https:\/\/www.fool.com",
-    "tags" : [
-      "stocks",
-      "investing",
-      "etfs",
-      "portfolio",
-      "dividends"
     ]
   },
   {

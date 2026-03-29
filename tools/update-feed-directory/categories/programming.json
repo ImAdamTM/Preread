@@ -161,22 +161,6 @@
   },
   {
     "category": "Programming",
-    "description": "News and announcements from JetBrains",
-    "feedURL": "https://blog.jetbrains.com/blog/feed",
-    "id": "62a13c7d-59fb-8dae-1c56-a2f57a710f6c",
-    "lastVerified": "2026-03-29",
-    "name": "JetBrains News | JetBrains Blog",
-    "siteURL": "https://blog.jetbrains.com",
-    "tags": [
-      "ide",
-      "releases",
-      "updates",
-      "tooling",
-      "kotlin"
-    ]
-  },
-  {
-    "category": "Programming",
     "description": "Software architecture and development practices",
     "feedURL": "https://martinfowler.com/feed.atom",
     "id": "fd864915-7d54-9877-e25b-60df5c104c53",
@@ -205,22 +189,6 @@
       "scale",
       "java",
       "resilience"
-    ]
-  },
-  {
-    "category": "Programming",
-    "description": "Personal blog by Dan Abramov on React and JavaScript",
-    "feedURL": "https://overreacted.io/rss.xml",
-    "id": "449cde1f-f77e-04f2-cf5c-ee22e9f1f8e4",
-    "lastVerified": "2026-03-29",
-    "name": "Overreacted",
-    "siteURL": "https://overreacted.io/",
-    "tags": [
-      "react",
-      "javascript",
-      "hooks",
-      "mental models",
-      "frontend"
     ]
   },
   {

@@ -193,7 +193,7 @@ The feed directory lives at `tools/update-feed-directory/`. Feeds are organised 
    - Add the category to `categoryOrder` at the correct position.
    - Add an SF Symbol icon to `categoryIcons`.
 
-**CRITICAL: The `--skip-validation` and `--skip-quality` flags must not be used as the final step when adding new feeds.** They exist for development speed only. New feeds must pass the full validation pipeline before being considered done.
+**CRITICAL: NEVER use `--skip-validation` or `--skip-quality` flags.** These flags must not be used under any circumstances — not as a "first pass", not for speed, not as an intermediate step. Always run `swift run UpdateFeedDirectory` without flags. Every run must include full validation.
 
 Other tool modes:
 - `verify` — checks all existing feeds, auto-discovers replacement URLs for broken ones, and updates category files.

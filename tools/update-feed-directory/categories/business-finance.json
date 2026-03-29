@@ -161,22 +161,6 @@
   },
   {
     "category": "Business & Finance",
-    "description": "Free editorial content on investing and company analysis",
-    "feedURL": "https://www.fool.com/feeds/index.aspx",
-    "id": "5d312f5c-9836-2971-6c6b-c442e56b6ae0",
-    "lastVerified": "2026-03-29",
-    "name": "The Motley Fool",
-    "siteURL": "https://www.fool.com",
-    "tags": [
-      "stocks",
-      "investing",
-      "etfs",
-      "portfolio",
-      "dividends"
-    ]
-  },
-  {
-    "category": "Business & Finance",
     "description": "Data visualization focused business and markets content",
     "feedURL": "https://www.visualcapitalist.com/feed/",
     "id": "23e9208d-82a2-dea2-c33d-03439562654e",
