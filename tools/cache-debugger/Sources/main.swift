@@ -834,7 +834,7 @@ if isFullMode {
                 "logo", "flag", "icon", "badge", "spinner",
                 "facebook", "twitter", "instagram", "pinterest", "tiktok",
                 "furniture", "share", "follow", "comment", "thumbnail",
-                "banner", "bkgd", "reactions"
+                "banner", "bkgd", "reactions", "headshot"
             ]
             for word in chromeWords {
                 if imgId.contains(word) || alt.contains(word) || srcLower.contains(word) { return false }

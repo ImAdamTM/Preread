@@ -333,7 +333,7 @@ actor PageCacheService {
                 "logo", "flag", "icon", "badge", "spinner",
                 "facebook", "twitter", "instagram", "pinterest", "tiktok",
                 "furniture", "share", "follow", "comment", "thumbnail",
-                "banner", "bkgd", "reactions"
+                "banner", "bkgd", "reactions", "headshot"
             ]
             for word in chromeWords {
                 if imgId.contains(word) || alt.contains(word) || srcLower.contains(word) { return false }
@@ -600,7 +600,7 @@ actor PageCacheService {
                     "logo", "flag", "icon", "badge", "spinner",
                     "facebook", "twitter", "instagram", "pinterest", "tiktok",
                     "furniture", "share", "follow", "comment", "thumbnail",
-                    "banner", "bkgd"
+                    "banner", "bkgd", "headshot"
                 ]
                 for word in chromeWords {
                     if imgId.contains(word) || alt.contains(word) || srcLower.contains(word) { return false }

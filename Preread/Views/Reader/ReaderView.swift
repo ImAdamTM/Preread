@@ -114,13 +114,7 @@ struct ReaderView: View {
                                 .foregroundColor(Theme.textPrimary)
                         }
                     }
-                    HStack(spacing: 8) {
-                        readerSourceFavicon
-                        Text(displaySourceName)
-                            .font(Theme.scaledFont(size: 17, weight: .semibold))
-                            .foregroundColor(Theme.textPrimary)
-                            .lineLimit(1)
-                    }
+                    readerSourceFavicon
                 }
             }
             ToolbarItem(placement: .navigationBarTrailing) {

@@ -474,6 +474,26 @@ struct StandardPipelineTests {
         #expect(!result.contentHTML.contains("<nav"))
         #expect(!result.contentHTML.contains("<style"))
     }
+
+    // MARK: - TechCrunch
+
+    @Test("TechCrunch: headshot filtered from hero, article image used instead")
+    func techcrunchArticle() async throws {
+        let html = try loadFixture("techcrunch_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://techcrunch.com/2026/03/28/what-will-power-the-grid-in-2035-the-race-is-wide-open/")!
+        )
+
+        #expect(result.title.contains("grid") || result.title.contains("power"))
+        #expect(result.heroImageURL != nil, "Hero image should be found")
+        #expect(!(result.heroImageURL ?? "").contains("headshot"), "Author headshot should not be used as hero")
+        #expect((result.heroImageURL ?? "").contains("electrical-grid"), "Real article image should be hero")
+        #expect(result.contentHTML.contains("fusion") || result.contentHTML.contains("Fusion"))
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
 }
 
 // MARK: - Full-mode tests
@@ -984,6 +1004,25 @@ struct FullPipelineTests {
 
         #expect(result.cleanedHTML.contains("Connections: Sports Edition"))
         #expect(result.heroImageURL != nil, "Hero image should be found")
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<form"))
+    }
+
+    // MARK: - TechCrunch
+
+    @Test("TechCrunch: headshot filtered from hero, article content preserved")
+    func techcrunchArticle() async throws {
+        let html = try loadFixture("techcrunch_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://techcrunch.com/2026/03/28/what-will-power-the-grid-in-2035-the-race-is-wide-open/")!
+        )
+
+        #expect(result.cleanedHTML.contains("fusion") || result.cleanedHTML.contains("Fusion"))
+        #expect(result.heroImageURL != nil, "Hero image should be found")
+        #expect(!(result.heroImageURL ?? "").contains("headshot"), "Author headshot should not be used as hero")
         #expect(!result.cleanedHTML.contains("<script"))
         #expect(!result.cleanedHTML.contains("<nav"))
         #expect(!result.cleanedHTML.contains("<noscript"))
