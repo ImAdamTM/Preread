@@ -115,6 +115,7 @@ struct ReaderView: View {
                         }
                     }
                     readerSourceFavicon
+                        .padding(.trailing, 4)
                 }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
