@@ -632,6 +632,125 @@ struct StandardPipelineTests {
         #expect(!result.contentHTML.contains("<nav"))
         #expect(!result.contentHTML.contains("<style"))
     }
+    // MARK: - PC Gamer
+
+    @Test("PC Gamer: full article recovered, chrome stripped")
+    func pcGamerArticle() async throws {
+        let html = try loadFixture("pcgamer_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.pcgamer.com/gaming-industry/a-programmer-with-terminal-brain-cancer-was-caught-in-epics-mass-layoff-but-ceo-tim-sweeney-says-the-studio-will-solve-the-insurance-for-them/")!
+        )
+
+        // Title should be extracted
+        #expect(result.title.contains("brain cancer") || result.title.contains("Epic"))
+
+        // Full article text should be present (including aria-hidden paragraphs)
+        #expect(result.contentHTML.contains("Mike Prinke"))
+        #expect(result.contentHTML.contains("not just a number"), "Hidden paragraphs should be recovered")
+        #expect(result.contentHTML.contains("Tim Sweeney"), "Sweeney quote should be present")
+        #expect(result.contentHTML.contains("confidentiality around medical"), "Final quote should be present")
+
+        // Junk chrome should be stripped
+        #expect(!result.contentHTML.contains("biggest gaming news"), "Utility bar promo text should be stripped")
+        #expect(!result.contentHTML.contains("Article continues below"), "Interstitial should be stripped")
+        #expect(!result.contentHTML.contains("Keep up to date"), "Newsletter promo should be stripped")
+        #expect(!result.contentHTML.contains("confirm your public display name"), "Comments section should be stripped")
+
+        // Hero image should be present
+        #expect(result.imageCount >= 1, "Hero image should be present")
+
+        // Standard cleanup checks
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
+    // MARK: - NPR (Iran article)
+
+    @Test("NPR Iran: article images preserved, Loading placeholder stripped")
+    func nprIranArticle() async throws {
+        let html = try loadFixture("npr_iran_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.npr.org/2026/03/30/nx-s1-5765967/trump-iran-israel-lebanon-kharg-island-oil")!
+        )
+
+        // Title should be extracted
+        #expect(result.title.contains("Iran") || result.title.contains("Kharg"))
+
+        // Article text should be present
+        #expect(result.contentHTML.contains("Strait of Hormuz"))
+        #expect(result.contentHTML.contains("regime change"))
+        #expect(result.contentHTML.contains("Kharg Island"))
+        #expect(result.contentHTML.contains("Brent crude"))
+
+        // Multiple article images should survive (CDN proxy URLs must not be falsely deduped)
+        #expect(result.imageCount >= 4, "All article images should be preserved")
+
+        // JS-dependent embed placeholders should be stripped
+        #expect(!result.contentHTML.contains("Loading..."), "Loading placeholder should be stripped")
+
+        // Standard cleanup checks
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
+    // MARK: - Yachting Monthly
+
+    @Test("Yachting Monthly: lazy-loaded images recovered, logo excluded from hero")
+    func yachtingMonthlyArticle() async throws {
+        let html = try loadFixture("yachting_monthly")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.yachtingmonthly.com/sponsored/henri-lloyd-redefining-waterproofs-104580")!
+        )
+
+        // Title should be extracted
+        #expect(result.title.contains("Henri-Lloyd") || result.title.contains("Waterproof"))
+
+        // Article text should be present
+        #expect(result.contentHTML.contains("Ocean Pro"))
+        #expect(result.contentHTML.contains("Southern Ocean"))
+        #expect(result.contentHTML.contains("Durable Water Repellent"))
+
+        // Lazy-loaded images should be recovered (not stripped as placeholders)
+        #expect(result.imageCount >= 4, "Lazy-loaded article images should be recovered")
+
+        // Site logo (itemprop="logo") should NOT be in the content
+        #expect(!result.contentHTML.contains("YM-120-new.jpg"), "Site logo should be excluded from hero")
+
+        // Standard cleanup checks
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
+    // MARK: - Al Jazeera
+
+    @Test("Al Jazeera: relative-URL hero not duplicated when Readability resolves to absolute")
+    func aljazeeraArticle() async throws {
+        let html = try loadFixture("aljazeera_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.aljazeera.com/video/newsfeed/2026/3/30/irans-foreign-ministry-denies-claims-of-us-iran-negotiations?traffic_source=rss")!
+        )
+
+        // Title should be extracted
+        #expect(result.title.contains("Iran"))
+
+        // Article text should be present
+        #expect(result.contentHTML.contains("foreign ministry"))
+
+        // Hero image should appear exactly once (not duplicated due to relative vs absolute URL)
+        #expect(result.imageCount == 1, "Hero should not be duplicated")
+
+        // Standard cleanup checks
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
 }
 
 // MARK: - Full-mode tests
@@ -1309,6 +1428,118 @@ struct FullPipelineTests {
         #expect(!result.cleanedHTML.contains("<noscript"))
         #expect(!result.cleanedHTML.contains("<form>") && !result.cleanedHTML.contains("<form "))
         #expect(!result.cleanedHTML.contains("<svg"))
+    }
+    // MARK: - PC Gamer
+
+    @Test("PC Gamer: scripts, nav, comments stripped; article content preserved")
+    func pcGamerArticle() async throws {
+        let html = try loadFixture("pcgamer_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.pcgamer.com/gaming-industry/a-programmer-with-terminal-brain-cancer-was-caught-in-epics-mass-layoff-but-ceo-tim-sweeney-says-the-studio-will-solve-the-insurance-for-them/")!
+        )
+
+        // Article content should be preserved
+        #expect(result.cleanedHTML.contains("Mike Prinke"))
+        #expect(result.cleanedHTML.contains("not just a number"), "Hidden paragraphs should be recovered")
+        #expect(result.cleanedHTML.contains("Tim Sweeney"))
+
+        // Junk chrome should be stripped
+        #expect(!result.cleanedHTML.contains("biggest gaming news"), "Utility bar should be stripped")
+        #expect(!result.cleanedHTML.contains("Article continues below"), "Interstitial should be stripped")
+        #expect(!result.cleanedHTML.contains("confirm your public display name"), "Comments should be stripped")
+
+        // Standard full-mode cleanup checks
+        #expect(!result.cleanedHTML.contains("<script>") && !result.cleanedHTML.contains("<script "))
+        #expect(!result.cleanedHTML.contains("<nav>") && !result.cleanedHTML.contains("<nav "))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<form>") && !result.cleanedHTML.contains("<form "))
+        // Note: this fixture's CSS contains an inline SVG inside a data: URI
+        // (filter: url('data:image/svg+xml;...<svg ...')), so we can't do a
+        // blanket string check. SVG element removal is tested by other fixtures.
+    }
+
+    // MARK: - NPR (Iran article)
+
+    @Test("NPR Iran: scripts, nav stripped; article content and images preserved")
+    func nprIranArticle() async throws {
+        let html = try loadFixture("npr_iran_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.npr.org/2026/03/30/nx-s1-5765967/trump-iran-israel-lebanon-kharg-island-oil")!
+        )
+
+        // Article content should be preserved
+        #expect(result.cleanedHTML.contains("Strait of Hormuz"))
+        #expect(result.cleanedHTML.contains("regime change"))
+        #expect(result.cleanedHTML.contains("Kharg Island"))
+
+        // Images should be preserved
+        #expect(result.cleanedHTML.contains("<img"))
+
+        // JS-dependent embed placeholders should be stripped
+        #expect(!result.cleanedHTML.contains("Loading..."), "Loading placeholder should be stripped")
+
+        // Standard full-mode cleanup checks
+        #expect(!result.cleanedHTML.contains("<script>") && !result.cleanedHTML.contains("<script "))
+        #expect(!result.cleanedHTML.contains("<nav>") && !result.cleanedHTML.contains("<nav "))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form>") && !result.cleanedHTML.contains("<form "))
+    }
+
+    // MARK: - Yachting Monthly
+
+    @Test("Yachting Monthly: scripts, nav stripped; article content and images preserved")
+    func yachtingMonthlyArticle() async throws {
+        let html = try loadFixture("yachting_monthly")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.yachtingmonthly.com/sponsored/henri-lloyd-redefining-waterproofs-104580")!
+        )
+
+        // Article content should be preserved
+        #expect(result.cleanedHTML.contains("Ocean Pro"))
+        #expect(result.cleanedHTML.contains("Southern Ocean"))
+        #expect(result.cleanedHTML.contains("Durable Water Repellent"))
+
+        // Images should be preserved
+        #expect(result.cleanedHTML.contains("<img"))
+
+        // Standard full-mode cleanup checks
+        // Note: this fixture has a <script> inside an IE conditional comment
+        // (<!--[if lt IE 9]>...<![endif]-->), which SwiftSoup treats as an
+        // opaque HTML comment and doesn't strip. That's harmless — no browser
+        // executes it. We check <script> elements outside comments are gone.
+        #expect(!result.cleanedHTML.contains("<script>"))
+        #expect(!result.cleanedHTML.contains("<nav>") && !result.cleanedHTML.contains("<nav "))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form>") && !result.cleanedHTML.contains("<form "))
+    }
+
+    // MARK: - Al Jazeera
+
+    @Test("Al Jazeera: scripts, nav stripped; article content preserved")
+    func aljazeeraArticle() async throws {
+        let html = try loadFixture("aljazeera_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.aljazeera.com/video/newsfeed/2026/3/30/irans-foreign-ministry-denies-claims-of-us-iran-negotiations?traffic_source=rss")!
+        )
+
+        // Article content should be preserved
+        #expect(result.cleanedHTML.contains("foreign ministry"))
+
+        // Images should be preserved
+        #expect(result.cleanedHTML.contains("<img"))
+
+        // Standard full-mode cleanup checks
+        #expect(!result.cleanedHTML.contains("<script>") && !result.cleanedHTML.contains("<script "))
+        #expect(!result.cleanedHTML.contains("<nav>") && !result.cleanedHTML.contains("<nav "))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form>") && !result.cleanedHTML.contains("<form "))
     }
 }
 

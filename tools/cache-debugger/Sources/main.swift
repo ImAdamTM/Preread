@@ -48,6 +48,7 @@ func stripImageLayoutStyles(in doc: Document) throws {
     for img in images {
         try img.removeAttr("style")
         try img.removeAttr("class")
+        try img.removeAttr("loading")
         try img.removeAttr("data-nimg")
         try img.removeAttr("data-chromatic")
     }
@@ -415,46 +416,88 @@ func flattenSingleChildDivs(in doc: Document) {
 
 // MARK: - Helper: merge standalone images into paragraphs
 
-/// Merges standalone <img> elements into adjacent text paragraphs so Readability
-/// includes them during content extraction.
-func mergeStandaloneImages(in doc: Document) throws {
+/// Wraps standalone <img> elements (direct children of block containers) in
+/// their own <p> tags so they're valid block-level content for Readability.
+func wrapStandaloneImages(in doc: Document) throws {
     let blockContainers: Set<String> = ["div", "section", "article", "main"]
     let images = try doc.select("img[src]")
     for img in images {
         guard let parent = img.parent(),
               blockContainers.contains(parent.tagName()) else { continue }
-        let siblings = parent.children().array()
-        guard let imgIndex = siblings.firstIndex(where: { $0 === img }) else { continue }
-        var targetP: Element?
-        var prepend = true
-        for i in (imgIndex + 1)..<siblings.count {
-            if siblings[i].tagName() == "p",
-               let text = try? siblings[i].text(),
-               !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                targetP = siblings[i]
-                prepend = true
+        let wrapper = try Element(Tag("p"), "")
+        try img.before(wrapper)
+        try wrapper.appendChild(img)
+    }
+}
+
+// MARK: - Post-Readability image recovery
+
+/// Recovers article images that Readability dropped during extraction.
+func recoverDroppedImages(
+    contentHTML: String,
+    preDoc: Document,
+    heroImageURL: String?,
+    pageURL: URL
+) throws -> String {
+    let recoveryDoc = try SwiftSoup.parseBodyFragment(contentHTML, pageURL.absoluteString)
+    let existingSrcs = Set(
+        try recoveryDoc.select("img[src]").array().compactMap { try? $0.attr("src") }
+    )
+
+    let scopedSelectors = [
+        "article img[src]", "main img[src]",
+        "[role=main] img[src]", "[itemprop=articleBody] img[src]",
+    ]
+    let preImages: [Element]
+    if let scoped = scopedSelectors.lazy.compactMap({ sel in
+        try? preDoc.select(sel)
+    }).first(where: { !$0.isEmpty() }) {
+        preImages = scoped.array()
+    } else {
+        preImages = try preDoc.select("img[src]").array()
+    }
+
+    var injected = false
+    for img in preImages {
+        guard let src = try? img.attr("src"), !src.isEmpty,
+              !src.hasPrefix("data:") else { continue }
+        guard !existingSrcs.contains(src) else { continue }
+        if let hero = heroImageURL, src == hero { continue }
+
+        let anchor = img.parent()?.tagName() == "p" ? img.parent()! : img
+        guard let container = anchor.parent() else { continue }
+        let siblings = container.children().array()
+        guard let anchorIndex = siblings.firstIndex(where: { $0 === anchor }) else { continue }
+
+        var followingText: String?
+        for i in (anchorIndex + 1)..<siblings.count {
+            let tag = siblings[i].tagName()
+            guard tag == "p" || tag.hasPrefix("h") else { continue }
+            let text = (try? siblings[i].text())?
+                .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            if text.count >= 20 {
+                followingText = text
                 break
             }
         }
-        if targetP == nil {
-            for i in (0..<imgIndex).reversed() {
-                if siblings[i].tagName() == "p",
-                   let text = try? siblings[i].text(),
-                   !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                    targetP = siblings[i]
-                    prepend = false
-                    break
-                }
-            }
-        }
-        if let target = targetP {
-            if prepend {
-                try target.prependChild(img)
-            } else {
-                try target.appendChild(img)
+        guard let targetText = followingText else { continue }
+
+        for el in try recoveryDoc.select("p, h1, h2, h3, h4, h5, h6") {
+            let elText = (try? el.text())?
+                .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            if elText == targetText {
+                let imgHTML = try img.outerHtml()
+                try el.before("<p>\(imgHTML)</p>")
+                injected = true
+                break
             }
         }
     }
+
+    if injected {
+        return try recoveryDoc.body()?.html() ?? contentHTML
+    }
+    return contentHTML
 }
 
 // MARK: - Helper: strip tiny images
@@ -665,6 +708,36 @@ func deduplicateSiblingImages(in doc: Document) throws {
     }
 }
 
+// MARK: - Helper: strip interstitials
+
+func stripAriaHiddenFromContent(in doc: Document) throws {
+    let contentSelector = "p[aria-hidden], h1[aria-hidden], h2[aria-hidden], h3[aria-hidden], h4[aria-hidden], h5[aria-hidden], h6[aria-hidden], blockquote[aria-hidden], li[aria-hidden], td[aria-hidden], th[aria-hidden]"
+    for el in try doc.select(contentSelector) {
+        try el.removeAttr("aria-hidden")
+    }
+}
+
+func stripInterstitials(in doc: Document) throws {
+    let interstitialPhrases: Set<String> = [
+        "article continues below",
+        "continue reading below",
+        "story continues below",
+        "loading...",
+        "loading\u{2026}",
+    ]
+
+    let candidates = try doc.select("span, p, div")
+    for el in candidates.reversed() {
+        guard el.parent() != nil else { continue }
+        let text = (try? el.ownText())?
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .lowercased() ?? ""
+        if interstitialPhrases.contains(text) {
+            try el.remove()
+        }
+    }
+}
+
 // MARK: - Helper: strip empty elements
 
 func stripEmptyElements(in doc: Document) throws {
@@ -856,6 +929,12 @@ if isFullMode {
     // Strip comment sections
     try doc.select("#comments, .comments, #disqus_thread").remove()
 
+    // Strip tooltip elements, non-content markers, newsletter containers, interstitials
+    try doc.select("[role=tooltip]").remove()
+    try doc.select("[data-nosnippet]").remove()
+    try doc.select("[class*=newsletter], [id*=newsletter]").remove()
+    try stripInterstitials(in: doc)
+
     // Strip interactive elements that rely on JS
     try doc.select("button").remove()
     try doc.select("dialog").remove()
@@ -865,7 +944,8 @@ if isFullMode {
     try doc.select("select").remove()
     try doc.select("textarea").remove()
 
-    // Strip elements explicitly marked as hidden
+    // Strip aria-hidden from content elements so JS-toggled text remains visible
+    try stripAriaHiddenFromContent(in: doc)
     try doc.select("[aria-hidden=true]").remove()
 
     // Neutralise sticky/fixed positioning
@@ -902,11 +982,16 @@ if isFullMode {
     try preDoc.select("style").remove()
     try preDoc.select("meta[http-equiv=Content-Security-Policy]").remove()
     try preDoc.select("img.hide-when-no-script").remove()
-    try preDoc.select("img[src*=placeholder]").remove()
 
+    // Recover real URLs from lazy-loaded placeholder images BEFORE
+    // stripping placeholders — otherwise recoverable images are lost.
     try recoverPlaceholderImages(in: preDoc)
+    try preDoc.select("img[src*=placeholder]").remove()
     try unwrapPictureElements(in: preDoc)
     try stripCaptionToggles(in: preDoc)
+
+    // Strip aria-hidden from content elements so JS-toggled text is visible
+    try stripAriaHiddenFromContent(in: preDoc)
 
     // Strip tiny images (badges, tracking pixels, decorative icons)
     stripTinyImages(in: preDoc, maxDimension: 30)
@@ -920,6 +1005,12 @@ if isFullMode {
     // Strip comment sections — user-generated comments can outweigh article
     // text and confuse Readability's scoring.
     try preDoc.select("#comments, .comments, #disqus_thread").remove()
+
+    // Strip tooltip elements, non-content markers, newsletter containers, interstitials
+    try preDoc.select("[role=tooltip]").remove()
+    try preDoc.select("[data-nosnippet]").remove()
+    try preDoc.select("[class*=newsletter], [id*=newsletter]").remove()
+    try stripInterstitials(in: preDoc)
 
     // Strip interactive/UI elements that serve no purpose in reader mode
     // and prevent image wrapper divs from being flattened.
@@ -949,7 +1040,7 @@ if isFullMode {
     try flattenImageOnlyDivs(in: preDoc)
     flattenSingleChildDivs(in: preDoc)
     try stripEmptyElements(in: preDoc)
-    try mergeStandaloneImages(in: preDoc)
+    try wrapStandaloneImages(in: preDoc)
 
     let flattenedHTML = try preDoc.html()
     saveStep("3_flattened.html", html: flattenedHTML)
@@ -986,6 +1077,8 @@ if isFullMode {
             let imgId = (try? img.attr("id"))?.lowercased() ?? ""
             let alt = (try? img.attr("alt"))?.lowercased() ?? ""
             if srcLower.contains(".svg") { return false }
+            // Schema.org site logos are never article content
+            if (try? img.attr("itemprop")) == "logo" { return false }
             // WordPress theme assets are always site-wide decoration, never article content
             if srcLower.contains("/wp-content/themes/") { return false }
             let chromeWords = [
@@ -1075,12 +1168,27 @@ if isFullMode {
             try? preDoc.select(selector).first(where: isHeroCandidate)
         }.first
 
-        // Step 2: Determine the hero image
+        // Step 2: Determine the hero image.
+        // Check both the raw src and its resolved absolute URL so relative
+        // paths (e.g. /wp-content/...) match their absolute counterparts
+        // that Readability may have resolved. Also check HTML-encoded form
+        // since & in URLs becomes &amp; in HTML attribute values.
+        let heroAlreadyPresent = { (src: String) -> Bool in
+            if contentHTML.contains(src) { return true }
+            if let abs = URL(string: src, relativeTo: pageURL)?.absoluteString,
+               abs != src {
+                if contentHTML.contains(abs) { return true }
+                let encoded = abs.replacingOccurrences(of: "&", with: "&amp;")
+                if encoded != abs, contentHTML.contains(encoded) { return true }
+            }
+            return false
+        }
+
         var heroImageURL: String?
 
         if let scoped = scopedImg {
             let src = (try? scoped.attr("src")) ?? ""
-            if !contentHTML.contains(src) {
+            if !heroAlreadyPresent(src) {
                 heroImageURL = src
                 let heroTag = (try? scoped.outerHtml()) ?? ""
                 if !heroTag.isEmpty {
@@ -1096,7 +1204,7 @@ if isFullMode {
             if let pageFirst = try? preDoc.select("img[src]").first(where: isHeroCandidate) {
                 let src = (try? pageFirst.attr("src")) ?? ""
                 heroImageURL = src
-                if !contentHTML.contains(src) {
+                if !heroAlreadyPresent(src) {
                     let heroTag = (try? pageFirst.outerHtml()) ?? ""
                     if !heroTag.isEmpty {
                         print("  -> Hero image re-injected (page-level fallback)")
@@ -1120,6 +1228,14 @@ if isFullMode {
 
         print("  -> Readability title: \(title)")
 
+        // Recover article images dropped by Readability
+        contentHTML = try recoverDroppedImages(
+            contentHTML: contentHTML,
+            preDoc: preDoc,
+            heroImageURL: heroImageURL,
+            pageURL: pageURL
+        )
+
         // Post-processing
         let contentDoc = try SwiftSoup.parseBodyFragment(contentHTML, pageURL.absoluteString)
 
@@ -1141,13 +1257,13 @@ if isFullMode {
             if let url = URL(string: src),
                let scheme = url.scheme, let host = url.host {
                 // Dedup by base path (scheme + host + path, ignoring query/fragment).
-                // Include identity query params (id, uuid, p) so media-library-style
-                // URLs like /media-library/image.jpg?id=123 aren't falsely deduped.
+                // Include identity query params so media-library-style URLs and
+                // CDN proxy URLs aren't falsely deduped.
                 var basePath = "\(scheme)://\(host)\(url.path)"
                 if let comps = URLComponents(string: src),
                    let items = comps.queryItems {
                     let idParams = items
-                        .filter { ["id", "uuid", "p", "attachment_id"].contains($0.name.lowercased()) }
+                        .filter { ["id", "uuid", "p", "attachment_id", "url"].contains($0.name.lowercased()) }
                         .compactMap { item -> String? in
                             guard let value = item.value else { return nil }
                             return "\(item.name)=\(value)"
@@ -1165,7 +1281,12 @@ if isFullMode {
                 // only an intermediate path segment (hash/dimensions) differs.
                 // Skip when the filename is generic (shared across many images).
                 let filename = url.lastPathComponent
-                let genericFilenames: Set<String> = ["image.jpg", "image.jpeg", "image.png", "image.webp", "photo.jpg", "photo.jpeg"]
+                let genericFilenames: Set<String> = [
+                    "image.jpg", "image.jpeg", "image.png", "image.webp",
+                    "photo.jpg", "photo.jpeg",
+                    // Bare format names from CDN path segments (e.g. .../format/jpeg/)
+                    "jpeg", "jpg", "png", "webp", "gif", "avif",
+                ]
                 if !filename.isEmpty, filename != "/", !genericFilenames.contains(filename.lowercased()) {
                     let hostFilename = "\(host)/\(filename)"
                     if !seenHostFilenames.insert(hostFilename).inserted {

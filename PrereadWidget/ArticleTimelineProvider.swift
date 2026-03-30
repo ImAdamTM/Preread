@@ -25,14 +25,17 @@ struct ArticleTimelineProvider: AppIntentTimelineProvider {
             return Timeline(entries: [entry], policy: .after(nextUpdate))
         }
 
-        // Generate slideshow entries: one per article, spaced apart
-        // WidgetKit crossfades between entries automatically
+        // Generate slideshow entries that loop for the full refresh window.
+        // WidgetKit crossfades between entries automatically.
         var entries: [ArticleWidgetEntry] = []
         let interval: TimeInterval = 10
+        let refreshMinutes = 30
+        let totalSlots = Int(Double(refreshMinutes * 60) / interval)
+        let articleCount = entry.articles.count
 
-        for index in entry.articles.indices {
-            let entryDate = entry.date.addingTimeInterval(Double(index) * interval)
-            // Rotate the articles array so the current article is first
+        for slot in 0..<totalSlots {
+            let index = slot % articleCount
+            let entryDate = entry.date.addingTimeInterval(Double(slot) * interval)
             let rotated = Array(entry.articles[index...]) + Array(entry.articles[..<index])
             entries.append(ArticleWidgetEntry(
                 date: entryDate,
@@ -42,7 +45,7 @@ struct ArticleTimelineProvider: AppIntentTimelineProvider {
         }
 
         // Refresh timeline every 30 minutes
-        let nextUpdate = Calendar.current.date(byAdding: .minute, value: 30, to: Date())!
+        let nextUpdate = Calendar.current.date(byAdding: .minute, value: refreshMinutes, to: Date())!
         return Timeline(entries: entries, policy: .after(nextUpdate))
     }
 
