@@ -47,10 +47,12 @@ struct SourceCarouselView: View {
                 }
                 .contentMargins(.horizontal, 20, for: .scrollContent)
                 .scrollTargetBehavior(.viewAligned)
-            } else if !articles.isEmpty {
-                // Reserve the card height while thumbnails load so the
-                // list layout doesn't jump when the carousel appears.
-                Color.clear.frame(height: cardHeight)
+            } else {
+                // Always render a fallback so the List row has a trackable view.
+                // Use cardHeight while thumbnails load (articles exist but images
+                // haven't been read from disk yet); collapse to 0 when no articles
+                // have thumbnails at all.
+                Color.clear.frame(height: articles.isEmpty ? 0 : cardHeight)
             }
         }
         .task { startObservation() }
