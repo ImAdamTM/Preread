@@ -5,7 +5,7 @@
     "description": "News, Nachrichten und aktuelle Meldungen aus allen Ressorts. Politik, Wirtschaft, Sport, Feuilleton und Finanzen im",
     "feedURL": "https://www.faz.net/rss/aktuell/",
     "id": "e1c83501-ce8c-f059-771d-37acd0b8cd36",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Aktuell - FAZ.NET",
     "siteURL": "https://www.faz.net/aktuell/",
     "tags": [
@@ -22,7 +22,7 @@
     "description": "News, off-beat stories and analysis of German and international affairs. Dive deeper with our features from Europe and",
     "feedURL": "https://rss.dw.com/rdf/rss-en-all",
     "id": "14dda539-770f-94e3-25d6-e6242ab2c164",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Deutsche Welle",
     "siteURL": "https://www.dw.com/english/",
     "tags": [
@@ -39,7 +39,7 @@
     "description": "tagesschau.de - Die Nachrichten der ARD",
     "feedURL": "https://www.tagesschau.de/xml/rss2",
     "id": "d6a6caba-7f52-b33a-cc8e-313e41eda58b",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "tagesschau.de",
     "siteURL": "https://www.tagesschau.de/infoservices/alle-meldungen-100.html",
     "tags": [

@@ -98,22 +98,25 @@ struct ReaderView: View {
         .toolbarBackground(.hidden, for: .navigationBar)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                HStack(spacing: 16) {
-                    if !detailCoordinator.isSplitView {
-                        Button {
-                            if lightboxImageURL != nil {
-                                withAnimation(.easeOut(duration: 0.25)) {
-                                    lightboxImageURL = nil
-                                }
-                            } else {
-                                dismiss()
+                if !detailCoordinator.isSplitView {
+                    Button {
+                        if lightboxImageURL != nil {
+                            withAnimation(.easeOut(duration: 0.25)) {
+                                lightboxImageURL = nil
                             }
-                        } label: {
+                        } else {
+                            dismiss()
+                        }
+                    } label: {
+                        HStack(spacing: 16) {
                             Image(systemName: "chevron.left")
                                 .font(Theme.scaledFont(size: 16, weight: .semibold))
                                 .foregroundColor(Theme.textPrimary)
+                            readerSourceFavicon
+                                .padding(.trailing, 4)
                         }
                     }
+                } else {
                     readerSourceFavicon
                         .padding(.trailing, 4)
                 }

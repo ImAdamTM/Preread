@@ -70,12 +70,20 @@ func promoteNoscriptImages(in doc: Document) throws {
         let realSrc = try noscriptImg.attr("src")
         guard !realSrc.isEmpty, !realSrc.hasPrefix("data:") else { continue }
 
-        guard let sibling = try noscript.nextElementSibling(),
-              sibling.tagName() == "img" else { continue }
-        let sibSrc = try sibling.attr("src")
-        guard sibSrc.isEmpty || sibSrc.hasPrefix("data:") else { continue }
+        // Look for a sibling <img> without src (or with empty src)
+        if let sibling = try noscript.nextElementSibling(),
+           sibling.tagName() == "img" {
+            let sibSrc = try sibling.attr("src")
+            if sibSrc.isEmpty || sibSrc.hasPrefix("data:") {
+                try sibling.attr("src", realSrc)
+                continue
+            }
+        }
 
-        try sibling.attr("src", realSrc)
+        // No sibling img to promote into — extract the <img> from
+        // the noscript and place it directly in the DOM.
+        let imgHTML = try noscriptImg.outerHtml()
+        try noscript.before(imgHTML)
     }
 }
 
@@ -842,6 +850,178 @@ func extractNextDataContent(from doc: Document) -> String? {
     return bestHTML
 }
 
+/// Extracts a balanced JSON object starting at the given index.
+func extractBalancedJSON(from text: String, startingAt startIndex: String.Index) -> Substring? {
+    var depth = 0
+    var inString = false
+    var escaped = false
+    var index = startIndex
+
+    while index < text.endIndex {
+        let char = text[index]
+
+        if escaped {
+            escaped = false
+        } else if char == "\\" && inString {
+            escaped = true
+        } else if char == "\"" {
+            inString.toggle()
+        } else if !inString {
+            if char == "{" {
+                depth += 1
+            } else if char == "}" {
+                depth -= 1
+                if depth == 0 {
+                    return text[startIndex...index]
+                }
+            }
+        }
+
+        index = text.index(after: index)
+    }
+
+    return nil
+}
+
+/// Hydrates empty image placeholders with URLs from Apollo Client cache.
+func hydrateApolloImages(in doc: Document) -> Int {
+    guard let scripts = try? doc.select("script").array() else { return 0 }
+
+    var apolloJSON: [String: Any]?
+    for script in scripts {
+        let text = script.data()
+        guard let markerRange = text.range(of: "__APOLLO_STATE__") else { continue }
+
+        var searchIndex = markerRange.upperBound
+        while searchIndex < text.endIndex && text[searchIndex] != "{" {
+            searchIndex = text.index(after: searchIndex)
+        }
+        guard searchIndex < text.endIndex else { continue }
+
+        guard let jsonSubstring = extractBalancedJSON(from: text, startingAt: searchIndex),
+              let jsonData = String(jsonSubstring).data(using: .utf8),
+              let parsed = try? JSONSerialization.jsonObject(with: jsonData) as? [String: Any] else {
+            continue
+        }
+
+        apolloJSON = parsed
+        break
+    }
+
+    guard let apollo = apolloJSON else { return 0 }
+
+    guard let rootQuery = apollo["ROOT_QUERY"] as? [String: Any] else { return 0 }
+
+    var articleDict: [String: Any]?
+    for (_, value) in rootQuery {
+        guard let dict = value as? [String: Any] else { continue }
+        if let typename = dict["__typename"] as? String, typename == "Article" {
+            articleDict = dict
+            break
+        }
+    }
+
+    if articleDict == nil {
+        for (_, value) in rootQuery {
+            guard let dict = value as? [String: Any] else { continue }
+            let hasSegments = dict.keys.contains { $0.hasPrefix("segments") }
+            if hasSegments {
+                articleDict = dict
+                break
+            }
+        }
+    }
+
+    guard let article = articleDict else { return 0 }
+
+    var imageURLs: [String] = []
+
+    let segmentsKey = article.keys.first { $0.hasPrefix("segments") }
+    guard let key = segmentsKey,
+          let segments = article[key] as? [[String: Any]] else { return 0 }
+
+    // Helper: resolve an Image:* ref to a URL
+    func resolveImageRef(_ refID: String) -> String? {
+        guard refID.hasPrefix("Image:"),
+              let imageEntry = apollo[refID] as? [String: Any] else { return nil }
+        let url = (imageEntry["uri"] as? String)
+            ?? (imageEntry["url"] as? String)
+            ?? (imageEntry["src"] as? String)
+        guard let url = url, !url.isEmpty else { return nil }
+        return url.replacingOccurrences(of: "\\u002F", with: "/")
+    }
+
+    // Helper: extract image ref from a dict's image-prefixed field
+    func extractImageURL(from dict: [String: Any]) -> String? {
+        for (fieldKey, fieldValue) in dict {
+            guard fieldKey.hasPrefix("image"),
+                  let ref = fieldValue as? [String: Any],
+                  let refID = ref["__ref"] as? String else { continue }
+            return resolveImageRef(refID)
+        }
+        return nil
+    }
+
+    for segment in segments {
+        // Direct image ref on the segment
+        if let url = extractImageURL(from: segment) {
+            imageURLs.append(url)
+        }
+
+        // Gallery ref — walk gallery items for their images
+        for (fieldKey, fieldValue) in segment {
+            guard fieldKey.hasPrefix("gallery"),
+                  let ref = fieldValue as? [String: Any],
+                  let galleryID = ref["__ref"] as? String,
+                  let galleryEntry = apollo[galleryID] as? [String: Any] else { continue }
+
+            for (gKey, gValue) in galleryEntry {
+                guard gKey.hasPrefix("galleryitems"),
+                      let itemsData = gValue as? [String: Any],
+                      let nodes = itemsData["nodes"] as? [[String: Any]] else { continue }
+
+                for node in nodes {
+                    if let url = extractImageURL(from: node) {
+                        imageURLs.append(url)
+                    }
+                }
+            }
+        }
+    }
+
+    guard !imageURLs.isEmpty else { return 0 }
+
+    guard let placeholders = try? doc.select("[style*=padding-top]").array() else { return 0 }
+
+    let emptyPlaceholders = placeholders.filter { el in
+        guard let imgs = try? el.select("img"), imgs.isEmpty() else { return false }
+        guard let style = try? el.attr("style"),
+              style.range(of: #"padding-top\s*:\s*[\d.]+%"#, options: .regularExpression) != nil else {
+            return false
+        }
+        let text = (try? el.text())?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        return text.count < 10
+    }
+
+    guard !emptyPlaceholders.isEmpty else { return 0 }
+
+    var injected = 0
+    let count = min(imageURLs.count, emptyPlaceholders.count)
+    for i in 0..<count {
+        let placeholder = emptyPlaceholders[i]
+        let url = imageURLs[i]
+        do {
+            try placeholder.attr("style", "")
+            try placeholder.append("<img src=\"\(url)\" loading=\"lazy\">")
+            injected += 1
+        } catch {
+            continue
+        }
+    }
+
+    return injected
+}
+
 // MARK: - Helper: save step
 
 func saveStep(_ name: String, html: String) {
@@ -897,6 +1077,12 @@ if isFullMode {
 
     // Extract __NEXT_DATA__ article HTML before stripping scripts
     let nextDataContent = extractNextDataContent(from: doc)
+
+    // Hydrate empty image placeholders from Apollo Client cache
+    let apolloImageCount = hydrateApolloImages(in: doc)
+    if apolloImageCount > 0 {
+        print("  -> Hydrated \(apolloImageCount) Apollo images into placeholders")
+    }
 
     // Strip CSP
     let cspMetas = try doc.select("meta[http-equiv=Content-Security-Policy]")
@@ -968,6 +1154,12 @@ if isFullMode {
 
     // Extract __NEXT_DATA__ article HTML before stripping scripts
     let nextDataContent = extractNextDataContent(from: preDoc)
+
+    // Hydrate empty image placeholders from Apollo Client cache
+    let apolloImageCount = hydrateApolloImages(in: preDoc)
+    if apolloImageCount > 0 {
+        print("  -> Hydrated \(apolloImageCount) Apollo images into placeholders")
+    }
 
     try preDoc.select("script").remove()
     try promoteNoscriptImages(in: preDoc)
@@ -1085,7 +1277,8 @@ if isFullMode {
                 "logo", "flag", "icon", "badge", "spinner",
                 "facebook", "twitter", "instagram", "pinterest", "tiktok",
                 "furniture", "share", "follow", "comment", "thumbnail",
-                "banner", "bkgd", "reactions", "headshot"
+                "banner", "bkgd", "reactions", "headshot",
+                "blank", "spacer"
             ]
             // Use word-segment matching instead of substring matching to avoid
             // false positives on compound filenames (e.g. "blogouterbanner"
@@ -1221,8 +1414,12 @@ if isFullMode {
         if heroImageURL == nil {
             if let ogImage = try extractOpenGraphImage(from: preDoc, baseURL: pageURL) {
                 heroImageURL = ogImage
-                print("  -> Hero image from og:image meta tag: \(ogImage)")
-                contentHTML = "<img src=\"\(escapeHTML(ogImage))\" />" + contentHTML
+                if !heroAlreadyPresent(ogImage) {
+                    print("  -> Hero image from og:image meta tag: \(ogImage)")
+                    contentHTML = "<img src=\"\(escapeHTML(ogImage))\" />" + contentHTML
+                } else {
+                    print("  -> og:image already in extracted content — no injection needed")
+                }
             }
         }
 
@@ -1286,6 +1483,10 @@ if isFullMode {
                     "photo.jpg", "photo.jpeg",
                     // Bare format names from CDN path segments (e.g. .../format/jpeg/)
                     "jpeg", "jpg", "png", "webp", "gif", "avif",
+                    // CDN size/transform path segments (e.g. .../image/{uuid}/large)
+                    // These indicate a resize variant, not a unique image identifier.
+                    "large", "small", "medium", "thumbnail", "thumb",
+                    "original", "full", "default",
                 ]
                 if !filename.isEmpty, filename != "/", !genericFilenames.contains(filename.lowercased()) {
                     let hostFilename = "\(host)/\(filename)"

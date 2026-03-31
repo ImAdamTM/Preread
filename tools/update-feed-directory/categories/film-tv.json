@@ -4,7 +4,7 @@
     "description": "The latest movie and television news, reviews, film trailers, exclusive interviews, and opinions",
     "feedURL": "https://www.slashfilm.com/category/news/feed/",
     "id": "76fac9c4-5b18-53d2-a523-3aaccd162538",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "/Film",
     "siteURL": "https://www.slashfilm.com/",
     "tags": [
@@ -20,7 +20,7 @@
     "description": "Movie, TV, and comic book news and reviews",
     "feedURL": "https://www.aintitcool.com/node/feed/",
     "id": "6044df96-ff67-6032-8cde-c2dad97e1f2a",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Ain't It Cool News",
     "siteURL": "https://www.aintitcool.com/",
     "tags": [
@@ -36,7 +36,7 @@
     "description": "Comic book, film, TV, games, and toy news and rumors from Bleeding Cool",
     "feedURL": "https://www.bleedingcool.com/movies/feed/",
     "id": "37d17862-c86a-4935-858a-e346ba33a6cf",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Bleeding Cool",
     "siteURL": "https://bleedingcool.com",
     "tags": [
@@ -52,7 +52,7 @@
     "description": "Italian cinema magazine covering film news, reviews, and industry since 1985",
     "feedURL": "https://ciakmagazine.it/feed",
     "id": "0a5e8d54-0a49-4099-a82f-5bd954cd516f",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Ciak Magazine",
     "siteURL": "https://ciakmagazine.it",
     "tags": [
@@ -68,7 +68,7 @@
     "description": "ComingSoon.net features the latest movie trailers and news, TV updates, video game reviews, anime releases, and more",
     "feedURL": "https://www.comingsoon.net/feed",
     "id": "4d6fc1e4-151c-fb37-3c12-4cc7d5affbdb",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "ComingSoon.net",
     "siteURL": "https://www.comingsoon.net/",
     "tags": [
@@ -84,7 +84,7 @@
     "description": "Breaking entertainment, Hollywood, and media news",
     "feedURL": "https://deadline.com/feed/",
     "id": "a6faba43-a17a-e08c-e8c2-ca2957c887cc",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Deadline",
     "siteURL": "https://deadline.com",
     "tags": [
@@ -100,7 +100,7 @@
     "description": "UK's best-loved movie brand covering film news, reviews, podcasts, and live events",
     "feedURL": "https://rss.onebauer.media/api/feed-aggregator?hostname=https://www.empireonline.com",
     "id": "4711c602-ca6e-4f17-83c4-1730b5a90f6b",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Empire",
     "siteURL": "https://www.empireonline.com",
     "tags": [
@@ -116,7 +116,7 @@
     "description": "Reviews and analysis of mainstream, art-house, and avant-garde filmmaking since 1962",
     "feedURL": "https://filmcomment.com/feed",
     "id": "f6979554-0679-40e7-b312-27607189955d",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Film Comment",
     "siteURL": "https://filmcomment.com",
     "tags": [
@@ -132,7 +132,7 @@
     "description": "Independent film coverage with articles, resources, and filmmaker perspectives",
     "feedURL": "https://filmmakermagazine.com/feed",
     "id": "83e48837-a397-4a5f-acb4-f4b5c412696c",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Filmmaker Magazine",
     "siteURL": "https://filmmakermagazine.com",
     "tags": [
@@ -148,7 +148,7 @@
     "description": "The latest movie trailers, release dates, film reviews, discussions, and updates on the cinematic experience",
     "feedURL": "https://www.firstshowing.net/feed/",
     "id": "ca85d6a4-33d9-abde-9695-36848f3dbbe2",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "FirstShowing.net",
     "siteURL": "https://www.firstshowing.net",
     "tags": [
@@ -164,7 +164,7 @@
     "description": "Film, TV, and digital news, reviews, and interviews for passionate fans",
     "feedURL": "https://www.indiewire.com/feed",
     "id": "e4217dc6-df68-c3b8-818e-a29e5a31d093",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "IndieWire",
     "siteURL": "https://www.indiewire.com",
     "tags": [
@@ -180,7 +180,7 @@
     "description": "Pop culture obsessives writing for the pop culture obsessed",
     "feedURL": "https://www.avclub.com/rss.xml",
     "id": "b06e129a-2079-b2bb-30d7-6a4496e723e1",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "The A.V. Club",
     "siteURL": "https://www.avclub.com",
     "tags": [
@@ -196,7 +196,7 @@
     "description": "Entertainment news, film and TV reviews, box office, and industry coverage",
     "feedURL": "https://www.hollywoodreporter.com/feed/rss/",
     "id": "839d7a74-16b9-6c55-c744-873d7f8af55a",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "The Hollywood Reporter",
     "siteURL": "https://www.hollywoodreporter.com/",
     "tags": [
@@ -212,7 +212,7 @@
     "description": "TV show reviews, opinions, spoilers, and news",
     "feedURL": "https://www.tvfanatic.com/rss.xml",
     "id": "0f672e8f-7a4c-54ed-91ba-bbd955a9ec00",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "TV Fanatic",
     "siteURL": "https://www.tvfanatic.com/",
     "tags": [
@@ -228,7 +228,7 @@
     "description": "TV news, previews, spoilers, casting updates, interviews, and more",
     "feedURL": "https://tvline.com/feed/",
     "id": "ed625c11-bff0-31ab-de41-1163a4d0c8f1",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "TVLine",
     "siteURL": "https://www.tvline.com/",
     "tags": [
@@ -244,7 +244,7 @@
     "description": "Entertainment news, film reviews, awards, film festivals, box office, and industry conferences",
     "feedURL": "https://variety.com/feed/",
     "id": "58b40d3c-f048-1a8f-f2c4-158e59ab0ee4",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Variety",
     "siteURL": "https://variety.com",
     "tags": [

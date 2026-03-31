@@ -5,7 +5,7 @@
     "description": "UK news, politics, and stories from across Britain",
     "feedURL": "https://feeds.bbci.co.uk/news/uk/rss.xml",
     "id": "86a2eea6-a987-5810-8a40-42e6e4fd44c9",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "BBC: UK",
     "siteURL": "https://www.bbc.co.uk/news/uk",
     "tags": [
@@ -22,7 +22,7 @@
     "description": "Breaking news, showbiz, sport, and entertainment from the UK",
     "feedURL": "https://www.dailymail.co.uk/ushome/index.rss",
     "id": "30de9d55-0854-5d4f-b6fa-24ccc0bd765a",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Daily Mail",
     "siteURL": "https://www.dailymail.co.uk",
     "tags": [
@@ -39,7 +39,7 @@
     "description": "UK and world news, crime, politics, and showbiz from one of Britain's biggest tabloids",
     "feedURL": "https://www.mirror.co.uk/news/world-news/?service=rss",
     "id": "46d52130-1e30-43b2-906a-2e6a191e292f",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Daily Mirror",
     "siteURL": "https://www.mirror.co.uk/news/world-news/",
     "tags": [
@@ -56,7 +56,7 @@
     "description": "UK and world news, politics, and opinion",
     "feedURL": "https://www.independent.co.uk/news/uk/rss",
     "id": "c1b3bc9d-4e2a-9305-b577-7f76797e6828",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "The Independent",
     "siteURL": "https://www.independent.co.uk/news/uk/rss",
     "tags": [
@@ -73,7 +73,7 @@
     "description": "Breaking news, sport, showbiz, and entertainment from Britain's biggest newspaper",
     "feedURL": "https://www.thesun.co.uk/feed/",
     "id": "a3405078-173f-5186-b562-cf7b911acee1",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "The Sun",
     "siteURL": "https://www.thesun.co.uk",
     "tags": [

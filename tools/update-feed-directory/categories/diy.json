@@ -4,7 +4,7 @@
     "description": "Crafts, home decor, and recipes",
     "feedURL": "https://abeautifulmess.com/feed",
     "id": "595182e2-a471-1b15-a43a-bfb8e8d26e33",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "A Beautiful Mess",
     "siteURL": "https://abeautifulmess.com/",
     "tags": [
@@ -20,7 +20,7 @@
     "description": "Electronics, hardware hacking, and maker projects with a strong community focus",
     "feedURL": "https://blog.adafruit.com/feed/",
     "id": "ef183625-1e24-1fac-3552-e1a02bd61675",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Adafruit",
     "siteURL": "https://blog.adafruit.com/",
     "tags": [
@@ -36,7 +36,7 @@
     "description": "Free furniture building plans and step-by-step woodworking project guides",
     "feedURL": "https://www.ana-white.com/feed",
     "id": "07c03631-b2d5-f679-a3de-d7ae00cf7516",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Ana White",
     "siteURL": "https://www.ana-white.com/",
     "tags": [
@@ -52,7 +52,7 @@
     "description": "Home improvement projects, product reviews, and practical how-to guides",
     "feedURL": "https://www.bobvila.com/feed/",
     "id": "a1e31c51-909b-d34c-7e51-82efb043ff40",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Bob Vila",
     "siteURL": "https://www.bobvila.com/",
     "tags": [
@@ -68,7 +68,7 @@
     "description": "Crafts, DIY projects, and lifestyle content for a creative audience",
     "feedURL": "https://www.brit.co/feeds/feed.rss",
     "id": "bfb0c1d2-09cc-0bc0-6f45-be2da9b71841",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Brit + Co",
     "siteURL": "https://www.brit.co/",
     "tags": [
@@ -84,7 +84,7 @@
     "description": "DIY home improvement projects and repair guides",
     "feedURL": "https://www.doityourself.com/feed",
     "id": "e435f289-630d-b3de-8958-5fb900534aab",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Doityourself.com",
     "siteURL": "https://www.doityourself.com",
     "tags": [
@@ -100,7 +100,7 @@
     "description": "Practical home repair, improvement tutorials, and tool reviews",
     "feedURL": "https://www.familyhandyman.com/feed",
     "id": "7f09718c-dd82-7890-a2fb-19f15807fc73",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Family Handyman",
     "siteURL": "https://www.familyhandyman.com/",
     "tags": [
@@ -116,7 +116,7 @@
     "description": "Premium woodworking instruction, project plans, and technique guides",
     "feedURL": "https://www.finewoodworking.com/feed",
     "id": "53032e89-a902-fb6a-aa91-3d4634af8cb7",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Fine Woodworking",
     "siteURL": "https://www.finewoodworking.com/",
     "tags": [
@@ -132,7 +132,7 @@
     "description": "Electronics, hardware hacking, and engineering projects from the maker community",
     "feedURL": "https://hackaday.com/feed/",
     "id": "baabfa3b-b514-98f2-9f5d-ee32fd604f9c",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Hackaday",
     "siteURL": "https://hackaday.com/",
     "tags": [
@@ -148,7 +148,7 @@
     "description": "IoT and hardware project sharing platform with community tutorials",
     "feedURL": "https://www.hackster.io/projects.rss?sort=recent",
     "id": "5cb6f1e1-def0-aa67-cc4c-09ec459e7d7d",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Hackster.io",
     "siteURL": "https://www.hackster.io/",
     "tags": [
@@ -164,7 +164,7 @@
     "description": "Clever ideas and hacks for your IKEA",
     "feedURL": "https://www.ikeahackers.net/feed",
     "id": "3acf9f94-b19e-2f64-803f-b719830935dc",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "IKEA Hackers",
     "siteURL": "https://ikeahackers.net",
     "tags": [
@@ -180,7 +180,7 @@
     "description": "Paper crafts, SVG templates, and handmade project tutorials",
     "feedURL": "https://liagriffith.com/feed/",
     "id": "718b436c-3825-bb28-9d4e-baf45bf263d6",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Lia Griffith",
     "siteURL": "https://liagriffith.com/",
     "tags": [
@@ -196,7 +196,7 @@
     "description": "DIY projects, maker tutorials, and ideas for builders and tinkerers",
     "feedURL": "https://makezine.com/feed/",
     "id": "5d249141-cfe5-4690-c3c3-01d76c3365e7",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Make: Magazine",
     "siteURL": "https://makezine.com/",
     "tags": [
@@ -212,7 +212,7 @@
     "description": "Home design ideas, gardening tips, cleaning guides, and how-tos",
     "feedURL": "https://feeds-api.dotdashmeredith.com/v1/rss/google/aa6fe5c4-9f19-4c32-b63e-6e4c19b5a50f",
     "id": "d76d61ff-6b82-ab68-f24b-89ff53123718",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "The Spruce",
     "siteURL": "https://www.thespruce.com/",
     "tags": [
@@ -228,7 +228,7 @@
     "description": "Video woodworking instruction and project builds",
     "feedURL": "https://thewoodwhisperer.com/feed/",
     "id": "40b7231d-e791-a6a5-327b-f33a2f2d96f0",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "The Wood Whisperer",
     "siteURL": "https://thewoodwhisperer.com/",
     "tags": [

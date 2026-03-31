@@ -5,7 +5,7 @@
     "description": "CNBC is the world leader in business news and real-time financial market coverage. Find fast, actionable information",
     "feedURL": "https://www.cnbc.com/id/100003114/device/rss/rss.html",
     "id": "a25f7373-5963-d64a-7434-05c665d1f9a7",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "CNBC",
     "siteURL": "https://www.cnbc.com/us-top-news-and-analysis/",
     "tags": [
@@ -22,7 +22,7 @@
     "description": "Breaking News, Latest News and Current News from FOXNews.com. Breaking news and video. Latest Current News: U.S",
     "feedURL": "https://feeds.foxnews.com/foxnews/latest",
     "id": "2643d6de-5410-3a6a-fdce-2316e9a040c6",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "FOX News",
     "siteURL": "https://www.foxnews.com/",
     "tags": [
@@ -39,7 +39,7 @@
     "description": "Nation and world news from the Los Angeles Times",
     "feedURL": "https://www.latimes.com/world-nation/rss2.0.xml",
     "id": "fbc3b80b-9968-8e64-f2fa-9dea7b453c20",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "LA Times",
     "siteURL": "https://www.latimes.com",
     "tags": [
@@ -56,7 +56,7 @@
     "description": "In-depth news coverage from PBS NewsHour, America's most trusted evening news program",
     "feedURL": "https://www.pbs.org/newshour/feeds/rss/headlines",
     "id": "b7e3a1f0-8d42-4c6e-a915-3f1d72e8b094",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "PBS NewsHour",
     "siteURL": "https://www.pbs.org/newshour/",
     "tags": [
@@ -73,7 +73,7 @@
     "description": "The unofficial guide to official Washington",
     "feedURL": "https://rss.politico.com/playbook.xml",
     "id": "1018c501-6f82-8028-87ef-5c4977c84efb",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Playbook",
     "siteURL": "https://www.politico.com",
     "tags": [
@@ -90,7 +90,7 @@
     "description": "The latest news and headlines from Yahoo News. Get breaking news stories and in-depth coverage with videos and photos",
     "feedURL": "https://news.yahoo.com/rss/mostviewed",
     "id": "265fe870-a638-edc6-9e12-41513972397e",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Yahoo News",
     "siteURL": "https://www.yahoo.com/news",
     "tags": [

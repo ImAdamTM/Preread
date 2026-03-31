@@ -5,7 +5,7 @@
     "description": "Pour savoir ce qui se passe maintenant - Toutes les infos livrées minute par minute par la rédaction de Franceinfo",
     "feedURL": "https://www.francetvinfo.fr/titres.rss",
     "id": "8f5afce2-37c0-4a40-e15a-25ef74c4de81",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Franceinfo - Les Titres",
     "siteURL": "https://www.franceinfo.fr/titres/",
     "tags": [
@@ -22,7 +22,7 @@
     "description": "Actualités du Luxembourg et de la Grande Région en temps réel",
     "feedURL": "https://www.sudouest.fr/essentiel/rss.xml",
     "id": "8df4f934-099d-d0d9-c183-4660b7044ecd",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "L'essentiel",
     "siteURL": "https://www.sudouest.fr/essentiel/",
     "tags": [
@@ -39,7 +39,7 @@
     "description": "Actualités, opinions et tendances en France et dans le monde",
     "feedURL": "https://www.huffingtonpost.fr/feeds/index.xml",
     "id": "5b35faf0-85fb-5d58-2c1e-7df40ce75699",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Le Huffington Post",
     "siteURL": "https://www.huffingtonpost.fr/rss/all_headline.xml",
     "tags": [
@@ -56,7 +56,7 @@
     "description": "Le Monde.fr - 1er site d’information. Les articles du journal et toute l’actualité en continu : International, France",
     "feedURL": "https://www.lemonde.fr/rss/une.xml",
     "id": "25c31057-212a-ad17-15fb-42fae31f01ef",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "le monde",
     "siteURL": "https://www.lemonde.fr/rss/une.xml",
     "tags": [
@@ -73,7 +73,7 @@
     "description": "Mediapart est un journal d’information numérique, participatif et indépendant, sans publicité ni subvention, et qui ne",
     "feedURL": "https://www.mediapart.fr/articles/feed",
     "id": "330db775-e754-6d53-ca37-d2955550c79c",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Mediapart",
     "siteURL": "https://www.mediapart.fr/",
     "tags": [
@@ -90,7 +90,7 @@
     "description": "Premier quotidien français d'information régionale et nationale",
     "feedURL": "https://www.ouest-france.fr/rss-en-continu.xml",
     "id": "43c04ef8-ccec-e231-991f-46507b22973a",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Ouest-France",
     "siteURL": "https://www.ouest-france.fr/rss/une",
     "tags": [
@@ -107,7 +107,7 @@
     "description": "Paris news and culture",
     "feedURL": "https://www.parisstaronline.com/feed",
     "id": "46dec854-9500-62f6-5406-9d0c0de591fb",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Paris Star",
     "siteURL": "https://www.parisstaronline.com",
     "tags": [

@@ -1,42 +1,10 @@
 [
   {
     "category": "Architecture",
-    "description": "ArchDaily, Broadcasting Architecture Worldwide: Architecture news, competitions and projects updated every hour for the",
-    "feedURL": "https://www.archdaily.com/rss.xml",
-    "id": "480378d2-1f4d-5276-a8ee-02fd50692cef",
-    "lastVerified": "2026-03-29",
-    "name": "ArchDaily",
-    "siteURL": "https://www.archdaily.com/",
-    "tags": [
-      "buildings",
-      "projects",
-      "competitions",
-      "urban",
-      "residential"
-    ]
-  },
-  {
-    "category": "Architecture",
-    "description": "Architectural Digest is the international design authority, featuring the work of top architects and designers",
-    "feedURL": "https://www.architecturaldigest.com/feed/rss",
-    "id": "82f5275d-fd84-ecab-8459-93b8718429e7",
-    "lastVerified": "2026-03-29",
-    "name": "Architectural Digest",
-    "siteURL": "https://www.architecturaldigest.com",
-    "tags": [
-      "interiors",
-      "luxury",
-      "celebrity homes",
-      "decor",
-      "renovation"
-    ]
-  },
-  {
-    "category": "Architecture",
     "description": "Modern design across architecture, interiors, art, and technology",
     "feedURL": "https://design-milk.com/category/architecture/feed/",
     "id": "c7094ed5-f6fe-e526-774d-b3f97b1bd7bd",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Design Milk",
     "siteURL": "https://design-milk.com/category/architecture/",
     "tags": [
@@ -52,7 +20,7 @@
     "description": "architecture on designboom surveys the contemporary condition of the built environment, showcasing a range of",
     "feedURL": "https://www.designboom.com/architecture/feed/",
     "id": "d66aa1f6-e6a0-0cc3-152d-665044c9c358",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "designboom",
     "siteURL": "https://www.designboom.com/architecture/",
     "tags": [
@@ -68,7 +36,7 @@
     "description": "Inspiration and Tools for Architects",
     "feedURL": "https://architizer.wpengine.com/feed/",
     "id": "e9de49d7-013a-0a16-2399-07267a1ef6c6",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Journal",
     "siteURL": "https://architizer.com/blog/",
     "tags": [
@@ -84,7 +52,7 @@
     "description": "The most authoritative voice on architecture and design in the United States",
     "feedURL": "https://archpaper.com/feed",
     "id": "ef19f15e-25b2-b36c-4336-69d34b23a2d1",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "The Architect’s Newspaper",
     "siteURL": "https://www.archpaper.com/",
     "tags": [

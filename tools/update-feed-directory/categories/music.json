@@ -4,7 +4,7 @@
     "description": "Interviews with songwriters about craft, process, and creation",
     "feedURL": "https://americansongwriter.com/feed/",
     "id": "8f76b681-38b9-9c6d-5c4f-6feae36323ff",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "American Songwriter",
     "siteURL": "https://americansongwriter.com",
     "tags": [
@@ -20,7 +20,7 @@
     "description": "Independent music discovery across every genre and corner of the world",
     "feedURL": "https://daily.bandcamp.com/feed",
     "id": "a746840f-3f91-cd9e-3760-2f374afc68b2",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Bandcamp Daily",
     "siteURL": "https://daily.bandcamp.com",
     "tags": [
@@ -36,7 +36,7 @@
     "description": "Music charts, streaming data, and industry deal coverage",
     "feedURL": "https://www.billboard.com/feed/rss/",
     "id": "22490334-0a24-bd18-27ee-0f1870ea88f3",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Billboard",
     "siteURL": "https://www.billboard.com",
     "tags": [
@@ -52,7 +52,7 @@
     "description": "Live music coverage and indie, punk, and metal news",
     "feedURL": "https://www.brooklynvegan.com/feed",
     "id": "442217c9-5f5a-ec2a-9c51-08295787d5df",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "BrooklynVegan",
     "siteURL": "https://www.brooklynvegan.com",
     "tags": [
@@ -68,7 +68,7 @@
     "description": "Music news, reviews, and festival coverage across all genres",
     "feedURL": "https://consequence.net/feed",
     "id": "607a3270-0fe3-3652-8e58-7834461b5f7b",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Consequence of Sound",
     "siteURL": "https://consequence.net",
     "tags": [
@@ -84,7 +84,7 @@
     "description": "Electronic dance music news, downloads, and artist interviews",
     "feedURL": "https://edm.com/.rss/full/",
     "id": "905f1e83-174c-8ba1-029b-217612e8b58c",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "EDM.com",
     "siteURL": "https://edm.com/blog/",
     "tags": [
@@ -100,7 +100,7 @@
     "description": "Expert tips, gear reviews, and lessons for guitarists of all skill levels with iconic tablatures",
     "feedURL": "https://www.guitarworld.com/feeds.xml",
     "id": "0fa0d57e-92da-4cc4-af04-c504bf03eb49",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Guitar World",
     "siteURL": "https://www.guitarworld.com",
     "tags": [
@@ -113,26 +113,10 @@
   },
   {
     "category": "Music",
-    "description": "Music history, culture, and industry analysis by Ted Gioia",
-    "feedURL": "https://www.honest-broker.com/feed",
-    "id": "817b505e-3dd1-5f48-cdf1-d3e816774b32",
-    "lastVerified": "2026-03-29",
-    "name": "Hearing Things",
-    "siteURL": "https://www.honest-broker.com",
-    "tags": [
-      "history",
-      "jazz",
-      "culture",
-      "essays",
-      "analysis"
-    ]
-  },
-  {
-    "category": "Music",
     "description": "Practical advice for independent musicians and small labels",
     "feedURL": "https://www.hypebot.com/latest/rss/",
     "id": "a662e2ce-7d73-a8d0-28a2-9599f79767b8",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Hypebot",
     "siteURL": "https://www.hypebot.com",
     "tags": [
@@ -148,7 +132,7 @@
     "description": "Jazz news, reviews, and features for a passionate audience",
     "feedURL": "https://www.jazztimes.com/feed/",
     "id": "bc2cd39c-74a4-47c6-1c09-953d12f92d7e",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "JazzTimes",
     "siteURL": "https://www.jazztimes.com",
     "tags": [
@@ -164,7 +148,7 @@
     "description": "Heavy metal news, music, and videos",
     "feedURL": "https://metalinjection.net/feed",
     "id": "b010c1dc-826f-5279-924f-2530d7f916c2",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Metal Injection",
     "siteURL": "https://metalinjection.net/",
     "tags": [
@@ -180,7 +164,7 @@
     "description": "UK music magazine with deep storytelling and focus on classic and alternative music",
     "feedURL": "https://rss.onebauer.media/api/feed-aggregator?hostname=https://www.mojo4music.com",
     "id": "8f4dfe03-a041-4cc0-a400-f3197d0db728",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Mojo",
     "siteURL": "https://www.mojo4music.com",
     "tags": [
@@ -196,7 +180,7 @@
     "description": "News and analysis for the global music industry",
     "feedURL": "https://www.musicbusinessworldwide.com/feed/",
     "id": "2d0e3727-3898-6fb8-25de-0c6cb811d30f",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Music Business Worldwide",
     "siteURL": "https://www.musicbusinessworldwide.com",
     "tags": [
@@ -212,7 +196,7 @@
     "description": "NME covers the latest music news, reviews, features, and guides",
     "feedURL": "https://www.nme.com/feed",
     "id": "94dbc533-f564-568d-b191-431faea608d2",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "NME",
     "siteURL": "https://www.nme.com",
     "tags": [
@@ -228,7 +212,7 @@
     "description": "Thoughtful, left-of-center music and culture criticism",
     "feedURL": "https://www.pastemagazine.com/rss.xml",
     "id": "6f1605a8-6297-2782-cec5-2bb3be756de4",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Paste Magazine",
     "siteURL": "https://www.pastemagazine.com",
     "tags": [
@@ -244,7 +228,7 @@
     "description": "The most trusted voice in music",
     "feedURL": "https://pitchfork.com/feed/feed-news/rss",
     "id": "aac3829f-c492-20d0-d0da-ab6b988da986",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Pitchfork",
     "siteURL": "https://pitchfork.com",
     "tags": [
@@ -260,7 +244,7 @@
     "description": "Music, film, TV and political news coverage from Rolling Stone",
     "feedURL": "https://www.rollingstone.com/feed/",
     "id": "ee8393ff-a0f3-5757-ba63-fb12bf146972",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Rolling Stone",
     "siteURL": "https://www.rollingstone.com",
     "tags": [
@@ -276,7 +260,7 @@
     "description": "Indie and alternative album reviews, news, and features",
     "feedURL": "https://stereogum.com/feed",
     "id": "2c763f98-fd9f-4316-7a1a-9e0aee0382e3",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Stereogum",
     "siteURL": "https://www.stereogum.com",
     "tags": [
@@ -292,7 +276,7 @@
     "description": "Adventurous music writing beyond mainstream indie",
     "feedURL": "https://thequietus.com/feed",
     "id": "3c6555d3-104b-2a6e-b1e3-197d148ef48e",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "The Quietus",
     "siteURL": "https://thequietus.com",
     "tags": [

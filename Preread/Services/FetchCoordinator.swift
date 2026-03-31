@@ -118,6 +118,7 @@ final class FetchCoordinator: ObservableObject {
         let globalFrequency = FetchFrequency(rawValue: UserDefaults.standard.string(forKey: "fetchFrequency") ?? "") ?? .automatic
         guard globalFrequency == .automatic else { return }
         guard !NetworkMonitor.shouldSkipForWiFiOnly else { return }
+        guard !isFetching else { return }
         let staleThreshold: TimeInterval = 60 * 60 // 1 hour
         do {
             let staleSources = try await DatabaseManager.shared.dbPool.read { db in
@@ -130,6 +131,8 @@ final class FetchCoordinator: ObservableObject {
                 return Date().timeIntervalSince(lastFetched) > staleThreshold
             }
             guard !staleSources.isEmpty else { return }
+
+            isFetching = true
 
             if let activeID = activeSourceID {
                 // User is viewing a specific feed — refresh only that source now
@@ -150,8 +153,10 @@ final class FetchCoordinator: ObservableObject {
                 deferredStaleSources = []
                 await refreshSourcesWithPriority(staleSources, skipBackfill: true)
             }
+
+            isFetching = false
         } catch {
-            // Non-critical
+            isFetching = false
         }
     }
 
@@ -161,7 +166,9 @@ final class FetchCoordinator: ObservableObject {
         let deferred = deferredStaleSources
         deferredStaleSources = []
         guard !deferred.isEmpty else { return }
+        isFetching = true
         await refreshSourcesWithPriority(deferred, skipBackfill: true)
+        isFetching = false
     }
 
     // MARK: - Refresh single source (user-initiated, no guard)

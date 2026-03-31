@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html class="mobile-friendly browser-desktop" lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta content-language="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://www.lensculture.com/assets/user-data-c0d021b52156f25a864f2b7f2acfe1593577173af56f49ba47f2bb945f415218.js" type="module" async="async"></script>
+<script>
+(function(){
+  try{
+    var raw=sessionStorage.getItem('lc_competition_cta');
+    if(!raw)return;
+    var d=JSON.parse(raw);
+    if(!d._cachedAt||(Date.now()-d._cachedAt)>300000)return;
+    if(!d.primary||!d.competitions||!d.competitions.length)return;
+    window.__ctaData=d;
+    var mo=new MutationObserver(function(){
+      var el=document.querySelector('[data-shared--competition-cta-target="desktopLink"]');
+      if(!el)return;
+      mo.disconnect();
+      var u=d.primary.url||'';
+      var ct=el.closest('[data-controller*="shared--competition-cta"]');
+      var ly=ct&&ct.getAttribute('data-shared--competition-cta-layout-value');
+      if(ly==='bootstrap'){
+        el.innerHTML='<a href="'+u+'" class="call-for-entries">Photo Contest</a>';
+      }else{
+        el.innerHTML='<a href="'+u+'" class="site-navbar--desktop--link flex items-center px-1 pt-1 text-sm font-bold text-brand hover:text-orange-600 transition-colors duration-200 inline-flex">Photography Awards</a>';
+      }
+      window.__ctaRendered=true;
+    });
+    mo.observe(document.documentElement,{childList:true,subtree:true});
+    setTimeout(function(){mo.disconnect();},5000);
+  }catch(e){}
+})();
+</script>
+
+<!-- meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';" -->
+<meta http-equiv="content-language" content="en">
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<!-- Put Google Analytics as high as possible, but before UTF encoding -->
+<meta name="ga-measurement-id" content="G-41CLBB7FY7">
+<meta name="app-stage" content="production">
+<meta name="fb-pixel-id" content="557972944299048">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'analytics_storage': 'denied',
+    'functionality_storage': 'denied',
+    'personalization_storage': 'denied',
+    'security_storage': 'denied'
+  });
+
+  window.updateGoogleConsent = function(consentState) {
+    if (!consentState) return;
+
+    gtag('consent', 'update', {
+      'ad_storage': consentState.marketing ? 'granted' : 'denied',
+      'ad_user_data': consentState.marketing ? 'granted' : 'denied',
+      'ad_personalization': consentState.marketing ? 'granted' : 'denied',
+      'analytics_storage': consentState.analytics ? 'granted' : 'denied',
+      'functionality_storage': consentState.functional ? 'granted' : 'denied',
+      'personalization_storage': consentState.functional ? 'granted' : 'denied'
+    });
+  };
+
+  window.addEventListener('consentUpdated', function(e) {
+    var newConsent = e.detail && e.detail.consent;
+    if (newConsent) {
+      window.updateGoogleConsent(newConsent);
+    }
+  });
+</script>
+
+  <script>window.ENV = "production";
+window.STRIPE_PUBLIC_KEY = "pk_live_opRfQVYwBYw7pyFy8zej4qQW";
+window.AUTH_COOKIE_NAME = "lc-prod-01";
+window.GOOGLE_MEASUREMENT_ID = "G-41CLBB7FY7";
+window.FB_PIXEL_ID = "557972944299048";</script>
+  <script src="https://www.lensculture.com/packs/core-e89ba4c4ee54816d2c2c.js"></script>
+  <script src="https://www.lensculture.com/vite/assets/ax-Dy9Qfom4.js" crossorigin="anonymous" type="module"></script><link rel="modulepreload" href="https://www.lensculture.com/vite/assets/ax-Dy9Qfom4.js" as="script" crossorigin="anonymous">
+  
+
+<link rel="alternate" type="application/rss+xml" href="https://www.lensculture.com/feeds/flipboard.rss" title="LensCulture RSS Feed">
+
+
+
+<style type="text/css">@font-face {font-family:Open Sans;font-style:normal;font-weight:300 800;src:url(/cf-fonts/v/open-sans/5.0.20/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Open Sans;font-style:normal;font-weight:300 800;src:url(/cf-fonts/v/open-sans/5.0.20/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Open Sans;font-style:normal;font-weight:300 800;src:url(/cf-fonts/v/open-sans/5.0.20/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Open Sans;font-style:normal;font-weight:300 800;src:url(/cf-fonts/v/open-sans/5.0.20/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Open Sans;font-style:normal;font-weight:300 800;src:url(/cf-fonts/v/open-sans/5.0.20/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Open Sans;font-style:normal;font-weight:300 800;src:url(/cf-fonts/v/open-sans/5.0.20/hebrew/wght/normal.woff2);unicode-range:U+0590-05FF,U+200C-2010,U+20AA,U+25CC,U+FB1D-FB4F;font-display:swap;}@font-face {font-family:Open Sans;font-style:normal;font-weight:300 800;src:url(/cf-fonts/v/open-sans/5.0.20/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Open Sans;font-style:normal;font-weight:300 800;src:url(/cf-fonts/v/open-sans/5.0.20/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Open Sans;font-style:italic;font-weight:300 800;src:url(/cf-fonts/v/open-sans/5.0.20/vietnamese/wght/italic.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Open Sans;font-style:italic;font-weight:300 800;src:url(/cf-fonts/v/open-sans/5.0.20/greek/wght/italic.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Open Sans;font-style:italic;font-weight:300 800;src:url(/cf-fonts/v/open-sans/5.0.20/latin-ext/wght/italic.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Open Sans;font-style:italic;font-weight:300 800;src:url(/cf-fonts/v/open-sans/5.0.20/latin/wght/italic.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Open Sans;font-style:italic;font-weight:300 800;src:url(/cf-fonts/v/open-sans/5.0.20/cyrillic-ext/wght/italic.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Open Sans;font-style:italic;font-weight:300 800;src:url(/cf-fonts/v/open-sans/5.0.20/greek-ext/wght/italic.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Open Sans;font-style:italic;font-weight:300 800;src:url(/cf-fonts/v/open-sans/5.0.20/cyrillic/wght/italic.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Open Sans;font-style:italic;font-weight:300 800;src:url(/cf-fonts/v/open-sans/5.0.20/hebrew/wght/italic.woff2);unicode-range:U+0590-05FF,U+200C-2010,U+20AA,U+25CC,U+FB1D-FB4F;font-display:swap;}</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.0/css/font-awesome.min.css" integrity="sha512-FEQLazq9ecqLN5T6wWq26hCZf7kPqUbFC9vsHNbXMJtSZZWAcbJspT+/NEAQkBfFReZ8r9QlA9JHaAuo28MTJA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="apple-touch-icon" type="image/png" href="https://www.lensculture.com/assets/apple-favicon-3d063015b2e1dc4a0b2a7f5db275313f98439cf58e945d7b102730b47436e573.png" sizes="94x94" />
+    <link rel="icon" type="image/x-icon" href="https://www.lensculture.com/assets/favicon-43da28dd2a7081201e6acc0c70d2d9135214c93f3a92b7b41fb51e111d349a8c.ico" />
+
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="tFYd0GMYq0lsXHsu6atCFYnrZAb32u04wir8H81vBWKC5N6E4WOeAM3i3jQ0St_j-v0IiHafXf_INxG1hxJXdw" />
+<title>Too Many Products Too Much Pressure - Photographs by Janet Delaney | Book review by Magali Duzant | LensCulture</title>
+<meta name="description" content="Returning to one of her first projects, Janet Delaney presents a witty, warm-hearted look at labor and love, through the last days of her father’s career as a salesman">
+<meta name="author" content="Janet Delaney | LensCulture">
+<link rel="canonical" href="https://www.lensculture.com/articles/janet-delaney-too-many-products-too-much-pressure">
+<link rel="canonical" href="https://www.lensculture.com/articles/janet-delaney-too-many-products-too-much-pressure">
+<meta property="og:description" content="Returning to one of her first projects, Janet Delaney presents a witty, warm-hearted look at labor and love, through the last days of her father’s career as a salesman">
+<meta property="og:image" content="https://images.lensculture.com/image/ddd57b35-3938-4d5c-24ef-1b1afaa53400/large">
+<meta property="og:title" content="Too Many Products Too Much Pressure - Photographs by Janet Delaney | Book review by Magali Duzant | LensCulture">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="LensCulture">
+<meta property="og:url" content="https://www.lensculture.com/articles/janet-delaney-too-many-products-too-much-pressure">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@lensculture">
+<meta name="twitter:description" content="Returning to one of her first projects, Janet Delaney presents a witty, warm-hearted look at labor and love, through the last days of her father’s career as a salesman">
+<meta name="twitter:domain" content="www.lensculture.com">
+<meta name="twitter:image" content="https://images.lensculture.com/image/ddd57b35-3938-4d5c-24ef-1b1afaa53400/large">
+<meta name="twitter:site" content="@lensculture">
+<meta name="twitter:title" content="Too Many Products Too Much Pressure - Photographs by Janet Delaney | Book review by Magali Duzant | LensCulture">
+<meta name="twitter:url" content="https://www.lensculture.com/articles/janet-delaney-too-many-products-too-much-pressure">
+
+<meta property="fb:app_id" content="">
+<meta property="fb:pages" content="14562082367">
+
+<meta name="cf-country" content="US">
+
+
+    <link rel="preload" as="style" media="all" href="https://www.lensculture.com/assets/application-e42d2d74e89963c176f4de551cb78be8d808fa3dd6fbcad599c3fd54dc60010a.css">
+
+  <link rel="stylesheet" href="https://www.lensculture.com/assets/application-e42d2d74e89963c176f4de551cb78be8d808fa3dd6fbcad599c3fd54dc60010a.css" media="all" />
+  <link rel="stylesheet" href="https://www.lensculture.com/assets/consent-7fb50319b9d93f25de34d2ad8eca7cfbf604cbb847dc6ead99d36e47b9584c4b.css" media="all" />
+  <style type="text/css">@font-face {font-family:Work Sans;font-style:normal;font-weight:400;src:url(/cf-fonts/v/work-sans/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Work Sans;font-style:normal;font-weight:400;src:url(/cf-fonts/v/work-sans/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Work Sans;font-style:normal;font-weight:400;src:url(/cf-fonts/v/work-sans/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Work Sans;font-style:normal;font-weight:700;src:url(/cf-fonts/v/work-sans/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Work Sans;font-style:normal;font-weight:700;src:url(/cf-fonts/v/work-sans/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Work Sans;font-style:normal;font-weight:700;src:url(/cf-fonts/v/work-sans/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Work Sans;font-style:italic;font-weight:400;src:url(/cf-fonts/v/work-sans/5.0.16/latin/wght/italic.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Work Sans;font-style:italic;font-weight:400;src:url(/cf-fonts/v/work-sans/5.0.16/latin-ext/wght/italic.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Work Sans;font-style:italic;font-weight:400;src:url(/cf-fonts/v/work-sans/5.0.16/vietnamese/wght/italic.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}</style>
+
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" data-cfasync="false"></script>
+<script src="//use.typekit.net/cgg5lpx.js" data-cfasync="false"></script>
+
+
+<script>
+  try{Typekit.load();}catch(e){}
+</script>
+
+  </head>
+  <body class="artist-pages-layout    en-lang  guest" lang='en'>
+
+    <div class="main-wrap main-article-wrap">
+      <div class="artist-main -with-content-at-top">
+          <header
+  class="
+    navbar show-alert
+    closed white-header article-header
+  "
+  
+>
+  <div class="background"></div>
+  
+  <a class="db flexible items-center justify-center white fw6 relative competition-alert alert alert-dismissible fade in" href="/photo-competitions/critics-choice" title="Check out our Photography Competition 2026 &amp; Photo Awards now."><b>Critics&#39; Choice 2026 &ndash; <span class="ttu">Deadline</span> April 22, 2026</b><span class="dib fw7 ttu ba b--white pv2 ph3">Enter Today</span><button aria-label="Close" class="close" data-dismiss="alert" type="button"><span aria-hidden="true">×</span></button></a>
+  <div class="row visible-xs mobile-navbar"><div class="col-xs-3"><button class="btn btn-navbar-expand navbar-toggle" data-target="#main-navbar-collapse" data-toggle="collapse"><img src="//assets.lensculture.com/static/icons/menu-icon.svg" width="19" /></button></div><div class="col-xs-6 text-center"><div class="mobile-navbar-header"><a id="mobile_logo" href="/"><img alt="LensCulture" srcset="/images/logo-grey@2x.png 2x" src="https://www.lensculture.com/images/logo-grey.png" /></a></div></div></div>
+
+  <div class="collapse navbar-collapse" id="main-navbar-collapse">
+  <a href="#" id="mobile-navbar-overlay"></a>
+  <div class="container">
+    
+
+    <a class="navbar-brand hidden-xs" href="/">
+      <img decoding="async" alt="LensCulture, Photography Competitions 2026" srcset="https://www.lensculture.com/images/logo-grey@2x.png 2x" src="https://www.lensculture.com/images/logo-grey.png" />
+</a>
+    
+    
+      <ul class="nav navbar-nav"
+          data-controller="shared--competition-cta"
+          data-shared--competition-cta-api-url-value="/api/competition-cta"
+          data-shared--competition-cta-layout-value="bootstrap">
+        <li
+          class="navbar-menu-item "
+        >
+          <a href="/">Magazine</a>
+          <ul class="navbar-submenu dropdown-menu feature-dropdown" role="menu">
+            <li><a href="/">Newest</a></li>
+            <li><a href="/interviews">Interviews</a></li>
+            <li><a href="/book-reviews">Book Reviews</a></li>
+            <li><a href="/video-interviews">Video Interviews</a></li>
+          </ul>
+        </li>
+
+        <li
+          class="navbar-menu-item "
+        >
+          <a href="/explore/award-winners">Explore</a>
+          <ul class="navbar-submenu dropdown-menu explore-dropdown" role="menu">
+            <li><a href="/explore/award-winners">LensCulture Discoveries</a></li>
+            <li><a href="/photo-contest-award-winners-galleries">Winners Galleries</a></li>
+            <li><a href="/watch-festival-videos">Festival Videos</a></li>
+          </ul>
+        </li>
+
+
+        <li
+          class="navbar-menu-item "
+        >
+          <a href="/photography-free-guides">Learn</a>
+          <ul class="navbar-submenu dropdown-menu explore-dropdown" role="menu">
+            <li><a href="/photography-free-guides">Free Guides</a></li>
+          </ul>
+        </li>
+
+        <li
+          class="
+            navbar-menu-item menu-item-more 
+          "
+        >
+          <a href="/about">About Us</a>
+          <ul class="navbar-submenu dropdown-menu explore-dropdown" role="menu">
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/jurors">Jury Members</a></li>
+            <li><a href="/exhibitions">Exhibitions</a></li>
+            <li><a href="/festivals">Festivals</a></li>
+            <li><a href="/press">Press</a></li>
+          </ul>
+        </li>
+
+        <li class="navbar-menu-item menu-item-more">
+          <a href="/advertising">Partner with Us</a>
+        </li>
+
+        <li class="dropdown navbar-menu-item">
+          <a
+            href="#"
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            More
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li class="menu-item-more"><a href="/about">About Us</a></li>
+            <li class="menu-item-more"><a href="/jurors">Jury Members</a></li>
+            <li class="menu-item-more"><a href="/exhibitions">Exhibitions</a></li>
+            <li class="menu-item-more"><a href="/festivals">Festivals</a></li>
+            <li class="menu-item-more"><a href="/press">Press</a></li>
+            <li class="menu-item-more"><a href="/advertising">Partner with Us</a></li>
+          </ul>
+        </li>
+
+        <li class="navbar-menu-item" data-shared--competition-cta-target="desktopLink"></li>
+      </ul>
+
+      <div
+        data-controller="shared--userbar"
+        style='min-width:200px'
+        data-shared--userbar-api-url-value="/api/user-status"
+        data-shared--userbar-auth-cookie-value="lc-prod-01"
+      >
+        <div id="user-menu-placeholder"
+     data-signup-path="/signup"
+     data-signin-path="/signin"
+     data-network-signup-path="/network/signup"
+     data-network-signin-path="/network/signin"
+     data-is-network="false">
+</div>
+
+      </div>
+
+      <form
+        action="/search"
+        method="GET"
+        class="navbar-search navbar-right navbar-form"
+        role="search"
+      >
+        <input
+          type="text"
+          class="search-query form-control"
+          name="q"
+          placeholder="Search"
+          value=""
+          minlength="3"
+          maxlength="255"
+        />
+      </form>
+
+      <div class="like-buttons">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="size-6">
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+</svg>
+        <a href="https://instagram.com/lensculture" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="size-6">
+  <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+</svg>
+        </a>
+      </div>
+
+  </div>
+</div>
+
+  <a href="#slideshow" class="to-article-images -hidden">
+  <span>View Images</span>
+  <i class="fa fa-play-circle-o" aria-hidden="true"></i>
+</a>
+
+</header>
+
+<div class="recommendation-banner disabled"></div><script>let bannerActive = document.querySelector('.recommendation-banner.enabled');
+let navHeader = document.querySelector('header');
+if (bannerActive)
+  navHeader.classList.add('header-with-banner');</script>
+
+
+        <div class="artist-content">
+          
+          
+
+          <div class="container container-artist">
+            
+
+
+
+    <img
+      class="dn"
+      src="https://images.lensculture.com/image/ddd57b35-3938-4d5c-24ef-1b1afaa53400/contain2200"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    >
+    <div
+      class="
+        article-cover article-page default-article-img
+        feature
+      "
+      data-debug-msg="top"
+      id="janet-delaney-too-many-products-too-much-pressure"
+      data-photo-id="8192437"
+      style="background-image:url(https://images.lensculture.com/image/ddd57b35-3938-4d5c-24ef-1b1afaa53400/contain2200);"
+    >
+
+      <div class="cover-image-gradient"></div>
+
+
+      <h1 class="article-cover-title">
+        <div class="title-wrapper">
+          <div class="type">Feature</div>
+
+          <div class="title">Too Many Products Too Much Pressure</div>
+
+          <div class="article-cover-summary">Returning to one of her first projects, Janet Delaney presents a witty, warm-hearted look at labor and love, through the last days of her father’s career as a salesman.</div>
+
+            <div class="author-text">
+              <em>
+                  <p>Photographs by Janet Delaney<br>Book review by Magali Duzant
+</p>
+              </em>
+            </div>
+        </div>
+
+      </h1>
+
+      <a class="continue-article-reading-link" href="javascript:;">
+        <i class="fa fa-arrow-down"></i>
+      </a>
+    </div>
+
+<div
+  class="container-article"
+  itemscope=""
+  itemtype="http://schema.org/Article"
+>
+  <div class="hidden" itemprop="name headline">Too Many Products Too Much Pressure</div>
+  <div class="hidden" itemprop="description">Returning to one of her first projects, Janet Delaney presents a witty, warm-hearted look at labor and love, through the last days of her father’s career as a salesman.</div>
+
+  <div
+    class="article-wrapper "
+  >
+
+    <div class="article-text">
+      <p>Photography, to play with a well-known phrase, is a many-splendored thing. A record, an impression, an exchange, a surprise, a science, an art—a mixture of all of the above, capable of capturing a spectrum of joy, anguish, confusion, and the quotidian. It is also a form of attention in which the person behind the camera decides to press the shutter and etch a moment into permanence.
+</p><figure class="article-photo-block" data-photo-id="8192444">
+<div class="article-photo-placeholder"><img class="photo -disabled" src="https://images.lensculture.com/image/dcd9cd4d-c00a-4504-c0c7-396c12440e00/large" data-photo-id="8192444" alt="&quot;Everything is Connected to Fear&quot; from the book &quot;Too Many Products Too Much Pressure&quot; © Janet Delaney">
+</div><figcaption class="caption dynamic-photo-caption" data-photo-id="8192444"><span class="dynamic-photo-caption-text" data-item-id="undefined" data-photo-id="8192444">“Everything is Connected to Fear” from the book “Too Many Products Too Much Pressure” © Janet Delaney</span><a class="add-to-collection-inline-photo" href="#" data-id="8192444" data-original-title="Add to Collection" data-toggle="tooltip"><i class="fa fa-plus"></i></a></figcaption></figure>
+<p>Bay Area-based artist Janet Delaney describes photography as “a currency of love” when describing her decades-old work, <em><a href="https://deadbeatclubpress.com/en-nl/products/janet-delaney" target="_blank">Too Many Products Too Much Pressure</a></em>, recently published by Deadbeat Club<em>. </em>Photographed in 1980, the project documents her soon-to-retire father as he makes his rounds as a beauty industry salesman. We see salon owners, fellow salesmen, customers, and Delaney’s father, Bill, the star of the show. What began as a feminist undertaking to interrogate an industry that contributes to unrealistic beauty standards ended up providing the artist with a new understanding of her father—his sacrifices, his anxiety, his personality—and ultimately his love for his family.
+</p><figure class="article-photo-block" data-photo-id="8192446">
+<div class="article-photo-placeholder"><img class="photo -disabled" src="https://images.lensculture.com/image/17e189c4-5b8e-42d5-5f25-041833005800/large" data-photo-id="8192446" alt="&quot;Dad in the Tub&quot; from the book &quot;Too Many Products Too Much Pressure&quot; © Janet Delaney">
+</div><figcaption class="caption dynamic-photo-caption" data-photo-id="8192446"><span class="dynamic-photo-caption-text" data-item-id="undefined" data-photo-id="8192446">“Dad in the Tub” from the book “Too Many Products Too Much Pressure” © Janet Delaney</span><a class="add-to-collection-inline-photo" href="#" data-id="8192446" data-original-title="Add to Collection" data-toggle="tooltip"><i class="fa fa-plus"></i></a></figcaption></figure>
+<p>Delaney’s father grew up in Chicago, where he was placed in an orphanage and adopted by a couple who died before he reached the age of 10. He would go on to live with his adoptive grandfather and then serve as a houseboy for a wealthy widow until he turned 18. Photographs were not present in his childhood, but would later become an important part of the family life he went on to build and surround his children with. “My father really photographed a lot, and my mother’s family had a treasure trove of images. I can look back at pictures from World War I, soldiers who went off to war in Europe and my grandmother on the sheep ranch in Tacoma, Washington. I grew up with this obsession with learning about my life through photos,” Delaney observes.
+</p><figure class="article-photo-block" data-photo-id="8192448">
+<div class="article-photo-placeholder"><img class="photo -disabled" src="https://images.lensculture.com/image/175ad617-b3e2-4ba3-53f5-787b23907d00/large" data-photo-id="8192448" alt="&quot;Magazines&quot; from the book &quot;Too Many Products Too Much Pressure&quot; © Janet Delaney">
+</div><figcaption class="caption dynamic-photo-caption" data-photo-id="8192448"><span class="dynamic-photo-caption-text" data-item-id="undefined" data-photo-id="8192448">“Magazines” from the book “Too Many Products Too Much Pressure” © Janet Delaney</span><a class="add-to-collection-inline-photo" href="#" data-id="8192448" data-original-title="Add to Collection" data-toggle="tooltip"><i class="fa fa-plus"></i></a></figcaption></figure>
+<p>“Photography gives you some degree of power,” she notes, “Early on, while I was in high school and in college, the Vietnam War was happening; it was a very challenging time, and it gave me the capacity to get stuck in. To take pictures, you know? It led me to the interior world of anything I was doing. It was like a passport. I could use the camera to try to make sense of everything that was going on around me.”
+</p>
+<p>During her graduate studies, Delaney decided her approach would be to photograph close to home. “I was interested in turning the camera on my own life, to talk about bigger issues of feminism and what I saw as the tyranny of the beauty industry. Because my dad sold beauty supplies, I’d grown up surrounded by products designed to transform women into an idealized form,” she explains.
+</p><figure class="article-photo-block" data-photo-id="8192438">
+<div class="article-photo-placeholder"><img class="photo -disabled" src="https://images.lensculture.com/image/e647ecfd-01de-4b01-e74e-f24dd54f6200/large" data-photo-id="8192438" alt="&quot;Summer Madness&quot; from the book &quot;Too Many Products Too Much Pressure&quot; © Janet Delaney">
+</div><figcaption class="caption dynamic-photo-caption" data-photo-id="8192438"><span class="dynamic-photo-caption-text" data-item-id="undefined" data-photo-id="8192438">“Summer Madness” from the book “Too Many Products Too Much Pressure” © Janet Delaney</span><a class="add-to-collection-inline-photo" href="#" data-id="8192438" data-original-title="Add to Collection" data-toggle="tooltip"><i class="fa fa-plus"></i></a></figcaption></figure>
+<p>Together, they drove around to visit his clients, and the artist was introduced to women who knew all about her, as her father spoke warmly about his family while plying his trade. “I learned how hard my father worked. I knew his job was consuming. He worked 9am to 9pm many days, and on the weekends, he did paperwork and drove back into Los Angeles from our home in Compton to drop off his orders,” she remembers. “He worked on commission, so it was stressful. I also saw how wonderful he was with the women he worked with, and how much he respected them. He had the necessary humility to be able to spend time in a woman’s world. But I also saw how he felt that his job was not worthy of much respect, it was not ‘manly’ and that bothered him a bit.”
+</p><figure class="article-photo-block" data-photo-id="8192442">
+<div class="article-photo-placeholder"><img class="photo -disabled" src="https://images.lensculture.com/image/8c4c5207-587f-4a45-ab19-4627cec70a00/large" data-photo-id="8192442" alt="&quot;Dad in his Valiant&quot; from the book &quot;Too Many Products Too Much Pressure&quot; © Janet Delaney">
+</div><figcaption class="caption dynamic-photo-caption" data-photo-id="8192442"><span class="dynamic-photo-caption-text" data-item-id="undefined" data-photo-id="8192442">“Dad in his Valiant” from the book “Too Many Products Too Much Pressure” © Janet Delaney</span><a class="add-to-collection-inline-photo" href="#" data-id="8192442" data-original-title="Add to Collection" data-toggle="tooltip"><i class="fa fa-plus"></i></a></figcaption></figure>
+<p><em>Too Many Products Too Much Pressure</em> has a particular rhythm. Across more than a 100 pages, we see Bill in his car, paperwork piled on the seats as he navigates the streets of Los Angeles, anxiety mounting. The tempo is frenetic as we move with him from storefront to car to storefront on repeat. He banters with customers and pitches products. He appears both stressed and at ease, laughing and lighting cigarettes. Detail shots show interiors, the bric-a-brac of a working stylist, piles of magazines, and hairspray.
+</p><figure class="article-photo-block" data-photo-id="8192447">
+<div class="article-photo-placeholder"><img class="photo -disabled" src="https://images.lensculture.com/image/719f9a74-355b-43e8-b65b-0fe9ef2f6900/large" data-photo-id="8192447" alt="&quot;Hair Dryers&quot; from the book &quot;Too Many Products Too Much Pressure&quot; © Janet Delaney">
+</div><figcaption class="caption dynamic-photo-caption" data-photo-id="8192447"><span class="dynamic-photo-caption-text" data-item-id="undefined" data-photo-id="8192447">“Hair Dryers” from the book “Too Many Products Too Much Pressure” © Janet Delaney</span><a class="add-to-collection-inline-photo" href="#" data-id="8192447" data-original-title="Add to Collection" data-toggle="tooltip"><i class="fa fa-plus"></i></a></figcaption></figure>
+<p>Whilst photographing, Delaney also recorded conversations in the salons, and the book’s designer, Clint Woodside, puts the text to work. We see conversations laid out in the manner of a screenplay and Bill’s own observations in bright blue text, allowing the viewer, much like a film-goer, to watch the scenes unfolding and get a sense of his internal world. He is direct about the industry and the economic reality of being a salesman, and also of the important, comforting role that a salon can hold for clients. Delaney’s photographs do a beautiful job of showing not only the weight of the work—Bill is always ‘on’—but also how much his customers truly seem to like him, teasing and inquiring after him. “The shop owners and beauticians all greeted me very warmly because they loved my dad,” she says.
+</p><figure class="article-photo-block" data-photo-id="8192440">
+<div class="article-photo-placeholder"><img class="photo -disabled" src="https://images.lensculture.com/image/2f9f11bd-9a1c-4755-3dec-1568ab78d700/large" data-photo-id="8192440" alt="&quot;Soar with Eagles&quot; from the book &quot;Too Many Products Too Much Pressure&quot; © Janet Delaney">
+</div><figcaption class="caption dynamic-photo-caption" data-photo-id="8192440"><span class="dynamic-photo-caption-text" data-item-id="undefined" data-photo-id="8192440">“Soar with Eagles” from the book “Too Many Products Too Much Pressure” © Janet Delaney</span><a class="add-to-collection-inline-photo" href="#" data-id="8192440" data-original-title="Add to Collection" data-toggle="tooltip"><i class="fa fa-plus"></i></a></figcaption></figure>
+<p>In the book’s two texts, an introduction written by the artist and a closing piece by her mother, we get expanded perspectives on Bill and his work, both what it gave him and what it took out of him. Delaney’s mother, Connie, writes: “All day Saturday, Sunday, 7am to midnight, calls came from customers who suddenly remembered something that they had to talk to him about. He became a part of their lives, and they became a part of his life too. He’s really had an extended family if you want to call it that.”
+</p><figure class="article-photo-block" data-photo-id="8192443">
+<div class="article-photo-placeholder"><img class="photo -disabled" src="https://images.lensculture.com/image/4933fc60-f17f-4b0d-7d9c-b4a9c3193500/large" data-photo-id="8192443" alt="&quot;Paperwork&quot; from the book &quot;Too Many Products Too Much Pressure&quot; © Janet Delaney">
+</div><figcaption class="caption dynamic-photo-caption" data-photo-id="8192443"><span class="dynamic-photo-caption-text" data-item-id="undefined" data-photo-id="8192443">“Paperwork” from the book “Too Many Products Too Much Pressure” © Janet Delaney</span><a class="add-to-collection-inline-photo" href="#" data-id="8192443" data-original-title="Add to Collection" data-toggle="tooltip"><i class="fa fa-plus"></i></a></figcaption></figure>
+<p>Family, connection, and community reverberate throughout the book. Though it may feature a family stitched through with commerce, it speaks to the intimate relationships that have disappeared from much of our economic systems. Woodside’s design doesn’t shy from the language of marketing, placing images of Bill driving next to or on top of crops of enlarged beauty advertisements, signaling the dizzying nature of the job. In a world increasingly moving away from in-person relationships, the idea of a middleman—a conduit between businesses—has been replaced with ever-growing monopolies.
+</p><figure class="article-photo-block" data-photo-id="8192441">
+<div class="article-photo-placeholder"><img class="photo -disabled" src="https://images.lensculture.com/image/427411b7-45e5-4a94-ba04-732eda73e300/large" data-photo-id="8192441" alt="&quot;Long Day&quot; from the book &quot;Too Many Products Too Much Pressure&quot; © Janet Delaney">
+</div><figcaption class="caption dynamic-photo-caption" data-photo-id="8192441"><span class="dynamic-photo-caption-text" data-item-id="undefined" data-photo-id="8192441">“Long Day” from the book “Too Many Products Too Much Pressure” © Janet Delaney</span><a class="add-to-collection-inline-photo" href="#" data-id="8192441" data-original-title="Add to Collection" data-toggle="tooltip"><i class="fa fa-plus"></i></a></figcaption></figure>
+<p>“As we move to mass production and mass marketing and massive stores and online shopping, we remove so much of the human touch. What can we do to compensate for the alienation that comes with all these conveniences of scale?” Delaney asks. In the banter between Bill and the salon owners and employees, the business of the matter still has that personal touch, or as Connie writes: “This business of making people feel good, he knows how to do it. There is a sincerity behind it that makes it ring true even though you know that many of the things he’s said, he has said over and over again, but he says it with such charm and real integrity that you just believe him.”
+</p><figure class="article-photo-block" data-photo-id="8192445">
+<div class="article-photo-placeholder"><img class="photo -disabled" src="https://images.lensculture.com/image/f9babd73-b169-44c0-fe5f-b6fd9d874a00/large" data-photo-id="8192445" alt="&quot;The Evening Hug&quot; from the book &quot;Too Many Products Too Much Pressure&quot; © Janet Delaney">
+</div><figcaption class="caption dynamic-photo-caption" data-photo-id="8192445"><span class="dynamic-photo-caption-text" data-item-id="undefined" data-photo-id="8192445">“The Evening Hug” from the book “Too Many Products Too Much Pressure” © Janet Delaney</span><a class="add-to-collection-inline-photo" href="#" data-id="8192445" data-original-title="Add to Collection" data-toggle="tooltip"><i class="fa fa-plus"></i></a></figcaption></figure>
+<p>In concluding her text, Connie writes of Bill: “Now that he is retiring, all the accolades and all the obvious attention that he is getting from these people that he has been dealing with all this time shows how they have felt about him emotionally. This should prove to him that he has greater rewards than he ever anticipated or expected out of any kind of career that he could have had.”
+</p>
+<p>The practice of photography, of exchange and attention, can be an act of love, whether we realize it at the time or not. “This idea of being acknowledged was at the core of my work,” Delaney explains, “I really have been rewarded from giving photographs back to people who were not normally acknowledged. Before we had this omnipresent image capacity, where everybody is a star, it was special. That was the motivation. It’s a currency of love that was really very motivating for me to make those kinds of connections and for my dad to be able to share this with his neighbors, these were men that he had spent time with, and he was very proud, I think, to be able to show that he had been the feature of this.”
+</p><figure class="article-photo-block" data-photo-id="8192449">
+<div class="article-photo-placeholder"><img class="photo -disabled" src="https://images.lensculture.com/image/e29fc403-8d62-4316-0702-f9c8cef58100/large" data-photo-id="8192449" alt="&quot;Price Change January 1, 1980&quot; from the book &quot;Too Many Products Too Much Pressure&quot; © Janet Delaney">
+</div><figcaption class="caption dynamic-photo-caption" data-photo-id="8192449"><span class="dynamic-photo-caption-text" data-item-id="undefined" data-photo-id="8192449">“Price Change January 1, 1980” from the book “Too Many Products Too Much Pressure” © Janet Delaney</span><a class="add-to-collection-inline-photo" href="#" data-id="8192449" data-original-title="Add to Collection" data-toggle="tooltip"><i class="fa fa-plus"></i></a></figcaption></figure>
+<p><em>Too Many Products Too Much Pressure</em> captures a working world that we have lost and are poorer for. It is also a study of how our ambitions can change and deepen, surprising the maker and the doer along the way. In returning to her project decades later, Delaney reflects, “My original intentions of critiquing the beauty business were overridden by the real story of hard work and love. Though I did not take down the beauty industry, I have managed to share a good and important story about work and fatherhood.” Across its pages, her publication demonstrates that to give our attention is a worthy facet, or perhaps more fittingly, a splendor of photography. To use Bill Delaney’s words, “You gotta love it.”<br><br>
+</p>
+
+    </div>
+  </div>
+
+    <div id="slideshow" class="no-padding"></div>
+    <div
+      class=""
+    >
+        <figure class="article-photo-block">
+          <div class="article-photo-placeholder prog-img" data-photo-id="8192435">
+            <img loading="lazy" class="photo" src="https://images.lensculture.com/image/d7ea81f4-0694-40d6-d903-06747a70dd00/large" />
+          </div>
+
+          <figcaption class="caption">
+            &quot;Briefcase&quot; from the book &quot;Too Many Products Too Much Pressure&quot; © Janet Delaney
+            <a class="add-to-collection-inline-photo" data-id="8192435" data-toggle="tooltip" title="Add to Collection" href="javascript:;">
+              <i class="fa fa-plus"></i>
+</a>          </figcaption>
+        </figure>
+        <figure class="article-photo-block">
+          <div class="article-photo-placeholder prog-img" data-photo-id="8192436">
+            <img loading="lazy" class="photo" src="https://images.lensculture.com/image/6b4efe00-cbbb-478c-efe7-8fe7ad0f6d00/large" />
+          </div>
+
+          <figcaption class="caption">
+            &quot;Counting Payment&quot; from the book &quot;Too Many Products Too Much Pressure&quot; © Janet Delaney
+            <a class="add-to-collection-inline-photo" data-id="8192436" data-toggle="tooltip" title="Add to Collection" href="javascript:;">
+              <i class="fa fa-plus"></i>
+</a>          </figcaption>
+        </figure>
+        <figure class="article-photo-block">
+          <div class="article-photo-placeholder prog-img" data-photo-id="8192437">
+            <img loading="lazy" class="photo" src="https://images.lensculture.com/image/ddd57b35-3938-4d5c-24ef-1b1afaa53400/large" />
+          </div>
+
+          <figcaption class="caption">
+            &quot;House of Beauty&quot; from the book &quot;Too Many Products Too Much Pressure&quot; © Janet Delaney
+            <a class="add-to-collection-inline-photo" data-id="8192437" data-toggle="tooltip" title="Add to Collection" href="javascript:;">
+              <i class="fa fa-plus"></i>
+</a>          </figcaption>
+        </figure>
+        <figure class="article-photo-block">
+          <div class="article-photo-placeholder prog-img" data-photo-id="8192439">
+            <img loading="lazy" class="photo" src="https://images.lensculture.com/image/38e0f078-3896-4ef7-0834-eb2201f3b900/large" />
+          </div>
+
+          <figcaption class="caption">
+            &quot;Stylists at Rest&quot; from the book &quot;Too Many Products Too Much Pressure&quot; © Janet Delaney
+            <a class="add-to-collection-inline-photo" data-id="8192439" data-toggle="tooltip" title="Add to Collection" href="javascript:;">
+              <i class="fa fa-plus"></i>
+</a>          </figcaption>
+        </figure>
+    </div>
+
+  
+<div class="article-wrapper">
+  <div class="article-author">
+
+      <div class="author-social">
+          <a title="Janet Delaney" rel="author" href="/janet-delaney">
+            <img class="dib br-100 bg-near-white object-fit-cover img-square"
+              src="https://images.lensculture.com/image/8ab0a450-fade-4a98-c5ba-80d91b950800/thumb"
+              alt="Janet Delaney"
+              height="70"
+              width="70"
+              loading="lazy">
+</a>
+        <h2 class="name"><a title="Janet Delaney" rel="author" href="/janet-delaney">Janet Delaney</a></h2>
+
+          <h3 class="country">United States</h3>
+
+        <div class="profile-link">
+          <a title="About Janet Delaney - View Profile" rel="author" href="/janet-delaney">View Profile</a>
+        </div>
+      </div>
+  </div>
+</div>
+</div>
+
+<div class="article-sharing-btns">
+
+  <a
+    class="article-sharing-link st_facebook"
+    href="#"
+    rel="dynamic-tooltip"
+    title="Share"
+    data-placement="left"
+    data-url=""
+  >
+    <i class="fa fa-facebook fa-md"></i>
+  </a>
+  <a
+    class="article-sharing-link st_twitter"
+    data-text="Janet Delaney - Too Many Products Too Much Pressure | LensCulture"
+    href="#"
+    rel="dynamic-tooltip"
+    title="Tweet"
+    data-placement="left"
+  >
+    <i class="fa fa-twitter fa-md"></i>
+  </a>
+  <a
+    class="article-sharing-link st_email"
+    data-author="Janet Delaney"
+    data-description="Returning to one of her first projects, Janet Delaney presents a witty, warm-hearted look at labor and love, through the last days of her father’s career as a salesman"
+    data-title="Too Many Products Too Much Pressure"
+    href="#"
+    rel="dynamic-tooltip"
+    title="Mail"
+    data-placement="left"
+  >
+    <i class="fa fa-envelope fa-md"></i>
+  </a>
+</div>
+
+  <style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+</style>
+
+
+  <section class="competition-promo open-sans">
+    <div class="competition-promo__inner">
+      <div class="competition-promo__media">
+        <a href="/photo-competitions/critics-choice" title="Enter Critics’ Choice 2026 – LensCulture’s premier photography competition">
+          <img src="//assets.lensculture.com/static/competitions/cc2026/critics-choice-photo-awards-2026-enter-now.jpg" srcset="//assets.lensculture.com/static/competitions/cc2026/critics-choice-photo-awards-2026-enter-now@2x.jpg 2x" loading="lazy" alt="Critics’ Choice 2026 contest – LensCulture’s premier photography competition for conceptual, abstract, and contemporary photographers worldwide">
+        </a>
+        <span class="competition-promo__copyright">&copy; Farida Mahdy</span>
+      </div>
+
+      <div class="competition-promo__content">
+        <h2 class="competition-promo__title">
+          <a href="/photo-competitions/critics-choice" class="db" title="Enter Critics’ Choice 2026 – LensCulture’s premier photography competition">
+            <img src="//assets.lensculture.com/static/competitions/cc2026/cc26-logo.png" srcset="//assets.lensculture.com/static/competitions/cc2026/cc26-logo@2x.png 2x" loading="lazy" alt="Critics’ Choice 2026" width="445" height="86">
+            <span class="sr-only">Critics’ Choice 2026</span>
+          </a>
+        </h2>
+
+        <h3 class="competition-promo__description">
+          This photography competition is your opportunity to be recognized worldwide.
+        </h3>
+
+        <p class="competition-promo__awards">
+          <strong>Top Awards include:</strong> An Exhibition in London, International Media Exposure, Cash Prizes, Solo Feature on LensCulture
+        </p>
+
+          <div class="competition-promo__cta">
+            <a href="/photo-competitions/critics-choice" class="competition-promo__button">Enter Awards</a>
+            <span class="competition-promo__deadline">
+              <strong>Deadline:</strong> April 22, 2026
+            </span>
+          </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+<div class="featured-articles-wrapper">
+  <div class="container article-summary-list">
+    <div class="recent-articles-list article-summary-list-content js-fetch-articles" data-page="0" data-per-page="6"></div>
+
+    <div class="tc pa4 spinner-container">
+      <div class="pt5 pb3">
+        <i class="fa fa-spin fa-spinner"></i>
+      </div>
+    </div>
+
+    <div class="tc mv2 pb5">
+      <button class="load-more-articles btn btn-primary btn-read-more btn-read-more-bw hidden">
+        See more articles
+      </button>
+    </div>
+  </div>
+</div>
+
+<div aria-hidden="true" class="exit-popup-modal modal local-modal fade mw9 center z-9999" id="promo-exit-popup" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg mt6"><div class="modal-content br0"><div class="modal-header pa0 relative z-2"><button aria-label="Close" class="close trigger-dismissal bg-white br-100 relative" data-dismiss="modal"><span aria-hidden="true" class="f1 light-silver">&times;</span></button></div><div class="modal-body pa0 z-1"><div class="flexible"><div class="flex-1 relative flex-55"><img alt="Stay connected to the global photography community. LensCulture Awards, Photography Competitions." class="dib mw-100 exit-popup-modal-image" fetchpriority="low" loading="lazy" src="//assets.lensculture.com/static/competitions/contest/photo-awards-stay-connected-to-the-global-photography-community.jpg" srcset="//assets.lensculture.com/static/competitions/contest/photo-awards-stay-connected-to-the-global-photography-community@2x.jpg 2x" /><div class="absolute bottom-0"><div class="ph3 pv2 white">&copy; Peyton Fulford</div></div></div><div class="flex-1 tc open-sans pa5"><h4 class="pt4 pb2 f1 fw6 lh-solid black">Stay connected to the global photography community</h4><div class="f-3"><div class="pt2">Receive industry news, advice from editors &amp; gallerists, exclusive deadlines, access to the best photography events and more on a weekly basis.</div></div><div class="loading-indicator"><div class="pa1 mt5 f2"><i class="fa fa-spin fa-spinner"></i></div></div><div class="step-1"><form class="pt4 pb3"><input class="form-control pa4 w-100 center mt3" id="form-subscribe-to-email-name" placeholder="Your name" required="" type="text" /><input class="form-control pa4 w-100 center mv3" placeholder="Your email address" required="" type="email" /><div class="pt4"><input class="btn btn-primary btn-lg bg-gold f-3-l0 lh-title ph5 pv3 br0 ttu" type="submit" value="Subscribe" /></div></form></div><div class="step-2"><div class="pt5 pb3 f-2 fw6 lh-solid black"><div class="pt3"><i class="fa fa-check-circle green"></i> You have been subscribed!</div></div></div></div></div></div></div></div></div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+      <footer id="footer" class="light-footer">
+    <div class="footer-logo">
+      <img alt="LensCulture" class="dib" src="https://www.lensculture.com/assets/logo-a326916ab3aa431f787e6595c6d66eee00c5be7faff04081aa311d36c5651eee.png" />
+    </div>
+    <div class="footer-inner">
+      <div class="footer-social">
+        <p>LensCulture is a leading global photography platform known for its international photography awards, exhibitions, and editorial coverage of contemporary photography and visual culture.</p>
+        <div class="footer-social-links">
+          <a class="btn btn-inverse btn-lg" target="_blank" href="https://www.facebook.com/lensculture">
+            <i class="fa fa-facebook"></i>
+</a>
+          <a class="btn btn-inverse btn-lg" target="_blank" href="https://instagram.com/lensculture">
+            <i class="fa fa-instagram"></i>
+</a>        </div>
+      </div>
+
+      <div class="footer-menu">
+        <ul class="list-unstyled menu">
+          <li><a href="/awards">Awards</a></li>
+          <li><a href="/">Magazine</a></li>
+          <li><a href="/explore/award-winners">Explore</a></li>
+          <li><a href="/photography-free-guides">Learn</a></li>
+          <li><a class="free-guide-article-link" href="/advertising">Advertise with Us</a></li>
+          <li><a target="_blank" href="/press">Press</a></li>
+          <li><a href="/photography-free-guides">Free Guides</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a target="_blank" href="https://lensculture.zendesk.com">Help</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/feeds/feed.rss">RSS</a></li>
+          <li><a href="/legal">Legal</a></li>
+        </ul>
+      </div>
+
+        <div class="footer-email-form" id="footer-email-subscription">
+          <div id="footer-email-header">
+            <h2 class="footer-sub-header ttu">Get our weekly newsletter</h2>
+          </div>
+          
+          <div id="footer-email-success" hidden>
+            <p>You are subscribed. Thank you.</p>
+          </div>
+
+          <form id="footer-email-form" action="/email_subscriptions" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" autocomplete="off" /><input type="hidden" name="authenticity_token" value="h7klxrQ_sLd1Yn3D5qmd8wrW6T7x5fo3OHE1Ib81a8uxC-aSNkSF_tTc2Nk7SAAFecCFsHCgSvAybNiL9Ug53g" autocomplete="off" />
+
+            <div>
+              <input type="text" name="full_name" id="footer-email-name" placeholder="Your name" required="required" />
+            </div>
+
+            <div class="footer-email-field">
+              <input type="email" name="email" id="footer-email-address" placeholder="Your email" required="required" />
+
+              <input type="submit" name="commit" value="Subscribe" data-disable-with="Subscribe" />
+            </div>
+</form>        </div>
+    </div>
+
+    <div class="footer-copyright">
+      <p>
+        © 2026 LensCulture, Inc. Photographs © of their respective owners.
+      </p>
+    </div>
+  </footer>
+
+<script src="https://www.lensculture.com/assets/application-088f7d1fb4059a2ef22153a4b4459447afafd13067af76d4e8973621236ef4a0.js" data-cfasync="false"></script><script src="https://www.lensculture.com/packs/application-e89ba4c4ee54816d2c2c.js"></script>
+
+
+<div id="fb-root"></div><script>window.fbAsyncInit = function() {
+  // init the FB JS SDK
+  FB.init({
+    appId      : '',
+    channelUrl : '//www.lensculture.com/channel.html',
+    status     : true,  // Check Facebook Login status
+    xfbml      : true, // Look for social plugins on the page
+    cookie     : true,
+    version    : 'v2.8'
+  });
+  // Additional initialization code such as adding Event Listeners goes here
+  FB.Event.subscribe('edge.create', function(url) {
+    $(document).trigger('facebook.edge.create', url);
+    ga('send', 'social', 'facebook', 'like', url);
+  });
+};
+// Load the SDK asynchronously
+(function(d, s, id){
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.async=true; js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script src="//platform.linkedin.com/in.js" type="text/javascript">api_key: </script>
+
+    <script></script>  <script src="https://www.lensculture.com/packs/orders-e89ba4c4ee54816d2c2c.js" async="async"></script>
+  <script src="https://www.lensculture.com/assets/articles-a07a00b69a5140f93ebe420f4c45f9ef0b2f424f3d956faef88184c4158a0b5e.js" async="async"></script>
+
+  <script>
+    $(function() {
+      var ga = function() {
+        // TODO: consent-cookies then revisit
+        console.log("ga: disabled") 
+      } 
+
+      console.log("articles#show")
+      // GA tracker
+      $('.st_facebook').on('click', function() {
+        ga('send', 'event', 'share', 'facebook');
+      });
+
+      $('.st_twitter').on('click', function () {
+        ga('send', 'event', 'share', 'twitter');
+      });
+
+      // Track project view
+      var articleFromProject = true;
+      if (articleFromProject) {
+        ga('send', 'event', 'project', 'view', 'article', '2025324');
+      }
+
+      var featuredArticles = document.querySelector('.featured-articles-wrapper');
+      var navbarEl = document.querySelector('.navbar');
+      var navbar = navbarEl.classList;
+      var slideshowEL = document.querySelector('#slideshow');
+      var scrollTop = window.innerHeight;
+      var shareButtons = document.querySelector('.article-sharing-btns');
+      var windowHeight = window.innerHeight;
+      var toImagesBtn = document.querySelector('.to-article-images');
+
+      console.log("slideshowEl", slideshowEL);
+
+      window.addEventListener('scroll', function(){
+        var currentScroll = window.pageYOffset;
+        var slideshowTop = slideshowEL ? slideshowEL.getBoundingClientRect().top : 0;
+        var featuredArticlesTop = featuredArticles.getBoundingClientRect().top;
+
+        if ((currentScroll > windowHeight && currentScroll > scrollTop) || currentScroll <= 0) {
+          if (navbar.contains('open') && !navbarEl.querySelector('.announcement .announcement-form')) {
+            navbar.add('closed');
+            navbar.remove('open')
+          }
+        } else {
+          if (navbar.contains('closed')) {
+            navbar.add('open');
+            navbar.remove('closed')
+          }
+        }
+
+        scrollTop = currentScroll;
+
+        // Show\hide sharing btns
+        if (currentScroll > (windowHeight/1.5)) {
+          shareButtons.classList.add('-visible')
+        } else {
+          shareButtons.classList.remove('-visible')
+        }
+
+        // For button "scroll to images"
+        if (slideshowEL) toImagesBtn.classList.toggle('-hidden', slideshowTop < windowHeight && featuredArticlesTop > 0);
+      });
+
+      // Add to collection inline photo
+      $('.add-to-collection-inline-photo').on('click', function(e) {
+        e.preventDefault();
+        pubsub.publish('add-to-collection', this.dataset.id);
+      });
+    });
+  </script>
+<script>var previouslyDismissed = Cookies.get('exit-popup-dismissed'),
+    previouslySubscribed = Cookies.get('exit-popup-subscribed')
+
+if (!previouslyDismissed && !previouslySubscribed) {
+  var modal = $('#promo-exit-popup')
+
+  $('form', modal).submit(function(ev) {
+    ev.preventDefault()
+    var full_name = $('input#form-subscribe-to-email-name', modal).val()
+    var email = $('input[type=email]', modal).val()
+    modal.addClass('loading')
+
+    $.post('/email_subscriptions', { email_subscription: { email: email, full_name: full_name, subscribable_type: 'General exit popup v1' } },
+      function(response) {
+        Cookies.set('exit-popup-subscribed', 'true')
+        modal.removeClass('loading')
+        modal.addClass('show-step-2')
+      }
+    )
+  })
+
+  $('.trigger-dismissal', modal).click(function(ev) {
+    Cookies.set('exit-popup-dismissed', 'true', { expires: 30 })
+  })
+
+  var openExitPopup = function() {
+    checkFlyin = document.querySelector('.announcement-fly-in')
+
+    if (checkFlyin) {
+      return false
+    } else {
+      modal.modal('show')
+    }
+  }
+
+  ouibounce(false, {
+    aggressive: true,
+    callback: openExitPopup,
+    delay: 500
+  });
+}</script>  <script>
+    (function () {
+      const COOKIE_NAME = 'footer-email-subscribed';
+
+      const container = document.getElementById('footer-email-subscription');
+      if (!container) return;
+
+      const formHeader    = document.getElementById('footer-email-header');
+      const form    = document.getElementById('footer-email-form');
+      const success = document.getElementById('footer-email-success');
+
+      if (Cookies.get(COOKIE_NAME)) {
+        form?.remove();
+        formHeader?.remove();
+        success?.remove();
+        return;
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const fullName = document.getElementById('footer-email-name')?.value.trim();
+        const email    = document.getElementById('footer-email-address')?.value.trim();
+
+        if (!email) return;
+
+        fetch('/email_subscriptions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+          },
+          credentials: 'same-origin',
+          body: JSON.stringify({
+            email_subscription: {
+              email: email,
+              full_name: fullName,
+              subscribable_type: 'Footer email form'
+            }
+          })
+        })
+        .then(response => {
+          if (!response.ok) throw new Error('Subscription failed');
+
+          Cookies.set(COOKIE_NAME, 'true', { expires: 365 });
+
+          formHeader.remove();
+          form.remove();
+          success.hidden = false;
+        })
+        .catch(() => {
+        });
+      });
+    })();
+  </script>
+<script src="//platform.twitter.com/oct.js" type="text/javascript"></script><script src="//platform.instagram.com/en_US/embeds.js" async="async" defer="defer"></script>
+
+    
+  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e508d3ffcc57cf0',t:'MTc3NDk3MjY2Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -4,7 +4,7 @@
     "description": "Celebrity news, quizzes, lists, and viral pop culture content",
     "feedURL": "https://www.buzzfeed.com/index.xml",
     "id": "a8766304-3def-fa08-7935-19517522a22e",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "BuzzFeed",
     "siteURL": "https://www.buzzfeed.com",
     "tags": [
@@ -20,7 +20,7 @@
     "description": "Celebrity gossip and commentary with an opinionated editorial voice",
     "feedURL": "https://www.celebitchy.com/feed/",
     "id": "adcac71d-ab72-f158-73dd-a27c776049fd",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Celebitchy",
     "siteURL": "https://www.celebitchy.com",
     "tags": [
@@ -36,7 +36,7 @@
     "description": "Celebrity gossip, real-life stories, and showbiz news from Bauer Media UK",
     "feedURL": "https://rss.onebauer.media/api/feed-aggregator?hostname=https://closeronline.co.uk",
     "id": "17181917-8da8-48fd-8418-88429c5e594b",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Closer Magazine",
     "siteURL": "https://www.closeronline.co.uk",
     "tags": [
@@ -52,7 +52,7 @@
     "description": "Hip-hop, streetwear, and pop culture crossover coverage",
     "feedURL": "https://www.complex.com/index.xml",
     "id": "e032ca8a-dad5-4606-7c1a-1270dda767e3",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Complex",
     "siteURL": "https://www.complex.com",
     "tags": [
@@ -68,7 +68,7 @@
     "description": "Celebrity news, relationships, and pop culture alongside beauty and lifestyle",
     "feedURL": "https://www.cosmopolitan.com/rss/all.xml/",
     "id": "c9cf16dc-2205-2aef-253e-8ee4bf4cd368",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Cosmopolitan",
     "siteURL": "https://www.cosmopolitan.com",
     "tags": [
@@ -84,7 +84,7 @@
     "description": "High-volume celebrity photos, news, and the infamous sidebar of shame",
     "feedURL": "https://www.dailymail.co.uk/tvshowbiz/index.rss",
     "id": "a64cc9ff-42ee-8c1f-8704-b659407632ea",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Daily Mail Celebrity",
     "siteURL": "https://www.dailymail.co.uk/tvshowbiz/",
     "tags": [
@@ -100,7 +100,7 @@
     "description": "Red carpet, celebrity relationships, and reality TV coverage from NBCUniversal",
     "feedURL": "https://www.eonline.com/syndication/feeds/rssfeeds/topstories.xml",
     "id": "b269fba3-5035-a7e7-8d35-b82757bbff5c",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "E! News",
     "siteURL": "https://www.eonline.com",
     "tags": [
@@ -116,7 +116,7 @@
     "description": "Pop culture, celebrity interviews, and entertainment news",
     "feedURL": "https://feeds-api.dotdashmeredith.com/v1/rss/google/06e092d0-4dff-468a-93db-8d6a995730b4",
     "id": "631a947b-43c3-cd02-7e6e-e46d0b815242",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Entertainment Weekly",
     "siteURL": "https://ew.com",
     "tags": [
@@ -132,7 +132,7 @@
     "description": "Celebrity interviews, pop culture, and lifestyle from Condé Nast",
     "feedURL": "https://www.glamour.com/feed/rss",
     "id": "b5bcc9b1-0c1f-2870-4a9a-32d925895e7b",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Glamour",
     "siteURL": "https://www.glamour.com",
     "tags": [
@@ -148,7 +148,7 @@
     "description": "Fashion, celebrity news, and pop culture from Bauer Media UK",
     "feedURL": "https://rss.onebauer.media/api/feed-aggregator?hostname=https://heatworld.com",
     "id": "b70ca2f8-1f49-49ca-9ec6-590aed645f90",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Heat World",
     "siteURL": "https://heatworld.com",
     "tags": [
@@ -164,7 +164,7 @@
     "description": "Celebrity and royal news, fashion, beauty, and lifestyle from the UK and around the world",
     "feedURL": "https://www.hellomagazine.com/feeds/rss/any/any/any/50.xml",
     "id": "0ffca22c-6cf1-4015-884a-a1947315f187",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "HELLO! Magazine",
     "siteURL": "https://www.hellomagazine.com",
     "tags": [
@@ -180,7 +180,7 @@
     "description": "Celebrity news, TV spoilers, and high-volume entertainment coverage",
     "feedURL": "https://hollywoodlife.com/feed/",
     "id": "0026c2c3-f584-bec8-2e63-d5ac138de993",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Hollywood Life",
     "siteURL": "https://hollywoodlife.com",
     "tags": [
@@ -196,7 +196,7 @@
     "description": "Celebrity and culture coverage with a feminist lens",
     "feedURL": "https://jezebel.com/rss",
     "id": "e75247f5-de43-f885-1349-7dc5475d0911",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Jezebel",
     "siteURL": "https://jezebel.com",
     "tags": [
@@ -212,7 +212,7 @@
     "description": "Fast celebrity photos, sightings, and entertainment news",
     "feedURL": "https://www.justjared.com/feed/",
     "id": "2625c61b-e0e9-0c84-3043-941c7f0151cd",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Just Jared",
     "siteURL": "https://www.justjared.com",
     "tags": [
@@ -228,7 +228,7 @@
     "description": "Analytical celebrity commentary that breaks down PR strategy behind celebrity moves",
     "feedURL": "https://www.laineygossip.com/feed",
     "id": "aea14506-ff31-b2ae-1017-d1949e0ef018",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Lainey Gossip",
     "siteURL": "https://www.laineygossip.com",
     "tags": [
@@ -244,7 +244,7 @@
     "description": "Music, celebrity, and youth culture with an indie sensibility",
     "feedURL": "https://www.nylon.com/rss",
     "id": "66b79f9a-daf0-719e-92a4-cd7c5c97cb98",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Nylon",
     "siteURL": "https://www.nylon.com",
     "tags": [
@@ -260,7 +260,7 @@
     "description": "Royal and celebrity news with exclusive offerings on style, beauty, and daily celebrity life",
     "feedURL": "https://okmagazine.com/rss",
     "id": "740f0e97-60d2-4945-8a49-015683a75f90",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "OK! Magazine",
     "siteURL": "https://okmagazine.com",
     "tags": [
@@ -276,7 +276,7 @@
     "description": "New York Post's gossip column — the most plugged-in celebrity source with industry connections",
     "feedURL": "https://pagesix.com/feed/",
     "id": "89264ac1-3cd2-328c-322c-e00ddb2e550e",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Page Six",
     "siteURL": "https://pagesix.com",
     "tags": [
@@ -292,7 +292,7 @@
     "description": "The dominant celebrity news brand covering relationships, style, and human interest",
     "feedURL": "https://feeds-api.dotdashmeredith.com/v1/rss/google/6bb3396f-8157-4dc5-8fcf-c1bd9d415be8",
     "id": "7dfeccf0-2b94-a0be-99f7-f1e3b1745300",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "People",
     "siteURL": "https://people.com",
     "tags": [
@@ -308,7 +308,7 @@
     "description": "The OG celebrity gossip blogger — high volume commentary and scoops",
     "feedURL": "https://perezhilton.com/feed/",
     "id": "a5818fc8-189c-ecf5-f0f6-4a05255ffa8e",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Perez Hilton",
     "siteURL": "https://perezhilton.com",
     "tags": [
@@ -324,7 +324,7 @@
     "description": "Celebrity, entertainment, fashion, and lifestyle for millennial women",
     "feedURL": "https://www.popsugar.com/feed",
     "id": "590ddb95-c89c-05e6-4b7f-d02b35ed63ae",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "PopSugar",
     "siteURL": "https://www.popsugar.com",
     "tags": [
@@ -340,7 +340,7 @@
     "description": "Celebrity and pop culture alongside fashion and beauty for a younger audience",
     "feedURL": "https://www.refinery29.com/rss.xml",
     "id": "b6e1adbe-35d3-7dad-f3bb-6b5c0e5b68f2",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Refinery29",
     "siteURL": "https://www.refinery29.com",
     "tags": [
@@ -356,7 +356,7 @@
     "description": "Major Black celebrity and pop culture news brand with enormous social reach",
     "feedURL": "https://theshaderoom.com/feed/",
     "id": "75f3b63f-7312-079a-5abb-7c510b092804",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "The Shade Room",
     "siteURL": "https://theshaderoom.com",
     "tags": [
@@ -372,7 +372,7 @@
     "description": "The breaking celebrity news machine — breaks stories before anyone else",
     "feedURL": "https://www.tmz.com/rss.xml",
     "id": "6240c290-bff3-74a2-7027-518cd58a4147",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "TMZ",
     "siteURL": "https://www.tmz.com",
     "tags": [
@@ -388,7 +388,7 @@
     "description": "Celebrity news, style, and the classic 'Stars — They're Just Like Us' format",
     "feedURL": "https://www.usmagazine.com/feed/",
     "id": "55cb5b4c-f67a-3f56-7cfd-996cde6453b9",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Us Weekly",
     "siteURL": "https://www.usmagazine.com",
     "tags": [
@@ -404,7 +404,7 @@
     "description": "Best-in-class celebrity profiles and Hollywood long-form from Condé Nast",
     "feedURL": "https://www.vanityfair.com/feed/rss",
     "id": "05b6a7b7-ac10-7ec3-0b5a-e856f3d7d38e",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Vanity Fair",
     "siteURL": "https://www.vanityfair.com",
     "tags": [
@@ -420,7 +420,7 @@
     "description": "The Australian People equivalent — celebrity news with local and international coverage",
     "feedURL": "https://www.who.com.au/feed",
     "id": "1b0d6adb-27a7-ad81-5319-2bb40110bc5a",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Who Magazine",
     "siteURL": "https://www.who.com.au",
     "tags": [

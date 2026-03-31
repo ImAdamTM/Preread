@@ -4,7 +4,7 @@
     "description": "Principal Software Engineer @ Just Eat Takeaway. Based in London, made in Italy",
     "feedURL": "https://albertodebortoli.com/rss/",
     "id": "78b02b33-4d32-bd35-c4a9-d85bc90785a2",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Alberto De Bortoli",
     "siteURL": "https://albertodebortoli.com/",
     "tags": [
@@ -20,7 +20,7 @@
     "description": "News and insights on the Android platform, developer tools, and events",
     "feedURL": "https://android-developers.googleblog.com/feeds/posts/default",
     "id": "4b3aeebc-e9fe-5be4-8d3c-c87b30e82379",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Android Developers Blog",
     "siteURL": "https://android-developers.googleblog.com/",
     "tags": [
@@ -36,7 +36,7 @@
     "description": "The official Android Developers publication on Medium",
     "feedURL": "https://medium.com/feed/androiddevelopers",
     "id": "e2ca2e09-bb18-922e-c44b-6add4fdd0268",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Android Developers Blog (Medium)",
     "siteURL": "https://medium.com/androiddevelopers",
     "tags": [
@@ -52,7 +52,7 @@
     "description": "Android development tips and insights",
     "feedURL": "https://blog.danlew.net/rss/",
     "id": "ca0b64ea-7f58-4fe1-ccd9-d0d3b9b422d4",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Dan Lew Codes",
     "siteURL": "https://blog.danlew.net/",
     "tags": [
@@ -68,7 +68,7 @@
     "description": "Practical Swift and iOS development tutorials and workshops",
     "feedURL": "https://donnywals.com/feed",
     "id": "8cc83c87-41bb-58f5-98e7-a1f4f32bb4b5",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Donny Wals",
     "siteURL": "https://www.donnywals.com",
     "tags": [
@@ -84,7 +84,7 @@
     "description": "iOS development blog",
     "feedURL": "https://www.fabisevi.ch/feed.xml",
     "id": "b2572bcc-423d-1381-bb63-23cc20f93bc3",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Fabisevi.ch",
     "siteURL": "https://fabisevi.ch",
     "tags": [
@@ -100,7 +100,7 @@
     "description": "In-depth SwiftUI, SwiftData, and Core Data tutorials",
     "feedURL": "https://fatbobman.com/en/rss.xml",
     "id": "cc27cebf-5e08-56d1-9bad-d70aed334a74",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Fatbobman",
     "siteURL": "https://fatbobman.com",
     "tags": [
@@ -116,7 +116,7 @@
     "description": "Free Swift tutorials for iOS development",
     "feedURL": "https://www.hackingwithswift.com/articles/rss",
     "id": "b506698e-0987-5ca3-d0d7-34e4b9243af2",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Hacking with Swift",
     "siteURL": "https://www.hackingwithswift.com/articles/rss",
     "tags": [
@@ -132,7 +132,7 @@
     "description": "Android and web development",
     "feedURL": "https://handstandsam.com/feed/",
     "id": "903aac8f-84b6-1d74-df10-9cafb0efed8b",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Handstand Sam",
     "siteURL": "https://handstandsam.com",
     "tags": [
@@ -148,7 +148,7 @@
     "description": "Brent Simmons's weblog on Mac and iOS development",
     "feedURL": "https://inessential.com/xml/rss.xml",
     "id": "c86eb5db-7fe1-6adf-dfd6-8b0fa7c13870",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "inessential.com",
     "siteURL": "https://inessential.com/",
     "tags": [
@@ -164,7 +164,7 @@
     "description": "Android and Kotlin development",
     "feedURL": "https://jakewharton.com/atom.xml",
     "id": "a33fc95b-48c6-e3ea-f0a0-be95ee187bb4",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Jake Wharton",
     "siteURL": "https://jakewharton.com/",
     "tags": [
@@ -180,7 +180,7 @@
     "description": "Swift, open source, and Apple platform development",
     "feedURL": "https://www.jessesquires.com/feed.xml",
     "id": "170b6316-68dd-56a8-b258-c3a40d8c4253",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Jesse Squires",
     "siteURL": "https://www.jessesquires.com",
     "tags": [
@@ -196,7 +196,7 @@
     "description": "Blog with mission to simplify Kotlin learning",
     "feedURL": "https://blog.kotlin-academy.com/feed",
     "id": "d82be0c7-5b8c-a091-faec-8abedc848351",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Kt. Academy",
     "siteURL": "https://blog.kotlin-academy.com",
     "tags": [
@@ -212,7 +212,7 @@
     "description": "iOS and Swift development blog",
     "feedURL": "https://oleb.net/blog/atom.xml",
     "id": "2c124350-95c6-5735-c007-3aaf87fd5d6c",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Ole Begemann",
     "siteURL": "https://oleb.net/blog/",
     "tags": [
@@ -228,7 +228,7 @@
     "description": "The latest posts from Android Professionals and Google Developer Experts",
     "feedURL": "https://proandroiddev.com/feed",
     "id": "bd8a169e-adcb-548f-ebe4-b90492db6024",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "ProAndroidDev",
     "siteURL": "https://proandroiddev.com",
     "tags": [
@@ -244,7 +244,7 @@
     "description": "Jesse Wilson on programming",
     "feedURL": "https://publicobject.com/rss/",
     "id": "2c5b75c9-c8e6-d550-c211-31bffb0d1f4e",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Public Object",
     "siteURL": "https://publicobject.com/",
     "tags": [
@@ -260,7 +260,7 @@
     "description": "A weekly blog about Swift, iOS, and Xcode tips and tricks",
     "feedURL": "https://www.avanderlee.com/feed/",
     "id": "f2f8c800-e3a1-0b14-ed9a-93ebb7e3e3c5",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "SwiftLee",
     "siteURL": "https://www.avanderlee.com/",
     "tags": [
@@ -276,7 +276,7 @@
     "description": "How Swift works under the hood, plus iOS tips and tricks",
     "feedURL": "https://swiftrocks.com/rss.xml",
     "id": "37654122-9a02-7e3f-df67-bf6958a99b45",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "SwiftRocks",
     "siteURL": "https://swiftrocks.com",
     "tags": [
@@ -292,7 +292,7 @@
     "description": "iOS development news and tips",
     "feedURL": "https://useyourloaf.com/blog/rss.xml",
     "id": "c09ad679-7f58-7792-da17-905087e04ed0",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Use Your Loaf",
     "siteURL": "https://useyourloaf.com/blog/",
     "tags": [

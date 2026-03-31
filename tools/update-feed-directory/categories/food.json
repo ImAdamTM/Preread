@@ -4,7 +4,7 @@
     "description": "When you own over 100 cookbooks, it is time to stop buying, and start cooking. This site chronicles a cookbook",
     "feedURL": "https://www.101cookbooks.com/feed",
     "id": "1c4ee91b-f96f-62fc-ddf9-eb44df7bfb70",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "101 Cookbooks",
     "siteURL": "https://www.101cookbooks.com/",
     "tags": [
@@ -20,7 +20,7 @@
     "description": "Recipes, restaurant coverage, and food culture from Conde Nast's flagship food brand",
     "feedURL": "https://www.bonappetit.com/feed/rss",
     "id": "9bafd88a-01b5-41f7-96bc-328ff6df7d0b",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Bon Appetit",
     "siteURL": "https://www.bonappetit.com",
     "tags": [
@@ -36,7 +36,7 @@
     "description": "Recipes focused on cooking well on a tight budget with cost breakdowns per serving",
     "feedURL": "https://www.budgetbytes.com/feed/",
     "id": "59f72834-185d-494c-b640-2326c7da5160",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Budget Bytes",
     "siteURL": "https://www.budgetbytes.com",
     "tags": [
@@ -52,7 +52,7 @@
     "description": "Simple Recipes from my Paris Kitchen",
     "feedURL": "https://cnz.to/feed/",
     "id": "a29f1ffb-63d7-a9ed-8cf9-484edb038a11",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Chocolate & Zucchini",
     "siteURL": "https://cnz.to/",
     "tags": [
@@ -68,7 +68,7 @@
     "description": "Baking and cooking recipes for everyone",
     "feedURL": "https://www.davidlebovitz.com/feed/",
     "id": "6054f870-7812-001f-4304-c3a382ab1bb5",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "David Lebovitz",
     "siteURL": "https://www.davidlebovitz.com/",
     "tags": [
@@ -84,7 +84,7 @@
     "description": "Restaurant news, city guides, food industry coverage, and criticism from Vox Media",
     "feedURL": "https://www.eater.com/rss/index.xml",
     "id": "268ce690-7325-4b86-b1d2-324460c6c99e",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Eater",
     "siteURL": "https://www.eater.com",
     "tags": [
@@ -100,7 +100,7 @@
     "description": "Healthy, delicious recipes and meal plans from test kitchen cooks and nutrition experts",
     "feedURL": "https://feeds-api.dotdashmeredith.com/v1/rss/google/dcbd6d38-4ab3-42e8-a5f6-37a8a48ceb94",
     "id": "a4d6ffe5-03e8-4556-8763-e50da568a074",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "EatingWell",
     "siteURL": "https://www.eatingwell.com",
     "tags": [
@@ -116,7 +116,7 @@
     "description": "Massive recipe database plus editorial content and product reviews from Conde Nast",
     "feedURL": "https://www.epicurious.com/feed/rss",
     "id": "641867f3-e294-4a74-9cf6-3c445ce65a13",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Epicurious",
     "siteURL": "https://www.epicurious.com",
     "tags": [
@@ -132,7 +132,7 @@
     "description": "Tested recipes, trusted culinary content, and the best in food and wine",
     "feedURL": "https://feeds-api.dotdashmeredith.com/v1/rss/google/fdd0cc60-6e85-462a-a071-58da5a17711f",
     "id": "a952878f-1574-49b2-b763-935bd39240f9",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Food & Wine",
     "siteURL": "https://www.foodandwine.com",
     "tags": [
@@ -148,7 +148,7 @@
     "description": "Restaurant news, criticism, and food culture from New York Magazine",
     "feedURL": "https://feeds.feedburner.com/nymag/grubstreet",
     "id": "9aaa59e3-b4d6-4b5b-b94c-81e8449e2363",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Grub Street",
     "siteURL": "https://www.grubstreet.com",
     "tags": [
@@ -164,7 +164,7 @@
     "description": "Food blog with recipes for people who love to eat",
     "feedURL": "https://www.howsweeteats.com/feed/",
     "id": "1efccd52-df51-1ad6-7e3c-e90e572faec1",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "How Sweet Eats",
     "siteURL": "https://www.howsweeteats.com/",
     "tags": [
@@ -180,7 +180,7 @@
     "description": "Baking recipes and kitchen inspiration",
     "feedURL": "https://joythebaker.com/feed/",
     "id": "eb78344f-daf6-e685-8bc6-65695eafd2bd",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Joy the Baker",
     "siteURL": "https://joythebaker.com/",
     "tags": [
@@ -196,7 +196,7 @@
     "description": "Inspiring cooks, nourishing homes",
     "feedURL": "https://www.thekitchn.com/main.rss",
     "id": "9902a554-83bd-0eee-768f-e26235955b6a",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Kitchn",
     "siteURL": "https://www.thekitchn.com",
     "tags": [
@@ -212,7 +212,7 @@
     "description": "Eat to Live. Cook to Love",
     "feedURL": "https://www.loveandoliveoil.com/feed",
     "id": "79d00486-80c4-8fba-162b-53a91722e155",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Love and Olive Oil",
     "siteURL": "https://www.loveandoliveoil.com",
     "tags": [
@@ -228,7 +228,7 @@
     "description": "Food, photography, and inspiration",
     "feedURL": "https://www.shutterbean.com/feed/",
     "id": "cf3a05e0-2bd0-6a84-bbd9-7a465ed9845c",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Shutterbean",
     "siteURL": "https://www.shutterbean.com",
     "tags": [
@@ -244,7 +244,7 @@
     "description": "Delicious Healthy Recipes Made with Real Food",
     "feedURL": "https://www.skinnytaste.com/feed/",
     "id": "fd55fc60-ffce-5186-a8ca-7a8f74b42149",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Skinnytaste",
     "siteURL": "https://www.skinnytaste.com/",
     "tags": [
@@ -260,7 +260,7 @@
     "description": "Fearless cooking from a tiny NYC kitchen",
     "feedURL": "https://smittenkitchen.com/feed/atom/",
     "id": "65fbb327-953a-5d47-9be5-7b1a3745ef88",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "smitten kitchen",
     "siteURL": "https://smittenkitchen.com",
     "tags": [
@@ -276,7 +276,7 @@
     "description": "Thoughtful food essays and culture writing exploring why food matters",
     "feedURL": "https://tastecooking.com/feed/",
     "id": "e6ef0bfb-2d5b-4dd0-9a3a-a4d879c25abc",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Taste Cooking",
     "siteURL": "https://tastecooking.com",
     "tags": [
@@ -292,7 +292,7 @@
     "description": "Favorite desserts, appetizers, and main dish recipes with home cooking tips and kitchen insights",
     "feedURL": "https://www.tasteofhome.com/feed",
     "id": "7038eeb8-94c7-4e7e-b99f-522a7f4729b8",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Taste of Home",
     "siteURL": "https://www.tasteofhome.com",
     "tags": [

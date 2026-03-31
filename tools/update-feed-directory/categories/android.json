@@ -1,26 +1,10 @@
 [
   {
     "category": "Android",
-    "description": "Read the latest news and updates about Android, the world's most popular mobile platform",
-    "feedURL": "https://blog.google/products/android/rss",
-    "id": "1621b8c2-c5e3-4b04-bdfd-0b757c4e9f6f",
-    "lastVerified": "2026-03-29",
-    "name": "Android",
-    "siteURL": "https://blog.google/products-and-platforms/platforms/android/",
-    "tags": [
-      "pixel",
-      "google",
-      "updates",
-      "apps",
-      "features"
-    ]
-  },
-  {
-    "category": "Android",
     "description": "Your source for the best phones, streaming, apps, headphones, deals, games, Chromebooks, smart home tech, and more",
     "feedURL": "https://www.androidauthority.com/feed",
     "id": "397d546f-627b-76d4-63ea-7cd4c96eab6d",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Android Authority",
     "siteURL": "https://www.androidauthority.com/",
     "tags": [
@@ -36,7 +20,7 @@
     "description": "Android news, reviews, and how-tos",
     "feedURL": "https://www.androidcentral.com/feed",
     "id": "ee062d6a-d407-f75c-1bd3-e0a5e015df8a",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Android Central",
     "siteURL": "https://www.androidcentral.com",
     "tags": [
@@ -52,7 +36,7 @@
     "description": "All the latest mobile tech news, deals, reviews, guides, editorials, and more. Embracing the green bubble since 2009",
     "feedURL": "https://www.androidpolice.com/feed/",
     "id": "499003ad-7d71-5bea-8685-42ddb84e4a33",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Android Police",
     "siteURL": "https://www.androidpolice.com/",
     "tags": [
@@ -68,7 +52,7 @@
     "description": "Android news and opinion",
     "feedURL": "https://www.androidguys.com/feed",
     "id": "bd824acc-c204-6945-7ea2-380963fd1f65",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "AndroidGuys",
     "siteURL": "https://androidguys.com",
     "tags": [
@@ -84,7 +68,7 @@
     "description": "Opinionated Android news and reviews",
     "feedURL": "https://www.droid-life.com/feed",
     "id": "ba2803a0-bf41-0ea2-93bc-537f53661c24",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Droid Life",
     "siteURL": "https://www.droid-life.com/",
     "tags": [
@@ -100,7 +84,7 @@
     "description": "The latest in android news, rumours, and updates, including device news and apps!",
     "feedURL": "https://www.talkandroid.com/feed/",
     "id": "89a20e62-06ef-508a-bd02-34cc97c14f76",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "TalkAndroid",
     "siteURL": "https://www.talkandroid.com/",
     "tags": [

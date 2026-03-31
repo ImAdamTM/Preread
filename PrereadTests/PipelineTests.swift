@@ -334,6 +334,24 @@ struct StandardPipelineTests {
         #expect(!result.contentHTML.contains("<nav"))
     }
 
+    @Test("Squarespace wellness: blank.jpg tracking pixel excluded from hero, og:image used instead")
+    func squarespaceWellness() async throws {
+        let html = try loadFixture("squarespace_wellness")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.squarespace.com/blog/how-to-start-health-and-wellness-business")!
+        )
+
+        #expect(result.title.contains("Wellness") || result.title.contains("Health"))
+        #expect(result.contentHTML.contains("wellness business"))
+        #expect(!result.contentHTML.contains("blank.jpg"), "Tracking pixel should not be injected as hero")
+        #expect(result.imageCount == 1, "og:image should be injected as hero")
+        #expect(result.heroImageURL?.contains("squarespace") == true, "Hero should come from og:image")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
     // MARK: - NPR
 
     @Test("NPR: picture elements unwrapped, caption toggles stripped, images preserved")
@@ -751,6 +769,73 @@ struct StandardPipelineTests {
         #expect(!result.contentHTML.contains("<nav"))
         #expect(!result.contentHTML.contains("<style"))
     }
+
+    // MARK: - Droid Life
+
+    @Test("Droid Life: og:image not duplicated when Readability already extracted it")
+    func droidlifeArticle() async throws {
+        let html = try loadFixture("droidlife_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.droid-life.com/2026/03/30/this-is-the-pixel-11/")!
+        )
+
+        #expect(result.title.contains("Pixel 11"))
+        #expect(result.contentHTML.contains("Pixel 11"))
+        #expect(result.imageCount >= 2, "Article images should be preserved")
+        // The scoped hero (already in Readability output) should not be re-injected,
+        // and the og:image (a different resize) should not be added either.
+        #expect(result.imageCount <= 4, "No duplicate hero images should be injected")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
+    // MARK: - E! Online (Apollo image hydration)
+
+    @Test("E! Online: Apollo images hydrated into placeholders, article text extracted")
+    func eonlineArticle() async throws {
+        let html = try loadFixture("eonline_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.eonline.com/news/1430353/kylie-jenner-timothee-chalamet-beach-vacation-photos")!
+        )
+
+        #expect(result.title.contains("Kylie Jenner"))
+        #expect(result.contentHTML.contains("Timothée Chalamet"))
+        // Apollo images should have been hydrated from __APOLLO_STATE__
+        // (2 inline segment images + 19 gallery images)
+        #expect(result.imageCount >= 15, "Apollo-hydrated images should be present (segments + gallery)")
+        #expect(result.contentHTML.contains("akns-images.eonline.com"), "Real image URLs from Apollo cache should be injected")
+        // Standard cleanup
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+        // Apollo JSON should not leak into content
+        #expect(!result.contentHTML.contains("__APOLLO_STATE__"))
+    }
+
+    // MARK: - LensCulture
+
+    @Test("LensCulture: CDN images with /large path not falsely deduplicated, article images recovered")
+    func lenscultureArticle() async throws {
+        let html = try loadFixture("lensculture_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.lensculture.com/articles/janet-delaney-too-many-products-too-much-pressure")!
+        )
+
+        #expect(result.title.contains("Too Many Products Too Much Pressure"))
+        #expect(result.contentHTML.contains("Janet Delaney"))
+        // Article has 11 inline images plus a hero — CDN URLs all end in /large
+        // so the dedup must treat "large" as a generic size indicator, not a unique filename
+        #expect(result.imageCount >= 10, "CDN images with /large path should not be falsely deduplicated")
+        #expect(result.contentHTML.contains("images.lensculture.com"))
+        // Standard cleanup
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
 }
 
 // MARK: - Full-mode tests
@@ -1111,6 +1196,23 @@ struct FullPipelineTests {
         // Article content should be preserved
         #expect(result.cleanedHTML.contains("personalized instruction"))
         #expect(result.cleanedHTML.contains("Tutoring"))
+    }
+
+    @Test("Squarespace wellness: blank.jpg tracking pixel stripped, article content preserved")
+    func squarespaceWellness() async throws {
+        let html = try loadFixture("squarespace_wellness")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.squarespace.com/blog/how-to-start-health-and-wellness-business")!
+        )
+
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form"))
+        #expect(result.cleanedHTML.contains("wellness business"))
+        #expect(result.cleanedHTML.contains("Health"))
     }
 
     // MARK: - NPR
@@ -1535,6 +1637,70 @@ struct FullPipelineTests {
         #expect(result.cleanedHTML.contains("<img"))
 
         // Standard full-mode cleanup checks
+        #expect(!result.cleanedHTML.contains("<script>") && !result.cleanedHTML.contains("<script "))
+        #expect(!result.cleanedHTML.contains("<nav>") && !result.cleanedHTML.contains("<nav "))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form>") && !result.cleanedHTML.contains("<form "))
+    }
+
+    // MARK: - Droid Life
+
+    @Test("Droid Life: scripts, nav stripped; article content and images preserved")
+    func droidlifeArticle() async throws {
+        let html = try loadFixture("droidlife_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.droid-life.com/2026/03/30/this-is-the-pixel-11/")!
+        )
+
+        #expect(result.cleanedHTML.contains("Pixel 11"))
+        #expect(result.cleanedHTML.contains("<img"))
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form"))
+    }
+
+    // MARK: - E! Online (Apollo image hydration)
+
+    @Test("E! Online: Apollo images hydrated, scripts stripped, content preserved")
+    func eonlineArticle() async throws {
+        let html = try loadFixture("eonline_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.eonline.com/news/1430353/kylie-jenner-timothee-chalamet-beach-vacation-photos")!
+        )
+
+        // Apollo images should have been hydrated
+        #expect(result.cleanedHTML.contains("akns-images.eonline.com"), "Real image URLs from Apollo cache should be injected")
+        #expect(result.cleanedHTML.contains("<img"))
+        // Article content preserved
+        #expect(result.cleanedHTML.contains("Timothée Chalamet"))
+        // Standard full-mode cleanup
+        #expect(!result.cleanedHTML.contains("<script>") && !result.cleanedHTML.contains("<script "))
+        #expect(!result.cleanedHTML.contains("<nav>") && !result.cleanedHTML.contains("<nav "))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form>") && !result.cleanedHTML.contains("<form "))
+    }
+
+    // MARK: - LensCulture
+
+    @Test("LensCulture: scripts and navigation stripped, article images and content preserved")
+    func lenscultureArticle() async throws {
+        let html = try loadFixture("lensculture_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.lensculture.com/articles/janet-delaney-too-many-products-too-much-pressure")!
+        )
+
+        // Article content preserved
+        #expect(result.cleanedHTML.contains("Janet Delaney"))
+        #expect(result.cleanedHTML.contains("images.lensculture.com"))
+        #expect(result.cleanedHTML.contains("<img"))
+        // Standard full-mode cleanup
         #expect(!result.cleanedHTML.contains("<script>") && !result.cleanedHTML.contains("<script "))
         #expect(!result.cleanedHTML.contains("<nav>") && !result.cleanedHTML.contains("<nav "))
         #expect(!result.cleanedHTML.contains("<noscript"))

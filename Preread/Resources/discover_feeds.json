@@ -502,21 +502,6 @@
   },
   {
     "category" : "Android",
-    "description" : "Read the latest news and updates about Android, the world's most popular mobile platform",
-    "feedURL" : "https:\/\/blog.google\/products\/android\/rss",
-    "id" : "1621b8c2-c5e3-4b04-bdfd-0b757c4e9f6f",
-    "name" : "Android",
-    "siteURL" : "https:\/\/blog.google\/products-and-platforms\/platforms\/android\/",
-    "tags" : [
-      "pixel",
-      "google",
-      "updates",
-      "apps",
-      "features"
-    ]
-  },
-  {
-    "category" : "Android",
     "description" : "Your source for the best phones, streaming, apps, headphones, deals, games, Chromebooks, smart home tech, and more",
     "feedURL" : "https:\/\/www.androidauthority.com\/feed",
     "id" : "397d546f-627b-76d4-63ea-7cd4c96eab6d",
@@ -754,36 +739,6 @@
       "ancient",
       "artifacts",
       "excavations"
-    ]
-  },
-  {
-    "category" : "Architecture",
-    "description" : "ArchDaily, Broadcasting Architecture Worldwide: Architecture news, competitions and projects updated every hour for the",
-    "feedURL" : "https:\/\/www.archdaily.com\/rss.xml",
-    "id" : "480378d2-1f4d-5276-a8ee-02fd50692cef",
-    "name" : "ArchDaily",
-    "siteURL" : "https:\/\/www.archdaily.com\/",
-    "tags" : [
-      "buildings",
-      "projects",
-      "competitions",
-      "urban",
-      "residential"
-    ]
-  },
-  {
-    "category" : "Architecture",
-    "description" : "Architectural Digest is the international design authority, featuring the work of top architects and designers",
-    "feedURL" : "https:\/\/www.architecturaldigest.com\/feed\/rss",
-    "id" : "82f5275d-fd84-ecab-8459-93b8718429e7",
-    "name" : "Architectural Digest",
-    "siteURL" : "https:\/\/www.architecturaldigest.com",
-    "tags" : [
-      "interiors",
-      "luxury",
-      "celebrity homes",
-      "decor",
-      "renovation"
     ]
   },
   {
@@ -3382,21 +3337,6 @@
     ]
   },
   {
-    "category" : "Programming",
-    "description" : "Hanselminutes is Fresh Air for Developers. A weekly commute-time podcast that promotes fresh technology and fresh",
-    "feedURL" : "https:\/\/feeds.simplecast.com\/gvtxUiIf",
-    "id" : "f5a82056-f7b9-51e8-4a6c-026447d7ad88",
-    "name" : "Hanselminutes with Scott Hanselman",
-    "siteURL" : "https:\/\/www.hanselminutes.com",
-    "tags" : [
-      "podcast",
-      "dotnet",
-      "interviews",
-      "career",
-      "diversity"
-    ]
-  },
-  {
     "category" : "Fashion",
     "description" : "Fashion trends, designer news, and celebrity style",
     "feedURL" : "https:\/\/www.harpersbazaar.com\/rss\/fashion.xml",
@@ -3454,21 +3394,6 @@
       "conditions",
       "nutrition",
       "fitness"
-    ]
-  },
-  {
-    "category" : "Music",
-    "description" : "Music history, culture, and industry analysis by Ted Gioia",
-    "feedURL" : "https:\/\/www.honest-broker.com\/feed",
-    "id" : "817b505e-3dd1-5f48-cdf1-d3e816774b32",
-    "name" : "Hearing Things",
-    "siteURL" : "https:\/\/www.honest-broker.com",
-    "tags" : [
-      "history",
-      "jazz",
-      "culture",
-      "essays",
-      "analysis"
     ]
   },
   {
@@ -5288,6 +5213,22 @@
     ]
   },
   {
+    "category" : "Myanmar (Burma)",
+    "country" : "Myanmar (Burma)",
+    "description" : "Myanmar news and current affairs",
+    "feedURL" : "https:\/\/myanmargazette.net\/feed",
+    "id" : "c8aca843-59a8-a688-9850-eedddc341689",
+    "name" : "Myanmar Gazette",
+    "siteURL" : "https:\/\/myanmargazette.net",
+    "tags" : [
+      "burmese",
+      "yangon",
+      "politics",
+      "military",
+      "southeast asia"
+    ]
+  },
+  {
     "category" : "Space",
     "description" : "NASA news, images, and videos from America's space agency",
     "feedURL" : "https:\/\/www.nasa.gov\/rss\/dyn\/breaking_news.rss",
@@ -6551,21 +6492,6 @@
       "physics",
       "health",
       "climate"
-    ]
-  },
-  {
-    "category" : "Programming",
-    "description" : "Scott Hanselman on Programming, User Experience, The Zen of Computers and Life in General",
-    "feedURL" : "https:\/\/feeds.hanselman.com\/ScottHanselman",
-    "id" : "bbb7636b-680e-b0f6-8bb0-3c6557f42fe5",
-    "name" : "Scott Hanselman's Blog",
-    "siteURL" : "https:\/\/www.hanselman.com\/blog\/",
-    "tags" : [
-      "dotnet",
-      "open source",
-      "productivity",
-      "tools",
-      "career"
     ]
   },
   {

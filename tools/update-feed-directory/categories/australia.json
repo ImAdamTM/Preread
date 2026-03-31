@@ -5,7 +5,7 @@
     "description": "Follow the latest headlines from ABC News, Australia's most trusted media source, with live events, audio and on-demand",
     "feedURL": "https://www.abc.net.au/news/feed/1948/rss.xml",
     "id": "55bddf50-93ea-cbbf-376a-d6303341b019",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "ABC News",
     "siteURL": "https://www.abc.net.au",
     "tags": [
@@ -22,7 +22,7 @@
     "description": "Brisbane and Queensland news",
     "feedURL": "https://www.brisbanetimes.com.au/rss/feed.xml",
     "id": "b61baf9b-762f-441e-fd39-2ad9f2f57a2a",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Brisbane Times",
     "siteURL": "https://www.brisbanetimes.com.au/rss/feed.xml",
     "tags": [
@@ -39,7 +39,7 @@
     "description": "Latest Canberra news, sport, football and business news from The Canberra Times",
     "feedURL": "https://www.canberratimes.com.au/rss.xml",
     "id": "42730adb-107e-19bf-0c5d-725a7b79106c",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Canberra Times",
     "siteURL": "https://www.canberratimes.com.au/news/local-news/",
     "tags": [
@@ -56,7 +56,7 @@
     "description": "Michael West Media - always independent. Dedicated to the public interest and investigations into big business and",
     "feedURL": "https://www.michaelwest.com.au/feed/",
     "id": "5b88464a-5583-3468-4e21-c6c40c7f4d23",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Michael West",
     "siteURL": "https://michaelwest.com.au/",
     "tags": [
@@ -73,7 +73,7 @@
     "description": "Western Australian and Australian news",
     "feedURL": "https://www.perthnow.com.au/news/feed",
     "id": "47b5d2cb-3126-8076-2cc9-d197ac546d19",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "PerthNow",
     "siteURL": "https://www.perthnow.com.au/news",
     "tags": [
@@ -90,7 +90,7 @@
     "description": "The top News headlines from The Sydney Morning Herald. For all the news, visit https://www.smh.com.au",
     "feedURL": "https://www.smh.com.au/rss/feed.xml",
     "id": "240012d4-58e5-38f9-5845-31adf4b884a1",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "Sydney Morning Herald",
     "siteURL": "https://www.smh.com.au/rss/feed.xml",
     "tags": [
@@ -107,7 +107,7 @@
     "description": "The top News headlines from The Age. For all the news, visit https://www.theage.com.au/",
     "feedURL": "https://www.theage.com.au/rss/feed.xml",
     "id": "abccb225-fcff-6c5e-7515-6e8ac99d9f35",
-    "lastVerified": "2026-03-29",
+    "lastVerified": "2026-03-30",
     "name": "The Age",
     "siteURL": "https://www.theage.com.au/rss/feed.xml",
     "tags": [

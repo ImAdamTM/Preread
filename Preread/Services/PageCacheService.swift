@@ -233,6 +233,13 @@ actor PageCacheService {
         // (Next.js sites that don't fully server-render their content).
         let nextDataContent = extractNextDataContent(from: preDoc)
 
+        // Before stripping scripts, hydrate empty image placeholders from
+        // Apollo Client cache (sites like E! Online that use GraphQL + React).
+        let apolloImageCount = hydrateApolloImages(in: preDoc)
+        if apolloImageCount > 0 {
+            print("[PageCacheService] Hydrated \(apolloImageCount) Apollo images into placeholders")
+        }
+
         try preDoc.select("script").remove()
         try promoteNoscriptImages(in: preDoc)
         try preDoc.select("noscript").remove()
@@ -376,7 +383,8 @@ actor PageCacheService {
                 "logo", "flag", "icon", "badge", "spinner",
                 "facebook", "twitter", "instagram", "pinterest", "tiktok",
                 "furniture", "share", "follow", "comment", "thumbnail",
-                "banner", "bkgd", "reactions", "headshot"
+                "banner", "bkgd", "reactions", "headshot",
+                "blank", "spacer"
             ]
             // Use word-segment matching instead of substring matching to avoid
             // false positives on compound filenames (e.g. "blogouterbanner"
@@ -511,7 +519,9 @@ actor PageCacheService {
         if heroImageURL == nil {
             if let ogImage = try extractOpenGraphImage(from: preDoc, baseURL: pageURL) {
                 heroImageURL = ogImage
-                contentHTML = "<img src=\"\(escapeHTML(ogImage))\" />" + contentHTML
+                if !heroAlreadyPresent(ogImage) {
+                    contentHTML = "<img src=\"\(escapeHTML(ogImage))\" />" + contentHTML
+                }
             }
         }
 
@@ -581,6 +591,10 @@ actor PageCacheService {
                     "photo.jpg", "photo.jpeg",
                     // Bare format names from CDN path segments (e.g. .../format/jpeg/)
                     "jpeg", "jpg", "png", "webp", "gif", "avif",
+                    // CDN size/transform path segments (e.g. .../image/{uuid}/large)
+                    // These indicate a resize variant, not a unique image identifier.
+                    "large", "small", "medium", "thumbnail", "thumb",
+                    "original", "full", "default",
                 ]
                 if !filename.isEmpty, filename != "/", !genericFilenames.contains(filename.lowercased()) {
                     let hostFilename = "\(host)/\(filename)"
@@ -614,6 +628,13 @@ actor PageCacheService {
 
         // Before stripping scripts, extract article HTML from __NEXT_DATA__
         let nextDataContent = extractNextDataContent(from: doc)
+
+        // Before stripping scripts, hydrate empty image placeholders from
+        // Apollo Client cache (sites like E! Online that use GraphQL + React).
+        let apolloImageCount = hydrateApolloImages(in: doc)
+        if apolloImageCount > 0 {
+            print("[PageCacheService] Hydrated \(apolloImageCount) Apollo images into placeholders (full mode)")
+        }
 
         // Strip CSP meta tags
         try doc.select("meta[http-equiv=Content-Security-Policy]").remove()
@@ -993,6 +1014,205 @@ actor PageCacheService {
         return bestHTML
     }
 
+    /// Extracts a balanced JSON object starting at the given index.
+    /// Uses brace counting with proper string-literal handling to find
+    /// the matching closing `}`.
+    private func extractBalancedJSON(from text: String, startingAt startIndex: String.Index) -> Substring? {
+        var depth = 0
+        var inString = false
+        var escaped = false
+        var index = startIndex
+
+        while index < text.endIndex {
+            let char = text[index]
+
+            if escaped {
+                escaped = false
+            } else if char == "\\" && inString {
+                escaped = true
+            } else if char == "\"" {
+                inString.toggle()
+            } else if !inString {
+                if char == "{" {
+                    depth += 1
+                } else if char == "}" {
+                    depth -= 1
+                    if depth == 0 {
+                        return text[startIndex...index]
+                    }
+                }
+            }
+
+            index = text.index(after: index)
+        }
+
+        return nil
+    }
+
+    /// Hydrates empty image placeholders with URLs extracted from an Apollo
+    /// Client serialized cache (`window.__APOLLO_STATE__`).
+    ///
+    /// Sites using Apollo (e.g. E! Online) server-render placeholder elements
+    /// with CSS aspect-ratio hacks (`padding-top: XX%`) but store the actual
+    /// image URLs in the Apollo cache JSON embedded in a `<script>` tag. Since
+    /// we strip scripts, the client-side hydration never runs and images are
+    /// lost. This method performs the same hydration the JS client would do.
+    ///
+    /// Must be called **before** script removal.
+    /// Returns the number of images injected.
+    func hydrateApolloImages(in doc: Document) -> Int {
+        // 1. Find script tag containing Apollo state
+        guard let scripts = try? doc.select("script").array() else { return 0 }
+
+        var apolloJSON: [String: Any]?
+        for script in scripts {
+            let text = script.data()
+            guard let markerRange = text.range(of: "__APOLLO_STATE__") else { continue }
+
+            // Scan forward from marker to find the opening brace
+            var searchIndex = markerRange.upperBound
+            while searchIndex < text.endIndex && text[searchIndex] != "{" {
+                searchIndex = text.index(after: searchIndex)
+            }
+            guard searchIndex < text.endIndex else { continue }
+
+            // Extract balanced JSON
+            guard let jsonSubstring = extractBalancedJSON(from: text, startingAt: searchIndex),
+                  let jsonData = String(jsonSubstring).data(using: .utf8),
+                  let parsed = try? JSONSerialization.jsonObject(with: jsonData) as? [String: Any] else {
+                continue
+            }
+
+            apolloJSON = parsed
+            break
+        }
+
+        guard let apollo = apolloJSON else { return 0 }
+
+        // 2. Find article entry in ROOT_QUERY
+        guard let rootQuery = apollo["ROOT_QUERY"] as? [String: Any] else { return 0 }
+
+        var articleDict: [String: Any]?
+        for (_, value) in rootQuery {
+            guard let dict = value as? [String: Any] else { continue }
+            // Primary: match __typename == "Article"
+            if let typename = dict["__typename"] as? String, typename == "Article" {
+                articleDict = dict
+                break
+            }
+        }
+
+        // Fallback: any ROOT_QUERY value with a "segments" key
+        if articleDict == nil {
+            for (_, value) in rootQuery {
+                guard let dict = value as? [String: Any] else { continue }
+                let hasSegments = dict.keys.contains { $0.hasPrefix("segments") }
+                if hasSegments {
+                    articleDict = dict
+                    break
+                }
+            }
+        }
+
+        guard let article = articleDict else { return 0 }
+
+        // 3. Extract ordered image URLs from segments
+        var imageURLs: [String] = []
+
+        // Find the segments key (may have parameters, e.g. "segments({...})")
+        let segmentsKey = article.keys.first { $0.hasPrefix("segments") }
+        guard let key = segmentsKey,
+              let segments = article[key] as? [[String: Any]] else { return 0 }
+
+        // Helper: resolve an Image:* ref to a URL
+        func resolveImageRef(_ refID: String) -> String? {
+            guard refID.hasPrefix("Image:"),
+                  let imageEntry = apollo[refID] as? [String: Any] else { return nil }
+            let url = (imageEntry["uri"] as? String)
+                ?? (imageEntry["url"] as? String)
+                ?? (imageEntry["src"] as? String)
+            guard let url = url, !url.isEmpty else { return nil }
+            return url.replacingOccurrences(of: "\\u002F", with: "/")
+        }
+
+        // Helper: extract image ref from a dict's image-prefixed field
+        func extractImageURL(from dict: [String: Any]) -> String? {
+            for (fieldKey, fieldValue) in dict {
+                guard fieldKey.hasPrefix("image"),
+                      let ref = fieldValue as? [String: Any],
+                      let refID = ref["__ref"] as? String else { continue }
+                return resolveImageRef(refID)
+            }
+            return nil
+        }
+
+        for segment in segments {
+            // Direct image ref on the segment
+            if let url = extractImageURL(from: segment) {
+                imageURLs.append(url)
+            }
+
+            // Gallery ref — walk gallery items for their images
+            for (fieldKey, fieldValue) in segment {
+                guard fieldKey.hasPrefix("gallery"),
+                      let ref = fieldValue as? [String: Any],
+                      let galleryID = ref["__ref"] as? String,
+                      let galleryEntry = apollo[galleryID] as? [String: Any] else { continue }
+
+                // Find the galleryitems field (may have parameters)
+                for (gKey, gValue) in galleryEntry {
+                    guard gKey.hasPrefix("galleryitems"),
+                          let itemsData = gValue as? [String: Any],
+                          let nodes = itemsData["nodes"] as? [[String: Any]] else { continue }
+
+                    for node in nodes {
+                        if let url = extractImageURL(from: node) {
+                            imageURLs.append(url)
+                        }
+                    }
+                }
+            }
+        }
+
+        guard !imageURLs.isEmpty else { return 0 }
+
+        // 4. Find empty placeholder elements (CSS aspect-ratio hack)
+        guard let placeholders = try? doc.select("[style*=padding-top]").array() else { return 0 }
+
+        let emptyPlaceholders = placeholders.filter { el in
+            // Must have no <img> descendant already
+            guard let imgs = try? el.select("img"), imgs.isEmpty() else { return false }
+            // Style must contain a percentage (the aspect-ratio hack)
+            guard let style = try? el.attr("style"),
+                  style.range(of: #"padding-top\s*:\s*[\d.]+%"#, options: .regularExpression) != nil else {
+                return false
+            }
+            // Element text should be empty or very short (e.g. whitespace only)
+            let text = (try? el.text())?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            return text.count < 10
+        }
+
+        guard !emptyPlaceholders.isEmpty else { return 0 }
+
+        // 5. Inject images positionally
+        var injected = 0
+        let count = min(imageURLs.count, emptyPlaceholders.count)
+        for i in 0..<count {
+            let placeholder = emptyPlaceholders[i]
+            let url = imageURLs[i]
+            do {
+                // Remove the padding-top hack and inject an <img> tag
+                try placeholder.attr("style", "")
+                try placeholder.append("<img src=\"\(url)\" loading=\"lazy\">")
+                injected += 1
+            } catch {
+                continue
+            }
+        }
+
+        return injected
+    }
+
     // MARK: - Cache article
 
     private func performCacheArticle(_ article: inout Article, cacheLevel: CacheLevel, wasPreviouslyCached: Bool, forceReprocess: Bool = false) async throws -> CacheResult {
@@ -1171,6 +1391,15 @@ actor PageCacheService {
             // FULL: Save the complete page with all assets
             do {
                 let fullResult = try runFullPipeline(html: html, pageURL: pageURL)
+
+                // Quality gate: if cleaned page has very little text (SPA shell),
+                // throw to trigger RSS fallback below.
+                if fullResult.wordCount < 50, let rssHTML = article.rssContentHTML, !rssHTML.isEmpty {
+                    throw NSError(domain: "PageCacheService", code: 3, userInfo: [
+                        NSLocalizedDescriptionKey: "Full-mode content too thin (\(fullResult.wordCount) words) — falling back to RSS"
+                    ])
+                }
+
                 pipelineHeroImageURL = fullResult.heroImageURL
                 readingMinutes = ReadingTimeFormatter.estimateMinutes(wordCount: fullResult.wordCount)
                 let doc = try SwiftSoup.parse(fullResult.cleanedHTML, pageURL.absoluteString)
@@ -1309,6 +1538,21 @@ actor PageCacheService {
 
             do {
                 pipelineResult = try runStandardPipeline(html: html, pageURL: pageURL)
+
+                // Quality gate: if Readability extracted very little text (e.g. SPA shell
+                // footer), prefer RSS content if available, otherwise fail rather than
+                // caching garbage content.
+                if pipelineResult.wordCount < 50 {
+                    if let rssHTML = article.rssContentHTML, !rssHTML.isEmpty {
+                        print("[PageCacheService] Extracted content too thin (\(pipelineResult.wordCount) words), falling back to RSS content for \(article.articleURL)")
+                        pipelineResult = try cleanRSSContent(html: rssHTML, baseURL: pageURL)
+                        usedRSSFallback = true
+                    } else {
+                        throw NSError(domain: "PageCacheService", code: 3, userInfo: [
+                            NSLocalizedDescriptionKey: "Extracted content too thin (\(pipelineResult.wordCount) words) and no RSS fallback available — page may require JavaScript"
+                        ])
+                    }
+                }
             } catch {
                 // Standard pipeline failed (Readability returned nil or content too short).
                 // Fall back to RSS content:encoded if available.
@@ -2468,12 +2712,21 @@ actor PageCacheService {
             guard !realSrc.isEmpty, !realSrc.hasPrefix("data:") else { continue }
 
             // Look for a sibling <img> without src (or with empty src)
-            guard let sibling = try noscript.nextElementSibling(),
-                  sibling.tagName() == "img" else { continue }
-            let sibSrc = try sibling.attr("src")
-            guard sibSrc.isEmpty || sibSrc.hasPrefix("data:") else { continue }
+            if let sibling = try noscript.nextElementSibling(),
+               sibling.tagName() == "img" {
+                let sibSrc = try sibling.attr("src")
+                if sibSrc.isEmpty || sibSrc.hasPrefix("data:") {
+                    try sibling.attr("src", realSrc)
+                    continue
+                }
+            }
 
-            try sibling.attr("src", realSrc)
+            // No sibling img to promote into — extract the <img> from
+            // the noscript and place it directly in the DOM.
+            // This handles sites like Nylon where images exist only
+            // inside <noscript> with no JS-placeholder sibling.
+            let imgHTML = try noscriptImg.outerHtml()
+            try noscript.before(imgHTML)
         }
     }
 
