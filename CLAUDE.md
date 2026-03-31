@@ -195,6 +195,8 @@ The feed directory lives at `tools/update-feed-directory/`. Feeds are organised 
 
 **CRITICAL: NEVER use `--skip-validation` or `--skip-quality` flags.** These flags must not be used under any circumstances — not as a "first pass", not for speed, not as an intermediate step. Always run `swift run UpdateFeedDirectory` without flags. Every run must include full validation.
 
+**CRITICAL: NEVER manually set `lastVerified` dates in category JSON files.** Always set `lastVerified` to `""` (empty string) when adding or editing feeds. The tool stamps the date automatically after successful validation. If you write a date yourself, it bypasses validation and the feed may be broken or stale.
+
 Other tool modes:
 - `verify` — checks all existing feeds, auto-discovers replacement URLs for broken ones, and updates category files.
 - `discover` — finds new candidate feeds from upstream OPML sources.
