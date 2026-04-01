@@ -1220,6 +1220,12 @@ if isFullMode {
     try preDoc.select("nav").remove()
     try preDoc.select("[role=navigation]").remove()
     try preDoc.select("header[id*=navigation], header[class*=navigation]").remove()
+    // Unwrap aside elements that contain captioned images — these
+    // are inline media galleries. The <figcaption> distinguishes them
+    // from sidebar/related-content asides that only have thumbnails.
+    for aside in try preDoc.select("aside:has(figcaption):has(img)").array().reversed() {
+        try aside.unwrap()
+    }
     try preDoc.select("aside").remove()
     try preDoc.select("form").remove()
     try preDoc.select("input").remove()
@@ -1496,7 +1502,16 @@ if isFullMode {
                     "original", "full", "default",
                 ]
                 if !filename.isEmpty, filename != "/", !genericFilenames.contains(filename.lowercased()) {
-                    let hostFilename = "\(host)/\(filename)"
+                    // When the path has only 2 segments (e.g. /{hash}/file.jpg),
+                    // the first segment is a content identifier — include it to
+                    // avoid deduplicating different images that share a filename.
+                    let pathSegs = url.pathComponents.filter { $0 != "/" }
+                    let hostFilename: String
+                    if pathSegs.count == 2 {
+                        hostFilename = "\(host)/\(pathSegs[0])/\(filename)"
+                    } else {
+                        hostFilename = "\(host)/\(filename)"
+                    }
                     if !seenHostFilenames.insert(hostFilename).inserted {
                         try img.remove()
                     }

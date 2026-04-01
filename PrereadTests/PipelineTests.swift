@@ -201,6 +201,28 @@ struct StandardPipelineTests {
         #expect(!result.contentHTML.contains("<style"))
     }
 
+    // MARK: - Nintendo Life Gallery (aside unwrap)
+
+    @Test("Nintendo Life Gallery: inline gallery images preserved from aside elements")
+    func nintendoLifeGallery() async throws {
+        let html = try loadFixture("nintendolife_gallery")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.nintendolife.com/news/2026/04/gallery-we-werent-prepared-for-the-sheer-size-of-yoshis-popcorn-bucket")!
+        )
+
+        #expect(result.title.contains("Yoshi"))
+        #expect(result.contentHTML.contains("popcorn"), "Article text should be present")
+        // Gallery images inside <aside class="gallery"> must be preserved
+        #expect(result.imageCount >= 6, "Inline gallery images should survive aside unwrap")
+        #expect(result.contentHTML.contains("images.nintendolife.com"), "Gallery image URLs should be present")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+        // Related articles sidebar should still be stripped
+        #expect(!result.contentHTML.contains("75x75"), "Related article thumbnails should be stripped")
+    }
+
     // MARK: - GQ
 
     @Test("GQ: Cloudinary srcset URLs with commas parsed correctly, images extracted")
@@ -1052,6 +1074,28 @@ struct FullPipelineTests {
         #expect(result.cleanedHTML.contains("Handheld Boost Mode"))
         #expect(result.cleanedHTML.contains("Switch 2"))
         #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
+    }
+
+    // MARK: - Nintendo Life Gallery
+
+    @Test("Nintendo Life Gallery: scripts and nav stripped, gallery images preserved")
+    func nintendoLifeGallery() async throws {
+        let html = try loadFixture("nintendolife_gallery")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.nintendolife.com/news/2026/04/gallery-we-werent-prepared-for-the-sheer-size-of-yoshis-popcorn-bucket")!
+        )
+
+        #expect(!result.cleanedHTML.contains("<script"))
+        #expect(!result.cleanedHTML.contains("<nav"))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form"))
+
+        #expect(result.cleanedHTML.contains("popcorn"))
+        #expect(result.cleanedHTML.contains("Yoshi"))
+        #expect(result.cleanedHTML.contains("<img"), "Gallery images should be preserved")
+        #expect(result.cleanedHTML.contains("images.nintendolife.com"), "Gallery image URLs should be present")
     }
 
     // MARK: - GQ
