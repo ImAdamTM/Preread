@@ -428,7 +428,7 @@ final class FetchCoordinator: ObservableObject {
                 if Self.isNonArticleURL(item.url) {
                     // If this non-article URL was already inserted in a
                     // previous refresh, remove it now so it stops showing
-                    // in the feed (e.g. accounts.nintendo.com auth pages).
+                    // in the feed (e.g. auth/login redirect pages).
                     if let existing = existingByURL[urlString] ?? existingByTitle[item.title] {
                         try? await PageCacheService.shared.deleteCachedArticle(existing.id)
                         _ = try? await DatabaseManager.shared.dbPool.write { db in

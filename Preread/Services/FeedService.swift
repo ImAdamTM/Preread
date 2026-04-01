@@ -189,8 +189,8 @@ actor FeedService {
                 return true
             }
             // Site URL match — catches different feed URL paths for the same site
-            // (e.g. polygon.com/feed vs polygon.com/rss/index.xml)
-            // Uses full siteURL path, not bare domain, so BBC Science != BBC World
+            // (e.g. example.com/feed vs example.com/rss/index.xml)
+            // Uses full siteURL path, not bare domain, to allow multiple feeds per domain
             guard let normalizedSite else { return false }
             return sources.contains { source in
                 guard let sourceSite = source.siteURL else { return false }

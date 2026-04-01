@@ -234,7 +234,7 @@ actor PageCacheService {
         let nextDataContent = extractNextDataContent(from: preDoc)
 
         // Before stripping scripts, hydrate empty image placeholders from
-        // Apollo Client cache (sites like E! Online that use GraphQL + React).
+        // Apollo Client cache (GraphQL + React server-rendered pages).
         let apolloImageCount = hydrateApolloImages(in: preDoc)
         if apolloImageCount > 0 {
             print("[PageCacheService] Hydrated \(apolloImageCount) Apollo images into placeholders")
@@ -514,7 +514,7 @@ actor PageCacheService {
 
         // If no hero image was found from <img> elements, fall back to
         // the OpenGraph image (og:image meta tag). Many sites declare their
-        // primary image only via og:image (e.g. CNBC, JS-rendered pages).
+        // primary image only via og:image (common with JS-rendered pages).
         // The meta tags survive cleaning (only CSP metas are stripped).
         if heroImageURL == nil {
             if let ogImage = try extractOpenGraphImage(from: preDoc, baseURL: pageURL) {
@@ -545,9 +545,8 @@ actor PageCacheService {
 
         // Deduplicate images — exact src match, then base-URL match
         // (strips query params so crop/size variants of the same image
-        // are recognised as duplicates, e.g. The Verge product cards),
-        // then host+filename match (catches CDN resize variants with
-        // different path hashes, e.g. CNET /a/img/resize/{hash}/.../file.jpg).
+        // are recognised as duplicates), then host+filename match
+        // (catches CDN resize variants with different path hashes).
         var seenSrcs = Set<String>()
         var seenBasePaths = Set<String>()
         var seenHostFilenames = Set<String>()
@@ -630,7 +629,7 @@ actor PageCacheService {
         let nextDataContent = extractNextDataContent(from: doc)
 
         // Before stripping scripts, hydrate empty image placeholders from
-        // Apollo Client cache (sites like E! Online that use GraphQL + React).
+        // Apollo Client cache (GraphQL + React server-rendered pages).
         let apolloImageCount = hydrateApolloImages(in: doc)
         if apolloImageCount > 0 {
             print("[PageCacheService] Hydrated \(apolloImageCount) Apollo images into placeholders (full mode)")
@@ -655,7 +654,7 @@ actor PageCacheService {
 
         // Strip scripts and noscript fallbacks — we disable JS in the web
         // view, so noscript blocks render and create huge layout gaps
-        // (e.g. BBC's full site-navigation tree inside <noscript>).
+        // (full site-navigation trees can live inside <noscript>).
         try doc.select("script").remove()
         try promoteNoscriptImages(in: doc)
         try doc.select("noscript").remove()
@@ -1052,11 +1051,11 @@ actor PageCacheService {
     /// Hydrates empty image placeholders with URLs extracted from an Apollo
     /// Client serialized cache (`window.__APOLLO_STATE__`).
     ///
-    /// Sites using Apollo (e.g. E! Online) server-render placeholder elements
-    /// with CSS aspect-ratio hacks (`padding-top: XX%`) but store the actual
-    /// image URLs in the Apollo cache JSON embedded in a `<script>` tag. Since
-    /// we strip scripts, the client-side hydration never runs and images are
-    /// lost. This method performs the same hydration the JS client would do.
+    /// Apollo-based pages server-render placeholder elements with CSS
+    /// aspect-ratio hacks (`padding-top: XX%`) but store the actual image URLs
+    /// in the Apollo cache JSON embedded in a `<script>` tag. Since we strip
+    /// scripts, the client-side hydration never runs and images are lost. This
+    /// method performs the same hydration the JS client would do.
     ///
     /// Must be called **before** script removal.
     /// Returns the number of images injected.
@@ -1147,6 +1146,11 @@ actor PageCacheService {
         }
 
         for segment in segments {
+            // Skip CALL_TO_ACTION segments — these reference separate
+            // galleries unrelated to the article's own image placeholders.
+            let segType = (segment["type"] as? String) ?? ""
+            if segType == "CALL_TO_ACTION" { continue }
+
             // Direct image ref on the segment
             if let url = extractImageURL(from: segment) {
                 imageURLs.append(url)
@@ -1182,6 +1186,11 @@ actor PageCacheService {
         let emptyPlaceholders = placeholders.filter { el in
             // Must have no <img> descendant already
             guard let imgs = try? el.select("img"), imgs.isEmpty() else { return false }
+            // Must be a leaf element (no child elements) — true aspect-ratio
+            // placeholders are empty tags like <span style="padding-top:74%"></span>.
+            // Elements with child elements (e.g. video dockable containers with
+            // nested <div>s) are structural, not image placeholders.
+            guard let children = try? el.children(), children.isEmpty() else { return false }
             // Style must contain a percentage (the aspect-ratio hack)
             guard let style = try? el.attr("style"),
                   style.range(of: #"padding-top\s*:\s*[\d.]+%"#, options: .regularExpression) != nil else {
@@ -2295,8 +2304,8 @@ actor PageCacheService {
     // MARK: - Image download fallback
 
     /// Second-pass fallback for images whose srcset-based download failed.
-    /// Sites like WWD have srcset entries where "reasonable" widths (e.g. 1333w)
-    /// are actually unoptimized originals that exceed the per-asset size limit.
+    /// Some srcset entries with "reasonable" widths (e.g. 1333w) are actually
+    /// unoptimized originals that exceed the per-asset size limit.
     /// This method finds images still pointing to remote URLs and tries downloading
     /// their `src` attribute, which is typically a smaller server-resized variant.
     private func downloadSrcFallbackImages(in doc: Document, assetsDir: URL, baseURL: URL) async throws -> [Result<AssetMapping, Error>] {
@@ -2722,9 +2731,9 @@ actor PageCacheService {
             }
 
             // No sibling img to promote into — extract the <img> from
-            // the noscript and place it directly in the DOM.
-            // This handles sites like Nylon where images exist only
-            // inside <noscript> with no JS-placeholder sibling.
+            // the noscript and place it directly in the DOM. Handles
+            // cases where images exist only inside <noscript> with no
+            // JS-placeholder sibling.
             let imgHTML = try noscriptImg.outerHtml()
             try noscript.before(imgHTML)
         }
@@ -2925,7 +2934,7 @@ actor PageCacheService {
                     try picture.appendElement("img").attr("src", url)
                 }
             } else if let img = try picture.select("img").first() {
-                // <img> exists but may lack src (lazy-loaded sites like ESPN)
+                // <img> exists but may lack src (lazy-loaded with data: placeholder)
                 let src = try img.attr("src")
                 if src.isEmpty || src.hasPrefix("data:") {
                     if let url = sourceURL {
@@ -2940,8 +2949,8 @@ actor PageCacheService {
 
     // MARK: - Caption toggle cleanup
 
-    /// Strips orphaned caption toggle UI text — news sites (NPR, PBS, etc.)
-    /// wrap interactive show/hide caption controls in `<b>` tags. After
+    /// Strips orphaned caption toggle UI text — some news sites wrap
+    /// interactive show/hide caption controls in `<b>` tags. After
     /// JavaScript/button stripping these survive as meaningless visible text
     /// like "hide caption" or "toggle caption".
     private func stripCaptionToggles(in doc: Document) throws {
@@ -2960,9 +2969,9 @@ actor PageCacheService {
     /// `<meta>` tags. Falls back to `twitter:image` if og:image is absent.
     /// Returns nil if no suitable image meta tag is found.
     ///
-    /// This provides a reliable hero/thumbnail fallback for sites where the
-    /// main article image is only declared in meta tags (e.g. CNBC, JS-rendered
-    /// pages) and not present as an `<img>` in the body.
+    /// This provides a reliable hero/thumbnail fallback for pages where the
+    /// main article image is only declared in meta tags (common with
+    /// JS-rendered pages) and not present as an `<img>` in the body.
     private func extractOpenGraphImage(from doc: Document, baseURL: URL) throws -> String? {
         // Try og:image first (most widely used)
         if let ogMeta = try doc.select("meta[property=og:image]").first() {

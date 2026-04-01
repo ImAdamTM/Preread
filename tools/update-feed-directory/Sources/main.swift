@@ -129,12 +129,12 @@ func simplifyName(_ name: String, feedURL: String) -> String {
 
     guard !domainLabel.isEmpty else { return normalized }
 
-    // Direct single-word match (e.g. "Engadget" in "Engadget | Technology News & Reviews")
+    // Direct single-word match (e.g. "Example" in "Example | Technology News")
     if let match = words.first(where: { cleaned($0) == domainLabel || cleaned($0) == domainLabelNoHyphens }) {
         return match.trimmingCharacters(in: punct)
     }
 
-    // Concatenated words match (e.g. "The Verge" -> "theverge")
+    // Concatenated words match (e.g. "My Site" -> "mysite")
     for start in words.indices {
         var concat = ""
         for end in start..<words.count {

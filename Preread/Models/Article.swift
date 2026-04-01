@@ -37,8 +37,8 @@ struct Article: Identifiable, Codable, Hashable, FetchableRecord, PersistableRec
 
 extension Article {
     /// Returns a display-friendly origin for the article.
-    /// Prefers the RSS `<source>` publisher name (e.g. "BBC News") when available,
-    /// otherwise extracts a clean domain from the article URL (e.g. "bbc.co.uk").
+    /// Prefers the RSS `<source>` publisher name when available,
+    /// otherwise extracts a clean domain from the article URL.
     var displayDomain: String? {
         if let name = originalSourceName, !name.isEmpty {
             return name

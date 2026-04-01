@@ -159,6 +159,20 @@ Bad (site-specific):
 
 If a site has layout problems after caching, the fix should work across any site with the same structural pattern (e.g. hidden popovers, empty wrappers, noscript fallbacks).
 
+## Code comments
+
+**CRITICAL: Never reference specific websites in code comments.** Comments should describe the generic pattern or behaviour being handled, not name individual sites. Mentioning tools/libraries/frameworks (e.g. Apollo, Next.js, WordPress) is fine since those describe the technical pattern, not a specific website.
+
+Good:
+- `// Hydrate image placeholders from Apollo Client cache`
+- `// Handle lazy-loaded images where src is a data: placeholder`
+
+Bad:
+- `// Sites like E! Online that use GraphQL + React`
+- `// This handles sites like Nylon where images exist only inside <noscript>`
+
+Test names and fixture filenames may reference sites since they identify the test fixture, but inline code comments must stay generic.
+
 ## Performance and battery
 
 Before introducing any of the following patterns, **flag the performance implications** and discuss alternatives with the user first:

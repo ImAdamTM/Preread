@@ -39,7 +39,7 @@ final class FeedDirectory: @unchecked Sendable {
 
         for feed in allFeeds {
             let nameLower = feed.name.lowercased()
-            // Extract bare domain: "https://www.theverge.com" → "theverge"
+            // Extract bare domain: "https://www.example.com" → "example"
             let domainLower: String = {
                 guard let siteURL = feed.siteURL,
                       let host = URL(string: siteURL)?.host?.lowercased() else { return "" }
@@ -58,7 +58,7 @@ final class FeedDirectory: @unchecked Sendable {
                     score += 80
                 }
 
-                // Domain match (e.g. "theverge" matches theverge.com)
+                // Domain match (e.g. "example" matches example.com)
                 if !domainLower.isEmpty {
                     if domainLower == term {
                         score += 90
@@ -133,9 +133,9 @@ final class FeedDirectory: @unchecked Sendable {
 
     /// Returns the set of normalized site URLs from the user's subscribed sources.
     /// This catches cases where a discover feed has a different feed URL path
-    /// than what the user added (e.g. polygon.com/feed vs polygon.com/rss/index.xml)
-    /// while still allowing multiple feeds from the same domain (e.g. BBC Science vs BBC World)
-    /// because their siteURLs differ.
+    /// than what the user added (e.g. example.com/feed vs example.com/rss/index.xml)
+    /// while still allowing multiple feeds from the same domain
+    /// (their siteURLs differ).
     func subscribedSiteURLs() -> Set<String> {
         do {
             return try DatabaseManager.shared.dbPool.read { db in
@@ -170,7 +170,7 @@ final class FeedDirectory: @unchecked Sendable {
 
     /// Finds the existing Source whose feedURL matches the given URL after normalization,
     /// or whose siteURL matches the discover feed's siteURL (for different feed URL paths
-    /// serving the same content, e.g. polygon.com/feed vs polygon.com/rss/index.xml).
+    /// serving the same content, e.g. example.com/feed vs example.com/rss/index.xml).
     func findExistingSource(feedURL: String, siteURL: String? = nil) -> Source? {
         let normalized = Self.normalizeURL(feedURL)
         let normalizedSite = siteURL.map { Self.normalizeURL($0) }

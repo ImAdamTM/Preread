@@ -54,7 +54,7 @@ struct AddSourceSheet: View {
         guard !raw.isEmpty else { return false }
         // If it already has a scheme, it's a URL
         if raw.lowercased().hasPrefix("http://") || raw.lowercased().hasPrefix("https://") { return false }
-        // If it contains a dot followed by letters (e.g. "bbc.com"), treat as URL
+        // If it contains a dot followed by letters (e.g. "example.com"), treat as URL
         let dotPattern = #"\.[a-zA-Z]{2,}"#
         if raw.range(of: dotPattern, options: .regularExpression) != nil { return false }
         // Otherwise it's a search term
@@ -1444,7 +1444,7 @@ struct AddSourceSheet: View {
 
         // Extract domain label from URL
         let host = url.host ?? ""
-        // "www.engadget.com" → "engadget"
+        // "www.example.com" → "example"
         let domainLabel = host
             .lowercased()
             .replacingOccurrences(of: "www.", with: "")
@@ -1455,12 +1455,12 @@ struct AddSourceSheet: View {
             let punct = CharacterSet.punctuationCharacters
             func cleaned(_ w: String) -> String { w.trimmingCharacters(in: punct).lowercased() }
 
-            // Direct single-word match (e.g. "Engadget" == "engadget")
+            // Direct single-word match (e.g. "Example" == "example")
             if let match = words.first(where: { cleaned($0) == domainLabel }) {
                 return match.trimmingCharacters(in: punct)
             }
 
-            // Concatenated words match (e.g. "The Verge" → "theverge")
+            // Concatenated words match (e.g. "My Site" → "mysite")
             for start in words.indices {
                 var concat = ""
                 for end in start..<words.count {
@@ -1527,9 +1527,9 @@ struct AddSourceSheet: View {
     /// Checks if a discover feed is already subscribed, matching by both
     /// normalized feed URL and normalized siteURL. Site URL matching catches
     /// cases where the user added a source via a different feed URL path than
-    /// the discover directory entry (e.g. polygon.com/feed vs polygon.com/rss/index.xml).
+    /// the discover directory entry (e.g. example.com/feed vs example.com/rss/index.xml).
     /// Using siteURL (not bare domain) preserves the ability to subscribe to
-    /// multiple feeds from the same domain (e.g. BBC Science vs BBC World).
+    /// multiple feeds from the same domain (their siteURLs differ).
     private func isDiscoverFeedSubscribed(_ feed: DiscoverFeed) -> Bool {
         if subscribedURLs.contains(FeedDirectory.normalizeURL(feed.feedURL)) {
             return true

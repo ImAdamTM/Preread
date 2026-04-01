@@ -274,7 +274,7 @@ func unwrapPictureElements(in doc: Document) throws {
                 try picture.appendElement("img").attr("src", url)
             }
         } else if let img = try picture.select("img").first() {
-            // <img> exists but may lack src (lazy-loaded sites like ESPN)
+            // <img> exists but may lack src (lazy-loaded with data: placeholder)
             let src = try img.attr("src")
             if src.isEmpty || src.hasPrefix("data:") {
                 if let url = sourceURL {
@@ -963,6 +963,11 @@ func hydrateApolloImages(in doc: Document) -> Int {
     }
 
     for segment in segments {
+        // Skip CALL_TO_ACTION segments — these reference separate
+        // galleries unrelated to the article's own image placeholders.
+        let segType = (segment["type"] as? String) ?? ""
+        if segType == "CALL_TO_ACTION" { continue }
+
         // Direct image ref on the segment
         if let url = extractImageURL(from: segment) {
             imageURLs.append(url)
@@ -995,6 +1000,9 @@ func hydrateApolloImages(in doc: Document) -> Int {
 
     let emptyPlaceholders = placeholders.filter { el in
         guard let imgs = try? el.select("img"), imgs.isEmpty() else { return false }
+        // Must be a leaf element (no child elements) — true aspect-ratio
+        // placeholders are empty tags like <span style="padding-top:74%"></span>.
+        guard let children = try? el.children(), children.isEmpty() else { return false }
         guard let style = try? el.attr("style"),
               style.range(of: #"padding-top\s*:\s*[\d.]+%"#, options: .regularExpression) != nil else {
             return false
@@ -1438,9 +1446,8 @@ if isFullMode {
 
         // Deduplicate images — exact src match, then base-URL match
         // (strips query params so crop/size variants of the same image
-        // are recognised as duplicates, e.g. The Verge product cards),
-        // then host+filename match (catches CDN resize variants with
-        // different path hashes, e.g. CNET /a/img/resize/{hash}/.../file.jpg).
+        // are recognised as duplicates), then host+filename match
+        // (catches CDN resize variants with different path hashes).
         var seenSrcs = Set<String>()
         var seenBasePaths = Set<String>()
         var seenHostFilenames = Set<String>()
