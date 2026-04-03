@@ -7707,6 +7707,21 @@
     ]
   },
   {
+    "category" : "Business & Finance",
+    "description" : "Free editorial content on investing and company analysis",
+    "feedURL" : "https:\/\/www.fool.com\/a\/feeds\/partner\/googlechromefollow?apikey=5e092c1f-c5f9-4428-9219-908a47d2e2de",
+    "id" : "5d312f5c-9836-2971-6c6b-c442e56b6ae0",
+    "name" : "The Motley Fool",
+    "siteURL" : "https:\/\/www.fool.com",
+    "tags" : [
+      "stocks",
+      "investing",
+      "etfs",
+      "portfolio",
+      "dividends"
+    ]
+  },
+  {
     "category" : "Pakistan",
     "country" : "Pakistan",
     "description" : "Progressive American journalism on politics and culture",

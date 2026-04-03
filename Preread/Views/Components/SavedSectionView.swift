@@ -10,7 +10,7 @@ struct SavedSectionView: View {
     @Namespace private var namespace
     @State private var articles: [Article] = []
     @State private var totalSavedCount: Int = 0
-    @AppStorage("savedSectionCollapsed") private var isCollapsed: Bool = false
+    @State private var isCollapsed: Bool = UserDefaults.standard.bool(forKey: "savedSectionCollapsed")
 
     var body: some View {
         Group {
@@ -91,6 +91,7 @@ struct SavedSectionView: View {
             isCollapsed.toggle()
         }
         HapticManager.modeToggle()
+        UserDefaults.standard.set(isCollapsed, forKey: "savedSectionCollapsed")
     }
 
     private var sectionHeader: some View {
@@ -279,6 +280,20 @@ struct SavedSectionView: View {
             nowSaved ? "Saved" : "Unsaved",
             icon: nowSaved ? "bookmark.fill" : "bookmark.slash"
         )
+
+        if !nowSaved && article.sourceID == Source.savedPagesID {
+            // Saved-pages articles have no feed source — delete entirely
+            withAnimation(Theme.gentleAnimation()) {
+                articles.removeAll { $0.id == article.id }
+            }
+            try? await PageCacheService.shared.deleteCachedArticle(article.id)
+            _ = try? await DatabaseManager.shared.dbPool.write { db in
+                try Article.deleteOne(db, key: article.id)
+            }
+            coordinator.savedArticlesVersion += 1
+            return
+        }
+
         do {
             try await DatabaseManager.shared.dbPool.write { db in
                 try updatedArticle.update(db)

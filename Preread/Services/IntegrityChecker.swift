@@ -80,10 +80,41 @@ enum IntegrityChecker {
                 print("[IntegrityChecker] Reset \(resetCount) article(s) with missing cache files.")
             }
 
+            // Delete orphaned saved-page articles (unsaved via a code path
+            // that didn't fully clean up the Article + CachedPage records)
+            await deleteOrphanedSavedPages()
+
             // Clean up shared assets no longer referenced by any article
             await PageCacheService.shared.cleanupOrphanedSharedAssets()
         } catch {
             print("[IntegrityChecker] Error during integrity check: \(error)")
+        }
+    }
+
+    /// Deletes saved-page articles that were unsaved but not fully cleaned up.
+    /// These have sourceID == savedPagesID and isSaved == false, meaning they
+    /// no longer belong to any feed and serve no purpose.
+    private static func deleteOrphanedSavedPages() async {
+        do {
+            let orphans = try await DatabaseManager.shared.dbPool.read { db in
+                try Article
+                    .filter(Column("sourceID") == Source.savedPagesID)
+                    .filter(Column("isSaved") == false)
+                    .fetchAll(db)
+            }
+
+            guard !orphans.isEmpty else { return }
+
+            for article in orphans {
+                try? await PageCacheService.shared.deleteCachedArticle(article.id)
+                _ = try? await DatabaseManager.shared.dbPool.write { db in
+                    try Article.deleteOne(db, key: article.id)
+                }
+            }
+
+            print("[IntegrityChecker] Deleted \(orphans.count) orphaned saved-page article(s).")
+        } catch {
+            print("[IntegrityChecker] Error cleaning orphaned saved pages: \(error)")
         }
     }
 

@@ -4,7 +4,7 @@
     "description": "The engineering blog from Etsy",
     "feedURL": "https://codeascraft.com/feed/atom/",
     "id": "89679d7f-463c-cd13-0c1e-47dc389548ae",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "Code as Craft",
     "siteURL": "https://www.etsy.com/codeascraft/rss",
     "tags": [
@@ -20,7 +20,7 @@
     "description": "Programming and human factors by Jeff Atwood",
     "feedURL": "https://blog.codinghorror.com/rss/",
     "id": "b1ea32ce-2f3e-5611-8703-b89ca8de5289",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "Coding Horror",
     "siteURL": "https://blog.codinghorror.com/",
     "tags": [
@@ -36,7 +36,7 @@
     "description": "Engineering at Meta",
     "feedURL": "https://engineering.fb.com/feed/",
     "id": "6a89e91e-e8f8-89bc-6c04-645d38fed75b",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "Facebook Engineering",
     "siteURL": "https://engineering.fb.com/",
     "tags": [
@@ -52,7 +52,7 @@
     "description": "Engineering, open source, and the developer community from the team behind GitHub",
     "feedURL": "https://github.blog/feed/",
     "id": "d76a9142-417b-4fd3-922a-7f3b0ec87ecd",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "GitHub Blog",
     "siteURL": "https://github.blog",
     "tags": [
@@ -68,7 +68,7 @@
     "description": "Tutorials, product information, expert insights, and more from GitLab to help DevSecOps teams build, test, and deploy",
     "feedURL": "https://about.gitlab.com/atom.xml",
     "id": "49eb4e5a-a146-f3bd-7efb-64ffdf2408d2",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "GitLab",
     "siteURL": "https://about.gitlab.com/blog",
     "tags": [
@@ -84,7 +84,7 @@
     "description": "News and updates for Google developers",
     "feedURL": "https://developers.googleblog.com/feed/",
     "id": "3ac5da35-06d9-58ea-90de-553b5202348a",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "Google Developers Blog",
     "siteURL": "https://developers.googleblog.com/",
     "tags": [
@@ -100,7 +100,7 @@
     "description": "How hackers start their afternoons. Community-driven tech articles on software development, AI, and startups",
     "feedURL": "https://hackernoon.com/feed",
     "id": "f48a6ac6-e5bf-4070-885a-9e2403cbd3da",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "HackerNoon",
     "siteURL": "https://hackernoon.com",
     "tags": [
@@ -116,7 +116,7 @@
     "description": "Helping dev teams adopt new technologies and practices. Written by software engineers. Read by over 1.5 million",
     "feedURL": "https://feed.infoq.com",
     "id": "151808e9-ea0f-0daa-3d15-d3f25b77d7fa",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "InfoQ",
     "siteURL": "https://www.infoq.com",
     "tags": [
@@ -132,7 +132,7 @@
     "description": "Developer tools, tips, and IDE updates from JetBrains",
     "feedURL": "https://blog.jetbrains.com/feed",
     "id": "ed85ad12-3a96-da65-6373-d2a0cbe86cb4",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "JetBrains Blog",
     "siteURL": "https://blog.jetbrains.com",
     "tags": [
@@ -148,7 +148,7 @@
     "description": "Software architecture and development practices",
     "feedURL": "https://martinfowler.com/feed.atom",
     "id": "fd864915-7d54-9877-e25b-60df5c104c53",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "Martin Fowler",
     "siteURL": "https://martinfowler.com",
     "tags": [
@@ -164,7 +164,7 @@
     "description": "Learn about Netflix’s world class engineering efforts, company culture, product developments and more",
     "feedURL": "https://netflixtechblog.com/feed",
     "id": "cde22301-ccca-2028-bc13-1c440bce03a6",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "Netflix TechBlog",
     "siteURL": "https://netflixtechblog.com",
     "tags": [
@@ -180,7 +180,7 @@
     "description": "The things we learn as we build our products",
     "feedURL": "https://engineering.prezi.com/feed",
     "id": "a4a249f1-8b5d-ff47-36fe-6834337ae2ad",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "Prezi Engineering",
     "siteURL": "https://engineering.prezi.com",
     "tags": [
@@ -196,7 +196,7 @@
     "description": "Daily interviews about software engineering topics",
     "feedURL": "https://softwareengineeringdaily.com/category/podcast/feed",
     "id": "d3fc8e2e-c7ed-e1b7-c8f3-2bbe3bcbc7d3",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "Software Engineering Daily",
     "siteURL": "https://softwareengineeringdaily.com/category/all-episodes/exclusive-content/podcast/",
     "tags": [
@@ -212,7 +212,7 @@
     "description": "Programming tutorials and resources",
     "feedURL": "https://www.thecrazyprogrammer.com/category/programming/feed",
     "id": "0a922e3f-96c2-1e11-2197-1059aa2e0121",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "The Crazy Programmer",
     "siteURL": "https://www.thecrazyprogrammer.com/category/programming",
     "tags": [
@@ -228,7 +228,7 @@
     "description": "Curious perversions in information technology",
     "feedURL": "https://syndication.thedailywtf.com/TheDailyWtf",
     "id": "6044f0ac-dd64-9f51-ee07-adc16f7ec7ae",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "The Daily WTF",
     "siteURL": "https://thedailywtf.com/",
     "tags": [

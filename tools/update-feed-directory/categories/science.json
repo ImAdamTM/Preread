@@ -4,7 +4,7 @@
     "description": "Science and environment news from BBC",
     "feedURL": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
     "id": "a6d026e5-9175-e6b8-dfdc-84c6ff0bb707",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "BBC News: Science & Environment",
     "siteURL": "https://www.bbc.co.uk/news/science_and_environment",
     "tags": [
@@ -20,7 +20,7 @@
     "description": "Accessible science journalism from Annual Reviews",
     "feedURL": "https://knowablemagazine.org/rss",
     "id": "d49efeb3-738e-5c5d-a994-54a862ba8cb8",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "Knowable Magazine",
     "siteURL": "https://knowablemagazine.org",
     "tags": [
@@ -36,7 +36,7 @@
     "description": "Accessible, high-traffic science news covering all disciplines",
     "feedURL": "https://www.livescience.com/feeds.xml",
     "id": "6511ef25-8e6c-0b7b-3413-f87e408e93d5",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "Live Science",
     "siteURL": "https://www.livescience.com/",
     "tags": [
@@ -52,7 +52,7 @@
     "description": "Science news and long reads covering developments in science, technology, health, and the environment",
     "feedURL": "https://www.newscientist.com/feed/home/",
     "id": "be84762c-0520-3043-9b68-550373bf9304",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "New Scientist",
     "siteURL": "https://www.newscientist.com/",
     "tags": [
@@ -68,7 +68,7 @@
     "description": "Research news across all sciences aggregated from press releases and journals",
     "feedURL": "https://phys.org/rss-feed/",
     "id": "b157f7a1-fae2-4ec4-fb61-0b4f386a9d8e",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "Phys.org",
     "siteURL": "https://phys.org/",
     "tags": [
@@ -84,7 +84,7 @@
     "description": "Science and technology news, reviews, and product recommendations",
     "feedURL": "https://www.popsci.com/feed/",
     "id": "741b88dd-6ee3-ad6b-4cb7-0bfbfb96dc5c",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "Popular Science",
     "siteURL": "https://www.popsci.com/",
     "tags": [
@@ -100,7 +100,7 @@
     "description": "Breaking news from the world's leading journal of original scientific research",
     "feedURL": "https://www.science.org/rss/news_current.xml",
     "id": "edd2d7dd-c5a7-55b2-a407-644fc94eae0c",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "Science Magazine",
     "siteURL": "https://www.science.org/news",
     "tags": [
@@ -116,7 +116,7 @@
     "description": "Independent journalism covering all disciplines of science since 1921",
     "feedURL": "https://www.sciencenews.org/feed",
     "id": "6cc0875b-fb4f-5a80-9677-a027b9695008",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "Science News",
     "siteURL": "https://www.sciencenews.org",
     "tags": [
@@ -132,7 +132,7 @@
     "description": "Accessible science news with a large social media following",
     "feedURL": "https://www.sciencealert.com/feed/gn/",
     "id": "7d633c68-0359-bb8e-d8d1-95115aec5bd0",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "ScienceAlert",
     "siteURL": "https://www.sciencealert.com/",
     "tags": [
@@ -148,7 +148,7 @@
     "description": "Science journalism since 1845, covering everything from physics to public health",
     "feedURL": "https://www.scientificamerican.com/platform/syndication/rss/",
     "id": "cbc0fc8a-6abb-b7f8-b399-82ef08dfd2e4",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "Scientific American",
     "siteURL": "https://www.scientificamerican.com/",
     "tags": [
@@ -164,7 +164,7 @@
     "description": "Academics writing directly for public audiences across all research disciplines",
     "feedURL": "https://theconversation.com/articles.atom",
     "id": "dd45cb48-628f-81be-013e-64c0f2d3e878",
-    "lastVerified": "2026-03-30",
+    "lastVerified": "2026-04-02",
     "name": "The Conversation",
     "siteURL": "https://theconversation.com/",
     "tags": [

@@ -371,12 +371,11 @@ func runAudit() async throws {
                 if let lastStr = feed.lastVerified,
                    let lastDate = dateFormatter.date(from: lastStr),
                    lastDate >= recentCutoff {
-                    // Recently verified — auto-approve
+                    // Recently verified — auto-approve without updating lastVerified
                     validatedFeeds.append(ValidatedFeed(
                         feed: feed, siteURL: feed.siteURL,
                         newestItemDate: nil, articleURLs: []
                     ))
-                    verifiedFeedURLs.insert(feed.feedURL)
                     autoApprovedCount += 1
                 } else {
                     needsCheck.append(feed)

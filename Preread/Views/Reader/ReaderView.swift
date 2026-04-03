@@ -476,6 +476,24 @@ struct ReaderView: View {
         let newSaved = !isSaved
         isSaved = newSaved
 
+        HapticManager.articleCached()
+        ToastManager.shared.snack(
+            newSaved ? "Saved" : "Unsaved",
+            icon: newSaved ? "bookmark.fill" : "bookmark.slash"
+        )
+
+        if !newSaved && currentArticle.sourceID == Source.savedPagesID {
+            // Saved-pages articles have no feed source — delete entirely
+            let articleID = currentArticle.id
+            try? await PageCacheService.shared.deleteCachedArticle(articleID)
+            _ = try? await DatabaseManager.shared.dbPool.write { db in
+                try Article.deleteOne(db, key: articleID)
+            }
+            FetchCoordinator.shared.savedArticlesVersion += 1
+            dismiss()
+            return
+        }
+
         var mutable = currentArticle
         mutable.isSaved = newSaved
         mutable.savedAt = newSaved ? Date() : nil
@@ -486,12 +504,6 @@ struct ReaderView: View {
             mutable.originalSourceName = nil
             mutable.originalSourceIconURL = nil
         }
-
-        HapticManager.articleCached()
-        ToastManager.shared.snack(
-            newSaved ? "Saved" : "Unsaved",
-            icon: newSaved ? "bookmark.fill" : "bookmark.slash"
-        )
 
         let toSave = mutable
         do {
