@@ -275,6 +275,12 @@ actor PageCacheService {
             return .failed
         }
 
+        // Update pageURL to the final URL after redirects, so relative
+        // URLs in the HTML resolve correctly against the actual page location.
+        if let responseURL = response.url, responseURL != pageURL {
+            pageURL = responseURL
+        }
+
         guard let httpResponse = response as? HTTPURLResponse else {
             if wasPreviouslyCached, hasCachedContentOnDisk(for: article) {
                 article.fetchStatus = .cached
@@ -433,6 +439,9 @@ actor PageCacheService {
                     }
                 }
 
+                // Fallback: try parent <a> href for images that still failed (e.g. oversized originals)
+                let anchorFallbackResults = try await downloadAnchorFallbackImages(in: doc, assetsDir: assetsDir, baseURL: pageURL)
+
                 // Clean up remaining remote image references that weren't rewritten.
                 try stripRemoteImageReferences(in: doc)
 
@@ -467,7 +476,7 @@ actor PageCacheService {
                 }
                 htmlData = Data(finalHTML.utf8)
 
-                let allFullResults = downloadResults + fallbackResults
+                let allFullResults = downloadResults + fallbackResults + anchorFallbackResults
                 assetFilenames = allFullResults.compactMap { result -> String? in
                     if case .success(let mapping) = result { return mapping.filename }
                     return nil
@@ -513,11 +522,13 @@ actor PageCacheService {
                         try rewriteURL(in: rssContentDoc, original: mapping.originalURL, replacement: "./assets/\(mapping.filename)")
                     }
                 }
+                // Fallback: try parent <a> href for images that still failed
+                let rssAnchorFallbackResults = try await downloadAnchorFallbackImages(in: rssContentDoc, assetsDir: assetsDir, baseURL: pageURL)
                 try stripRemoteImageReferences(in: rssContentDoc)
 
                 rssContentHTML = (try? rssContentDoc.body()?.html()) ?? rssContentHTML
 
-                let allRssResults = rssDownloadResults + rssFallbackResults
+                let allRssResults = rssDownloadResults + rssFallbackResults + rssAnchorFallbackResults
                 assetFilenames = allRssResults.compactMap { result -> String? in
                     if case .success(let mapping) = result { return mapping.filename }
                     return nil
@@ -605,12 +616,15 @@ actor PageCacheService {
                 }
             }
 
+            // Fallback: try parent <a> href for images that still failed (e.g. oversized originals)
+            let anchorFallbackResults = try await downloadAnchorFallbackImages(in: contentDoc, assetsDir: assetsDir, baseURL: pageURL)
+
             // Clean up remaining remote images to prevent dead boxes offline
             try stripRemoteImageReferences(in: contentDoc)
 
             contentHTML = (try? contentBody.html()) ?? contentHTML
 
-            let allResults = downloadResults + fallbackResults
+            let allResults = downloadResults + fallbackResults + anchorFallbackResults
             let allFilenames = allResults.compactMap { result -> String? in
                 if case .success(let mapping) = result { return mapping.filename }
                 return nil

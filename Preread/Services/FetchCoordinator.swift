@@ -190,10 +190,7 @@ final class FetchCoordinator: ObservableObject {
 
         // Cache priority articles first
         for (index, article) in priority.enumerated() {
-            let result = try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
-            if result == .contentUpdated {
-                HapticManager.articleCached()
-            }
+            try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
             if index < priority.count - 1 {
                 try? await Task.sleep(for: .milliseconds(200))
             }
@@ -201,10 +198,7 @@ final class FetchCoordinator: ObservableObject {
 
         // Then backfill
         for (index, article) in backfill.enumerated() {
-            let result = try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
-            if result == .contentUpdated {
-                HapticManager.articleCached()
-            }
+            try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
             if index < backfill.count - 1 {
                 try? await Task.sleep(for: .milliseconds(200))
             }
@@ -340,13 +334,7 @@ final class FetchCoordinator: ObservableObject {
                 let cacheLevel = source.effectiveCacheLevel
                 indices[queueIndex] += 1
 
-                let result = try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
-
-                // Only fire haptic if content actually changed and user can see it
-                if result == .contentUpdated,
-                   activeSourceID == nil || activeSourceID == source.id {
-                    HapticManager.articleCached()
-                }
+                try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
 
                 try? await Task.sleep(for: .milliseconds(200))
             }
@@ -605,10 +593,7 @@ final class FetchCoordinator: ObservableObject {
                 continue
             }
 
-            let result = try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
-            if result == .contentUpdated {
-                HapticManager.articleCached()
-            }
+            try? await PageCacheService.shared.cacheArticle(article, cacheLevel: cacheLevel)
 
             if index < uncachedArticles.count - 1 {
                 try? await Task.sleep(for: .milliseconds(200))

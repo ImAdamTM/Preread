@@ -1115,6 +1115,10 @@ if isFullMode {
     try promoteNoscriptImages(in: doc)
     try doc.select("noscript").remove()
 
+    try recoverPlaceholderImages(in: doc)
+    try unwrapPictureElements(in: doc)
+    try stripCaptionToggles(in: doc)
+
     // Strip navigation
     try doc.select("nav").remove()
     try doc.select("[role=navigation]").remove()
@@ -1137,10 +1141,15 @@ if isFullMode {
     try doc.select("input").remove()
     try doc.select("select").remove()
     try doc.select("textarea").remove()
+    try doc.select("video").remove()
+    try doc.select("audio").remove()
 
     // Strip aria-hidden from content elements so JS-toggled text remains visible
     try stripAriaHiddenFromContent(in: doc)
     try doc.select("[aria-hidden=true]").remove()
+
+    // Strip related-article card widgets
+    try stripLinkedThumbnailCards(in: doc, pageURL: pageURL)
 
     // Neutralise sticky/fixed positioning
     try stripStickyPositioning(in: doc)

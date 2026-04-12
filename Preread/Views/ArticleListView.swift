@@ -99,9 +99,13 @@ struct ArticleListView: View {
                 hasInitializedSettings = true
             }
             await loadArticles()
-            // Pre-warm row thumbnails into the shared cache so they
+            // Pre-warm row and card thumbnails into the shared cache so they
             // render instantly when the skeleton is replaced by the list.
+            let carouselCandidates = Array(articles
+                .filter { ($0.fetchStatus == .cached || $0.fetchStatus == .partial) && $0.thumbnailURL != nil }
+                .prefix(10))
             await ThumbnailCache.prewarmRowThumbnails(for: articles)
+            await ThumbnailCache.prewarmCardThumbnails(for: carouselCandidates)
             isLoading = false
 
             // Observe article changes reactively instead of polling.

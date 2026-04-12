@@ -858,6 +858,50 @@ struct StandardPipelineTests {
         #expect(!result.contentHTML.contains("<nav"))
         #expect(!result.contentHTML.contains("<style"))
     }
+
+    // MARK: - NPR (feature article)
+
+    @Test("NPR feature: data-src backdrop images recovered, article text extracted")
+    func nprFeatureArticle() async throws {
+        let html = try loadFixture("npr_feature_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://apps.npr.org/life-on-tristan-da-cunha/")!
+        )
+
+        #expect(result.title.contains("Tristan da Cunha"))
+        #expect(result.contentHTML.contains("Edinburgh of the Seven Seas"))
+        // Backdrop images use data-src and must be promoted to src
+        #expect(result.imageCount >= 30, "Lazy-loaded backdrop + gallery images should all be recovered")
+        // Standard cleanup
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+        // Video elements should be stripped
+        #expect(!result.contentHTML.contains("<video"))
+    }
+
+    // MARK: - Nintendo Life (Toree article)
+
+    @Test("Nintendo Life Toree: hero image extracted despite oversized .original variant")
+    func nintendolifeToree() async throws {
+        let html = try loadFixture("nintendolife_toree")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.nintendolife.com/news/2026/04/super-rare-announces-toree-and-friends-physical-switch-collection-pre-orders-open-next-week")!
+        )
+
+        #expect(result.title.contains("Toree"))
+        #expect(result.contentHTML.contains("Super Rare"))
+        // The hero image .original.jpg exceeds 2 MB; Readability wraps it
+        // in an <a> linking to .large.jpg — the pipeline should extract at
+        // least one image via the anchor fallback path.
+        #expect(result.imageCount >= 1, "Hero image should be present via anchor or direct download")
+        // Standard cleanup
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
 }
 
 // MARK: - Full-mode tests
@@ -1744,6 +1788,53 @@ struct FullPipelineTests {
         #expect(result.cleanedHTML.contains("Janet Delaney"))
         #expect(result.cleanedHTML.contains("images.lensculture.com"))
         #expect(result.cleanedHTML.contains("<img"))
+        // Standard full-mode cleanup
+        #expect(!result.cleanedHTML.contains("<script>") && !result.cleanedHTML.contains("<script "))
+        #expect(!result.cleanedHTML.contains("<nav>") && !result.cleanedHTML.contains("<nav "))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form>") && !result.cleanedHTML.contains("<form "))
+    }
+
+    // MARK: - NPR (feature article)
+
+    @Test("NPR feature: data-src images promoted, video stripped, article preserved")
+    func nprFeatureArticle() async throws {
+        let html = try loadFixture("npr_feature_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://apps.npr.org/life-on-tristan-da-cunha/")!
+        )
+
+        // Article content preserved
+        #expect(result.cleanedHTML.contains("Tristan da Cunha"))
+        #expect(result.cleanedHTML.contains("Edinburgh of the Seven Seas"))
+        #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
+        // data-src backdrop images should be promoted to src
+        #expect(!result.cleanedHTML.contains("data-src="), "All data-src should be promoted to src")
+        // Standard full-mode cleanup
+        #expect(!result.cleanedHTML.contains("<script>") && !result.cleanedHTML.contains("<script "))
+        #expect(!result.cleanedHTML.contains("<nav>") && !result.cleanedHTML.contains("<nav "))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form>") && !result.cleanedHTML.contains("<form "))
+        #expect(!result.cleanedHTML.contains("<video"))
+    }
+
+    // MARK: - Nintendo Life (Toree article)
+
+    @Test("Nintendo Life Toree: interactive elements stripped, article content preserved")
+    func nintendolifeToree() async throws {
+        let html = try loadFixture("nintendolife_toree")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.nintendolife.com/news/2026/04/super-rare-announces-toree-and-friends-physical-switch-collection-pre-orders-open-next-week")!
+        )
+
+        // Article content preserved
+        #expect(result.cleanedHTML.contains("Toree"))
+        #expect(result.cleanedHTML.contains("Super Rare"))
+        #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
         // Standard full-mode cleanup
         #expect(!result.cleanedHTML.contains("<script>") && !result.cleanedHTML.contains("<script "))
         #expect(!result.cleanedHTML.contains("<nav>") && !result.cleanedHTML.contains("<nav "))

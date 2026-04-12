@@ -603,6 +603,55 @@ extension PageCacheService {
         return await downloadAssets(urls: fallbackURLs, to: assetsDir, baseURL: baseURL)
     }
 
+    /// Third-pass fallback for images that are still remote after src fallback.
+    /// When an `<img>` download fails (e.g. oversized original) but the image
+    /// is wrapped in an `<a>` linking to the same image host, tries downloading
+    /// the `<a>` href instead — CDN systems often serve a smaller optimized
+    /// variant at the link URL.
+    func downloadAnchorFallbackImages(in doc: Document, assetsDir: URL, baseURL: URL) async throws -> [Result<AssetMapping, Error>] {
+        let imageExtensions: Set<String> = ["jpg", "jpeg", "png", "gif", "webp", "avif"]
+        var fallbackURLs: [(Element, URL)] = []
+        let images = try doc.select("img")
+        for img in images {
+            let src = try img.attr("src")
+            guard !src.isEmpty,
+                  !src.hasPrefix("./assets/"),
+                  !src.hasPrefix("assets/"),
+                  !src.hasPrefix("data:") else { continue }
+
+            // Check if parent <a> links to an image on the same host
+            guard let parent = img.parent(),
+                  parent.tagName() == "a" else { continue }
+            let href = try parent.attr("abs:href")
+            guard let hrefURL = URL(string: href),
+                  let imgURL = URL(string: try img.attr("abs:src")),
+                  hrefURL.host == imgURL.host,
+                  hrefURL.absoluteString != imgURL.absoluteString,
+                  imageExtensions.contains(hrefURL.pathExtension.lowercased()) else { continue }
+
+            fallbackURLs.append((img, hrefURL))
+        }
+
+        guard !fallbackURLs.isEmpty else { return [] }
+
+        let urls = fallbackURLs.map { $0.1 }
+        let results = await downloadAssets(urls: urls, to: assetsDir, baseURL: baseURL)
+
+        // Rewrite successful downloads — update both the <img> src and the <a> href
+        for (i, result) in results.enumerated() {
+            if case .success(let mapping) = result {
+                let (img, _) = fallbackURLs[i]
+                let localPath = "./assets/\(mapping.filename)"
+                try img.attr("src", localPath)
+                if let parent = img.parent(), parent.tagName() == "a" {
+                    try parent.attr("href", localPath)
+                }
+            }
+        }
+
+        return results
+    }
+
     // MARK: - Remote image cleanup
 
     /// Strips remaining non-local references after URL rewriting.

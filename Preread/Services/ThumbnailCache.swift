@@ -126,6 +126,52 @@ final class ThumbnailCache: Sendable {
         }
     }
 
+    /// Pre-loads card thumbnails (full-size) for the given articles off the main thread.
+    /// Skips any articles already in the cache. Returns when all loads complete.
+    static func prewarmCardThumbnails(for articles: [Article]) async {
+        let articlesToLoad = articles.filter { shared.cardThumbnail(for: $0.id) == nil }
+        guard !articlesToLoad.isEmpty else { return }
+
+        await withTaskGroup(of: (UUID, UIImage)?.self) { group in
+            for article in articlesToLoad {
+                let articleID = article.id
+                group.addTask {
+                    await Task.detached(priority: .utility) {
+                        Self.loadCardThumbnailFromDisk(articleID: articleID)
+                    }.value
+                }
+            }
+            for await result in group {
+                if let (id, image) = result {
+                    shared.setCardThumbnail(image, for: id)
+                }
+            }
+        }
+    }
+
+    /// Loads a single card thumbnail from disk. Returns (articleID, image) or nil.
+    /// Same lookup chain as SourceCarouselView.
+    private static func loadCardThumbnailFromDisk(articleID: UUID) -> (UUID, UIImage)? {
+        let articleDir = ContainerPaths.articlesBaseURL
+            .appendingPathComponent(articleID.uuidString, isDirectory: true)
+
+        let thumbnailPath = articleDir.appendingPathComponent("thumbnail.jpg")
+        if FileManager.default.fileExists(atPath: thumbnailPath.path),
+           let data = try? Data(contentsOf: thumbnailPath),
+           let img = UIImage(data: data) {
+            return (articleID, img)
+        }
+
+        let thumbPath = articleDir.appendingPathComponent("thumb.jpg")
+        if FileManager.default.fileExists(atPath: thumbPath.path),
+           let data = try? Data(contentsOf: thumbPath),
+           let img = UIImage(data: data) {
+            return (articleID, img)
+        }
+
+        return nil
+    }
+
     /// Loads a single row thumbnail from disk. Returns (articleID, image, isFavicon)
     /// or nil if nothing found. Same lookup chain as ArticleRowView.
     static func loadRowThumbnailFromDisk(articleID: UUID, sourceID: UUID) -> (UUID, UIImage, Bool)? {
