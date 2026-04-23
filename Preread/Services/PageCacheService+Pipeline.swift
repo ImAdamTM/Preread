@@ -290,8 +290,21 @@ extension PageCacheService {
                     contentHTML = heroTag + contentHTML
                 }
             } else {
-                // Scoped hero is already in Readability content — nothing to inject.
+                // The first scoped image is already in Readability content —
+                // but the page may have a separate hero image *above* the article
+                // (e.g. inside <main> but before <article>). Check if there's an
+                // earlier image in <main> that Readability dropped.
                 heroImageURL = src
+                if let mainFirst = try? preDoc.select("main img[src], [role=main] img[src]").first(where: isHeroCandidate) {
+                    let mainSrc = (try? mainFirst.attr("src")) ?? ""
+                    if mainSrc != src, !heroAlreadyPresent(mainSrc) {
+                        heroImageURL = mainSrc
+                        let heroTag = (try? mainFirst.outerHtml()) ?? ""
+                        if !heroTag.isEmpty {
+                            contentHTML = heroTag + contentHTML
+                        }
+                    }
+                }
             }
         } else {
             // No scoped image found — fall back to page-level search

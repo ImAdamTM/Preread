@@ -72,6 +72,28 @@ struct StandardPipelineTests {
         #expect(!result.contentHTML.contains("<nav"))
     }
 
+    // MARK: - Gizmodo (hero above article)
+
+    @Test("Gizmodo asteroid: hero image above article tag re-injected when inline image already present")
+    func gizmodoAsteroid() async throws {
+        let html = try loadFixture("gizmodo_asteroid")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://gizmodo.com/doomsday-asteroids-could-have-kickstarted-life-on-our-planet-2000745176")!
+        )
+
+        #expect(result.title.contains("Asteroid"))
+        #expect(result.contentHTML.contains("hydrothermal"))
+        // The hero (hydrothermal vent) is inside <main> but above <article>.
+        // An inline image (impact breccia) is inside <article> and extracted
+        // by Readability. The hero must still be injected.
+        #expect(result.imageCount >= 2, "Both hero and inline image should be present (got \(result.imageCount))")
+        #expect(result.contentHTML.contains("axial-snowblower"), "Hero image should be the hydrothermal vent")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
     // MARK: - The Verge
 
     @Test("The Verge: content extracted, no scripts or nav")
@@ -1021,6 +1043,26 @@ struct FullPipelineTests {
         #expect(result.cleanedHTML.contains("AI"))
         #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
         #expect(result.cleanedHTML.contains("stylesheet"), "CSS should be preserved in full mode")
+    }
+
+    // MARK: - Gizmodo (hero above article)
+
+    @Test("Gizmodo asteroid: interactive elements stripped, hero and inline images preserved")
+    func gizmodoAsteroid() async throws {
+        let html = try loadFixture("gizmodo_asteroid")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://gizmodo.com/doomsday-asteroids-could-have-kickstarted-life-on-our-planet-2000745176")!
+        )
+
+        #expect(result.cleanedHTML.contains("hydrothermal"))
+        #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
+        #expect(result.cleanedHTML.contains("axial-snowblower"), "Hero image should be preserved")
+        #expect(!result.cleanedHTML.contains("<script>") && !result.cleanedHTML.contains("<script "))
+        #expect(!result.cleanedHTML.contains("<nav>") && !result.cleanedHTML.contains("<nav "))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form>") && !result.cleanedHTML.contains("<form "))
     }
 
     // MARK: - The Verge
