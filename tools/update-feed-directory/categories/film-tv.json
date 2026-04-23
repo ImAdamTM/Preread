@@ -177,6 +177,22 @@
   },
   {
     "category": "Film & TV",
+    "description": "Movie, TV, comic book, and gaming news, reviews, and features",
+    "feedURL": "https://screenrant.com/feed/",
+    "id": "d3a1f8e2-9c4b-4a7d-b6e5-1f2d3c4a5b6e",
+    "lastVerified": "2026-04-12",
+    "name": "Screen Rant",
+    "siteURL": "https://screenrant.com/",
+    "tags": [
+      "movies",
+      "tv",
+      "comics",
+      "gaming",
+      "reviews"
+    ]
+  },
+  {
+    "category": "Film & TV",
     "description": "Pop culture obsessives writing for the pop culture obsessed",
     "feedURL": "https://www.avclub.com/rss.xml",
     "id": "b06e129a-2079-b2bb-30d7-6a4496e723e1",

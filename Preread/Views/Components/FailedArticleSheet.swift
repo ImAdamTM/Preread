@@ -38,8 +38,9 @@ struct FailedArticleSheet: View {
                         dismiss()
                     } label: {
                         Image(systemName: "xmark.circle.fill")
-                            .font(Theme.scaledFont(size: 20))
-                            .foregroundColor(Theme.textSecondary)
+                            .symbolRenderingMode(.hierarchical)
+                            .foregroundStyle(.secondary)
+                            .font(.title3)
                     }
                 }
             }

@@ -259,21 +259,6 @@
     ]
   },
   {
-    "category" : "History",
-    "description" : "Long-form intellectual essays on ideas, philosophy, science, and history",
-    "feedURL" : "https:\/\/aeon.co\/feed",
-    "id" : "15b4058d-8011-36ad-058f-4f0d1cb63fd0",
-    "name" : "Aeon",
-    "siteURL" : "https:\/\/aeon.co\/",
-    "tags" : [
-      "philosophy",
-      "essays",
-      "ideas",
-      "science",
-      "culture"
-    ]
-  },
-  {
     "category" : "Travel",
     "description" : "Experiential travel stories, destination guides, and tips for meaningful journeys",
     "feedURL" : "https:\/\/www.afar.com\/index.atom",
@@ -6492,6 +6477,21 @@
       "physics",
       "health",
       "climate"
+    ]
+  },
+  {
+    "category" : "Film & TV",
+    "description" : "Movie, TV, comic book, and gaming news, reviews, and features",
+    "feedURL" : "https:\/\/screenrant.com\/feed\/",
+    "id" : "d3a1f8e2-9c4b-4a7d-b6e5-1f2d3c4a5b6e",
+    "name" : "Screen Rant",
+    "siteURL" : "https:\/\/screenrant.com\/",
+    "tags" : [
+      "movies",
+      "tv",
+      "comics",
+      "gaming",
+      "reviews"
     ]
   },
   {

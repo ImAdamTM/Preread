@@ -23,7 +23,7 @@ export function ManifestoSection() {
               A calm space built around the topics you care about, not someone
               else&apos;s algorithm.
             </p>
-            <p class="gradient-text">
+            <p className="gradient-text">
               No recommendations. No algorithms. Just the words and images,
               beautifully presented.
             </p>

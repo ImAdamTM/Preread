@@ -358,15 +358,25 @@ extension PageCacheService {
             let realSrc = try noscriptImg.attr("src")
             guard !realSrc.isEmpty, !realSrc.hasPrefix("data:") else { continue }
 
-            // Look for a sibling <img> without src (or with empty src)
-            if let sibling = try noscript.nextElementSibling(),
-               sibling.tagName() == "img" {
+            // Look for a sibling <img> with a placeholder src.
+            // Some lazy-loaders place the <img> after the <noscript>,
+            // others place it before (e.g. EWWW Image Optimizer).
+            let siblings: [Element] = [
+                try noscript.nextElementSibling(),
+                try noscript.previousElementSibling()
+            ].compactMap { $0 }
+
+            var promoted = false
+            for sibling in siblings {
+                guard sibling.tagName() == "img" else { continue }
                 let sibSrc = try sibling.attr("src")
                 if sibSrc.isEmpty || sibSrc.hasPrefix("data:") {
                     try sibling.attr("src", realSrc)
-                    continue
+                    promoted = true
+                    break
                 }
             }
+            if promoted { continue }
 
             // No sibling img to promote into — extract the <img> from
             // the noscript and place it directly in the DOM. Handles
@@ -786,7 +796,21 @@ extension PageCacheService {
 
             // Walk up to find the block-level container this image sits in.
             // After wrapStandaloneImages, the image is inside a <p> wrapper.
-            let anchor = img.parent()?.tagName() == "p" ? img.parent()! : img
+            // Images may also be inside inline wrappers (<a>, <span>) — walk
+            // past those to reach the block-level parent that has sibling paragraphs.
+            var anchor: Element = img
+            let inlineTags: Set<String> = ["a", "span", "em", "strong", "b", "i"]
+            while let parent = anchor.parent() {
+                if parent.tagName() == "p" {
+                    anchor = parent
+                    break
+                }
+                if inlineTags.contains(parent.tagName()) {
+                    anchor = parent
+                } else {
+                    break
+                }
+            }
             guard let container = anchor.parent() else { continue }
             let siblings = container.children().array()
             guard let anchorIndex = siblings.firstIndex(where: { $0 === anchor }) else { continue }

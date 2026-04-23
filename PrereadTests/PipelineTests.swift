@@ -902,6 +902,50 @@ struct StandardPipelineTests {
         #expect(!result.contentHTML.contains("<nav"))
         #expect(!result.contentHTML.contains("<style"))
     }
+
+    // MARK: - Nintendo Life South of Midnight review
+
+    @Test("Nintendo Life review: inline screenshots recovered after Readability drops them")
+    func nintendolifeSouthOfMidnight() async throws {
+        let html = try loadFixture("nintendolife_south_of_midnight")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.nintendolife.com/reviews/nintendo-switch-2/south-of-midnight")!
+        )
+
+        #expect(result.title.contains("South Of Midnight"))
+        #expect(result.contentHTML.contains("third‑person action‑adventure"))
+        // The review has 5 inline screenshots — Readability keeps only the first.
+        // The recovery pass should re-inject the rest; dedup must not collapse
+        // them since they share a CDN dimension filename (900x.jpg).
+        #expect(result.imageCount >= 4, "Inline screenshots should be recovered (got \(result.imageCount))")
+        // Standard cleanup
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
+    // MARK: - Jezebel Coachella billboards
+
+    @Test("Jezebel listicle: EWWW lazy-loaded images recovered via noscript promotion")
+    func jezebelCoachella() async throws {
+        let html = try loadFixture("jezebel_coachella")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.jezebel.com/the-10-best-coachella-2026-billboards")!
+        )
+
+        #expect(result.title.contains("Coachella"))
+        #expect(result.contentHTML.contains("billboard"))
+        // The article has 10 billboard images plus a hero — all use EWWW lazy
+        // loading with data-src + noscript fallback. The noscript promotion
+        // must update the previous sibling <img> to avoid duplicate images
+        // being falsely stripped as badge clusters.
+        #expect(result.imageCount >= 10, "All billboard images should be recovered (got \(result.imageCount))")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
 }
 
 // MARK: - Full-mode tests
@@ -1837,6 +1881,49 @@ struct FullPipelineTests {
         #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
         // Standard full-mode cleanup
         #expect(!result.cleanedHTML.contains("<script>") && !result.cleanedHTML.contains("<script "))
+        #expect(!result.cleanedHTML.contains("<nav>") && !result.cleanedHTML.contains("<nav "))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form>") && !result.cleanedHTML.contains("<form "))
+    }
+
+    // MARK: - Nintendo Life South of Midnight review
+
+    @Test("Nintendo Life review: interactive elements stripped, screenshots preserved")
+    func nintendolifeSouthOfMidnight() async throws {
+        let html = try loadFixture("nintendolife_south_of_midnight")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.nintendolife.com/reviews/nintendo-switch-2/south-of-midnight")!
+        )
+
+        #expect(result.cleanedHTML.contains("South of Midnight"))
+        #expect(result.cleanedHTML.contains("third‑person action‑adventure"))
+        #expect(result.cleanedHTML.contains("<img"), "Screenshots should be preserved")
+        // Standard full-mode cleanup
+        #expect(!result.cleanedHTML.contains("<script>") && !result.cleanedHTML.contains("<script "))
+        #expect(!result.cleanedHTML.contains("<nav>") && !result.cleanedHTML.contains("<nav "))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form>") && !result.cleanedHTML.contains("<form "))
+    }
+
+    // MARK: - Jezebel Coachella billboards
+
+    @Test("Jezebel listicle: EWWW lazy-loaded images preserved, interactive elements stripped")
+    func jezebelCoachella() async throws {
+        let html = try loadFixture("jezebel_coachella")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.jezebel.com/the-10-best-coachella-2026-billboards")!
+        )
+
+        #expect(result.cleanedHTML.contains("billboard"))
+        #expect(result.cleanedHTML.contains("<img"), "Billboard images should be preserved")
+        // Script tags inside HTML comments are harmless (no execution)
+        let htmlWithoutComments = result.cleanedHTML.replacingOccurrences(
+            of: "<!--[\\s\\S]*?-->", with: "", options: .regularExpression)
+        #expect(!htmlWithoutComments.contains("<script>") && !htmlWithoutComments.contains("<script "))
         #expect(!result.cleanedHTML.contains("<nav>") && !result.cleanedHTML.contains("<nav "))
         #expect(!result.cleanedHTML.contains("<noscript"))
         #expect(!result.cleanedHTML.contains("<svg"))

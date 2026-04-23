@@ -390,7 +390,14 @@ extension PageCacheService {
                     "large", "small", "medium", "thumbnail", "thumb",
                     "original", "full", "default",
                 ]
-                if !filename.isEmpty, filename != "/", !genericFilenames.contains(filename.lowercased()) {
+                // CDN dimension-based filenames (e.g. 900x.jpg, 640x480.jpg)
+                // are resize variants, not unique identifiers.
+                let filenameLower = filename.lowercased()
+                let isDimensionFilename = filenameLower.range(
+                    of: #"^\d+x\d*\."#, options: .regularExpression
+                ) != nil
+                let isGeneric = genericFilenames.contains(filenameLower) || isDimensionFilename
+                if !filename.isEmpty, filename != "/", !isGeneric {
                     // When the path has only 2 segments (e.g. /{hash}/file.jpg),
                     // the first segment is a content identifier — include it to
                     // avoid deduplicating different images that share a filename.

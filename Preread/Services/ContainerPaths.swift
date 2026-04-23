@@ -1,7 +1,7 @@
 import Foundation
 
 enum ContainerPaths {
-    static let appGroupID = "group.com.ahartwig.preread"
+    static let appGroupID = "group.com.streamlinelabs.preread"
 
     /// The shared app-group container root.
     static var sharedContainerURL: URL {

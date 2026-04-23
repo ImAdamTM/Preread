@@ -115,7 +115,7 @@ export default function PrivacyPage() {
               <h2 className="text-xl font-heading font-semibold mb-3" style={{ color: t.text }}>Contact</h2>
               <p>
                 If you have any questions about this privacy policy, please contact us at{" "}
-                <ObfuscatedEmail user="privacy" domain="streamlinelabs.io" />
+                <ObfuscatedEmail user="hello" domain="streamlinelabs.io" />
               </p>
             </section>
 

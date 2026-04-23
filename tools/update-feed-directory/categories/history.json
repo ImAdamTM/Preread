@@ -1,22 +1,6 @@
 [
   {
     "category": "History",
-    "description": "Long-form intellectual essays on ideas, philosophy, science, and history",
-    "feedURL": "https://aeon.co/feed",
-    "id": "15b4058d-8011-36ad-058f-4f0d1cb63fd0",
-    "lastVerified": "2026-04-02",
-    "name": "Aeon",
-    "siteURL": "https://aeon.co/",
-    "tags": [
-      "philosophy",
-      "essays",
-      "ideas",
-      "science",
-      "culture"
-    ]
-  },
-  {
-    "category": "History",
     "description": "Academic blog covering the long 18th century and revolutionary era",
     "feedURL": "https://ageofrevolutions.com/feed/",
     "id": "b7014e7d-6b3c-3f3b-5cef-875fc31476aa",

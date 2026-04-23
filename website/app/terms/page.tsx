@@ -135,7 +135,7 @@ export default function TermsPage() {
               <h2 className="text-xl font-heading font-semibold mb-3" style={{ color: t.text }}>Contact</h2>
               <p>
                 If you have any questions about these terms, please contact us at{" "}
-                <ObfuscatedEmail user="legal" domain="streamlinelabs.io" />
+                <ObfuscatedEmail user="hello" domain="streamlinelabs.io" />
               </p>
             </section>
 

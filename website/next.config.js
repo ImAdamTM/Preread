@@ -2,6 +2,7 @@
 const nextConfig = {
   ...(process.env.NODE_ENV === 'production' && { output: 'export' }),
   reactStrictMode: true,
+  trailingSlash: true,
   images: {
     unoptimized: true
   }

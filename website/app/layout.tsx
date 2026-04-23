@@ -10,12 +10,34 @@ const SceneCanvas = dynamic(() => import("./components/Scene/SceneCanvas"), {
 export const metadata: Metadata = {
   title: "Preread — Read what you love. Anywhere.",
   description:
-    "Your personal article reader. Add the sites you love — full articles are ready to read before you are. On a plane, on the subway, anywhere.",
+    "Your personal article reader. Add the sites you love. Full articles are ready to read before you are. On a plane, on the subway, anywhere. Even offline.",
+  metadataBase: new URL("https://preread.app"),
   openGraph: {
-    title: "Preread",
-    description: "Read what you love. Anywhere.",
+    title: "Preread — Read what you love. Anywhere.",
+    description:
+      "Your personal article reader. Add the sites you love. Full articles are ready to read before you are. Even offline.",
     type: "website",
     url: "https://preread.app",
+    siteName: "Preread",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Preread — Read what you love. Anywhere.",
+      },
+    ],
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Preread — Read what you love. Anywhere.",
+    description:
+      "Your personal article reader. Add the sites you love. Full articles are ready to read before you are. Even offline.",
+    images: ["/og-image.png"],
+  },
+  other: {
+    "apple-itunes-app": "app-id=YOUR_APP_ID",
   },
 };
 
