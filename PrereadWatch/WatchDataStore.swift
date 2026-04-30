@@ -3,7 +3,7 @@ import Foundation
 /// UserDefaults-backed store for watch articles.
 /// Shared between the watch app and watch widget extension via app group.
 struct WatchDataStore {
-    static let suiteName = "group.com.streamlinelabs.preread.watch"
+    static let suiteName = "group.streamlinelabs.preread.watch"
 
     private static var defaults: UserDefaults? {
         UserDefaults(suiteName: suiteName)

@@ -59,13 +59,15 @@ private final class CenteringScrollView: UIScrollView {
 private struct ZoomableImageView: UIViewRepresentable {
     let image: UIImage
     let onSingleTap: () -> Void
+    let onZoomChanged: (Bool) -> Void
     /// Called during vertical drag at 1x zoom with the Y offset (for background fade).
     let onDragChanged: (CGFloat) -> Void
     /// Called when a vertical drag at 1x ends. Bool = true means dismiss threshold met.
     let onDragEnded: (Bool) -> Void
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(onSingleTap: onSingleTap, onDragChanged: onDragChanged, onDragEnded: onDragEnded)
+        Coordinator(image: image, onSingleTap: onSingleTap, onZoomChanged: onZoomChanged,
+                    onDragChanged: onDragChanged, onDragEnded: onDragEnded)
     }
 
     func makeUIView(context: Context) -> CenteringScrollView {
@@ -87,12 +89,16 @@ private struct ZoomableImageView: UIViewRepresentable {
         scrollView.addSubview(imageView)
         context.coordinator.imageView = imageView
 
+        // Context menu for long-press (save/copy/share)
+        let interaction = UIContextMenuInteraction(delegate: context.coordinator)
+        imageView.addInteraction(interaction)
+
         // Double-tap to toggle zoom
         let doubleTap = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleDoubleTap(_:)))
         doubleTap.numberOfTapsRequired = 2
         scrollView.addGestureRecognizer(doubleTap)
 
-        // Single-tap to dismiss (waits for double-tap to fail)
+        // Single-tap to toggle chrome (waits for double-tap to fail)
         let singleTap = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleSingleTap))
         singleTap.numberOfTapsRequired = 1
         singleTap.require(toFail: doubleTap)
@@ -109,29 +115,35 @@ private struct ZoomableImageView: UIViewRepresentable {
     }
 
     func updateUIView(_ scrollView: CenteringScrollView, context: Context) {
-        // Image doesn't change once set, but if it did this would handle it.
         scrollView.displayImage = image
     }
 
     // MARK: - Coordinator
 
-    final class Coordinator: NSObject, UIScrollViewDelegate, UIGestureRecognizerDelegate {
+    final class Coordinator: NSObject, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIContextMenuInteractionDelegate {
         var imageView: UIImageView?
         weak var scrollView: UIScrollView?
         weak var dismissPanGesture: UIPanGestureRecognizer?
 
+        let image: UIImage
         let onSingleTap: () -> Void
+        let onZoomChanged: (Bool) -> Void
         let onDragChanged: (CGFloat) -> Void
         let onDragEnded: (Bool) -> Void
 
         /// Tracks whether a dismiss pan is active (only at 1x zoom).
         private var isDismissPanning = false
         private var panStartY: CGFloat = 0
+        private var wasZoomed = false
 
-        init(onSingleTap: @escaping () -> Void,
+        init(image: UIImage,
+             onSingleTap: @escaping () -> Void,
+             onZoomChanged: @escaping (Bool) -> Void,
              onDragChanged: @escaping (CGFloat) -> Void,
              onDragEnded: @escaping (Bool) -> Void) {
+            self.image = image
             self.onSingleTap = onSingleTap
+            self.onZoomChanged = onZoomChanged
             self.onDragChanged = onDragChanged
             self.onDragEnded = onDragEnded
         }
@@ -144,9 +156,14 @@ private struct ZoomableImageView: UIViewRepresentable {
 
         func scrollViewDidZoom(_ scrollView: UIScrollView) {
             (scrollView as? CenteringScrollView)?.updateCenteringInsets()
-            // Disable scrolling at 1x (nothing to pan) so the built-in
-            // pan gesture doesn't propagate and dismiss the article sheet.
-            scrollView.isScrollEnabled = scrollView.zoomScale > scrollView.minimumZoomScale + 0.01
+            let isZoomed = scrollView.zoomScale > scrollView.minimumZoomScale + 0.01
+            // Enable panning only when zoomed in
+            scrollView.isScrollEnabled = isZoomed
+
+            if isZoomed != wasZoomed {
+                wasZoomed = isZoomed
+                onZoomChanged(isZoomed)
+            }
         }
 
         // MARK: Tap gestures
@@ -231,6 +248,46 @@ private struct ZoomableImageView: UIViewRepresentable {
             // pan from propagating up and dismissing the article sheet.
             false
         }
+
+        // MARK: UIContextMenuInteractionDelegate
+
+        func contextMenuInteraction(_ interaction: UIContextMenuInteraction,
+                                    configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+            UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { [weak self] _ in
+                guard let self else { return UIMenu(title: "", children: []) }
+
+                let save = UIAction(title: "Save to Photos",
+                                    image: UIImage(systemName: "square.and.arrow.down")) { _ in
+                    UIImageWriteToSavedPhotosAlbum(self.image, nil, nil, nil)
+                }
+
+                let copy = UIAction(title: "Copy",
+                                    image: UIImage(systemName: "doc.on.doc")) { _ in
+                    UIPasteboard.general.image = self.image
+                }
+
+                let share = UIAction(title: "Share",
+                                     image: UIImage(systemName: "square.and.arrow.up")) { [weak self] _ in
+                    guard let self, let imageView = self.imageView else { return }
+                    let activityVC = UIActivityViewController(activityItems: [self.image], applicationActivities: nil)
+                    activityVC.popoverPresentationController?.sourceView = imageView
+                    activityVC.popoverPresentationController?.sourceRect = CGRect(
+                        x: imageView.bounds.midX, y: imageView.bounds.midY, width: 0, height: 0
+                    )
+
+                    // Walk up to the topmost presented view controller
+                    guard let windowScene = imageView.window?.windowScene,
+                          let rootVC = windowScene.windows.first?.rootViewController else { return }
+                    var presenter = rootVC
+                    while let presented = presenter.presentedViewController {
+                        presenter = presented
+                    }
+                    presenter.present(activityVC, animated: true)
+                }
+
+                return UIMenu(title: "", children: [save, copy, share])
+            }
+        }
     }
 }
 
@@ -239,6 +296,7 @@ private struct ZoomableImageView: UIViewRepresentable {
 struct ImageLightboxView: View {
     let imageURL: URL
     let onDismiss: () -> Void
+    @Binding var chromeVisible: Bool
 
     @State private var image: UIImage?
     @State private var backgroundOpacity: Double = 0
@@ -254,9 +312,25 @@ struct ImageLightboxView: View {
             if let image {
                 ZoomableImageView(
                     image: image,
-                    onSingleTap: { dismiss() },
+                    onSingleTap: {
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            chromeVisible.toggle()
+                        }
+                    },
+                    onZoomChanged: { zoomed in
+                        if zoomed && chromeVisible {
+                            withAnimation(.easeOut(duration: 0.2)) {
+                                chromeVisible = false
+                            }
+                        }
+                    },
                     onDragChanged: { progress in
                         backgroundOpacity = 1.0 - (progress * 0.5)
+                        if chromeVisible {
+                            withAnimation(.easeOut(duration: 0.15)) {
+                                chromeVisible = false
+                            }
+                        }
                     },
                     onDragEnded: { shouldDismiss in
                         if shouldDismiss {
@@ -264,6 +338,7 @@ struct ImageLightboxView: View {
                         } else {
                             withAnimation(.easeOut(duration: 0.2)) {
                                 backgroundOpacity = 1.0
+                                chromeVisible = true
                             }
                         }
                     }
@@ -276,6 +351,7 @@ struct ImageLightboxView: View {
             }
         }
         .statusBarHidden()
+        .contentShape(Rectangle())
         .task { loadImage() }
     }
 
@@ -286,6 +362,7 @@ struct ImageLightboxView: View {
             backgroundOpacity = 0
             imageOpacity = 0
             dismissScale = 0.85
+            chromeVisible = false
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
             onDismiss()

@@ -25,6 +25,7 @@ struct ReaderView: View {
     @State private var isRetrying = false
     @State private var navFaviconImage: UIImage?
     @State private var lightboxImageURL: URL?
+    @State private var lightboxChromeVisible = true
     @State private var isSaved: Bool
 
     init(article: Article, source: Source) {
@@ -40,6 +41,12 @@ struct ReaderView: View {
             return original
         }
         return source.title
+    }
+
+    /// Whether the reader chrome (toolbar, bottom bar) should be visible.
+    /// Hides when the lightbox is open and the user zooms or taps to hide.
+    private var showReaderChrome: Bool {
+        lightboxImageURL == nil || lightboxChromeVisible
     }
 
     private var useDarkAppearance: Bool {
@@ -103,6 +110,7 @@ struct ReaderView: View {
                         if lightboxImageURL != nil {
                             withAnimation(.easeOut(duration: 0.25)) {
                                 lightboxImageURL = nil
+                                lightboxChromeVisible = true
                             }
                         } else {
                             dismiss()
@@ -195,6 +203,9 @@ struct ReaderView: View {
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 16)
+                .opacity(showReaderChrome ? 1 : 0)
+                .animation(.easeInOut(duration: 0.2), value: showReaderChrome)
+                .allowsHitTesting(showReaderChrome)
             }
         }
         .task {
@@ -245,15 +256,17 @@ struct ReaderView: View {
                     showLinkConfirmation = true
                 },
                 onImageTapped: isReaderMode ? { url in
+                    lightboxChromeVisible = true
                     lightboxImageURL = url
                 } : nil
             )
         }
         .overlay {
             if let lightboxURL = lightboxImageURL {
-                ImageLightboxView(imageURL: lightboxURL) {
+                ImageLightboxView(imageURL: lightboxURL, onDismiss: {
                     lightboxImageURL = nil
-                }
+                    lightboxChromeVisible = true
+                }, chromeVisible: $lightboxChromeVisible)
                 .transition(.opacity)
             }
         }

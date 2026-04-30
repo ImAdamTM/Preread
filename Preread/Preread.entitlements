@@ -4,7 +4,8 @@
 <dict>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.com.streamlinelabs.preread</string>
+		<string>group.streamlinelabs.preread.watch</string>
+		<string>group.streamlinelabs.preread</string>
 	</array>
 </dict>
 </plist>
