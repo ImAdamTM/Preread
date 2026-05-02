@@ -201,7 +201,9 @@ struct SourcesListView: View {
                 switch target {
                 case .source(let sourceID):
                     if let source = sources.first(where: { $0.id == sourceID }) {
-                        ArticleListView(source: source)
+                        ArticleListView(source: source, onOpenSettings: {
+                            showSettings = true
+                        })
                             .onAppear { currentSourceID = sourceID }
                             .onDisappear { currentSourceID = nil }
                     }

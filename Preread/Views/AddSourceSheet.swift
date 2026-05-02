@@ -34,6 +34,7 @@ struct AddSourceSheet: View {
     @State private var cyclingTextOffset: CGFloat = 0
     @State private var cyclingTextOpacity: Double = 1.0
     @State private var sheetContentHeight: CGFloat = 350
+    @State private var detentSet: Set<PresentationDetent> = [.height(350), .large]
     @State private var selectedDetent: PresentationDetent = .height(350)
     @State private var showSourceLimitAlert = false
     @State private var previewFavicon: UIImage?
@@ -45,6 +46,7 @@ struct AddSourceSheet: View {
     @State private var discoverFaviconCache: [String: UIImage] = [:]
     @State private var searchTask: Task<Void, Never>?
     @State private var discoverNavPath: [String] = []
+    @State private var addedSourceName: String?
 
     @FocusState private var isURLFieldFocused: Bool
 
@@ -68,6 +70,7 @@ struct AddSourceSheet: View {
         case savePage
         case notFound
         case alreadySubscribed
+        case sourceAdded
     }
 
     private var cyclingTexts: [String] {
@@ -86,32 +89,54 @@ struct AddSourceSheet: View {
                 switch sheetState {
                 case .input:
                     inputState
+                        .transition(.opacity)
                 case .detecting:
                     detectingState
+                        .transition(.opacity)
                 case .feedFound:
                     feedFoundState
+                        .transition(.opacity)
                 case .savePage:
                     savePageState
+                        .transition(.opacity)
                 case .notFound:
                     notFoundState
+                        .transition(.opacity)
                 case .alreadySubscribed:
                     alreadySubscribedState
+                        .transition(.opacity)
+                case .sourceAdded:
+                    sourceAddedState
+                        .transition(.opacity)
                 }
             }
             .padding(.horizontal, 20)
             .padding(.top, 24)
             .padding(.bottom, 16)
             .fixedSize(horizontal: false, vertical: true)
+            .animation(.snappy(duration: 0.2), value: sheetState)
             .background(
                 GeometryReader { geo in
                     Color.clear
                         .onAppear {
                             let h = geo.size.height + 76
                             sheetContentHeight = h
+                            detentSet = [.height(h), .large]
                             selectedDetent = .height(h)
                         }
                         .onChange(of: geo.size.height) { _, newHeight in
-                            sheetContentHeight = newHeight + 76
+                            let adjusted = newHeight + 76
+                            guard abs(adjusted - sheetContentHeight) > 1 else { return }
+                            sheetContentHeight = adjusted
+                            let newDetent = PresentationDetent.height(adjusted)
+                            detentSet.insert(newDetent)
+                            withAnimation(.snappy(duration: 0.25)) {
+                                selectedDetent = newDetent
+                            }
+                            Task { @MainActor in
+                                try? await Task.sleep(for: .milliseconds(300))
+                                detentSet = [selectedDetent, .large]
+                            }
                         }
                 }
             )
@@ -137,21 +162,20 @@ struct AddSourceSheet: View {
                 }
             }
         }
-        .presentationDetents([.height(sheetContentHeight), .large], selection: $selectedDetent)
+        .presentationDetents(detentSet, selection: $selectedDetent)
         .presentationContentInteraction(.scrolls)
         .presentationDragIndicator(.visible)
         .presentationBackground(Theme.sheetBackground)
-        .animation(Theme.gentleAnimation(response: 0.4, dampingFraction: 0.85), value: sheetContentHeight)
-        .onChange(of: sheetContentHeight) { _, newHeight in
-            if discoverNavPath.isEmpty {
-                selectedDetent = .height(newHeight)
-            }
-        }
         .onChange(of: discoverNavPath) { oldPath, newPath in
-            // When navigating back to root, shrink the sheet
             if newPath.isEmpty && !oldPath.isEmpty {
-                withAnimation(Theme.gentleAnimation(response: 0.4, dampingFraction: 0.85)) {
-                    selectedDetent = .height(sheetContentHeight)
+                let detent = PresentationDetent.height(sheetContentHeight)
+                detentSet.insert(detent)
+                withAnimation(.snappy(duration: 0.25)) {
+                    selectedDetent = detent
+                }
+                Task { @MainActor in
+                    try? await Task.sleep(for: .milliseconds(300))
+                    detentSet = [selectedDetent, .large]
                 }
             }
         }
@@ -943,6 +967,68 @@ struct AddSourceSheet: View {
         }
     }
 
+    // MARK: - State F: Source Added
+
+    private var sourceAddedState: some View {
+        VStack(spacing: 20) {
+            Spacer().frame(height: 4)
+
+            Image(systemName: "checkmark.circle")
+                .font(Theme.scaledFont(size: 56, weight: .light))
+                .foregroundStyle(Theme.accentGradient)
+                .scaleEffect(checkmarkScale)
+                .onAppear {
+                    if Theme.reduceMotion {
+                        checkmarkScale = 1.0
+                    } else {
+                        withAnimation(.spring(response: 0.5, dampingFraction: 0.6)) {
+                            checkmarkScale = 1.0
+                        }
+                    }
+                }
+
+            Text("Source added")
+                .font(Theme.scaledFont(size: 22, weight: .bold))
+                .foregroundColor(Theme.textPrimary)
+
+            if let name = addedSourceName {
+                Text("\(name) is now in your library.")
+                    .font(Theme.scaledFont(size: 15))
+                    .foregroundColor(Theme.textSecondary)
+                    .multilineTextAlignment(.center)
+            }
+
+            Spacer().frame(height: 8)
+
+            Button {
+                dismiss()
+            } label: {
+                Text("Done")
+                    .font(Theme.scaledFont(size: 16, weight: .semibold))
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 16)
+                    .background(Theme.accentGradient)
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
+            }
+
+            Button {
+                resetToInput()
+            } label: {
+                Text("Add another source")
+                    .font(Theme.scaledFont(size: 14, weight: .medium))
+                    .foregroundColor(.white)
+                    .overlay(
+                        Theme.accentGradient
+                            .mask(
+                                Text("Add another source")
+                                    .font(Theme.scaledFont(size: 14, weight: .medium))
+                            )
+                    )
+            }
+        }
+    }
+
     // MARK: - Frequency picker card
 
     // MARK: - CTA shimmer
@@ -1181,9 +1267,16 @@ struct AddSourceSheet: View {
                 }
 
                 onSourceAdded?(source.id)
-                dismiss()
 
-                // Update App Shortcuts so the new source is available
+                subscribedURLs.insert(FeedDirectory.normalizeURL(source.feedURL))
+                if let siteURL = source.siteURL {
+                    subscribedSiteURLs.insert(FeedDirectory.normalizeURL(siteURL))
+                }
+
+                addedSourceName = source.title
+                checkmarkScale = 0.3
+                sheetState = .sourceAdded
+
                 PrereadShortcutsProvider.updateAppShortcutParameters()
 
                 // Kick off article insertion + caching in background
@@ -1353,11 +1446,9 @@ struct AddSourceSheet: View {
         cyclingTextIndex = 0
         startCyclingTimer()
 
-        // Carry over cached favicon if available
         let cachedFavicon = discoverFaviconCache[feed.siteURL ?? feed.feedURL]
 
         Task {
-            // Check for duplicate first
             do {
                 let isDuplicate = try await FeedService.shared.checkForDuplicate(feedURL: feed.feedURL, siteURL: feed.siteURL)
                 if isDuplicate {
@@ -1380,7 +1471,6 @@ struct AddSourceSheet: View {
             do {
                 let discovered = try await FeedService.shared.parseFeed(from: feedURL, siteURL: siteURL)
 
-                // Check if discovered feed URL is a duplicate
                 do {
                     let isDuplicate = try await FeedService.shared.checkForDuplicate(
                         feedURL: discovered.feedURL.absoluteString,
@@ -1399,7 +1489,6 @@ struct AddSourceSheet: View {
                 editableName = feed.name
                 sheetState = .feedFound
 
-                // Use cached favicon from discover browsing, or fetch fresh
                 if let cachedFavicon {
                     previewFavicon = cachedFavicon
                 } else {

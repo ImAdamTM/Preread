@@ -3,6 +3,7 @@ import GRDB
 
 struct ArticleListView: View {
     let source: Source
+    var onOpenSettings: (() -> Void)?
 
     @Namespace private var namespace
     @ObservedObject private var coordinator = FetchCoordinator.shared
@@ -654,6 +655,19 @@ struct ArticleListView: View {
                                 }
                         }
 
+                        Button {
+                            showSourceSettings = false
+                            onOpenSettings?()
+                        } label: {
+                            Text("Manage Sources")
+                                .font(Theme.scaledFont(size: 15, weight: .medium))
+                                .foregroundColor(Theme.textPrimary)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 16)
+                                .background(Theme.surfaceRaised)
+                                .clipShape(RoundedRectangle(cornerRadius: 14))
+                        }
+
                         // Delete source
                         Button(role: .destructive) {
                             showDeleteConfirmation = true
@@ -692,7 +706,7 @@ struct ArticleListView: View {
                 Text("All articles from \"\(currentSourceName)\" will be removed. Saved articles will be kept.")
             }
         }
-        .presentationDetents([.height(310)])
+        .presentationDetents([.height(380)])
         .presentationDragIndicator(.visible)
         .presentationBackground(Theme.sheetBackground)
     }
