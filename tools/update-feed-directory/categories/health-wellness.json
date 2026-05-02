@@ -97,22 +97,6 @@
   },
   {
     "category": "Health & Wellness",
-    "description": "Fitness, nutrition, and wellness from an active-lifestyle perspective",
-    "feedURL": "https://www.outsideonline.com/feed",
-    "id": "ae5a1480-a2f9-bc42-6190-c39382804211",
-    "lastVerified": "2026-04-02",
-    "name": "Outside Online",
-    "siteURL": "https://www.outsideonline.com/",
-    "tags": [
-      "fitness",
-      "running",
-      "hiking",
-      "adventure",
-      "gear"
-    ]
-  },
-  {
-    "category": "Health & Wellness",
     "description": "Practical strategies for physical, mental, and emotional well-being from Hearst",
     "feedURL": "https://www.prevention.com/rss/default.xml",
     "id": "2ede40a8-2e94-4623-8400-ae6d38fc97ed",

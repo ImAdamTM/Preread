@@ -319,7 +319,7 @@ struct AddSourceSheet: View {
     private var discoverSearchResults: some View {
         ScrollView {
             VStack(spacing: 0) {
-                ForEach(Array(searchResults.prefix(6).enumerated()), id: \.element.id) { index, feed in
+                ForEach(Array(searchResults.enumerated()), id: \.element.id) { index, feed in
                     if index > 0 {
                         Divider()
                             .background(Theme.border)

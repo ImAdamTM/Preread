@@ -65,22 +65,6 @@
   },
   {
     "category": "Travel",
-    "description": "Mistake fares, error fares, and cheap flight deals from around the world",
-    "feedURL": "https://www.secretflying.com/feed/",
-    "id": "ae9b83c3-5148-8920-41c7-a258fe743d92",
-    "lastVerified": "2026-04-02",
-    "name": "Secret Flying",
-    "siteURL": "https://www.secretflying.com",
-    "tags": [
-      "mistake fares",
-      "cheap flights",
-      "error fares",
-      "deals",
-      "alerts"
-    ]
-  },
-  {
-    "category": "Travel",
     "description": "Travel industry news, analysis, and data for hospitality and tourism professionals",
     "feedURL": "https://skift.com/feed/",
     "id": "3a34d533-cce9-62ef-92d3-31edae0e98b7",

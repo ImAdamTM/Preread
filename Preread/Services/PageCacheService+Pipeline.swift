@@ -57,8 +57,9 @@ extension PageCacheService {
         // causes Readability to ignore legitimate article paragraphs.
         try stripAriaHiddenFromContent(in: preDoc)
 
-        try stripTinyImages(in: preDoc, maxDimension: 30)
+        try stripNonContentImages(in: preDoc, maxDimension: 30)
         try stripBadgeClusters(in: preDoc)
+        try stripBannerImages(in: preDoc)
         try stripImageLayoutStyles(in: preDoc)
         try constrainAvatarImages(in: preDoc)
 
@@ -90,7 +91,16 @@ extension PageCacheService {
         try preDoc.select("svg").remove()
         try preDoc.select("nav").remove()
         try preDoc.select("[role=navigation]").remove()
-        try preDoc.select("header[id*=navigation], header[class*=navigation]").remove()
+        // Unwrap headers inside article (preserve article title/metadata)
+        for header in try preDoc.select("article header").array().reversed() {
+            try header.unwrap()
+        }
+        try preDoc.select("header").remove()
+        // Unwrap footers inside article (preserve article footer metadata)
+        for footer in try preDoc.select("article footer").array().reversed() {
+            try footer.unwrap()
+        }
+        try preDoc.select("footer").remove()
         // Unwrap aside elements that contain captioned images — these
         // are inline media galleries. The <figcaption> distinguishes them
         // from sidebar/related-content asides that only have thumbnails.
@@ -107,6 +117,7 @@ extension PageCacheService {
         try preDoc.select("audio").remove()
 
         try stripLinkedThumbnailCards(in: preDoc, pageURL: pageURL)
+        try stripLinkedPromotionalImages(in: preDoc, pageURL: pageURL)
 
         try unwrapCustomElements(in: preDoc)
         try preDoc.select("figure").unwrap()
@@ -157,6 +168,8 @@ extension PageCacheService {
             if w != Int.max, h != Int.max, w <= 250, h <= 250 { return false }
             // Narrow portrait images (w ≤ 200, taller than wide) are author photos
             if w != Int.max, h != Int.max, w < h, w <= 200 { return false }
+            // Extreme landscape images (w/h > 4) are banner ads or site logos
+            if w != Int.max, h != Int.max, h > 0, Double(w) / Double(h) > 4.0 { return false }
             // Also check URL resize parameters (e.g. ?w=150) — WordPress and
             // CDNs use these for thumbnail/avatar variants without setting
             // HTML width/height attributes.
@@ -491,7 +504,14 @@ extension PageCacheService {
         // and take up significant space above article content.
         try doc.select("nav").remove()
         try doc.select("[role=navigation]").remove()
-        try doc.select("header[id*=navigation], header[class*=navigation]").remove()
+        for header in try doc.select("article header").array().reversed() {
+            try header.unwrap()
+        }
+        try doc.select("header").remove()
+        for footer in try doc.select("article footer").array().reversed() {
+            try footer.unwrap()
+        }
+        try doc.select("footer").remove()
 
         // Strip comment sections — user-generated comments are non-functional
         // offline and add unnecessary weight.
@@ -528,6 +548,9 @@ extension PageCacheService {
 
         // Strip related-article card widgets (small linked thumbnails + headlines)
         try stripLinkedThumbnailCards(in: doc, pageURL: pageURL)
+        try stripLinkedPromotionalImages(in: doc, pageURL: pageURL)
+        try stripBannerImages(in: doc)
+        try stripNonContentImages(in: doc, maxDimension: 30)
 
         // Neutralise sticky/fixed positioning — site headers and toolbars
         // float over content and are non-functional in offline cached pages.
@@ -562,6 +585,8 @@ extension PageCacheService {
                 if w != Int.max, h != Int.max, w <= 250, h <= 250 { return false }
                 // Narrow portrait images (w ≤ 200, taller than wide) are author photos
                 if w != Int.max, h != Int.max, w < h, w <= 200 { return false }
+                // Extreme landscape images (w/h > 4) are banner ads or site logos
+                if w != Int.max, h != Int.max, h > 0, Double(w) / Double(h) > 4.0 { return false }
                 // Skip small URL-resized images (e.g. ?w=150 author thumbnails)
                 if let urlComps = URLComponents(string: src),
                    let wParam = urlComps.queryItems?.first(where: { $0.name == "w" })?.value,

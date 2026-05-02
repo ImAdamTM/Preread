@@ -97,22 +97,6 @@
   },
   {
     "category": "Food",
-    "description": "Healthy, delicious recipes and meal plans from test kitchen cooks and nutrition experts",
-    "feedURL": "https://feeds-api.dotdashmeredith.com/v1/rss/google/dcbd6d38-4ab3-42e8-a5f6-37a8a48ceb94",
-    "id": "a4d6ffe5-03e8-4556-8763-e50da568a074",
-    "lastVerified": "2026-04-02",
-    "name": "EatingWell",
-    "siteURL": "https://www.eatingwell.com",
-    "tags": [
-      "healthy",
-      "meal plans",
-      "nutrition",
-      "recipes",
-      "diet"
-    ]
-  },
-  {
-    "category": "Food",
     "description": "Massive recipe database plus editorial content and product reviews from Conde Nast",
     "feedURL": "https://www.epicurious.com/feed/rss",
     "id": "641867f3-e294-4a74-9cf6-3c445ce65a13",

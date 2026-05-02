@@ -1,22 +1,6 @@
 [
   {
     "category": "Motorcycles",
-    "description": "Adventure and dual-sport motorcycling community with ride reports and trip planning",
-    "feedURL": "https://www.advrider.com/feed",
-    "id": "a88d421e-a1bf-7866-62f4-d72738d17390",
-    "lastVerified": "2026-04-02",
-    "name": "ADVRider",
-    "siteURL": "https://www.advrider.com/",
-    "tags": [
-      "adventure",
-      "dual sport",
-      "ride reports",
-      "off-road",
-      "travel"
-    ]
-  },
-  {
-    "category": "Motorcycles",
     "description": "Custom motorcycles, cafe racers, and beautifully photographed builds",
     "feedURL": "https://www.bikeexif.com/feed",
     "id": "4dc57b3a-f801-f8c1-1b53-a4866a090602",
@@ -33,7 +17,6 @@
   },
   {
     "category": "Motorcycles",
-    "country": "United Kingdom",
     "description": "UK's biggest motorcycle news site with reviews, road tests, and racing coverage from MCN",
     "feedURL": "https://www.motorcyclenews.com/news/rss",
     "id": "c4a19e72-5b83-4d1f-b6e0-9f82d4a71c53",

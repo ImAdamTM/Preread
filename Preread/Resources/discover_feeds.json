@@ -229,21 +229,6 @@
     ]
   },
   {
-    "category" : "Motorcycles",
-    "description" : "Adventure and dual-sport motorcycling community with ride reports and trip planning",
-    "feedURL" : "https:\/\/www.advrider.com\/feed",
-    "id" : "a88d421e-a1bf-7866-62f4-d72738d17390",
-    "name" : "ADVRider",
-    "siteURL" : "https:\/\/www.advrider.com\/",
-    "tags" : [
-      "adventure",
-      "dual sport",
-      "ride reports",
-      "off-road",
-      "travel"
-    ]
-  },
-  {
     "category" : "Marketing",
     "description" : "Advertising news with a creative and cultural lens",
     "feedURL" : "https:\/\/www.adweek.com\/feed",
@@ -301,21 +286,6 @@
       "academic",
       "enlightenment",
       "colonial"
-    ]
-  },
-  {
-    "category" : "AI",
-    "description" : "Research-focused AI newsletter covering papers and trends with clarity",
-    "feedURL" : "https:\/\/magazine.sebastianraschka.com\/feed",
-    "id" : "8249346b-6d16-594c-12b4-4b68fd2fe622",
-    "name" : "Ahead of AI",
-    "siteURL" : "https:\/\/magazine.sebastianraschka.com\/",
-    "tags" : [
-      "deep learning",
-      "transformers",
-      "nlp",
-      "papers",
-      "neural networks"
     ]
   },
   {
@@ -2183,21 +2153,6 @@
     ]
   },
   {
-    "category" : "Food",
-    "description" : "Healthy, delicious recipes and meal plans from test kitchen cooks and nutrition experts",
-    "feedURL" : "https:\/\/feeds-api.dotdashmeredith.com\/v1\/rss\/google\/dcbd6d38-4ab3-42e8-a5f6-37a8a48ceb94",
-    "id" : "a4d6ffe5-03e8-4556-8763-e50da568a074",
-    "name" : "EatingWell",
-    "siteURL" : "https:\/\/www.eatingwell.com",
-    "tags" : [
-      "healthy",
-      "meal plans",
-      "nutrition",
-      "recipes",
-      "diet"
-    ]
-  },
-  {
     "category" : "India",
     "country" : "India",
     "description" : "The Economic Times: Latest business, finance, markets, stocks, company news from India",
@@ -2712,21 +2667,6 @@
       "avant-garde",
       "essays",
       "analysis"
-    ]
-  },
-  {
-    "category" : "Film & TV",
-    "description" : "Independent film coverage with articles, resources, and filmmaker perspectives",
-    "feedURL" : "https:\/\/filmmakermagazine.com\/feed",
-    "id" : "83e48837-a397-4a5f-acb4-f4b5c412696c",
-    "name" : "Filmmaker Magazine",
-    "siteURL" : "https:\/\/filmmakermagazine.com",
-    "tags" : [
-      "indie",
-      "filmmaking",
-      "directors",
-      "sundance",
-      "production"
     ]
   },
   {
@@ -4863,7 +4803,6 @@
   },
   {
     "category" : "Motorcycles",
-    "country" : "United Kingdom",
     "description" : "UK's biggest motorcycle news site with reviews, road tests, and racing coverage from MCN",
     "feedURL" : "https:\/\/www.motorcyclenews.com\/news\/rss",
     "id" : "c4a19e72-5b83-4d1f-b6e0-9f82d4a71c53",
@@ -5201,10 +5140,10 @@
     "category" : "Myanmar (Burma)",
     "country" : "Myanmar (Burma)",
     "description" : "Myanmar news and current affairs",
-    "feedURL" : "https:\/\/myanmargazette.net\/feed",
+    "feedURL" : "https:\/\/myanmargazette.com\/feed",
     "id" : "c8aca843-59a8-a688-9850-eedddc341689",
     "name" : "Myanmar Gazette",
-    "siteURL" : "https:\/\/myanmargazette.net",
+    "siteURL" : "https:\/\/myanmargazette.com",
     "tags" : [
       "burmese",
       "yangon",
@@ -5608,21 +5547,6 @@
       "french",
       "normandie",
       "local"
-    ]
-  },
-  {
-    "category" : "Health & Wellness",
-    "description" : "Fitness, nutrition, and wellness from an active-lifestyle perspective",
-    "feedURL" : "https:\/\/www.outsideonline.com\/feed",
-    "id" : "ae5a1480-a2f9-bc42-6190-c39382804211",
-    "name" : "Outside Online",
-    "siteURL" : "https:\/\/www.outsideonline.com\/",
-    "tags" : [
-      "fitness",
-      "running",
-      "hiking",
-      "adventure",
-      "gear"
     ]
   },
   {
@@ -6191,22 +6115,6 @@
     ]
   },
   {
-    "category" : "Indonesia",
-    "country" : "Indonesia",
-    "description" : "Republika Online - berita terkini, berita hari ini, membahas isu politik, Dunia Islam dan peristiwa terhangat indonesia",
-    "feedURL" : "https:\/\/www.republika.co.id\/rss\/",
-    "id" : "18a17456-e1a3-0bad-24ca-8fdd7dab4491",
-    "name" : "Republika Online",
-    "siteURL" : "https:\/\/www.republika.co.id",
-    "tags" : [
-      "indonesian",
-      "islam",
-      "politik",
-      "jakarta",
-      "nasional"
-    ]
-  },
-  {
     "category" : "Motorcycles",
     "description" : "Digital-first motorcycle news and reviews across all segments",
     "feedURL" : "https:\/\/www.rideapart.com\/rss\/news\/all\/",
@@ -6507,21 +6415,6 @@
       "sem",
       "ppc",
       "algorithms"
-    ]
-  },
-  {
-    "category" : "Travel",
-    "description" : "Mistake fares, error fares, and cheap flight deals from around the world",
-    "feedURL" : "https:\/\/www.secretflying.com\/feed\/",
-    "id" : "ae9b83c3-5148-8920-41c7-a258fe743d92",
-    "name" : "Secret Flying",
-    "siteURL" : "https:\/\/www.secretflying.com",
-    "tags" : [
-      "mistake fares",
-      "cheap flights",
-      "error fares",
-      "deals",
-      "alerts"
     ]
   },
   {
@@ -7223,7 +7116,7 @@
   {
     "category" : "Film & TV",
     "description" : "Pop culture obsessives writing for the pop culture obsessed",
-    "feedURL" : "https:\/\/www.avclub.com\/rss.xml",
+    "feedURL" : "https:\/\/www.avclub.com\/article-type\/news\/feed",
     "id" : "b06e129a-2079-b2bb-30d7-6a4496e723e1",
     "name" : "The A.V. Club",
     "siteURL" : "https:\/\/www.avclub.com",
@@ -7369,21 +7262,6 @@
       "memoir",
       "quirky",
       "cats"
-    ]
-  },
-  {
-    "category" : "Anime",
-    "description" : "One of the longest-running anime blogs with seasonal previews and rankings",
-    "feedURL" : "https:\/\/thecartdriver.com\/feed\/",
-    "id" : "b6a0f62c-d2b8-4a37-8f84-5fef155714e7",
-    "name" : "The Cart Driver",
-    "siteURL" : "https:\/\/thecartdriver.com",
-    "tags" : [
-      "seasonal",
-      "previews",
-      "rankings",
-      "reviews",
-      "blog"
     ]
   },
   {

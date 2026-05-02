@@ -530,19 +530,37 @@ func recoverDroppedImages(
     return contentHTML
 }
 
-// MARK: - Helper: strip tiny images
+// MARK: - Helper: strip non-content images
 
-func stripTinyImages(in doc: Document, maxDimension: Int) {
+func stripNonContentImages(in doc: Document, maxDimension: Int) {
+    let nonContentHostPrefixes = ["tracking.", "pixel.", "beacon.", "analytics."]
+    let nonContentPathPatterns = ["/eventhandler", "/pixel", "/beacon", "/track/"]
+
     guard let images = try? doc.select("img") else { return }
     for img in images.reversed() {
         guard img.parent() != nil else { continue }
+
         let widthStr = (try? img.attr("width")) ?? ""
         let heightStr = (try? img.attr("height")) ?? ""
         let width = Int(widthStr)
         let height = Int(heightStr)
         if let w = width, w > 0, w <= maxDimension {
             try? img.remove()
+            continue
         } else if let h = height, h > 0, h <= maxDimension {
+            try? img.remove()
+            continue
+        }
+
+        let src = (try? img.attr("src")) ?? ""
+        guard !src.isEmpty, let url = URL(string: src) else { continue }
+        let host = url.host?.lowercased() ?? ""
+        let path = url.path.lowercased()
+
+        let isNonContent = nonContentHostPrefixes.contains { host.hasPrefix($0) }
+            || nonContentPathPatterns.contains { path.contains($0) }
+
+        if isNonContent {
             try? img.remove()
         }
     }
@@ -644,6 +662,60 @@ func stripLinkedThumbnailCards(in doc: Document, pageURL: URL) {
               !headlines.isEmpty() else { continue }
 
         try? container.remove()
+    }
+}
+
+// MARK: - Helper: strip banner images
+
+func stripBannerImages(in doc: Document) throws {
+    for img in try doc.select("img[width][height]").reversed() {
+        guard img.parent() != nil else { continue }
+        let w = Int(try img.attr("width")) ?? 0
+        let h = Int(try img.attr("height")) ?? 0
+        guard w > 200, h > 0 else { continue }
+        let ratio = Double(w) / Double(h)
+        if ratio > 4.0 {
+            try img.remove()
+        }
+    }
+}
+
+// MARK: - Helper: strip linked promotional images
+
+func stripLinkedPromotionalImages(in doc: Document, pageURL: URL) throws {
+    let imageExtensions: Set<String> = ["jpg", "jpeg", "png", "gif", "webp", "avif"]
+    let pagePath = pageURL.path.lowercased()
+        .trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+
+    for anchor in try doc.select("a:has(img)").reversed() {
+        guard anchor.parent() != nil else { continue }
+        let href = try anchor.attr("href")
+        guard !href.isEmpty, href != "#" else { continue }
+
+        let hasText = anchor.getChildNodes().contains { node in
+            if let text = node as? TextNode {
+                return !text.getWholeText()
+                    .trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            }
+            return false
+        }
+        guard !hasText else { continue }
+
+        let children = anchor.children().array()
+        guard children.allSatisfy({ $0.tagName() == "img" }) else { continue }
+        guard !children.isEmpty else { continue }
+
+        guard let linkURL = URL(string: href, relativeTo: pageURL) else { continue }
+
+        let ext = linkURL.pathExtension.lowercased()
+        if imageExtensions.contains(ext) { continue }
+
+        let linkPath = linkURL.path.lowercased()
+            .trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+        let sameHost = linkURL.host?.lowercased() == pageURL.host?.lowercased()
+        if sameHost && (linkPath == pagePath || linkPath.isEmpty) { continue }
+
+        try anchor.remove()
     }
 }
 
@@ -1144,7 +1216,14 @@ if isFullMode {
     // Strip navigation
     try doc.select("nav").remove()
     try doc.select("[role=navigation]").remove()
-    try doc.select("header[id*=navigation], header[class*=navigation]").remove()
+    for header in try doc.select("article header").array().reversed() {
+        try header.unwrap()
+    }
+    try doc.select("header").remove()
+    for footer in try doc.select("article footer").array().reversed() {
+        try footer.unwrap()
+    }
+    try doc.select("footer").remove()
 
     // Strip comment sections
     try doc.select("#comments, .comments, #disqus_thread").remove()
@@ -1172,6 +1251,9 @@ if isFullMode {
 
     // Strip related-article card widgets
     try stripLinkedThumbnailCards(in: doc, pageURL: pageURL)
+    try stripLinkedPromotionalImages(in: doc, pageURL: pageURL)
+    try stripBannerImages(in: doc)
+    stripNonContentImages(in: doc, maxDimension: 30)
 
     // Neutralise sticky/fixed positioning
     try stripStickyPositioning(in: doc)
@@ -1224,11 +1306,12 @@ if isFullMode {
     // Strip aria-hidden from content elements so JS-toggled text is visible
     try stripAriaHiddenFromContent(in: preDoc)
 
-    // Strip tiny images (badges, tracking pixels, decorative icons)
-    stripTinyImages(in: preDoc, maxDimension: 30)
+    // Strip non-content images (tiny dimensions, non-content URL patterns)
+    stripNonContentImages(in: preDoc, maxDimension: 30)
 
     // Strip badge clusters (rows of linked images with no text)
     try stripBadgeClusters(in: preDoc)
+    try stripBannerImages(in: preDoc)
 
     try stripImageLayoutStyles(in: preDoc)
     try constrainAvatarImages(in: preDoc)
@@ -1250,7 +1333,14 @@ if isFullMode {
     try preDoc.select("svg").remove()
     try preDoc.select("nav").remove()
     try preDoc.select("[role=navigation]").remove()
-    try preDoc.select("header[id*=navigation], header[class*=navigation]").remove()
+    for header in try preDoc.select("article header").array().reversed() {
+        try header.unwrap()
+    }
+    try preDoc.select("header").remove()
+    for footer in try preDoc.select("article footer").array().reversed() {
+        try footer.unwrap()
+    }
+    try preDoc.select("footer").remove()
     // Unwrap aside elements that contain captioned images — these
     // are inline media galleries. The <figcaption> distinguishes them
     // from sidebar/related-content asides that only have thumbnails.
@@ -1267,6 +1357,7 @@ if isFullMode {
     try preDoc.select("audio").remove()
 
     stripLinkedThumbnailCards(in: preDoc, pageURL: pageURL)
+    try stripLinkedPromotionalImages(in: preDoc, pageURL: pageURL)
 
     let cleanedHTML = try preDoc.html()
     saveStep("2_cleaned.html", html: cleanedHTML)
@@ -1304,6 +1395,8 @@ if isFullMode {
             if w != Int.max, h != Int.max, w <= 250, h <= 250 { return false }
             // Narrow portrait images (w ≤ 200, taller than wide) are author photos
             if w != Int.max, h != Int.max, w < h, w <= 200 { return false }
+            // Extreme landscape images (w/h > 4) are banner ads or site logos
+            if w != Int.max, h != Int.max, h > 0, Double(w) / Double(h) > 4.0 { return false }
             // Also check URL resize parameters (e.g. ?w=150)
             if let urlComps = URLComponents(string: src),
                let wParam = urlComps.queryItems?.first(where: { $0.name == "w" })?.value,

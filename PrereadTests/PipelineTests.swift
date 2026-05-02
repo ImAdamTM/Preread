@@ -968,6 +968,71 @@ struct StandardPipelineTests {
         #expect(!result.contentHTML.contains("<nav"))
         #expect(!result.contentHTML.contains("<style"))
     }
+
+    // MARK: - The Decoder (feed-style article page)
+
+    @Test("The Decoder: hero image extracted, no scripts/nav/style")
+    func theDecoderArticle() async throws {
+        let html = try loadFixture("the_decoder_article")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://the-decoder.com/gpt-5-5-matches-claude-mythos-in-cyber-attack-tests-uk-ai-security-institute-finds/")!
+        )
+
+        #expect(result.imageCount >= 1, "Hero image should be present")
+        #expect(result.contentHTML.contains("cybersecurity_llm_kraken"), "Correct hero image should be used")
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+        #expect(!result.contentHTML.contains("<header"))
+        #expect(!result.contentHTML.contains("<footer"))
+    }
+
+    // MARK: - AI News API Guide
+
+    @Test("AI News API guide: correct hero, site logo and banners excluded")
+    func ainewsApiGuide() async throws {
+        let html = try loadFixture("ainews_api_guide")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.artificialintelligence-news.com/news/a-guide-to-apis-and-mcps-and-mcp-gateways/")!
+        )
+
+        #expect(result.imageCount >= 1, "Hero image should be present")
+        #expect(result.contentHTML.contains("api-and-mcp-hero"), "Article hero should be present")
+        #expect(!result.contentHTML.contains("AI-News-White"), "Site logo should be excluded")
+        #expect(!result.contentHTML.contains("ai-expo-banner"), "Ad banner should be excluded")
+        #expect(result.contentHTML.contains("API"))
+        #expect(result.contentHTML.contains("MCP"))
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
+
+    // MARK: - AI News LG/NVIDIA
+
+    @Test("AI News LG/NVIDIA: correct hero, no ads/related articles/logo")
+    func ainewsLgNvidia() async throws {
+        let html = try loadFixture("ainews_lg_nvidia")
+        let result = try await PageCacheService.shared.runStandardPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.artificialintelligence-news.com/news/what-lg-and-nvidia-talks-reveal-future-of-physical-ai/")!
+        )
+
+        #expect(result.imageCount >= 1, "Hero image should be present")
+        #expect(result.contentHTML.contains("lg-nvidia-talks"), "Article hero should be present")
+        #expect(!result.contentHTML.contains("AI-News-White"), "Site logo should be excluded")
+        #expect(!result.contentHTML.contains("300x600"), "Ad banner should be excluded")
+        #expect(!result.contentHTML.contains("ai-expo-banner"), "Expo banner image should be excluded")
+        #expect(!result.contentHTML.contains("TF-Intro"), "Promotional image should be excluded")
+        #expect(!result.contentHTML.contains("AI-agent-governance"), "Related article thumbnail should be excluded")
+        #expect(result.contentHTML.contains("LG"))
+        #expect(result.contentHTML.contains("NVIDIA"))
+        #expect(result.contentHTML.contains("CLOiD"))
+        #expect(!result.contentHTML.contains("<script"))
+        #expect(!result.contentHTML.contains("<nav"))
+        #expect(!result.contentHTML.contains("<style"))
+    }
 }
 
 // MARK: - Full-mode tests
@@ -1970,6 +2035,70 @@ struct FullPipelineTests {
         #expect(!result.cleanedHTML.contains("<noscript"))
         #expect(!result.cleanedHTML.contains("<svg"))
         #expect(!result.cleanedHTML.contains("<form>") && !result.cleanedHTML.contains("<form "))
+    }
+
+    // MARK: - The Decoder
+
+    @Test("The Decoder: scripts/nav/noscript stripped, article content preserved")
+    func theDecoderArticle() async throws {
+        let html = try loadFixture("the_decoder_article")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://the-decoder.com/gpt-5-5-matches-claude-mythos-in-cyber-attack-tests-uk-ai-security-institute-finds/")!
+        )
+
+        #expect(!result.cleanedHTML.contains("<script>") && !result.cleanedHTML.contains("<script "))
+        #expect(!result.cleanedHTML.contains("<nav>") && !result.cleanedHTML.contains("<nav "))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form>") && !result.cleanedHTML.contains("<form "))
+        #expect(!result.cleanedHTML.contains("<header>") && !result.cleanedHTML.contains("<header "))
+        #expect(!result.cleanedHTML.contains("<footer>") && !result.cleanedHTML.contains("<footer "))
+        #expect(result.cleanedHTML.contains("<img"), "Images should be preserved")
+    }
+
+    // MARK: - AI News API Guide
+
+    @Test("AI News API guide: site logo and banners stripped, article content preserved")
+    func ainewsApiGuide() async throws {
+        let html = try loadFixture("ainews_api_guide")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.artificialintelligence-news.com/news/a-guide-to-apis-and-mcps-and-mcp-gateways/")!
+        )
+
+        #expect(!result.cleanedHTML.contains("<script>") && !result.cleanedHTML.contains("<script "))
+        #expect(!result.cleanedHTML.contains("<nav>") && !result.cleanedHTML.contains("<nav "))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form>") && !result.cleanedHTML.contains("<form "))
+        #expect(!result.cleanedHTML.contains("<header>") && !result.cleanedHTML.contains("<header "))
+        #expect(!result.cleanedHTML.contains("<footer>") && !result.cleanedHTML.contains("<footer "))
+        #expect(result.cleanedHTML.contains("API"))
+        #expect(result.cleanedHTML.contains("MCP"))
+        #expect(result.cleanedHTML.contains("<img"), "Article images should be preserved")
+    }
+
+    // MARK: - AI News LG/NVIDIA
+
+    @Test("AI News LG/NVIDIA: ads and site chrome stripped, article content preserved")
+    func ainewsLgNvidia() async throws {
+        let html = try loadFixture("ainews_lg_nvidia")
+        let result = try await PageCacheService.shared.runFullPipeline(
+            html: html,
+            pageURL: URL(string: "https://www.artificialintelligence-news.com/news/what-lg-and-nvidia-talks-reveal-future-of-physical-ai/")!
+        )
+
+        #expect(!result.cleanedHTML.contains("<script>") && !result.cleanedHTML.contains("<script "))
+        #expect(!result.cleanedHTML.contains("<nav>") && !result.cleanedHTML.contains("<nav "))
+        #expect(!result.cleanedHTML.contains("<noscript"))
+        #expect(!result.cleanedHTML.contains("<svg"))
+        #expect(!result.cleanedHTML.contains("<form>") && !result.cleanedHTML.contains("<form "))
+        #expect(!result.cleanedHTML.contains("<header>") && !result.cleanedHTML.contains("<header "))
+        #expect(!result.cleanedHTML.contains("<footer>") && !result.cleanedHTML.contains("<footer "))
+        #expect(result.cleanedHTML.contains("LG"))
+        #expect(result.cleanedHTML.contains("NVIDIA"))
+        #expect(result.cleanedHTML.contains("<img"), "Article images should be preserved")
     }
 }
 

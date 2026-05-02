@@ -5,22 +5,39 @@ import SwiftSoup
 
 extension PageCacheService {
 
-    // MARK: - Tiny image cleanup
+    // MARK: - Non-content image cleanup
 
-    /// Strips `<img>` elements whose explicit width or height attribute is at or below the given threshold.
-    /// These are almost always badges, tracking pixels, or tiny decorative icons — not article content.
-    func stripTinyImages(in doc: Document, maxDimension: Int) throws {
-        let images = try doc.select("img")
-        for img in images.reversed() {
+    /// Strips `<img>` elements that are not meaningful article content:
+    /// images with tiny explicit dimensions (badges, decorative icons) and
+    /// images whose URL matches common non-content hosting patterns.
+    func stripNonContentImages(in doc: Document, maxDimension: Int) throws {
+        let nonContentHostPrefixes = ["tracking.", "pixel.", "beacon.", "analytics."]
+        let nonContentPathPatterns = ["/eventhandler", "/pixel", "/beacon", "/track/"]
+
+        for img in try doc.select("img").reversed() {
             guard img.parent() != nil else { continue }
+
             let widthStr = try img.attr("width")
             let heightStr = try img.attr("height")
             let width = Int(widthStr)
             let height = Int(heightStr)
-            // Remove if either explicit dimension is tiny
             if let w = width, w > 0, w <= maxDimension {
                 try img.remove()
+                continue
             } else if let h = height, h > 0, h <= maxDimension {
+                try img.remove()
+                continue
+            }
+
+            let src = try img.attr("src")
+            guard !src.isEmpty, let url = URL(string: src) else { continue }
+            let host = url.host?.lowercased() ?? ""
+            let path = url.path.lowercased()
+
+            let isNonContent = nonContentHostPrefixes.contains { host.hasPrefix($0) }
+                || nonContentPathPatterns.contains { path.contains($0) }
+
+            if isNonContent {
                 try img.remove()
             }
         }
@@ -923,4 +940,65 @@ extension PageCacheService {
             if !changed { break }
         }
     }
+
+    // MARK: - Banner image cleanup
+
+    /// Strips images with extreme landscape aspect ratios (width/height > 4).
+    /// These are banner ads, site logos, or leaderboard ads — never article
+    /// content. Only affects images with explicit width and height attributes.
+    func stripBannerImages(in doc: Document) throws {
+        for img in try doc.select("img[width][height]").reversed() {
+            guard img.parent() != nil else { continue }
+            let w = Int(try img.attr("width")) ?? 0
+            let h = Int(try img.attr("height")) ?? 0
+            guard w > 200, h > 0 else { continue }
+            let ratio = Double(w) / Double(h)
+            if ratio > 4.0 {
+                try img.remove()
+            }
+        }
+    }
+
+    // MARK: - Linked promotional image cleanup
+
+    /// Strips `<a>` elements that contain only an image and link to a different
+    /// page (not the current article, not an image file). These are promotional
+    /// banners, ad placements, or navigation thumbnails — not article content.
+    func stripLinkedPromotionalImages(in doc: Document, pageURL: URL) throws {
+        let imageExtensions: Set<String> = ["jpg", "jpeg", "png", "gif", "webp", "avif"]
+        let pagePath = pageURL.path.lowercased()
+            .trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+
+        for anchor in try doc.select("a:has(img)").reversed() {
+            guard anchor.parent() != nil else { continue }
+            let href = try anchor.attr("href")
+            guard !href.isEmpty, href != "#" else { continue }
+
+            let hasText = anchor.getChildNodes().contains { node in
+                if let text = node as? TextNode {
+                    return !text.getWholeText()
+                        .trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                }
+                return false
+            }
+            guard !hasText else { continue }
+
+            let children = anchor.children().array()
+            guard children.allSatisfy({ $0.tagName() == "img" }) else { continue }
+            guard !children.isEmpty else { continue }
+
+            guard let linkURL = URL(string: href, relativeTo: pageURL) else { continue }
+
+            let ext = linkURL.pathExtension.lowercased()
+            if imageExtensions.contains(ext) { continue }
+
+            let linkPath = linkURL.path.lowercased()
+                .trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+            let sameHost = linkURL.host?.lowercased() == pageURL.host?.lowercased()
+            if sameHost && (linkPath == pagePath || linkPath.isEmpty) { continue }
+
+            try anchor.remove()
+        }
+    }
+
 }

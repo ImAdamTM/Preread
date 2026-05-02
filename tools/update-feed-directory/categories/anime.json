@@ -193,22 +193,6 @@
   },
   {
     "category": "Anime",
-    "description": "One of the longest-running anime blogs with seasonal previews and rankings",
-    "feedURL": "https://thecartdriver.com/feed/",
-    "id": "b6a0f62c-d2b8-4a37-8f84-5fef155714e7",
-    "lastVerified": "2026-04-02",
-    "name": "The Cart Driver",
-    "siteURL": "https://thecartdriver.com",
-    "tags": [
-      "seasonal",
-      "previews",
-      "rankings",
-      "reviews",
-      "blog"
-    ]
-  },
-  {
-    "category": "Anime",
     "description": "Japanese pop culture news covering anime, figures, fashion, and events",
     "feedURL": "https://otakumode.com/news/feed",
     "id": "0bb555e5-b520-4f1e-a2e0-8a1310d08816",

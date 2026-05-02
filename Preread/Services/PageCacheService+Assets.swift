@@ -247,7 +247,7 @@ extension PageCacheService {
 
     // MARK: - Asset downloading
 
-    func downloadAssets(urls: [URL], to assetsDir: URL, baseURL: URL) async -> [Result<AssetMapping, Error>] {
+    func downloadAssets(urls: [URL], to assetsDir: URL, baseURL: URL, heroImageURL: String? = nil) async -> [Result<AssetMapping, Error>] {
         guard !urls.isEmpty else { return [] }
 
         return await withTaskGroup(of: (Int, Result<AssetMapping, Error>).self) { group in
@@ -258,7 +258,8 @@ extension PageCacheService {
             for (index, url) in urls.enumerated() {
                 group.addTask { [self] in
                     do {
-                        let mapping = try await self.downloadAsset(url: url, to: assetsDir)
+                        let isHero = heroImageURL != nil && url.absoluteString == heroImageURL
+                        let mapping = try await self.downloadAsset(url: url, to: assetsDir, maxBytes: isHero ? self.maxHeroAssetBytes : nil)
                         return (index, .success(mapping))
                     } catch {
                         return (index, .failure(error))
@@ -302,7 +303,7 @@ extension PageCacheService {
         }
     }
 
-    func downloadAsset(url: URL, to assetsDir: URL) async throws -> AssetMapping {
+    func downloadAsset(url: URL, to assetsDir: URL, maxBytes: Int? = nil) async throws -> AssetMapping {
         let fm = FileManager.default
         let sharedDir = sharedAssetsURL
         try fm.createDirectory(at: sharedDir, withIntermediateDirectories: true)
@@ -338,7 +339,7 @@ extension PageCacheService {
         }
 
         // Reject responses that are too large
-        if data.count > maxSingleAssetBytes {
+        if data.count > (maxBytes ?? maxSingleAssetBytes) {
             throw URLError(.dataLengthExceedsMaximum)
         }
 

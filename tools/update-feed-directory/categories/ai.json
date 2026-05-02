@@ -1,22 +1,6 @@
 [
   {
     "category": "AI",
-    "description": "Research-focused AI newsletter covering papers and trends with clarity",
-    "feedURL": "https://magazine.sebastianraschka.com/feed",
-    "id": "8249346b-6d16-594c-12b4-4b68fd2fe622",
-    "lastVerified": "2026-04-02",
-    "name": "Ahead of AI",
-    "siteURL": "https://magazine.sebastianraschka.com/",
-    "tags": [
-      "deep learning",
-      "transformers",
-      "nlp",
-      "papers",
-      "neural networks"
-    ]
-  },
-  {
-    "category": "AI",
     "description": "Straightforward AI industry news covering product launches, research, and business developments",
     "feedURL": "https://www.artificialintelligence-news.com/feed/",
     "id": "31fd665b-fa89-c686-675a-cb4c5e6d38e8",

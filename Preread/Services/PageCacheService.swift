@@ -42,6 +42,7 @@ actor PageCacheService {
 
     let maxTotalAssetBytes = 8 * 1024 * 1024  // 8 MB per article
     let maxSingleAssetBytes = 2 * 1024 * 1024 // 2 MB per individual asset
+    let maxHeroAssetBytes = 3 * 1024 * 1024   // 3 MB for hero images
     let maxConcurrentDownloads = 8
 
     /// Shared asset pool directory — assets are stored once here and hardlinked into article dirs.
@@ -419,7 +420,8 @@ actor PageCacheService {
                 let downloadResults = await downloadAssets(
                     urls: assetURLs,
                     to: assetsDir,
-                    baseURL: pageURL
+                    baseURL: pageURL,
+                    heroImageURL: pipelineHeroImageURL
                 )
 
                 for result in downloadResults {
@@ -505,7 +507,7 @@ actor PageCacheService {
 
                 let rssContentDoc = try SwiftSoup.parseBodyFragment(rssContentHTML, pageURL.absoluteString)
                 let rssImageURLs = try extractAssetURLs(from: rssContentDoc, baseURL: pageURL, cacheLevel: .standard)
-                let rssDownloadResults = await downloadAssets(urls: rssImageURLs, to: assetsDir, baseURL: pageURL)
+                let rssDownloadResults = await downloadAssets(urls: rssImageURLs, to: assetsDir, baseURL: pageURL, heroImageURL: pipelineHeroImageURL)
                 for result in rssDownloadResults {
                     switch result {
                     case .success(let mapping):
@@ -595,7 +597,8 @@ actor PageCacheService {
             let downloadResults = await downloadAssets(
                 urls: imageURLs,
                 to: assetsDir,
-                baseURL: pageURL
+                baseURL: pageURL,
+                heroImageURL: pipelineHeroImageURL
             )
 
             // Rewrite image URLs in the content to local paths
@@ -658,24 +661,17 @@ actor PageCacheService {
             totalSize = htmlData.count + assetSize
         }
 
-        // Backfill or upgrade thumbnail from hero image.
-        // - Backfill: RSS feed didn't provide a thumbnail at all
-        // - Upgrade: RSS thumbnail was low-resolution (< 400px wide on disk)
+        // Always prefer the pipeline hero over the RSS feed thumbnail.
+        // The pipeline applies full cleaning (banner stripping, readability
+        // extraction, hero candidate filtering) while the RSS thumbnail is
+        // just the first image in raw feed content — often a promotional
+        // banner or logo.
         if let heroSrc = pipelineHeroImageURL,
            let heroURL = URL(string: heroSrc, relativeTo: pageURL) {
-            let shouldUseHero: Bool
-            if article.thumbnailURL == nil {
-                shouldUseHero = true
-            } else {
-                // Check if the cached thumbnail is low-resolution
-                let thumbPath = articleDir.appendingPathComponent("thumbnail.jpg")
-                shouldUseHero = isThumbnailLowRes(at: thumbPath, threshold: 400)
-            }
-            if shouldUseHero {
-                let resolved = heroURL.absoluteString
+            let resolved = heroURL.absoluteString
+            if article.thumbnailURL != resolved {
                 article.thumbnailURL = resolved
                 await cacheThumbnail(url: heroURL, to: articleDir)
-                // Invalidate in-memory caches so carousels pick up the new image
                 ThumbnailCache.shared.removeRowThumbnail(for: article.id)
                 ThumbnailCache.shared.removeCardThumbnail(for: article.id)
             }
